@@ -1,0 +1,30 @@
+<h3>Listing patients</h3>
+
+<table class="border">
+
+<tr>
+<%= render :partial => 'patient_hdr', :locals => {:rowtags => 'no'} %>
+<th> Samples? </th>
+</tr>
+
+<% for patient in @patients %>
+  <tr>
+  <%= render :partial => 'patient_row', :locals => {:patient => patient, :rowtags => 'no'} %>
+  
+  <td><%=h patient.samples.count %></td>
+	
+  <% if can? :new, SampleCharacteristic.new %>
+	<td><%= link_to 'Add Sample',   :controller => 'sample_characteristics', :action => 'new',
+                                    :patient_id => patient.id %></td>
+	<% end %>
+	
+	<% if can? :delete, patient && patient.sample_characteristics.count == 0 %>
+	  <td><%= link_to 'Delete Patient', patient, :confirm => 'Are you sure?', :method => :delete %></td>
+	<% elsif can? :delete, patient %>
+	  <td class="ltgrey"> Delete Patient </td>
+  <% end %>
+  </tr>
+  
+<% end %>
+</table>
+

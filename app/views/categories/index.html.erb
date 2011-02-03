@@ -1,0 +1,28 @@
+<h3>Categories</h3>
+
+<table class="border">
+  <tr>
+    <th>Grouping</th>
+	<th>Category</th>
+    <th>Category description</th>
+  </tr>
+
+<% for category in @categories %>
+  <tr>
+    <td><%=h category.cgroup.group_name %></td>
+	<td><%=h category.category %></td>
+    <td><%=h category.category_description %></td>
+    <td><%= link_to 'Show', category %></td>
+	<% if can? :edit, category %>
+      <td><%= link_to 'Edit', edit_category_path(category) %></td>
+	<% end %>
+	<% if can? :delete, category %>
+      <td><%= link_to 'Delete', category, :confirm => 'Are you sure?', :method => :delete %></td>
+	<% end %>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New category', new_category_path %>

@@ -1,0 +1,11 @@
+<% default_date ||= 'yes'%>
+<% date_options = (default_date == 'yes' ? {:value => Date.today} : {})%>
+
+<div class="fields"> 
+<span>
+  <%=f.calendar_date_select(:incident_date, date_options) %> &nbsp;&nbsp;
+  <%=f.label :incident_description, "Description:" %>
+  <%=f.text_field  :incident_description %> 
+  <%= link_to_remove_fields("Remove", f) %>
+</span><br />  
+</div>   

@@ -1,0 +1,40 @@
+<h3>Sequencing Machine Details</h3>
+
+<table class="border">
+  <tr>
+  	<th>Machine Code</th>
+	<th>Building</th>
+	<th>Model</th>
+	<th>Description</th>
+	<th>Notes</th>
+  </tr>
+  <tr>
+  	<td><%=h @seq_machine.machine_name%></td>
+	<td><%=h @seq_machine.bldg_location%></td>
+	<td><%=h @seq_machine.machine_type%></td>
+	<td><%=h @seq_machine.machine_desc%></td>
+	<td><%=h @seq_machine.notes%></td>
+  </tr>
+</table>
+
+<b>Incident Log:</b>
+<table class="border">
+  <tr>
+  	<th>Date</th>
+	<th>Description</th>
+  </tr>
+  <% for machine_incident in @seq_machine.machine_incidents %>
+  <tr>
+  	<td><%=h machine_incident.incident_date %></td>
+	<td><%=h machine_incident.incident_description %></td>
+  </tr>
+  <% end %>
+</table>
+
+<p>
+<% if can? :edit, @seq_machine %>
+<%= link_to 'Edit', edit_seq_machine_path(@seq_machine) %> |
+<% end %>
+<%= link_to 'View All', seq_machines_path %>
+</p>
+

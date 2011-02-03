@@ -1,0 +1,31 @@
+<% checkbox ||= 'no'%>
+
+<span class="table_title">Sample Collection/Characteristics:</span>
+<table class="list">
+  <tr>
+  	<% if checkbox == 'yes' %><td>&nbsp;</td><% end %>
+    <th>Collection Date</th>
+	<th>Clinic</th>
+	<th>Protocol</th>
+	<th>Sample Site</th>
+	<th>Sample Type</th>
+	<th>Barcode(s)</th>
+  </tr>
+  
+<% for sample_characteristic in sample_characteristics %>
+  <% barcodes = sample_characteristic.samples.collect(&:barcode_key)%>
+  <% barcode_string = barcodes.join(", ")%>
+  <tr>
+  	<% if checkbox == 'yes' %>
+	<td><% if sample_characteristic.pathology_id == nil %><%=check_box_tag("sample_characteristic_id[]", sample_characteristic.id) %><% end %></td>
+	<% end %>
+	<td><%=h sample_characteristic.collection_date%></td>
+	<td><%=h sample_characteristic.clinic_or_location%></td>
+	<td><%=h sample_characteristic.consent_nr %>
+	    <% if sample_characteristic.consent_protocol %>/<%=h sample_characteristic.consent_protocol.consent_abbrev%><% end %></td>
+	<td><%=h sample_characteristic.sample_tissue %></td>
+	<td><%=h sample_characteristic.sample_type%></td>
+	<td><%=h barcode_string %></td>
+  </tr>
+<% end %>
+</table>

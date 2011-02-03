@@ -1,0 +1,51 @@
+<table class="border">
+  	<tr>
+	  <th>Requestor</th>
+	  <th>Deliver Site</th> 
+	  <th>Company</th> 
+	  <th>Quote?</th> 
+	  <th>Grant</th> 
+	  <th>Entered by</th>
+	  <th>Timestamp</th>
+  	</tr>
+	<tr>	
+	  <td><%=h @items[0].requester_abbrev %></td>
+	  <td><%=h @items[0].deliver_site %></td>
+	  <td><%=h @items[0].company_name %></td>
+	  <td><%=h @items[0].item_quote %></td> 
+	  <td><%=h @items[0].grant_nr %></td>
+	  <td><%=h @user.login %></td>
+	  <td><%=h @items[0].created_at.strftime("%m/%d/%Y %I:%M%p") %></td>
+	</tr>
+	
+<table class="border">
+  <tr>
+  	<th>Description</th>
+	<th>Chemical?</th>
+  	<th>Catalog#</th>
+	<th>Size</th>
+	<th>Price</th>
+	<th>Quantity</th>
+  </tr>
+  
+  <% for item in @items %>
+    <tr>
+	  <td><%=h item.item_description %></td>
+	  <td><%=h item.chemical_flag %></td>
+	  <td><%=h item.catalog_nr %></td>
+	  <td><%=h item.item_size %></td>
+	  <td><%=h item.item_price %></td>
+	  <td><%=h item.item_quantity %></td>
+	</tr>
+  <% end %>
+</table>
+
+<table class="border">
+  <tr>
+  	<th>Notes:</th>
+	<td><%=h @items[0].notes%></td>
+  </tr>
+</table>
+
+<span class="notes"><b>Please order above items, and log into LIMS system to record order details</b></span>
+ 

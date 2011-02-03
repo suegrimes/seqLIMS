@@ -1,0 +1,31 @@
+<h3>Sequencing Libraries for Flow Cell</h3>
+
+<% form_tag :action => 'new', :controller => 'flow_cells' do %>
+<table class="border">
+  <tr>
+    <th>Library Name</th>
+	<th>Owner</th>
+	<th>Preparation Date</th>
+	<th>Source DNA</th>
+	<th>Run Type/Adapter</th>
+	<th>Target Pool</th>
+	<th>Enzyme</th>
+	<th>Alignment Ref</th>
+  </tr>
+
+<% for seq_lib in @seq_libs %>
+  <tr>
+    <td><%= link_to seq_lib.lib_name, seq_lib %></td>
+	<td><%=h seq_lib.owner %></td>
+	<td><%=h seq_lib.preparation_date %></td>
+	<td></td>
+	<td><%=h seq_lib.runtype_adapter %></td>
+	<td><%=h seq_lib.target_pool %></td>
+	<td><%=h seq_lib.enzyme_code %></td>
+	<td><%=h seq_lib.alignment_ref %></td>
+  </tr>
+  <% end %>
+</table>
+<% end %>
+
+

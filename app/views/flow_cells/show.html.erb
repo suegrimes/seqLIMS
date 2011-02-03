@@ -1,0 +1,65 @@
+<h3><%=@flow_cell.id_name%></h3>
+
+<%= render :partial => 'flow_cell_show', :locals => {:flow_cell => @flow_cell} %>
+
+<table class="list">
+  <tr>
+  	<th>Lane</th>
+	<th>Lib Barcode</th>
+  	<th>Lib Name</th>
+	<th>Runtype/Adapter</th>
+	<th>Oligo Pool</th>
+	<th>Enzyme</th>
+	<th>Alignment Ref</th>
+	<th>Trim Bases</th>
+	<th>Lib Conc(pM)</th>
+  </tr>
+  <% for flow_lane in @flow_cell.flow_lanes %>
+    <tr>
+	  <td><%=h flow_lane.lane_nr %></td>
+	  <td><%= link_to flow_lane.lib_barcode, flow_lane.seq_lib %></td>
+      <td><%=h flow_lane.seq_lib.lib_name %></td>
+	  <td><%=h flow_lane.runtype_adapter %></td>
+	  <td><%=h flow_lane.seq_lib.target_pool %></td>
+	  <td><%=h flow_lane.seq_lib.enzyme_code %></td>
+	  <td><%=h flow_lane.alignment_ref %></td>
+	  <td><%=h flow_lane.seq_lib.trim_bases %></td>
+	  <td><%=h flow_lane.lib_conc %></td>
+    </tr>
+	<% if !flow_lane.notes.blank?%>
+	<tr>
+	  <td colspan=2></td>
+	  <td colspan=7>Notes: <%=h flow_lane.notes %></td>
+	</tr>
+	<% end %>
+	<tr><td colspan=9><hr></td></tr>
+    <% end %>
+</table>
+  
+  <div id="sequencing">
+    <% if can? :edit, @flow_cell %>
+    <% if @flow_cell.flowcell_status == 'F' %>
+      <p><%= link_to_function "Submit for Sequencing", toggle_div(:run_params, :sequencing) %></p>
+	<% end %>
+	<% end %>
+  </div>
+	
+  <div id="run_params", style="display:none">
+    <% form_for(@flow_cell, :action => 'update') do |f|%>
+	  <%= hidden_field_tag(:utype, 'seq')%>
+		
+      <table class="border">
+      <tr>
+        <th>Experiment Date</th>
+        <th>Machine</th>
+      </tr>
+      <tr>
+      	<% @flow_cell[:sequencing_date] ||= Date.today %>
+        <td><%= f.calendar_date_select(:sequencing_date, :year_range => [1.years.ago, 0.years.from_now],
+                                       :valid_date_check => "date <= (new Date()).stripTime()", :size => 15 )%>
+        <td><%= collection_select(:seq_machine, :id, @sequencers, :id, :machine_name) %></td>
+      </tr>
+      </table>
+	<%= f.submit "Submit"%>
+    <% end %>
+  </div>

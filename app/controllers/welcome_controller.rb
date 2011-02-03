@@ -1,0 +1,60 @@
+class WelcomeController < ApplicationController
+  skip_before_filter :log_user_action
+  
+  def index
+    if logged_in?
+      render :action => 'index'
+    else
+      render :action => 'login'
+    end
+  end
+
+  def user_login
+    self.current_user = User.authenticate(params[:login], params[:password])
+    # Authorization::current_user = @user   # for declarative_authorization #
+    if logged_in?
+      log_entry("Login")
+      if params[:remember_me] == "1"
+        self.current_user.remember_me
+        cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
+      end
+      render :action => 'index'
+    else
+      flash.now[:error] = "Invalid login - please try again"
+      render :action => 'login'
+    end
+  end
+
+  def signup
+    @user = User.new(params[:user])
+    render :action => 'signup'
+  end
+  
+  def add_user
+    @user = User.new(params[:user])
+    @user.save!
+    self.current_user = @user
+    log_entry("Login")
+    flash.now[:notice] = "Thanks for signing up!"
+    render :action => 'index'
+    
+  rescue ActiveRecord::RecordInvalid
+    render :action => 'signup'
+  end
+  
+  def logout
+    log_entry("Logout")
+    self.current_user.forget_me if logged_in?
+    cookies.delete :auth_token
+    reset_session
+    flash.now[:notice] = "You have been logged out."
+    render :action => 'login'
+  end
+  
+protected
+  def log_entry(user_action)
+    logger.info("<**#{user_action}**> User: " + current_user.login + " IP: " + request.remote_ip +
+                                    " Date/Time: " + Time.now.strftime("%Y-%m-%d %H:%M:%S"))
+    UserLog.add_entry(self, current_user, request.remote_ip)
+  end  
+end

@@ -1,0 +1,36 @@
+<table class="border">
+  	<tr>
+  	  <th>&nbsp;</th>
+	  <th>Partial</th>
+	  <th colspan=3, align="center">Number of Bases</th>
+	  <th colspan=2, align="center">Kit Versions</th>
+	</tr>
+  	<tr>
+	  <th>Date</th>
+	  <th>Flowcell?</th>
+	  <th>Read 1</th>
+	  <th>Index</th>
+	  <th>Read 2</th>
+	  <th>Cluster</th>
+	  <th>Sequencing</th>
+  	</tr>
+	<tr>
+	  <td><%= f.calendar_date_select(:flowcell_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15) %></td>
+	  <td align="center">
+	  <% if controller.action_name == 'new' %>
+	    <%= select_tag :partial_flowcell, options_for_select(%w{N Y}, selected_value=@partial_flowcell) %>
+	  <% else %>
+	    <%=h @partial_flowcell %>
+	  <% end %>
+	  </td>
+	  <td><%= f.text_field :nr_bases_read1, :size => 8 %></td>
+	  <td><%= f.text_field :nr_bases_index, :size => 8 %></td>
+	  <td><%= f.text_field :nr_bases_read2, :size => 8 %></td>
+	  <td><%= f.collection_select(:cluster_kit, @cluster_kits, :c_value, :c_value)%></td> 
+	  <td><%= f.collection_select(:sequencing_kit, @seq_kits, :c_value, :c_value)%></td>
+	</tr>
+	<tr>
+	  <th align="right">Notes:</th>
+	  <td colspan=6><%= f.text_field(:notes, :size => 80) %></td>
+	</tr>
+  </table>

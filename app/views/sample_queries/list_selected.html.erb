@@ -1,0 +1,44 @@
+<h3>Listing <%= @type_of_sample.camelize %> Samples - <%=h @heading_string %></h3>
+
+<% form_tag :action => :export_samples do %>
+
+<%=h @nr_samples[0] %> source samples, (for <%=h @samples_by_patient.size -%> patients) <%= submit_tag "Export Samples" -%>
+<br/><br/>
+
+<table class="border">
+  <tr>
+    <%= render :partial => 'samples/sample_hdr', :locals => {:row_tags => 'no'} %>
+	<th>Extracted?</th> 
+  </tr>
+  
+  <% if @samples_by_patient %>
+    <% @samples_by_patient.sort.each do | patient_id, samples| %>
+    <tr>
+    <td colspan=3><b>Patient: </b><%= patient_id[0] %>
+    <% if can? :read, Patient %>
+      / <%=h patient_id[1]%>
+    <% end %>
+    </td>
+    </tr>
+
+    <% for sample in samples %>
+      <tr>
+      <%= render :partial => 'samples/sample_row', :locals => {:sample => sample, 
+                                                   :sample_characteristic => sample.sample_characteristic, 
+                                                   :row_tags => 'no'} %>
+	  <%= render :partial => 'samples/sample_links', :locals => {:sample => sample,
+                                                     :sample_characteristic => sample.sample_characteristic} %>
+	  <td><%= hidden_field_tag("export_id[]", sample.id)  %></td>
+      </tr>
+    <% end %>
+	
+    <% end %>
+  <% end %>
+</table>
+  
+<%end %>
+
+<% if params[:add_new] == 'yes'%>
+  <p>Click <%= link_to 'here', new_dissected_sample_path(:source_sample_id => params[:source_sample_id]) %> 
+     to add additional dissected sample from same source sample </p>
+<% end %>

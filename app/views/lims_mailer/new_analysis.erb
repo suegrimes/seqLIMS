@@ -1,0 +1,28 @@
+<p>DNA Sequencing run:</p>
+
+<table>
+  <tr>
+    <th>Analysis key</th>
+    <th>Lane</th>
+    <th>Sample</th>
+    <th>Adapter Reagents</th>
+	<th>Concentration</th>
+	<th>Dilution</th>
+	<th>Targeting</th>
+	<th>Nr bases</th>
+	<th>Notes</th>
+  </tr>
+  <% for analysis_lane in @analysis.analysis_lanes do %>
+  <tr>
+  	<td><%=h @analysis.analysis_key %></td>
+	<td><%=h analysis_lane.lane_nr %></td>
+	<td><%=h analysis_lane.sample_name %></td>
+	<td><%=h analysis_lane.adapter_reagents %></td>
+	<td><%=h analysis_lane.concentration %></td>
+	<td><%=h analysis_lane.dilution %></td>
+	<td><%=h analysis_lane.target_pool %></td>
+	<td><%=h analysis_lane.number_of_bases %></td>
+	<td><%=h analysis_lane.notes %></td>
+  </tr>
+  <% end %>
+</table> 

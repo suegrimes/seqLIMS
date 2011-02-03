@@ -1,0 +1,46 @@
+<h3>Editing order</h3>
+
+<% form_for(@order) do |f| %>
+  <%= f.error_messages %>
+
+  <%= render :partial => 'orders/order_form', :locals => {:f => f} %>
+  
+  <b>Items:</b>
+  <table class="border">
+  	<tr>
+  	  <th>#</th>
+  	  <th>Requester</th>
+	  <th>Date entered</th>
+	  <th>Site</th>
+	  <th>Item description</th>
+	  <th>Chem</th>
+	  <th>Company</th>
+	  <th>Catalog #</th>
+	  <th>Item size</th>
+	  <th>Item qty</th>
+	  <th>Item price</th>
+	  <th>Recv'd?</th>
+	</tr>
+
+    <% @order.items.each_with_index do |item, item_nr|  %>
+    <tr>
+      <td><%= link_to item_nr + 1, item_path(item)%></td>
+  	  <td><%=h item.requester_name %></td>
+	  <td><%=h format_date(item.created_at) %></td>
+	  <td><%=h item.deliver_site %></td>
+  	  <td cols=80><%=h item.item_description %></td>
+	  <td align=center><%=h item.chemical_flag %></td>
+	  <td><%=h item.company_name %></td>
+      <td><%=h item.catalog_nr %></td>
+	  <td><%=h item.item_size %></td>
+	  <td><%=h item.item_quantity %></td>
+      <td><%=h item.item_price %></td> 
+	  <td><%=h item.item_received %></td>
+    </tr>
+  <% end %>
+  </table>
+  
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>

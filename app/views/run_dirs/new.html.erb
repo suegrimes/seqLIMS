@@ -1,0 +1,24 @@
+<h3>Sequencing Run:</h3>
+
+<%= render :partial => 'flow_cells/flow_cell_show', :locals => {:flow_cell => @flow_cell} %>
+
+<%= render :partial => 'show_dirs', :locals => {:flow_cell => @flow_cell} %>
+
+<div id="addnew">
+  <% if can? :new, RunDir %>
+    <p><%= link_to_function "Add new run directory", toggle_div(:addnew, :newdir) %></p>
+  <% end %>
+</div>
+
+<div id="newdir", style="display:none">
+<b>New run directory:</b>
+<% form_for(:run_dir, @run_dir,
+            :url => {:controller => 'run_dirs', :action=> 'create'}) do |f| -%>  
+  <%= error_messages_for :run_dir %>
+  
+  <%= render :partial => 'run_dir_form', :locals => {:f => f, :flow_cell => @flow_cell} %>
+  
+  <%= f.submit "Save" %></td> 
+<% end %>
+</div>
+

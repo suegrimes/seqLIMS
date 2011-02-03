@@ -1,0 +1,6 @@
+<h3>New clinical sample</h3>
+
+<% form_tag :action => 'new_sample' do %>
+  MRN: <%= text_field_tag :mrn_nr %>
+  <%= submit_tag 'Submit' %>
+<% end %>

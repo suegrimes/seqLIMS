@@ -1,0 +1,51 @@
+<h3>Runs/Lanes (HiSeq)</h3>
+  <table class="border">
+  <tr>
+  	<th colspan=3>&nbsp;</th>
+	<th colspan=2 align="center">Reads</th>
+	<th colspan=3 align="center">Inserts</th>
+	<th colspan=4 align="center">Pairs</th>
+  </tr>
+  <tr>
+  	<th>Sequencing Key</th>
+	<th>FlowCell Dt</th>
+  	<th>Ln</th>
+	<th>Total</th>
+	<th>PF</th>
+	<th>Min</th>
+	<th>Max</th>
+	<th>Median</th>
+	<th>Consistent Unique</th>
+	<th>Rescued</th>
+	<th>Total Consistent</th>
+	<th>PF Unique</th>
+  </tr>
+  
+  <% for flow_lane in flow_lanes %>
+    <tr>
+      <% if flow_lane.sequencing_key.nil? %>
+	    <td>FlowCell/Not Sequenced</td>
+	    <% else %>
+	    <td><%=link_to flow_lane.sequencing_key, :controller => :flow_cells, :action => :show_qc,
+                                                 :id => flow_lane.flow_cell_id %></td>
+	    <% end %>
+	  <td><%=h format_date(flow_lane.flow_cell.flowcell_date)%></td>
+	  <td><%=h flow_lane.lane_nr %></td>
+	  <% if flow_lane.align_qc %>
+	  <td align="right"><%=h number_with_delimiter(flow_lane.align_qc.total_reads, :delimiter => ',') %></td>
+	  <td align="right"><%=h number_with_delimiter(flow_lane.align_qc.pf_reads, :delimiter => ',') %></td>
+	  <td><%=h flow_lane.align_qc.min_insert %></td>
+	  <td><%=h flow_lane.align_qc.max_insert %></td>
+	  <td><%=h flow_lane.align_qc.median_insert %></td>
+	  <td align="right"><%=h number_with_delimiter(flow_lane.align_qc.consistent_unique_bp, :delimiter => ',') %>
+	      <%=h pct_with_parens(flow_lane.align_qc.consistent_unique_pct) %></td>
+	  <td align="right"><%=h number_with_delimiter(flow_lane.align_qc.rescued_bp, :delimiter => ',') %>
+	      <%=h pct_with_parens(flow_lane.align_qc.rescued_pct) %></td>
+	  <td align="right"><%=h number_with_delimiter(flow_lane.align_qc.total_consistent_bp, :delimiter => ',') %>
+	      <%=h pct_with_parens(flow_lane.align_qc.total_consistent_pct) %></td>
+	  <td align="right"><%=h number_with_delimiter(flow_lane.align_qc.pf_unique_bp, :delimiter => ',') %>
+	      <%=h pct_with_parens(flow_lane.align_qc.pf_unique_pct) %></td>
+	  <% end %>
+    </tr>
+  <% end %>
+</table>

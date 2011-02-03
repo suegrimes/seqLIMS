@@ -1,0 +1,24 @@
+<% click_to_link ||= 'none' %>
+<% show_mrn ||= 'yes' %>
+
+<span class="table_title">Patient Info:</span>
+<table class="info">
+  <tr>
+    <th>Patient ID: </th>
+	<% if click_to_link == 'show' && (can? :read, patient) %>
+	  <td><%=link_to patient.id, patient %></td>
+	<% elsif click_to_link == 'edit' && (can? :edit, patient) %>
+	  <td><%=link_to patient.id, edit_patient_path(patient) %></td>
+	<% else %>
+	  <td><%=h patient.id %></td>
+	<% end %>
+	<% if show_mrn == 'yes' && (can? :read, patient) %>
+      <th>MRN: </th><td><%=h patient.mrn%></td>
+    <% end %>
+    <th>Gender: </th><td text-align=center><%=h patient.gender %></td>
+    <th>Race/Ethnicity: </th><td><%=h patient.race %>/<%=h patient.ethnicity %></td>
+	<% if show_mrn == 'yes' && (can? :read, Patient) %>
+	  <th>PHI Notes:</th><td><%=h patient.hipaa_data %></td>
+	<% end %>
+  </tr>
+</table>

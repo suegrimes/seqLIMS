@@ -1,0 +1,17 @@
+<% sample_type = (sample.clinical_sample == 'yes'? 'Source' : 'Dissected') %>
+
+<b><%= sample_type %> Sample Info:</b>
+  <table class="border">
+	<tr>
+	  <th>Barcode</th>
+      <th>Sample Site</th>
+	  <th>Sample Type</th>
+	  <th>OR Designation</th>
+	</tr>
+	<tr>
+	  <td><%=h sample.barcode_key %></td>
+	  <td><%=h sample_characteristic.sample_tissue %></td>
+	  <td><%=h sample_characteristic.sample_type%></td>
+	  <td><%=h sample.tumor_normal %></td>
+	</tr>
+  </table>

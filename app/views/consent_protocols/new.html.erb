@@ -1,0 +1,11 @@
+<h3>New consent protocol</h3>
+
+<% form_for @consent_protocol, :action => 'create' do |f| %>
+  <%= f.error_messages %>
+  
+  <%= render :partial => 'consent_protocol', :locals => {:f => f} %>
+  
+  <%= f.submit "Create" %>
+<% end %>
+
+

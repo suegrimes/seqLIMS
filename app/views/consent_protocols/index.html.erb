@@ -1,0 +1,27 @@
+<h3>Consent Protocols</h3>
+
+<table class="border">
+  <tr>
+    <th>Consent #</th>
+    <th>Protocol Name</th>
+	<th>Owner/Email</th>
+  </tr>
+
+<% for consent_protocol in @consent_protocols %>
+  <tr>
+    <td><%=h consent_protocol.consent_nr %></td>
+    <td><%=h consent_protocol.consent_name %></td>
+	<td><%=h consent_protocol.email_confirm_to %></td>
+	<% if can? :edit, consent_protocol %>
+      <td><%= link_to 'Edit', edit_consent_protocol_path(consent_protocol) %></td>
+	<% end %>
+	<% if can? :delete, consent_protocol %>
+      <td><%= link_to 'Delete', consent_protocol, :confirm => 'Are you sure?', :method => :delete %></td>
+	<% end %>
+  </tr>
+<% end %>
+</table>
+
+<% if can? :new, ConsentProtocol.new %>
+  <%= link_to 'New consent protocol', new_consent_protocol_path %>
+<% end %>

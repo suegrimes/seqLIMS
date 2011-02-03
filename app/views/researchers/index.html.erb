@@ -1,0 +1,29 @@
+<% @researchers.sort.each do |active_inactive, researchers| %>
+<% active_inactive_text = (active_inactive == 'A'? 'Active' : 'Inactive') %>
+
+<h3><%= active_inactive_text %> researchers</h3>
+
+<table class="border">
+  <tr>
+    <th>Researcher name</th>
+	<th>Initials</th>
+	<th>Login</th>
+    <th>Phone number</th>
+    <th>Company</th>
+  </tr>
+
+  <% researchers.each do |researcher| %>
+  <tr>
+    <td><%=h researcher.researcher_name %></td>
+	<td><%=h researcher.researcher_initials %></td>
+	<td><%=h researcher.user.login if researcher.user %></td>
+    <td><%=h researcher.phone_number %></td>
+    <td><%=h researcher.company %></td>
+    <td><%= link_to 'Edit', edit_researcher_path(researcher) %></td>
+    <td><%= link_to 'Delete', researcher, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+<% end %>
+
+<%= link_to 'New researcher', new_researcher_path %>

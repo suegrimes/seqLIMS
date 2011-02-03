@@ -1,0 +1,28 @@
+<% edit_he ||= 'no' %>
+<span class="table_title">H&E Slide:</span>
+  <table class="info">
+	<tr>
+	  <th>HE barcode: </th>
+	  <td>
+	  	<% if edit_he == 'yes' && (can? :edit, histology) %>
+	  	  <%=link_to histology.he_barcode_key, edit_histology_path(histology)%>
+		<% else %> 
+		  <%=h histology.he_barcode_key %>
+		<% end %>
+	  </td>
+	  <th>HE date: </th><td><%=h histology.he_date %></td>
+	  <th>Pathologist</th><td><%=h histology.pathologist %></td>
+	</tr>
+	<tr>
+	  <th>Histopathology</th><td><%=h histology.histopathology %></td>
+	  <th>Tumor cell content</th><td><%=h histology.tumor_cell_content %></td>
+	  <th>Inflammation</th><td><%=h histology.inflammation_type %></td>
+	  <th>Infiltration</th><td><%=h histology.inflammation_infiltration %></td>
+	</tr>
+	<% if !histology.comments.blank? %>
+	<tr>
+	  <th>Comments</th>
+	  <td colspan=5><%=h histology.comments %></td>
+	</tr>
+	<% end %>
+  </table>

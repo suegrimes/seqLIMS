@@ -1,0 +1,20 @@
+<h3>New Sequencing Library - Singleplex </h3>
+
+<% form_tag(:action => :create_splex) do %>
+  
+  <p class="form_title">Library defaults:</p>
+  <%= render :partial => 'splex_lib_form' %>
+  <% if @lib_with_error %><%= error_messages_for :seq_lib, :object => @lib_with_error %><% end %>
+  
+  <% if @lib_samples.nil?%> 
+  <div id='splex_libs'>	
+  <span><b>Populate how many libraries with these defaults?</b><%= text_field_tag(:nr_libs, '', :size => 5)-%></span>
+  <%= submit_to_remote 'Singleplex', 'Add Libraries',
+      :url => {:action => 'populate_splex'},
+      :update => 'splex_libs' -%>
+  </div>
+  
+  <% else %>
+    <%= render :partial => 'splex_sample_form' %>
+  <% end %>
+<% end %>

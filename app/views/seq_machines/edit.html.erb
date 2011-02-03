@@ -1,0 +1,16 @@
+<h3>Update Sequencing Machine</h3>
+
+<% form_for(@seq_machine) do |f| %>
+  <%= f.error_messages %>
+
+  <%= render :partial => 'seq_machine', :locals => {:f => f} %>
+  
+  <b>Machine Incident Log</b>
+  <p><%= link_to_add_fields "Add Incident", f, :machine_incidents %></p>
+  
+  <% f.fields_for :machine_incidents do |m| %>  
+   <%= render :partial => 'machine_incident_fields', :locals => {:f => m, :default_date => 'no'} %>
+  <% end %> 
+      
+  <%= f.submit "Update" %>
+<% end %>

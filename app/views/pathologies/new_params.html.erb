@@ -1,0 +1,15 @@
+<h3>Specify MRN or patient ID for pathology report</h3>
+
+<% form_tag :action=> 'new'  do %>
+
+<table class='form'>
+  <tr>
+  <% if can? :read, Patient %>
+  	<th>MRN:</th><td><%= text_field_tag(:mrn_nr) %></td>	
+  <% end %>
+  	<th>Patient ID:</th><td><%= text_field_tag(:patient_id) %></td>
+  </tr>
+</table>
+
+<p><%= submit_tag "Submit" %></p>
+<%end%>

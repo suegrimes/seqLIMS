@@ -1,0 +1,21 @@
+<h3>Manage Run Directories:</h3>
+
+<% form_tag :action => 'new' do %>
+  <b>Run Directory for:</b>
+  <table class="form">
+  	<tr>
+  	  <th>Sequencing Run #:</th>
+	  <td><%=text_field_tag(:run_nr, '', :size => 6)%></td>
+	</tr>
+	<tr><td align="center" class="grey">-OR-</td></tr>
+	<tr>
+	  <th>Sequencing Run Key:</th>
+	  <td><%= text_field_with_auto_complete(:flow_cell, :sequencing_key, {:size => 20},
+              {:url => {:controller => :flow_cells, :action => :auto_complete_for_sequencing_key},
+               :param_name => :search, :min_chars => 5, :method => :get}) %>
+	  </td>
+	</tr>
+  </table>
+  	
+<%= submit_tag 'Submit' %>
+<% end %>

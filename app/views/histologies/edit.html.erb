@@ -1,0 +1,13 @@
+<h3>Editing H&E Slide: <%=h @histology.he_barcode_key %></h3>
+
+<%= render :partial => 'samples/sample_summary', :locals => {:sample_characteristic => @histology.sample.sample_characteristic,
+                                                             :sample => @histology.sample } %>
+
+<% if @histology.sample.sample_characteristic.pathology %>
+  <%= render :partial => 'pathologies/pathology_info', :locals => {:pathology => @histology.sample.sample_characteristic.pathology} %>
+<% end %>
+
+<% form_for @histology, :action => :update do |f| %>
+  <%= render :partial => 'histology_form', :locals => {:f => f} %>
+  <%=submit_tag 'Update' -%><%=button_to 'Delete', @histology, :confirm => 'Are you sure?', :method => :delete -%>
+<% end %>

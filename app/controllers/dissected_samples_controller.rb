@@ -1,0 +1,87 @@
+class DissectedSamplesController < ApplicationController
+  
+  before_filter :dropdowns, :only => :edit
+  
+  # GET /dissected_samples/new
+  def new
+    unauthorized! if cannot? :create, Sample
+    
+    if params[:source_sample_id]
+      @source_sample = Sample.find(params[:source_sample_id], :include => :histology)
+    else
+      @source_sample = Sample.find_by_barcode_key(params[:barcode_key], :include => :histology)
+    end
+    
+    if !@source_sample.nil?
+      prepare_for_render_new(@source_sample.id)
+      @sample = Sample.new(:sample_characteristic_id => @source_sample.sample_characteristic_id,
+                           :patient_id         => @source_sample.patient_id,
+                           :barcode_key        => @sample_barcode,
+                           :source_sample_id   => @source_sample.id,
+                           :source_barcode_key => @source_sample.barcode_key,
+                           :tumor_normal       => @source_sample.tumor_normal,
+                           :amount_uom         => 'Weight (mg)',
+                           :sample_date        => Date.today)  
+    else
+      flash[:error] = 'Sample barcode not found, please try again'
+      redirect_to :controller => :samples,  :action => 'new_params'
+    end
+  end
+  
+  def edit
+    @sample = Sample.find(params[:id])
+    @source_sample = Sample.find(@sample.source_sample_id, :include => :sample_characteristic)
+  end
+  
+  def update
+    @sample        = Sample.find(params[:id])
+    @source_sample = Sample.find(@sample.source_sample_id)
+    
+    if @sample.update_attributes(params[:sample])
+      @source_sample.update_attributes(:sample_remaining => params[:source_sample][:sample_remaining]) if params[:source_sample]
+      flash[:notice] = 'Sample was successfully updated'
+      redirect_to(@sample)
+    else
+      flash[:error] = 'Error updating sample'
+      redirect_to :action => 'edit'
+    end
+  end
+  
+  # POST /dissected_samples
+  def create
+    unauthorized! if cannot? :create, Sample
+    
+    params[:sample].merge!(:amount_rem => params[:sample][:amount_initial].to_f)
+    @sample        = Sample.new(params[:sample])
+    @source_sample = Sample.find(params[:sample][:source_sample_id])
+
+    if @sample.save
+      @source_sample.update_attributes(:sample_remaining => params[:source_sample][:sample_remaining]) if params[:source_sample]
+      flash[:notice] = 'Sample successfully created'
+      redirect_to samples_list1_path(:source_sample_id => params[:sample][:source_sample_id], :add_new => 'yes')
+    else
+      prepare_for_render_new(params[:sample][:source_sample_id])
+      render :action => "new" 
+    end
+  end
+  
+protected
+  def prepare_for_render_new(source_sample_id)
+    # Find source sample, and sample characteristic associated with new (dissected) sample
+    @source_sample    = Sample.find_by_id(source_sample_id)
+    @sample_characteristic = SampleCharacteristic.find_by_id(@source_sample.sample_characteristic_id)
+    
+    # Determine next increment number for barcode suffix
+    @sample_barcode = Sample.next_dissection_barcode(source_sample_id, @source_sample.barcode_key)
+    
+    # populate drop-down lists
+    dropdowns
+  end
+  
+  def dropdowns
+    @category_dropdowns = Category.populate_dropdowns([Cgroup::CGROUPS['Sample']])
+    @tumor_normal       = category_filter(@category_dropdowns, 'tumor_normal')
+    @amount_uom         = category_filter(@category_dropdowns, 'unit of measure') 
+    @storage_locations  = StorageLocation.list_all_by_room
+  end
+end

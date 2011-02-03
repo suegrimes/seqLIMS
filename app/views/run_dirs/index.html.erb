@@ -1,0 +1,30 @@
+<h3>Sequencing Runs/Directories</h3>
+
+<table class="list">
+  <tr>
+    <th>Sequencing Run</th>
+	<th>Device Name</th>
+	<th>Date Sized</th>
+    <th># Files</th>
+    <th>Size (GB)</th>
+	<th>Date Copied</th>
+	<th>Date Verified</th>
+  </tr>
+
+  <% @run_dirs.sort.reverse.each do |run_number, run_dirs| %>
+  <% run_dirs.each do |run_dir| %>
+  <tr>
+    <td><%=h run_dir.sequencing_key %></td>
+	<td><%=h run_dir.device_name %></td>
+	<td><%=h run_dir.date_sized %></td>
+    <td><%=h run_dir.file_count %></td>
+    <td><%=h run_dir.total_size_gb %></td>
+	<td><%=h run_dir.date_copied %></td>
+	<td><%=h run_dir.date_verified %></td>
+    <td><%= link_to 'Edit', edit_run_dir_path(run_dir) %></td>
+    <td><%= link_to 'Delete', run_dir, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+  <% end %>
+  <tr><td colspan=9><hr></td></tr>
+<% end %>
+</table>

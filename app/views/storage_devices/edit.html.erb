@@ -1,0 +1,11 @@
+<h3>Editing storage device</h3>
+
+<% form_for(@storage_device) do |f| %>
+  <%= f.error_messages %>
+
+  <%= render :partial => 'storage_device', :locals => {:f => f} %>
+  
+  <%= f.submit "Update" %>
+<% end %>
+
+<%= link_to 'List All', storage_devices_path %>

@@ -1,0 +1,9 @@
+<% cform.fields_for :category_values do |vform| %>
+  <div class="cvalue">
+    <p>
+    Sort position: <%= vform.text_field(:c_position, :size => 3) %>
+    Value: <%= vform.text_field(:c_value, :size => 30) %>
+	<%= remove_this_line("cvalue") %>
+    </p>
+  </div>
+<% end %>

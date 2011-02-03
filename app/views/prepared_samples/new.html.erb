@@ -1,0 +1,15 @@
+<h3>Sample Preparation</h3>
+
+<% form_for @prepared_sample, :url => {:action => 'create'} do |f| %>
+  <%= f.error_messages %>
+  
+  <%= f.hidden_field :processed_sample_id,  :value => @processed_sample.id %>
+  
+  <%= render :partial => 'prepared_sample_form', :locals => {:f => f} %>
+  
+  <p>
+    <%= f.submit "Save" %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', :back %>

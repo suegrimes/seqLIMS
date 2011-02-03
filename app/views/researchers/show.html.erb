@@ -1,0 +1,29 @@
+<table class="border">
+  	<tr>
+  	  <th>Researcher name:</th>
+	  <td><%=h @researcher.researcher_name %></td>
+	</tr>
+	
+	<tr>
+	  <th>Researcher initials:</th>
+      <td><%=h @researcher.researcher_initials %></td>
+	</tr>
+    
+	<tr>
+	  <th>User login:</th>
+      <td><%=h @researcher.user.login if @researcher.user %></td>
+	</tr>
+	
+    <tr>
+	  <th>Phone number: </th>
+      <td><%=h @researcher.phone_number %></td>
+	</tr>
+	
+	<tr>
+	  <th>Company</th>
+      <td><%=h @researcher.company %></td>
+	</tr>
+  </table>
+
+<%= link_to 'Edit', edit_researcher_path(@researcher) %> |
+<%= link_to 'Back', researchers_path %>

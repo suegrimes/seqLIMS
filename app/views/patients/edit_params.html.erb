@@ -1,0 +1,14 @@
+<h3>Select patient to edit:</h3>
+
+<% form_tag do %>
+<table class='form'>
+  <tr>
+  <% if can? :read, Patient %>
+  	<th>MRN:</th><td><%= text_field_tag(:mrn, params[:mrn]) %></td>	
+  <% end %>
+  	<th>Patient ID:</th><td><%= text_field_tag(:patient_id, params[:patient_id]) %></td>
+  </tr>
+</table>
+
+<p><%= submit_tag "Submit" %></p>
+<%end%>

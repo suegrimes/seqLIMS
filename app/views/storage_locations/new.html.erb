@@ -1,0 +1,11 @@
+<h3>New storage location</h3>
+
+<% form_for @storage_location, :action => 'create' do |f| %>
+  <%= f.error_messages %>
+  
+  <%= render :partial => 'storage_loc', :locals => {:f => f} %>
+  
+  <%= f.submit "Create" %>
+<% end %>
+
+

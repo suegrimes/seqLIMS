@@ -1,0 +1,12 @@
+<h3>Samples For Editing - Select parameters</h3>
+
+<% form_tag :action => 'edit_params' do %>
+
+<table class='form'>
+  <tr>
+  	<th>Barcode:</th><td><%= text_field_tag(:barcode_key)%></td>
+  </tr>
+</table>
+
+<p><%= submit_tag "Submit" %></p>
+<%end%>

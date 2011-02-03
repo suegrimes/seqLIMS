@@ -1,0 +1,17 @@
+<% show_mrn ||= 'yes' %>
+
+<span class="table_title">Patient Info:</span>
+<table class="info">
+  <tr>
+    <th>Patient ID</th>
+	<td><%=h patient.id %></td>
+	<% if show_mrn == 'yes' && (can? :read, Patient) %>
+      <th>MRN</th><td><%=h patient.mrn%></td>
+    <% end %>
+    <th>Gender</th><td align=center><%=h sample_characteristic.gender %></td>
+    <th>Race/Ethnicity: </th><td><%=h sample_characteristic.race %>/<%=h sample_characteristic.ethnicity %></td>
+	<% if show_mrn == 'yes' && (can? :read, Patient) %>
+	  <th>PHI Notes</th><td><%=h patient.hipaa_data %></td>
+	<% end %>
+  </tr>
+</table>

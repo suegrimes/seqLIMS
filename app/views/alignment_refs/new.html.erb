@@ -1,0 +1,11 @@
+<h3>New alignment reference</h3>
+
+<% form_for @alignment_ref, :action => 'create' do |f| %>
+  <%= f.error_messages %>
+  
+  <%= render :partial => 'alignment_ref', :locals => {:f => f} %>
+  
+  <%= f.submit "Create" %>
+<% end %>
+
+

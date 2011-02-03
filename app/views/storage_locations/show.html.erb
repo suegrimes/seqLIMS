@@ -1,0 +1,33 @@
+<h3>Storage Location</h3>
+
+<table class="border">
+  	<tr>
+  	  <th>Room:</th>
+	  <td><%=h @storage_location.room_nr %></td>
+  	</tr>
+	
+	<tr>
+  	  <th>Freezer:</th>
+	  <td><%=h @storage_location.freezer_nr %></td>
+  	</tr>
+	
+	<tr>
+  	  <th>Owner name:</th>
+	  <td><%=h @storage_location.owner_name %></td>
+  	</tr>
+	
+	<tr>
+  	  <th>Owner email:</th>
+	  <td><%=h @storage_location.owner_email %></td>
+  	</tr>
+	
+	<tr>
+  	  <th>Comments:</th>
+	  <td><%=h @storage_location.comments %></td>
+  	</tr>
+</table>
+
+<% if can? :edit, @storage_location %>
+  <%= link_to 'Edit', edit_storage_location_path(@storage_location) %> |
+<% end %>
+<%= link_to 'Back', storage_locations_path %>

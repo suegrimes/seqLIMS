@@ -1,0 +1,22 @@
+<h3>New H&E for sample: <%=h @sample.barcode_key%></h3>
+
+<%= render :partial => 'patients/patient_info', :locals => {:patient => @sample.patient}%>
+
+<%= render :partial => 'sample_characteristics/summary_info', :locals => {:sample_characteristic => @sample.sample_characteristic}%>
+
+<% if @sample.sample_characteristic.pathology %>
+  <%= render :partial => 'pathologies/pathology_info', :locals => {:pathology => @sample.sample_characteristic.pathology} %>
+<% end %>
+
+<%= render :partial => 'samples/sample_info', :locals => {:sample => @sample} %>
+
+<% form_for(@histology, :url => {:action => 'create'}) do |f| %>
+<%=f.error_messages %>
+						
+<%= render :partial => 'histology_form', :locals => {:f => f} %>
+<%=f.hidden_field(:sample_id)%>
+
+<%= submit_tag 'Submit' %>
+
+<% end %>
+

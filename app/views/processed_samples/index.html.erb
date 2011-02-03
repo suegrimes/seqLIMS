@@ -1,0 +1,22 @@
+<h3>Listing Extracted Samples</h3>
+<% if @sample %>
+  <%= render :partial => 'samples/summary_info', :locals => {:sample => @sample, 
+                                                             :sample_characteristic => @sample.sample_characteristic} %>
+<% end %>
+
+<b>Extracted Sample Info </b>
+<% if @processed_samples %> (<%= @processed_samples.size %> samples) <% end %>
+<table class="border">
+  <%= render :partial => 'processed_sample_hdr' %>
+  
+  <% for processed_sample in @processed_samples %>
+    <%= render :partial => 'processed_sample_row', :locals => {:processed_sample => processed_sample} %>
+  <% end %>
+</table>
+
+<% if controller.action_name == 'show_by_sample' %>
+  <p>Click <%= link_to 'here', new_processed_sample_path(:source_id => @sample.id) %> 
+     to add additional extracted sample from same source/dissected sample </p>
+<% else %>
+  <%= link_to 'Back', :back %>
+<% end %>

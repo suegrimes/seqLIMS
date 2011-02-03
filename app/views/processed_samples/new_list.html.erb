@@ -1,0 +1,21 @@
+<h3>Select source sample for extraction</h3>
+
+<% form_tag :action => :new do %>
+
+<table class="border">
+<tr>
+  <td></td>
+  <%= render :partial => 'samples/sample_hdr', :locals => {:row_tags => 'no'} %>
+</tr>
+
+<% for sample in @samples %>
+  <tr>
+  <td><%= radio_button_tag(:source_id, sample.id)%></td>
+  <%= render :partial => 'samples/sample_row', :locals => {:sample => sample,
+                                                           :row_tags => 'no'} %>
+  </tr>
+<% end %>
+</table>
+
+<%= submit_tag 'Select'%>
+<% end %>

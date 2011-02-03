@@ -1,0 +1,16 @@
+<h3>Editing dissected sample: <%=h @sample.barcode_key %></h3>
+
+<%= render :partial => 'sample_characteristics/clinical_summary', :locals => {:sample_characteristic => @sample.sample_characteristic,
+                                                                              :patient => @sample.patient } %>
+																			  
+<%= render :partial => 'samples/sample_summary', :locals => {:sample_characteristic => @source_sample.sample_characteristic,
+                                                             :sample => @source_sample } %>
+
+<% form_for @sample, :url => {:controller => 'dissected_samples', :action => :update} do |f| %>
+  <%= f.error_messages %>
+  
+  <%= render :partial => 'dsample_form', :locals => {:f => f } %> 
+  <p><%= f.submit "Save" %></p>
+<% end %>
+
+<%= link_to 'Back', :back %>

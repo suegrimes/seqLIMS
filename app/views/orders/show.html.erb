@@ -1,0 +1,55 @@
+<h3>Order Details</h3>
+
+<table class="border">
+  <tr>
+    <th>Order Date</th>	
+    <th>Company Name</th>
+	<th>Chemicals?</th>
+	<th>RPO/CWA</th>
+    <th>PO Number</th>
+	<th>Order Number</th>
+	<th>Received?</th>  
+  </tr>
+  <tr>
+  	<td><%=h @order.date_ordered %></td>
+	<td><%=h @order.company_name%></td>
+	<td><%=h @order.incl_chemicals%></td>
+	<td><%=h @order.rpo_or_cwa%></td>
+	<td><%=h @order.po_number %></td>
+	<td><%=h @order.order_number %></td>
+	<td><%=h @order.order_received %></td>	
+  </tr>
+</table>
+
+<table class="border">
+  <tr>
+  	<th>Requester</th>
+	<th>Date</th>
+	<th>Description</th>
+	<th>Company</th>
+    <th>Catalog nr</th>
+	<th>Chemicals?</th>
+	<th>Size</th>
+    <th>Price</th>
+    <th>Quantity</th>
+	<th>Recv'd?</th>
+  </tr>
+
+<% for item in @order.items do %>
+  <tr>
+  	<td><%=h item.requester_abbrev %></td>
+	<td><%=h format_date(item.created_at) %></td>
+  	<td cols=80><%=h item.item_description %></td>
+	<td><%=h item.company_name %></td>
+    <td><%=h item.catalog_nr %></td>
+	<td><%=h item.chemical_flag %></td>
+	<td><%=h item.item_size %></td>
+    <td><%=h item.item_price %></td>
+    <td><%=h item.item_quantity %></td>
+	<td><%=h item.item_received %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Edit Order', edit_order_path(@order) %>
+

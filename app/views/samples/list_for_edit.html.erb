@@ -1,0 +1,33 @@
+<h3>Listing Samples For Editing</h3>
+
+<%=h @nr_samples[1] %> source/dissected samples, (for <%=h @samples_by_patient.size -%> patients) 
+<br/><br/>
+
+<table class="border">
+  <tr>
+    <%= render :partial => 'sample_hdr', :locals => {:row_tags => 'no'} %> 
+  </tr>
+  
+  <% if @samples_by_patient %>
+    <% @samples_by_patient.sort.each do | patient_id, samples| %>
+    <tr>
+    <td colspan=3><b>Patient: </b><%= patient_id[0] %>
+    <% if can? :read, Patient %>
+      / <%=h patient_id[1]%>
+    <% end %>
+    </td>
+    </tr>
+
+    <% for sample in samples %>
+    <tr>
+      <%= render :partial => 'sample_row', :locals => {:sample => sample, 
+                                                       :sample_characteristic => sample.sample_characteristic, 
+                                                       :export_form => 'yes',
+                                                       :row_tags => 'no'} %>
+	  <td><%=link_to 'Edit', edit_sample_path(sample) %></td>
+    </tr>
+    <% end %>
+	
+    <% end %>
+  <% end %>
+</table>

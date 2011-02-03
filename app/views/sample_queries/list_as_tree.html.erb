@@ -1,0 +1,87 @@
+<h3><%= @type_of_sample.camelize %> Samples - Processing Tree</h3>
+
+<% if @samples_by_patient && @nr_samples[1] > 0 %>
+
+<% form_tag :action => :export_samples do %>
+  <%=h @nr_samples[0] %> source samples, (for <%=h @samples_by_patient.size -%> patients) <%= submit_tag "Export Samples" -%>
+  <br/><br/>
+
+  <table class="list">	
+    <% @samples_by_patient.sort.each do | patient_id, samples| %>
+    <tr>
+    <th colspan=3><b>Patient: </b><%= link_to patient_id[0], patient_path(patient_id[0]) %>
+    <% if can? :read, Patient %>
+      / <%=h patient_id[1]%>
+    <% end %>
+    </td>
+    </tr>
+    
+	<tr>
+	  <th>Barcode</th>
+	  <th>Date Entered</th>
+	  <th>Sample Type</th>
+	  <th>OR Designation</th>
+	  <th>Pathology DX</th>
+	  <th>H&E</th>
+	  <th>Processing Dt</th>
+	  <th>Remaining?</th>
+	  <th>Room/Freezer</th>
+	  <th>Shelf</th>
+	  <th>Box/Bin</th>
+	</tr>
+    <% for sample in samples %>
+	  <tr>
+        <td><%= link_to sample.barcode_key, sample_path(sample)%></td>
+		<td><%=h format_date(sample.created_at) %></td>
+		<td><%=h sample.sample_category %></td>
+		<td><%=h sample.tumor_normal %></td>
+		<td><% if sample.sample_characteristic.pathology %><%=h sample.sample_characteristic.pathology.pathology_classification %><% end %></td>
+		<td><% if sample.histology %><%=h sample.histology.histopathology %>
+		    <% elsif sample.clinical_sample == 'no' && sample.source_sample.histology %><%=h sample.source_sample.histology.histopathology %>
+		    <% end %></td>
+		<td><% if sample.clinical_sample == 'no' %><%=h sample.sample_date %><% end %></td>
+		<td><%=h sample.sample_remaining %></td>
+		<td><% if sample.storage_location %><%=h sample.storage_location.location_string %><% end %></td>
+        <td><%=h sample.storage_shelf %></td>
+        <td><%=h sample.storage_boxbin %></td>
+		<% if can? :delete, sample %>
+          <% if !@source_sample_ids.include?(sample.id) && sample.processed_samples.size == 0 %>
+            <td><%= link_to 'Delete', sample, :confirm => 'Are you sure?', :method => :delete %></td>
+          <% else %>
+            <td class="ltgrey"> Delete </td>
+          <% end %>
+        <% end %>
+		<td><%= hidden_field_tag("export_id[]", sample.id)  %></td>
+	  </tr>
+	  <% if sample.sample_characteristic.pathology && !sample.sample_characteristic.pathology.comments.blank?%>
+	  <tr>
+	  	<td colspan=4 align='right'>Pathology Comments: </td>
+		<td colspan=7><%=h sample.sample_characteristic.pathology.comments %></td>
+	  </tr>
+	  <% end %>
+	  <tr><td colspan=11><hr></td></tr>
+
+	  <% for processed_sample in sample.processed_samples %>
+	    <tr>
+          <td>&nbsp;&nbsp;<%=link_to processed_sample.barcode_key, processed_sample_path(processed_sample)%></td>
+		  <td><%=h format_date(processed_sample.created_at) %></td>
+          <td><%=h processed_sample.extraction_type %></td>
+		  <td><%=h sample.tumor_normal %></td>
+		  <td></td><td></td>
+		  <td><%=h processed_sample.processing_date %></td>
+		  <td>&nbsp;</td>
+	      <td><% if processed_sample.storage_location %><%=h processed_sample.storage_location.location_string %><% end %></td>
+          <td><%=h processed_sample.storage_shelf %></td>
+          <td><%=h processed_sample.storage_boxbin %></td>
+		</tr>
+		<tr><td colspan=11><hr></td></tr>
+	  <% end %>	  
+	<% end %>
+	
+	<tr><td>&nbsp;</td></tr>
+    <% end %> <!-- end of each patient loop -->
+	</table>
+  <% end %> <!-- end of form -->
+ 
+  <% end %> <!-- end of 'if' patient -->
+

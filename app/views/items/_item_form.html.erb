@@ -1,0 +1,48 @@
+<table class="border">
+  	<tr>
+  	  <th>Date Entered</th>
+	  <th>Requestor</th>
+      <th>Deliver Site</th>
+	  <th>Grant #</th>
+	  <th>Notes</th> 	
+  	</tr>
+	<tr>
+	  <% if @item.new_record? %>
+	    <td><%= format_datetime(Time.now) %></td>
+      <% else %>
+	    <td><%=h format_datetime(@item.created_at) %></td>
+      <% end %>
+	  <td><%=f.select(:requester_name, @researchers, {:include_blank => 'Select requestor'}) %></td>
+	  <td><%=f.select(:deliver_site, Item::DELIVER_SITES, {:include_blank => true})%></td>
+	  <td><%=f.text_field :grant_nr %>
+	  <td><%=f.text_field :notes, :size => 50 %></td>
+	</tr>
+  </table>
+
+  <table class="border">
+	<tr>
+	  <th>Company</th>
+	  <th>Catalog#</th>
+	  <th>Item Description</th> 
+	  <th>Chemical?</th>
+	  <th>Size</th>
+	  <th>Price</th>
+	  <th>Quantity</th>
+	  <% if controller.action_name != 'new' %><th>Recv'd?</th><% end %>
+	</tr>
+	
+	<tr>
+	  <td><%=f.text_field_with_auto_complete(:company_name, {},
+             {:url => {:controller => :items, :action => :auto_complete_for_company_name},
+              :param_name => :search, :min_chars => 3, :method => :get})%></td>
+      <td><%=f.text_field :catalog_nr, :size => 15 %></td>
+	  <td width=60><%=f.text_field(:item_description, :size => 60) %></td>
+	  <td><%=f.select(:chemical_flag, %w{Y N}, {:include_blank => true}) %></td>
+	  <td><%=f.text_field :item_size, :size => 15 %></td>
+	  <td><%=f.text_field :item_price, :size => 12 %></td>
+	  <td><%=f.text_field :item_quantity, :size => 15 %></td>
+	  <% if controller.action_name != 'new' %>
+	    <td><%=f.select(:item_received, %w{Y N}, {:include_blank => true}) %></td>
+      <% end %>
+	</tr>
+  </table>

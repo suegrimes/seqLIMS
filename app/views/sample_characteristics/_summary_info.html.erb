@@ -1,0 +1,22 @@
+<span class="table_title">Sample Collection/Characteristics:</span>
+<table class="border">
+	<tr>
+      <th>Collection Date</th>
+	  <th>Clinic</th>
+	  <th>Protocol</th>
+	  <th>Sample Site</th>
+	  <th>Sample Type</th>
+	</tr>
+	<tr>
+	  <td><%=h sample_characteristic.collection_date%></td>
+	  <td><%=h sample_characteristic.clinic_or_location%></td>
+	  <td><%=h sample_characteristic.consent_nr %>
+	      <% if sample_characteristic.consent_protocol %>/<%=h sample_characteristic.consent_protocol.consent_abbrev%><% end %></td>
+	  <td><%=h sample_characteristic.sample_tissue %></td>
+	  <td><%=h sample_characteristic.sample_type%></td>
+	</tr>
+	<tr>
+	  <th>Comments:</th>
+	  <td><%=h sample_characteristic.comments %></td>
+	</tr>
+</table>

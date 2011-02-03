@@ -1,0 +1,32 @@
+<h3>New item</h3>
+
+<% form_tag :action => 'create' do %>
+  
+  <table class="border">
+  	<tr>
+  	  <th>Timestamp</th>
+	  <th>Requestor</th>
+	  <th>Deliver Site</th> 
+	  <th>Grant #</th>
+  	</tr>
+	<tr>
+	  <td><%=format_datetime(Time.now) %></td>
+	  <td><%=select(:item_default, :requester_name, @researchers, {:include_blank => 'Select requestor'}) %></td>
+	  <td><%=select(:item_default, :deliver_site, Item::DELIVER_SITES, {:include_blank => true})%></td>
+	  <td><%=text_field(:item_default, :grant_nr) %>
+	</tr>
+  </table>
+  
+  <% if @items.nil? %>
+  <div id='item_entry'>	
+  <span><b>Enter how many items with these defaults?</b><%= text_field_tag(:nr_items, '', :size => 5)-%></span>
+  <%= submit_to_remote 'MultiItem', 'Add Items',
+      :url => {:action => 'populate_items'},
+      :update => 'item_entry' -%>
+  </div>
+  
+  <% else %>
+    <%= render :partial => 'multi_item_form'%>
+  <% end %>
+  
+<% end %>

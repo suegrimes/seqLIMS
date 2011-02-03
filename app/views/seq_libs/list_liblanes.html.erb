@@ -1,0 +1,14 @@
+<h3>Sequencing Library</h3>
+
+<%= render :partial => 'lib_show', :locals => {:seq_lib => @seq_lib} %>
+
+  <% if @lib_lanes_by_seq_type %>
+  <% @lib_lanes_by_seq_type.each do | seq_type, flow_lanes| %>
+    <% if seq_type == 'H' %>
+	  <%= render :partial => 'hiseq_align_qc', :locals => {:flow_lanes => flow_lanes} %>
+	<% else %>
+	  <%= render :partial => 'ga2_align_qc',   :locals => {:flow_lanes => flow_lanes} %>
+	<% end %>
+	
+  <% end %>
+  <% end %>

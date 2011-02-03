@@ -1,0 +1,34 @@
+<h3>Listing protocols</h3>
+
+<table class="border">
+  <tr>
+  	<th>Type</th>
+    <th>Protocol name</th>
+    <th>Protocol version</th>
+    <th>Protocol steps</th>
+    <th>Vendor</th>
+  </tr>
+
+<% for protocol in @protocols %>
+  <tr>
+  	<td><%=h protocol.protocol_type %></td>
+    <td><%=h protocol.protocol_name %></td>
+    <td><%=h protocol.protocol_version %></td>
+    <td><%= protocol.protocol_steps %></td>
+    <td><%=h protocol.vendor %></td>
+
+    <td><%= link_to 'Show', protocol %></td>
+	<% if can? :edit, protocol %>
+      <td><%= link_to 'Edit', edit_protocol_path(protocol) %></td>
+	<% end %>
+	<% if can? :delete, protocol %>
+      <td><%= link_to 'Delete', protocol, :confirm => 'Are you sure?', :method => :delete %></td>
+	<% end %>
+	
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New protocol', new_protocol_path(:protocol_type => 'E') %>

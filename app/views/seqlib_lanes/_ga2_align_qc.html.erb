@@ -1,0 +1,40 @@
+<h3>Runs/Lanes (GAII)</h3>
+    <table class="border">
+      <tr>
+  	    <th>Seq Key</th>
+	    <th>FlowCell Dt</th>
+	    <th>Ln </th>
+  	    <th>Clusters (Raw)</th>
+	    <th>Clusters (PF)</th>
+		<th>Cycle 1 Int</th>
+	    <th>Cycle 20 Int</th>
+	    <th>Align(PF)</th>
+	    <th>Error(PF)</th>
+	    <th># Unique</th>
+	    <th># Non-unique</th>
+      </tr>
+  
+      <% for flow_lane in flow_lanes %>
+        <tr>
+        <% if flow_lane.sequencing_key.nil? %>
+	    <td>FlowCell/Not Sequenced</td>
+	    <% else %>
+	    <td><%=link_to flow_lane.sequencing_key, :controller => :flow_cells, :action => :show_qc,
+                                                 :id => flow_lane.flow_cell_id %></td>
+	    <% end %>
+	    <td><%=h format_date(flow_lane.flow_cell.flowcell_date)%></td>
+	    <td><%=h flow_lane.lane_nr %>
+	  
+	    <% if !flow_lane.align_qc.nil?%>
+		<td align="right"><%=h number_with_delimiter(flow_lane.align_qc.clusters_raw, :delimiter => ',') %></td>
+	    <td align="right"><%=h number_with_delimiter(flow_lane.align_qc.clusters_pf,  :delimiter => ',') %></td>
+		<td align="right"><%=h flow_lane.align_qc.cycle1_intensity_pf %></td>
+	    <td align="right"><%=h flow_lane.align_qc.cycle20_intensity_pct_pf %>%</td>
+	    <td align="right"><%=h flow_lane.align_qc.pct_align_pf %>%</td>
+	    <td align="right"><%=h flow_lane.align_qc.pct_error_rate_pf %>%</td>
+	    <td align="right"><%=h number_with_delimiter(flow_lane.align_qc.nr_uniques,    :delimiter => ',') %></td>
+	    <td align="right"><%=h number_with_delimiter(flow_lane.align_qc.nr_nonuniques, :delimiter => ',') %></td>
+	    <% end %>
+      </tr>
+      <% end %>
+    </table>

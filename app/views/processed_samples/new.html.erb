@@ -1,0 +1,15 @@
+<h3>Sample Extraction</h3>
+
+<% form_for(@processed_sample) do |f| %>
+  <%= f.error_messages %>
+  
+  <%= f.hidden_field :sample_id,  :value => @sample.id %>
+  <%= f.hidden_field :patient_id, :value => @sample.patient_id %>
+  <%= f.hidden_field :input_uom, :value => @sample.amount_uom %>
+  
+  <%= render :partial => 'processed_sample_form', :locals => {:f => f} %>
+  
+  <p>
+    <%= f.submit "Save" %>
+  </p>
+<% end %>

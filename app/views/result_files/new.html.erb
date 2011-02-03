@@ -1,0 +1,9 @@
+<h3>New Result File</h3>
+
+<% upload_form_tag(:action => 'create') do %>
+  <%= error_messages_for :result_file %>
+  <p>Analysis key: <%=collection_select(:result_files, "analysis_id", @analyses, :id, :analysis_key)%></td>
+  
+  <p>Result file: <%= upload_column_field 'result_files', 'rfile' %></p>
+  <p><%= submit_tag :Upload %></p>
+<% end %>

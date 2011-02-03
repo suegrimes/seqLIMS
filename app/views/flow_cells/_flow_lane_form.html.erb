@@ -1,0 +1,29 @@
+<div class="flow_lane">
+  <% fields_for "flow_lane[]", flow_lane do |n| %>
+	
+	
+    <td><%= n.text_field(:lane_nr, :size => 4) %></td>
+	<td><%= n.text_field(:lib_conc, :size => 4) %>pM</td>
+	
+    <td><%=h seq_lib.lib_barcode %></td>
+	<td><%=h seq_lib.lib_name %></td>
+	<td><%=h seq_lib.owner_abbrev %></td>
+	<td><%=h seq_lib.preparation_date %></td>
+	<td><%=h seq_lib.runtype_adapter %></td>
+	<td><%=h seq_lib.alignment_ref %></td>
+	<%= render :partial => 'seq_libs/sample_conc', :locals => {:seq_lib => seq_lib} %>		
+	<td><%=h seq_lib.target_pool %></td>
+	<td><%=n.text_field(:notes) %></td>
+	<td>
+      <%= n.hidden_field(:sequencing_key, :value => @flow_cell.sequencing_key) %>
+      <%= n.hidden_field(:seq_lib_id,   :value => seq_lib.id) %>
+	  <%= n.hidden_field(:lib_barcode,  :value => seq_lib.lib_barcode) %>
+	  <%= n.hidden_field(:lib_name,     :value => seq_lib.lib_name) %>
+	  <%= n.hidden_field(:lib_conc_uom, :value => 'pM') %>
+	  <%= n.hidden_field(:runtype_adapter,  :value => seq_lib.runtype_adapter) %>
+	  <%= n.hidden_field(:alignment_ref_id, :value => seq_lib.alignment_ref_id) %>
+	  <%= n.hidden_field(:alignment_ref,    :value => seq_lib.alignment_ref) %>
+    </td>
+		
+  <% end %>
+</div>

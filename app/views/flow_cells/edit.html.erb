@@ -1,0 +1,32 @@
+<h3>Editing <%=h @flow_cell.id_name %></h3>
+<p class="notes">Note: Changes to lane number are limited to switching lanes - cannot add or delete sequencing libraries/lane
+   once flow cell has been created. </p>
+
+<% form_for(@flow_cell) do |f| %>
+  <%= f.error_messages %>
+  
+  <%= render :partial => 'flow_cell_form', :locals => {:f => f}%> 
+  <%= hidden_field_tag(:lane_count, @flow_cell.flow_lanes.size)%>
+    
+  <table class="border">
+    <tr>
+      <th>Lane</th>
+	  <th>Lib Conc</th>
+	  <th>Lib Barcode</th>
+	  <th>Lib name</th>
+	  <th>Run type/Adapter</th>
+	  <th>Alignment Ref</th>
+	  <th>Owner</th>
+	  <th>Notes</th>
+    </tr>
+
+    <% @flow_cell.flow_lanes.each do |flow_lane| %>
+      <tr><%= render :partial => 'flow_lane_edit', :locals => {:flow_lane => flow_lane} %></tr>
+	<% end %>
+  </table>
+ 
+<p><%= f.submit "Update" %></p>
+<% end %>
+
+<%= link_to 'Show', @flow_cell %> |
+<%= link_to 'Back', :back %>

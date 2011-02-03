@@ -1,0 +1,17 @@
+<h3>Sample Characteristics - Select parameters</h3>
+
+<% form_tag :action=> 'edit_params'  do %>
+<%= hidden_field_tag(:filter, 'edit')%>
+
+<table class='form'>
+  <tr>
+  <% if can? :read, Patient %>
+  	<th>MRN:</th><td><%= text_field_tag(:mrn) %></td>	
+  <% end %>
+  	<th>Patient ID:</th><td><%= text_field_tag(:patient_id) %></td>
+  	<th>Barcode:</th><td><%= text_field_tag(:barcode_key)%></td>
+  </tr>
+</table>
+
+<p><%= submit_tag "Submit" %></p>
+<%end%>

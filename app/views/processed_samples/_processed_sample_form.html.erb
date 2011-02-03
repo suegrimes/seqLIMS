@@ -1,0 +1,72 @@
+<% if controller.action_name == 'new' %>
+<span class="table_title">From Sample:</span>
+  <table class="border">
+	  <tr>
+	  	<th>Barcode</th>
+		<th>Sample Site</th>
+		<th>Sample type</th>
+		<th>OR Designation</th>
+		<th>Amt UOM</th>
+		<th>Initial Amt</th>
+		<th>Remaining?</th>
+	  </tr>
+	  
+	  <tr>
+	  	<td><%=h @sample.barcode_key%>
+		<td><%=h @sample.sample_characteristic.sample_tissue %></td>
+		<td><%=h @sample.sample_characteristic.sample_type%></td>
+		<td><%=h @sample.tumor_normal %></td>
+		<td><%=h @sample.amount_uom %></td>
+		<td><%=h @sample.amount_initial %></td>
+		<td><%= select_tag(:sample_remaining, options_for_select(%w{Y N}))%></td>
+	  </tr>
+  </table>
+<% end %>
+
+<span class="form_title">Extracted Sample Info:</span>
+  <table class="form">
+	<tr>
+	  <th>Type</th>
+	  <td><%=f.collection_select(:extraction_type, @extraction_type, :c_value, :c_value)%></td> 
+	  <th>Processing Date</th>
+	  <td><%=f.calendar_date_select(:processing_date, :year_range => [Sample::START_YEAR, 0.years.from_now],
+                                    :valid_date_check => "date <= (new Date()).stripTime()", :size => 15) %></td>
+	  <th>Protocol</th>
+	  <td><%=f.collection_select(:protocol_id, @protocols, :id, :protocol_name,
+                                 {:include_blank => 'Select protocol'})%></td>
+	</tr>
+
+	<tr>  
+	  <th>Vial</th>
+	  <td><%=f.collection_select(:vial, @vial_vol, :c_value, :c_value)%></td>
+	  <th>Support</th>
+	  <td><%=f.collection_select(:support, @support, :c_value, :c_value)%></td>
+	  <th>Elution Buffer</th>
+	  <td><%=f.collection_select(:elution_buffer, @elution_buffer, :c_value, :c_value,
+                                 {:include_blank => 'Select..'})%></td>
+	</tr>
+
+	<tr>
+	  <th>Volume (ul)</th>
+	  <td><%=f.text_field :final_vol, :size => 12 %></td>
+	  <th>Conc (ng/ul)</th>
+	  <td><%=f.text_field :final_conc, :size => 12 %></td>
+	  <th>a260/a280</th>
+	  <td><%=f.text_field :final_a260_a280, :size => 8 %></td>
+	  <th>RIN#</th>
+	  <td><%=f.text_field :final_rin_nr, :size => 6 %></td>
+	</tr>
+	
+	<tr>
+	  <th>Room/Freezer</th>
+	  <%= render :partial => 'shared/storage_select', :locals => {:f => f} %>
+	  <th>Shelf</th>
+	  <td><%=f.text_field :storage_shelf, :size => 12 %></td>
+	  <th>Box/Bin</th>
+	  <td><%=f.text_field :storage_boxbin, :size => 12 %></td>
+    </tr>
+	
+	<tr>
+	  <th>Comments</th><td colspan=5><%=f.text_area :comments, :cols => 100, :rows => 2 %></td>
+	</tr>
+</table>

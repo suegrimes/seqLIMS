@@ -1,0 +1,13 @@
+<% rowtags ||= 'yes' %>
+
+<% if rowtags == 'yes' %><tr><% end %>
+
+  <th> ID# </th>
+  <% if user_role_is?("clin_admin") %>
+    <th>MRN</th>
+  <% end %>
+  <th> Gender </th>
+  <th> Race </th>
+  <th> Ethnicity </th>
+  
+<% if rowtags == 'yes' %></tr><% end %>

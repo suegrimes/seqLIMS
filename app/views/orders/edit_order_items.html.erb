@@ -1,0 +1,30 @@
+<h3>Editing status of order items</h3>
+
+<% form_for @order, :url => {:action => :update, :item_upd => 'Y'}  do |f| %>
+  <%= f.error_messages %>
+
+  <%= render :partial => 'orders/order_form', :locals => {:f => f} %>
+  
+  <b>Items:</b>
+  <table class="border">
+  	<tr>
+  	  <th>Date</th>
+	  <th>Requestor</th>
+	  <th>Company</th>
+	  <th>Catalog#</th>
+	  <th>Item Description</th> 
+	  <th>Quantity</th>
+	  <th>Chemical?</th>
+	  <th>Recv'd?</th> 
+  	</tr>
+
+    <% @order.items.each do |item| %>
+      <%= render :partial => 'order_items', :locals => {:item => item} %>
+	<% end %>
+	
+  </table>
+  
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>

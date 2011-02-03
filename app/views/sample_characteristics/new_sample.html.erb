@@ -1,0 +1,28 @@
+<h3>New sample for patient: <%=h @patient.id %>/<%=h @patient.mrn %> </h3>
+
+<% form_for :patient, :url => {:action => 'create'} do |f| %>
+  <%= f.error_messages %>
+  
+  <%=f.hidden_field(:id) %>
+  <%=hidden_field_tag(:mrn_nr, params[:mrn_nr]) %>
+  
+  <%= render :partial => '/patients/patient_form', :locals => {:f => f, :patient => @patient,
+                                                               :patient_id => @patient.id} %>
+  
+    <% fields_for @sample_characteristic do |c| %>
+	  <%= c.error_messages %>
+	  
+      <%= render :partial => 'clinical_form',   :locals => {:f => c} %>
+  
+	  <% for sample in @sample_characteristic.samples %>
+         <%= render :partial => 'samples_form', :locals => {:sample => sample,
+                                                            :removable => 'no'} %>
+	  <% end %>
+	  
+	  <p>If you have another physical sample with identical characteristics, click <%= add_sample_link(" here ")%>to add</p>
+	<% end %>
+  
+  <p><%= f.submit "Save" %></p>
+  <% end %>
+
+<%= link_to 'Back', :back %>

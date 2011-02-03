@@ -1,0 +1,32 @@
+<h3>Details for patient: <%= @patient.id %></h3>
+
+<%= render :partial => 'patient_info', :locals => {:patient => @patient,
+                                                   :click_to_link => 'edit'} %>
+
+<span class="table_title">Samples:</span>
+<table class="border">
+<tr>
+  <th>Collect Date</th>
+  <th>Clinic</th>
+  <th>Protocol</th>
+  <th>Sample Site</th>
+  <th>Sample Type</th>
+  <th># Samples</th>
+</tr> 
+
+<% for sample_characteristic in @patient.sample_characteristics %>
+  <% source_samples = sample_characteristic.samples.select { |sample| sample.clinical_sample == 'yes'} %>
+	
+  <tr>
+    <td> <%=h sample_characteristic.collection_date %></td>
+	<td> <%=h sample_characteristic.clinic_or_location %></td>
+    <td> <% if sample_characteristic.consent_protocol %><%=h sample_characteristic.consent_protocol.name_ver %></td><% end %>
+    <td> <%=h sample_characteristic.sample_tissue %></td>
+    <td> <%=h sample_characteristic.sample_type %></td>
+    <td> <%=h source_samples.size %></td>
+    <% if can? :edit, SampleCharacteristic %>
+      <td><%= link_to 'Edit', edit_sample_characteristic_path(sample_characteristic) %>
+    <% end %>
+  </tr>											   
+<% end %>
+</table>

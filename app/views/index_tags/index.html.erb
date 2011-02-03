@@ -1,0 +1,24 @@
+<h3>Multiplex Index Tags</h3>
+
+<table class="border">
+<tr>
+  <% (1..3).each do %>
+  <th>Runtype Adapter</th>
+  <th>Tag#</th>
+  <th>Sequence</th>
+  <td>&nbsp;</td>
+  <% end %>
+</tr>
+
+<% @index_tags.sort.each do | tag_nr, index_tags| %>
+<tr> 
+  <% index_tags.each do |itag| %>
+    <td><%=h itag.runtype_adapter %></td>
+	<td><%=h tag_nr %></td>
+	<td><%=h itag.tag_sequence %></td>
+	<td>&nbsp;</td>
+  <% end %>
+</tr>
+<% end %>
+
+</table>

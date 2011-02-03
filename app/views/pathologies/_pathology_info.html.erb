@@ -1,0 +1,27 @@
+<% click_to_link ||= 'none' %>
+
+<span class='table_title'>Diagnosis/Pathology:</span>
+<table class="info">
+  <tr>
+	<th>Rpt Date</th>
+	<% if click_to_link == 'show' %>
+	<td><%=link_to pathology.pathology_date, pathology %></td>  
+	<% elsif click_to_link == 'edit' %>
+	<td><%=link_to pathology.pathology_date, edit_pathology_path(pathology) %></td>
+	<% else %>
+	<td><%=h pathology.pathology_date %></td>
+	<% end %>
+	<th>Pathology</th><td><%=h pathology.general_pathology %></td>
+	<th>Diagnosis/Notes</th><td><%=h pathology.pathology_classification %></td>
+  </tr>
+  <tr>
+    <th>Stage</th><td><%=h pathology.tumor_stage %></td>
+	<th>XRT?</th><td><%=h pathology.xrt_flag %></td>
+    <th>TNM: </th><td><%=h pathology.tnm %></td>
+  </tr>
+  <% if !pathology.comments.blank? %>
+  <tr>
+	<th>Comments</th><td colspan=3><%=h pathology.comments %></td>
+  </tr>
+  <% end %>
+</table>

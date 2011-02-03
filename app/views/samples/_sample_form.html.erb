@@ -1,0 +1,24 @@
+<span class="form_title">Physical Sample:</span>
+<table class="form">	
+    <tr>
+      <th>Barcode: </th><td><%=f.object.barcode_key %></td>
+	  <th>Sample Type: </th><td><%=f.object.sample_characteristic.sample_tissue %>/<%=f.object.sample_characteristic.sample_type %></td>
+	  <th>OR Designation</th><td><%=f.collection_select(:tumor_normal, @tumor_normal, :c_value, :c_value) %></td>
+	</tr>
+	<tr>
+	  <th>Container</th><td><%=f.collection_select(:sample_container, @sample_units, :c_value, :c_value)%></td>
+	  <th>Vial Type</th><td><%=f.collection_select(:vial_type, @vial_types, :c_value, :c_value, {:include_blank => true})%></td>
+      <th>Amt Unit</th><td><%=f.collection_select(:amount_uom, @amount_uom, :c_value, :c_value)%></td>
+      <th>Initial Amt</th><td><%=f.text_field :amount_initial, :size => 10 %></td>
+	  <th>Rem?</th><td><%=f.select(:sample_remaining, %w[Y N], {:include_blank => true})%></td>
+	</tr>
+	<tr>
+      <th>Room/Freezer</th><%= render :partial => 'shared/storage_select', :locals => {:f => f} %>
+	  <th>Shelf</th><td><%=f.text_field :storage_shelf, :size => 10 %></td>
+      <th>Rack#/Bin</th><td><%=f.text_field :storage_boxbin, :size => 10 %></td>
+    </tr>
+    <tr>
+      <th>Comments</th>
+      <td colspan=6><%=f.text_area :comments, :cols => 85, :rows => 2 %></td>
+    </tr>
+</table>

@@ -1,0 +1,27 @@
+<h3>Alignment References</h3>
+
+<table class="border">
+  <tr>
+    <th>Alignment Key</th>
+    <th>Interface Name</th>
+	<th>Genome Build</th>
+  </tr>
+
+<% for alignment_ref in @alignment_refs %>
+  <tr>
+    <td><%=h alignment_ref.alignment_key %></td>
+    <td><%=h alignment_ref.interface_name %></td>
+	<td><%=h alignment_ref.genome_build %></td>
+	<% if can? :edit, alignment_ref %>
+      <td class='noborder'><%= link_to 'Edit', edit_alignment_ref_path(alignment_ref) %></td>
+	<% end %>
+	<% if can? :delete, alignment_ref %>
+      <td class='noborder'><%= link_to 'Delete', alignment_ref, :confirm => 'Are you sure?', :method => :delete %></td>
+	<% end %>
+  </tr>
+<% end %>
+</table>
+
+<% if can? :new, AlignmentRef.new %>
+  <%= link_to 'New alignment reference', new_alignment_ref_path %>
+<% end %>

@@ -1,0 +1,225 @@
+class ItemsController < ApplicationController
+  before_filter :dropdowns, :only => [:get_params, :new, :edit]
+  protect_from_forgery :except => :populate_items
+  
+  def get_params
+    @item_query = ItemQuery.new(:from_date => (Date.today - 1.month).beginning_of_month,
+                                :to_date   =>  Date.today)
+  end
+  
+  def list_selected
+    @item_query = ItemQuery.new(params[:item_query])
+    
+    if @item_query.valid?
+      condition_array = define_conditions(params)
+      items_all = Item.find_all_by_date(condition_array)
+      items_notordered = items_all.reject{|item| item.ordered?}
+     
+      # Eliminate items from array, based on order status if specified
+      if params[:item_status] && params[:item_status] != 'All'
+        @items = items_notordered                        if params[:item_status] == 'NotOrdered'
+        @items = items_all.reject{|item| !item.ordered?} if params[:item_status] == 'Ordered' 
+      else
+        @items = items_all
+      end
+    
+      # Check whether any potential items to order, and if so, populate company drop-down
+      @items_to_order = items_notordered.size
+      @companies = list_companies_from_items(items_notordered)
+      render :action => :index
+      
+    else
+      dropdowns
+      render :action => :get_params
+    end
+  end
+  
+  def list_unordered_items
+    @items = Item.find_all_unordered
+    @items_to_order = @items.size
+    @companies = list_companies_from_items(@items)
+    render :action => :index
+  end
+  
+  # GET /items
+  def index
+    @items = Item.find_all_by_date
+    
+    items_notordered = @items.reject{|item| item.ordered?}
+    @items_to_order = items_notordered.size
+    @companies = list_companies_from_items(items_notordered)  
+  end
+
+  # GET /items/1
+  def show
+    @item = Item.find(params[:id])
+  end
+
+  # GET /items/new
+  def new
+    @item_default = Item.new(:requester_name => current_user.researcher.researcher_name)
+  end
+  
+  def populate_items
+    @items = []
+    params[:nr_items] ||= 3
+    
+    0.upto(params[:nr_items].to_i - 1) do |i|
+      @items[i] = Item.new(params[:item_default])
+    end    
+    
+    render :partial => 'multi_item_form'
+  end
+
+  # GET /items/1/edit
+  def edit
+    @item = Item.find(params[:id])
+  end
+
+  # POST /items
+  def create      
+    
+    # items should ideally be in an array params[:items], but workaround to have the auto-populate after the auto-complete
+    # on the multi-item form, with html tags identified => item params are instead in params[:items_1], params[:items_2] etc.
+    
+    # Loop around params[:items_1] to params[:items_n], merge defaults into each item, and create array
+    @items = []
+    for i in 0..25 do
+      this_item = params['items_' + i.to_s]
+      break if this_item.nil?
+      next  if (param_blank?(this_item[:item_description]) && param_blank?(this_item[:catalog_nr]))
+      @items.push(Item.new(params[:item_default].merge(this_item))) # merge in this direction so that company name is not overridden by default value
+    end
+    
+    if @items.all?(&:valid?) 
+      @items.each(&:save!)
+      flash[:notice] = 'Items were successfully saved.'
+      
+      # item successfully saved => send emails as indicated by OrderMailer::DELIVER_FLAG
+      case OrderMailer::DELIVER_FLAG
+        when 'None'
+          redirect_to :action => 'list_unordered_items'
+        when 'Debug'
+          email  = send_email(@items, current_user) 
+          render(:text => "<pre>" + email.encoded + "</pre>")
+        when 'Deliver'
+          email = send_email(@items, current_user)
+          redirect_to :action => 'list_unordered_items'
+        else
+          redirect_to :action => 'list_unordered_items'
+        end
+         
+    else
+      reload_defaults(params[:item_default])
+      flash.now[:error] = 'One or more errors - no items saved, please enter all required fields'
+      render :action => 'new'
+    end 
+
+  end
+
+  # PUT /items/1
+  def update
+    params[:item][:company_name] ||= params[:other_company]
+    @item = Item.find(params[:id])
+
+    if @item.update_attributes(params[:item])
+      flash[:notice] = 'Item was successfully updated.'
+      redirect_to(@item) 
+    else
+      dropdowns
+      render :action => "edit", :other_company => params[:other_company]
+    end
+  end
+
+  # DELETE /items/1
+  def destroy
+    @item = Item.find(params[:id])
+    @item.destroy
+
+    redirect_to :action => 'list_selected', :item_status => "NotOrdered"
+  end
+  
+  def auto_complete_for_catalog_nr
+    @items = Item.find_all_unique(["catalog_nr LIKE ?", params[:search] + '%'])
+    render :inline => "<%= auto_complete_result(@items, 'catalog_nr') %>"
+  end
+  
+  def auto_complete_for_item_description
+    @items = Item.find_all_unique(["item_description LIKE ?", params[:search] + '%'])
+    render :inline => "<%= auto_complete_result(@items, 'item_description') %>"
+  end
+  
+  def auto_complete_for_company_name
+    @items = Item.find_all_unique(["company_name LIKE ?", params[:search] + '%'])
+    render :inline => "<%= auto_complete_result(@items, 'company_name') %>"
+  end
+  
+  def update_fields
+    params[:i] ||= 0
+    if params[:catalog_nr]
+      @item = Item.find_by_catalog_nr(params[:catalog_nr])
+    elsif params[:item_description]
+      @item = Item.find_by_item_description(params[:item_description]) 
+    end
+    
+    if @item.nil?
+      render :nothing => true
+    else
+      render :update do |page|
+        page['items_' + params[:i] + '_catalog_nr'].value        = @item.catalog_nr
+        page['items_' + params[:i] + '_item_description'].value  = @item.item_description
+        page['items_' + params[:i] + '_company_name'].value      = @item.company_name
+        page['items_' + params[:i] + '_chemical_flag'].value     = @item.chemical_flag
+        page['items_' + params[:i] + '_item_size'].value         = @item.item_size
+        page['items_' + params[:i] + '_item_price'].value        = @item.item_price
+       end
+    end
+  end
+  
+protected
+  def send_email(items, user)
+    email = OrderMailer.create_new_item(items, user)
+    email.set_content_type("text/html")
+    OrderMailer.deliver(email) if OrderMailer::DELIVER_FLAG == 'Deliver'
+    return email
+  end
+
+  def dropdowns
+    items_all  = Item.find(:all)
+    @companies = list_companies_from_items(items_all)
+    @requestors = items_all.collect(&:requester_name).sort.uniq
+    @researchers = Researcher.populate_dropdown
+  end
+  
+  def reload_defaults(item_params)
+    dropdowns
+    @item_default    = Item.new(item_params)
+  end
+
+  def list_companies_from_items(items)
+    companies_from_items = items.collect(&:company_name).sort.uniq
+    return ["CWA"] | companies_from_items | ["Other"]
+  end
+  
+   def define_conditions(params)
+    @sql_params = {}
+    params[:item_query].each do |attr, val|
+      @sql_params[attr.to_sym] = val if !val.blank? && ItemQuery::ITEM_FLDS.include?("#{attr}")
+    end
+    
+    @where_select = []; @where_values = []
+    @sql_params.each do |attr, val|
+      if !param_blank?(val)
+        @where_select.push("items.#{attr}" + sql_condition(val))
+        @where_values.push(sql_value(val))
+      end
+    end
+    
+    date_fld = 'items.created_at'
+    @where_select, @where_values = sql_conditions_for_date_range(@where_select, @where_values, params[:item_query], date_fld)
+    
+    sql_where_clause = (@where_select.length == 0 ? [] : [@where_select.join(' AND ')].concat(@where_values))
+    return sql_where_clause
+  end
+  
+end

@@ -1,0 +1,31 @@
+<h3>Storage locations list</h3>
+
+<table class="border">
+  <tr>
+    <th>Room</th>
+    <th>Freezer</th>
+    <th>Owner name</th>
+	<th>Owner email</th>
+	<th>Comments</th>
+  </tr>
+
+<% for storage_location in @storage_locations %>
+  <tr>
+    <td><%=h storage_location.room_nr %></td>
+    <td><%=h storage_location.freezer_nr %></td>
+    <td><%=h storage_location.owner_name %></td>
+	<td><%=h storage_location.owner_email %></td>
+	<td><%=h storage_location.comments %></td>
+	<% if can? :edit, storage_location %>
+      <td class='noborder'><%= link_to 'Edit', edit_storage_location_path(storage_location) %></td>
+	<% end %>
+	<% if can? :delete, storage_location %>
+      <td class='noborder'><%= link_to 'Delete', storage_location, :confirm => 'Are you sure?', :method => :delete %></td>
+	<% end %>
+  </tr>
+<% end %>
+</table>
+
+<% if can? :new, StorageLocation.new %>
+  <%= link_to 'New storage location', new_storage_location_path %>
+<% end %>

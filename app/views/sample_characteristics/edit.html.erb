@@ -1,0 +1,22 @@
+<h3>Editing Sample Characteristics for Patient: <%= @sample_characteristic.patient_id %>, Collection Date: <%= @sample_characteristic.collection_date %></h3>
+
+<% form_for(@sample_characteristic) do |f| %>
+  <%= f.error_messages %>
+
+  <%= render :partial => 'patient_info', :locals => {:sample_characteristic => @sample_characteristic,
+                                                     :patient => @sample_characteristic.patient } %> 
+  
+  <%= render :partial => 'clinical_form',    :locals => {:f => f} %>
+  
+  <span class='table_title'>Physical Sample(s):</span>
+  <table class="list">
+    <%= render :partial => 'samples/sample_hdr' %>
+	
+    <% for sample in @sample_characteristic.samples %>
+       <%= render :partial => 'samples/sample_row', :locals => {:sample => sample} %>
+    <% end %>
+	
+  </table>
+  
+  <%= f.submit "Update" %>
+<% end %>

@@ -1,0 +1,27 @@
+<% row_tags     ||= 'yes' %>
+<% barcode_link ||= 'none' %>
+
+<% if row_tags == 'yes' %><tr><% end %>
+
+<td> 
+<% if    barcode_link == 'edit' %><%= link_to sample.barcode_key, edit_sample_path(sample)%> 
+<% elsif barcode_link == 'show' %><%= link_to sample.barcode_key, sample_path(sample)%>
+<% else %>                        <%=h sample.barcode_key %>
+<% end %>
+</td>
+
+<% if sample.clinical_sample == 'yes' %><td> Clinical </td>
+<% else %>                              <td>Sample: <%=h sample.source_barcode_key %></td>
+<% end %>
+
+<td><%=h sample.sample_date %></td>
+<td><%=h sample.tumor_normal %></td>
+<td><%=h sample.container_type %></td>
+<td><%=h sample.sample_amt %></td>
+<td><%=h sample.sample_remaining%></td>
+<td><% if sample.storage_location %><%=h sample.storage_location.location_string %><% end %></td>
+<td><%=h sample.storage_shelf %></td>
+<td><%=h sample.storage_boxbin %></td>
+<td><%=h sample.comments %></td>
+
+<% if row_tags == 'yes' %></tr><% end %>

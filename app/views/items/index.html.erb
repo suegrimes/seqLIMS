@@ -1,0 +1,72 @@
+<h3>Listing items</h3>
+
+<% form_tag(:action => 'create', :controller => 'orders') do %>
+
+<table class="list">
+  <tr>
+  	<th>Order?</th>
+  	<th>Requester</th>
+	<th>Date</th>
+	<th>Site</th>
+	<th>Chem</th>
+	<th>Company</th>
+    <th>Catalog nr/Descr</th>
+    <th>Price</th>
+    <th>Quantity</th>
+	<th>Grant</th>
+	<th>Recv'd?</th>
+  </tr>
+
+<% for item in @items %>
+  <tr>
+  	<% if item.ordered? %>
+	  <td><%=h item.order.po_number %></td>
+	<% elsif can? :new, Order %>
+  	  <td><%= check_box_tag("item_id[]", item.id) %>
+	<% else %>
+	  <td>n/a</td>
+	<% end %>
+  	<td><%=h item.requester_abbrev %></td>
+	<td><%=h format_date(item.created_at) %></td>
+	<td><%=h item.deliver_site %></td>
+	<td align="center"><%=h item.chemical_flag%></td>
+	<td><%=h item.company_name %></td>
+    <td><%=h item.catalog_nr %></td>
+    <td><%=h number_to_currency(item.item_price) %></td>
+    <td>&nbsp;&nbsp;<%=h item.item_quantity %></td>
+	<td><%=h item.grant_nr %></td>
+	<td><%=h item.item_received %></td>
+    <td rowspan=2><%= link_to 'Show', item %></td>
+	
+	<% if can? :edit, item %>
+      <td rowspan=2><%= link_to 'Edit', edit_item_path(item) %></td>
+	<% end %>
+	
+	<% if can? :delete, item %>
+      <td rowspan=2><%= link_to 'Delete', item, :confirm => 'Are you sure?', :method => :delete %></td>
+	<% end %>
+  </tr>
+  <tr>
+  	<td colspan=6>&nbsp;</td>
+  	<td colspan=5><%=h item.item_description %></td>
+  </tr>
+  <tr><td colspan=14><hr></td></tr>
+<% end %>
+</table>
+
+<% if can? :new, Order %>
+<% if @items_to_order && @items_to_order > 0 %>
+  <div id="order">
+    <p><%= link_to_function "Place order for checked items", toggle_div(:place_order, :order) %></p>
+  </div>
+	
+  <div id="place_order", style="display:none">	
+	<% fields_for Order.new(:date_ordered => Date.today) do |f|%>
+      <%= render :partial => 'orders/order_form', :locals => {:f => f, :have_company_list => 'yes'} %>
+	<% end %>
+  </div>
+<%= submit_tag "Submit"%>
+<% end %>
+<% end %>
+
+<% end %>

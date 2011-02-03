@@ -1,0 +1,30 @@
+<span class="form_title">Patient Info:</span>
+  <table class="form">
+	<tr>
+	  <% if controller.action_name == 'new' || controller.controller_name == 'patients' %>
+	    <th>MRN</th><td><%=f.text_field(:mrn, :size => 10)%></td>
+	  <% elsif can? :read, Patient %>
+	    <th>MRN</th><td><%=h patient.mrn%></td>    
+      <% end %>
+	  
+	  <th>Patient ID</th><td><%=h patient_id %></td>
+		  <% hidden_field_tag(:patient_id, patient_id) %>
+	  
+	  <% if controller.action_name == 'new_sample' || controller.controller_name == 'patients' %> 
+	    <th>PHI Notes</th><td><%=f.text_field(:hipaa_data, :size => 10) %></td>
+	  <% elsif can? :read, Patient %>
+	    <th>PHI Notes</th><td><%=h patient.hipaa_data %>
+	  <% end %>
+	</tr>
+	
+	<tr>
+	  <th>Gender</th><td><%=f.select(:gender, %w{U M F}) %></td>
+      <th>Ethnicity</th>
+	  <td><%=f.collection_select(:ethnicity, @ethnicity, :c_value, :c_value,
+                                {:include_blank => 'Select ethnicity'})%></td>
+      <th>Race</th>
+	  <td><%=f.collection_select(:race, @races, :c_value, :c_value,
+                                {:include_blank => 'Select race'})%></td>
+	</tr>
+  </table>
+	

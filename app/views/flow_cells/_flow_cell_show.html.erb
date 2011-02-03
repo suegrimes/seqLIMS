@@ -1,0 +1,29 @@
+<table class="border">
+  <tr>
+  	<% if flow_cell.flowcell_status != 'F' %><th>&nbsp;</th><% end %>
+  	<th>&nbsp;</th>	
+	<th colspan=3>Number of Bases</th>
+	<th colspan=2>Kit Versions</th>
+  <tr>
+  	<% if flow_cell.flowcell_status != 'F' %><th>Sequencing key</th><% end %>
+	<th>Date</th>
+	<th>Read 1</th>
+	<th>Index</th>
+	<th>Read 2</th>
+	<th>Cluster</th>
+	<th>Sequencing</th>
+  </tr>
+  <tr>
+  	<% if flow_cell.flowcell_status != 'F' %><td><%=h flow_cell.sequencing_key %></td><% end %>
+	<td><%=h flow_cell.flowcell_date %></td>
+	<td><%=h flow_cell.nr_bases_read1 %></td>
+	<td><%=h flow_cell.nr_bases_index %></td>
+	<td><%=h flow_cell.nr_bases_read2 %></td>
+	<td><%=h flow_cell.cluster_kit %></td>
+	<td><%=h flow_cell.sequencing_kit %></td>
+  </tr>
+  <tr>
+	<th align="right">Notes:</th>
+	<td colspan=5><%=h flow_cell.notes %></td>
+  </tr>
+</table>

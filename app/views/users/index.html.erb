@@ -1,0 +1,32 @@
+<h3>User Listing</h3>
+<table class="border">
+  <tr>
+    <th>Login</th>
+	<th>Email</th>
+	<th>Roles</th>
+  </tr>
+  <% for user in @users do %>
+  <tr>
+  	<% if can? :edit, user %>
+  	  <td><%= link_to user.login, edit_user_path(user) %> </td>
+	<% else %>
+	  <td><%=h user.login %>
+	<% end %>
+	
+	<td><%=h user.email %> </td>
+	<td>
+	  <% for role in user.roles do %>
+	    <%=h role.name %>&nbsp;
+	  <% end %>
+	</td>
+	<% if can? :delete, user %>
+	  <td><%= link_to 'Delete', user, :confirm => 'Are you sure?', :method => :delete %></td>
+	<% end %>
+  </tr>
+  <% end %>
+</table>
+
+<% if can? :delete, User %>
+  <%= link_to 'Add new user', :action => 'new' %>
+<% end %>
+

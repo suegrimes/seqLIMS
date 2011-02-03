@@ -1,0 +1,12 @@
+<h3>Specify Source Sample for Processing</h3>
+
+<% form_tag do %>
+<table class='form'>
+  <tr>
+  	<th>Barcode:</th><td><%= text_field_tag(:barcode_key)%></td>
+	<th>Processing Type:</th><td><%= select_tag(:processing_type, options_for_select(['H&E Slide', 'Dissection', 'Extraction']))%></td>
+  </tr>
+</table>
+
+<p><%= submit_tag "Submit" %></p>
+<%end%>

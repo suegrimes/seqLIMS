@@ -1,0 +1,29 @@
+# == Schema Information
+#
+# Table name: flow_lanes
+#
+#  id               :integer(4)      not null, primary key
+#  flow_cell_id     :integer(4)      not null
+#  seq_lib_id       :integer(4)
+#  sequencing_key   :string(50)
+#  sequencer_type   :string(2)
+#  lib_barcode      :string(20)
+#  lib_name         :string(50)
+#  lane_nr          :integer(1)      not null
+#  lib_conc         :float(11)
+#  lib_conc_uom     :string(6)
+#  runtype_adapter  :string(20)
+#  alignment_ref_id :integer(4)
+#  alignment_ref    :string(50)
+#  notes            :string(255)
+#  created_at       :datetime
+#  updated_at       :timestamp
+#
+
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+# one:
+#   column: value
+#
+# two:
+#   column: value

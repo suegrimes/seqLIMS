@@ -1,0 +1,31 @@
+<h3>Sequencing Runs - Select parameters </h3>
+
+<% form_for(@flowcell_query, :action => :index) do |f| %>
+<%= f.error_messages(:header_message => "Error(s) in query parameters") %>
+
+<table class="form">
+  <tr>
+  	<th>Run#</th>
+	<td><%=f.text_field(:run_nr, :size => 6)%></td>
+  </tr>
+  <tr><td align="center" class="grey">-OR-</td></tr>
+  <tr>
+  	<th>Machine(s):</th>
+    <td><%= f.collection_select(:machine_name, @sequencers, :machine_name, :machine_name, {:include_blank => '(All)'}) %></td> 
+  <tr>
+  	<th>Run from:</th>
+	<td><%=f.calendar_date_select(:from_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15) %></td>
+	
+	<td>&nbsp;&nbsp;</td>
+  	<th align="right">To:</th>
+	<td><%=f.calendar_date_select(:to_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15) %></td>
+  </tr>	
+</table>
+
+<br />
+<br />
+
+<p><%= submit_tag "Submit" %></p>
+<%end%>
+
+

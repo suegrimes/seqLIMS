@@ -1,0 +1,11 @@
+<h3>Editing item</h3>
+
+<% form_for(@item) do |f| %>
+  <%= f.error_messages %>
+  
+  <%= render :partial => 'item_form', :locals => {:f => f} %>
+  
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>

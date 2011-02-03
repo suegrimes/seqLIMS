@@ -1,0 +1,47 @@
+<table class="border">
+  <tr>
+  	<th>Lib Barcode</th>
+  	<th colspan=2>Library Name</th>
+	<th>Adapter</th>
+	<th>Owner</th>
+	<th>Preparation date</th>
+    <th>Protocol</th>
+  </tr>
+  <tr>
+  	<td><%= link_to seq_lib.lib_barcode, edit_seq_lib_path(seq_lib) %></td>
+  	<td colspan=2><%=h seq_lib.lib_name %></td>
+	<td><%=h seq_lib.runtype_adapter %></td>
+	<td><%=h seq_lib.owner_abbrev %></td>
+	<td><%=h seq_lib.preparation_date %></td>
+	<td><%=h @protocol.protocol_name if @protocol %></td>
+  </tr>
+  <tr>
+	<th>Quantitation</th>
+    <th>Size(Final PCR)</th>
+    <th>Sample Conc</th> 
+    <th>Lib Conc</th>
+	<th>Trim Bases</th>
+	<th>Align Ref</th>
+	<th>Project</th>
+    <th>Enzyme</th>
+  </tr>
+  <tr>
+  	<td><%=h seq_lib.quantitation_method %></td>
+	<td><%=h seq_lib.pcr_size %></td>
+	<td><%=h number_with_precision(seq_lib.sample_conc, :precision => 2) %>
+	    <%=h seq_lib.sample_conc_uom %></td>
+	<td><%=h seq_lib.lib_conc_requested %> pM</td>
+	<td><%=h seq_lib.trim_bases %></td>
+	<td><%=h seq_lib.alignment_ref %></td>
+	<td><%=h seq_lib.target_pool %></td>
+	<td><%=h seq_lib.enzyme_code %></td>	
+  </tr>
+  <tr>
+  	<th colspan=3>Notebook Ref</th>
+    <th colspan=4>Notes</th>
+  </tr>
+  <tr>
+  	<td colspan=3><%=h seq_lib.notebook_ref %></td>
+	<td colspan=4><%=h seq_lib.notes %></td>
+  </tr>
+</table>

@@ -1,0 +1,32 @@
+<h3>Listing orders</h3>
+
+<table class="border">
+  <tr>
+    <th>Order Date</th>
+	<th>Enter/Upd by</th>
+    <th>Company name</th>
+    <th>Po number</th>
+	<th># Items</th>
+	<th>Recv'd?</th>
+  </tr>
+
+<% for order in @orders %>
+  <tr>
+    <td><%=h order.date_ordered %></td>
+	<td><%=h order.enter_or_upd_by %></td>
+    <td><%=h order.company_name %></td>
+    <td><%=h order.po_number %></td>
+	<td><%=h order.items.size %></td>
+	<td><%=h order.order_received %></td>
+    <td><%= link_to 'Show', order %></td>
+	
+	<% if can? :edit, order %>
+      <td><%= link_to 'Edit', edit_order_path(order) %></td>
+	<% end %>
+	
+	<% if can? :delete, order %>
+      <td><%= link_to 'Delete', order, :confirm => 'Are you sure?', :method => :delete %></td> 
+	<% end %>
+  </tr>
+<% end %>
+</table>

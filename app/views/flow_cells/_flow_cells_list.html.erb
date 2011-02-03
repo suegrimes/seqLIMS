@@ -1,0 +1,41 @@
+<table class="border">
+  <tr>
+    <th>Preparation date</th>
+	<th>Status</th>
+	<th>Sequencing Key</th>
+	<th>Sequencing Date</th>
+	<th># Bases: R1,Index,R2</th>
+  </tr>
+
+  <% @flow_cells.each do |flow_cell| %>
+  <tr>
+    <td><%=h flow_cell.flowcell_date %></td>
+	<td><%=h flow_cell.flowcell_status %></td>
+	<td><%=h flow_cell.sequencing_key %></td>
+	<td><%=h flow_cell.sequencing_date %></td>
+	<td><%=h flow_cell.nr_bases_read1 %>, <%=h flow_cell.nr_bases_index %>, <%=h flow_cell.nr_bases_read2 %> </td>
+	
+	<% show_desc = (flow_cell.flowcell_status == 'F' ? 'Show/Seq' : 'Show') %>
+	<td><%= link_to show_desc, flow_cell %></td>
+	
+	<td><%= link_to 'Attach', new_attached_file_path(:rec_type => 'flow_cell', :obj_id => flow_cell.id) %></td>
+	
+	<% if (flow_cell.flowcell_status == 'F' || current_user.has_role?("lab_admin") || current_user.has_role?("admin")) %>
+	  <% if can? :edit, flow_cell %>  
+	  <td><%= link_to 'Edit',   edit_flow_cell_path(flow_cell) %></td>
+	  <% end %>
+	<% end %>
+	
+	<% if flow_cell.flowcell_status == 'F'%>
+	  <% if can? :delete, flow_cell %>
+	  <td><%= link_to 'Delete', flow_cell, :confirm => 'Are you sure?', :method => :delete %></td>
+	  <% end %>
+	<% end %>
+	  
+	<% if flow_cell.flowcell_status == 'Q' %>
+	  <td><%= link_to 'QC',     :action => 'show_qc', :id => flow_cell.id %></td>	
+	<% end %>
+  </tr>
+  
+  <% end %>
+</table>

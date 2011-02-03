@@ -1,0 +1,49 @@
+<table class="border">
+<tr>
+  <th>Prep Date</th>
+  <th>Owner</th>
+  <th>Protocol</th>
+  <th>Adapter</th>
+  <th>Align Ref</th> 
+  <th>Project</th>
+  <th>Enzyme</th>
+</tr>
+<tr>
+  <td><%= calendar_date_select_tag("lib_default[preparation_date]", Date.today, :size => 15) %></td>
+  <td><%= select(:lib_default, :owner, @owners)%></td> 
+  <td><%= collection_select(:lib_default, :protocol_id, @protocols, :id, :protocol_name,
+                           {:include_blank => 'Select Protocol'}) %></td>
+  <td><%= collection_select(:lib_default, :runtype_adapter, exclude_adapters(@adapters,'M'), :c_value, :c_value) %></td>
+  <td><%= collection_select(:lib_default, :alignment_ref_id, @align_refs, :id, :alignment_key) %></td> 
+  <td><%= collection_select(:lib_default, :target_pool, @projects, :c_value, :c_value,
+                           {:include_blank => 'Select Project'}) %></td>
+  <td rowspan=3><%= collection_select(:lib_default, :enzyme_code, @enzymes, :c_value, :c_value,
+                           {:include_blank => 'N/A'},
+                           {:size => 5, :multiple => :multiple}) %></td>
+</tr>
+<tr>
+  <th>Source DNA</th>
+  <th>Quantitation</th>
+  <th>Size(Final PCR)</th>
+  <th>Trim Bases</th>
+  <th>Library conc</th>
+</tr>
+<tr>
+  <td><%= text_field_with_auto_complete :sample_default, :source_DNA, {:size => 12},
+              {:url => {:controller => :processed_samples, :action => :auto_complete_for_barcode_key},
+               :param_name => :search, :min_chars => 2, :method => :get} %></td>
+  <td><%= collection_select(:lib_default, :quantitation_method, @quantitation, :c_value, :c_value, 
+                           {:include_blank => 'Select Method'}) %></td>
+  <td><%= text_field(:lib_default, :pcr_size, :size => 10)%>
+  <td><%= text_field(:lib_default, :trim_bases, :size => 10) %></td>
+  <td><%= text_field(:lib_default, :lib_conc_requested, :size => 10) %>pM</td> 	
+</tr>
+<tr>
+  <th>Notebook Ref</th>
+  <td colspan=2><%= text_field(:lib_default, :notebook_ref) %></td> 
+</tr>
+<tr>
+  <th>Notes</th>
+  <td colspan=6><%= text_field(:lib_default, :notes, :size => 100) %></td>
+</tr>
+</table> 

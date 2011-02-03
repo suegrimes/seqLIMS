@@ -1,0 +1,25 @@
+<h3>Editing Sample: <%= @sample.barcode_key %></h3>
+
+<%= render :partial => 'sample_characteristics/clinical_summary', 
+                        :locals => {:sample_characteristic => @sample.sample_characteristic,
+                                    :patient => @sample.patient }%>
+
+<% if @sample.sample_characteristic.pathology %>
+  <%= render :partial => 'pathologies/pathology_info', :locals => {:pathology => @sample.sample_characteristic.pathology} %>
+<% end %>
+
+<% if @sample.histology %>
+  <%= render :partial => 'histologies/histology_info', :locals => {:histology => @sample.histology} %>
+<% elsif @sample.source_sample && @sample.source_sample.histology %>
+  <%= render :partial => 'histologies/histology_info', :locals => {:histology => @sample.source_sample.histology} %>
+<% end %>
+									 
+<% form_for(@sample) do |f|%>
+  <%= f.error_messages %>  
+						   
+    <%= render :partial => 'sample_form', :locals => {:f => f}%>
+ 
+  <%= f.submit "Update" -%>
+<% end %>
+
+

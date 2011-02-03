@@ -1,0 +1,11 @@
+<h3>New Sequencing Machine</h3>
+
+<% form_for @seq_machine, :action => 'create' do |f| %>
+  <%= f.error_messages %>
+  
+  <%= render :partial => 'seq_machine', :locals => {:f => f} %>
+  
+  <%= f.submit "Create" %>
+<% end %>
+
+

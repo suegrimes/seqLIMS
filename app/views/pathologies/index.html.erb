@@ -1,0 +1,14 @@
+<h3>Listing Pathologies/Sample Characteristics 
+    <% if @patient_id %> for Patient: <%= @patient_id %><% end %></h3>
+
+<% for pathology in @pathologies %>
+<%= render :partial => 'pathology_info', :locals => {:pathology => pathology, :incl_links => 'yes'} %>
+						
+<%= render :partial => 'clinical_info', :locals => {:sample_characteristics => pathology.sample_characteristics} %>
+<% end %>
+
+<% if @sample_characteristics.size > 0 %>
+  <b>Diagnosis/Pathology: </b>NONE <%= link_to 'Add New', new_pathology_path(:patient_id => @patient_id, :add_new => 'yes') %>
+  <br /><br />
+  <%= render :partial => 'clinical_info', :locals => {:sample_characteristics => @sample_characteristics} %>
+<% end %>

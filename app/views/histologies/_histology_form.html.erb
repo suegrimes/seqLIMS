@@ -1,0 +1,25 @@
+<span class="form_title">H&E Slide:</span>
+  <table class="form">
+	<tr>
+	  <th>HE barcode</th><td><%=f.object.he_barcode_key %></td>
+	  <th>HE date</th><td><%=f.calendar_date_select(:he_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15) %></td>  
+	  <th>Pathologist</th><td><%=f.text_field :pathologist %></td>
+	  <th>Histopathology</th>
+	  <td><%=f.collection_select(:histopathology, @histopathology, :c_value, :c_value,
+                                {:include_blank => 'Select histopathology'}) %></td>
+	</tr>
+	<tr>
+	  <th>Tumor cell content</th><td><%=f.text_field :tumor_cell_content, :size => 10 %></td>  
+	  <th>Inflammation</th>
+	  <td><%=f.collection_select(:inflammation_type, @inflam_type, :c_value, :c_value,
+                                {:include_blank => 'Select inflamm type'}) %></td>
+	  <th>Infiltration</th>
+	  <td><%=f.collection_select(:inflammation_infiltration, @inflam_infiltr, :c_value, :c_value,
+                                {:include_blank => 'Select infiltration'}) %></td>
+	</tr>
+	<tr>
+	  <th>Comments</th>
+	  <td colspan=5><%=f.text_area :comments, :cols => 80, :rows => 2 %></td>
+	</tr>
+  </table>
+

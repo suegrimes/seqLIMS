@@ -1,0 +1,32 @@
+<h3>Prepare Flow Cell - Sequencing Library parameters </h3>
+
+<% form_tag :action=> 'new'  do %>
+
+<table class="form">
+  <tr>
+    <th>Owner(s):</th>
+    <td><%= select(:seq_lib, :owner, @owners,
+                  {:include_blank => '(All)'}, {:size => 3, :multiple => :multiple}) %> </td> 
+  </tr>  
+  <tr>
+    <th>Exclude used libraries?</th>
+    <td><%= check_box_tag(:excl_used, 'Y', true)%></td>
+  </tr> 
+  <tr>
+  <tr><td>&nbsp;</td></tr>
+  <tr>
+  	<th>Prepared from:</th>
+	<td><%=calendar_date_select_tag(:from_date, @from_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%></td>
+	<td>&nbsp;&nbsp;</td>
+  	<th>To:</th>
+	<td><%=calendar_date_select_tag(:to_date, @to_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%></td>
+  </tr>	
+</table>
+
+<br />
+<br />
+
+<p><%= submit_tag "Submit" %></p>
+<%end%>
+
+
