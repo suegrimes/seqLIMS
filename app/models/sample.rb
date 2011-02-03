@@ -53,7 +53,7 @@ class Sample < ActiveRecord::Base
   def before_create
     self.amount_rem = self.amount_initial
   end
-  
+ 
   def barcode_sort
     (source_barcode_key.blank? ? barcode_key : source_barcode_key )
   end
@@ -67,8 +67,8 @@ class Sample < ActiveRecord::Base
   end
   
   def sample_category
-    type_of_sample = (clinical_sample == 'yes'? self.sample_characteristic.sample_type : 'Dissection')
-    return [type_of_sample, self.sample_characteristic.sample_tissue].join('/')
+    type_of_sample = (clinical_sample == 'yes'? sample_type : 'Dissection')
+    return [type_of_sample, sample_tissue].join('/')
   end
   
   def container_type

@@ -12,8 +12,8 @@
 	  <td><%=h sample_characteristic.clinic_or_location%></td>
 	  <td><%=h sample_characteristic.consent_nr %>
 	      <% if sample_characteristic.consent_protocol %>/<%=h sample_characteristic.consent_protocol.consent_abbrev%><% end %></td>
-	  <td><%=h sample_characteristic.sample_tissue %></td>
-	  <td><%=h sample_characteristic.sample_type%></td>
+	  <td><%=h sample.sample_tissue %></td>
+	  <td><%=h sample.sample_type%></td>
 	</tr>
 	<tr>
 	  <th>Comments:</th>

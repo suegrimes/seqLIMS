@@ -15,6 +15,7 @@
 <% end %>
 
 <td><%=h sample.sample_date %></td>
+<td><%=h sample.sample_category %></td>
 <td><%=h sample.tumor_normal %></td>
 <td><%=h sample.container_type %></td>
 <td><%=h sample.sample_amt %></td>
@@ -22,6 +23,12 @@
 <td><% if sample.storage_location %><%=h sample.storage_location.location_string %><% end %></td>
 <td><%=h sample.storage_shelf %></td>
 <td><%=h sample.storage_boxbin %></td>
-<td><%=h sample.comments %></td>
+
+<% if !sample.comments.nil? %>
+</tr><tr>
+  <td></td>
+  <th>Comments:</th>
+  <td colspan=5><%=h sample.comments %></td>
+<% end %>
 
 <% if row_tags == 'yes' %></tr><% end %>

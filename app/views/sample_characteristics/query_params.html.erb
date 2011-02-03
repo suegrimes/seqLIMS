@@ -36,9 +36,9 @@
   	<td><%= select_tag(:gender, options_for_select(%w{All M F})) %></td>
 	<td><%= collection_select(:sample_characteristic, :race, @races, :c_value, :c_value,
                              {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td> 
-  	<td><%= collection_select(:sample_characteristic, :sample_tissue, @source_tissue, :c_value, :c_value,
+  	<td><%= collection_select(:sample, :sample_tissue, @source_tissue, :c_value, :c_value,
                    {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td> 
-    <td><%= collection_select(:sample_characteristic, :sample_type, @sample_type, :c_value, :c_value,
+    <td><%= collection_select(:sample, :sample_type, @sample_type, :c_value, :c_value,
                    {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td>    
   </tr>
 </table>     

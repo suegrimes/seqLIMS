@@ -12,22 +12,8 @@
   <td colspan=3><%=f.collection_select(:consent_protocol_id, @consent_protocols, :id, :name_ver,
                                       {:include_blank => 'Select protocol'}) %></td>
 </tr>  
-</table>
-
-<span class="form_title">Sample Characteristics:</span>
-<table class="form">
-<tr>
-  <th>Sample Site - L/R</th>
-  <td><%=f.collection_select(:sample_tissue, @source_tissue, :c_value, :c_value)%>
-      <%=f.select(:left_right, %w[NA L R]) %></td>
-  <th>Sample Type</th>
-  <td><%=f.collection_select(:sample_type, @sample_type, :c_value, :c_value)%></td>	
-  <th>Preservation</th>
-  <td><%=f.collection_select(:tissue_preservation, @preservation, :c_value, :c_value,
-                            {:include_blank => true})%></td>
-</tr>
 <tr>
   <th>Comments</th>  
-  <td colspan=5><%=f.text_field :comments, :size => 100 %></td>
+  <td colspan=3><%=f.text_field :comments, :size => 100 %></td>
 </tr>
 </table>
