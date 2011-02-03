@@ -292,14 +292,17 @@ td {
 	font-variant: small-caps;
 }
 
+/* changed - JP */
 .border,.form,.list, .info {
 	border: 1px solid #b0aa91;
-	border-collapse: separate;
+	border-collapse: collapse;
 }
 
+/* changed - JP */
 .border th, .list th {
 	font-size: .9em;
-	background-color: #f1f2e3;	
+	background-color: #f1f2e3;
+	border-bottom: 1px solid #000;
 }
 
 .form th, .info th {
@@ -315,9 +318,15 @@ td {
 	border: 1px dotted #dedacb; /* #b0aa91; */
 }
 
-.list td,.form td, .info td {
+/* changed - JP */
+.list td, .form td {
 	font-size: .9em;
-	border: none;
+	border-bottom: 1px solid #B0AA91;
+}
+
+/* changed - JP */
+.info td {
+	font-size: .9em;
 }
 
 .form {
