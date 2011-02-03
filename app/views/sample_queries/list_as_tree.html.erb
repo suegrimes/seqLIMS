@@ -9,7 +9,7 @@
   <table class="list">	
     <% @samples_by_patient.sort.each do | patient_id, samples| %>
     <tr>
-    <th colspan=3><b>Patient: </b><%= link_to patient_id[0], patient_path(patient_id[0]) %>
+    <th colspan=11><b>Patient: </b><%= link_to patient_id[0], patient_path(patient_id[0]) %>
     <% if can? :read, Patient %>
       / <%=h patient_id[1]%>
     <% end %>
@@ -51,19 +51,20 @@
             <td class="ltgrey"> Delete </td>
           <% end %>
         <% end %>
-		<td><%= hidden_field_tag("export_id[]", sample.id)  %></td>
+		<%= hidden_field_tag("export_id[]", sample.id)  %>
 	  </tr>
 	  <% if sample.sample_characteristic.pathology && !sample.sample_characteristic.pathology.comments.blank?%>
 	  <tr>
-	  	<td colspan=4 align='right'>Pathology Comments: </td>
-		<td colspan=7><%=h sample.sample_characteristic.pathology.comments %></td>
+	  	<td colspan="12" align="center">
+	  		<div style="width:40%; border: 1px solid #c0c0c0; text-align:left;">Pathology Comments: <br /><%=h sample.sample_characteristic.pathology.comments %></div>
+	    </td>
 	  </tr>
 	  <% end %>
-	  <tr><td colspan=11><hr></td></tr>
+	  <!--<tr><td colspan=11><hr></td></tr>-->
 
 	  <% for processed_sample in sample.processed_samples %>
 	    <tr>
-          <td>&nbsp;&nbsp;<%=link_to processed_sample.barcode_key, processed_sample_path(processed_sample)%></td>
+          <td><%=link_to processed_sample.barcode_key, processed_sample_path(processed_sample)%></td>
 		  <td><%=h format_date(processed_sample.created_at) %></td>
           <td><%=h processed_sample.extraction_type %></td>
 		  <td><%=h sample.tumor_normal %></td>
@@ -74,14 +75,15 @@
           <td><%=h processed_sample.storage_shelf %></td>
           <td><%=h processed_sample.storage_boxbin %></td>
 		</tr>
-		<tr><td colspan=11><hr></td></tr>
+		<!--<tr><td colspan=11><hr></td></tr>-->
 	  <% end %>	  
 	<% end %>
 	
-	<tr><td>&nbsp;</td></tr>
+	<!--<tr><td>&nbsp;</td></tr>-->
     <% end %> <!-- end of each patient loop -->
 	</table>
   <% end %> <!-- end of form -->
  
   <% end %> <!-- end of 'if' patient -->
+
 
