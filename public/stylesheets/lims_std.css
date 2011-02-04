@@ -302,7 +302,7 @@ td {
 .border th, .list th {
 	font-size: .9em;
 	background-color: #f1f2e3;
-	border-bottom: 1px solid #000;
+	border-bottom: 1px solid #999;
 }
 
 .form th, .info th {
@@ -322,6 +322,10 @@ td {
 .list td, .form td {
 	font-size: .9em;
 	border-bottom: 1px solid #B0AA91;
+}
+
+.list .no_border_bottom  {
+    border-bottom: 0 none;	
 }
 
 /* changed - JP */
