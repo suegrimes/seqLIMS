@@ -10,15 +10,28 @@
 
 <body id='body'>
 	
+<div id="container" style="width: 90%;">
+	
 <div id="header">
-	<img src="/images/sutech_reflect_DB.gif" alt="Stanford Genome Technology" width="99" height="80" title="SGTC Sequencing Database" />
-	
-	<h1>SGTC LIMS <% if RAILS_ENV != 'production'%> - (<%= RAILS_ENV%>)<%end%></h1>
-	
-	<p><% if APP_VERSION %>Version: <%= APP_VERSION %><% end %></p>
+	<img class="logo" src="/images/sutech_reflect_DB.gif" alt="Stanford Genome Technology" width="99" height="80" title="SGTC Sequencing Database" />	
+	<div class="sitename">SGTC LIMS <% if RAILS_ENV != 'production'%> - (<%= RAILS_ENV%>)<%end%></div>	
+	<div class="version"><% if APP_VERSION %>Version: <%= APP_VERSION %><% end %></div>
+
+<div style="clear:both;"></div>
+
+<div id="nav">
+    <h4 style="display:none;">Site Navigation:</h4>
+	<ul id="navList">
+	  <li class="x_firstChild" id="tab01"><a href="#">LIMS Home</a></li>
+	  <li id="tab02"><a href="#">Clinical</a> </li>
+	  <li id="tab03"><a href="#">Lab Techs/Researchers</a></li>
+      <li id="tab04"><a href="#">Admin</a></li>
+	</ul>
 </div>
 
-<div id="container">
+</div><!-- /header -->
+
+<div id="main">
 	<div id="leftsidebar">
     <ul class="user_info">
 	  <% if logged_in? %> <li><i> Logged in as: <%= current_user.login %> </i></li> <% end %>
@@ -160,12 +173,13 @@
 	<%= yield %>
 	</div>
 	
-</div> 
+</div> <!-- /main -->
 
 <div id="footer">
-	<p class="lft"><a href="http://med.stanford.edu/sgtc/">Stanford Genome Technology Center</a> | <a href="mailto:insert_contact_name@stanford.edu">Contact</a> |</p>
-
+	<div class="lft"><a href="http://med.stanford.edu/sgtc/">Stanford Genome Technology Center</a> | <a href="mailto:insert_contact_name@stanford.edu">Contact</a></div>
 </div>
+
+</div> <!-- /container -->
 
 </body>
 </html>
