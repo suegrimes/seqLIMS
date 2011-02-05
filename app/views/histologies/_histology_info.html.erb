@@ -3,15 +3,15 @@
   <table class="info">
 	<tr>
 	  <th>HE barcode: </th>
-	  <td>
-	  	<% if edit_he == 'yes' && (can? :edit, histology) %>
-	  	  <%=link_to histology.he_barcode_key, edit_histology_path(histology)%>
-		<% else %> 
-		  <%=h histology.he_barcode_key %>
-		<% end %>
-	  </td>
+	  <td><%=h histology.he_barcode_key %></td>
 	  <th>HE date: </th><td><%=h histology.he_date %></td>
-	  <th>Pathologist</th><td><%=h histology.pathologist %></td>
+	  <th>Pathologist</th><td colspan=3><%=h histology.pathologist %></td>
+	  <% if can? :edit, histology %>
+	  <td><%=link_to 'Edit', edit_histology_path(histology)%></td>
+	  <% end %>
+	  <% if can? :delete, histology %>
+	  <td><%=link_to 'Delete', histology, :confirm => 'Are you sure?', :method => :delete %></td>
+	  <% end %>
 	</tr>
 	<tr>
 	  <th>Histopathology</th><td><%=h histology.histopathology %></td>

@@ -23,12 +23,12 @@ class LimsMailer < ActionMailer::Base
   TO_EMAIL_SAMPLE_PROD   = ['genomics_ji@stanford.edu']
   FROM_EMAIL             = 'sgtc_lims@stanford.edu'
   
-  def new_sample(sample_characteristic, mrn, upd_by, emails=nil)
+  def new_sample(sample, mrn, upd_by, emails=nil)
     subject    'Secure: LIMSMailer - New clinical sample'
     recipients email_list(MAIL_FLAG, emails)
     from       FROM_EMAIL
     sent_on    Time.now
-    body       :sample_characteristic => sample_characteristic,
+    body       :sample => sample,
                :mrn => mrn,
                :upd_by => upd_by
   end

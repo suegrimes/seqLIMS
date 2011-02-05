@@ -324,9 +324,8 @@ td {
 	background-color: #f1f2e3;
 }
 
-.linkbutton td {
+.linkborder td {
 	border: 1px solid #dedacb;
-	color: 0000FF;
 }
 
 /*.form th {

@@ -42,8 +42,6 @@
 	  <% else %>
 	  <th>Amount-Initial</th>
 	  <td><%=s.text_field :amount_initial, :size => 8 %></td>
-	  <th>Amount-Rem</th>
-	  <td><%=s.text_field :amount_rem, :size => 8 %></td>
 	  <% end %>
     </tr>
 	
@@ -54,6 +52,10 @@
 	  <td><%=s.text_field :storage_shelf, :size => 10 %></td>
       <th>Rack#/Bin</th>
 	  <td><%=s.text_field :storage_boxbin, :size => 10 %></td>
+	  <% if new_or_existing != 'new' %>
+	  <th>Amount-Rem</th>
+	  <td><%=s.text_field :amount_rem, :size => 8 %></td>
+	  <% end %>
     </tr>
     <tr>
       <th text-align="right">Comments: </th>

@@ -1,11 +1,11 @@
 <h3>Details for Sample: <%=h @sample.barcode_key %></h3>
 
-<%= render :partial => 'sample_characteristics/clinical_summary', 
+<%= render :partial => 'sample_characteristics/patient_info', 
                        :locals => {:sample_characteristic => @sample.sample_characteristic,
                                    :patient => @sample.sample_characteristic.patient}%>
-
-<%= render :partial => 'sample_summary', :locals => {:sample => @sample,
-                                                     :sample_characteristic => @sample.sample_characteristic} %>
+								   
+<%= render :partial => 'sample_characteristics/clinical_info', 
+                       :locals => {:sample_characteristic => @sample.sample_characteristic}%>
 
 <% if @sample.sample_characteristic.pathology %>
   <%= render :partial => 'pathologies/pathology_info', :locals => {:pathology => @sample.sample_characteristic.pathology} %>
@@ -17,6 +17,11 @@
   <%= render :partial => 'histologies/histology_info', :locals => {:histology => @sample.source_sample.histology} %>
 <% end %>
 
-<% if can? :edit, @sample %>
-  <%= button_to 'Edit Sample', edit_sample_path(@sample, :new_sample => @sample_is_new), :method => :get %>
+<% if !@sample.source_sample.nil? %>
+  <%= render :partial => 'sample_info', :locals => {:source => 'Source',
+                                                    :sample => @sample.source_sample} %>
+  <%= render :partial => 'sample_info1', :locals => {:source => 'Dissected',
+                                                     :sample => @sample} %>
+<% else %>
+  <%= render :partial => 'sample_info', :locals => {:sample => @sample} %>
 <% end %>

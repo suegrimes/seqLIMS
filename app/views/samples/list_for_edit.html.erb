@@ -22,9 +22,7 @@
     <tr>
       <%= render :partial => 'sample_row', :locals => {:sample => sample, 
                                                        :sample_characteristic => sample.sample_characteristic, 
-                                                       :export_form => 'yes',
-                                                       :row_tags => 'no'} %>
-	  <td><%=link_to 'Edit', edit_sample_path(sample) %></td>
+                                                       :export_form => 'yes'} %>
     </tr>
     <% end %>
 	

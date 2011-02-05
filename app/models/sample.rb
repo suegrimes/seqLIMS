@@ -44,7 +44,9 @@ class Sample < ActiveRecord::Base
   # Start year will be 2001, end year will be current year
   START_YEAR = 2000
   END_YEAR   = Time.now.strftime('%Y').to_i
-  
+  FLDS_FOR_COPY = (%w{sample_type sample_tissue left_right tissue_preservation sample_container vial_type storage_location_id})
+  SOURCE_FLDS_FOR_COPY = (%w{sample_characteristic_id patient_id tumor_normal sample_type sample_tissue left_right tissue_preservation})
+ 
   def before_save
     self.patient_id  = self.sample_characteristic.patient_id
     self.sample_date = self.sample_characteristic.collection_date if self.source_sample_id.nil?
@@ -89,6 +91,12 @@ class Sample < ActiveRecord::Base
     else
       return source_barcode + 'A' # No existing dissections, so add 'A' suffix
     end  
+  end
+  
+  def self.find_newly_added_sample(sample_characteristic_id, barcode_key)
+    self.find(:first, :include => [:sample_characteristic, :patient, :storage_location],
+              :conditions => ["samples.sample_characteristic_id = ? AND samples.barcode_key = ?",
+                               sample_characteristic_id, barcode_key])
   end
   
   def self.find_and_group_by_source(condition_array)

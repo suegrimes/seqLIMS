@@ -1,26 +1,32 @@
 <h3>Samples for Patient: <%=h @sample_characteristic.patient_id %>, Collection Date: <%=h @sample_characteristic.collection_date %></h3>
 
-<%= render :partial => 'sample_characteristics/clinical_summary', 
-                       :locals => {:sample_characteristic => @sample_characteristic,
-                                   :patient => @sample_characteristic.patient}%>
+<%= render :partial => 'sample_characteristics/patient_info', 
+                       :locals => {:patient => @sample_characteristic.patient,
+                                   :sample_characteristic => @sample_characteristic}%>
+
+<%= render :partial => 'sample_characteristics/clinical_info', 
+                       :locals => {:sample_characteristic => @sample_characteristic}%>
 
 <span class='table_title'>Physical Samples:</span>
-<table class="border">
+<table class="list">
   <%= render :partial => 'samples/sample_hdr' %>
   
   <% for sample in @sample_characteristic.samples %>
     <%= render :partial => 'samples/sample_row', :locals => {:sample => sample} %>
-  <% end %>
-  
+  <% end %> 
 </table>
 
-<% if can? :edit, @sample_characteristic %>
-  <%= link_to 'Edit Sample Info', edit_sample_characteristic_path(@sample_characteristic) %>
+<% if @added_sample %>
+  <div id="more_to_add">
+    <p><%= link_to_function "Add another sample for this patient/collection date", toggle_div(:more_to_add, :add_more) %></p>
+  </div>
+	
+  <div id="add_more", style="display:none">	
+  	<% form_for @sample_characteristic, :url => {:action => 'update'} do |f| %>
+	  <%=f.hidden_field(:id)%>
+	  <%= render :partial => 'samples_form', :locals => {:sample => @sample_characteristic.samples.build(@sample_params),
+                                                         :removable => 'no'} %>
+	<%= submit_tag "Submit" %>
+	<% end %>
+  </div>
 <% end %>
-<% if @addnew_link == 'yes' %>
-  <br/><br/>
-   Add another sample for <%= link_to 'this patient',  :action => :new_sample, :patient_id => @sample_characteristic.patient_id %> 
-                     or <%= link_to 'another patient', :action => :new %>
-<% end %>
-
-
