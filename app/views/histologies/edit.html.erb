@@ -9,5 +9,5 @@
 
 <% form_for @histology, :action => :update do |f| %>
   <%= render :partial => 'histology_form', :locals => {:f => f} %>
-  <%=submit_tag 'Update' -%><%=button_to 'Delete', @histology, :confirm => 'Are you sure?', :method => :delete -%>
+  <%=submit_tag 'Update' %>
 <% end %>

@@ -44,7 +44,7 @@ class Sample < ActiveRecord::Base
   # Start year will be 2001, end year will be current year
   START_YEAR = 2000
   END_YEAR   = Time.now.strftime('%Y').to_i
-  FLDS_FOR_COPY = (%w{sample_type sample_tissue left_right tissue_preservation sample_container vial_type storage_location_id})
+  FLDS_FOR_COPY = (%w{sample_type sample_tissue left_right tissue_preservation sample_container vial_type amount_uom storage_location_id})
   SOURCE_FLDS_FOR_COPY = (%w{sample_characteristic_id patient_id tumor_normal sample_type sample_tissue left_right tissue_preservation})
  
   def before_save

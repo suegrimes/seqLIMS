@@ -324,8 +324,8 @@ td {
 	background-color: #f1f2e3;
 }
 
-.linkborder td {
-	border: 1px solid #dedacb;
+#linkborder {
+	border: 2px solid #dedacb;
 }
 
 /*.form th {

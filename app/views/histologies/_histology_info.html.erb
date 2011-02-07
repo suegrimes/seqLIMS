@@ -7,10 +7,10 @@
 	  <th>HE date: </th><td><%=h histology.he_date %></td>
 	  <th>Pathologist</th><td colspan=3><%=h histology.pathologist %></td>
 	  <% if can? :edit, histology %>
-	  <td><%=link_to 'Edit', edit_histology_path(histology)%></td>
+	  <td id='linkborder'><%=link_to 'Edit', edit_histology_path(histology)%></td>
 	  <% end %>
 	  <% if can? :delete, histology %>
-	  <td><%=link_to 'Delete', histology, :confirm => 'Are you sure?', :method => :delete %></td>
+	  <td id='linkborder'><%=link_to 'Delete', histology, :confirm => 'Are you sure?', :method => :delete %></td>
 	  <% end %>
 	</tr>
 	<tr>
