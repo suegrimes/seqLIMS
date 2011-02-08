@@ -9,7 +9,7 @@
 	  <td><%=h sample_characteristic.consent_nr %>
 	      <% if sample_characteristic.consent_protocol %>/<%=h sample_characteristic.consent_protocol.consent_abbrev%><% end %></td>
 	<% if can? :edit, sample_characteristic %>
-	  <td id='linkborder'><%=link_to 'Edit', edit_sample_characteristic_path(sample_characteristic) %></td>
+	  <td class="linkborder"><%=link_to 'Edit', edit_sample_characteristic_path(sample_characteristic) %></td>
 	<% end %>
 	</tr>
 </table>

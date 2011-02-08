@@ -14,7 +14,7 @@
 	  <th>PHI Notes</th><td><%=h patient.hipaa_data %></td>
 	<% end %>
 	<% if can? :edit, patient %>
-	  <td id='linkborder'><%= link_to 'Edit', edit_patient_path(patient) %></td>
+	  <td class="linkborder"><%= link_to 'Edit', edit_patient_path(patient) %></td>
 	<% end %>
   </tr>
 </table>
