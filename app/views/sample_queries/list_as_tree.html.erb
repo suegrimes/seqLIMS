@@ -33,7 +33,7 @@
     <% for sample in samples %>
 	  <% if sample.sample_characteristic.pathology && !sample.sample_characteristic.pathology.comments.blank?%>
 	  <tr>
-        <td class="no_border_bottom">debug: sample: has comment<%= link_to sample.barcode_key, sample_path(sample)%></td>
+        <td class="no_border_bottom"><%= link_to sample.barcode_key, sample_path(sample)%></td>
 		<td class="no_border_bottom"><%=h format_date(sample.created_at) %></td>
 		<td class="no_border_bottom"><%=h sample.sample_category %></td>
 		<td class="no_border_bottom"><%=h sample.tumor_normal %></td>
@@ -57,12 +57,12 @@
 	  </tr>	  
 	  <tr>
 	  	<td colspan="12" style="border-top:0; test-align:center;">
-	  		<div style="padding: 0 10px; margin-bottom: 4px; width:45%; border: 1px solid #999; text-align:left;"><strong>Pathology Comments:</strong>&nbsp;<%=h sample.sample_characteristic.pathology.comments %></div>
+	  		<div style="padding: 0 10px; margin-bottom: 4px; width:45%; border: 1px solid #c0c0c0; text-align:left;"><strong>Pathology Comments:</strong>&nbsp;<%=h sample.sample_characteristic.pathology.comments %></div>
 	    </td>
 	  </tr>
 	  <% else %>
 	  <tr>
-        <td>debug: sample: no comment<%= link_to sample.barcode_key, sample_path(sample)%></td>
+        <td><%= link_to sample.barcode_key, sample_path(sample)%></td>
 		<td><%=h format_date(sample.created_at) %></td>
 		<td><%=h sample.sample_category %></td>
 		<td><%=h sample.tumor_normal %></td>
