@@ -88,7 +88,7 @@
 
 	  <% for processed_sample in sample.processed_samples %>
 	    <tr>
-          <td>debug: processed sample: no comment<%=link_to processed_sample.barcode_key, processed_sample_path(processed_sample)%></td>
+          <td><%=link_to processed_sample.barcode_key, processed_sample_path(processed_sample)%></td>
 		  <td><%=h format_date(processed_sample.created_at) %></td>
           <td><%=h processed_sample.extraction_type %></td>
 		  <td><%=h sample.tumor_normal %></td>
