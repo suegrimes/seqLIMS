@@ -183,6 +183,7 @@ class SampleCharacteristicsController < ApplicationController
   def add_new_sample
     @sample_characteristic = SampleCharacteristic.find(params[:id])
     @patient_id = @sample_characteristic.patient_id
+
     if params[:from_sample_id]
       sample = @sample_characteristic.samples.build(build_params_from_obj(Sample.find(params[:from_sample_id]), Sample::FLDS_FOR_COPY))
     else
