@@ -7,7 +7,7 @@
 #  bldg_location :string(12)
 #  machine_type  :string(20)
 #  machine_desc  :string(50)
-#  last_seq_num  :integer(2)      not null
+#  last_seq_num  :integer(2)
 #  notes         :string(255)
 #  created_at    :datetime
 #  updated_at    :timestamp

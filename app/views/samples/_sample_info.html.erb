@@ -15,7 +15,7 @@
   <th>Collected/Created on: </th><td><%=h sample.sample_date %></td>
   <th>Sample Type: </th><td><%=h sample.sample_tissue %>/<%=h sample.sample_type%></td>
   <% if link_to_edit == 'yes' && (can? :edit, sample) %>
-    <td id='linkborder'><%= link_to 'Edit Sample', edit_sample_path(sample) %></td>
+    <td class='linkborder'><%= link_to 'Edit Sample', edit_sample_path(sample) %></td>
   <% end %>
 </tr>
 <tr>

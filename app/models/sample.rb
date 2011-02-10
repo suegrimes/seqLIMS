@@ -10,6 +10,10 @@
 #  barcode_key              :string(20)      default(""), not null
 #  old_barcode              :string(20)
 #  sample_date              :date
+#  sample_type              :string(50)
+#  sample_tissue            :string(50)
+#  left_right               :string(1)
+#  tissue_preservation      :string(25)
 #  tumor_normal             :string(25)
 #  sample_container         :string(20)
 #  vial_type                :string(30)
