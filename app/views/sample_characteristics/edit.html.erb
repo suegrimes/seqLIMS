@@ -11,12 +11,34 @@
   <span class='table_title'>Physical Sample(s):</span>
   <table class="list">
     <%= render :partial => 'samples/sample_hdr' %>
+	<% blank_sample_in_error = false %>
 	
     <% for sample in @sample_characteristic.samples %>
-       <%= render :partial => 'samples/sample_row', :locals => {:sample => sample} %>
-    <% end %>
-	
+	   <% if !sample.id.nil?%>
+         <%= render :partial => 'samples/sample_row', :locals => {:sample => sample} %>
+	   <% else %>
+	     <% blank_sample_in_error = true %>
+	   <% end %>
+    <% end %>	
   </table>
+  
+  <% if blank_sample_in_error == true %>
+    <% for sample in @sample_characteristic.samples %>
+	  <% if sample.id.nil? %>
+	    <% render :partial => 'samples_form', :locals => {:sample => sample} %>
+	  <% end %>
+	<% end %>
+  
+  <% else %>
+  <div id="more_to_add">
+    <p><%= link_to_function "Add another sample for this patient/collection date", toggle_div(:more_to_add, :add_more) %></p>
+  </div>
+	
+  <div id="add_more", style="display:none">	
+	<%= render :partial => 'samples_form', :locals => {:sample => @sample_characteristic.samples.build(@sample_params),
+                                                       :removable => 'no'} %>
+  </div>
+  <% end %>
   
   <%= f.submit "Update" %>
 <% end %>

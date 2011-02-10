@@ -12,7 +12,9 @@
   <%= render :partial => 'samples/sample_hdr' %>
   
   <% for sample in @sample_characteristic.samples %>
-    <%= render :partial => 'samples/sample_row', :locals => {:sample => sample} %>
+    <% if !sample.id.nil? %>
+      <%= render :partial => 'samples/sample_row', :locals => {:sample => sample} %>
+	<% end %>
   <% end %> 
 </table>
 

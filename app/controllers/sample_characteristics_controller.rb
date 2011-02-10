@@ -80,7 +80,7 @@ class SampleCharacteristicsController < ApplicationController
       if LimsMailer::DELIVER_FLAG  == 'Debug'
         render(:text => "<pre>" + email.encoded + "</pre>")
       else
-        redirect_to :action => 'show', :id => @sample_characteristic.id, :added_sample_id => @sample_characteristic.samples[-1].id
+        redirect_to :action => 'edit', :id => @sample_characteristic.id, :added_sample_id => @sample_characteristic.samples[-1].id
       end
       
     # Error in saving Sample Characteristic
@@ -123,8 +123,13 @@ class SampleCharacteristicsController < ApplicationController
   
   # GET /sample_characteristics/1/edit
   def edit
+    params[:added_sample_id] ||= 0
     @sample_characteristic = SampleCharacteristic.find(params[:id], :include => :samples,
                                                        :conditions => "samples.source_sample_id IS NULL")
+    
+    if params[:added_sample_id].to_i > 0
+      @sample_params = build_params_from_obj(Sample.find(params[:added_sample_id]), Sample::FLDS_FOR_COPY)
+    end
   end
   
   # PUT /sample_characteristics/1
