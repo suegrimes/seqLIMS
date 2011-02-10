@@ -35,7 +35,7 @@ ActionController::Routing::Routes.draw do |map|
   map.encrypt_patient 'encrypt_patient', :controller => 'patients', :action => 'loadtodb'
   
   # Routes for clinical samples/sample characteristics
-  map.resources :sample_characteristics
+  map.resources :sample_characteristics, :member => {:add_new_sample => :get}
   map.resources :pathologies
   
   map.add_pt_sample       'patient_sample',      :controller => 'sample_characteristics', :action => 'new_sample'

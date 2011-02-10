@@ -1,8 +1,9 @@
 class SampleCharacteristicsController < ApplicationController
   load_and_authorize_resource
+  protect_from_forgery :except => :add_new_sample
   
   before_filter :dropdowns, :only => [:new_sample, :edit]
-  before_filter :sample_dropdowns, :only => [:new_sample, :edit]
+  before_filter :sample_dropdowns, :only => [:new_sample, :edit, :add_new_sample]
   
   ## Start of actively used methods ##
   def new
@@ -80,7 +81,7 @@ class SampleCharacteristicsController < ApplicationController
       if LimsMailer::DELIVER_FLAG  == 'Debug'
         render(:text => "<pre>" + email.encoded + "</pre>")
       else
-        redirect_to :action => 'edit', :id => @sample_characteristic.id, :added_sample_id => @sample_characteristic.samples[-1].id
+        redirect_to :action => 'show', :id => @sample_characteristic.id, :added_sample_id => @sample_characteristic.samples[-1].id
       end
       
     # Error in saving Sample Characteristic
@@ -160,8 +161,9 @@ class SampleCharacteristicsController < ApplicationController
       flash[:error] = 'Error - Clinical sample/characteristics not updated'
       dropdowns
       sample_dropdowns
-      render :action => 'edit'
+      render :action => 'show'
     end
+    #render :action => 'debug'
   end
   
   # GET /patients/1
@@ -182,6 +184,19 @@ class SampleCharacteristicsController < ApplicationController
     @sample_characteristic.destroy  
     redirect_to(patient_url)
   end
+  
+  def add_new_sample
+    @sample_characteristic = SampleCharacteristic.find(params[:id])
+    @patient_id = @sample_characteristic.patient_id
+    render :update do |page|
+      #page.replace_html 'add_more', :partial => 'samples_form', :locals => {:sample => @sample_characteristic.samples.build(@sample_params)}
+      #page.replace_html 'add_more', "this is a test"
+      #page.replace.html 'add_more', :partial => 'samples_form', :locals => {:sample => Sample.new(:sample_characteristic_id => params[:id])}
+      #page.replace_html 'add_more', :partial => 'test', :locals => {:id => params[:id]}
+      page.replace_html 'add_more', :partial => 'samples_form', :locals => {:sample => @sample_characteristic.samples.build}
+    end
+  end
+
 
 ## Protected and private methods ##
 protected
@@ -216,7 +231,7 @@ private
         return (consent_protocol && !consent_protocol.email_confirm_to.blank? ? consent_protocol.email_confirm_to : nil)
     end
   end
-
+  
   def new_sample_entered(sample_characteristic_id, params)
     if params[:new_sample_attributes]
       barcode_key = params[:new_sample_attributes][0][:barcode_key]
