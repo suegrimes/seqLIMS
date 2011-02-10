@@ -9,7 +9,7 @@
   <table class="list">	
     <% @samples_by_patient.sort.each do | patient_id, samples| %>
     <tr>
-    <th colspan=3><b>Patient: </b><%= link_to patient_id[0], patient_path(patient_id[0]) %>
+    <th colspan=12><b>Patient: </b><%= link_to patient_id[0], patient_path(patient_id[0]) %>
     <% if can? :read, Patient %>
       / <%=h patient_id[1]%>
     <% end %>
@@ -28,8 +28,39 @@
 	  <th>Room/Freezer</th>
 	  <th>Shelf</th>
 	  <th>Box/Bin</th>
+	  <th>&nbsp;</th>
 	</tr>
     <% for sample in samples %>
+	  <% if sample.sample_characteristic.pathology && !sample.sample_characteristic.pathology.comments.blank?%>
+	  <tr>
+        <td class="no_border_bottom"><%= link_to sample.barcode_key, sample_path(sample)%></td>
+		<td class="no_border_bottom"><%=h format_date(sample.created_at) %></td>
+		<td class="no_border_bottom"><%=h sample.sample_category %></td>
+		<td class="no_border_bottom"><%=h sample.tumor_normal %></td>
+		<td class="no_border_bottom"><% if sample.sample_characteristic.pathology %><%=h sample.sample_characteristic.pathology.pathology_classification %><% end %></td>
+		<td class="no_border_bottom"><% if sample.histology %><%=h sample.histology.histopathology %>
+		    <% elsif sample.clinical_sample == 'no' && sample.source_sample.histology %><%=h sample.source_sample.histology.histopathology %>
+		    <% end %></td>
+		<td class="no_border_bottom"><% if sample.clinical_sample == 'no' %><%=h sample.sample_date %><% end %></td>
+		<td class="no_border_bottom"><%=h sample.sample_remaining %></td>
+		<td class="no_border_bottom"><% if sample.storage_location %><%=h sample.storage_location.location_string %><% end %></td>
+        <td class="no_border_bottom"><%=h sample.storage_shelf %></td>
+        <td class="no_border_bottom"><%=h sample.storage_boxbin %></td>
+		<% if can? :delete, sample %>
+          <% if !@source_sample_ids.include?(sample.id) && sample.processed_samples.size == 0 %>
+            <td class="no_border_bottom"><%= link_to 'Delete', sample, :confirm => 'Are you sure?', :method => :delete %></td>
+          <% else %>
+            <td class="ltgrey no_border_bottom"> Delete </td>
+          <% end %>
+        <% end %>
+		<%= hidden_field_tag("export_id[]", sample.id)  %>
+	  </tr>	  
+	  <tr>
+	  	<td colspan="12" style="border-top:0; test-align:center;">
+	  		<div style="padding: 0 10px; margin-bottom: 4px; width:45%; border: 1px solid #c0c0c0; text-align:left;"><strong>Pathology Comments:</strong>&nbsp;<%=h sample.sample_characteristic.pathology.comments %></div>
+	    </td>
+	  </tr>
+	  <% else %>
 	  <tr>
         <td><%= link_to sample.barcode_key, sample_path(sample)%></td>
 		<td><%=h format_date(sample.created_at) %></td>
@@ -51,19 +82,13 @@
             <td class="ltgrey"> Delete </td>
           <% end %>
         <% end %>
-		<td><%= hidden_field_tag("export_id[]", sample.id)  %></td>
+		<%= hidden_field_tag("export_id[]", sample.id)  %>
 	  </tr>
-	  <% if sample.sample_characteristic.pathology && !sample.sample_characteristic.pathology.comments.blank?%>
-	  <tr>
-	  	<td colspan=4 align='right'>Pathology Comments: </td>
-		<td colspan=7><%=h sample.sample_characteristic.pathology.comments %></td>
-	  </tr>
-	  <% end %>
-	  <tr><td colspan=11><hr></td></tr>
+	  <% end %><!-- /if comments -->
 
 	  <% for processed_sample in sample.processed_samples %>
 	    <tr>
-          <td>&nbsp;&nbsp;<%=link_to processed_sample.barcode_key, processed_sample_path(processed_sample)%></td>
+          <td>debug: processed sample: no comment<%=link_to processed_sample.barcode_key, processed_sample_path(processed_sample)%></td>
 		  <td><%=h format_date(processed_sample.created_at) %></td>
           <td><%=h processed_sample.extraction_type %></td>
 		  <td><%=h sample.tumor_normal %></td>
@@ -73,15 +98,13 @@
 	      <td><% if processed_sample.storage_location %><%=h processed_sample.storage_location.location_string %><% end %></td>
           <td><%=h processed_sample.storage_shelf %></td>
           <td><%=h processed_sample.storage_boxbin %></td>
+		  <td>&nbsp;</td>
 		</tr>
-		<tr><td colspan=11><hr></td></tr>
 	  <% end %>	  
 	<% end %>
 	
-	<tr><td>&nbsp;</td></tr>
     <% end %> <!-- end of each patient loop -->
 	</table>
   <% end %> <!-- end of form -->
  
   <% end %> <!-- end of 'if' patient -->
-
