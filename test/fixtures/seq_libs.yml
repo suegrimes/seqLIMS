@@ -15,6 +15,7 @@
 #  enzyme_code         :string(50)
 #  alignment_ref_id    :integer(4)
 #  alignment_ref       :string(50)
+#  trim_bases          :integer(2)
 #  sample_conc         :decimal(15, 9)
 #  sample_conc_uom     :string(10)
 #  lib_conc_requested  :decimal(15, 9)

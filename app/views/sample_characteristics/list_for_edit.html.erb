@@ -1,14 +1,12 @@
-<h3>Listing Sample Collection/Characteristics for Editing</h3>
+<h3>Listing Sample Acquisition Events for Editing</h3>
 
-<%=h @nr_samples %> collection/characteristics, (for <%=h @clin_samples_by_patient.size %> patients) <br/><br/>
+<%=h @nr_samples %> acquisition events, (for <%=h @clin_samples_by_patient.size %> patients) <br/><br/>
 
 <table class="border">
 <tr>
   <th>Collect Date</th>
   <th>Clinic</th>
   <th>Protocol</th>
-  <th>Sample Site</th>
-  <th>Sample Type</th>
   <th># Samples</th>
 </tr> 
   
@@ -29,8 +27,6 @@
 		<td> <%=h sample_characteristic.collection_date %></td>
 		<td> <%=h sample_characteristic.clinic_or_location %></td>
         <td> <% if sample_characteristic.consent_protocol %><%=h sample_characteristic.consent_protocol.name_ver %></td><% end %>
-        <td> <%=h sample_characteristic.sample_tissue %></td>
-        <td> <%=h sample_characteristic.sample_type %></td>
         <td> <%=h source_samples.size %></td>
         <% if can? :edit, SampleCharacteristic %>
           <td><%= link_to 'Edit', edit_sample_characteristic_path(sample_characteristic) %>

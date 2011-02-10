@@ -1,8 +1,11 @@
 <h3>Editing Sample: <%= @sample.barcode_key %></h3>
 
-<%= render :partial => 'sample_characteristics/clinical_summary', 
+<%= render :partial => 'sample_characteristics/patient_info', 
                         :locals => {:sample_characteristic => @sample.sample_characteristic,
                                     :patient => @sample.patient }%>
+									
+<%= render :partial => 'sample_characteristics/clinical_info', 
+                        :locals => {:sample_characteristic => @sample.sample_characteristic}%>
 
 <% if @sample.sample_characteristic.pathology %>
   <%= render :partial => 'pathologies/pathology_info', :locals => {:pathology => @sample.sample_characteristic.pathology} %>

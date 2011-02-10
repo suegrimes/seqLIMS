@@ -14,14 +14,13 @@ class DissectedSamplesController < ApplicationController
     
     if !@source_sample.nil?
       prepare_for_render_new(@source_sample.id)
-      @sample = Sample.new(:sample_characteristic_id => @source_sample.sample_characteristic_id,
-                           :patient_id         => @source_sample.patient_id,
-                           :barcode_key        => @sample_barcode,
-                           :source_sample_id   => @source_sample.id,
+      sample_params = build_params_from_obj(@source_sample, Sample::SOURCE_FLDS_FOR_COPY)
+      sample_params.merge!(:barcode_key      => @sample_barcode,
+                           :source_sample_id => @source_sample.id,
                            :source_barcode_key => @source_sample.barcode_key,
-                           :tumor_normal       => @source_sample.tumor_normal,
-                           :amount_uom         => 'Weight (mg)',
-                           :sample_date        => Date.today)  
+                           :amount_uom       => 'Weight (mg)',
+                           :sample_date      => Date.today)
+      @sample = Sample.new(sample_params)  
     else
       flash[:error] = 'Sample barcode not found, please try again'
       redirect_to :controller => :samples,  :action => 'new_params'

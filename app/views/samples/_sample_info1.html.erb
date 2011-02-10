@@ -1,8 +1,8 @@
 <% source ||= '' %>
 <% click_to_link ||= 'none' %>
-<% link_to_edit ||= 'no' %>
+<% link_to_edit ||= 'yes' %>
 
-<span class="table_title"><%=source %> Sample Characteristics:</span>
+<span class="table_title"><%=source %> Sample Details:</span>
 <table class="info">
 <tr>
   <th>Barcode: </th>
@@ -13,21 +13,14 @@
 	<% end %>
   </td>
   <th>Collected/Created on: </th><td><%=h sample.sample_date %></td>
-  <th>Sample Type: </th><td><%=h sample_characteristic.sample_tissue %>/<%=h sample_characteristic.sample_type%></td>
+  <th>Sample Type: </th><td><%=h sample.sample_tissue %>/<%=h sample.sample_type%></td>
   <% if link_to_edit == 'yes' && (can? :edit, sample) %>
-    <td style="border:solid 2px #dedacb"><%= link_to 'Edit Sample', edit_sample_path(sample) %></td>
+    <td class='linkborder'><%= link_to 'Edit Sample', edit_sample_path(sample) %></td>
   <% end %>
 </tr>
 <tr>
-  <th>OR Designation: </th><td><%=h sample.tumor_normal %></td>
-  <th>Pathology DX: </th>
-  <td><% if sample.sample_characteristic.pathology %><%=h sample.sample_characteristic.pathology.pathology_classification %><% end %></td>
-  <th>Histopathology: </th>
-  <td><% if sample.histology %><%=h sample.histology.histopathology %><% end %></td>
-</tr>
-<tr>
   <th>Container Type</th><td><%=h sample.container_type %></td>
-  <th>Amount(Initial)</th><td><%=h sample.sample_amt %></td>
+  <th>Amount</th><td><%=h sample.sample_amt %></td>
   <th>Remaining?</th><td><%=h sample.sample_remaining%></td>
 </tr>
 <tr>

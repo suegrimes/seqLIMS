@@ -5,7 +5,7 @@
 <%=h @nr_samples[0] %> source samples, (for <%=h @samples_by_patient.size -%> patients) <%= submit_tag "Export Samples" -%>
 <br/><br/>
 
-<table class="border">
+<table class="list">
   <tr>
     <%= render :partial => 'samples/sample_hdr', :locals => {:row_tags => 'no'} %>
 	<th>Extracted?</th> 

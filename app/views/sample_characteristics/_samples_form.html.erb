@@ -16,6 +16,17 @@
 	  <td><%=s.collection_select(:tumor_normal, @tumor_normal, :c_value, :c_value) %></td>
     </tr>
 	
+    <tr>
+      <th>Sample Site - L/R</th>
+      <td><%=s.collection_select(:sample_tissue, @source_tissue, :c_value, :c_value)%>
+          <%=s.select(:left_right, %w[NA L R]) %></td>
+      <th>Sample Type</th>
+      <td><%=s.collection_select(:sample_type, @sample_type, :c_value, :c_value)%></td>	
+      <th>Preservation</th>
+      <td><%=s.collection_select(:tissue_preservation, @preservation, :c_value, :c_value,
+                                {:include_blank => true})%></td>
+    </tr>
+	
 	<tr>
 	  <th>Container</th>
 	  <td><%=s.collection_select(:sample_container, @sample_units, :c_value, :c_value)%></td>
@@ -31,8 +42,6 @@
 	  <% else %>
 	  <th>Amount-Initial</th>
 	  <td><%=s.text_field :amount_initial, :size => 8 %></td>
-	  <th>Amount-Rem</th>
-	  <td><%=s.text_field :amount_rem, :size => 8 %></td>
 	  <% end %>
     </tr>
 	
@@ -43,6 +52,10 @@
 	  <td><%=s.text_field :storage_shelf, :size => 10 %></td>
       <th>Rack#/Bin</th>
 	  <td><%=s.text_field :storage_boxbin, :size => 10 %></td>
+	  <% if new_or_existing != 'new' %>
+	  <th>Amount-Rem</th>
+	  <td><%=s.text_field :amount_rem, :size => 8 %></td>
+	  <% end %>
     </tr>
     <tr>
       <th text-align="right">Comments: </th>

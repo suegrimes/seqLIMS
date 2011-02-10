@@ -1,30 +1,15 @@
-<span class="table_title">Sample Collection:</span>
-<table class="border">
+<span class="table_title">Sample Aquisition:</span>
+<table class="info">
 	<tr>
-      <th>Collection Date</th>
-	  <th>Clinic</th>
-	  <th>Protocol</th>
-	</tr>
-	<tr>
+      <th>Collected</th>
 	  <td><%=h sample_characteristic.collection_date%></td>
+	  <th>From</th>
 	  <td><%=h sample_characteristic.clinic_or_location%></td>
+	  <th>Protocol</th>
 	  <td><%=h sample_characteristic.consent_nr %>
 	      <% if sample_characteristic.consent_protocol %>/<%=h sample_characteristic.consent_protocol.consent_abbrev%><% end %></td>
-	</tr>
-</table>
-
-<span class="table_title">Sample Characteristics:</span>
-<table class="border">
-	<tr>
-	  <th>Sample Site</th>
-	  <th>Sample Type</th>
-	  <th>Preservation</th>
-	  <th>Comments</th>
-	</tr>
-	<tr>
-	  <td><%=h sample_characteristic.sample_tissue %></td>
-	  <td><%=h sample_characteristic.sample_type%></td>
-	  <td><%=h sample_characteristic.tissue_preservation%></td>
-	  <td><%=h sample_characteristic.comments %></td>
+	<% if can? :edit, sample_characteristic %>
+	  <td class="linkborder"><%=link_to 'Edit', edit_sample_characteristic_path(sample_characteristic) %></td>
+	<% end %>
 	</tr>
 </table>

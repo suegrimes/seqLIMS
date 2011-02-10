@@ -292,7 +292,7 @@ td {
 	font-variant: small-caps;
 }
 
-.border,.form,.list, .info {
+.border, .form, .list, .info {
 	border: 1px solid #b0aa91;
 	border-collapse: separate;
 }
@@ -324,9 +324,8 @@ td {
 	background-color: #f1f2e3;
 }
 
-.linkbutton td {
-	border: 1px solid #dedacb;
-	color: 0000FF;
+.info td.linkborder, .list td.linkborder {
+	border: 2px solid #dedacb;
 }
 
 /*.form th {

@@ -6,6 +6,8 @@ Condition array: <%= debug(@condition_array) %>
 
 Nr samples: <%= debug(@nr_samples)%>
 
+<% if @clin_samples_by_patient %>
 Samples by patient (size): <%= @clin_samples_by_patient.size %> 
 Samples by patient: <%= debug(@clin_samples_by_patient)%>
+<% end %>
 

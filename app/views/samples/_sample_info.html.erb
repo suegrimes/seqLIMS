@@ -1,5 +1,43 @@
-<span class="table_title">Physical Sample:</span>
-<table class="border">
-  <%= render :partial => 'samples/sample_hdr' %>
-  <%= render :partial => 'samples/sample_row', :locals => {:sample => sample} %>
+<% source ||= '' %>
+<% click_to_link ||= 'none' %>
+<% link_to_edit ||= 'yes' %>
+
+<span class="table_title"><%=source %> Sample Details:</span>
+<table class="info">
+<tr>
+  <th>Barcode: </th>
+  	<% if click_to_link == 'show' %>
+  	  <td><%=link_to sample.barcode_key, sample %></td>
+	<% else %>
+	  <td><%=h sample.barcode_key %></td>
+	<% end %>
+  </td>
+  <th>Collected/Created on: </th><td><%=h sample.sample_date %></td>
+  <th>Sample Type: </th><td><%=h sample.sample_tissue %>/<%=h sample.sample_type%></td>
+  <% if link_to_edit == 'yes' && (can? :edit, sample) %>
+    <td class='linkborder'><%= link_to 'Edit Sample', edit_sample_path(sample) %></td>
+  <% end %>
+</tr>
+<tr>
+  <th>OR Designation: </th><td><%=h sample.tumor_normal %></td>
+  <th>Pathology DX: </th>
+  <td><% if sample.sample_characteristic.pathology %><%=h sample.sample_characteristic.pathology.pathology_classification %><% end %></td>
+  <th>Histopathology: </th>
+  <td><% if sample.histology %><%=h sample.histology.histopathology %><% end %></td>
+</tr>
+<tr>
+  <th>Container Type</th><td><%=h sample.container_type %></td>
+  <th>Amount</th><td><%=h sample.sample_amt %></td>
+  <th>Remaining?</th><td><%=h sample.sample_remaining%></td>
+</tr>
+<tr>
+  <th>Room/Freezer</th><td><% if sample.storage_location %><%=h sample.storage_location.location_string %><% end %></td>
+  <th>Shelf</th><td><%=h sample.storage_shelf %></td>
+  <th>Rack#/Bin</th><td><%=h sample.storage_boxbin %></td>
+</tr>
+<% if !sample.comments.blank? %>
+<tr>
+  <th>Comments</th><td colspan=5><%=h sample.comments %></td>
+</tr>
+<% end %>
 </table>

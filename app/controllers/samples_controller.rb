@@ -104,6 +104,9 @@ protected
   def dropdowns
     @category_dropdowns = Category.populate_dropdowns([Cgroup::CGROUPS['Sample'], Cgroup::CGROUPS['Clinical']])
     @tumor_normal       = category_filter(@category_dropdowns, 'tumor_normal')
+    @source_tissue      = category_filter(@category_dropdowns, 'source tissue')
+    @sample_type        = category_filter(@category_dropdowns, 'sample type')
+    @preservation       = category_filter(@category_dropdowns, 'tissue preservation')
     @sample_units       = category_filter(@category_dropdowns, 'sample unit')
     @vial_types         = category_filter(@category_dropdowns, 'vial type')
     @amount_uom         = category_filter(@category_dropdowns, 'unit of measure') 

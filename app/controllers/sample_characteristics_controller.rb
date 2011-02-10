@@ -1,8 +1,9 @@
 class SampleCharacteristicsController < ApplicationController
   load_and_authorize_resource
+  protect_from_forgery :except => :add_new_sample
   
   before_filter :dropdowns, :only => [:new_sample, :edit]
-  before_filter :sample_dropdowns, :only => [:new_sample, :edit]
+  before_filter :sample_dropdowns, :only => [:new_sample, :edit, :add_new_sample]
   
   ## Start of actively used methods ##
   def new
@@ -75,11 +76,12 @@ class SampleCharacteristicsController < ApplicationController
       flash[:notice] = 'New clinical sample was successfully saved'
       
       # Sample Characteristic successfully saved => send emails
-      email  = send_email(@sample_characteristic, @patient.mrn, current_user) if LimsMailer::MAIL_FLAG != 'Dev'
+      sample = new_sample_entered(@sample_characteristic.id, params[:sample_characteristic])
+      email  = send_email(sample, @patient.mrn, current_user) if !sample.nil? && LimsMailer::MAIL_FLAG != 'Dev'
       if LimsMailer::DELIVER_FLAG  == 'Debug'
         render(:text => "<pre>" + email.encoded + "</pre>")
       else
-        redirect_to :action => 'show', :id => @sample_characteristic.id, :addnew_link => 'yes'
+        redirect_to :action => 'show', :id => @sample_characteristic.id, :added_sample_id => @sample_characteristic.samples[-1].id
       end
       
     # Error in saving Sample Characteristic
@@ -139,19 +141,36 @@ class SampleCharacteristicsController < ApplicationController
     
     if @sample_characteristic.update_attributes(params[:sample_characteristic])
       flash[:notice] = 'Clinical sample characteristics successfully updated'
-      redirect_to(@sample_characteristic)
+      
+      # Sample Characteristic successfully saved; send emails if new sample was added
+      sample = new_sample_entered(params[:id], params[:sample_characteristic])
+      if !sample.nil?
+        email  = send_email(sample, @sample_characteristic.patient.mrn, current_user) if LimsMailer::MAIL_FLAG != 'Dev'
+        #render(:text => "<pre>" + email.encoded + "</pre>")
+        redirect_to :action => 'show', :id => @sample_characteristic.id, :added_sample_id => sample.id
+      else
+        redirect_to(@sample_characteristic)
+      end
+      
     else
+      flash[:error] = 'Error - Clinical sample/characteristics not updated'
       dropdowns
       sample_dropdowns
-      render :action => 'edit' 
+      render :action => 'show'
     end
+    #render :action => 'debug'
   end
   
   # GET /patients/1
   def show
-    @addnew_link = (params[:addnew_link] ||= 'no')
-    #@addnew_link = 'yes'
+    params[:added_sample_id] ||= 0
+    @addnew_link = 'no'
     @sample_characteristic = SampleCharacteristic.find(params[:id], :include => [:consent_protocol, :samples])
+    if params[:added_sample_id].to_i > 0
+      @added_sample_id = params[:added_sample_id]
+      @sample_params = build_params_from_obj(Sample.find(@added_sample_id), Sample::FLDS_FOR_COPY)
+      sample_dropdowns
+    end
   end
   
 #   DELETE /patients/1
@@ -160,6 +179,21 @@ class SampleCharacteristicsController < ApplicationController
     @sample_characteristic.destroy  
     redirect_to(patient_url)
   end
+  
+  def add_new_sample
+    @sample_characteristic = SampleCharacteristic.find(params[:id])
+    @patient_id = @sample_characteristic.patient_id
+
+    if params[:from_sample_id]
+      sample = @sample_characteristic.samples.build(build_params_from_obj(Sample.find(params[:from_sample_id]), Sample::FLDS_FOR_COPY))
+    else
+      sample = @sample_characteristic.samples.build
+    end
+    render :update do |page|
+      page.replace_html 'add_more', :partial => 'samples_form', :locals => {:sample => sample}
+    end
+  end
+
 
 ## Protected and private methods ##
 protected
@@ -169,9 +203,6 @@ protected
     @races              = category_filter(@category_dropdowns, 'race')
     @ethnicity          = category_filter(@category_dropdowns, 'ethnicity')
     @clinics            = category_filter(@category_dropdowns, 'clinic')
-    @source_tissue      = category_filter(@category_dropdowns, 'source tissue')
-    @sample_type        = category_filter(@category_dropdowns, 'sample type')
-    @preservation       = category_filter(@category_dropdowns, 'tissue preservation')
     #@etiology         = Category.populate_dropdown_for_category('etiology')
     #@diagnosis        = Category.populate_dropdown_for_category('diagnosis')
   end
@@ -179,6 +210,9 @@ protected
   def sample_dropdowns
     @category_dropdowns = Category.populate_dropdowns([Cgroup::CGROUPS['Sample'], Cgroup::CGROUPS['Clinical']])
     @tumor_normal       = category_filter(@category_dropdowns, 'tumor_normal')
+    @source_tissue      = category_filter(@category_dropdowns, 'source tissue')
+    @sample_type        = category_filter(@category_dropdowns, 'sample type')
+    @preservation       = category_filter(@category_dropdowns, 'tissue preservation')
     @sample_units       = category_filter(@category_dropdowns, 'sample unit')
     @vial_types         = category_filter(@category_dropdowns, 'vial type')
     @amount_uom         = category_filter(@category_dropdowns, 'unit of measure')
@@ -194,10 +228,20 @@ private
         return (consent_protocol && !consent_protocol.email_confirm_to.blank? ? consent_protocol.email_confirm_to : nil)
     end
   end
+  
+  def new_sample_entered(sample_characteristic_id, params)
+    if params[:new_sample_attributes]
+      barcode_key = params[:new_sample_attributes][0][:barcode_key]
+      if !barcode_key.nil? && !barcode_key.blank?
+        sample = Sample.find_newly_added_sample(sample_characteristic_id, barcode_key)
+      end
+    end
+    return sample
+  end
 
-  def send_email(sample_characteristic, mrn, user)
-    consent_protocol = ConsentProtocol.find(sample_characteristic.consent_protocol_id) 
-    email = LimsMailer.create_new_sample(sample_characteristic, mrn, user.login, owner_email(consent_protocol))
+  def send_email(sample, mrn, user)
+    consent_protocol = ConsentProtocol.find(sample.sample_characteristic.consent_protocol_id) 
+    email = LimsMailer.create_new_sample(sample, mrn, user.login, owner_email(consent_protocol))
     email.set_content_type("text/html")
     LimsMailer.deliver(email) unless LimsMailer::DELIVER_FLAG == 'Debug'
     return email
@@ -223,30 +267,5 @@ private
     sql_where_clause = (@where_select.length == 0 ? [] : [@where_select.join(' AND ')].concat(@where_values))
     return sql_where_clause
   end
-  
-#  def define_conditions(params)
-#    condition_array = []
-#    condition_array[0] = 'blank' # if parameters are entered, this will be replaced with SQL where conditions
-#    select_conditions = []
-#    
-#    if !params[:mrn].blank? || !params[:patient_id].blank?
-#      pt_select, pt_conditions = conditions_for_patient(params, 'samples')
-#      select_conditions.push(pt_select) 
-#      condition_array.push(pt_conditions)
-#    end
-#    
-#    if !param_blank?(params[:barcode_key])
-#      select_conditions.push('samples.barcode_key = ?')
-#      condition_array.push(params[:barcode_key])
-#    end
-#    
-#    if select_conditions.length == 0
-#      return []
-#    else
-#      condition_array[0] = select_conditions.join(' AND ')
-#      return condition_array
-#    end
-#    
-#  end
     
 end

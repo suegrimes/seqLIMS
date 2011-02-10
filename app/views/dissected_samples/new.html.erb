@@ -3,9 +3,8 @@
 <%= render :partial => 'sample_characteristics/clinical_summary', :locals => {:sample_characteristic => @source_sample.sample_characteristic,
                                                                               :patient => @source_sample.patient } %>
 																			  
-<%= render :partial => 'samples/sample_summary', :locals => {:sample_characteristic => @source_sample.sample_characteristic,
-                                                             :sample => @source_sample,
-                                                             :source => 'Source' } %>
+<%= render :partial => 'samples/sample_info', :locals => {:sample => @source_sample,
+                                                          :source => 'Source' } %>
 
 <% form_for @sample, :url => {:controller => 'dissected_samples', :action => :create} do |f| %>
   <%= f.error_messages %>

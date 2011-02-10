@@ -53,6 +53,14 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  def build_params_from_obj(obj, flds)
+    params_hash = {}
+    flds.each do |fld|
+      params_hash.merge!(fld.to_sym => obj.send(fld))
+    end
+    return params_hash
+  end
+  
   def param_blank?(val)
     if val.nil?
       val_blank = true

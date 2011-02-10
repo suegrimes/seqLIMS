@@ -2,25 +2,25 @@
 #
 # Table name: sample_characteristics
 #
-#  id                  :integer(4)      not null, primary key
-#  patient_id          :integer(4)
-#  collection_date     :date
-#  clinic_or_location  :string(100)
-#  consent_protocol_id :integer(4)
-#  consent_nr          :string(15)
-#  gender              :string(1)
-#  ethnicity           :string(35)
-#  race                :string(70)
-#  sample_type         :string(50)
-#  sample_tissue       :string(50)
-#  left_right          :string(1)
-#  tissue_preservation :string(25)
-#  pathology_id        :integer(4)
-#  pathology           :string(50)
-#  comments            :string(255)
-#  updated_by          :string(50)
-#  created_at          :datetime
-#  updated_at          :datetime
+#  id                      :integer(4)      not null, primary key
+#  patient_id              :integer(4)
+#  collection_date         :date
+#  clinic_or_location      :string(100)
+#  consent_protocol_id     :integer(4)
+#  consent_nr              :string(15)
+#  gender                  :string(1)
+#  ethnicity               :string(35)
+#  race                    :string(70)
+#  xxx_sample_type         :string(50)
+#  xxx_sample_tissue       :string(50)
+#  xxx_left_right          :string(1)
+#  xxx_tissue_preservation :string(25)
+#  pathology_id            :integer(4)
+#  pathology               :string(50)
+#  comments                :string(255)
+#  updated_by              :string(50)
+#  created_at              :datetime
+#  updated_at              :datetime
 #
 
 class SampleCharacteristic < ActiveRecord::Base

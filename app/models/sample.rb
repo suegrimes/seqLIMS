@@ -10,6 +10,10 @@
 #  barcode_key              :string(20)      default(""), not null
 #  old_barcode              :string(20)
 #  sample_date              :date
+#  sample_type              :string(50)
+#  sample_tissue            :string(50)
+#  left_right               :string(1)
+#  tissue_preservation      :string(25)
 #  tumor_normal             :string(25)
 #  sample_container         :string(20)
 #  vial_type                :string(30)
@@ -44,7 +48,9 @@ class Sample < ActiveRecord::Base
   # Start year will be 2001, end year will be current year
   START_YEAR = 2000
   END_YEAR   = Time.now.strftime('%Y').to_i
-  
+  FLDS_FOR_COPY = (%w{sample_type sample_tissue left_right tissue_preservation sample_container vial_type amount_uom storage_location_id})
+  SOURCE_FLDS_FOR_COPY = (%w{sample_characteristic_id patient_id tumor_normal sample_type sample_tissue left_right tissue_preservation})
+ 
   def before_save
     self.patient_id  = self.sample_characteristic.patient_id
     self.sample_date = self.sample_characteristic.collection_date if self.source_sample_id.nil?
@@ -53,7 +59,7 @@ class Sample < ActiveRecord::Base
   def before_create
     self.amount_rem = self.amount_initial
   end
-  
+ 
   def barcode_sort
     (source_barcode_key.blank? ? barcode_key : source_barcode_key )
   end
@@ -67,8 +73,8 @@ class Sample < ActiveRecord::Base
   end
   
   def sample_category
-    type_of_sample = (clinical_sample == 'yes'? self.sample_characteristic.sample_type : 'Dissection')
-    return [type_of_sample, self.sample_characteristic.sample_tissue].join('/')
+    type_of_sample = (clinical_sample == 'yes'? sample_type : 'Dissection')
+    return [type_of_sample, sample_tissue].join('/')
   end
   
   def container_type
@@ -89,6 +95,12 @@ class Sample < ActiveRecord::Base
     else
       return source_barcode + 'A' # No existing dissections, so add 'A' suffix
     end  
+  end
+  
+  def self.find_newly_added_sample(sample_characteristic_id, barcode_key)
+    self.find(:first, :include => [:sample_characteristic, :patient, :storage_location],
+              :conditions => ["samples.sample_characteristic_id = ? AND samples.barcode_key = ?",
+                               sample_characteristic_id, barcode_key])
   end
   
   def self.find_and_group_by_source(condition_array)
