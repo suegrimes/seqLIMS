@@ -24,7 +24,7 @@
 <td><%=h sample.storage_shelf %></td>
 <td><%=h sample.storage_boxbin %></td>
 <% if can? :edit, sample %>
-<td><%=link_to 'Edit', edit_sample_path(sample) %></td>
+<td class="linkborder"><%=link_to 'Edit', edit_sample_path(sample) %></td>
 <% end %>
 
 <% if !sample.comments.blank? %>

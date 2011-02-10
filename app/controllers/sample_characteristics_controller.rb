@@ -1,8 +1,9 @@
 class SampleCharacteristicsController < ApplicationController
   load_and_authorize_resource
+  protect_from_forgery :except => :add_new_sample
   
   before_filter :dropdowns, :only => [:new_sample, :edit]
-  before_filter :sample_dropdowns, :only => [:new_sample, :edit]
+  before_filter :sample_dropdowns, :only => [:new_sample, :edit, :add_new_sample]
   
   ## Start of actively used methods ##
   def new
@@ -80,7 +81,7 @@ class SampleCharacteristicsController < ApplicationController
       if LimsMailer::DELIVER_FLAG  == 'Debug'
         render(:text => "<pre>" + email.encoded + "</pre>")
       else
-        redirect_to :action => 'edit', :id => @sample_characteristic.id, :added_sample_id => @sample_characteristic.samples[-1].id
+        redirect_to :action => 'show', :id => @sample_characteristic.id, :added_sample_id => @sample_characteristic.samples[-1].id
       end
       
     # Error in saving Sample Characteristic
@@ -123,13 +124,8 @@ class SampleCharacteristicsController < ApplicationController
   
   # GET /sample_characteristics/1/edit
   def edit
-    params[:added_sample_id] ||= 0
     @sample_characteristic = SampleCharacteristic.find(params[:id], :include => :samples,
                                                        :conditions => "samples.source_sample_id IS NULL")
-    
-    if params[:added_sample_id].to_i > 0
-      @sample_params = build_params_from_obj(Sample.find(params[:added_sample_id]), Sample::FLDS_FOR_COPY)
-    end
   end
   
   # PUT /sample_characteristics/1
@@ -160,8 +156,9 @@ class SampleCharacteristicsController < ApplicationController
       flash[:error] = 'Error - Clinical sample/characteristics not updated'
       dropdowns
       sample_dropdowns
-      render :action => 'edit'
+      render :action => 'show'
     end
+    #render :action => 'debug'
   end
   
   # GET /patients/1
@@ -170,8 +167,8 @@ class SampleCharacteristicsController < ApplicationController
     @addnew_link = 'no'
     @sample_characteristic = SampleCharacteristic.find(params[:id], :include => [:consent_protocol, :samples])
     if params[:added_sample_id].to_i > 0
-      @added_sample = Sample.find(params[:added_sample_id])
-      @sample_params = build_params_from_obj(@added_sample, Sample::FLDS_FOR_COPY)
+      @added_sample_id = params[:added_sample_id]
+      @sample_params = build_params_from_obj(Sample.find(@added_sample_id), Sample::FLDS_FOR_COPY)
       sample_dropdowns
     end
   end
@@ -182,6 +179,20 @@ class SampleCharacteristicsController < ApplicationController
     @sample_characteristic.destroy  
     redirect_to(patient_url)
   end
+  
+  def add_new_sample
+    @sample_characteristic = SampleCharacteristic.find(params[:id])
+    @patient_id = @sample_characteristic.patient_id
+    if params[:from_sample_id]
+      sample = @sample_characteristic.samples.build(build_params_from_obj(Sample.find(params[:from_sample_id]), Sample::FLDS_FOR_COPY))
+    else
+      sample = @sample_characteristic.samples.build
+    end
+    render :update do |page|
+      page.replace_html 'add_more', :partial => 'samples_form', :locals => {:sample => sample}
+    end
+  end
+
 
 ## Protected and private methods ##
 protected
@@ -216,7 +227,7 @@ private
         return (consent_protocol && !consent_protocol.email_confirm_to.blank? ? consent_protocol.email_confirm_to : nil)
     end
   end
-
+  
   def new_sample_entered(sample_characteristic_id, params)
     if params[:new_sample_attributes]
       barcode_key = params[:new_sample_attributes][0][:barcode_key]

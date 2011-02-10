@@ -14,18 +14,25 @@
   <% for sample in @sample_characteristic.samples %>
     <% if !sample.id.nil? %>
       <%= render :partial => 'samples/sample_row', :locals => {:sample => sample} %>
+	<% else %>
+	  <% @new_sample_with_error = sample %>
 	<% end %>
   <% end %> 
 </table>
 
-<% if @added_sample %>
+<% if @new_sample_with_error %>
+  <% form_for @sample_characteristic, :url => {:action => 'update'} do |f| %>
+    <%= render :partial => 'samples_form', :locals => {:sample => @new_sample_with_error} %>
+  <%= submit_tag "Submit" %>
+  <% end %>
+
+<% elsif @added_sample_id %>
   <div id="more_to_add">
     <p><%= link_to_function "Add another sample for this patient/collection date", toggle_div(:more_to_add, :add_more) %></p>
   </div>
 	
   <div id="add_more", style="display:none">	
   	<% form_for @sample_characteristic, :url => {:action => 'update'} do |f| %>
-	  <%=f.hidden_field(:id)%>
 	  <%= render :partial => 'samples_form', :locals => {:sample => @sample_characteristic.samples.build(@sample_params),
                                                          :removable => 'no'} %>
 	<%= submit_tag "Submit" %>

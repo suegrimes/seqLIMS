@@ -324,7 +324,7 @@ td {
 	background-color: #f1f2e3;
 }
 
-.info td.linkborder {
+.info td.linkborder, .list td.linkborder {
 	border: 2px solid #dedacb;
 }
 
