@@ -23,6 +23,7 @@ body {
     max-width: 1600px;
     min-width: 600px;
     padding: 0;
+	background: #fff;
 }
 
 #main {
@@ -37,6 +38,7 @@ body {
  	background:#fff;
  	padding: 0px;
  	text-align: center;
+	margin-right: 10px;
 }
 
 /*
@@ -85,6 +87,19 @@ body {
 	margin-right: 10px;
 	font-size: smaller;
 	font-weight: 600;
+}
+
+#header .logout-link {
+   float: right; 
+   position: relative; 
+   right: -70px; top: 70px;	
+}
+
+#header .logout-link a {
+	color: #990000;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: .8em;
 }
 
 /*
@@ -245,8 +260,8 @@ body {
 	/* position: absolute;
 	left: 210px; */
 	/* float: left; */
-	text-align: justify;
-	padding: 0 15px 0 215px;
+	text-align: left;
+	padding: 0 10px 0 210px;
 }
 
 #maincontent a {
@@ -306,7 +321,7 @@ th {
 }
 
 td {
-	padding: .1em .3em;	
+	padding: .1em .1em .1em .6em;	
 }
 
 .table_title,.form_title {
@@ -315,63 +330,72 @@ td {
 	font-variant: small-caps;
 }
 
-/* changed - JP */
-.border,.form,.list, .info {
+.list, .form {
 	border: 1px solid #b0aa91;
 	border-collapse: collapse;
 }
 
-/* changed - JP */
-.border th, .list th {
+.list th {
 	font-size: .9em;
 	background-color: #f1f2e3;
 	border-bottom: 1px solid #999;
 }
 
-.form th, .info th {
-	font-size: .8em;
-	font-weight: bolder;
-}
-
-.form th {
-	text-align: right;
-}
-
-.border td {
-	border: 1px dotted #dedacb; /* #b0aa91; */
-}
-
-/* changed - JP */
-.list td, .form td {
+.list td {
 	font-size: .9em;
 	border-bottom: 1px solid #B0AA91;
+	/*padding-left: .5em;*/
 }
 
 .list .no_border_bottom  {
     border-bottom: 0 none;	
 }
 
-/* changed - JP */
-.info td {
-	font-size: .9em;
+.list a.linkborder {
+	border: 2px solid #c0c0c0;
+	border-radius: 8px;
+	-webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+	padding: .07em .2em;
 }
 
 .info td.linkborder, .list td.linkborder {
-border: 2px solid #dedacb;
+	border: 2px solid #dedacb;
+}
+
+.info th {
+	font-size: .8em;
+	font-weight: bolder;
+}
+
+.info td {
+	font-size: .9em;
 }
 
 .form {
 	background-color: #f1f2e3;
 }
 
+.form th {
+	font-size: .8em;
+	background-color: #f1f2e3;
+	border-bottom: 1px solid #999;
+	text-align: right;
+}
+
+.form th.top-heading-row {	
+	text-align: left;
+}
+
+.form td {
+	font-size: .9em;
+	border-bottom: 1px solid #B0AA91;
+}
+
 .linkbutton td {
 	border: 1px solid #dedacb;
 	color: 0000FF;
 }
-
-/*.form th {
-	border: 1px solid #dedacb;
-}*/
 
 /* end styles for tables */
 
@@ -403,16 +427,6 @@ border: 2px solid #dedacb;
 	white-space: nowrap;  /* css-3 */
 	white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
 	word-wrap: break-word;/* Internet Explorer 5.5+ */	
-}
-
-.logout-link {
-   float: right; 
-   position: relative; 
-   right: -70px; top: 70px;	
-}
-
-.logout-link a {
-	font-weight: bold;
 }
 
 /* styles for Rails error messages */
@@ -459,6 +473,3 @@ border: 2px solid #dedacb;
 	/*border: 1px solid;*/
 	height: 20px;
 }
-
-
-
