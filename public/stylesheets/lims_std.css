@@ -18,6 +18,26 @@ body {
  	padding: 80px 0 50px 0; /* changed to 80px from 120px */
 }
 
+/* generic html tag styles */
+
+p,h1,h2,h3,h4,h5,h6 {
+padding-left: .5em;
+padding-top: 0.5em;
+}
+
+h1 {
+	font-size:1.5em;
+	margin:0;
+	padding:0;
+}
+
+h3 {
+	font-size: 1.05em;
+	color: #003366;
+}
+
+hr {clear:both; border:0; height:1px; background-color:#888;}
+
 #container {
 	margin: 0 auto;
     max-width: 1600px;
@@ -28,12 +48,6 @@ body {
 
 #main {
 	font-family: arial,helvetica,sans-serif;
-	/*font-size: 1.2em;*/
-	/*position: fixed; 
-	top: 85px;
-	left: 0;
- 	bottom: 25px; 
-	right:0;  */
 	overflow:auto;
  	background:#fff;
  	padding: 0px;
@@ -102,27 +116,6 @@ body {
 	font-size: .8em;
 }
 
-/*
-#header ul {
-  clear:both; 
-  text-align:center; 
-  border-top:1px solid #73a2bd;
-  }
-
-#header ul {
-  margin:0; 
-  padding:0px;
-  list-style-type:none; 
-  background:transparent; 
-  height:3em;
-  }
-
-#header ul li {
-  display:inline; 
-  color:#73a2bd;
-  }
-*/
-
 #footer {	
 	/* position: absolute;
 	bottom: 0px; 
@@ -159,24 +152,18 @@ body {
 
 /* start left navigation styles */
 #leftsidebar {
-	/*position: absolute;
-	left: 0px;*/
 	float: left;
-	width:190px;
+	width:180px;
 	height: auto;
 	text-align: left;
 	padding: 1.3em 0;
-	margin:8px;
+	margin:10px;
 	background: #e8ead0;
-	/*
-	border-top: 1px solid #C1C1C1;
-	border-right: 1px solid #C1C1C1;
-	border-bottom: 1px solid #C1C1C1;
-	text-indent: .8em;*/	
+    /*text-indent: .8em;*/	
 	border: 1px solid #C1C1C1;
-    border-radius: 15px;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
+	border-radius: 15px;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
 }
 	
 /* .leftnavlist {
@@ -188,7 +175,7 @@ body {
 #leftsidebar ul {
 	margin: 0;
 	padding: 0;
-	text-indent: 1.5em;
+	text-indent: 1em;
 	list-style-type: none;
 }
 
@@ -199,6 +186,7 @@ body {
 	padding-bottom:1.5em;
 	text-align: center;
 }
+
 #leftsidebar ul.opened {
 	display: block;
 	/*list-style-image:url("/images/opened.gif");*/
@@ -211,30 +199,26 @@ body {
 
 #leftsidebar ul a {
 	display: block;
-	/* width: 180px; */
-	font-size: .7em;
 	font-weight: bold;
 	line-height: 2em;
 	color: #000;
 	text-decoration: none;
 	background: #e8ead0;
-}
-
-#leftsidebar a {
 	vertical-align: middle;
+	font-size: 0.8em;
 }
 
-#leftsidebar a:hover{
+#leftsidebar ul a:hover {
 	color: #fff;
 	text-decoration: none;
 	background: #b3b393;
 }
 
-#leftsidebar a:active{
+#leftsidebar ul a:active {
 	color: #990000;
 	text-decoration: underline;
 	background: #fff;
-	outline: none;
+	outline: none;	
 }
 
 /* #leftsidebar a:focus{
@@ -244,11 +228,29 @@ body {
 	outline: none;
 } */
 
-#leftsidebar ul ul{
-	text-indent: 2.2em;
+#leftsidebar ul ul {
+	text-indent: 1.75em;
 }
 
-#leftsidebar ul ul a:active{
+#leftsidebar ul ul a {
+	display: block;
+	font-weight: bold;
+	line-height: 1.90em;
+	color: #000;
+	text-decoration: none;
+	background: #e8ead0;
+	vertical-align: middle;
+	font-size: .7em;
+}
+
+#leftsidebar ul ul a:hover {
+	color: #fff;
+	text-decoration: none;
+	background: #b3b393;
+}
+
+
+#leftsidebar ul ul a:active {
 	color: #990000;
 	text-decoration: underline;
 	background: #fff;
@@ -261,7 +263,7 @@ body {
 	left: 210px; */
 	/* float: left; */
 	text-align: left;
-	padding: 0 10px 0 210px;
+	padding-left: 202px;
 }
 
 #maincontent a {
@@ -287,25 +289,8 @@ body {
  font-size:inherit;
  }
 
-p,h1,h2,h3,h4,h5,h6 {
-padding-left: .5em;
-padding-top: 0.5em;
-}
-
-h1 {
-	font-size:1.5em;
-	margin:0;
-	padding:0;
-}
-
-h3 {
-	font-size: 1.05em;
-	color: #003366;
-}
-
-hr {clear:both; border:0; height:1px; background-color:#888;}
-
 /* styles for tables */
+
 table {
 	empty-cells: show; 
 	margin-bottom: 1em;
@@ -316,12 +301,12 @@ table {
 
 th {
 	white-space:nowrap;
-	padding: .1em .5em;
+	padding: 1px 2px;
 	text-align: left;	
 }
 
 td {
-	padding: .1em .1em .1em .6em;	
+	padding: 1px 2px;	
 }
 
 .table_title,.form_title {
@@ -336,7 +321,7 @@ td {
 }
 
 .list th {
-	font-size: .9em;
+	font-size: .8em;
 	background-color: #f1f2e3;
 	border-bottom: 1px solid #999;
 }
@@ -400,6 +385,7 @@ td {
 /* end styles for tables */
 
 /* Other general styles */
+
 .grey {color:#888;}
 .ltgrey {color:#ddd;}
 .palegrey {color:#eee;}
