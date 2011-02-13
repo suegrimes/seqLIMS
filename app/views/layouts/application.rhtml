@@ -26,7 +26,7 @@
 
 <body id='body'>
 	
-<div id="container" style="width: 90%;">
+<div id="container" style="width: 98%;">
 	
 <div id="header">
     <img class="logo" src="/images/sutech_reflect_DB.gif" alt="Stanford Genome Technology" width="99" height="80" title="SGTC Sequencing Database" />	
@@ -41,7 +41,7 @@
     <% if !logged_in? %>
 
 		<!-- show just link labels if not logged in -->
-        <ul id="nav">
+        <ul id="nav" style="display: none;">
           <li><a href="http://med.stanford.edu/sgtc/">Stanford Genome Tech Center</a></li>
           <li><a href="#">Clinicians</a></li>
           <li><a href="#">Lab Techs &amp; Researchers</a></li>
@@ -158,10 +158,10 @@
 
 <div id="main">
     <% if logged_in? %>	
-	<div id="leftsidebar">
-    <ul class="user_info">
-	   <li><i> Logged in as: <%= current_user.login %> </i></li>
-	</ul>
+    <div id="leftsidebar">
+        <div class="user_info">
+	   <i> Logged in as: <%= current_user.login %> </i>
+        </div>
 	<ul class="opened">
 	
 	<% if can? :new, SampleCharacteristic %>
