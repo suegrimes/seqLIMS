@@ -6,22 +6,6 @@
         <%= stylesheet_link_tag 'lims_std' %>
         <%= javascript_include_tag :all, :cache => true %>
 		<%= calendar_date_select_includes %>
-		
-	<script type="text/javascript">
-	sfHover = function() {
-	var sfEls = document.getElementById("nav").getElementsByTagName("LI");
-	for (var i=0; i<sfEls.length; i++) {
-			sfEls[i].onmouseover=function() {
-				this.className+=" sfhover";
-			}
-			sfEls[i].onmouseout=function() {
-				this.className=this.className.replace(new RegExp(" sfhover\\b"), "");
-			}
-		}
-	}
-	if (window.attachEvent) window.attachEvent("onload", sfHover);
-	</script>
-
     </head>
 
 <body id='body'>
@@ -38,6 +22,7 @@
 	<div style="clear:both;"></div>
 
 	<div id="nav-box">
+	    
     <% if !logged_in? %>
 
 		<!-- show just link labels if not logged in -->
@@ -51,17 +36,14 @@
 	
 	<% elsif logged_in? %>
 	       
-        <ul id="nav">
+        <ul id="nav" style="display: none;">
 
           <li><a href="http://med.stanford.edu/sgtc/">Stanford Genome Tech Center</a></li>
 
           <li><a href="#">Clinicians</a>
-
-            <ul>             
-
+            <ul>                            
 			  <% if can? :new, SampleCharacteristic %>
               <li><a href="#" class="hasChildren">Clinical Samples</a>
-
       	        <ul>
 	              <li><%= link_to 'New Clinical Sample', new_sample_characteristic_path %></li>
 		          <li><%= link_to 'Add/Upd Pathology Report', new_path_rpt_path %></li>
@@ -71,10 +53,8 @@
 		          <li><%= link_to 'Upd Sample Characteristics', modify_sample_path %></li>
 		          <li><%= link_to 'Upd Sample', upd_sample_path %></li>
 		       </ul>
-
              </li>	
-	         <% end %>			  
-			  
+	         <% end %>			  			  
 			 <% if can? :new, ProcessedSample %>
 	         <li><a href="#" class="hasChildren">H&E/Dissection/Extraction</a>
       	       <ul>
@@ -82,10 +62,8 @@
 		         <li><%= link_to 'Upd Sample', upd_sample_path %></li>
 		       </ul>
              </li>
-	         <% end %>
-			 			  
+	         <% end %>			 			  
             </ul>
-
 		  </li> <!-- /Clinicians -->
  
           <li><a href="#">Lab Techs &amp; Researchers</a>
@@ -98,8 +76,7 @@
 		          <li><%= link_to 'List Seq Libraries', seq_libs_path %></li>
 		        </ul>	          
 	          </li>
-			  <% end %>
-			  
+			  <% end %>			  
 			  <% if can? :new, FlowCell %>
 	          <li><a href="#" class="hasChildren">Sequencing</a>  
       	        <ul>
@@ -109,8 +86,7 @@
 		          <li><%= link_to 'List Sequencers',   seq_machines_path %></li>
 		        </ul>
 	          </li>
-	          <% end %>
-			  
+	          <% end %>			  
 	        </ul>
 		  </li> <!-- /Lab Techs and Researcherchers -->
 		  		  
@@ -124,10 +100,8 @@
 		           <li><%= link_to 'List Storage Devices', storage_devices_path %></li>
 		         </ul>
               </li>	 
-	          <% end %>
-			  
-			  <li><a href="#" class="hasChildren">System Tables</a>
-	  
+	          <% end %>			  
+			  <li><a href="#" class="hasChildren">System Tables</a>	  
       	        <ul>
       	          <li><%= link_to 'User Info', edit_user_path(current_user) %></li>
 		          <li><%= link_to 'Protocols', protocol_type_path %></li>
@@ -136,14 +110,11 @@
 		          <li><%= link_to 'Multiplex Tags', index_tags_path %></li>
 		          <li><%= link_to 'Alignment Refs', alignment_refs_path %></li>
 		        </ul>
- 
-			  </li>
-			  
+			  </li>			  
 			  <% if current_user.has_role?("admin")%>	      
-      	      <li><%= link_to 'Users', users_path %>
+      	      <li><%= link_to 'Users', users_path %></li>
 		      <li><%= link_to 'Researchers', researchers_path %></li>
-	          <% end %>
-			  
+	          <% end %>			  
 		    </ul>
 		  </li> <!-- /Administrators -->
 
@@ -151,8 +122,9 @@
 
         </ul> <!--/nav-->
 	
-	<% end %><!-- /end if logged in -->
-	</div><!-- /nav-box -->
+	<% end %><!-- /end if logged in -->	
+    
+    </div><!-- /nav-box -->
     	    
 </div><!-- /header -->
 
@@ -178,9 +150,7 @@
 		 </ul>
       </div>
 	<% end %>
-	
-	
-	
+		
 	<% if can? :new, ProcessedSample %>
 	<li> <%= link_to_function "H&E/Dissection/Extraction", toggle_div(:processing_menu) %> </li>
 	  <div id="processing_menu", style="display:none;">
@@ -190,9 +160,7 @@
 		 </ul>
       </div>
 	<% end %>
-	
-	
-	
+		
 	<% if can? :new, SeqLib %>
 	<li> <%= link_to_function "Library Prep", toggle_div(:assay_menu)%> </li>
 	  <div id="assay_menu", style="display:none;">
@@ -203,9 +171,7 @@
 		 </ul>
       </div>
 	<% end %>
-	
-	
-	
+		
 	<% if can? :new, FlowCell %>
 	<li> <%= link_to_function "Sequencing", toggle_div(:analysis_menu)%> </li>
 	  <div id="analysis_menu", style="display:none;">
@@ -217,9 +183,7 @@
 		 </ul>
       </div>
 	<% end %>
-	
-	
-	
+		
 	<% if can? :new, RunDir %>
 	<li> <%= link_to_function "Run Directories", toggle_div(:rundir_menu)%> </li>
 	  <div id="rundir_menu", style="display:none;">
@@ -230,13 +194,9 @@
 		 </ul>
       </div>
 	<% end %>
-	
-	
-	
-	<li> <%= link_to "Attachments", attach_params_path %> </li>
-	
-	
-	
+		
+	<li><%= link_to "Attachments", attach_params_path %></li>
+		
 	<li> <%= link_to_function "Query", toggle_div(:query_menu)%> </li>
 	  <div id="query_menu", style="display:none;">
       	 <ul>
@@ -246,9 +206,7 @@
 		 <li><%= link_to 'Sequencing Runs',    seq_run_query_path %></li>
 		 </ul>
       </div>
-	
-
-	
+		
 	<li> <%= link_to_function "System Tables", toggle_div(:systables_menu)%> </li>
 	  <div id="systables_menu", style="display:none;">
       	 <ul>
@@ -259,9 +217,7 @@
 		 <li><%= link_to 'Multiplex Tags', index_tags_path %></li>
 		 <li><%= link_to 'Alignment Refs', alignment_refs_path %></li>
 		 </ul>
-      </div>
-	
-	
+      </div>	
 	
 	<% if current_user.has_role?("admin")%>
 	<li> <%= link_to_function "Admin", toggle_div(:admin_menu)%> </li>
@@ -272,9 +228,7 @@
 		 </ul>
       </div>
 	<% end %>
-	
-	
-	
+		
 	<li>&nbsp;</li>
 	<li> <%= link_to_function "Orders", toggle_div(:order_menu)%> </li>
 	  <div id="order_menu", style="display:none;">
@@ -299,11 +253,8 @@
 
 <div id="footer">
 	<div class="lft">
-		<a href="http://med.stanford.edu/sgtc/">Stanford Genome Tech Center</a>&nbsp;|&nbsp;
-		<a href="#">Clinicians</a></div>&nbsp;|&nbsp;
-		<a href="#">Lab Techs &amp; Researchers</a>&nbsp;|
-	    <a href="#">Administrators</a>&nbsp;|&nbsp;
-	    <a href="#">Contact</a>
+		<a href="http://med.stanford.edu/sgtc/">Stanford Genome Tech Center</a>&nbsp;|
+		<a href="mailto:insert_contact_name@stanford.edu">Contact</a>
 	</div>
 </div>
 
