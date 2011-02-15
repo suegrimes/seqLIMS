@@ -364,7 +364,7 @@ td {
 .form th {
 	font-size: .9em;
 	background-color: #f1f2e3;
-	border-bottom: 1px solid #999;
+	border-bottom: none;
 	text-align: right;
 }
 
@@ -374,7 +374,7 @@ td {
 
 .form td {
 	font-size: .9em;
-	border-bottom: 1px solid #B0AA91;
+	border-bottom: none;
 }
 
 .linkbutton td {
