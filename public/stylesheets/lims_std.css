@@ -377,9 +377,36 @@ td {
 	border-bottom: none;
 }
 
+.form01 {
+	background-color: #f1f2e3;
+}
+
+.form01 th {
+	font-size: .9em;
+	background-color: #f1f2e3;
+	border-bottom: none;
+	text-align: left;
+}
+
+.form01 td {
+	font-size: .9em;
+	border-bottom: none;
+}
+
 .linkbutton td {
 	border: 1px solid #dedacb;
 	color: 0000FF;
+}
+
+.form ul {
+	margin: 0;
+	padding: 0;
+	text-indent: 1em;
+	list-style-type: none;
+}
+
+.form li {
+	float: left;
 }
 
 /* end styles for tables */
