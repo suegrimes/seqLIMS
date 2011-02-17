@@ -7,12 +7,12 @@ set :user, "sgrimes"
 set :ssh_options, { :forward_agent => true }
 default_run_options[:pty] = true
 
-set :deploy_to, "/opt/rails/LIMSdb"
+set :deploy_to, "/opt/rails/seqLIMS"
 set :deploy_via, :remote_cache
 set :use_sudo, false
 
 set :scm, "git"
-set :repository, "git@github.com:suegrimes/su_LIMS.git"
+set :repository, "git@github.com:suegrimes/seqLIMS.git"
 set :branch, "master"
 set :deploy_via, :remote_cache
 

@@ -315,7 +315,7 @@ td {
 	border: 1px dotted #dedacb; /* #b0aa91; */
 }
 
-.list td,.form td, .info td {
+.list td, .form td, .info td {
 	font-size: .9em;
 	border: none;
 }
