@@ -13,5 +13,8 @@
 	  <td><%=h sample.sample_tissue %></td>
 	  <td><%=h sample.sample_type%></td>
 	  <td><%=h sample.tumor_normal %></td>
+	  <% if can? :edit, patient %>
+	  <td class="linkborder"><%= link_to 'Edit', edit_sample_path(sample) %></td>
+	  <% end %>
 	</tr>
   </table>
