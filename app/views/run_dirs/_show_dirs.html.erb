@@ -1,6 +1,6 @@
 <b>Run Directories:</b>
 <% if !flow_cell.run_dirs.empty? %>
-  <table class="border">
+  <table class="list">
     <tr>
       <th>Storage Device</th>
 	  <th>Run Directory</th>
@@ -21,8 +21,8 @@
 		<td><%=h run_dir.date_copied %></td>
 		<td><%=h run_dir.date_verified %></td>
 		
-		<td class="noborder"><%=link_to 'Edit',   edit_run_dir_path(run_dir) %></td>
-	    <td class="noborder"><%=link_to 'Delete', run_dir, :confirm => 'Are you sure?', :method => :delete %></td>
+		<td><%=link_to 'Edit',   edit_run_dir_path(run_dir) %></td>
+	    <td><%=link_to 'Delete', run_dir, :confirm => 'Are you sure?', :method => :delete %></td>
 	  </tr>
       <% end %>
 	</table>

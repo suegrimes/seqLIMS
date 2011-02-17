@@ -334,6 +334,26 @@ td {
 	padding: .07em .2em;
 }
 
+/* lists with no underlines */
+.info01 {
+	border: 1px solid #b0aa91;
+	border-collapse: separate; 
+	margin-bottom: 3em;
+}
+
+.info01 th {
+	background-color: #e8ead0;
+	font-size: .9em;
+	background-color: #f1f2e3;
+	white-space: nowrap;
+	padding: .1em .3em;
+	text-align: left;
+}
+
+.info01 td {
+	padding: .1em .3em;
+}
+
 .info td.linkborder, .list td.linkborder {
 	border: 2px solid #dedacb;
 }
