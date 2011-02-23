@@ -234,6 +234,18 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
 	padding-left: 28px;
 }
 
+/* temp - for old nav with toggle function */
+#leftsidebar ul ul a {
+	font-weight: bold;
+	line-height: 1.85em;
+	color: #000;
+	text-decoration: none;
+	background: #e8ead0;
+	vertical-align: middle;
+	font-size: .72em;
+	padding-left: 25px;
+}
+
 #leftsidebar li li a:hover {
 	color: #fff;
 	text-decoration: none;
