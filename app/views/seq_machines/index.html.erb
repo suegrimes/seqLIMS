@@ -1,6 +1,6 @@
 <h3>Sequencing Machines</h3>
 
-<table class="border">
+<table class="list">
   <tr>
     <th>Machine Code</th>
 	<th>Building</th>
@@ -21,10 +21,10 @@
 	<td><%=h seq_machine.machine_incidents[0].incident_date if seq_machine.machine_incidents.size > 0%>
 	<td><%=h seq_machine.notes %></td>
 	<% if can? :edit, seq_machine %>
-      <td class='noborder'><%= link_to 'Edit', edit_seq_machine_path(seq_machine) %></td>
+      <td><%= link_to 'Edit', edit_seq_machine_path(seq_machine) %></td>
 	<% end %>
 	<% if can? :delete, seq_machine %>
-      <td class='noborder'><%= link_to 'Delete', seq_machine, :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= link_to 'Delete', seq_machine, :confirm => 'Are you sure?', :method => :delete %></td>
 	<% end %>
   </tr>
 <% end %>

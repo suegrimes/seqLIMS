@@ -1,4 +1,4 @@
-<table class="border">
+<table class="list">
   <tr>
     <th>Preparation date</th>
 	<th>Status</th>
@@ -33,7 +33,7 @@
 	<% end %>
 	  
 	<% if flow_cell.flowcell_status == 'Q' %>
-	  <td><%= link_to 'QC', :controller => :flow_cells, :action => 'show_qc', :id => flow_cell.id %></td>	
+	  <td><%= link_to 'QC',     :action => 'show_qc', :id => flow_cell.id %></td>	
 	<% end %>
   </tr>
   

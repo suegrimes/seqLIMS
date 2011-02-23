@@ -3,7 +3,7 @@
 <% form_for(@psample_query, :action => 'index') do |f| %>
 <%= f.error_messages(:header_message => "Error(s) in query parameters") %>
 
-<table class='form'>
+<table class="form">
   <tr>
   <% if can? :read, Patient %>
   	<th>MRN:</th><td><%= f.text_field(:mrn) %></td>	
@@ -13,7 +13,7 @@
   </tr>
 </table>
 
-<table class='border'>
+<table class="form01">
   <tr>
     <th>Consent Protocol:</th>
 	<th>Clinic:</th> 
@@ -26,7 +26,7 @@
   </tr>
 </table>
 
-<table class="border">
+<table class="form01">
   <tr>
   	<th>Sample Site</th>
     <th>Sample Type:</th>
@@ -46,7 +46,7 @@
   </tr>
 </table> 
 
-<table class="border">
+<table class="form01">
   <tr>
   	<th>Extraction Protocol:</th>
   	<th>Extracted Type:</th>
@@ -59,7 +59,7 @@
   </tr>	
 </table> 
 
-<table class="border">
+<table class="form01">
   <tr>
   	<th>Processed From:</th>
   	<th>To:</th>
