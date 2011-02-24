@@ -303,12 +303,12 @@ table {
 
 th {
 	white-space:nowrap;
-	padding: 1px 2px;
+	padding: 1px 4px;
 	text-align: left;	
 }
 
 td {
-	padding: 1px 2px;	
+	padding: 1px 4px;	
 }
 
 .table_title,.form_title {
