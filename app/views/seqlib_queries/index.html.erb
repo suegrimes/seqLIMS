@@ -11,6 +11,7 @@
 	<th>Project</th>
 	<th>Alignment Ref</th>
 	<th># Seq Lanes</th>
+    <th colspan="4"></th>
   </tr>
 
 <% for seq_lib in @seq_libs %>
@@ -31,7 +32,9 @@
 	
 	<% if seq_lib.seq_lane_cnt != '0' %>
 	  <td> <%=link_to 'Show QC', :controller => :seqlib_lanes, :action => :show, :id => seq_lib.id %></td>
-	<% end %>
+	<% else %>
+      <td class="ltgrey"> Show QC </td>
+    <% end %>
 	
 	<td><%= link_to 'Attach', new_attached_file_path(:rec_type => 'seq_lib', :obj_id => seq_lib.id) %></td>
 	
@@ -39,6 +42,8 @@
 	  <% if can? :delete, seq_lib %>
 	  <td><%= link_to 'Delete', seq_lib, :confirm => 'Are you sure?', :method => :delete %></td>
 	  <% end %>
+    <% else %>
+    <td class="ltgrey"> Delete </td>
 	<% end %>  
   </tr>
   <% end %>

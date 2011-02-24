@@ -5,8 +5,8 @@
   <% (1..3).each do %>
   <th>Runtype Adapter</th>
   <th>Tag#</th>
-  <th>Sequence</th>
-  <td>&nbsp;</td>
+  <th style="border-right: 1px solid #999; padding-right: 3px;">Sequence</th>
+  <!--th>&nbsp;</th-->
   <% end %>
 </tr>
 
@@ -15,8 +15,8 @@
   <% index_tags.each do |itag| %>
     <td><%=h itag.runtype_adapter %></td>
 	<td><%=h tag_nr %></td>
-	<td><%=h itag.tag_sequence %></td>
-	<td>&nbsp;</td>
+	<td style="border-right: 1px solid #B0AA91; padding-right: 3px;"><%=h itag.tag_sequence %></td>
+	<!--td >&nbsp;</td-->
   <% end %>
 </tr>
 <% end %>
