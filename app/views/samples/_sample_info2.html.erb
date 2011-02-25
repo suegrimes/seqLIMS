@@ -1,7 +1,7 @@
 <% sample_type = (sample.clinical_sample == 'yes'? 'Source' : 'Dissected') %>
 
 <b><%= sample_type %> Sample Info:</b>
-  <table class="border">
+  <table class="info">
 	<tr>
 	  <th>Barcode</th>
       <th>Sample Site</th>
@@ -13,5 +13,8 @@
 	  <td><%=h sample.sample_tissue %></td>
 	  <td><%=h sample.sample_type%></td>
 	  <td><%=h sample.tumor_normal %></td>
+	  <% if can? :edit, patient %>
+	  <td class="linkborder"><%= link_to 'Edit', edit_sample_path(sample) %></td>
+	  <% end %>
 	</tr>
   </table>

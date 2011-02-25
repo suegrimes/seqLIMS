@@ -6,7 +6,7 @@
 
 <b>Extracted Sample info:</b>
 <% if @processed_samples %> (<%= @processed_samples.size %> samples) <% end %>
-<table class="border">
+<table class="list">
   <%= render :partial => 'processed_samples/processed_sample_hdr' %>
 
   <% for processed_sample in @processed_samples %>

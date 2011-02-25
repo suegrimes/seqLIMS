@@ -2,7 +2,7 @@
 
 <% form_tag :action=> 'new'  do %>
 
-<table class='form'>
+<table class="form">
   <tr>
   <% if can? :read, Patient %>
   	<th>MRN:</th><td><%= text_field_tag(:mrn_nr) %></td>	

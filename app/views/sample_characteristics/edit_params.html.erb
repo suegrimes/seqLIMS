@@ -3,7 +3,7 @@
 <% form_tag :action=> 'edit_params'  do %>
 <%= hidden_field_tag(:filter, 'edit')%>
 
-<table class='form'>
+<table class="form">
   <tr>
   <% if can? :read, Patient %>
   	<th>MRN:</th><td><%= text_field_tag(:mrn) %></td>	

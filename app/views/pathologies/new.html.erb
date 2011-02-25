@@ -8,7 +8,7 @@
 <%= render :partial => 'pathology_form', :locals => {:f => f} %>
 <%=f.hidden_field(:patient_id, :value => @patient_id) %>
 
-<p class='instructions'>Check boxes below to associate pathology with specified patient/collection dates (at least one box must be checked)</p>						
+<p class="instructions">Check boxes below to associate pathology with specified patient/collection dates (at least one box must be checked)</p>						
 <%= render :partial => 'clinical_info', :locals => {:sample_characteristics => @sample_characteristics,
                                                     :checkbox => 'yes'} %>
 

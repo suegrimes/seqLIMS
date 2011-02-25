@@ -1,10 +1,11 @@
 <h3>Consent Protocols</h3>
 
-<table class="border">
+<table class="list">
   <tr>
     <th>Consent #</th>
     <th>Protocol Name</th>
 	<th>Owner/Email</th>
+	<th colspan=2></th>
   </tr>
 
 <% for consent_protocol in @consent_protocols %>
@@ -12,12 +13,12 @@
     <td><%=h consent_protocol.consent_nr %></td>
     <td><%=h consent_protocol.consent_name %></td>
 	<td><%=h consent_protocol.email_confirm_to %></td>
-	<% if can? :edit, consent_protocol %>
-      <td><%= link_to 'Edit', edit_consent_protocol_path(consent_protocol) %></td>
-	<% end %>
-	<% if can? :delete, consent_protocol %>
-      <td><%= link_to 'Delete', consent_protocol, :confirm => 'Are you sure?', :method => :delete %></td>
-	<% end %>
+	<td><% if can? :edit, consent_protocol %>
+        <%= link_to 'Edit', edit_consent_protocol_path(consent_protocol) %>
+	    <% end %></td>
+	<td><% if can? :delete, consent_protocol %>
+        <%= link_to 'Delete', consent_protocol, :confirm => 'Are you sure?', :method => :delete %>
+	    <% end %></td>
   </tr>
 <% end %>
 </table>
