@@ -4,6 +4,7 @@
         <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
         <title>SGTC LIMS<%= controller.action_name %></title>
         <%= stylesheet_link_tag 'lims_std' %>
+		<%= stylesheet_link_tag 'MenuBarHorizontal' %>
         <%= javascript_include_tag :all, :cache => true %>
 		<%= calendar_date_select_includes %>
     </head>
@@ -19,236 +20,166 @@
     <% if logged_in? %>
 	    <div class="logout-link"><%= link_to 'Logout', logout_url %></div>
 	<% end %>
-	<div style="clear:both;"></div>
-
-	<div id="nav-box">
-	    
-    <% if !logged_in? %>
-
-		<!-- show just link labels if not logged in -->
-        <ul id="nav" style="display: none;">
-          <li><a href="http://med.stanford.edu/sgtc/">Stanford Genome Tech Center</a></li>
-          <li><a href="#">Clinicians</a></li>
-          <li><a href="#">Lab Techs &amp; Researchers</a></li>
-          <li><a href="#">Administrators</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-	
-	<% elsif logged_in? %>
-	       
-        <ul id="nav" style="display: none;">
-
-          <li><a href="http://med.stanford.edu/sgtc/">Stanford Genome Tech Center</a></li>
-
-          <li><a href="#">Clinicians</a>
-            <ul>                            
-			  <% if can? :new, SampleCharacteristic %>
-              <li><a href="#" class="hasChildren">Clinical Samples</a>
-      	        <ul>
-	              <li><%= link_to 'New Clinical Sample', new_sample_characteristic_path %></li>
-		          <li><%= link_to 'Add/Upd Pathology Report', new_path_rpt_path %></li>
-		          <% if can? :read, Patient %>
-		          <li><%= link_to 'Upd Patient', modify_patient_path %></li>
-		          <% end %>
-		          <li><%= link_to 'Upd Sample Characteristics', modify_sample_path %></li>
-		          <li><%= link_to 'Upd Sample', upd_sample_path %></li>
-		       </ul>
-             </li>	
-	         <% end %>			  			  
-			 <% if can? :new, ProcessedSample %>
-	         <li><a href="#" class="hasChildren">H&E/Dissection/Extraction</a>
-      	       <ul>
-		         <li><%= link_to 'New Processing', new_psample_path %></li>
-		         <li><%= link_to 'Upd Sample', upd_sample_path %></li>
-		       </ul>
-             </li>
-	         <% end %>			 			  
-            </ul>
-		  </li> <!-- /Clinicians -->
- 
-          <li><a href="#">Lab Techs &amp; Researchers</a>
-            <ul>
-		      <% if can? :new, SeqLib %>
-	          <li><a href="#" class="hasChildren">Library Prep</a>	  
-      	        <ul>
-		          <li><%= link_to 'New Lib-Singleplex', new_lib_S_path  %></li>
-		          <li><%= link_to 'New Lib-Multiplex',  new_lib_M_path  %></li>
-		          <li><%= link_to 'List Seq Libraries', seq_libs_path %></li>
-		        </ul>	          
-	          </li>
-			  <% end %>			  
-			  <% if can? :new, FlowCell %>
-	          <li><a href="#" class="hasChildren">Sequencing</a>  
-      	        <ul>
-		          <li><%= link_to 'Prepare FlowCell',  flow_cell_setup_path %></li>
-		          <li><%= link_to 'FlowCells for Seq', flow_cells_path(:rpt_type => 'seq') %></li>
-		          <li><%= link_to 'List Seq Runs',     flow_cells_path(:rpt_type => 'list') %></li>
-		          <li><%= link_to 'List Sequencers',   seq_machines_path %></li>
-		        </ul>
-	          </li>
-	          <% end %>			  
-	        </ul>
-		  </li> <!-- /Lab Techs and Researcherchers -->
-		  		  
-          <li><a href="#">Administrators</a>
-		    <ul>
-		      <% if can? :new, RunDir %>
-	          <li><a href="#" class="hasChildren">Run Directories</a> 
-      	        <ul>
-		           <li><%= link_to 'List Run Directories', run_dirs_path %></li>
-		           <li><%= link_to 'Edit Run Directories', dir_params_path %></li>
-		           <li><%= link_to 'List Storage Devices', storage_devices_path %></li>
-		         </ul>
-              </li>	 
-	          <% end %>			  
-			  <li><a href="#" class="hasChildren">System Tables</a>	  
-      	        <ul>
-      	          <li><%= link_to 'User Info', edit_user_path(current_user) %></li>
-		          <li><%= link_to 'Protocols', protocol_type_path %></li>
-		          <li><%= link_to 'Drop-Down Lists', categories_path %></li>
-                  <li><%= link_to 'Storage Locations', storage_locations_path %></li>
-		          <li><%= link_to 'Multiplex Tags', index_tags_path %></li>
-		          <li><%= link_to 'Alignment Refs', alignment_refs_path %></li>
-		        </ul>
-			  </li>			  
-			  <% if current_user.has_role?("admin")%>	      
-      	      <li><%= link_to 'Users', users_path %></li>
-		      <li><%= link_to 'Researchers', researchers_path %></li>
-	          <% end %>			  
-		    </ul>
-		  </li> <!-- /Administrators -->
-
-          <li><a href="mailto:insert_contact_name@stanford.edu">Contact</a></li>
-
-        </ul> <!--/nav-->
-	
-	<% end %><!-- /end if logged in -->	
-    
-    </div><!-- /nav-box -->
-    	    
 </div><!-- /header -->
 
-<div id="main">
-    <% if logged_in? %>	
-    <div id="leftsidebar">
-        <div class="user_info">
-	   <i> Logged in as: <%= current_user.login %> </i>
-        </div>
-	<ul class="opened">
-	
-	<% if can? :new, SampleCharacteristic %>
-	<li> <%= link_to_function "Clinical Samples", toggle_div(:clinical_menu) %></li>
-	  <div id="clinical_menu", style="display:none;">
-      	 <ul>
-	     <li><%= link_to 'New Clinical Sample', new_sample_characteristic_path %></li>
-		 <li><%= link_to 'Add/Upd Pathology Report', new_path_rpt_path %></li>
-		 <% if can? :read, Patient %>
-		 <li><%= link_to 'Upd Patient', modify_patient_path %></li>
-		 <% end %>
-		 <li><%= link_to 'Upd Acquisition Dtls', modify_sample_path %></li>
-		 <li><%= link_to 'Upd Sample', upd_sample_path %></li>
-		 </ul>
-      </div>
-	<% end %>
-		
-	<% if can? :new, ProcessedSample %>
-	<li> <%= link_to_function "H&E/Dissection/Extraction", toggle_div(:processing_menu) %> </li>
-	  <div id="processing_menu", style="display:none;">
-      	 <ul>
-		 <li><%= link_to 'New Processing', new_psample_path %></li>
-		 <li><%= link_to 'Upd Sample', upd_sample_path %></li>
-		 </ul>
-      </div>
-	<% end %>
-		
-	<% if can? :new, SeqLib %>
-	<li> <%= link_to_function "Library Prep", toggle_div(:assay_menu)%> </li>
-	  <div id="assay_menu", style="display:none;">
-      	 <ul>
-		 <li><%= link_to 'New Lib-Singleplex', new_lib_S_path  %></li>
-		 <li><%= link_to 'New Lib-Multiplex',  new_lib_M_path  %></li>
-		 <li><%= link_to 'List Seq Libraries', seq_libs_path %></li>
-		 </ul>
-      </div>
-	<% end %>
-		
-	<% if can? :new, FlowCell %>
-	<li> <%= link_to_function "Sequencing", toggle_div(:analysis_menu)%> </li>
-	  <div id="analysis_menu", style="display:none;">
-      	 <ul>
-		 <li><%= link_to 'Prepare FlowCell',  flow_cell_setup_path %></li>
-		 <li><%= link_to 'FlowCells for Seq', flow_cells_path(:rpt_type => 'seq') %></li>
-		 <li><%= link_to 'List Seq Runs',     flow_cells_path(:rpt_type => 'list') %></li>
-		 <li><%= link_to 'List Sequencers',   seq_machines_path %></li>
-		 </ul>
-      </div>
-	<% end %>
-		
-	<% if can? :new, RunDir %>
-	<li> <%= link_to_function "Run Directories", toggle_div(:rundir_menu)%> </li>
-	  <div id="rundir_menu", style="display:none;">
-      	 <ul>
-		 <li><%= link_to 'List Run Directories', run_dirs_path %></li>
-		 <li><%= link_to 'Edit Run Directories', dir_params_path %></li>
-		 <li><%= link_to 'List Storage Devices', storage_devices_path %></li>
-		 </ul>
-      </div>
-	<% end %>
-		
-	<li><%= link_to "Attachments", attach_params_path %></li>
-		
-	<li> <%= link_to_function "Query", toggle_div(:query_menu)%> </li>
-	  <div id="query_menu", style="display:none;">
-      	 <ul>
-      	 <li><%= link_to 'Source/Dissections', unprocessed_query_path %></li>
-	     <li><%= link_to 'Extracted Samples',  processed_query_path %></li>
-		 <li><%= link_to 'Seq Libraries',      lib_query_path  %></li>
-		 <li><%= link_to 'Sequencing Runs',    seq_run_query_path %></li>
-		 </ul>
-      </div>
-		
-	<li> <%= link_to_function "System Tables", toggle_div(:systables_menu)%> </li>
-	  <div id="systables_menu", style="display:none;">
-      	 <ul>
-      	 <li><%= link_to 'User Info', edit_user_path(current_user) %></li>
-		 <li><%= link_to 'Protocols', protocol_type_path %></li>
-		 <li><%= link_to 'Drop-Down Lists', categories_path %></li>
-         <li><%= link_to 'Storage Locations', storage_locations_path %></li>
-		 <li><%= link_to 'Multiplex Tags', index_tags_path %></li>
-		 <li><%= link_to 'Alignment Refs', alignment_refs_path %></li>
-		 </ul>
-      </div>	
-	
-	<% if current_user.has_role?("admin")%>
-	<li> <%= link_to_function "Admin", toggle_div(:admin_menu)%> </li>
-	  <div id="admin_menu", style="display:none;">
-      	 <ul>
-      	 <li><%= link_to 'Users', users_path %>
-		 <li><%= link_to 'Researchers', researchers_path %></li>
-		 </ul>
-      </div>
-	<% end %>
-		
-	<li>&nbsp;</li>
-	<li> <%= link_to_function "Orders", toggle_div(:order_menu)%> </li>
-	  <div id="order_menu", style="display:none;">
-      	 <ul>
-      	 <li><%= link_to 'New item', new_item_path %></li>
-	     <li><%= link_to 'View/Order items', view_items_path %></li>
-	     <li><%= link_to 'List/Upd orders', view_orders_path %></li>
-		 </ul>
-	  </div>
-			
-	</ul>
-	
-	</div> <!-- /leftsidebar -->
+<div id="nav-bar-background">
+  <% if logged_in? %>
+  <ul id="MenuBar1" class="MenuBarHorizontal">
+    <% if ( 
+           current_user.has_role?("clinical") ||
+		   current_user.has_role?("clin_admin") ||
+		   current_user.has_role?("admin")
+	   )
+    %>
+    <li><a class="MenuBarItemSubmenu" href="/">Clinical</a>     
+      <ul>
+        <li><%= link_to 'New Clinical Sample', new_sample_characteristic_path %></li>
+        <li><%= link_to 'Edit Sample Acquisition', modify_sample_path %></li>
+        <li><%= link_to 'Edit Patient', modify_patient_path %></li>
+        <li><%= link_to 'Add/Edit Pathology Report', new_path_rpt_path %></li>
+        <li class="last-item"><%= link_to 'H &amp; E', new_psample_path %></li>
+      </ul>
+    </li>
+    <% else %>
+    <li><a class="MenuBarHorizontal-nomenu" href="/">Clinical</a></li>
     <% end %>
+	<!-- /clinical -->   
+	
+    <% if ( 
+           current_user.has_role?("clinical") ||
+           current_user.has_role?("clin_admin") ||
+           current_user.has_role?("researcher") ||
+           current_user.has_role?("lab_admin")
+	   )
+    %>
+    <li><a class="MenuBarItemSubmenu" href="/">Sample Processing</a>
+	  <ul>
+        <li><%= link_to 'Dissection', new_psample_path %></li>
+        <li><%= link_to 'Extraction', new_psample_path %></li>
+        <li class="last-item"><%= link_to 'Edit Sample', upd_sample_path %></li>
+        <!--li><a href="/">Molecular assays</a></li-->
+      </ul>
+    </li>
+	<% else %>
+	<li><a class="MenuBarHorizontal-nomenu" href="/">Sample Processing</a></li>
+    <% end %>  
+	<!-- /sample processing -->
+	
+    <li><a class="MenuBarItemSubmenu" href="/">Sequencing/Alignment</a>
+      <ul>
+      	<% if ( 
+               current_user.has_role?("researcher") ||
+		       current_user.has_role?("lab_admin") ||
+		       current_user.has_role?("alignment")
+	       )
+        %>
+        <li><a class="MenuBarItemSubmenu" href="/">Library Prep</a>
+          <ul>
+            <li><%= link_to 'New Lib-Singleplex', new_lib_S_path  %></li>
+            <li class="last-item"><%= link_to 'New Lib-Multiplex',  new_lib_M_path  %></li>
+          </ul>
+        </li>
+        <li><a class="MenuBarItemSubmenu" href="/">Sequencing</a>
+		  <ul>
+            <li><%= link_to 'Prepare FlowCell',  flow_cell_setup_path %></li>
+            <li class="last-item"><%= link_to 'FlowCells for Seq', flow_cells_path(:rpt_type => 'seq') %></li>
+          </ul>
+        </li>
+		<% end %>
+        <li><%= link_to 'List Seq Libraries', seq_libs_path %></li>
+        <li class="last-item"><%= link_to 'List Seq Runs',      flow_cells_path(:rpt_type => 'list') %></li>
+      </ul>
+    </li>
+	<!-- /sequencing alignment -->
+	    
+	<li><a class="MenuBarItemSubmenu" href="/">Admin</a>
+      <ul>
+      <% if current_user.has_role?("admin")%> 
+        <li><%= link_to 'Users',       users_path %></li>
+        <li><%= link_to 'Researchers', researchers_path %></li>
+      <% end %>               
+        <li class="last-item"><%= link_to 'Edit User Profile', edit_user_path(current_user) %></li>
+      </ul>
+    </li> <!-- /admin -->
+	
+    <li class="MenuBarItemSubmenu last-item"><a href="/">Orders</a>
+	  <ul>
+        <li><%= link_to 'New item', new_item_path %></li>
+        <li><%= link_to 'View/Order items', view_items_path %></li>
+        <li class="last-item"><%= link_to 'List/Upd orders', view_orders_path %></li>
+      </ul>
+	</li> 
+	<!-- /orders -->
+  </ul> <!-- /ul nav bar -->
+  <% else %>  
+  <div>&nbsp;</div>
+  <% end %>
+</div><!-- /nav-bar-background -->
+
+<div class="clear"></div>
+
+<div id="main">
+
+<% if logged_in? %>	
+<div id="leftsidebar">
+  <div class="user_info">
+     <i> Logged in as: <%= current_user.login %> </i>
+  </div>
+  <ul class="opened">
+    <li> <a href="/">Query</a> 
+      <ul>
+       <li><%= link_to 'Source/Dissections', unprocessed_query_path %></li>
+       <li><%= link_to 'Extracted Samples',  processed_query_path %></li>
+       <li><%= link_to 'Seq Libraries',      lib_query_path  %></li>
+       <li><%= link_to 'Sequencing Runs',    seq_run_query_path %></li>
+      </ul>
+    </li>
+        
+    <li> <a href="/">System Tables</a>  
+      <ul>
+      	<% if ( 
+		       current_user.has_role?("clin_admin") ||
+		       current_user.has_role?("lab_admin") ||
+               current_user.has_role?("admin")
+	       )
+        %>
+      	<li><%= link_to 'Storage Locations', storage_locations_path %></li>
+        <li><%= link_to 'Protocols', protocol_type_path %></li>
+		<% end %>
+		<% if ( 
+               current_user.has_role?("lab_admin") ||
+               current_user.has_role?("admin")
+           )
+        %>
+ 		<li><li><%= link_to 'Multiplex Tags', index_tags_path %></li>
+		<% end %>
+		<% if ( 
+               current_user.has_role?("alignment") ||
+               current_user.has_role?("admin")
+           )
+        %>   
+        <li><%= link_to 'Alignment Refs', alignment_refs_path %></li>
+		<% end %>
+		<% if ( 
+               current_user.has_role?("clin_admin") ||
+               current_user.has_role?("lab_admin") ||
+               current_user.has_role?("admin")
+           )
+        %>
+		<li><%= link_to 'Drop-Down Lists', categories_path %></li>
+		<% end %>                
+      </ul>
+    </li>			
+  </ul>  <!-- /opened -->
+</div> <!-- /leftsidebar -->    
+<% end %>
     
-	<div id="maincontent">
+<div id="maincontent">
 	<div style='color:red'> <%= flash[:error]%></div>
-    <div style='color:green'> <%= flash[:notice]%></div>
+	<div style='color:green'> <%= flash[:notice]%></div>
 	<%= yield %>
-	</div><!-- /maincontent -->	
+</div><!-- /maincontent -->
+	
 </div><!-- /main -->
 
 <div id="footer">
@@ -259,6 +190,8 @@
 </div>
 
 </div><!-- /container -->
-
+<script type="text/javascript">
+    var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {imgDown:"images/SpryMenuBarDownHover.gif", imgRight:"images/SpryMenuBarRightHover.gif"});
+</script>
 </body>
 </html>

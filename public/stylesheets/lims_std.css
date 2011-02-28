@@ -63,16 +63,14 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
 */
 
 #header {	
-	height: 108px;
+	height: 90px;
 	overflow: hidden;
 	background: #fff;
-	/*border-bottom: 4px ridge #990000;
-	border-bottom: 1px solid #C1C1C1; */
 	white-space: nowrap;
 }
 
 * html #header {
-	height: 115px;
+	height: 95px;
 }
 
 #header .logo {
@@ -116,11 +114,12 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
 	font-size: .8em;
 }
 
+#nav-bar-background {
+    background-color: #990000;
+	height: 24px;
+}
+
 #footer {	
-	/* position: absolute;
-	bottom: 0px; 
- 	left: 0; 
- 	width: 100%;*/
  	height: 25px; 
  	/* overflow: auto; */
  	background: #fff;
@@ -207,7 +206,7 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
 	text-decoration: none;
 	background: #e8ead0;
 	vertical-align: middle;
-	font-size: 0.79em;
+	font-size: 0.8em;
 	padding-left: 15px;
 }
 
@@ -230,19 +229,7 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
 	text-decoration: none;
 	background: #e8ead0;
 	vertical-align: middle;
-	font-size: .72em;
-	padding-left: 28px;
-}
-
-/* temp - for old nav with toggle function */
-#leftsidebar ul ul a {
-	font-weight: bold;
-	line-height: 1.85em;
-	color: #000;
-	text-decoration: none;
-	background: #e8ead0;
-	vertical-align: middle;
-	font-size: .72em;
+	font-size: .73em;
 	padding-left: 25px;
 }
 
@@ -252,6 +239,10 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
 	background: #b3b393;
 }
 
+#leftsidebar li li a:visited {
+    font-size: .73em;
+    font-weight: bold;
+}
 
 #leftsidebar li li a:active {
 	color: #990000;
@@ -465,6 +456,10 @@ td {
 	word-wrap: break-word;/* Internet Explorer 5.5+ */	
 }
 
+.clear {
+    clear: both;
+}
+
 /* styles for Rails error messages */
 .fieldWithErrors {
   padding: 2px;
@@ -503,9 +498,3 @@ td {
 }
 /* end styles for Rails error messages */
 
-#nav-box {
-	background-color: #990000;
-	color: #fff;
-	/*border: 1px solid;*/
-	height: 20px;
-}
