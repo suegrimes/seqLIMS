@@ -24,8 +24,8 @@ class HistologiesController < ApplicationController
         render :action => 'new'
         
       elsif @sample  #Have sample, and histology is not nil
-        flash[:error] = 'Cannot add H&E - the slide below already exists for sample barcode: ' + params[:barcode_key] 
-        redirect_to(@sample.histology)
+        flash[:notice] = 'H&E slide exists for sample barcode: ' + params[:barcode_key] 
+        redirect_to :action => 'edit', :id => @sample.histology.id
         
       else
         flash.now[:error] = 'Error - sample barcode ' + params[:barcode_key] + ' not found'
