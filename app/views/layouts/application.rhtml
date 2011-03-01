@@ -22,7 +22,8 @@
 	<% end %>
 </div><!-- /header -->
 
-<div id="nav-bar-background">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr><td style="background-color: #990000; padding: 0;">
   <% if logged_in? %>
   <ul id="MenuBar1" class="MenuBarHorizontal">
     <% if ( 
@@ -114,7 +115,8 @@
   <% else %>  
   <div>&nbsp;</div>
   <% end %>
-</div><!-- /nav-bar-background -->
+  </td></tr>
+</table>
 
 <div class="clear"></div>
 
@@ -151,7 +153,7 @@
                current_user.has_role?("admin")
            )
         %>
- 		<li><li><%= link_to 'Multiplex Tags', index_tags_path %></li>
+ 		<li><%= link_to 'Multiplex Tags', index_tags_path %></li>
 		<% end %>
 		<% if ( 
                current_user.has_role?("alignment") ||

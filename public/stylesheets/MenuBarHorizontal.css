@@ -86,11 +86,10 @@ ul.MenuBarHorizontal ul
 {
 	/*border: 1px solid #000;*/
 }
+
 /* Menu item border */
 ul.MenuBarHorizontal li {
-    /*border-top: 1px solid #c1c1c1;*/
     border-left: 1px solid #c1c1c1;
-	/*border-bottom: 1px solid #c1c1c1;*/
 }
 /* Menu last item border right */
 ul.MenuBarHorizontal li.last-item {
