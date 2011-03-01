@@ -5,7 +5,7 @@
 
 <%= f.error_messages(:header_message => "Error(s) in query parameters") %>
 
-<table class='form'>
+<table class="form">
   <tr>
   <% if can? :read, Patient %>
   	<th>MRN:</th><td><%= f.text_field(:mrn) %></td>	
@@ -15,7 +15,7 @@
   </tr>
 </table>
 
-<table class='border'>
+<table class="form01">
   <tr>
     <th>Consent Protocol:</th>
 	<th>Clinic:</th> 
@@ -28,7 +28,7 @@
   </tr>
 </table>
 
-<table class="border">
+<table class="form01">
   <tr>
   	<th>Gender:</th>
 	<th>Race:</th>
@@ -53,7 +53,7 @@
   </tr>
 </table>     
   
-<table class='border'>
+<table class="form01">
   <tr>
   	<th>Date Filter</th>
 	<td><%= f.select(:date_filter, ["Collection Date", "Dissection Date"]) %></td>

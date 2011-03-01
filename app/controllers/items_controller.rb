@@ -57,7 +57,8 @@ class ItemsController < ApplicationController
 
   # GET /items/new
   def new
-    @item_default = Item.new(:requester_name => current_user.researcher.researcher_name)
+    requester = (current_user.researcher ? current_user.researcher.researcher_name : nil)
+    @item_default = Item.new(:requester_name => requester)
   end
   
   def populate_items

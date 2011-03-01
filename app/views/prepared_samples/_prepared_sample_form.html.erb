@@ -1,6 +1,6 @@
 <% if controller.action_name == 'new' %>
 <span class="form_title">From Extracted Sample:</span>
-  <table class="border">
+  <table class="list">
 	  <tr>
 	  	<th>Barcode</th>
 		<th>Type</th>
@@ -20,7 +20,7 @@
 <% end %>
 
 <b>Prepared Sample Info:</b> 
-  <table class="border">
+  <table class="form01">
 	<tr>
 	  <th>Barcode</th>
 	  <td><%=f.text_field :barcode_key, :size => 12, :readonly => true %></td>
