@@ -37,7 +37,7 @@
         <li><%= link_to 'Edit Sample Acquisition', modify_sample_path %></li>
         <li><%= link_to 'Edit Patient', modify_patient_path %></li>
         <li><%= link_to 'Add/Edit Pathology Report', new_path_rpt_path %></li>
-        <li class="last-item"><%= link_to 'H &amp; E', new_psample_path %></li>
+        <li class="last-item"><%= link_to 'Add/Edit H &amp; E Slide', new_he_slide_path %></li>
       </ul>
     </li>
     <% else %>
@@ -54,8 +54,8 @@
     %>
     <li><a class="MenuBarItemSubmenu" href="/">Sample Processing</a>
 	  <ul>
-        <li><%= link_to 'Dissection', new_psample_path %></li>
-        <li><%= link_to 'Extraction', new_psample_path %></li>
+        <li><%= link_to 'Dissection', new_dissection_path %></li>
+        <li><%= link_to 'Extraction', new_extraction_path %></li>
         <li class="last-item"><%= link_to 'Edit Sample', upd_sample_path %></li>
         <!--li><a href="/">Molecular assays</a></li-->
       </ul>
@@ -82,12 +82,12 @@
         <li><a class="MenuBarItemSubmenu" href="/">Sequencing</a>
 		  <ul>
             <li><%= link_to 'Prepare FlowCell',  flow_cell_setup_path %></li>
-            <li class="last-item"><%= link_to 'FlowCells for Seq', flow_cells_path(:rpt_type => 'seq') %></li>
+            <li class="last-item"><%= link_to 'Sequence FlowCell', flow_cells_path(:rpt_type => 'seq') %></li>
           </ul>
         </li>
 		<% end %>
         <li><%= link_to 'List Seq Libraries', seq_libs_path %></li>
-        <li class="last-item"><%= link_to 'List Seq Runs',      flow_cells_path(:rpt_type => 'list') %></li>
+        <li class="last-item"><%= link_to 'List Seq Runs', flow_cells_path(:rpt_type => 'list') %></li>
       </ul>
     </li>
 	<!-- /sequencing alignment -->
