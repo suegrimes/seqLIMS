@@ -133,7 +133,7 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
 	color: #750404;
 }
 
-#footer a, a:visited {
+#footer a, #footer a:visited {
  	font: .8em verdana, sans-serif;
 	text-decoration:none;
 	color:#750404;
