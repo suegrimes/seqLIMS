@@ -11,7 +11,7 @@
 <b>Attached Files:</b>
 
 <% if !@obj.attached_files.empty? %>
-  <table class="border">
+  <table class="list">
     <tr>
       <th>File name</th>
 	  <th>Notes</th>
@@ -21,7 +21,7 @@
 	  <tr>
         <td><%=link_to att_file.basename_with_ext, att_file %></td>
 		<td><%=h att_file.notes %></td>
-	    <td class="noborder"><%=link_to 'Delete File', att_file, :confirm => 'Are you sure?', :method => :delete %></td>
+	    <td><%=link_to 'Delete File', att_file, :confirm => 'Are you sure?', :method => :delete %></td>
 	  </tr>
       <% end %>
 	</table>

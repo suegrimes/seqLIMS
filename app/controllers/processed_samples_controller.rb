@@ -20,8 +20,7 @@ class ProcessedSamplesController < ApplicationController
                                        :include => {:sample => {:sample_characteristic => :pathology}} )
   end
   
-  def new_params
-    
+  def new_params  
   end
   
   # GET /processed_samples/new

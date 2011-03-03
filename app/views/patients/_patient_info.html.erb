@@ -20,5 +20,8 @@
 	<% if show_mrn == 'yes' && (can? :read, Patient) %>
 	  <th>PHI Notes:</th><td><%=h patient.hipaa_data %></td>
 	<% end %>
+	<% if can? :edit, patient %>
+	  <td class="linkborder"><%= link_to 'Edit', edit_patient_path(patient) %></td>
+	<% end %>
   </tr>
 </table>
