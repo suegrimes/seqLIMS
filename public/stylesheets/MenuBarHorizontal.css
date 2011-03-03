@@ -146,28 +146,28 @@ ul.MenuBarHorizontal a.MenuBarItemSubmenu
 {
 	background-image: url(/images/SpryMenuBarDown.gif);
 	background-repeat: no-repeat;
-	background-position: 99% 50%;
+	background-position: 100% 50%;
 }
 /* Menu items that have a submenu have the class designation MenuBarItemSubmenu and are set to use a background image positioned on the far left (95%) and centered vertically (50%) */
 ul.MenuBarHorizontal ul a.MenuBarItemSubmenu
 {
 	background-image: url(/images/SpryMenuBarRight.gif);
 	background-repeat: no-repeat;
-	background-position: 99% 50%;
+	background-position: 100% 50%;
 }
 /* Menu items that are open with submenus have the class designation MenuBarItemSubmenuHover and are set to use a "hover" background image positioned on the far left (95%) and centered vertically (50%) */
 ul.MenuBarHorizontal a.MenuBarItemSubmenuHover
 {
 	background-image: url(/images/SpryMenuBarDown.gif);
 	background-repeat: no-repeat;
-	background-position: 99% 50%;
+	background-position: 100% 50%;
 }
 /* Menu items that are open with submenus have the class designation MenuBarItemSubmenuHover and are set to use a "hover" background image positioned on the far left (95%) and centered vertically (50%) */
 ul.MenuBarHorizontal ul a.MenuBarItemSubmenuHover
 {
 	background-image: url(/images/SpryMenuBarRight.gif);
 	background-repeat: no-repeat;
-	background-position: 99% 50%;
+	background-position: 100% 50%;
 }
 
 /*******************************************************************************
