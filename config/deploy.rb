@@ -12,7 +12,7 @@ set :deploy_via, :remote_cache
 set :use_sudo, false
 
 set :scm, "git"
-set :repository, "git@github.com:suegrimes/su_LIMS.git"
+set :repository, "git@github.com:suegrimes/seqLIMS.git"
 set :branch, "master"
 set :deploy_via, :remote_cache
 
