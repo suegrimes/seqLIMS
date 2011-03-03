@@ -129,12 +129,23 @@ ul.MenuBarHorizontal a:hover, ul.MenuBarHorizontal a:focus
 	color: #000;
 }
 /* Menu items that are open with submenus are set to MenuBarItemHover with a blue background and white text */
+/*
 ul.MenuBarHorizontal a.MenuBarItemHover, ul.MenuBarHorizontal a.MenuBarItemSubmenuHover, ul.MenuBarHorizontal a.MenuBarSubmenuVisible
 {
 	background-color: #e8ead0;
 	color: #000;
 }
-
+*/
+ul.MenuBarHorizontal a.MenuBarItemHover
+{
+	background-color: #fff;
+    color: #000;
+}
+ul.MenuBarHorizontal a.MenuBarItemSubmenuHover, ul.MenuBarHorizontal a.MenuBarSubmenuVisible
+{
+    background-color: #e8ead0;
+    color: #000;
+}
 /*******************************************************************************
 
  SUBMENU INDICATION: styles if there is a submenu under a given menu item
