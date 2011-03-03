@@ -7,7 +7,7 @@ set :user, "sgrimes"
 set :ssh_options, { :forward_agent => true }
 default_run_options[:pty] = true
 
-set :deploy_to, "/opt/rails/LIMSdb"
+set :deploy_to, "/opt/rails/seqLIMS"
 set :deploy_via, :remote_cache
 set :use_sudo, false
 
