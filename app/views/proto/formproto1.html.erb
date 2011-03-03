@@ -1,0 +1,230 @@
+<h3>New sample for patient: 1646/94 </h3>
+
+<form action="/sample_characteristics" method="post"><div style="margin:0;padding:0;display:inline"><input name="authenticity_token" type="hidden" value="Dz0jYke3VqcrfNyUTRZ358ajr5n9AIhdMAy8RTcgiDM=" /></div>
+  
+  
+  <input id="patient_id" name="patient[id]" type="hidden" value="1646" />
+  <input id="mrn_nr" name="mrn_nr" type="hidden" value="94" />
+
+  
+  <span class="form_title">Patient Info:</span>
+  <table class="form">
+    <tr>
+      
+        <th>MRN</th><td>94</td>    
+      
+      
+      <th>Patient ID</th><td>1646</td>
+          
+      
+       
+        <th>PHI Notes</th><td><input id="patient_hipaa_data" name="patient[hipaa_data]" size="10" type="text" /></td>
+
+      
+    </tr>
+    
+    <tr>
+      <th>Gender</th><td><select id="patient_gender" name="patient[gender]"><option value="U">U</option>
+<option value="M">M</option>
+<option value="F">F</option></select></td>
+      <th>Ethnicity</th>
+      <td><select id="patient_ethnicity" name="patient[ethnicity]"><option value="">Select ethnicity</option>
+
+<option value="[Unknown]">[Unknown]</option>
+<option value="Non-Hispanic/Non-Latino">Non-Hispanic/Non-Latino</option>
+<option value="Hispanic/Latino">Hispanic/Latino</option></select></td>
+      <th>Race</th>
+      <td><select id="patient_race" name="patient[race]"><option value="">Select race</option>
+<option value="[Unknown]">[Unknown]</option>
+<option value="White">White</option>
+<option value="Black/African American">Black/African American</option>
+
+<option value="Asian">Asian</option>
+<option value="American Indian/Alaska Native">American Indian/Alaska Native</option>
+<option value="Native Hawaiian/Pacific Islander">Native Hawaiian/Pacific Islander</option></select></td>
+    </tr>
+  </table>
+    
+  
+    
+      
+      
+      <span class="form_title">Sample Acquisition:</span>
+<table class="form">
+<tr>
+  <th>Collect date</th>
+
+  <td><input id="sample_characteristic_collection_date" name="sample_characteristic" size="15" type="text" value="2011-02-10" /> <img alt="Calendar" class="calendar_date_select_popup_icon" src="/images/calendar_date_select/calendar.gif?1297375375" style="border:0px; cursor:pointer;" /></td>
+  <th>Clinic from</th> 
+  <td><select id="sample_characteristic_clinic_or_location" name="sample_characteristic[clinic_or_location]"><option value="">Select clinic</option>
+<option value="Lucille-Packard Ped. Oncology Service">Lucille-Packard Ped. Oncology Service</option>
+<option value="Stanford Cancer Genetics">Stanford Cancer Genetics</option>
+<option value="Stanford Medical Oncology Service">Stanford Medical Oncology Service</option>
+<option value="Stanford Radiation Oncology Service">Stanford Radiation Oncology Service</option>
+<option value="Stanford Gastroenterology Service">Stanford Gastroenterology Service</option>
+
+<option value="Stanford Surgical Service">Stanford Surgical Service</option>
+<option value="Stanford Tissue Bank - Frozen">Stanford Tissue Bank - Frozen</option>
+<option value="Veterans Affairs Oncology">Veterans Affairs Oncology</option>
+<option value="Veterans Affairs Surgical Service">Veterans Affairs Surgical Service</option>
+<option value="NCCC/John Muir">NCCC/John Muir</option>
+<option value="[Other]">[Other]</option></select></td>
+</tr>
+<tr>
+  <th>Consent protocol</th>
+
+  <td colspan=3><select id="sample_characteristic_consent_protocol_id" name="sample_characteristic[consent_protocol_id]"><option value="">Select protocol</option>
+<option value="11">NA/Anonymous Sample</option>
+<option value="17">3276/Childhood Brain Tumors and Blood Samples</option>
+<option value="14">3277/Childhood Cancer and Blood Samples</option>
+<option value="15">13045/Triple-Negative Breast Cancer</option>
+<option value="16">16467/Anal Dysplasia, HPV (Inflammatory Bowel Disease)</option>
+<option value="5">76102/BRCA1/BRCA2 Tumors and Blood</option>
+<option value="8">76274/Upper Gastrointestinal Carcinoma</option>
+
+<option value="7">77716/Screening for High Risk Breast Cancer</option>
+<option value="6">78932/Colorectal Tumors and Blood Samples</option>
+<option value="10">95340/Anal Tumors</option>
+<option value="13">95505/Lovastatin Breast Cancer Chemoprevention</option></select></td>
+</tr>  
+<tr>
+  <th>Comments</th>  
+  <td colspan=3><input id="sample_characteristic_comments" name="sample_characteristic[comments]" size="100" type="text" /></td>
+</tr>
+</table>
+
+  
+      
+         
+<div id="samples">
+  <span class="form_title">Physical Sample:</span>
+  
+  
+  
+<table class="form">
+   
+    <input id="sample_characteristic_new_sample_attributes__patient_id" name="sample_characteristic[new_sample_attributes][][patient_id]" type="hidden" value="1646" />
+    
+    
+    <tr>
+      <th>Barcode</th>
+      <td><input id="sample_characteristic_new_sample_attributes__barcode_key" name="sample_characteristic[new_sample_attributes][][barcode_key]" size="10" type="text" value="" /></td>
+      <th>OR Designation</th>
+
+      <td><select id="sample_characteristic_new_sample_attributes__tumor_normal" name="sample_characteristic[new_sample_attributes][][tumor_normal]"><option value="[Unknown]">[Unknown]</option>
+<option value="Normal">Normal</option>
+<option value="Tumor">Tumor</option>
+<option value="Leukemia">Leukemia</option>
+<option value="Colitis - ulcerative">Colitis - ulcerative</option>
+<option value="Colitis - Crohn's">Colitis - Crohn's</option>
+<option value="[Other]">[Other]</option></select></td>
+    <td colspan="4">&nbsp;</td>
+    </tr>
+
+    
+    <tr>
+      <th>Sample Site - L/R</th>
+      <td><select id="sample_characteristic_new_sample_attributes__sample_tissue" name="sample_characteristic[new_sample_attributes][][sample_tissue]"><option value="[Unknown]">[Unknown]</option>
+<option value="Arm">Arm</option>
+<option value="Anus">Anus</option>
+<option value="Brain">Brain</option>
+<option value="Breast">Breast</option>
+<option value="Colon">Colon</option>
+
+<option value="Duodenum">Duodenum</option>
+<option value="Gallbladder">Gallbladder</option>
+<option value="Myometrium">Myometrium</option>
+<option value="Ovaries">Ovaries</option>
+<option value="Pancreas">Pancreas</option>
+<option value="Rectum">Rectum</option>
+<option value="Upper GI">Upper GI</option>
+<option value="Wrist">Wrist</option>
+<option value="Gastric">Gastric</option>
+
+<option value="Pancreatic">Pancreatic</option>
+<option value="[Other]">[Other]</option></select>
+          <select id="sample_characteristic_new_sample_attributes__left_right" name="sample_characteristic[new_sample_attributes][][left_right]"><option value="NA">NA</option>
+<option value="L">L</option>
+<option value="R">R</option></select></td>
+      <th>Sample Type</th>
+      <td><select id="sample_characteristic_new_sample_attributes__sample_type" name="sample_characteristic[new_sample_attributes][][sample_type]"><option value="[Unknown]">[Unknown]</option>
+
+<option value="Tissue">Tissue</option>
+<option value="Peripheral Blood">Peripheral Blood</option>
+<option value="Core Biopsy">Core Biopsy</option>
+<option value="Urine">Urine</option>
+<option value="Cell Line">Cell Line</option>
+<option value="Fine Needle Aspirate">Fine Needle Aspirate</option>
+<option value="Ductal Lavage">Ductal Lavage</option>
+<option value="Pap Smear">Pap Smear</option>
+<option value="[Other]">[Other]</option></select></td>  
+      <th>Preservation</th>
+
+      <td><select id="sample_characteristic_new_sample_attributes__tissue_preservation" name="sample_characteristic[new_sample_attributes][][tissue_preservation]"><option value=""></option>
+<option value="Fresh">Fresh</option>
+<option value="Fresh Frozen">Fresh Frozen</option>
+<option value="Paraffin-Embedded">Paraffin-Embedded</option></select></td>
+    <td colspan="2">&nbsp;</td>
+    </tr>
+    
+    <tr>
+      <th>Container</th>
+      <td><select id="sample_characteristic_new_sample_attributes__sample_container" name="sample_characteristic[new_sample_attributes][][sample_container]"><option value="NA/Other">NA/Other</option>
+
+<option value="Vial">Vial</option>
+<option value="Block">Block</option>
+<option value="Bag">Bag</option></select></td>
+      <th>Vial Type</th>
+      <td><select id="sample_characteristic_new_sample_attributes__vial_type" name="sample_characteristic[new_sample_attributes][][vial_type]"><option value=""></option>
+<option value="EDTA (purple top)">EDTA (purple top)</option>
+<option value="Heparin (green top)">Heparin (green top)</option>
+<option value="Serum (red top)">Serum (red top)</option>
+
+<option value="Falcon">Falcon</option>
+<option value="Disk">Disk</option>
+<option value="Other">Other</option></select></td>
+      <th>Amt Unit</th>
+      <td><select id="sample_characteristic_new_sample_attributes__amount_uom" name="sample_characteristic[new_sample_attributes][][amount_uom]"><option value="Volume (ml)">Volume (ml)</option>
+<option value="Weight (mg)">Weight (mg)</option>
+<option value="Vial">Vial</option>
+<option value="Block">Block</option>
+
+<option value="Bag">Bag</option>
+<option value="Nr of cells">Nr of cells</option></select></td>
+      
+      
+      <th>Amount</th>
+      <td><input id="sample_characteristic_new_sample_attributes__amount_initial" name="sample_characteristic[new_sample_attributes][][amount_initial]" size="8" type="text" value="0.0" /></td>
+      
+    </tr>
+    
+    <tr>
+      <th>Room/Freezer</th>
+        <td><select id="sample_characteristic_new_sample_attributes__storage_location_id" name="sample_characteristic[new_sample_attributes][][storage_location_id]"><option value="">Select location</option>
+
+<option value="4">CCSR_1130/1(Ford)</option>
+<option value="1">CCSR_3240/1(Ji)</option>
+<option value="2">CCSR_3240/2(Ji)</option>
+<option value="5">SGTC_176/1(Ji)</option>
+<option value="6">SGTC_176/2(Ji)</option>
+<option value="7">SGTC_176/3(Ji)</option></select></td>
+      <th>Shelf</th>
+      <td><input id="sample_characteristic_new_sample_attributes__storage_shelf" name="sample_characteristic[new_sample_attributes][][storage_shelf]" size="10" type="text" /></td>
+
+      <th>Rack#/Bin</th>
+      <td><input id="sample_characteristic_new_sample_attributes__storage_boxbin" name="sample_characteristic[new_sample_attributes][][storage_boxbin]" size="10" type="text" /></td>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <th text-align="right">Comments: </th>
+      <td colspan="7"><textarea id="sample_characteristic_new_sample_attributes__comments" name="sample_characteristic[new_sample_attributes][][comments]" cols="45" rows="3" /></textarea></td>
+    </tr>
+    <!--  link_to_function "remove", "$(this).up('.samples').remove()"  -->
+
+  
+</table>
+
+</div>
+        
+  <p><input id="patient_submit" name="commit" type="submit" value="Save" /></p>
+  </form>
