@@ -32,7 +32,7 @@
 		   current_user.has_role?("admin")
 	   )
     %>
-    <li><a class="MenuBarItemSubmenu" href="/">Clinical</a>     
+    <li><a class="MenuBarItemSubmenu" href="#">Clinical</a>     
       <ul>
         <li><%= link_to 'New Clinical Sample', new_sample_characteristic_path %></li>
         <li><%= link_to 'Edit Sample Acquisition', modify_sample_path %></li>
@@ -42,7 +42,7 @@
       </ul>
     </li>
     <% else %>
-    <li><a class="MenuBarHorizontal-nomenu" href="/">Clinical</a></li>
+    <li><a class="MenuBarHorizontal-nomenu" href="#">Clinical</a></li>
     <% end %>
 	<!-- /clinical -->   
 	
@@ -53,20 +53,20 @@
            current_user.has_role?("lab_admin")
 	   )
     %>
-    <li><a class="MenuBarItemSubmenu" href="/">Sample Processing</a>
+    <li><a class="MenuBarItemSubmenu" href="#">Sample Processing</a>
 	  <ul>
         <li><%= link_to 'Dissection', new_dissection_path %></li>
         <li><%= link_to 'Extraction', new_extraction_path %></li>
         <li class="last-item"><%= link_to 'Edit Sample', upd_sample_path %></li>
-        <!--li><a href="/">Molecular assays</a></li-->
+        <!--li><a href="#">Molecular assays</a></li-->
       </ul>
     </li>
 	<% else %>
-	<li><a class="MenuBarHorizontal-nomenu" href="/">Sample Processing</a></li>
+	<li><a class="MenuBarHorizontal-nomenu" href="#">Sample Processing</a></li>
     <% end %>  
 	<!-- /sample processing -->
 	
-    <li><a class="MenuBarItemSubmenu" href="/">Sequencing/Alignment</a>
+    <li><a class="MenuBarItemSubmenu" href="#">Sequencing/Alignment</a>
       <ul>
       	<% if ( 
                current_user.has_role?("researcher") ||
@@ -74,13 +74,13 @@
 		       current_user.has_role?("alignment")
 	       )
         %>
-        <li><a class="MenuBarItemSubmenu" href="/">Library Prep</a>
+        <li><a class="MenuBarItemSubmenu" href="#">Library Prep</a>
           <ul>
             <li><%= link_to 'New Lib-Singleplex', new_lib_S_path  %></li>
             <li class="last-item"><%= link_to 'New Lib-Multiplex',  new_lib_M_path  %></li>
           </ul>
         </li>
-        <li><a class="MenuBarItemSubmenu" href="/">Sequencing</a>
+        <li><a class="MenuBarItemSubmenu" href="#">Sequencing</a>
 		  <ul>
             <li><%= link_to 'Prepare FlowCell',  flow_cell_setup_path %></li>
             <li class="last-item"><%= link_to 'Sequence FlowCell', flow_cells_path(:rpt_type => 'seq') %></li>
@@ -93,7 +93,7 @@
     </li>
 	<!-- /sequencing alignment -->
 	    
-	<li><a class="MenuBarItemSubmenu" href="/">Admin</a>
+	<li><a class="MenuBarItemSubmenu" href="#">Admin</a>
       <ul>
       <% if current_user.has_role?("admin")%> 
         <li><%= link_to 'Users',       users_path %></li>
@@ -103,7 +103,7 @@
       </ul>
     </li> <!-- /admin -->
 	
-    <li class="MenuBarItemSubmenu last-item"><a href="/">Orders</a>
+    <li class="MenuBarItemSubmenu last-item"><a href="#">Orders</a>
 	  <ul>
         <li><%= link_to 'New item', new_item_path %></li>
         <li><%= link_to 'View/Order items', view_items_path %></li>
@@ -113,7 +113,7 @@
 	<!-- /orders -->
   </ul> <!-- /ul nav bar -->
   <% else %>  
-  <div>&nbsp;</div>
+  <div style="height: 26px;">&nbsp;</div>
   <% end %>
   </td></tr>
 </table>
@@ -128,7 +128,7 @@
      <i> Logged in as: <%= current_user.login %> </i>
   </div>
   <ul class="opened">
-    <li> <a href="/">Query</a> 
+    <li> <a href="#">Query</a> 
       <ul>
        <li><%= link_to 'Source/Dissections', unprocessed_query_path %></li>
        <li><%= link_to 'Extracted Samples',  processed_query_path %></li>
@@ -137,7 +137,7 @@
       </ul>
     </li>
         
-    <li> <a href="/">System Tables</a>  
+    <li> <a href="#">System Tables</a>  
       <ul>
       	<% if ( 
 		       current_user.has_role?("clin_admin") ||
