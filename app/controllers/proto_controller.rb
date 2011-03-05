@@ -1,9 +1,14 @@
 class ProtoController < ApplicationController
     
-  def formproto1
+  def formproto_patient_sample
   end
 
-  def tableproto_path
+  def formproto_processed_query
   end
+
+  def tableproto_patho
+  end
+
+  
 
 end

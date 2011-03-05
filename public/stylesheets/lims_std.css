@@ -282,6 +282,39 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
  font-size:inherit;
  }
 
+/* styles for forms with fieldset */
+#maincontent fieldset {
+	padding-bottom:.75em;
+	margin-bottom:.75em; 
+	float:left; 
+	clear:left; 
+	width:55%;
+}
+#maincontent legend {
+	margin-left:1em;
+	font-size: .9em;
+	font-weight: bold;
+}
+#maincontent fieldset ol {
+	list-style:none; 
+	padding:.5em 1em 0 1em;
+	margin: 0;
+}
+#maincontent fieldset li {
+	float:left; clear:left; 
+	width:100%;
+	padding: 2px 0;
+}
+#maincontent label {
+	float:left; width:9em; 
+	margin-right: 1em;
+	font-size: .9em;
+}
+#maincontent label.radio {
+	float:left; width:20em; 
+	margin-right: 1em;
+}
+
 /* styles for tables */
 
 table {
