@@ -5,9 +5,9 @@
 <% form_for(@pathology) do |f| %>
   <%= f.error_messages %>
 
-  <%= render :partial => 'clinical_info', :locals => {:sample_characteristics => @pathology.sample_characteristics} %>
-  
   <%= render :partial => 'pathology_form', :locals => {:f => f} %>
+  
+  <%= render :partial => 'clinical_info', :locals => {:sample_characteristics => @pathology.sample_characteristics} %>
   
   <%= f.submit "Update" %>
 <% end %>

@@ -14,6 +14,7 @@ set :use_sudo, false
 set :scm, "git"
 set :repository, "git@github.com:suegrimes/seqLIMS.git"
 set :branch, "master"
+set :git_shallow_clone, 1
 set :deploy_via, :remote_cache
 
 namespace :deploy do
