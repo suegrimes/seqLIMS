@@ -65,7 +65,7 @@
       </tr>   
       <tr>
         <td colspan="12" style="border-top:0; text-align:center;">
-          <%if !sample.sample_characteristic.pathology.comments.blank? %>        
+          <%if sample.sample_characteristics.pathology && !sample.sample_characteristic.pathology.comments.blank? %>        
             <div style="padding: 0 10px; margin-bottom: 4px; width:70%; border: 1px solid #e5e5e5; text-align:left;"><strong>Pathology Comments:</strong>&nbsp;<%=h sample.sample_characteristic.pathology.comments %></div>
           <% end %>
           <%if !sample.comments.blank? %>
