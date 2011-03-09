@@ -4,11 +4,16 @@
 
 <%= render :partial => 'samples/sample_info', :locals => {:sample => @processed_sample.sample,
                                                           :source => 'Source'} %>
-
-  
+ 
 <% if @processed_sample.sample.sample_characteristic.pathology %>
   <%= render :partial => 'pathologies/pathology_info',
              :locals => {:pathology => @processed_sample.sample.sample_characteristic.pathology} %>
+<% end %>
+
+<% if @processed_sample.sample.histology %>
+  <%= render :partial => 'histologies/histology_info', :locals => {:histology => @processed_sample.sample.histology} %>
+<% elsif @processed_sample.sample.source_sample && @processed_sample.sample.source_sample.histology %>
+  <%= render :partial => 'histologies/histology_info', :locals => {:histology => @processed_sample.sample.source_sample.histology} %>
 <% end %>
   
   <span class='table_title'>Extracted Sample:</span>

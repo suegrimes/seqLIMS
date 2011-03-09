@@ -80,9 +80,9 @@ class ProcessedSamplesController < ApplicationController
     Sample.transaction do
       @processed_sample.save!
       if params[:processed_sample][:input_amount]
-        @sample.amount_rem -= params[:processed_sample][:input_amount].to_f
-        @sample.save!
+        params[:sample].merge!(:amount_rem => @sample.amount_rem - params[:processed_sample][:input_amount].to_f)
       end
+      @sample.update_attributes!(params[:sample])
       flash[:notice] = 'Processed sample was successfully created'
       redirect_to(:action => 'show_by_sample',
                   :sample_id => params[:processed_sample][:sample_id])
