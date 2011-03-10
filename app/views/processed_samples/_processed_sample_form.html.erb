@@ -18,7 +18,7 @@
 		<td><%=h @sample.tumor_normal %></td>
 		<td><%=h @sample.amount_uom %></td>
 		<td><%=h @sample.amount_initial %></td>
-		<td><%= select_tag(:sample_remaining, options_for_select(%w{Y N}))%></td>
+		<td><%= select(:sample, :sample_remaining, %w[Y N])%></td>
 	  </tr>
   </table>
 <% end %>

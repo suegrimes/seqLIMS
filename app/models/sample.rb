@@ -83,8 +83,11 @@ class Sample < ActiveRecord::Base
   
   def sample_amt
     # Pull out value in parentheses (eg. from Volume (ul), pull out ul)
-    uom = amount_uom.match(/\((.*)\)/)[1] if !amount_uom.blank?
-    uom ||= amount_uom
+    if (amount_uom =~ /\(/ && amount_uom =~ /\(/)
+      uom = amount_uom.match(/\((.*)\)/)[1]
+    else
+      uom = amount_uom
+    end
     return [amount_initial.to_s, uom].join(' ')
   end
   

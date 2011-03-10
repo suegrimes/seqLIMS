@@ -1,6 +1,8 @@
 log
 tmp
 db/*.sqlite3
+db/seeds.rb
 public/system/*
 config/database.yml
 lib/mysql.rb
+public/images/*
