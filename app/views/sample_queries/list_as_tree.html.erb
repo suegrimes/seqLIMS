@@ -54,13 +54,15 @@
 		</td>
         <td class="<%= 'no_border_bottom' if td_no_border %>"><%=h sample.storage_shelf %></td>
         <td class="<%= 'no_border_bottom' if td_no_border %>"><%=h sample.storage_boxbin %></td>
-        <% if can? :delete, sample %>
+        
+		<% if can? :delete, sample %>
           <% if !@source_sample_ids.include?(sample.id) && sample.processed_samples.size == 0 %>
             <td class="<%= 'no_border_bottom' if td_no_border %>"><%= link_to 'Delete', sample, :confirm => 'Are you sure?', :method => :delete %></td>
           <% else %>
             <td class="ltgrey <%= 'no_border_bottom' if td_no_border %>"> Delete </td>
           <% end %>
         <% end %>
+
         <%= hidden_field_tag("export_id[]", sample.id)  %>
       </tr>   
       <tr>
@@ -90,7 +92,6 @@
         </tr>
       <% end %>   
     <% end %>
-    
     <% end %> <!-- end of each patient loop -->
     </table>
   <% end %> <!-- end of form -->
