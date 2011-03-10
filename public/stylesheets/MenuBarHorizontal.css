@@ -138,6 +138,12 @@ ul.MenuBarHorizontal a.MenuBarItemHover
 background-color: #fff;
     color: #000;
 }
+/* Menu Items without Submenu on hover */
+ul.MenuBarHorizontal a:hover.nosubmenu
+{
+background-color: #e8ead0;
+    color: #000;
+}
 /* Menu Items with a Submenu on hover */
 ul.MenuBarHorizontal a.MenuBarItemSubmenuHover, ul.MenuBarHorizontal a.MenuBarSubmenuVisible
 {
