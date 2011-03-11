@@ -123,19 +123,16 @@ class ApplicationController < ActionController::Base
   end
   
   def sql_conditions_for_date_range(where_select, where_values, params, db_fld)
-    if params[:from_date].blank? && params[:to_date].blank?
-      break
-    elsif !params[:from_date].blank? && !params[:to_date].blank?
+    if !params[:from_date].blank? && !params[:to_date].blank?
       where_select.push "#{db_fld} BETWEEN ? AND DATE_ADD(?, INTERVAL 1 DAY)"
       where_values.push(params[:from_date], params[:to_date]) 
-    elsif !params[:from_date].blank?
+    elsif !params[:from_date].blank? 
       where_select.push("#{db_fld} >= ?")
       where_values.push(params[:from_date])
-    else # !params[:to_date].blank?
+    elsif !params[:to_date].blank? 
       where_select.push("#{db_fld} <= DATE_ADD(?, INTERVAL 1 DAY)")
       where_values.push(params[:to_date])
-    end
-    
+    end  
     return where_select, where_values 
   end
   

@@ -2,7 +2,8 @@
 
 <%= render :partial => 'patients/patient_info', :locals => {:patient => @sample.patient}%>
 
-<%= render :partial => 'sample_characteristics/summary_info', :locals => {:sample_characteristic => @sample.sample_characteristic}%>
+<%= render :partial => 'sample_characteristics/summary_info', :locals => {:sample_characteristic => @sample.sample_characteristic,
+                                                              :sample => @sample }%>
 
 <% if @sample.sample_characteristic.pathology %>
   <%= render :partial => 'pathologies/pathology_info', :locals => {:pathology => @sample.sample_characteristic.pathology} %>
