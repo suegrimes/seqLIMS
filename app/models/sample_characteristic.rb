@@ -31,8 +31,9 @@ class SampleCharacteristic < ActiveRecord::Base
   belongs_to :consent_protocol
   belongs_to :pathology
   
-  validates_presence_of :consent_protocol_id, :clinic_or_location
+  validates_presence_of :collection_date, :if => Proc.new { |a| a.new_record? }
   validates_date :collection_date, :allow_blank => true
+  validates_presence_of :consent_protocol_id, :clinic_or_location
   
   after_save :save_sample
   

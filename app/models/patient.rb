@@ -20,9 +20,10 @@ class Patient < ActiveRecord::Base
   has_many :samples
   
   after_save :upd_sample_characteristics
+  after_create :upd_na_mrn
   
   def self.get_patient_id(mrn, not_found_action='none')
-    patient_id  = self.find_id_using_mrn(mrn)
+    patient_id  = self.find_id_using_mrn(mrn) unless mrn == 'NA' && not_found_action == 'add'
  
     # Return true if new patient added, otherwise false
     if !patient_id && not_found_action == 'add'
@@ -92,6 +93,10 @@ class Patient < ActiveRecord::Base
 private
   def key
     EzCrypto::Key.with_password(EZ_PSWD, EZ_SALT)
+  end
+  
+  def upd_na_mrn
+    self.update_attributes(:mrn => ['NA_', id.to_s].join) if mrn == 'NA'
   end
   
   def upd_sample_characteristics
