@@ -4,3 +4,7 @@
   MRN: <%= text_field_tag :mrn_nr %>
   <%= submit_tag 'Submit' %>
 <% end %>
+
+<p class="notes">Enter MRN number if available, otherwise birthdate (YYYYMMDD).  
+<br/>If neither is available, use 'NA' and the system will assign an MRN in the format: NA_nnnnn 
+where nnnnn is the uniquely assigned patient id </p>

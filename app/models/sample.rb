@@ -39,8 +39,11 @@ class Sample < ActiveRecord::Base
   has_one    :histology
   has_many :processed_samples
   
+  #before_validation :check_sample_date
+  
   validates_presence_of :barcode_key
   validates_uniqueness_of :barcode_key, :message => 'is not unique'
+  validates_presence_of :sample_date, :if => Proc.new { |a| a.new_record? }
   validates_date :sample_date, :allow_blank => true
   #validates_format_of :barcode_key, :with => /^([^\.])*$/, :message => "invalid - cannot use '.'"  # only use this validation if source_sample_id is null
   
@@ -51,6 +54,11 @@ class Sample < ActiveRecord::Base
   FLDS_FOR_COPY = (%w{sample_type sample_tissue left_right tissue_preservation sample_container vial_type amount_uom storage_location_id})
   SOURCE_FLDS_FOR_COPY = (%w{sample_characteristic_id patient_id tumor_normal sample_type sample_tissue left_right tissue_preservation})
  
+  #def check_sample_date
+    #sample date cannot be blank for new record, or for existing record if a sample date currently exists for that record
+    #self.errors.add(:sample_date, "cannot be blank") if self.new_record? || !sample_date.blank?
+  #end
+  
   def before_save
     self.patient_id  = self.sample_characteristic.patient_id
     self.sample_date = self.sample_characteristic.collection_date if self.source_sample_id.nil?
