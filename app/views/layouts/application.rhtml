@@ -23,7 +23,7 @@
 </div><!-- /header -->
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-bottom:0;">
-  <tr><td style="background-color: #990000; padding: 0;">
+  <tr><td id="topnavbar">
   <% if logged_in? %>
   <ul id="MenuBar1" class="MenuBarHorizontal">
     <% if ( 
@@ -100,15 +100,15 @@
     </li>
 	<!-- /sequencing alignment -->
 	    
-	<li><a class="MenuBarItemSubmenu" href="#">Admin</a>
+	<% if current_user.has_role?("admin")%>
+    <li><a class="MenuBarItemSubmenu" href="#">Admin</a>
       <ul>
-      <% if current_user.has_role?("admin")%> 
-        <li><%= link_to 'Users',       users_path %></li>
-        <li><%= link_to 'Researchers', researchers_path %></li>
-      <% end %>               
-        <li class="last-item"><%= link_to 'Edit User Profile', edit_user_path(current_user) %></li>
+        <li><%= link_to 'Users',  users_path %></li>
+        <li class="last-item"><%= link_to 'Researchers', researchers_path %></li>
       </ul>
-    </li> <!-- /admin -->
+    </li>
+    <% end %> 
+    <!-- /admin -->
 	
     <li class="MenuBarItemSubmenu last-item"><a href="#">Orders</a>
 	  <ul>

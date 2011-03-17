@@ -251,6 +251,14 @@ text-decoration: none;
 }
 /* end left navigation styles */
 
+/* top nav bar background style */
+#topnavbar {
+	background-color: #990000; 
+	padding: 0; 
+	border-top:1px solid #c1c1c1; 
+	border-bottom:1px solid #c1c1c1;
+}
+
 #maincontent {
     /* position: absolute;
 left: 210px; */

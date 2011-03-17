@@ -123,8 +123,8 @@ font-size: 0.9em;
 /* Submenu Items */
 ul.MenuBarHorizontal ul a
 {
-    background-color: #e8ead0;
-    color: #000;
+background-color: #e8ead0;
+color: #000;
 font-size: 0.85em;
 }
 /* Menu items that have mouse over or focus have a blue background and white text */
