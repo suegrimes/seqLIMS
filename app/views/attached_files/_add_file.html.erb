@@ -1,0 +1,20 @@
+<span class="form_title">Attach new file:</span>
+<% form_for(:attached_file, @attached_file,
+            :url => {:controller => 'attached_files', :action=> 'create'},
+            :html => {:multipart => true}) do |f| -%>  
+  <%= error_messages_for :attached_file %>
+  <%= hidden_field_tag(:obj_klass, obj.class.name)%>
+  <%= hidden_field_tag(:obj_id, obj.id)%>
+  
+  <table class="form">
+	<tr>
+	  <th>File name:</th>
+	  <td><%= f.upload_column_field :document, :size=>30%> </td>
+	</tr>
+	<tr>
+	  <th>Notes:</th>
+	  <td><%= f.text_field(:notes, :size => 100) %></td>  
+	</tr>
+  </table>
+  <%= f.submit "Upload File" %></td> 
+<% end %>
