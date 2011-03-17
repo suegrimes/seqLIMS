@@ -5,7 +5,8 @@ module SampleQueriesHelper
     elsif !sample.comments.blank?
       return true
     else
-      return false
+      #return false
+      return true
     end
   end
 end

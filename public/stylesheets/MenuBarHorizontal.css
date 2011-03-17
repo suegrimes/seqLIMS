@@ -13,7 +13,8 @@ LAYOUT INFORMATION: describes box model, positioning, z-order
 /* The outermost container of the Menu Bar, an auto width box with no margin or padding */
 ul.MenuBarHorizontal
 {
-margin: auto;
+position: relative;
+margin: 0 0 0 203px;
 padding: 0;
 list-style-type: none;
 /*font-size: 100%;*/
@@ -94,7 +95,7 @@ ul.MenuBarHorizontal li {
 }
 /* Menu last item border right */
 ul.MenuBarHorizontal li.last-item {
-    border-right: 1px solid #c1c1c1;
+border-right: 1px solid #c1c1c1;
 }
 /* Submenu item border */
 ul.MenuBarHorizontal li ul li {
@@ -105,7 +106,7 @@ border-bottom: none;
 }
 /* Submenu last item border bottom */
 ul.MenuBarHorizontal li ul li.last-item {
-    border-bottom: 1px solid #c1c1c1;
+border-bottom: 1px solid #c1c1c1;
 }
 /* Menu items are a dark red block with padding and no text decoration */
 ul.MenuBarHorizontal a
@@ -136,13 +137,18 @@ color: #000;
 ul.MenuBarHorizontal a.MenuBarItemHover
 {
 background-color: #fff;
-    color: #000;
+color: #000;
+}
+/* Menu Items without Submenu */
+ul.MenuBarHorizontal a.nosubmenu
+{
+color: #999;
 }
 /* Menu Items without Submenu on hover */
 ul.MenuBarHorizontal a:hover.nosubmenu
 {
-background-color: #e8ead0;
-    color: #000;
+background-color: #990000;
+color: #999;
 }
 /* Menu Items with a Submenu on hover */
 ul.MenuBarHorizontal a.MenuBarItemSubmenuHover, ul.MenuBarHorizontal a.MenuBarSubmenuVisible
@@ -153,8 +159,8 @@ ul.MenuBarHorizontal a.MenuBarItemSubmenuHover, ul.MenuBarHorizontal a.MenuBarSu
 /* Submenu Items with a Submenu on hover */
 ul.MenuBarHorizontal ul a.MenuBarItemSubmenuHover, ul.MenuBarHorizontal ul a.MenuBarSubmenuVisible
 {
-    background-color: #fff;
-    color: #000;
+background-color: #fff;
+color: #000;
 }
 /*******************************************************************************
 
