@@ -31,35 +31,35 @@
       <th>&nbsp;</th>
     </tr>
     <% for sample in samples %>
-	  <% td_no_border = have_comments?(sample) %>
+	  <!--<% td_no_border = have_comments?(sample) %>-->
       <tr>
-        <td class="<%= 'no_border_bottom' if td_no_border %>"><%= link_to sample.barcode_key, sample_path(sample)%></td>
-        <td class="<%= 'no_border_bottom' if td_no_border %>"><%=h format_date(sample.created_at) %></td>
-        <td class="<%= 'no_border_bottom' if td_no_border %>"><%=h sample.sample_category %></td>
-        <td class="<%= 'no_border_bottom' if td_no_border %>"><%=h sample.tumor_normal %></td>
-        <td class="<%= 'no_border_bottom' if td_no_border %>">
+        <td class="no_border_bottom"><%= link_to sample.barcode_key, sample_path(sample)%></td>
+        <td class="no_border_bottom"><%=h format_date(sample.created_at) %></td>
+        <td class="no_border_bottom"><%=h sample.sample_category %></td>
+        <td class="no_border_bottom"><%=h sample.tumor_normal %></td>
+        <td class="no_border_bottom">
           <% if sample.sample_characteristic.pathology %><%=h sample.sample_characteristic.pathology.pathology_classification %><% end %>
 	    </td>
-        <td class="<%= 'no_border_bottom' if td_no_border %>">
+        <td class="no_border_bottom">
           <% if sample.histology %><%=h sample.histology.histopathology %>
           <% elsif sample.clinical_sample == 'no' && sample.source_sample.histology %><%=h sample.source_sample.histology.histopathology %>
           <% end %>
 		</td>
-        <td class="<%= 'no_border_bottom' if td_no_border %>">
+        <td class="no_border_bottom">
           <% if sample.clinical_sample == 'no' %><%=h sample.sample_date %><% end %>
 		</td>
-        <td class="<%= 'no_border_bottom' if td_no_border %>"><%=h sample.sample_remaining %></td>
-        <td class="<%= 'no_border_bottom' if td_no_border %>">
+        <td class="no_border_bottom"><%=h sample.sample_remaining %></td>
+        <td class="no_border_bottom">
           <% if sample.storage_location %><%=h sample.storage_location.location_string %><% end %>
 		</td>
-        <td class="<%= 'no_border_bottom' if td_no_border %>"><%=h sample.storage_shelf %></td>
-        <td class="<%= 'no_border_bottom' if td_no_border %>"><%=h sample.storage_boxbin %></td>
+        <td class="no_border_bottom"><%=h sample.storage_shelf %></td>
+        <td class="no_border_bottom"><%=h sample.storage_boxbin %></td>
         
 		<% if can? :delete, sample %>
           <% if !@source_sample_ids.include?(sample.id) && sample.processed_samples.size == 0 %>
-            <td class="<%= 'no_border_bottom' if td_no_border %>"><%= link_to 'Delete', sample, :confirm => 'Are you sure?', :method => :delete %></td>
+            <td class="no_border_bottom"><%= link_to 'Delete', sample, :confirm => 'Are you sure?', :method => :delete %></td>
           <% else %>
-            <td class="ltgrey <%= 'no_border_bottom' if td_no_border %>"> Delete </td>
+            <td class="ltgrey no_border_bottom"> Delete </td>
           <% end %>
         <% end %>
 
@@ -68,10 +68,10 @@
       <tr>
         <td colspan="12" style="border-top:0; text-align:center;">
           <% if sample.sample_characteristic.pathology && !sample.sample_characteristic.pathology.comments.blank? %>        
-            <div style="padding: 0 10px; margin-bottom: 4px; width:70%; border: 1px solid #e5e5e5; text-align:left;"><strong>Pathology Comments:</strong>&nbsp;<%=h sample.sample_characteristic.pathology.comments %></div>
+            <div style="padding: 0 10px; margin-bottom: 4px; width:70%; border: 1px solid #e5e5e5; text-align:left;">Pathology Comments:&nbsp;<%=h sample.sample_characteristic.pathology.comments %></div>
           <% end %>
           <% if !sample.comments.blank? %>
-            <div style="padding: 0 10px; margin-bottom: 4px; width:70%; border: 1px solid #e5e5e5; text-align:left;"><strong>Sample Comments:</strong>&nbsp;<%=h sample.comments %></div>
+            <div style="padding: 0 10px; margin-bottom: 4px; width:70%; border: 1px solid #e5e5e5; text-align:left;">Sample Comments:&nbsp;&nbsp;&nbsp;&nbsp;<%=h sample.comments %></div>
           <% end %>
         </td>
       </tr>

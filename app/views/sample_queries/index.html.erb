@@ -18,12 +18,13 @@
     <th>Shelf</th>
     <th>Rack#/Bin</th>
 	<th>Extracted?</th> 
+	<th colspan=2></th>
   </tr>
   
   <% if @samples_by_patient %>
     <% @samples_by_patient.sort.each do | patient_id, samples| %>
     <tr>
-    <td colspan=3><b>Patient: </b><%=link_to patient_id[0], patient_path(:id => patient_id[0]) %>
+    <td colspan=13><b>Patient: </b><%=link_to patient_id[0], patient_path(:id => patient_id[0]) %>
     <% if can? :read, Patient %>
       / <%=h patient_id[1]%>
     <% end %>
@@ -46,8 +47,8 @@
         <td><% if sample.storage_location %><%=h sample.storage_location.location_string %><% end %></td>
         <td><%=h sample.storage_shelf %></td>
         <td><%=h sample.storage_boxbin %></td>
-		<%= render :partial => 'samples/sample_links', :locals => {:sample => sample,
-                                                     :sample_characteristic => sample.sample_characteristic} %>
+		<%= render :partial => 'sample_links', :locals => {:sample => sample,
+                                               :sample_characteristic => sample.sample_characteristic} %>
 	    <td><%= hidden_field_tag("export_id[]", sample.id)  %></td>
       </tr>
 	  <% if !sample.comments.blank? %>
@@ -57,7 +58,6 @@
         <td colspan=7><%=h sample.comments %></td>
 	  </tr>
 	  <% end %>
-	  <tr><td colspan=12><hr></td></tr>  
     <% end %>
 	
   <% end %>
