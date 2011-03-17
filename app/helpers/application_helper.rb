@@ -43,6 +43,11 @@ module ApplicationHelper
   def user_role_is?(role)
     (current_user && current_user.has_role?(role, 'admin_defaults_to_true'))
   end
+  
+  def user_has_access?(user_roles, valid_roles)
+    # if user has admin role, or intersection of user_roles and valid_roles is not empty, user has access
+    (user_roles.include?("admin") || (user_roles & valid_roles).size > 0 ? true : false)
+  end
 
 end
   
