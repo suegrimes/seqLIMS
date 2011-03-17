@@ -35,10 +35,17 @@
     <li><a class="MenuBarItemSubmenu" href="#">Clinical</a>     
       <ul>
         <li><%= link_to 'New Clinical Sample', new_sample_characteristic_path %></li>
-        <li><%= link_to 'Edit Sample Acquisition', modify_sample_path %></li>
-        <li><%= link_to 'Edit Patient', modify_patient_path %></li>
-        <li><%= link_to 'Add/Edit Pathology Report', new_path_rpt_path %></li>
-        <li class="last-item"><%= link_to 'Add/Edit H &amp; E Slide', new_he_slide_path %></li>
+		<li><%= link_to 'New Pathology Report', new_path_rpt_path %></li>
+		<li><%= link_to 'New H &amp; E Slide', new_he_slide_path %></li>
+		<li class="last-item"><a class="MenuBarItemSubmenu" href="#">Edit</a>
+          <ul>
+          	<li><%= link_to 'Patient', modify_patient_path %></li>
+          	<li><%= link_to 'Sample Acquisition', modify_sample_path %></li>
+			<li><%= link_to 'Physical Sample', upd_sample_path %></li>     
+            <li><%= link_to 'Pathology', new_path_rpt_path  %></li>
+            <li class="last-item"><%= link_to 'H &amp; E Slide', new_he_slide_path  %></li>
+          </ul>
+        </li>
       </ul>
     </li>
     <% else %>
@@ -55,8 +62,8 @@
     %>
     <li><a class="MenuBarItemSubmenu" href="#">Sample Processing</a>
 	  <ul>
-        <li><%= link_to 'Dissection', new_dissection_path %></li>
-        <li><%= link_to 'Extraction', new_extraction_path %></li>
+        <li><%= link_to 'New Dissection', new_dissection_path %></li>
+        <li><%= link_to 'New Extraction', new_extraction_path %></li>
         <li class="last-item"><%= link_to 'Edit Sample', upd_sample_path %></li>
         <!--li><a href="#">Molecular assays</a></li-->
       </ul>
