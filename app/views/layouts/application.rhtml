@@ -10,6 +10,7 @@
     </head>
 
 <body id='body'>
+	<% user_roles = (logged_in? ? current_user.roles.collect(&:name) : nil) %>
 	
 <div id="container" style="width: 98%;">
 	
@@ -18,27 +19,33 @@
 	<div class="sitename">SGTC LIMS <% if RAILS_ENV != 'production'%> - (<%= RAILS_ENV%>)<%end%></div>	
 	<div class="version"><% if APP_VERSION %>Version: <%= APP_VERSION %><% end %></div>
     <% if logged_in? %>
-	    <div class="logout-link"><%= link_to 'Logout', logout_url %></div>
+	  <div class="logout-link">
+	  	<%= link_to 'User Profile', edit_user_path(current_user) %>&nbsp;&nbsp;&nbsp;&nbsp;
+	    <%= link_to 'Logout', logout_url %>
+	  </div>
 	<% end %>
 </div><!-- /header -->
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-bottom:0;">
-  <tr><td style="background-color: #990000; padding: 0;">
+  <tr><td id="topnavbar">
   <% if logged_in? %>
   <ul id="MenuBar1" class="MenuBarHorizontal">
-    <% if ( 
-           current_user.has_role?("clinical") ||
-		   current_user.has_role?("clin_admin") ||
-		   current_user.has_role?("admin")
-	   )
-    %>
+  	
+    <% if user_has_access?(user_roles, ["clinical", "clin_admin"]) %>
     <li><a class="MenuBarItemSubmenu" href="#">Clinical</a>     
       <ul>
         <li><%= link_to 'New Clinical Sample', new_sample_characteristic_path %></li>
-        <li><%= link_to 'Edit Sample Acquisition', modify_sample_path %></li>
-        <li><%= link_to 'Edit Patient', modify_patient_path %></li>
-        <li><%= link_to 'Add/Edit Pathology Report', new_path_rpt_path %></li>
-        <li class="last-item"><%= link_to 'Add/Edit H &amp; E Slide', new_he_slide_path %></li>
+		<li><%= link_to 'New Pathology Report', new_path_rpt_path %></li>
+		<li><%= link_to 'New H &amp; E Slide', new_he_slide_path %></li>
+		<li class="last-item"><a class="MenuBarItemSubmenu" href="#">Edit</a>
+          <ul>
+          	<li><%= link_to 'Patient', modify_patient_path %></li>
+          	<li><%= link_to 'Sample Acquisition', modify_sample_path %></li>
+			<li><%= link_to 'Physical Sample', upd_sample_path %></li>     
+            <li><%= link_to 'Pathology', new_path_rpt_path  %></li>
+            <li class="last-item"><%= link_to 'H &amp; E Slide', new_he_slide_path  %></li>
+          </ul>
+        </li>
       </ul>
     </li>
     <% else %>
@@ -46,17 +53,11 @@
     <% end %>
 	<!-- /clinical -->   
 	
-    <% if ( 
-           current_user.has_role?("clinical") ||
-           current_user.has_role?("clin_admin") ||
-           current_user.has_role?("researcher") ||
-           current_user.has_role?("lab_admin")
-	   )
-    %>
+    <% if user_has_access?(user_roles, ["clinical", "clin_admin", "researcher", "lab_admin"]) %>
     <li><a class="MenuBarItemSubmenu" href="#">Sample Processing</a>
 	  <ul>
-        <li><%= link_to 'Dissection', new_dissection_path %></li>
-        <li><%= link_to 'Extraction', new_extraction_path %></li>
+        <li><%= link_to 'New Dissection', new_dissection_path %></li>
+        <li><%= link_to 'New Extraction', new_extraction_path %></li>
         <li class="last-item"><%= link_to 'Edit Sample', upd_sample_path %></li>
         <!--li><a href="#">Molecular assays</a></li-->
       </ul>
@@ -68,12 +69,7 @@
 	
     <li><a class="MenuBarItemSubmenu" href="#">Sequencing/Alignment</a>
       <ul>
-      	<% if ( 
-               current_user.has_role?("researcher") ||
-		       current_user.has_role?("lab_admin") ||
-		       current_user.has_role?("alignment")
-	       )
-        %>
+      	<% if user_has_access?(user_roles, ["researcher", "lab_admin", "alignment"]) %>
         <li><a class="MenuBarItemSubmenu" href="#">Library Prep</a>
           <ul>
             <li><%= link_to 'New Lib-Singleplex', new_lib_S_path  %></li>
@@ -100,15 +96,14 @@
     </li>
 	<!-- /sequencing alignment -->
 	    
+	<% if user_has_access?(user_roles, ["admin"]) %> 
 	<li><a class="MenuBarItemSubmenu" href="#">Admin</a>
-      <ul>
-      <% if current_user.has_role?("admin")%> 
-        <li><%= link_to 'Users',       users_path %></li>
-        <li><%= link_to 'Researchers', researchers_path %></li>
-      <% end %>               
-        <li class="last-item"><%= link_to 'Edit User Profile', edit_user_path(current_user) %></li>
+      <ul>  
+        <li><%= link_to 'Users',  users_path %></li>
+        <li class="last-item"><%= link_to 'Researchers', researchers_path %></li>             
       </ul>
-    </li> <!-- /admin -->
+    </li>
+	<% end %> <!-- /admin -->
 	
     <li class="MenuBarItemSubmenu last-item"><a href="#">Orders</a>
 	  <ul>
@@ -146,35 +141,20 @@
         
     <li> <a href="#">System Tables</a>  
       <ul>
-      	<% if ( 
-		       current_user.has_role?("clin_admin") ||
-		       current_user.has_role?("lab_admin") ||
-               current_user.has_role?("admin")
-	       )
-        %>
+      	<% if user_has_access?(user_roles, ["clin_admin", "lab_admin"]) %> 
       	<li><%= link_to 'Storage Locations', storage_locations_path %></li>
         <li><%= link_to 'Protocols', protocol_type_path %></li>
 		<% end %>
-		<% if ( 
-               current_user.has_role?("lab_admin") ||
-               current_user.has_role?("admin")
-           )
-        %>
+		
+		<% if user_has_access?(user_roles, ["lab_admin"]) %> 
  		<li><%= link_to 'Multiplex Tags', index_tags_path %></li>
 		<% end %>
-		<% if ( 
-               current_user.has_role?("alignment") ||
-               current_user.has_role?("admin")
-           )
-        %>   
+		
+		<% if user_has_access?(user_roles, ["alignment"]) %>  
         <li><%= link_to 'Alignment Refs', alignment_refs_path %></li>
 		<% end %>
-		<% if ( 
-               current_user.has_role?("clin_admin") ||
-               current_user.has_role?("lab_admin") ||
-               current_user.has_role?("admin")
-           )
-        %>
+		
+		<% if user_has_access?(user_roles, ["clin_admin", "lab_admin"]) %> 
 		<li><%= link_to 'Drop-Down Lists', categories_path %></li>
 		<% end %>                
       </ul>

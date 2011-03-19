@@ -24,7 +24,7 @@ class HistologiesController < ApplicationController
         render :action => 'new'
         
       elsif @sample  #Have sample, and histology is not nil
-        flash[:notice] = 'H&E slide exists for sample barcode: ' + params[:barcode_key] 
+        #flash[:notice] = 'H&E slide exists for sample barcode: ' + params[:barcode_key] 
         redirect_to :action => 'edit', :id => @sample.histology.id
         
       else
@@ -56,7 +56,7 @@ class HistologiesController < ApplicationController
       render :action => :edit
     else
       flash[:error] = 'No entry found for H&E barcode: ' + params[:barcode_key]
-      redirect_to :controller => :samples, :action => :edit_params
+      redirect_to :action => :new_params
     end
   end
   
@@ -69,7 +69,7 @@ class HistologiesController < ApplicationController
     #render :action => 'debug'
     else
       prepare_for_render_new(@histology.sample_id)
-      render :action => 'new'
+      render :action => 'edit'
     end
   end
 

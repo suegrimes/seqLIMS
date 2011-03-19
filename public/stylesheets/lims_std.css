@@ -5,12 +5,12 @@ body {
     margin: 0;
     border: 0;
     padding: 0;
-    height: 100%; 
-    max-height: 100%; 
+    height: 100%;
+    max-height: 100%;
     background: #D6D5C7;
-    font-family: arial, verdana, sans-serif; 
+    font-family: arial, verdana, sans-serif;
     font-size: .9em;
-    /*overflow: auto;*/ 
+    /*overflow: auto;*/
 }
 
 /* for internet explorer */
@@ -57,12 +57,12 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
 
 /*
 * html #main {
-  height:100%; 
-  width:100%; 
+height:100%;
+width:100%;
 }
 */
 
-#header {   
+#header {
     height: 90px;
     overflow: hidden;
     background: #fff;
@@ -86,11 +86,11 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
 
 /*
 #header .sitename.prod {
-    color: #990000;
+color: #990000;
 }
 
 #header .sitename.test {
-    color: #888;
+color: #888;
 }
 */
 
@@ -102,9 +102,9 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
 }
 
 #header .logout-link {
-   float: right; 
-   position: relative; 
-   right: -70px; top: 70px; 
+   float: right;
+   position: relative;
+   right: -70px; top: 70px;
 }
 
 #header .logout-link a {
@@ -114,8 +114,8 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
     font-size: .8em;
 }
 
-#footer {   
-    height: 25px; 
+#footer {
+    height: 25px;
     /* overflow: auto; */
     background: #fff;
     border-top: 1px solid #C1C1C1;
@@ -140,7 +140,7 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
 }
 
 #footer a:hover {
-    color:#750404; 
+    color:#750404;
     text-decoration: underline;
 }
 
@@ -152,7 +152,7 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
     text-align: left;
     padding: 1.3em 0;
     margin:10px;
-    background: #e8ead0;    
+    background: #e8ead0;
     border: 1px solid #C1C1C1;
     border-radius: 15px;
     -webkit-border-radius: 15px;
@@ -164,9 +164,9 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
 }
     
 /* .leftnavlist {
-    background-color:#FF9966;
-    color: #000;
-    text-decoration: none;
+background-color:#FF9966;
+color: #000;
+text-decoration: none;
 } */
 
 #leftsidebar ul {
@@ -191,7 +191,7 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
 
 #leftsidebar ul.closed {
     display: none;
-    /*list-style-image:url("/images/closed.gif");*/ 
+    /*list-style-image:url("/images/closed.gif");*/
 }
 
 #leftsidebar ul li a {
@@ -214,7 +214,7 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
 #leftsidebar ul li a:active {
     color: #990000;
     text-decoration: underline;
-    background: #fff;   
+    background: #fff;
 }
 
 #leftsidebar ul li a:visited {
@@ -251,9 +251,17 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
 }
 /* end left navigation styles */
 
+/* top nav bar background style */
+#topnavbar {
+	background-color: #990000; 
+	padding: 0; 
+	border-top:1px solid #c1c1c1; 
+	border-bottom:1px solid #c1c1c1;
+}
+
 #maincontent {
     /* position: absolute;
-    left: 210px; */
+left: 210px; */
     /* float: left; */
     text-align: left;
     padding-left: 203px;
@@ -282,43 +290,10 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
  font-size:inherit;
  }
 
-/* styles for forms with fieldset */
-#maincontent fieldset {
-    padding-bottom:.75em;
-    margin-bottom:.75em; 
-    float:left; 
-    clear:left; 
-    width:55%;
-}
-#maincontent legend {
-    margin-left:1em;
-    font-size: .9em;
-    font-weight: bold;
-}
-#maincontent fieldset ol {
-    list-style:none; 
-    padding:.5em 1em 0 1em;
-    margin: 0;
-}
-#maincontent fieldset li {
-    float:left; clear:left; 
-    width:100%;
-    padding: 2px 0;
-}
-#maincontent label {
-    float:left; width:9em; 
-    margin-right: 1em;
-    font-size: .9em;
-}
-#maincontent label.radio {
-    float:left; width:20em; 
-    margin-right: 1em;
-}
-
 /* styles for tables */
 
 table {
-    empty-cells: show; 
+    empty-cells: show;
     margin-bottom: 1em;
     table-layout: auto;
     /*float: left;*/
@@ -328,11 +303,11 @@ table {
 th {
     white-space:nowrap;
     padding: 1px 4px;
-    text-align: left;   
+    text-align: left;
 }
 
 td {
-    padding: 1px 4px;   
+    padding: 1px 4px;
 }
 
 .table_title,.form_title {
@@ -358,8 +333,8 @@ td {
     /*padding-left: .5em;*/
 }
 
-.list .no_border_bottom  {
-    border-bottom: 0 none;  
+.list .no_border_bottom {
+    border-bottom: 0 none;
 }
 
 .list a.linkborder {
@@ -373,7 +348,7 @@ td {
 /* lists with no underlines */
 .info01 {
     border: 1px solid #b0aa91;
-    border-collapse: separate; 
+    border-collapse: separate;
     margin-bottom: 3em;
 }
 
@@ -414,7 +389,7 @@ td {
     text-align: right;
 }
 
-.form th.top-heading-row {  
+.form th.top-heading-row {
     text-align: left;
 }
 
@@ -484,9 +459,9 @@ td {
 
 .hardbreak {
     word-break: break-all;
-    white-space: nowrap;  /* css-3 */
+    white-space: nowrap; /* css-3 */
     white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
-    word-wrap: break-word;/* Internet Explorer 5.5+ */  
+    word-wrap: break-word;/* Internet Explorer 5.5+ */
 }
 
 .clear {
@@ -515,7 +490,7 @@ td {
   padding: 5px 5px 5px 15px;
   font-size: 12px;
   margin: -7px;
-  background-color: #990000; 
+  background-color: #990000;
   color: #fff;
 }
 
