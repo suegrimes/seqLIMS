@@ -63,7 +63,7 @@ width:100%;
 */
 
 #header {
-    height: 90px;
+    /*height: 90px;*/
     overflow: hidden;
     background: #fff;
     white-space: nowrap;
@@ -74,14 +74,19 @@ width:100%;
 }
 
 #header .logo {
-    float: left;
-    margin: 6px 10px 2px 55px;
+    margin-top: 4px;
+	text-align: center;
 }
     
 #header .sitename, .sitename.prod, .sitename.test {
     font: bold small-caps 2em/1.5em tahoma,serif;
     padding: 20px 10px 0 60px;
     float: left;
+}
+
+#header .sitename-graphic {
+	margin-top: 3px;
+    text-align: center;	
 }
 
 /*
@@ -94,17 +99,16 @@ color: #888;
 }
 */
 
-#header .version {
-    float: right;
-    margin-right: 10px;
-    font-size: smaller;
-    font-weight: 600;
+#header .version {	
+    margin: 4px 7px 0 0;
+    font-size: .8em;
+    font-weight: bold;
+	text-align: right;
 }
 
 #header .logout-link {
-   float: right;
-   position: relative;
-   right: -70px; top: 70px;
+    margin: 0 8px 0 0;	
+    text-align: right;
 }
 
 #header .logout-link a {
@@ -112,6 +116,13 @@ color: #888;
     text-decoration: none;
     font-weight: bold;
     font-size: .8em;
+}
+
+#header .tagline { 
+    font-size: 0.9em;
+	color: #777;
+	font-style:italic;
+	text-align: center;	
 }
 
 #footer {
@@ -260,9 +271,6 @@ text-decoration: none;
 }
 
 #maincontent {
-    /* position: absolute;
-left: 210px; */
-    /* float: left; */
     text-align: left;
     padding-left: 203px;
 }

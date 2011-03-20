@@ -15,18 +15,27 @@
 <div id="container" style="width: 98%;">
 	
 <div id="header">
-    <img class="logo" src="/images/sutech_reflect_DB.gif" alt="Stanford Genome Technology" width="99" height="80" title="SGTC Sequencing Database" />	
-	<div class="sitename">SGTC LIMS <% if RAILS_ENV != 'production'%> - (<%= RAILS_ENV%>)<%end%></div>	
-	<div class="version"><% if APP_VERSION %>Version: <%= APP_VERSION %><% end %></div>
-    <% if logged_in? %>
-	  <div class="logout-link">
-	  	<%= link_to 'User Profile', edit_user_path(current_user) %>&nbsp;&nbsp;&nbsp;&nbsp;
-	    <%= link_to 'Logout', logout_url %>
-	  </div>
-	<% end %>
+  <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom: 0;">
+    <tr>
+      <td valign="top" rowspan="2" width="180"><div class="logo"><img src="/images/sutech_reflect_DB_89.gif" alt="Stanford Genome Technology" height="89" title="SGTC Sequencing Database" /></div></td>
+      <td><div class="sitename-graphic"><img src="/images/seqlims-sitename.gif" height="58" alt="seqLIMS" title="seqLIMS" /></div></td>
+      <td valign="top" width="180"><div class="version"><% if APP_VERSION %>Version: <%= APP_VERSION %><% end %><br /><% if RAILS_ENV != 'production'%> - (<%= RAILS_ENV%>)<%end%></div></td>
+    </tr>
+    <tr>
+      <td><div class="tagline">JI RESEARCH GROUP - SGTC</div></td>      
+	  <td valign="bottom">
+      	<% if logged_in? %>
+        <div class="logout-link">
+          <%= link_to 'User Profile', edit_user_path(current_user) %>&nbsp;&nbsp;&nbsp;&nbsp;
+          <%= link_to 'Logout', logout_url %>
+        </div>
+        <% end %>
+      </td>	  
+    </tr>
+  </table>  
 </div><!-- /header -->
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-bottom:0;">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-bottom:0; table-layout:fixed;">
   <tr><td id="topnavbar">
   <% if logged_in? %>
   <ul id="MenuBar1" class="MenuBarHorizontal">
