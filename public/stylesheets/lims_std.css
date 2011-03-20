@@ -21,8 +21,8 @@ body {
 /* generic html tag styles */
 
 p,h1,h2,h3,h4,h5,h6 {
-padding-left: .5em;
-padding-top: 0.5em;
+    padding-left: .5em;
+    padding-top: 0.5em;
 }
 
 h1 {
@@ -57,8 +57,8 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
 
 /*
 * html #main {
-height:100%;
-width:100%;
+    height:100%;
+    width:100%;
 }
 */
 
@@ -70,7 +70,7 @@ width:100%;
 }
 
 * html #header {
-    height: 95px;
+    /*height: 95px;*/
 }
 
 #header .logo {
@@ -85,19 +85,9 @@ width:100%;
 }
 
 #header .sitename-graphic {
-	margin-top: 3px;
+    margin-top: 3px;
     text-align: center;	
 }
-
-/*
-#header .sitename.prod {
-color: #990000;
-}
-
-#header .sitename.test {
-color: #888;
-}
-*/
 
 #header .version {	
     margin: 4px 7px 0 0;
@@ -264,10 +254,10 @@ text-decoration: none;
 
 /* top nav bar background style */
 #topnavbar {
-	background-color: #990000; 
-	padding: 0; 
-	border-top:1px solid #c1c1c1; 
-	border-bottom:1px solid #c1c1c1;
+    background-color: #990000; 
+    padding: 0; 
+    border-top:1px solid #c1c1c1; 
+    border-bottom:1px solid #c1c1c1;
 }
 
 #maincontent {
