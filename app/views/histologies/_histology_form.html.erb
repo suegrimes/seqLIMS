@@ -1,7 +1,7 @@
 <span class="form_title">H&E Slide:</span>
   <table class="form">
 	<tr>
-	  <th>HE barcode</th><td><%=f.object.he_barcode_key %></td>
+	  <th>HE barcode</th><td><%=f.object.he_barcode_key %><%=f.hidden_field(:he_barcode_key)%></td>
 	  <th>HE date</th><td><%=f.calendar_date_select(:he_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15) %></td>  
 	  <th>Pathologist</th><td><%=f.text_field :pathologist %></td>
 	  <th>Histopathology</th>
