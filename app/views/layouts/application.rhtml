@@ -4,9 +4,17 @@
         <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
         <title>SGTC LIMS<%= controller.action_name %></title>
         <%= stylesheet_link_tag 'lims_std' %>
-		<%= stylesheet_link_tag 'MenuBarHorizontal' %>
+		<%= stylesheet_link_tag 'superfish' %>
         <%= javascript_include_tag :all, :cache => true %>
 		<%= calendar_date_select_includes %>
+		<script type="text/javascript">
+
+		// initialise plugins
+		jQuery(function(){
+			jQuery('ul.sf-menu').superfish();
+		});
+
+		</script>
     </head>
 
 <body id='body'>
@@ -18,8 +26,8 @@
   <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom: 0;">
     <tr>
       <td valign="top" rowspan="2" width="180"><div class="logo"><img src="/images/sutech_reflect_DB_89.gif" alt="Stanford Genome Technology" height="89" title="SGTC Sequencing Database" /></div></td>
-      <td><div class="sitename-graphic"><img src="/images/seqlims-sitename.gif" height="58" alt="seqLIMS" title="seqLIMS" /></div></td>
-      <td valign="top" width="180"><div class="version"><% if APP_VERSION %>Version: <%= APP_VERSION %><% end %><br /><% if RAILS_ENV != 'production'%> - (<%= RAILS_ENV%>)<%end%></div></td>
+      <td valign="top"><div class="sitename-graphic"><img src="/images/seqlims-sitename.gif" height="58" alt="seqLIMS" title="seqLIMS" /></div></td>
+      <td valign="top" width="180"><div class="version"><% if APP_VERSION %>Version: <%= APP_VERSION %><% end %><br /><% if RAILS_ENV != 'production'%> <span style="font-size:larger;">(<%= RAILS_ENV%>)</span><%end%></div></td>
     </tr>
     <tr>
       <td><div class="tagline">JI RESEARCH GROUP - SGTC</div></td>      
@@ -38,7 +46,7 @@
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-bottom:0; table-layout:fixed;">
   <tr><td id="topnavbar">
   <% if logged_in? %>
-  <ul id="MenuBar1" class="MenuBarHorizontal">
+  <ul class="sf-menu">
   	
     <% if user_has_access?(user_roles, ["clinical", "clin_admin"]) %>
     <li><a class="MenuBarItemSubmenu" href="#">Clinical</a>     
@@ -46,19 +54,19 @@
         <li><%= link_to 'New Clinical Sample', new_sample_characteristic_path %></li>
 		<li><%= link_to 'New Pathology Report', new_path_rpt_path %></li>
 		<li><%= link_to 'New H &amp; E Slide', new_he_slide_path %></li>
-		<li class="last-item"><a class="MenuBarItemSubmenu" href="#">Edit</a>
+		<li><a class="MenuBarItemSubmenu" href="#">Edit</a>
           <ul>
           	<li><%= link_to 'Patient', modify_patient_path %></li>
           	<li><%= link_to 'Sample Acquisition', modify_sample_path %></li>
 			<li><%= link_to 'Physical Sample', upd_sample_path %></li>     
             <li><%= link_to 'Pathology', new_path_rpt_path  %></li>
-            <li class="last-item"><%= link_to 'H &amp; E Slide', new_he_slide_path  %></li>
+            <li><%= link_to 'H &amp; E Slide', new_he_slide_path  %></li>
           </ul>
         </li>
       </ul>
     </li>
     <% else %>
-    <li><a class="nosubmenu" href="#">Clinical</a></li>
+    <li><a href="#">Clinical</a></li>
     <% end %>
 	<!-- /clinical -->   
 	
@@ -67,12 +75,12 @@
 	  <ul>
         <li><%= link_to 'New Dissection', new_dissection_path %></li>
         <li><%= link_to 'New Extraction', new_extraction_path %></li>
-        <li class="last-item"><%= link_to 'Edit Sample', upd_sample_path %></li>
+        <li><%= link_to 'Edit Sample', upd_sample_path %></li>
         <!--li><a href="#">Molecular assays</a></li-->
       </ul>
     </li>
 	<% else %>
-	<li><a class="nosubmenu" href="#">Sample Processing</a></li>
+	<li><a href="#">Sample Processing</a></li>
     <% end %>  
 	<!-- /sample processing -->
 	
@@ -82,13 +90,13 @@
         <li><a class="MenuBarItemSubmenu" href="#">Library Prep</a>
           <ul>
             <li><%= link_to 'New Lib-Singleplex', new_lib_S_path  %></li>
-            <li class="last-item"><%= link_to 'New Lib-Multiplex',  new_lib_M_path  %></li>
+            <li><%= link_to 'New Lib-Multiplex',  new_lib_M_path  %></li>
           </ul>
         </li>
         <li><a class="MenuBarItemSubmenu" href="#">Sequencing</a>
 		  <ul>
             <li><%= link_to 'Prepare FlowCell',  flow_cell_setup_path %></li>
-            <li class="last-item"><%= link_to 'Sequence FlowCell', flow_cells_path(:rpt_type => 'seq') %></li>
+            <li><%= link_to 'Sequence FlowCell', flow_cells_path(:rpt_type => 'seq') %></li>
           </ul>
         </li>
 		<% end %>
@@ -96,11 +104,11 @@
 		  <ul>
 		  	<li><%= link_to 'List Run Directories', run_dirs_path %></li>
             <li><%= link_to 'Edit Run Directories', dir_params_path %></li>
-            <li class="last-item"><%= link_to 'List Storage Devices', storage_devices_path %></li></li>			
+            <li><%= link_to 'List Storage Devices', storage_devices_path %></li>		
 		  </ul>
 		</li>
         <li><%= link_to 'List Seq Libraries', seq_libs_path %></li>
-        <li class="last-item"><%= link_to 'List Seq Runs', flow_cells_path(:rpt_type => 'list') %></li>
+        <li><%= link_to 'List Seq Runs', flow_cells_path(:rpt_type => 'list') %></li>
       </ul>
     </li>
 	<!-- /sequencing alignment -->
@@ -109,7 +117,7 @@
 	<li><a class="MenuBarItemSubmenu" href="#">Admin</a>
       <ul>  
         <li><%= link_to 'Users',  users_path %></li>
-        <li class="last-item"><%= link_to 'Researchers', researchers_path %></li>             
+        <li><%= link_to 'Researchers', researchers_path %></li>             
       </ul>
     </li>
 	<% end %> <!-- /admin -->
@@ -118,7 +126,7 @@
 	  <ul>
         <li><%= link_to 'New item', new_item_path %></li>
         <li><%= link_to 'View/Order items', view_items_path %></li>
-        <li class="last-item"><%= link_to 'List/Upd orders', view_orders_path %></li>
+        <li><%= link_to 'List/Upd orders', view_orders_path %></li>
       </ul>
 	</li> 
 	<!-- /orders -->
