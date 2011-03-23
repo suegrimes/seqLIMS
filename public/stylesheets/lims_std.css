@@ -120,15 +120,11 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
     /* overflow: auto; */
     background: #fff;
     border-top: 1px solid #C1C1C1;
-    padding: 15px 0 10px 15px;
+    padding: 10px;
   }
 * html #footer {
     height: 28px;
 }
-
-/* end of bit that does the work */
-
-
 #footer p {
     font: bold .8em verdana, sans-serif;
     color: #750404;
@@ -143,6 +139,32 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
 #footer a:hover {
     color:#750404;
     text-decoration: underline;
+}
+
+#footer .site-blurb {
+	color: #888;
+	font-size: .8em;
+	line-height:1em;
+	font-style: italic;
+	margin-top: 10px;
+}
+
+#footer .site-blurb a {
+	font: inherit;
+}
+/*
+#footer .site-blurb a:hover {
+	font: inherit;
+}
+*/
+#footer .funding-text a {
+	color: #999;
+	font-size: .7em;
+	line-height:.9em
+}
+#footer .funding-text a:hover {
+	color: #990000;
+	text-decoration: none;
 }
 
 /* start left navigation styles */

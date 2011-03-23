@@ -14,7 +14,7 @@
 	width:			10em; /* left offset of submenus need to match (see below) */
 }
 .sf-menu ul li {
-	width:			100%;
+	width:			10em;
 }
 .sf-menu li:hover {
 	visibility:		inherit; /* fixes IE7 'sticky bug' */
@@ -30,8 +30,7 @@
 .sf-menu li:hover ul,
 .sf-menu li.sfHover ul {
 	left:			0;
-	/*top:			2.5em;*/ /* match top ul list item height */
-    top:			1.7em;
+    top:			1.58em; /* match top ul list item height */
 	z-index:		99;
 }
 ul.sf-menu li:hover li ul,
@@ -60,8 +59,18 @@ ul.sf-menu li li li.sfHover ul {
 	margin-bottom:	1em;
 }
 .sf-menu a {
+	border-left:	1px solid #C1C1C1;
+	/*border-top:		1px solid #CFDEFF;*/
+	border-top: none;
+	padding: 		.3em 1em;
+	text-decoration:none;
+}
+.sf-menu a.last-top-item {
+	border-right:	1px solid #C1C1C1;
+}
+.sf-menu ul a { /*preserving border-top color on submenus*/
 	border-left:	1px solid #fff;
-	border-top:		1px solid #CFDEFF;
+	border-top:		1px solid #C1C1C1;
 	padding: 		.3em 1em;
 	text-decoration:none;
 }
@@ -69,6 +78,9 @@ ul.sf-menu li li li.sfHover ul {
 	color:			#fff;
 }
 .sf-menu ul a, .sf-menu ul a:visited  { /* submenu item text color */
+	color:			#000;
+}
+.sf-menu a:hover  { /* top item hover color */
 	color:			#000;
 }
 .sf-menu li {
@@ -103,7 +115,7 @@ ul.sf-menu li li li.sfHover ul {
 	background:		url('../images/arrows-ffffff.png') no-repeat -10px -100px; /* 8-bit indexed alpha png. IE6 gets solid image only */
 }
 a > .sf-sub-indicator {  /* give all except IE6 the correct values */
-	top:			.8em;
+	top:			.5em;
 	background-position: 0 -100px; /* use translucent arrow for modern browsers*/
 }
 /* apply hovers to modern browsers */
