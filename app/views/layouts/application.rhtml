@@ -3,6 +3,8 @@
     <head>
         <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
         <title>SGTC LIMS<%= controller.action_name %></title>
+		<meta name="description" content="Stanford Genomee Technology LIMS manages clinical samples, molecular assays and other processing related to high throughput resequencing operations" />
+        <meta name="keywords" content="stanford, biological medicine, hanlee ji, genome, cancer, cancer research, dna sequencing">
         <%= stylesheet_link_tag 'lims_std' %>
 		<%= stylesheet_link_tag 'superfish' %>
         <%= javascript_include_tag :all, :cache => true %>
@@ -27,8 +29,8 @@
 <div id="header">
   <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom: 0;">
     <tr>
-      <td valign="top" rowspan="2" width="180"><div class="logo"><img src="/images/sutech_reflect_DB_89.gif" height="89" alt="Stanford Genome Technology" title="Stanford Genome Technology" /></div></td>
-      <td valign="top"><div class="sitename-graphic"><img src="/images/seqlims-sitename.gif" height="58" alt="SGTC Sequencing Database" title="SGTC Sequencing Database" /></div></td>
+      <td valign="top" rowspan="2" width="180"><div class="logo"><%= image_tag("sutech_reflect_DB_89.gif", :height => "89", :alt => "Stanford Genome Technology") %></div></td>
+      <td valign="top"><div class="sitename-graphic"><%= image_tag("seqlims-sitename.gif", :height => "58", :alt => "SGTC Sequencing Database") %></div></td>
       <td valign="top" width="180"><div class="version"><% if APP_VERSION %>Version: <%= APP_VERSION %><% end %><br /><% if RAILS_ENV != 'production'%> <span style="font-size:larger;">(<%= RAILS_ENV%>)</span><%end%></div></td>
     </tr>
     <tr>
@@ -146,7 +148,7 @@
 <% if logged_in? %>	
 <div id="leftsidebar">
   <div class="user_info">
-     <i> Logged in as: <%= current_user.login %> </i>
+     <em>Logged in as: <%= current_user.login %></em>
   </div>
   <ul class="opened">
     <li> <a href="#">Query</a> 
