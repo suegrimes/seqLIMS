@@ -112,6 +112,7 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
     font-size: 0.9em;
 	color: #777;
 	font-style:italic;
+	font-weight:bold;
 	text-align: center;	
 }
 
@@ -202,8 +203,8 @@ text-decoration: none;
     font: italic bold .7em/1.5em Verdana, Arial, Helvetica, sans-serif;
     color: #666;
     border-bottom: 1px solid #b0aa91;
-    padding-bottom:1.5em;
-    text-align: center;
+    padding:0 10px 15px 15px;
+    text-align: left;
 }
 
 #leftsidebar ul.opened {
