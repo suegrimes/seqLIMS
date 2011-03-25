@@ -40,5 +40,5 @@ if FileTest.file?(email_file)
   end
 end
 
-META_TAGS = {:description => "Stanford Genomee Technology LIMS manages clinical samples, molecular assays and other processing related to high throughput resequencing operations",
-             :keywords => ["stanford, biological medicine, hanlee ji, genome, cancer, cancer research, dna sequencing"]}
+META_TAGS = {:description => "Stanford Genome Technology LIMS manages clinical samples, molecular assays and other processing related to high throughput resequencing operations",
+             :keywords => ["stanford, LIMS, biological medicine, hanlee ji, genome, cancer, cancer research, dna sequencing"]}

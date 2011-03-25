@@ -117,7 +117,7 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
 }
 
 #footer {
-    height: 25px;
+    height: 29px;
     /* overflow: auto; */
     background: #fff;
     border-top: 1px solid #C1C1C1;
@@ -141,17 +141,16 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
     color:#750404;
     text-decoration: underline;
 }
-
 #footer .site-blurb {
-	color: #888;
-	font-size: .8em;
-	line-height:1em;
-	font-style: italic;
-	margin-top: 10px;
+    color: #888;
+    font-size: .8em;
+    line-height:1.3em;
+    font-style: italic;
+    /*margin-top: 10px;*/
 }
 
 #footer .site-blurb a {
-	font: inherit;
+    font: inherit;
 }
 /*
 #footer .site-blurb a:hover {
