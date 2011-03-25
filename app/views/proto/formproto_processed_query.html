@@ -1,0 +1,348 @@
+<style type="text/css">
+<!-- <!--form style -->fieldset {
+    padding: 0;
+    float: left;
+    clear: left;
+    width: 95%;
+}
+
+legend {
+    margin-left: 1em;
+}
+
+fieldset ol {
+    list-style: none;
+    padding: 1em 1em 0 1em;
+}
+
+fieldset li {
+    float: left;
+    clear: left;
+    width: 95%;
+}
+
+label {
+    float: left;
+    width: 9em;
+    margin-right: 1em;
+}
+
+label.radio {
+    float: left;
+    width: 20em;
+    margin-right: 1em;
+}
+-->
+</style>
+<form id="form1" name="form1" method="post" action="http://med.stanford.edu/cgi-bin/formmail.pl">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <td>
+                <fieldset>
+                    <legend>
+                        Extracted Samples - Select parameters
+                    </legend>
+                    <ol>
+                        <li>
+                            <label for="Name">
+                                Name:<span class="text_alert">*</span>
+                            </label>
+                            <input name="Name" id="Name" type="text" />
+                        </li>
+                        <li>
+                            <label for="email">
+                                E-mail:<span class="text_alert">*</span>
+                            </label>
+                            <input name="email" id="email" type="text" />
+                        </li>
+                        <li>
+                            <label for="Address">
+                                Address: 
+                            </label>
+                            <input name="Address" id="Address" type="text" />
+                        </li>
+                        <li>
+                            <label for="City">
+                                City: 
+                            </label>
+                            <input name="City" id="City" type="text" />
+                        </li>
+                        <li>
+                            <label for="State">
+                                State: 
+                            </label>
+                            <input name="State" id="State" type="text" />
+                        </li>
+                        <li>
+                            <label for="Zip">
+                                Zip Code: 
+                            </label>
+                            <input name="Zip" id="Zip" type="text" />
+                        </li>
+                        <li>
+                            <label for="Country">
+                                Country: 
+                            </label>
+                            <input name="Country" id="Country" type="text" />
+                        </li>
+                        <li>
+                            <label for="Phone">
+                                Daytime Phone: 
+                            </label>
+                            <input name="Phone" id="Phone" type="text" />
+                        </li>
+                    </ol>
+                </fieldset>
+                <p style="margin: 2px 0 10px 0;">
+                    <span class="text_alert">*required</span>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <fieldset>
+                    <legend>
+                        Type of Question/Comment
+                    </legend>
+                    <ol>
+                        <li>
+                            <label for="recipient" class="radio">
+                                Website: 
+                            </label>
+                            <input type="radio" name="recipient" value="jennifer.palm13@gmail.com" />
+                        </li>
+                        <li>
+                            <label for="recipient" class="radio">
+                                Ji Research Group: 
+                            </label>
+                            <input type="radio" name="recipient" value="<email for departmental inquiries>" />
+                        </li>
+                        <li>
+                            <label for="recipient" class="radio">
+                                Other: 
+                            </label>
+                            <input type="radio" name="recipient" value="<email for general inquiries>" />
+                        </li>
+                    </ol>
+                </fieldset>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <fieldset>
+                    <legend>
+                        Question/Comment
+                    </legend>
+                    <!--label for="comment">Question/Comment:</label-->
+                    <textarea name="comment" rows="8" cols="38" id="comment">
+                    </textarea>
+                </fieldset>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" class="submit" name="Submit" id="Submit" value="Submit" />
+            </td>
+        </tr>
+    </table>
+</form><h3>Extracted Samples - Select parameters</h3>
+<form action="/psample_queries" class="new_psample_query" id="new_psample_query" method="post">
+    <div style="margin:0;padding:0;display:inline">
+        <input name="authenticity_token" type="hidden" value="jS6155cAsCNGbohuMLHSaVyr56rmWOyWs8qbjnz+DJc=" />
+    </div>
+    <table class="form">
+        <tr>
+            <th>
+                MRN:
+            </th>
+            <td>
+                <input id="psample_query_mrn" name="psample_query[mrn]" size="30" type="text" />
+            </td>
+            <th>
+                Patient ID:
+            </th>
+            <td>
+                <input id="psample_query_patient_id" name="psample_query[patient_id]" size="30" type="text" />
+            </td>
+            <th>
+                Barcode:
+            </th>
+            <td>
+                <input id="psample_query_barcode_key" name="psample_query[barcode_key]" size="30" type="text" />
+            </td>
+        </tr>
+    </table>
+    <table class="form01">
+        <tr>
+            <th>
+                Consent Protocol:
+            </th>
+            <th>
+                Clinic:
+            </th>
+        </tr>
+        <tr>
+            <td>
+                <select id="psample_query_consent_protocol_id" multiple="multiple" name="psample_query[consent_protocol_id][]" size="3">
+                    <option value="">All</option>
+                    <option value="11">NA/Anonymous Sample</option>
+                    <option value="17">3276/Childhood Brain Tumors and Blood Samples</option>
+                    <option value="14">3277/Childhood Cancer and Blood Samples</option>
+                    <option value="15">13045/Triple-Negative Breast Cancer</option>
+                    <option value="16">16467/Anal Dysplasia, HPV (Inflammatory Bowel Disease)</option>
+                    <option value="5">76102/BRCA1/BRCA2 Tumors and Blood</option>
+                    <option value="8">76274/Upper Gastrointestinal Carcinoma</option>
+                    <option value="7">77716/Screening for High Risk Breast Cancer</option>
+                    <option value="6">78932/Colorectal Tumors and Blood Samples</option>
+                    <option value="10">95340/Anal Tumors</option>
+                    <option value="13">95505/Lovastatin Breast Cancer Chemoprevention</option>
+                </select>
+            </td>
+            <td>
+                <select id="psample_query_clinic_or_location" multiple="multiple" name="psample_query[clinic_or_location][]" size="3">
+                    <option value="">All</option>
+                    <option value="Lucille-Packard Ped. Oncology Service">Lucille-Packard Ped. Oncology Service</option>
+                    <option value="Stanford Cancer Genetics">Stanford Cancer Genetics</option>
+                    <option value="Stanford Medical Oncology Service">Stanford Medical Oncology Service</option>
+                    <option value="Stanford Radiation Oncology Service">Stanford Radiation Oncology Service</option>
+                    <option value="Stanford Gastroenterology Service">Stanford Gastroenterology Service</option>
+                    <option value="Stanford Surgical Service">Stanford Surgical Service</option>
+                    <option value="Stanford Tissue Bank - Frozen">Stanford Tissue Bank - Frozen</option>
+                    <option value="Veterans Affairs Oncology">Veterans Affairs Oncology</option>
+                    <option value="Veterans Affairs Surgical Service">Veterans Affairs Surgical Service</option>
+                    <option value="NCCC/John Muir">NCCC/John Muir</option>
+                    <option value="[Other]">[Other]</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+    <table class="form01">
+        <tr>
+            <th>
+                Sample Site
+            </th>
+            <th>
+                Sample Type:
+            </th>
+            <th>
+                Preservation:
+            </th>
+            <th>
+                OR Designation:
+            </th>
+        </tr>
+        <tr>
+            <td>
+                <select id="psample_query_sample_tissue" multiple="multiple" name="psample_query[sample_tissue][]" size="3">
+                    <option value="">All</option>
+                    <option value="[Unknown]">[Unknown]</option>
+                    <option value="Arm">Arm</option>
+                    <option value="Anus">Anus</option>
+                    <option value="Brain">Brain</option>
+                    <option value="Breast">Breast</option>
+                    <option value="Colon">Colon</option>
+                    <option value="Duodenum">Duodenum</option>
+                    <option value="Gallbladder">Gallbladder</option>
+                    <option value="Myometrium">Myometrium</option>
+                    <option value="Ovaries">Ovaries</option>
+                    <option value="Pancreas">Pancreas</option>
+                    <option value="Rectum">Rectum</option>
+                    <option value="Upper GI">Upper GI</option>
+                    <option value="Wrist">Wrist</option>
+                    <option value="Gastric">Gastric</option>
+                    <option value="Pancreatic">Pancreatic</option>
+                    <option value="[Other]">[Other]</option>
+                </select>
+            </td>
+            <td>
+                <select id="psample_query_sample_type" multiple="multiple" name="psample_query[sample_type][]" size="3">
+                    <option value="">All</option>
+                    <option value="[Unknown]">[Unknown]</option>
+                    <option value="Tissue">Tissue</option>
+                    <option value="Peripheral Blood">Peripheral Blood</option>
+                    <option value="Core Biopsy">Core Biopsy</option>
+                    <option value="Urine">Urine</option>
+                    <option value="Cell Line">Cell Line</option>
+                    <option value="Fine Needle Aspirate">Fine Needle Aspirate</option>
+                    <option value="Pap Smear">Pap Smear</option>
+                    <option value="Ductal Lavage">Ductal Lavage</option>
+                    <option value="[Other]">[Other]</option>
+                </select>
+            </td>
+            <td>
+                <select id="psample_query_tissue_preservation" multiple="multiple" name="psample_query[tissue_preservation][]" size="3">
+                    <option value="">All</option>
+                    <option value="Fresh">Fresh</option>
+                    <option value="Fresh Frozen">Fresh Frozen</option>
+                    <option value="Paraffin-Embedded">Paraffin-Embedded</option>
+                </select>
+            </td>
+            <td>
+                <select id="psample_query_tumor_normal" name="psample_query[tumor_normal]">
+                    <option value="">All</option>
+                    <option value="[Unknown]">[Unknown]</option>
+                    <option value="Normal">Normal</option>
+                    <option value="Tumor">Tumor</option>
+                    <option value="Leukemia">Leukemia</option>
+                    <option value="Colitis - ulcerative">Colitis - ulcerative</option>
+                    <option value="Colitis - Crohn's">Colitis - Crohn's</option>
+                    <option value="[Other]">[Other]</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+    <table class="form01">
+        <tr>
+            <th>
+                Extraction Protocol:
+            </th>
+            <th>
+                Extracted Type:
+            </th>
+        </tr>
+        <tr>
+            <td>
+                <select id="psample_query_protocol_id" name="psample_query[protocol_id]">
+                    <option value="">All</option>
+                    <option value="5">DNA Extraction/</option>
+                    <option value="12">Omega EZNA/</option>
+                    <option value="7">Protein Extraction/</option>
+                    <option value="6">RNA Extraction/</option>
+                </select>
+            </td>
+            <td>
+                <select id="psample_query_extraction_type" name="psample_query[extraction_type]">
+                    <option value="">All</option>
+                    <option value="Genomic DNA">Genomic DNA</option>
+                    <option value="ChIP DNA">ChIP DNA</option>
+                    <option value="Meth DNA">Meth DNA</option>
+                    <option value="TotalRNA">TotalRNA</option>
+                    <option value="MiRNA">MiRNA</option>
+                    <option value="Nucleic Acid">Nucleic Acid</option>
+                    <option value="Protein">Protein</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+    <table class="form01">
+        <tr>
+            <th>
+                Processed From:
+            </th>
+            <th>
+                To:
+            </th>
+        </tr>
+        <tr>
+            <td>
+                <input id="psample_query_from_date" name="psample_query[from_date]" size="15" type="text" /><img alt="Calendar" class="calendar_date_select_popup_icon" onclick="new CalendarDateSelect( $(this).previous(), {valid_date_check:function(date) { return(date &lt;= (new Date()).stripTime()) }, year_range:10} );" src="/images/calendar_date_select/calendar.gif?1298665045" style="border:0px; cursor:pointer;"/>
+            </td>
+            <td>
+                <input id="psample_query_to_date" name="psample_query[to_date]" size="15" type="text" value="2011-03-04" /><img alt="Calendar" class="calendar_date_select_popup_icon" onclick="new CalendarDateSelect( $(this).previous(), {valid_date_check:function(date) { return(date &lt;= (new Date()).stripTime()) }, year_range:10} );" src="/images/calendar_date_select/calendar.gif?1298665045" style="border:0px; cursor:pointer;"/>
+            </td>
+        </tr>
+    </table>
+    <p>
+        <input name="commit" type="submit" value="Submit" />
+    </p>
+</form>

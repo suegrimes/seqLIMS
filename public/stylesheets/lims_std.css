@@ -21,8 +21,8 @@ body {
 /* generic html tag styles */
 
 p,h1,h2,h3,h4,h5,h6 {
-padding-left: .5em;
-padding-top: 0.5em;
+    padding-left: .5em;
+    padding-top: 0.5em;
 }
 
 h1 {
@@ -57,25 +57,25 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
 
 /*
 * html #main {
-height:100%;
-width:100%;
+    height:100%;
+    width:100%;
 }
 */
 
 #header {
-    height: 90px;
+    /*height: 90px;*/
     overflow: hidden;
     background: #fff;
     white-space: nowrap;
 }
 
 * html #header {
-    height: 95px;
+    /*height: 95px;*/
 }
 
 #header .logo {
-    float: left;
-    margin: 6px 10px 2px 55px;
+    margin-top: 4px;
+	text-align: center;
 }
     
 #header .sitename, .sitename.prod, .sitename.test {
@@ -84,27 +84,21 @@ width:100%;
     float: left;
 }
 
-/*
-#header .sitename.prod {
-color: #990000;
+#header .sitename-graphic {
+    margin-top: 3px;
+    text-align: center;	
 }
 
-#header .sitename.test {
-color: #888;
-}
-*/
-
-#header .version {
-    float: right;
-    margin-right: 10px;
-    font-size: smaller;
-    font-weight: 600;
+#header .version {	
+    margin-right: 7px;
+    font-size: .8em;
+    font-weight: bold;
+	text-align: right;
 }
 
 #header .logout-link {
-   float: right;
-   position: relative;
-   right: -70px; top: 70px;
+    margin: 0 8px 0 0;	
+    text-align: right;
 }
 
 #header .logout-link a {
@@ -114,20 +108,24 @@ color: #888;
     font-size: .8em;
 }
 
+#header .tagline { 
+    font-size: 0.9em;
+	color: #777;
+	font-style:italic;
+	font-weight:bold;
+	text-align: center;	
+}
+
 #footer {
     height: 25px;
     /* overflow: auto; */
     background: #fff;
     border-top: 1px solid #C1C1C1;
-    padding: 15px 0 10px 15px;
+    padding: 10px;
   }
 * html #footer {
     height: 28px;
 }
-
-/* end of bit that does the work */
-
-
 #footer p {
     font: bold .8em verdana, sans-serif;
     color: #750404;
@@ -142,6 +140,32 @@ color: #888;
 #footer a:hover {
     color:#750404;
     text-decoration: underline;
+}
+
+#footer .site-blurb {
+	color: #888;
+	font-size: .8em;
+	line-height:1em;
+	font-style: italic;
+	margin-top: 10px;
+}
+
+#footer .site-blurb a {
+	font: inherit;
+}
+/*
+#footer .site-blurb a:hover {
+	font: inherit;
+}
+*/
+#footer .funding-text a {
+	color: #999;
+	font-size: .7em;
+	line-height:.9em
+}
+#footer .funding-text a:hover {
+	color: #990000;
+	text-decoration: none;
 }
 
 /* start left navigation styles */
@@ -179,8 +203,8 @@ text-decoration: none;
     font: italic bold .7em/1.5em Verdana, Arial, Helvetica, sans-serif;
     color: #666;
     border-bottom: 1px solid #b0aa91;
-    padding-bottom:1.5em;
-    text-align: center;
+    padding:0 10px 15px 15px;
+    text-align: left;
 }
 
 #leftsidebar ul.opened {
@@ -253,16 +277,13 @@ text-decoration: none;
 
 /* top nav bar background style */
 #topnavbar {
-	background-color: #990000; 
-	padding: 0; 
-	border-top:1px solid #c1c1c1; 
-	border-bottom:1px solid #c1c1c1;
+    background-color: #990000; 
+    padding: 0; 
+    border-top:1px solid #c1c1c1; 
+    border-bottom:1px solid #c1c1c1;
 }
 
 #maincontent {
-    /* position: absolute;
-left: 210px; */
-    /* float: left; */
     text-align: left;
     padding-left: 203px;
 }

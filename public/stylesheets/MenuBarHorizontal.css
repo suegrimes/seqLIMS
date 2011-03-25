@@ -14,7 +14,7 @@ LAYOUT INFORMATION: describes box model, positioning, z-order
 ul.MenuBarHorizontal
 {
 	position: relative;
-	margin: 0 0 0 203px;
+	margin: 0 0 0 192px;
 	padding: 0;
 	list-style-type: none;
 	/*font-size: 100%;*/
