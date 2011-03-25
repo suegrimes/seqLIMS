@@ -3,8 +3,8 @@
     <head>
         <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
         <title>SGTC LIMS - <%= controller.action_name %></title>
-		<meta name="description" content="Stanford Genomee Technology LIMS manages clinical samples, molecular assays and other processing related to high throughput resequencing operations" />
-        <meta name="keywords" content="stanford, biological medicine, hanlee ji, genome, cancer, cancer research, dna sequencing">
+		<meta name="description" content="<%= META_TAGS[:description] %>" />
+        <meta name="keywords" content="<%= META_TAGS[:keywords] %>" />
         <%= stylesheet_link_tag 'lims_std' %>
 		<%= stylesheet_link_tag 'superfish' %>
         <%= javascript_include_tag :all, :cache => true %>
@@ -22,8 +22,7 @@
     </head>
 
 <body id='body'>
-	<% user_roles = (logged_in? ? current_user.roles.collect(&:name) : nil) %>
-	
+	<% user_roles = (logged_in? ? current_user.roles.collect(&:name) : nil) %> 	
 <div id="container" style="width: 98%;">
 	
 <div id="header">
