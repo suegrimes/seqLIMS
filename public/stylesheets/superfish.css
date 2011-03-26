@@ -30,7 +30,7 @@
 .sf-menu li:hover ul,
 .sf-menu li.sfHover ul {
 	left:			0;
-    top:			1.58em; /* match top ul list item height */
+    top:			1.66em; /* match top ul list item height */
 	z-index:		99;
 }
 ul.sf-menu li:hover li ul,
@@ -60,29 +60,30 @@ ul.sf-menu li li li.sfHover ul {
 }
 .sf-menu a {
 	border-left:	1px solid #C1C1C1;
-	/*border-top:		1px solid #CFDEFF;*/
 	border-top: none;
+	border-bottom: none;
 	padding: 		.3em 1em;
 	text-decoration:none;
 }
-.sf-menu a.last-top-item {
+.sf-menu a.last-topmenu-item {
 	border-right:	1px solid #C1C1C1;
 }
 .sf-menu ul a { /*preserving border-top color on submenus*/
-	border-left:	1px solid #fff;
-	border-top:		1px solid #C1C1C1;
+	border-left:	1px solid #C1C1C1;
+	border-bottom:		1px solid #C1C1C1;
 	padding: 		.3em 1em;
 	text-decoration:none;
 }
 .sf-menu a, .sf-menu a:visited  { /* visited pseudo selector so IE6 applies text colour*/
 	color:			#fff;
 }
-.sf-menu ul a, .sf-menu ul a:visited  { /* submenu item text color */
+.sf-menu ul a, .sf-menu ul a:visited  { /* submenu item font color */
 	color:			#000;
 }
-.sf-menu a:hover  { /* top item hover font color */
-	color:			#000;
-}
+/*
+.sf-menu a:hover { /* top item hover font color */
+/*	color:			#000;
+}*/
 .sf-menu li {
 	background:		#990000;
 }
@@ -99,11 +100,18 @@ ul.sf-menu li li li.sfHover ul {
 	outline:		0;
 }
 */
-.sf-menu a:focus, .sf-menu a:hover, .sf-menu a:active { /* hover background */
+.sf-menu a:focus, .sf-menu a:hover, .sf-menu a:active { /* top menu item hover background */
+    background:     #e8ead0;
+    outline:        0;
+}
+.sf-menu ul a:focus, .sf-menu ul a:hover, .sf-menu ul a:active { /* submenu item hover background */
     background:     #fff;
     outline:        0;
 }
-.sf-menu li:hover, .sf-menu li.sfHover, 
+.sf-menu li:hover a, .sf-menu li.sfHover a { /* menu item font color on hover and mouseout */
+	color: #000;
+}
+.sf-menu li:hover, .sf-menu li.sfHover,
 .sf-menu ul li:hover, .sf-menu ul li.sfHover { /* menu item with submenu mouse-out background */
     background:     #e8ead0;
     outline:        0;
