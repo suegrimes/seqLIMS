@@ -1,12 +1,13 @@
 <h3>Listing Extracted Samples</h3>
 <% if @sample %>
-  <%= render :partial => 'samples/sample_info2', :locals => {:sample => @sample, 
+  <%= render :partial => 'samples/sample_info', :locals => {:source => 'Source',
+                                                             :sample => @sample, 
                                                              :sample_characteristic => @sample.sample_characteristic} %>
 <% end %>
 
-<b>Extracted Sample Info </b>
+<span class="table_title">Extracted Samples</span>
 <% if @processed_samples %> (<%= @processed_samples.size %> samples) <% end %>
-<table class="border">
+<table class="list">
   <%= render :partial => 'processed_sample_hdr' %>
   
   <% for processed_sample in @processed_samples %>

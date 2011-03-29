@@ -2,7 +2,7 @@
 
 <% form_tag :action=> 'list_selected'  do %>
 
-<table class='form'>
+<table class="form">
   <tr>
   <% if can? :read, Patient %>
   	<th>MRN:</th><td><%= text_field_tag(:mrn) %></td>	
@@ -12,7 +12,7 @@
   </tr>
 </table>
 
-<table class='border'>
+<table class="form01">
   <tr>
     <th>Consent Protocol:</th>
 	<th>Clinic:</th> 
@@ -25,7 +25,7 @@
   </tr>
 </table>
 
-<table class="border">
+<table class="form01">
   <tr>
   	<th>Sample Site</th>
     <th>Sample Type:</th>
@@ -45,7 +45,7 @@
   </tr>
 </table> 
 
-<table class="border">
+<table class="form01">
   <tr>
   	<th>Extraction Protocol:</th>
   	<th>Extracted Type:</th>
@@ -58,7 +58,7 @@
   </tr>	
 </table> 
 
-<table class="border">
+<table class="form01">
   <tr>
   	<th>Processed From:</th>
   	<th>To:</th>

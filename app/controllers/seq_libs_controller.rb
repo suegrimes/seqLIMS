@@ -148,7 +148,7 @@ class SeqLibsController < ApplicationController
     rescue ActiveRecord::ActiveRecordError
       flash.now[:error] = 'Error creating sequencing library -please enter all required fields'
       @lib_with_error = @seq_lib
-      reload_mplex_defaults(params[:seq_lib], params[:lib_samples], 'multi')
+      reload_mplex_defaults(params[:seq_lib], params[:lib_samples])
       render :action => 'new_mplex'
   end
   

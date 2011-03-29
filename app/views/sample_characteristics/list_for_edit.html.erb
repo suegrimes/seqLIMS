@@ -2,18 +2,19 @@
 
 <%=h @nr_samples %> acquisition events, (for <%=h @clin_samples_by_patient.size %> patients) <br/><br/>
 
-<table class="border">
+<table class="list">
 <tr>
   <th>Collect Date</th>
   <th>Clinic</th>
   <th>Protocol</th>
   <th># Samples</th>
+  <th></th>
 </tr> 
   
 <% if @clin_samples_by_patient %>
   <% @clin_samples_by_patient.sort.each do | patient_id, sample_characteristics| %>
   <tr>
-  <td colspan=2><b>Patient: </b><%=h patient_id[0] %>
+  <td colspan=5><b>Patient: </b><%=h patient_id[0] %>
     <% if can? :read, Patient %>
       / <%=h patient_id[1]%>
     <% end %>
@@ -27,10 +28,11 @@
 		<td> <%=h sample_characteristic.collection_date %></td>
 		<td> <%=h sample_characteristic.clinic_or_location %></td>
         <td> <% if sample_characteristic.consent_protocol %><%=h sample_characteristic.consent_protocol.name_ver %></td><% end %>
-        <td> <%=h source_samples.size %></td>
-        <% if can? :edit, SampleCharacteristic %>
-          <td><%= link_to 'Edit', edit_sample_characteristic_path(sample_characteristic) %>
-        <% end %>
+        <td style="text-align:center"><%=h source_samples.size %></td>
+		<td class="linkborder"><% if can? :edit, SampleCharacteristic %>
+          <%= link_to 'Edit', edit_sample_characteristic_path(sample_characteristic) %>
+          <% end %>
+		</td>
 	  </tr>											   
   <% end %>
   

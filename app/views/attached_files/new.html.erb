@@ -9,47 +9,5 @@
   <%= render :partial => 'flow_cells/flow_cell_show', :locals => {:flow_cell => @obj} %>
 <% end %>
 
-<b>Attached Files:</b>
-
-<% if !@obj.attached_files.empty? %>
-  <table class="border">
-    <tr>
-      <th>File name</th>
-	  <th>Notes</th>
-	</tr>
-    
-	<% @obj.attached_files.each do |att_file| %>
-	  <tr>
-        <td><%=link_to att_file.basename_with_ext, att_file %></td>
-		<td><%=h att_file.notes %></td>
-	    <td class="noborder"><%=link_to 'Delete File', att_file, :confirm => 'Are you sure?', :method => :delete %></td>
-	  </tr>
-      <% end %>
-	</table>
-	
-<% else %>
-  <br/>NONE<br/><br/>
-<% end %>
-
-<b>Attach new file:</b>
-<% form_for(:attached_file, @attached_file,
-            :url => {:controller => 'attached_files', :action=> 'create'},
-            :html => {:multipart => true}) do |f| -%>  
-  <%= error_messages_for :attached_file %>
-  <%= hidden_field_tag(:obj_klass, @obj.class.name)%>
-  <%= hidden_field_tag(:obj_id, @obj.id)%>
-  
-  <table class="form">
-	<tr>
-	  <th>File name:</th>
-	  <td><%= f.upload_column_field :document, :size=>30%> </td>
-	</tr>
-	<tr>
-	  <th>Notes:</th>
-	  <td><%= f.text_field(:notes, :size => 100) %></td>  
-	</tr>
-  </table>
-  <%= f.submit "Upload File" %></td> 
-<% end %>
-
+<%= render :partial => 'attached_files/show_and_add', :locals => {:obj => @obj} %>
 

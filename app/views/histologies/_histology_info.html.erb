@@ -6,6 +6,7 @@
 	  <td><%=h histology.he_barcode_key %></td>
 	  <th>HE date: </th><td><%=h histology.he_date %></td>
 	  <th>Pathologist</th><td colspan=3><%=h histology.pathologist %></td>
+	  <td class="linkborder"><%=link_to 'Attach', histology %></td>
 	  <% if can? :edit, histology %>
 	  <td class="linkborder"><%=link_to 'Edit', edit_histology_path(histology)%></td>
 	  <% end %>

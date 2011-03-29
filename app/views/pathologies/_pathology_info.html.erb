@@ -1,6 +1,6 @@
 <% click_to_link ||= 'none' %>
 
-<span class='table_title'>Diagnosis/Pathology:</span>
+<span class="table_title">Diagnosis/Pathology:</span>
 <table class="info">
   <tr>
 	<th>Rpt Date</th>
@@ -13,6 +13,9 @@
 	<% end %>
 	<th>Pathology</th><td><%=h pathology.general_pathology %></td>
 	<th>Diagnosis/Notes</th><td><%=h pathology.pathology_classification %></td>
+	<% if can? :edit, pathology %>
+	  <td class="linkborder"><%= link_to 'Edit', edit_pathology_path(pathology) %></td>
+	<% end %>
   </tr>
   <tr>
     <th>Stage</th><td><%=h pathology.tumor_stage %></td>

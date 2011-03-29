@@ -50,9 +50,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :sample_queries, :only => :index
   map.resources :histologies,    :collection => {:auto_complete_for_barcode_key => :get}
   
-  map.new_psample         'new_psample',         :controller => 'samples',                :action => 'new_processing'
   map.upd_sample          'upd_sample',          :controller => 'samples',                :action => 'edit_params'
   map.edit_samples        'edit_samples',        :controller => 'samples',                :action => 'edit_by_barcode'
+  map.new_he_slide        'new_he_slide',        :controller => 'histologies',            :action => 'new_params'
   map.edit_he_slide       'edit_he_slide',       :controller => 'histologies',            :action => 'edit_by_barcode'
   
   map.unprocessed_query 'unprocessed_query',   :controller => 'sample_queries', :action => 'new_query'
@@ -60,13 +60,14 @@ ActionController::Routing::Routes.draw do |map|
   map.samples_list1     'samples_from_source', :controller => 'sample_queries', :action => 'list_samples_for_characteristic'
   
   # Routes for dissected samples
-  map.resources :dissected_samples 
-  #map.dissected_query   'dissected_query',   :controller => 'samples',           :action => 'query_params', :stype => 'dissected'
+  map.resources :dissected_samples
+  map.new_dissection 'new_dissection', :controller => 'dissected_samples', :action => 'new_params'
   
   # Routes for extracted samples
   map.resources :processed_samples,  :collection => {:auto_complete_for_barcode_key => :get}
   map.resources :psample_queries,    :only => :index
   
+  map.new_extraction    'new_extraction',    :controller => 'processed_samples', :action => 'new_params'
   map.edit_psamples     'edit_psamples',     :controller => 'processed_samples', :action => 'edit_by_barcode'
   
   map.samples_processed 'samples_processed', :controller => 'processed_samples', :action => 'show_by_sample'

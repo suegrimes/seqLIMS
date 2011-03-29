@@ -2,8 +2,7 @@
 
 <%= render :partial => 'lib_show', :locals => {:seq_lib => @seq_lib} %>
 
-
-<table class="border">
+<table class="list">
   <tr>
   	<% if @seq_lib.runtype_adapter[0,1] == 'M' %>
   	<th>Index Tag</th>
@@ -27,5 +26,7 @@
     </tr>
     <% end %>
 </table>
+
+<%= render :partial => 'attached_files/show_and_add', :locals => {:obj => @seq_lib} %>
 
 <% if can? :edit, @seq_lib %><%= link_to 'Edit Library', edit_seq_lib_path(@seq_lib) %><% end %>

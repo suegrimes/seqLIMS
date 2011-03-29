@@ -2,6 +2,9 @@ class DissectedSamplesController < ApplicationController
   
   before_filter :dropdowns, :only => :edit
   
+  def new_params  
+  end
+  
   # GET /dissected_samples/new
   def new
     unauthorized! if cannot? :create, Sample
@@ -23,7 +26,7 @@ class DissectedSamplesController < ApplicationController
       @sample = Sample.new(sample_params)  
     else
       flash[:error] = 'Sample barcode not found, please try again'
-      redirect_to :controller => :samples,  :action => 'new_params'
+      redirect_to :action => 'new_params'
     end
   end
   
