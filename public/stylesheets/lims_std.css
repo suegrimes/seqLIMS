@@ -158,9 +158,9 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
 }
 */
 #footer .funding-text a {
-	color: #999;
-	font-size: .7em;
-	line-height:.9em
+	color: #333;
+	font-size: .8em;
+	line-height: 1.1em;
 }
 #footer .funding-text a:hover {
 	color: #990000;
@@ -204,6 +204,16 @@ text-decoration: none;
     border-bottom: 1px solid #b0aa91;
     padding:0 10px 15px 15px;
     text-align: left;
+}
+
+#leftsidebar .sidebar-label {
+    font: italic bold .7em/1.5em Verdana, Arial, Helvetica, sans-serif;
+    color: #990000;
+    border-bottom: 1px solid #b0aa91;
+    border-top: 1px solid #b0aa91;
+    padding:5px 10px;
+    text-align: left;
+    background: #F3F4E6;
 }
 
 #leftsidebar ul.opened {
@@ -309,6 +319,29 @@ text-decoration: none;
  color: #990000;
  font-size:inherit;
  }
+ 
+#maincontent .big-login-buttons {
+    width:180px;
+    height: auto;
+    text-align: center;
+    padding: 1.3em 0;
+    margin:10px;
+    background: beige;
+    border: 4px solid #C1C1C1;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+}
+
+#maincontent .big-login-buttons a {
+    color: #990000;
+text-decoration: none;
+}
+
+#maincontent .big-login-buttons a:hover {
+    color: #333;
+text-decoration: none;
+}
 
 /* styles for tables */
 
