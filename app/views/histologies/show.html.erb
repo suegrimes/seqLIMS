@@ -11,3 +11,5 @@
 <% end %>
 
 <%= render :partial => 'histology_info', :locals => {:histology => @histology, :edit_he => 'yes'} %>
+
+<%= render :partial => 'attached_files/show_and_add', :locals => {:obj => @histology} %>

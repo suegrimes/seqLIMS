@@ -1,9 +1,0 @@
-  <td><%=link_to patient.id, patient_path(patient)%></td>
-  <% if can? :edit, patient %>
-    <td><%=h patient.mrn%></td>
-  <% end %>
-  <td><%=h patient.gender %></td>
-  <td><%=h patient.race %></td>
-  <td><%=h patient.ethnicity %></td>
-  
-  

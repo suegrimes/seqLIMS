@@ -3,7 +3,7 @@
 <% form_tag :action=> 'list_selected'  do %>
 <%= hidden_field_tag(:filter, 'query')%>
 
-<table class='form'>
+<table class="form">
   <tr>
   <% if can? :read, Patient %>
   	<th>MRN:</th><td><%= text_field_tag(:mrn) %></td>	
@@ -12,7 +12,7 @@
   </tr>
 </table>
 
-<table class='border'>
+<table class="form01">
   <tr>
     <th>Consent Protocol:</th>
 	<th>Clinic:</th> 
@@ -25,7 +25,7 @@
   </tr>
 </table>
 
-<table class="border">
+<table class="form01">
   <tr>
   	<th>Gender:</th>
 	<th>Race:</th>
@@ -43,7 +43,7 @@
   </tr>
 </table>     
   
-<table class='border'>
+<table class="form01">
   <tr>
   	<th>Collected From:</th>
 	<td><%= select_date(nil, :prefix => 'from_date', :end_year => Date.today.year, :include_blank => true)%></td>

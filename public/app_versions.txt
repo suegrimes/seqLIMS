@@ -1,3 +1,4 @@
+v2.0	03/29/2011	Various changes to UI, menu navigation
 v1.7	02/10/2011	Changes to UI, moved 4 fields from sample_characteristics to samples
 v1.6	01/06/2011	Move v1.5dev functionality to production, + provide capability to delete H&E slide
 v1.5dev	development	Modify all forms to use calendar popup, modify date validation/sql conditions, add attachments for H&E

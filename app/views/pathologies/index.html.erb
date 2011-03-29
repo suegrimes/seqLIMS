@@ -5,10 +5,16 @@
 <%= render :partial => 'pathology_info', :locals => {:pathology => pathology, :incl_links => 'yes'} %>
 						
 <%= render :partial => 'clinical_info', :locals => {:sample_characteristics => pathology.sample_characteristics} %>
+<div style="width:100%; border-bottom:1px solid #999; margin-bottom:1em;"></div>
 <% end %>
 
 <% if @sample_characteristics.size > 0 %>
-  <b>Diagnosis/Pathology: </b>NONE <%= link_to 'Add New', new_pathology_path(:patient_id => @patient_id, :add_new => 'yes') %>
-  <br /><br />
+  <span class="table_title">Diagnosis/Pathology: </span>
+  <table class="info">
+  	<tr>
+  	  <td>None</td>
+	  <td class="linkborder"><%= link_to 'Add New', new_pathology_path(:patient_id => @patient_id, :add_new => 'yes') %></td>
+  	</tr>	
+  </table> 
   <%= render :partial => 'clinical_info', :locals => {:sample_characteristics => @sample_characteristics} %>
 <% end %>

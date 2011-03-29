@@ -1,10 +1,11 @@
-<table class="border">
+<table class="list">
   <tr>
     <th>Preparation date</th>
 	<th>Status</th>
 	<th>Sequencing Key</th>
 	<th>Sequencing Date</th>
 	<th># Bases: R1,Index,R2</th>
+    <th colspan="4"></th>
   </tr>
 
   <% @flow_cells.each do |flow_cell| %>
@@ -33,7 +34,9 @@
 	<% end %>
 	  
 	<% if flow_cell.flowcell_status == 'Q' %>
-	  <td><%= link_to 'QC', :controller => :flow_cells, :action => 'show_qc', :id => flow_cell.id %></td>	
+	  <td><%= link_to 'QC',   :controller => 'flow_cells',  :action => 'show_qc', :id => flow_cell.id %></td>
+    <% else %>
+      <td class="ltgrey"> QC </td>	
 	<% end %>
   </tr>
   

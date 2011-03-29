@@ -4,30 +4,6 @@ class SamplesController < ApplicationController
   before_filter :dropdowns, :only => [:new, :edit, :edit_by_barcode]
   
   #########################################################################################
-  #        Method to select source sample for further processing                          #
-  #########################################################################################
-  def new_processing
-    if request.post?
-      # Check for source or dissected sample from which dissection, extraction or H&E slide will be processed
-      @sample = Sample.find_by_barcode_key(params[:barcode_key])
-      if @sample.nil?
-        flash.now[:error] = "Sample barcode: " + params[:barcode_key] + " not found"
-        render :action => :new_params
-      else
-      # Redirect to appropriate controller/action
-      case params[:processing_type]
-        when 'Dissection'
-          redirect_to :controller => :dissected_samples, :action => :new, :barcode_key => params[:barcode_key]
-        when 'Extraction'
-          redirect_to :controller => :processed_samples, :action => :new, :barcode_key => params[:barcode_key]
-        when 'H&E Slide'
-          redirect_to :controller => :histologies,       :action => :new, :barcode_key => params[:barcode_key]
-      end
-      end
-    end
-  end
-  
-  #########################################################################################
   #        Methods to show, edit, update samples                                          #
   #########################################################################################
   def show
