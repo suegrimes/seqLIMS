@@ -126,11 +126,11 @@ class ApplicationController < ActionController::Base
     if !params[:from_date].blank? && !params[:to_date].blank?
       where_select.push "#{db_fld} BETWEEN ? AND DATE_ADD(?, INTERVAL 1 DAY)"
       where_values.push(params[:from_date], params[:to_date]) 
-    elsif !params[:from_date].blank? 
+    elsif !params[:from_date].blank? # To Date is null or blank
       where_select.push("#{db_fld} >= ?")
       where_values.push(params[:from_date])
-    elsif !params[:to_date].blank? 
-      where_select.push("#{db_fld} <= DATE_ADD(?, INTERVAL 1 DAY)")
+    elsif !params[:to_date].blank? # From Date is null or blank
+      where_select.push("(#{db_fld} IS NULL OR #{db_fld} <= DATE_ADD(?, INTERVAL 1 DAY))")
       where_values.push(params[:to_date])
     end  
     return where_select, where_values 
