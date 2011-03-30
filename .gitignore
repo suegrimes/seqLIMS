@@ -6,3 +6,5 @@ public/system/*
 config/database.yml
 lib/mysql.rb
 public/images/*
+app/views/proto/*
+app/controllers/proto_controller.rb
