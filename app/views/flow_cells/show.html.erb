@@ -39,9 +39,11 @@
   
   <div id="sequencing">
     <% if can? :edit, @flow_cell %>
+	  <p><%= link_to 'Edit ', edit_flow_cell_path(@flow_cell) %>
     <% if @flow_cell.flowcell_status == 'F' %>
-      <p><%= link_to_function "Submit for Sequencing", toggle_div(:run_params, :sequencing) %></p>
+      <%= link_to_function "| Submit for Sequencing", toggle_div(:run_params, :sequencing) %>
 	<% end %>
+	  </p>
 	<% end %>
   </div>
 	

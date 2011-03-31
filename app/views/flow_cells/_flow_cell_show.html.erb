@@ -1,11 +1,16 @@
-<table class="info01">
+<% nr_cols = 6 %>
+
+<table class="list">
   <tr>
-  	<% if flow_cell.flowcell_status != 'F' %><th>&nbsp;</th><% end %>
-  	<th>&nbsp;</th>	
-	<th colspan=3>Number of Bases</th>
-	<th colspan=2>Kit Versions</th>
+  	<% if flow_cell.flowcell_status != 'F' %><th class="no_border_bottom">&nbsp;</th><% nr_cols += 1 %><% end %>
+	<% if !flow_cell.hiseq_xref.blank? %><th class="no_border_bottom">&nbsp;</th><% nr_cols += 1 %><% end %>
+  	<th class="no_border_bottom">&nbsp;</th>	
+	<th colspan="3" class="no_border_bottom" style="text-align:center"><%= "Number of Bases".center(24, '-')%></th>
+	<th colspan="2" class="no_border_bottom" style="text-align:center"><%= "Kit Versions".center(24, '-')%></th>
+  </tr>
   <tr>
   	<% if flow_cell.flowcell_status != 'F' %><th>Sequencing key</th><% end %>
+	<% if !flow_cell.hiseq_xref.blank? %><th>HiSeq Run#</th><% end %>
 	<th>Date</th>
 	<th>Read 1</th>
 	<th>Index</th>
@@ -14,16 +19,22 @@
 	<th>Sequencing</th>
   </tr>
   <tr>
-  	<% if flow_cell.flowcell_status != 'F' %><td><%=h flow_cell.sequencing_key %></td><% end %>
-	<td><%=h flow_cell.flowcell_date %></td>
-	<td><%=h flow_cell.nr_bases_read1 %></td>
-	<td><%=h flow_cell.nr_bases_index %></td>
-	<td><%=h flow_cell.nr_bases_read2 %></td>
-	<td><%=h flow_cell.cluster_kit %></td>
-	<td><%=h flow_cell.sequencing_kit %></td>
+  	<% if flow_cell.flowcell_status != 'F' %><td class="cellborder"><%=h flow_cell.sequencing_key %></td><% end %>
+	<% if !flow_cell.hiseq_xref.blank? %><td class="cellborder"><%=h flow_cell.hiseq_xref %></td><% end %>
+	<td class="cellborder"><%=h flow_cell.flowcell_date %></td>
+	<td class="cellborder"><%=h flow_cell.nr_bases_read1 %></td>
+	<td class="cellborder"><%=h flow_cell.nr_bases_index %></td>
+	<td class="cellborder"><%=h flow_cell.nr_bases_read2 %></td>
+	<td class="cellborder"><%=h flow_cell.cluster_kit %></td>
+	<td class="cellborder"><%=h flow_cell.sequencing_kit %></td>
   </tr>
+  <% if !flow_cell.notes.blank? %>
   <tr>
-	<th align="right">Notes:</th>
-	<td colspan=5><%=h flow_cell.notes %></td>
+  	<td colspan="<%= nr_cols %>" style="border-top:0; text-align:center;">
+  	<div style="padding: 0 20px; margin-bottom: 4px; width:90%; border: 1px solid #e5e5e5; text-align:left;">
+	Flow cell notes:&nbsp;&nbsp;&nbsp;&nbsp;<%=h flow_cell.notes %>
+	</div>
+	</td>
   </tr>
+  <% end %>
 </table>

@@ -17,8 +17,8 @@
 
 <table class="form01">
   <tr>
-    <th>Consent Protocol:</th>
-	<th>Clinic:</th> 
+    <th>Consent Protocol</th>
+	<th>Clinic</th> 
   </tr> 
   <tr>
   	<td><%= f.collection_select(:consent_protocol_id, @consent_protocols, :id, :name_ver,
@@ -30,12 +30,12 @@
 
 <table class="form01">
   <tr>
-  	<th>Gender:</th>
-	<th>Race:</th>
+  	<th>Gender</th>
+	<th>Race</th>
   	<th>Sample Site</th>
-    <th>Sample Type:</th>
-	<th>Preservation:</th>
-    <th>OR Designation:</th>
+    <th>Sample Type</th>
+	<th>Preservation</th>
+    <th>OR Designation</th>
   </tr> 
   <tr>
   	<td><%= f.select(:gender, %w{M F}, {:include_blank => 'All'}) %></td>

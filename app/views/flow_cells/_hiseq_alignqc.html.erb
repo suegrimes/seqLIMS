@@ -1,45 +1,45 @@
 <table class="list">
   <tr>
-  	<th colspan=3>&nbsp;</th>
-	<th colspan=3 align="center">Reads</th>
-	<th colspan=3 align="center">Inserts</th>
-	<th colspan=3 align="center">Pairs</th>
-	<th align="center">Read1</th>
+  	<th colspan=3 class="no_border_bottom">&nbsp;</th>
+	<th colspan=3 style="text-align:center;" class="no_border_bottom"><%= "Reads".center(43, '-')%></th>
+	<th colspan=3 style="text-align:center;" class="no_border_bottom"><%= "Inserts".center(23, '-')%></th>
+	<th colspan=3 style="text-align:center;" class="no_border_bottom"><%= "Pairs".center(65, '-')%></th>
+	<th style="text-align:center;" class="no_border_bottom"><%= "Read1".center(15, '-')%></th>
   </tr>
   <tr>
   	<th>Ln</th>
 	<th>Barcode</th>
   	<th>Lib Name</th>
-	<th title="Total reads">Total</th>
-	<th title="Passed base-callers filter">PF</th>
-	<th title="Failed base-callers filter">Failed</th>
-	<th>Min</th>
-	<th>Max</th>
-	<th>Median</th>
+	<th style="text-align:center;" title="Total reads">Total</th>
+	<th style="text-align:center;" title="Passed base-callers filter">PF</th>
+	<th style="text-align:center;" title="Failed base-callers filter">Failed</th>
+	<th style="text-align:center;">Min</th>
+	<th style="text-align:center;">Max</th>
+	<th style="text-align:center;">Median</th>
 	<th title="Both reads maps uniquely with consistent distance & orientation">Consistent Unique</th>
 	<th title="One read maps uniquely and the other has consistent position">Rescued</th>
 	<th title="Consistent Unique + Rescued Pairs">Total Consistent</th>
-	<th title="Mapped to a single position in genome">PF Unique</th>
+	<th title="Mapped to a single position in genome" style="text-align:center">PF Unique</th>
   </tr>
   <% for flow_lane in @flow_cell.flow_lanes %>
     <tr>
-	  <td><%=h flow_lane.lane_nr %></td>
-	  <td><%=h flow_lane.lib_barcode %></td>
-      <td><%=h flow_lane.lib_name %></td>
+	  <td class="cellborder"><%=h flow_lane.lane_nr %></td>
+	  <td class="cellborder"><%= link_to flow_lane.lib_barcode, flow_lane.seq_lib %></td>
+      <td class="cellborder"><%=h flow_lane.lib_name %></td>
 	  <% if flow_lane.align_qc %>
-	  <td align="right"><%=h number_with_delimiter(flow_lane.align_qc.total_reads,  :delimiter => ',') %></td>
-	  <td align="right"><%=h number_with_delimiter(flow_lane.align_qc.pf_reads,     :delimiter => ',') %></td>
-	  <td align="right"><%=h number_with_delimiter(flow_lane.align_qc.failed_reads, :delimiter => ',') %></td>
-	  <td align="right"><%=h flow_lane.align_qc.min_insert %></td>
-	  <td align="right"><%=h flow_lane.align_qc.max_insert %></td>
-	  <td align="right"><%=h flow_lane.align_qc.median_insert %></td>
-	  <td align="right"><%=h number_with_delimiter(flow_lane.align_qc.consistent_unique_bp, :delimiter => ',') %>
+	  <td class="cellborder" style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.total_reads,  :delimiter => ',') %></td>
+	  <td class="cellborder" style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.pf_reads,     :delimiter => ',') %></td>
+	  <td class="cellborder" style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.failed_reads, :delimiter => ',') %></td>
+	  <td class="cellborder" style="text-align:right;"><%=h flow_lane.align_qc.min_insert %></td>
+	  <td class="cellborder" style="text-align:right;"><%=h flow_lane.align_qc.max_insert %></td>
+	  <td class="cellborder" style="text-align:right;"><%=h flow_lane.align_qc.median_insert %></td>
+	  <td class="cellborder" style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.consistent_unique_bp, :delimiter => ',') %>
 	      <%=h pct_with_parens(flow_lane.align_qc.consistent_unique_pct) %></td>
-	  <td align="right"><%=h number_with_delimiter(flow_lane.align_qc.rescued_bp, :delimiter => ',') %>
+	  <td class="cellborder" style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.rescued_bp, :delimiter => ',') %>
 	      <%=h pct_with_parens(flow_lane.align_qc.rescued_pct) %></td>
-	  <td align="right"><%=h number_with_delimiter(flow_lane.align_qc.total_consistent_bp, :delimiter => ',') %>
+	  <td class="cellborder" style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.total_consistent_bp, :delimiter => ',') %>
 	      <%=h pct_with_parens(flow_lane.align_qc.total_consistent_pct) %></td>
-	  <td align="right"><%=h number_with_delimiter(flow_lane.align_qc.pf_unique_bp, :delimiter => ',') %>
+	  <td class="cellborder" style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.pf_unique_bp, :delimiter => ',') %>
 	      <%=h pct_with_parens(flow_lane.align_qc.pf_unique_pct) %></td>
 	  <% end %>
     </tr>

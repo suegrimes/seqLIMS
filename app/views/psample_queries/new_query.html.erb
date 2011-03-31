@@ -15,8 +15,8 @@
 
 <table class="form01">
   <tr>
-    <th>Consent Protocol:</th>
-	<th>Clinic:</th> 
+    <th>Consent Protocol</th>
+	<th>Clinic</th> 
   </tr> 
   <tr>
   	<td><%= f.collection_select(:consent_protocol_id, @consent_protocols, :id, :name_ver,
@@ -29,9 +29,9 @@
 <table class="form01">
   <tr>
   	<th>Sample Site</th>
-    <th>Sample Type:</th>
-	<th>Preservation:</th>
-    <th>OR Designation:</th>
+    <th>Sample Type</th>
+	<th>Preservation</th>
+    <th>OR Designation</th>
   </tr> 
   <tr>
   	<td><%= f.collection_select(:sample_tissue, @source_tissue, :c_value, :c_value,
@@ -48,8 +48,8 @@
 
 <table class="form01">
   <tr>
-  	<th>Extraction Protocol:</th>
-  	<th>Extracted Type:</th>
+  	<th>Extraction Protocol</th>
+  	<th>Extracted Type</th>
   </tr>
   <tr>
   	<td><%= f.collection_select(:protocol_id, @protocols, :id, :name_ver,
@@ -61,13 +61,11 @@
 
 <table class="form01">
   <tr>
-  	<th>Processed From:</th>
-  	<th>To:</th>
-  </tr>
-  <tr>
-  	<td><%= f.calendar_date_select(:from_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%></td>
+  	<th>Processed From: </th>
+	<td><%= f.calendar_date_select(:from_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%></td>
+  	<th>To: </th>
 	<td><%= f.calendar_date_select(:to_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%></td>
-  </tr>	
+  </tr>
 </table>
 
 <p><%= submit_tag "Submit" %></p>
