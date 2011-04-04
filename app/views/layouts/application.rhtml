@@ -7,7 +7,7 @@
         <meta name="keywords" content="<%= META_TAGS[:keywords] %>" />
         <%= stylesheet_link_tag 'lims_std' %>
 		<%= stylesheet_link_tag 'superfish' %>
-        <%= javascript_include_tag :all, :cache => true %>
+        <%= javascript_include_tag 'all', 'prototype', :cache => true %>
 		<%= calendar_date_select_includes %>
 		<script type="text/javascript">
         // initialise Superfish 
@@ -33,7 +33,7 @@
       <td valign="top" width="180"><div class="version"><% if APP_VERSION %>Version: <%= APP_VERSION %><% end %><br /><% if RAILS_ENV != 'production'%> <span style="font-size:larger;">(<%= RAILS_ENV%>)</span><%end%></div></td>
     </tr>
     <tr>
-      <td><div class="tagline">JI RESEARCH GROUP - Stanford Genome Technology Center</div></td>      
+      <td><div class="tagline">&nbsp;</div></td>      
       <td valign="bottom">
       	<% if logged_in? %>
         <div class="logout-link">
@@ -196,7 +196,7 @@
     <a href="http://med.stanford.edu/sgtc/">Stanford Genome Tech Center</a>&nbsp;|
     <a href="mailto:sgrimes@stanford.edu">Contact</a>
   </div>
-  <div class="rgt site-blurb">Website provided by the Ji Research Group and Genome Technology Center at Stanford University<br />
+  <div class="rgt site-blurb">Website provided by the Ji Research Group, School of Medicine and Genome Technology Center at Stanford University<br />
     This website and its content &copy; Stanford University, 2011. All rights reserved.
   </div>
 </div>

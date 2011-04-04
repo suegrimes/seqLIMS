@@ -376,18 +376,25 @@ td {
 
 .list th {
     font-size: .9em;
+	padding: .1em .3em;
     background-color: #f1f2e3;
     border-bottom: 1px solid #999;
 }
 
 .list td {
     font-size: .9em;
+	padding: .1em .3em;
     border-bottom: 1px solid #B0AA91;
     /*padding-left: .5em;*/
 }
 
 .list .no_border_bottom {
     border-bottom: 0 none;
+}
+
+.list .cellborder {
+	border: 1px dotted #dedacb; /* #b0aa91; */
+	padding: .1em .3em;
 }
 
 .list a.linkborder {
@@ -402,7 +409,7 @@ td {
 .info01 {
     border: 1px solid #b0aa91;
     border-collapse: separate;
-    margin-bottom: 3em;
+    margin-bottom: 1em;
 }
 
 .info01 th {

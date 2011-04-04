@@ -43,8 +43,10 @@ class Sample < ActiveRecord::Base
   
   validates_presence_of :barcode_key
   validates_uniqueness_of :barcode_key, :message => 'is not unique'
+
   #validates_presence_of :sample_date, :if => Proc.new {|a| a.new_record? }
   validates_date :sample_date, :allow_blank => true
+  
   #validates_format_of :barcode_key, :with => /^([^\.])*$/, :message => "invalid - cannot use '.'"  # only use this validation if source_sample_id is null
   
   # Set date parameters for use in date_select lists.

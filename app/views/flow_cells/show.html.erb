@@ -16,31 +16,34 @@
   </tr>
   <% for flow_lane in @flow_cell.flow_lanes %>
     <tr>
-	  <td><%=h flow_lane.lane_nr %></td>
-	  <td><%= link_to flow_lane.lib_barcode, flow_lane.seq_lib %></td>
-      <td><%=h flow_lane.seq_lib.lib_name %></td>
-	  <td><%=h flow_lane.runtype_adapter %></td>
-	  <td><%=h flow_lane.seq_lib.target_pool %></td>
-	  <td><%=h flow_lane.seq_lib.enzyme_code %></td>
-	  <td><%=h flow_lane.alignment_ref %></td>
-	  <td><%=h flow_lane.seq_lib.trim_bases %></td>
-	  <td><%=h flow_lane.lib_conc %></td>
+	  <td class="no_border_bottom"><%=h flow_lane.lane_nr %></td>
+	  <td class="no_border_bottom"><%= link_to flow_lane.lib_barcode, flow_lane.seq_lib %></td>
+      <td class="no_border_bottom"><%=h flow_lane.seq_lib.lib_name %></td>
+	  <td class="no_border_bottom"><%=h flow_lane.runtype_adapter %></td>
+	  <td class="no_border_bottom"><%=h flow_lane.seq_lib.target_pool %></td>
+	  <td class="no_border_bottom"><%=h flow_lane.seq_lib.enzyme_code %></td>
+	  <td class="no_border_bottom"><%=h flow_lane.alignment_ref %></td>
+	  <td class="no_border_bottom"><%=h flow_lane.seq_lib.trim_bases %></td>
+	  <td class="no_border_bottom"><%=h flow_lane.lib_conc %></td>
     </tr>
-	<% if !flow_lane.notes.blank?%>
 	<tr>
-	  <td colspan=2></td>
-	  <td colspan=7>Notes: <%=h flow_lane.notes %></td>
-	</tr>
-	<% end %>
-	<tr><td colspan=9><hr></td></tr>
-    <% end %>
+		<td></td>
+        <td colspan="8" style="border-top:0; text-align:center;">
+          <% if !flow_lane.notes.blank? %>        
+            <div style="padding: 0 10px; margin-bottom: 4px; width:95%; border: 1px solid #e5e5e5; text-align:left;">Notes:&nbsp;<%=h flow_lane.notes %></div>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
 </table>
   
   <div id="sequencing">
     <% if can? :edit, @flow_cell %>
+	  <p><%= link_to 'Edit ', edit_flow_cell_path(@flow_cell) %>
     <% if @flow_cell.flowcell_status == 'F' %>
-      <p><%= link_to_function "Submit for Sequencing", toggle_div(:run_params, :sequencing) %></p>
+      <%= link_to_function "| Submit for Sequencing", toggle_div(:run_params, :sequencing) %>
 	<% end %>
+	  </p>
 	<% end %>
   </div>
 	

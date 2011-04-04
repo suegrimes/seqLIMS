@@ -41,6 +41,11 @@ class FlowCell < ActiveRecord::Base
     flowcell_status != 'F'
   end
   
+  def seq_run_key
+    hiseq_flowcell = (hiseq_xref.blank? ? '' : hiseq_xref.split('_')[3][0..5])
+    (hiseq_xref.blank? ? sequencing_key : [sequencing_key,  ' (', hiseq_flowcell, ')'].join)
+  end
+  
   def id_name
   (sequenced? ? "Sequencing Run: #{sequencing_key}" : "Flow Cell: #{id.to_s}")
   end
