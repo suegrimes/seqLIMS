@@ -67,8 +67,9 @@ class FlowCellsController < ApplicationController
     # lanes so that all sequencing libraries show with appropriate lanes (or blank)
     # when error condition is encountered
     @flow_cell       = FlowCell.new(params[:flow_cell])
-    nonblank_lanes   = params[:flow_lane].reject{|lane| lane[:lane_nr].blank?}.size  # Number of lines with non-blank lane number
-    lanes_required  = (params[:partial_flowcell] == 'Y'? nonblank_lanes : FlowCell::NR_LANES)
+    
+    lane_nrs = non_blank_lane_nrs(non_blank_lanes(params[:flow_lane]))  # Array of lane#s which are non-blank
+    lanes_required  = (params[:partial_flowcell] == 'Y'? lane_nrs.size : FlowCell::NR_LANES)
       
     # Validation check to ensure lanes 1-8 entered, and no duplicate lanes
     lane_errors = validate_lane_nrs(params[:flow_lane], 'create', lanes_required)
@@ -180,15 +181,15 @@ protected
   def validate_lane_nrs(lanes, create_or_update, lanes_required = FlowCell::NR_LANES)
     errno = 0
     
-    if create_or_update == 'create'
-      non_blank_lanes = lanes.reject{|lane| lane[:lane_nr].blank?}    
-      lane_nrs = non_blank_lanes.collect{|lane| lane[:lane_nr].split(',')}.flatten
+    if create_or_update == 'create'    
+      lanes_nb = non_blank_lanes(lanes)   
+      lane_nrs = non_blank_lane_nrs(lanes_nb)
       
     else # create_or_update == update
-      non_blank_lanes = lanes.reject{|lane_id, lane_attrs| lane_attrs[:lane_nr].blank?} 
-      errno = 4 if non_blank_lanes.size != lanes_required
+      lanes_nb = non_blank_lanes(lanes) 
+      errno = 4 if lanes_nb.size != lanes_required
       
-      lane_nrs = non_blank_lanes.collect{|lane_id, lane_attrs| lane_attrs[:lane_nr].split(',')}.flatten
+      lane_nrs = non_blank_lane_nrs(lanes_nb)
       errno = 5 if lane_nrs.size != lanes_required
     end
     
@@ -225,7 +226,23 @@ protected
     
     return [errno, errmsg]
   end
- 
+  
+  def non_blank_lanes(lanes)
+    if lanes.is_a? Array
+      lanes.reject{|lane| lane[:lane_nr].blank?} 
+    else  #Hash
+      lanes.reject{|lane_id, lane_attrs| lane_attrs[:lane_nr].blank?}
+    end
+  end
+  
+  def non_blank_lane_nrs(nb_lanes)
+    if nb_lanes.is_a? Array
+      nb_lanes.collect{|lane| lane[:lane_nr].split(',')}.flatten
+    else  # Hash
+      nb_lanes.collect{|lane_id, lane_attrs| lane_attrs[:lane_nr].split(',')}.flatten
+    end
+  end
+  
   def define_lib_conditions(params)
     @where_select = []; @where_values = []
     

@@ -20,7 +20,7 @@
 	  <% if controller.action_name == 'new' %>
 	    <%= select_tag :partial_flowcell, options_for_select(%w{N Y}, selected_value=@partial_flowcell) %>
 	  <% else %>
-	    <%=h @partial_flowcell %>
+	    <%=h @partial_flowcell %><%= hidden_field_tag :partial_flowcell, @partial_flowcell %>
 	  <% end %>
 	  </td>
 	  <td><%= f.text_field :nr_bases_read1, :size => 8 %></td>
