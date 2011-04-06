@@ -438,6 +438,43 @@ td {
     font-size: .9em;
 }
 
+/* info fieldset styles */
+
+.info fieldset {
+    padding: 0 0 .5 .5em;
+    margin-bottom:.75em; 
+    float:left; 
+    clear:left; 
+    width:400px;
+}
+.info legend {
+    margin-left:1em;
+    font-size: .9em;
+    font-weight: bold;
+    padding: 0 3px;
+}
+.info fieldset ol {
+    list-style:none; 
+    padding:.5em 1em 0 1em;
+    margin: 0;
+}
+.info fieldset li {
+    float:left; clear:left; 
+    width:100%;
+    padding: 2px 0;
+}
+.info label {
+    float:left; width:9em; 
+    margin-right: 1em;
+    font-size: .9em;
+}
+.info label.radio {
+    float:left; width:20em; 
+    margin-right: 1em;
+}
+
+/* end info fieldset styles */
+
 .form {
     background-color: #f1f2e3;
 }
