@@ -31,28 +31,28 @@
   </tr>
   <% for flow_lane in @flow_cell.flow_lanes %>
     <tr>
-	  <td class="cellborder"><%=h flow_lane.lane_nr %></td>
-	  <td class="cellborder"><%= link_to flow_lane.lib_barcode, flow_lane.seq_lib %></td>
-      <td class="cellborder"><%=h flow_lane.lib_name %></td>
+	  <td ><%=h flow_lane.lane_nr %></td>
+	  <td ><%= link_to flow_lane.lib_barcode, flow_lane.seq_lib %></td>
+      <td ><%=h flow_lane.lib_name %></td>
 	  <% if flow_lane.align_qc %>
-	  <td class="cellborder" style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.lane_yield,   :delimiter => ',') %></td>
-	  <td class="cellborder" style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.clusters_raw, :delimiter => ',') %></td>
-	  <td class="cellborder" style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.clusters_pf,  :delimiter => ',') %>
+	  <td style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.lane_yield,   :delimiter => ',') %></td>
+	  <td style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.clusters_raw, :delimiter => ',') %></td>
+	  <td style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.clusters_pf,  :delimiter => ',') %>
 	                    <%=h pct_with_parens(flow_lane.align_qc.pct_pf_clusters) %></td>
-	  <td class="cellborder" style="text-align:right;"><%=h flow_lane.align_qc.cycle1_intensity_pf %></td>
-	  <td class="cellborder" style="text-align:right;"><%=h flow_lane.align_qc.cycle20_intensity_pct_pf %>%</td>
-	  <td class="cellborder" style="text-align:right;"><%=h number_with_precision(flow_lane.align_qc.align_score_pf,    :precision => 2) %></td>
-	  <td class="cellborder" style="text-align:right;"><%=h number_with_precision(flow_lane.align_qc.pct_align_pf,      :precision => 2) %>%</td>
-	  <td class="cellborder" style="text-align:right;"><%=h number_with_precision(flow_lane.align_qc.pct_error_rate_pf, :precision => 2) %>%</td>
-	  <td class="cellborder" style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.nr_uniques, :delimiter => ',') %></td>
-	  <td class="cellborder" style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.nr_U0, :delimiter => ',') %></td>
-	  <td class="cellborder" style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.nr_U1, :delimiter => ',') %></td>
-	  <td class="cellborder" style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.nr_U2, :delimiter => ',') %></td>
-	  <td class="cellborder" style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.nr_UM, :delimiter => ',') %></td>
-	  <td class="cellborder" style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.nr_nonuniques, :delimiter => ',') %></td>
-	  <td class="cellborder" style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.nr_NM, :delimiter => ',') %></td>
-      <td class="cellborder" style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.nr_QC, :delimiter => ',') %></td>
-	  <td class="cellborder" style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.nr_RX, :delimiter => ',') %></td>
+	  <td style="text-align:right;"><%=h flow_lane.align_qc.cycle1_intensity_pf %></td>
+	  <td style="text-align:right;"><%=h flow_lane.align_qc.cycle20_intensity_pct_pf %>%</td>
+	  <td style="text-align:right;"><%=h number_with_precision(flow_lane.align_qc.align_score_pf,    :precision => 2) %></td>
+	  <td style="text-align:right;"><%=h number_with_precision(flow_lane.align_qc.pct_align_pf,      :precision => 2) %>%</td>
+	  <td style="text-align:right;"><%=h number_with_precision(flow_lane.align_qc.pct_error_rate_pf, :precision => 2) %>%</td>
+	  <td style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.nr_uniques, :delimiter => ',') %></td>
+	  <td style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.nr_U0, :delimiter => ',') %></td>
+	  <td style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.nr_U1, :delimiter => ',') %></td>
+	  <td style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.nr_U2, :delimiter => ',') %></td>
+	  <td style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.nr_UM, :delimiter => ',') %></td>
+	  <td style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.nr_nonuniques, :delimiter => ',') %></td>
+	  <td style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.nr_NM, :delimiter => ',') %></td>
+      <td style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.nr_QC, :delimiter => ',') %></td>
+	  <td style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.nr_RX, :delimiter => ',') %></td>
 	  <% end %>
     </tr>
   <% end %>

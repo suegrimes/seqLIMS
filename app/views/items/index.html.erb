@@ -21,22 +21,22 @@
 <% for item in @items %>
   <tr>
   	<% if item.ordered? %>
-	  <td class="no_border_bottom"><%=h item.order.po_number %></td>
+	  <td class="no_cellborder"><%=h item.order.po_number %></td>
 	<% elsif can? :new, Order %>
-  	  <td class="no_border_bottom"><%= check_box_tag("item_id[]", item.id) %>
+  	  <td class="no_cellborder"><%= check_box_tag("item_id[]", item.id) %>
 	<% else %>
-	  <td class="no_border_bottom">n/a</td>
+	  <td class="no_cellborder">n/a</td>
 	<% end %>
-  	<td class="no_border_bottom"><%=h item.requester_abbrev %></td>
-	<td class="no_border_bottom"><%=h format_date(item.created_at) %></td>
-	<td class="no_border_bottom"><%=h item.deliver_site %></td>
-	<td align="center" class="no_border_bottom"><%=h item.chemical_flag%></td>
-	<td class="no_border_bottom"><%=h item.company_name %></td>
-    <td class="no_border_bottom"><%=h item.catalog_nr %></td>
-    <td class="no_border_bottom"><%=h number_to_currency(item.item_price) %></td>
-    <td class="no_border_bottom">&nbsp;&nbsp;<%=h item.item_quantity %></td>
-	<td class="no_border_bottom"><%=h item.grant_nr %></td>
-	<td class="no_border_bottom"><%=h item.item_received %></td>
+  	<td class="no_cellborder"><%=h item.requester_abbrev %></td>
+	<td class="no_cellborder"><%=h format_date(item.created_at) %></td>
+	<td class="no_cellborder"><%=h item.deliver_site %></td>
+	<td align="center" class="no_cellborder"><%=h item.chemical_flag%></td>
+	<td class="no_cellborder"><%=h item.company_name %></td>
+    <td class="no_cellborder"><%=h item.catalog_nr %></td>
+    <td class="no_cellborder"><%=h number_to_currency(item.item_price) %></td>
+    <td class="no_cellborder">&nbsp;&nbsp;<%=h item.item_quantity %></td>
+	<td class="no_cellborder"><%=h item.grant_nr %></td>
+	<td class="no_cellborder"><%=h item.item_received %></td>
     <td rowspan=2><%= link_to 'Show', item %></td>
 	
 	<% if can? :edit, item %>
@@ -48,10 +48,9 @@
 	<% end %>
   </tr>
   <tr>
-  	<td>&nbsp;</td>
-  	<td colspan="13"><%=h item.item_description %></td>
+  	<td class="border_bottom_only">&nbsp;</td>
+  	<td class="border_bottom_only" colspan="10"><%=h item.item_description %></td>
   </tr>
-  <!--tr><td colspan=14><hr></td></tr-->
 <% end %>
 </table>
 

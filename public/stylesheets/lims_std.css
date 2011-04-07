@@ -384,17 +384,25 @@ td {
 .list td {
     font-size: .9em;
 	padding: .1em .3em;
-    border-bottom: 1px solid #B0AA91;
+	border-width: 1px;
+	border-style: dotted dotted solid;
+	border-color: #DEDACB #DEDACB #B0AA91;
+    /*border-bottom: 1px solid #B0AA91;*/
     /*padding-left: .5em;*/
+}
+
+.list .border_bottom_only {
+	border-width: 0 0 1px;
+	border-style: none none solid;
+	border-color: transparent transparent #B0AA91;
 }
 
 .list .no_border_bottom {
     border-bottom: 0 none;
 }
 
-.list .cellborder {
-	border: 1px dotted #dedacb; /* #b0aa91; */
-	padding: .1em .3em;
+.list .no_cellborder {
+	border: 0 none;
 }
 
 .list a.linkborder {
