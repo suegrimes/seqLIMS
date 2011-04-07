@@ -1,20 +1,18 @@
 <% show_mrn ||= 'yes' %>
 
-<span class="table_title">Patient Info:</span>
-<table class="info">
-  <tr>
-    <th>Patient ID</th>
-	<td><%=h patient.id %></td>
-	<% if show_mrn == 'yes' && (can? :read, Patient) %>
-      <th>MRN</th><td><%=h patient.mrn%></td>
-    <% end %>
-    <th>Gender</th><td align=center><%=h sample_characteristic.gender %></td>
-    <th>Race/Ethnicity: </th><td><%=h sample_characteristic.race %>/<%=h sample_characteristic.ethnicity %></td>
-	<% if show_mrn == 'yes' && (can? :read, Patient) %>
-	  <th>PHI Notes</th><td><%=h patient.hipaa_data %></td>
-	<% end %>
-	<% if can? :edit, patient %>
-	  <td class="linkborder"><%= link_to 'Edit', edit_patient_path(patient) %></td>
-	<% end %>
-  </tr>
-</table>
+<!-- Standard fields to be displayed -->
+<% info_flds   = [['Field', 'Patient ID', patient.id],
+                  ['Field', 'MRN', patient.mrn], 
+                  ['Field', 'Gender', sample_characteristic.gender],
+                  ['Field', 'Race/Ethnicity', [sample_characteristic.race, sample_characteristic.ethnicity].join('/')],
+				  ['Field', 'PHI Notes', patient.hipaa_data]] %>
+
+<!-- Add/remove fields depending on user role/authorization -->				  
+<% info_flds.reject!{|fld| fld[1] == 'MRN'}       unless (show_mrn == 'yes' && (can? :read, Patient)) %>
+<% info_flds.reject!{|fld| fld[1] == 'PHI Notes'} unless (show_mrn == 'yes' && (can? :read, Patient) && !patient.hipaa_data.blank?) %>
+<% info_flds.push(['Link', nil, 'Edit', 'edit'])  if (can? :edit, Patient) %>
+
+<%= render :partial => 'shared/info_box', :locals => {:info_legend     => 'PATIENT_INFO',
+                                                      :info_flds       => info_flds,
+                                                      :link_controller => 'patients',
+                                                      :link_id         => patient.id} %>

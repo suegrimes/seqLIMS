@@ -1,0 +1,46 @@
+<% click_to_link ||= 'none' %>
+<% show_mrn ||= 'yes' %>
+
+<table><tr><td>
+<div class="info">
+  <fieldset>
+    <legend><em>PATIENT INFO</em></legend>
+	<ol>
+      <li>
+      	<label>Patient ID:</label>
+		<% if click_to_link == 'show' && (can? :read, patient) %>
+        <div><%=link_to patient.id, patient %></div>
+        <% elsif click_to_link == 'edit' && (can? :edit, patient) %>
+        <div><%=link_to patient.id, edit_patient_path(patient) %></div>
+        <% else %>
+        <div><%=h patient.id %></div>
+        <% end %>
+      </li>
+	  <li>
+	    <% if show_mrn == 'yes' && (can? :read, patient) %>
+        <label>MRN: </label>
+		<div><%=h patient.mrn%></div>
+        <% end %>
+      </li>
+	  <li>
+        <label>Gender: </label>
+		<div><%=h patient.gender %></div>
+      </li>
+	  <li>
+        <label>Race/Ethnicity: </label>
+		<div><%=h patient.race %>/<%=h patient.ethnicity %></div>
+      </li>
+	  <li>
+      <% if show_mrn == 'yes' && (can? :read, Patient) %>
+      <label>PHI Notes:</label>
+	  <div><%=h patient.hipaa_data %></div>
+      <% end %>
+      <% if can? :edit, patient %>
+	  <label>&nbsp;</label>
+      <div class="linkborder" style="text-align:right"><%= link_to 'Edit', edit_patient_path(patient) %></div>
+      <% end %>
+      </li>
+	</ol>
+  </fieldset>
+</div> <!-- /info -->
+</td></tr></table>
