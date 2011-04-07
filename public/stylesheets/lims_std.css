@@ -369,7 +369,7 @@ td {
     font-variant: small-caps;
 }
 
-.list, .form {
+.list {
     border: 1px solid #b0aa91;
     border-collapse: collapse;
 }
@@ -450,7 +450,7 @@ table.info {
 }
 
 .info td {
-    font-size: .9em;
+    font-size: .8em;
 	vertical-align: top;
 	padding-right: .75em;
 }
@@ -500,14 +500,25 @@ fieldset.info {
 /* end info fieldset styles */
 
 .form {
+    /*border: 1px solid #b0aa91;*/
+    /*border-collapse: collapse;*/
+}
+
+.form {
     background-color: #f1f2e3;
 }
 
 .form th {
+    font-size: .8em;
+    font-weight: bolder;
+	text-align: right;
+	vertical-align:top;
+	/*
     font-size: .9em;
     background-color: #f1f2e3;
     border-bottom: none;
     text-align: right;
+    */
 }
 
 .form th.top-heading-row {
@@ -516,8 +527,13 @@ fieldset.info {
 
 
 .form td {
+	font-size: .8em;
+	vertical-align: top;
+	padding-right: .75em;
+	/*
     font-size: .9em;
     border-bottom: none;
+    */
 }
 
 .form01 {
@@ -568,7 +584,7 @@ fieldset.form {
     font-size: .9em;
     font-weight: bold;
 	font-style: italic;
-    padding: 0 3px;
+    padding: 0 4px;
 	background: #fff;
 	border: 1px solid #999;
 }
