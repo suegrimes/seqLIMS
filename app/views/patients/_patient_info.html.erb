@@ -28,7 +28,7 @@
   </tr>
   <tr>
 	<% if can? :edit, patient %>
-	  <td class="linkborder"><%= link_to 'Edit', edit_patient_path(patient) %></td>
+	  <td><div class="linkborder"><%= link_to 'Edit', edit_patient_path(patient) %></div></td>
 	<% end %>
   </tr>
 </table>
