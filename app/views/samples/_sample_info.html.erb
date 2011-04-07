@@ -41,7 +41,7 @@
 </tr>
 <tr>
   <% if link_to_edit == 'yes' && (can? :edit, sample) %>
-  <td class="linkborder"><%= link_to 'Edit Sample', edit_sample_path(sample) %></td>
+  <td><div class="linkborder"><%= link_to 'Edit Sample', edit_sample_path(sample) %></div></td>
   <% end %>  
 </tr>
 </table>

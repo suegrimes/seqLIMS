@@ -418,6 +418,7 @@ td {
     padding: .07em .2em;
 }
 
+
 .info01 {
     border: 1px solid #b0aa91;
     border-collapse: separate;
@@ -439,11 +440,6 @@ td {
 
 table.info {
 	margin-bottom: 0;
-}
-
-.info td.linkborder, .list td.linkborder {
-    border: 2px solid #dedacb;
-	text-align: center;
 }
 
 .info th {
@@ -475,7 +471,7 @@ fieldset.info {
     font-size: .9em;
     font-weight: bold;
 	font-style: italic;
-    padding: 0 3px;
+    padding: 0 4px;
 	background: #fff;
 	border: 1px solid #999;
 }
@@ -556,6 +552,50 @@ fieldset.info {
     float: left;
 }
 
+/* form fieldset styles */
+
+fieldset.form {
+    padding: .5em;
+    margin-bottom:.75em; 
+    float:left; 
+    /* clear:right;*/
+	background: #f1f2e3;
+	border: 1px solid #999;
+    width:50%;
+}
+.form legend {
+    margin-left:1em;
+    font-size: .9em;
+    font-weight: bold;
+	font-style: italic;
+    padding: 0 3px;
+	background: #fff;
+	border: 1px solid #999;
+}
+.form fieldset ol {
+    list-style:none; 
+    padding:.5em 1em 0 1em;
+    margin: 0;
+}
+.form fieldset li {
+    float:left; 
+	/* clear:left; */
+    width:40%;
+    padding: 2px 0;
+	border: 1px solid green;
+}
+.form label {
+    float:left; 
+	/*width:9em; */
+	width: 40%;
+    margin-right: 1em;
+	text-align: right;
+    font-size: .9em;
+	border: 1px solid black;
+}
+
+/* end form fieldset styles */
+
 /* end styles for tables */
 
 /* Other general styles */
@@ -591,6 +631,16 @@ fieldset.info {
 
 .clear {
     clear: both;
+}
+
+.linkborder {
+    border: 2px solid #dedacb;
+	border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+	text-align: center;
+	padding: 0 4px;
+	line-height: 1.3em;
 }
 
 /* styles for Rails error messages */
