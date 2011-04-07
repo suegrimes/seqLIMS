@@ -1,29 +1,37 @@
 <% edit_he ||= 'no' %>
-<span class="table_title">H&E Slide:</span>
+<fieldset class="info">
+<legend>H&E Slide</legend>
   <table class="info">
 	<tr>
 	  <th>HE barcode: </th>
 	  <td><%=h histology.he_barcode_key %></td>
 	  <th>HE date: </th><td><%=h histology.he_date %></td>
-	  <th>Pathologist</th><td colspan=3><%=h histology.pathologist %></td>
-	  <td class="linkborder"><%=link_to 'Attach', histology %></td>
-	  <% if can? :edit, histology %>
-	  <td class="linkborder"><%=link_to 'Edit', edit_histology_path(histology)%></td>
-	  <% end %>
-	  <% if can? :delete, histology %>
-	  <td class="linkborder"><%=link_to 'Delete', histology, :confirm => 'Are you sure?', :method => :delete %></td>
-	  <% end %>
-	</tr>
+    </tr>
 	<tr>
+	  <th>Pathologist</th><td colspan=3><%=h histology.pathologist %></td>
 	  <th>Histopathology</th><td><%=h histology.histopathology %></td>
+    </tr>
+    <tr>
 	  <th>Tumor cell content</th><td><%=h histology.tumor_cell_content %></td>
 	  <th>Inflammation</th><td><%=h histology.inflammation_type %></td>
+    </tr>
+    <tr>
 	  <th>Infiltration</th><td><%=h histology.inflammation_infiltration %></td>
 	</tr>
 	<% if !histology.comments.blank? %>
 	<tr>
 	  <th>Comments</th>
-	  <td colspan=5><%=h histology.comments %></td>
+	  <td><%=h histology.comments %></td>
 	</tr>
-	<% end %>
+	<% end %>	
+	<tr>
+      <td class="linkborder"><%=link_to 'Attach', histology %></td>
+      <% if can? :edit, histology %>
+      <td class="linkborder"><%=link_to 'Edit', edit_histology_path(histology)%></td>
+      <% end %>
+      <% if can? :delete, histology %>
+      <td class="linkborder"><%=link_to 'Delete', histology, :confirm => 'Are you sure?', :method => :delete %></td>
+      <% end %>		
+	</tr>	
   </table>
+</fieldset>

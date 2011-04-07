@@ -1,22 +1,19 @@
-<span class="table_title">Sample Acquisition/Characteristics:</span>
+<fieldset class="info">
+<legend>Sample Acquisition/Characteristics</legend>
 <table class="info">
 	<tr>
-      <th>Collection Date</th>
-	  <th>Clinic</th>
-	  <th>Protocol</th>
-	  <th>Sample Site</th>
-	  <th>Sample Type</th>
-	</tr>
-	<tr>
-	  <td><%=h sample_characteristic.collection_date%></td>
-	  <td><%=h sample_characteristic.clinic_or_location%></td>
-	  <td><%=h sample_characteristic.consent_nr %>
+	  <th>Collection Date:</th><td><%=h sample_characteristic.collection_date%></td>
+	  <th>Clinic:</th><td><%=h sample_characteristic.clinic_or_location%></td>
+    </tr>
+    <tr>
+	  <th>Protocol:</th><td><%=h sample_characteristic.consent_nr %>
 	      <% if sample_characteristic.consent_protocol %>/<%=h sample_characteristic.consent_protocol.consent_abbrev%><% end %></td>
-	  <td><%=h sample.sample_tissue %></td>
-	  <td><%=h sample.sample_type%></td>
-	</tr>
-	<tr>
+	  <th>Sample Site:</th><td><%=h sample.sample_tissue %></td>
+    </tr>
+    <tr>
+	  <th>Sample Type:</th><td><%=h sample.sample_type%></td>
 	  <th>Comments:</th>
 	  <td><%=h sample_characteristic.comments %></td>
 	</tr>
 </table>
+</fieldset>
