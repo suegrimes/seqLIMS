@@ -7,32 +7,26 @@
 <!--  Links are assumed to always need to specify an id, which is passed in the link_id field -->
 <!--  Controller name for link_to actions, is passed in the link_controller field -->
 
-<table><tr><td>
-<div class="info">
-  <fieldset>
-    <legend><em><%= info_legend %></em></legend>
-	<ol>
-	  <% info_flds.each do |fld| %>
-    
+  <fieldset class="info">
+    <legend><%= info_legend %></legend>
+	<table class="info">
+	  <% 0.step(info_flds.size-1, 2) do |i| %> 
+	  <tr>	  	
+	  <% for j in i..i+1 do %>       <!-- two field/label pairs per table row -->
+	    <% break if !info_flds[j] %>  <!-- break out of loop if no second entry for last line -->
+		
+		<% fld = info_flds[j] %>
 		<% if fld[0] == "Field" %>
-		  <li>
-      	    <label><%= fld[1] %><%=(fld[1].nil? ? ' ' : ':')%></label>
-		    <div><%=h fld[2] %></div>
-		  </li>
+		  <th><%= fld[1] %>:</th>
+		  <td><%=h fld[2] %></td>
 		  
 		<% elsif fld[0] == "Link" %>
-		  <li>
-		  	<% if fld[1].nil? %>
-		      <div style="text-align:right"><%=link_to fld[2], {:controller => link_controller, :action => fld[3], :id => link_id} %></div>
-			<% else %>
-			  <label><%= fld[1] %>:</label>
-			  <div><%=link_to fld[2], {:controller => link_controller, :action => fld[3], :id => link_id} %></div>
-			<% end %>
-		  </li>
-		<% end %>
-		
-	  <% end %>
-	</ol>
+		  <th><%= fld[1] %>:</th>
+		  <td><%=link_to fld[2], {:controller => link_controller, :action => fld[3], :id => link_id} %></td>
+		<% end %>  <!-- end if/ -->
+	  <% end %>  <!-- end do (j) -->
+	  </tr>
+	  <% end %>  <!-- end do (info_flds/i) -->
+	  
+	 </table>
   </fieldset>
-</div> <!-- /info -->
-</td></tr></table>

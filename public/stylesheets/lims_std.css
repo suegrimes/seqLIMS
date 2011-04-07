@@ -383,18 +383,18 @@ td {
 
 .list td {
     font-size: .9em;
-	padding: .1em .3em;
-	border-width: 1px;
-	border-style: dotted dotted solid;
-	border-color: #DEDACB #DEDACB #B0AA91;
-    /*border-bottom: 1px solid #B0AA91;*/
-    /*padding-left: .5em;*/
+    padding: .1em .3em;
+    border-width: 1px;
+    border-style: dotted dotted solid;
+    border-color: #DEDACB #DEDACB #B0AA91;
+   /*border-bottom: 1px solid #B0AA91;*/
+   /*padding-left: .5em;*/
 }
 
 .list .border_bottom_only {
-	border-width: 0 0 1px;
-	border-style: none none solid;
-	border-color: transparent transparent #B0AA91;
+    border-width: 0 0 1px;
+    border-style: none none solid;
+    border-color: transparent transparent #B0AA91;
 }
 
 .list .no_border_bottom {
@@ -402,7 +402,7 @@ td {
 }
 
 .list .no_cellborder {
-	border: 0 none;
+    border: 0 none;
 }
 
 .list a.linkborder {
@@ -413,7 +413,6 @@ td {
     padding: .07em .2em;
 }
 
-/* lists with no underlines */
 .info01 {
     border: 1px solid #b0aa91;
     border-collapse: separate;
@@ -433,33 +432,47 @@ td {
     padding: .1em .3em;
 }
 
+table.info {
+	margin-bottom: 0;
+}
+
 .info td.linkborder, .list td.linkborder {
     border: 2px solid #dedacb;
+	text-align: center;
 }
 
 .info th {
     font-size: .8em;
     font-weight: bolder;
+	text-align: right;
+	vertical-align:top;
 }
 
 .info td {
     font-size: .9em;
+	vertical-align: top;
+	padding-right: .75em;
 }
 
 /* info fieldset styles */
 
-.info fieldset {
-    padding: 0 0 .5 .5em;
+fieldset.info {
+    padding: .5em;
     margin-bottom:.75em; 
     float:left; 
-    clear:left; 
-    width:400px;
+    /* clear:right;*/
+	background: #f9f9f9;
+	border: 1px solid #999;
+    width:50%;
 }
 .info legend {
     margin-left:1em;
     font-size: .9em;
     font-weight: bold;
+	font-style: italic;
     padding: 0 3px;
+	background: #fff;
+	border: 1px solid #999;
 }
 .info fieldset ol {
     list-style:none; 
@@ -467,18 +480,20 @@ td {
     margin: 0;
 }
 .info fieldset li {
-    float:left; clear:left; 
-    width:100%;
+    float:left; 
+	/* clear:left; */
+    width:40%;
     padding: 2px 0;
+	border: 1px solid green;
 }
 .info label {
-    float:left; width:9em; 
+    float:left; 
+	/*width:9em; */
+	width: 40%;
     margin-right: 1em;
+	text-align: right;
     font-size: .9em;
-}
-.info label.radio {
-    float:left; width:20em; 
-    margin-right: 1em;
+	border: 1px solid black;
 }
 
 /* end info fieldset styles */

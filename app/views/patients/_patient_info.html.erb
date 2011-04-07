@@ -10,12 +10,13 @@
                   ['Field', 'Race/Ethnicity', [patient.race, patient.ethnicity].join('/')],
 				  ['Field', 'PHI Notes', patient.hipaa_data]] %>
 
+<%= info_links = [['Edit', 'edit']] if (can? :edit, Patient) %>
+
 <!-- Add/remove fields depending on user role/authorization -->				  
 <% info_flds.reject!{|fld| fld[1] == 'MRN'}       unless (show_mrn == 'yes' && (can? :read, Patient)) %>
 <% info_flds.reject!{|fld| fld[1] == 'PHI Notes'} unless (show_mrn == 'yes' && (can? :read, Patient) && !patient.hipaa_data.blank?) %>
-<% info_flds.push(['Link', nil, 'Edit', 'edit'])  if (can? :edit, Patient) %>
 
-<%= render :partial => 'shared/info_box', :locals => {:info_legend     => 'PATIENT_INFO',
+<%= render :partial => 'shared/info_box', :locals => {:info_legend     => 'Patient Info',
                                                       :info_flds       => info_flds,
                                                       :link_controller => 'patients',
                                                       :link_id         => patient.id} %>
