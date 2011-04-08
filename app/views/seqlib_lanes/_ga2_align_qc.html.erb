@@ -24,23 +24,23 @@
       <% for flow_lane in flow_lanes %>
         <tr>
         <% if flow_lane.sequencing_key.nil? %>
-	    <td class="cellborder">FlowCell/Not Sequenced</td>
+	    <td >FlowCell/Not Sequenced</td>
 	    <% else %>
-	    <td class="cellborder"><%=link_to flow_lane.sequencing_key, :controller => :flow_cells, :action => :show_qc,
+	    <td ><%=link_to flow_lane.sequencing_key, :controller => :flow_cells, :action => :show_qc,
                                                  :id => flow_lane.flow_cell_id %></td>
 	    <% end %>
-	    <td class="cellborder"><%=h format_date(flow_lane.flow_cell.flowcell_date)%></td>
-	    <td class="cellborder"><%=h flow_lane.lane_nr %>
+	    <td ><%=h format_date(flow_lane.flow_cell.flowcell_date)%></td>
+	    <td ><%=h flow_lane.lane_nr %>
 	  
 	    <% if !flow_lane.align_qc.nil?%>
-		<td class="cellborder" align="right"><%=h number_with_delimiter(flow_lane.align_qc.clusters_raw, :delimiter => ',') %></td>
-	    <td class="cellborder" align="right"><%=h number_with_delimiter(flow_lane.align_qc.clusters_pf,  :delimiter => ',') %></td>
-		<td class="cellborder" align="right"><%=h flow_lane.align_qc.cycle1_intensity_pf %></td>
-	    <td class="cellborder" align="right"><%=h flow_lane.align_qc.cycle20_intensity_pct_pf %>%</td>
-	    <td class="cellborder" align="right"><%=h flow_lane.align_qc.pct_align_pf %>%</td>
-	    <td class="cellborder" align="right"><%=h flow_lane.align_qc.pct_error_rate_pf %>%</td>
-	    <td class="cellborder" align="right"><%=h number_with_delimiter(flow_lane.align_qc.nr_uniques,    :delimiter => ',') %></td>
-	    <td class="cellborder" align="right"><%=h number_with_delimiter(flow_lane.align_qc.nr_nonuniques, :delimiter => ',') %></td>
+		<td align="right"><%=h number_with_delimiter(flow_lane.align_qc.clusters_raw, :delimiter => ',') %></td>
+	    <td align="right"><%=h number_with_delimiter(flow_lane.align_qc.clusters_pf,  :delimiter => ',') %></td>
+		<td align="right"><%=h flow_lane.align_qc.cycle1_intensity_pf %></td>
+	    <td align="right"><%=h flow_lane.align_qc.cycle20_intensity_pct_pf %>%</td>
+	    <td align="right"><%=h flow_lane.align_qc.pct_align_pf %>%</td>
+	    <td align="right"><%=h flow_lane.align_qc.pct_error_rate_pf %>%</td>
+	    <td align="right"><%=h number_with_delimiter(flow_lane.align_qc.nr_uniques,    :delimiter => ',') %></td>
+	    <td align="right"><%=h number_with_delimiter(flow_lane.align_qc.nr_nonuniques, :delimiter => ',') %></td>
 	    <% end %>
       </tr>
       <% end %>

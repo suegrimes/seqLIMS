@@ -25,26 +25,26 @@
   <% for flow_lane in flow_lanes %>
     <tr>
       <% if flow_lane.sequencing_key.nil? %>
-	    <td class="cellborder">FlowCell/Not Sequenced</td>
+	    <td >FlowCell/Not Sequenced</td>
 	    <% else %>
-	    <td class="cellborder"><%=link_to flow_lane.sequencing_key, :controller => :flow_cells, :action => :show_qc,
+	    <td ><%=link_to flow_lane.sequencing_key, :controller => :flow_cells, :action => :show_qc,
                                                  :id => flow_lane.flow_cell_id %></td>
 	    <% end %>
-	  <td class="cellborder"><%=h format_date(flow_lane.flow_cell.flowcell_date)%></td>
-	  <td class="cellborder"><%=h flow_lane.lane_nr %></td>
+	  <td ><%=h format_date(flow_lane.flow_cell.flowcell_date)%></td>
+	  <td ><%=h flow_lane.lane_nr %></td>
 	  <% if flow_lane.align_qc %>
-	  <td class="cellborder" align="right"><%=h number_with_delimiter(flow_lane.align_qc.total_reads, :delimiter => ',') %></td>
-	  <td class="cellborder" align="right"><%=h number_with_delimiter(flow_lane.align_qc.pf_reads, :delimiter => ',') %></td>
-	  <td class="cellborder"><%=h flow_lane.align_qc.min_insert %></td>
-	  <td class="cellborder"><%=h flow_lane.align_qc.max_insert %></td>
+	  <td align="right"><%=h number_with_delimiter(flow_lane.align_qc.total_reads, :delimiter => ',') %></td>
+	  <td align="right"><%=h number_with_delimiter(flow_lane.align_qc.pf_reads, :delimiter => ',') %></td>
+	  <td ><%=h flow_lane.align_qc.min_insert %></td>
+	  <td ><%=h flow_lane.align_qc.max_insert %></td>
 	  <td><%=h flow_lane.align_qc.median_insert %></td>
-	  <td class="cellborder" align="right"><%=h number_with_delimiter(flow_lane.align_qc.consistent_unique_bp, :delimiter => ',') %>
+	  <td align="right"><%=h number_with_delimiter(flow_lane.align_qc.consistent_unique_bp, :delimiter => ',') %>
 	      <%=h pct_with_parens(flow_lane.align_qc.consistent_unique_pct) %></td>
-	  <td class="cellborder" align="right"><%=h number_with_delimiter(flow_lane.align_qc.rescued_bp, :delimiter => ',') %>
+	  <td align="right"><%=h number_with_delimiter(flow_lane.align_qc.rescued_bp, :delimiter => ',') %>
 	      <%=h pct_with_parens(flow_lane.align_qc.rescued_pct) %></td>
-	  <td class="cellborder" align="right"><%=h number_with_delimiter(flow_lane.align_qc.total_consistent_bp, :delimiter => ',') %>
+	  <td align="right"><%=h number_with_delimiter(flow_lane.align_qc.total_consistent_bp, :delimiter => ',') %>
 	      <%=h pct_with_parens(flow_lane.align_qc.total_consistent_pct) %></td>
-	  <td class="cellborder" align="right"><%=h number_with_delimiter(flow_lane.align_qc.pf_unique_bp, :delimiter => ',') %>
+	  <td align="right"><%=h number_with_delimiter(flow_lane.align_qc.pf_unique_bp, :delimiter => ',') %>
 	      <%=h pct_with_parens(flow_lane.align_qc.pf_unique_pct) %></td>
 	  <% end %>
     </tr>

@@ -1,37 +1,28 @@
-<% click_to_link ||= 'none' %>
+<% last_info_box ||= 'no' %>
 <% show_mrn ||= 'yes' %>
 
-<fieldset class="info">
-<legend>Patient Info</legend>
-<table class="info">
-  <tr>
-    <th>Patient ID: </th>
-	<% if click_to_link == 'show' && (can? :read, patient) %>
-	  <td><%=link_to patient.id, patient %></td>
-	<% elsif click_to_link == 'edit' && (can? :edit, patient) %>
-	  <td><%=link_to patient.id, edit_patient_path(patient) %></td>
-	<% else %>
-	  <td><%=h patient.id %></td>
-	<% end %>
-	<% if show_mrn == 'yes' && (can? :read, patient) %>
-      <th>MRN: </th><td><%=h patient.mrn%></td>
-    <% end %>
-  </tr>
-  <tr>
-    <th>Gender: </th><td text-align=center><%=h patient.gender %></td>
-    <th>Race/Ethnicity: </th><td><%=h patient.race %>/<%=h patient.ethnicity %></td>
-  </tr>
-  <tr>
-	<% if show_mrn == 'yes' && (can? :read, Patient) %>
-	  <th>PHI Notes:</th><td><%=h patient.hipaa_data %></td>
-	<% end %>
-  </tr>
-  <tr>
-	<% if can? :edit, patient %>
-	  <td><div class="linkborder"><%= link_to 'Edit', edit_patient_path(patient) %></div></td>
-	<% end %>
-  </tr>
-</table>
-</fieldset>
+<% click_to_link ||= 'none' %>
+<% click_to_link = 'none' if (click_to_link == 'edit' && (cannot? :edit, patient))%>
+<% click_to_link = 'none' if (click_to_link == 'show' && (cannot? :read, patient))%>
 
+<!-- Standard fields to be displayed -->
+<% info_flds   = [[(click_to_link == 'none'? 'Field' : 'Link'), 'Patient ID', patient.id, click_to_link],
+                  ['Field', 'MRN', patient.mrn], 
+                  ['Field', 'Gender', patient.gender],
+                  ['Field', 'Race/Ethnicity', [patient.race, patient.ethnicity].join('/')],
+				  ['Field', 'PHI Notes', patient.hipaa_data]] %>
 
+<!-- Add/remove fields depending on user role/authorization -->				  
+<% info_flds.reject!{|fld| fld[1] == 'MRN'}       unless (show_mrn == 'yes' && (can? :read, Patient)) %>
+<% info_flds.reject!{|fld| fld[1] == 'PHI Notes'} unless (show_mrn == 'yes' && (can? :read, Patient) && !patient.hipaa_data.blank?) %>
+
+<!-- Links to be displayed with borders, in bottom row of info box -->
+<% info_links = [] %>
+<% info_links = [['Edit', 'edit']] if (can? :edit, patient) %>
+
+<%= render :partial => 'shared/info_box', :locals => {:info_legend     => 'Patient Info',
+                                                      :info_flds       => info_flds,
+                                                      :info_links      => info_links,
+                                                      :link_controller => 'patients',
+                                                      :link_id         => patient.id,
+                                                      :last_info_box   => last_info_box} %>

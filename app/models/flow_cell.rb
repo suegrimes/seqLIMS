@@ -36,6 +36,7 @@ class FlowCell < ActiveRecord::Base
   named_scope :unsequenced, :conditions => "flowcell_status = 'F'"
   
   NR_LANES = 8
+  STATUS = %w{F R S Q N}
   
   def sequenced?
     flowcell_status != 'F'

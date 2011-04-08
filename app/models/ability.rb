@@ -17,7 +17,7 @@ class Ability
   include CanCan::Ability
   
   def initialize(user=current_user)
-    alias_action :setup_params, :query_params, :list_selected, :index, :show, :to => :read
+    alias_action :setup_params, :query_params, :list_selected, :index, :show, :show_qc, :to => :read
     
     # Everyone can create a new user, or view/edit their own user information
     can [:new, :create, :forgot, :reset], User

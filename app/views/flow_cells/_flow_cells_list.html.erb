@@ -11,7 +11,7 @@
   <% @flow_cells.each do |flow_cell| %>
   <tr>
     <td><%=h flow_cell.flowcell_date %></td>
-	<td><%=h flow_cell.flowcell_status %></td>
+	<td style="text-align:center;"><%=h flow_cell.flowcell_status %></td>
 	<td><%=h flow_cell.seq_run_key %></td>
 	<td><%=h flow_cell.sequencing_date %></td>
 	<td><%=h flow_cell.nr_bases_read1 %>, <%=h flow_cell.nr_bases_index %>, <%=h flow_cell.nr_bases_read2 %> </td>
@@ -21,22 +21,24 @@
 	
 	<td><%= link_to 'Attach', new_attached_file_path(:rec_type => 'flow_cell', :obj_id => flow_cell.id) %></td>
 	
-	<% if (flow_cell.flowcell_status == 'F' || current_user.has_role?("lab_admin") || current_user.has_role?("admin")) %>
-	  <% if can? :edit, flow_cell %>  
-	  <td><%= link_to 'Edit',   edit_flow_cell_path(flow_cell) %></td>
-	  <% end %>
+	<% if (flow_cell.flowcell_status == 'F') || (can? :edit, flow_cell) %>  
+	  <td><%= link_to 'Edit', edit_flow_cell_path(flow_cell) %></td>
+	<% else %>
+      <td class="ltgrey">Edit</td>
 	<% end %>
 	
-	<% if flow_cell.flowcell_status == 'F'%>
-	  <% if can? :delete, flow_cell %>
-	  <td><%= link_to 'Delete', flow_cell, :confirm => 'Are you sure?', :method => :delete %></td>
+	<% if flow_cell.flowcell_status == 'F' %>
+	  <% if can? :delete, flow_cell %>  
+	    <td><%= link_to 'Delete', flow_cell, :confirm => 'Are you sure?', :method => :delete %></td>
+	  <% else %>
+		<td class="ltgrey">Delete</td>
 	  <% end %>
 	<% end %>
 	  
 	<% if flow_cell.flowcell_status == 'Q' %>
 	  <td><%= link_to 'QC',   :controller => 'flow_cells',  :action => 'show_qc', :id => flow_cell.id %></td>
     <% else %>
-      <td class="ltgrey"> QC </td>	
+	  <td class="ltgrey"><%= (flow_cell.flowcell_status == 'N'? 'N/A' : ' ') %></td>
 	<% end %>
   </tr>
   

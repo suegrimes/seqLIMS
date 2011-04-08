@@ -1,0 +1,36 @@
+<% last_info_box ||= 'no' %>
+<% link_to_edit ||= 'yes' %>
+
+<% click_to_link ||= 'none' %>
+<% click_to_link = 'none' if (click_to_link == 'edit' && (cannot? :edit, processed_sample))%>
+<% click_to_link = 'none' if (click_to_link == 'show' && (cannot? :read, processed_sample))%>
+
+<!-- Standard fields to be displayed -->
+<% info_flds   = [[(click_to_link == 'none'? 'Field' : 'Link'), 'Barcode', processed_sample.barcode_key, click_to_link], 
+                  ['Field', 'Processed On', processed_sample.processing_date],
+                  ['Field', 'Type', processed_sample.extraction_type],
+                  ['Field', 'Vial', processed_sample.vial],
+                  ['Field', 'Support', processed_sample.support], 
+                  ['Field', 'Elution Buffer', processed_sample.elution_buffer],
+                  ['Field', 'Volume', processed_sample.final_vol],
+				  ['Field', 'Conc', processed_sample.final_conc],
+                  ['Field', 'a260/a280', processed_sample.final_a260_a280],
+                  ['Field', 'RIN#', processed_sample.final_rin_nr],
+                  ['Field', 'Room', (processed_sample.storage_location ? processed_sample.storage_location.location_string : nil)],
+                  ['Field', 'Shelf', processed_sample.storage_shelf],
+                  ['Field', 'Box/Bin#', processed_sample.storage_boxbin]] %>
+				  
+<!-- Only include comments if non-blank -->
+<% info_flds.push(['Field', 'Comments', processed_sample.comments]) if !processed_sample.comments.blank? %>
+
+<!-- Links to be displayed with borders, in bottom row of info box -->
+<% info_links = [] %>
+<% info_links = [['Edit', 'edit']] if link_to_edit == 'yes' && (can? :edit, processed_sample) %>
+
+<%= render :partial => 'shared/info_box', :locals => {:info_legend     => 'Extracted Sample',
+                                                      :info_flds       => info_flds,
+                                                      :info_links      => info_links,
+                                                      :link_controller => 'processed_samples',
+                                                      :link_id         => processed_sample.id,
+                                                      :last_info_box   => last_info_box} %>
+													  

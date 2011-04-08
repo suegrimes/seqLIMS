@@ -19,14 +19,14 @@
 	<th>Sequencing</th>
   </tr>
   <tr>
-  	<% if flow_cell.flowcell_status != 'F' %><td class="cellborder"><%=h flow_cell.sequencing_key %></td><% end %>
-	<% if !flow_cell.hiseq_xref.blank? %><td class="cellborder"><%=h flow_cell.hiseq_xref %></td><% end %>
-	<td class="cellborder"><%=h flow_cell.flowcell_date %></td>
-	<td class="cellborder"><%=h flow_cell.nr_bases_read1 %></td>
-	<td class="cellborder"><%=h flow_cell.nr_bases_index %></td>
-	<td class="cellborder"><%=h flow_cell.nr_bases_read2 %></td>
-	<td class="cellborder"><%=h flow_cell.cluster_kit %></td>
-	<td class="cellborder"><%=h flow_cell.sequencing_kit %></td>
+  	<% if flow_cell.flowcell_status != 'F' %><td class="no_border_bottom"><%=h flow_cell.sequencing_key %></td><% end %>
+	<% if !flow_cell.hiseq_xref.blank? %><td class="no_border_bottom"><%=h flow_cell.hiseq_xref %></td><% end %>
+	<td class="no_border_bottom"><%=h flow_cell.flowcell_date %></td>
+	<td class="no_border_bottom"><%=h flow_cell.nr_bases_read1 %></td>
+	<td class="no_border_bottom"><%=h flow_cell.nr_bases_index %></td>
+	<td class="no_border_bottom"><%=h flow_cell.nr_bases_read2 %></td>
+	<td class="no_border_bottom"><%=h flow_cell.cluster_kit %></td>
+	<td class="no_border_bottom"><%=h flow_cell.sequencing_kit %></td>
   </tr>
   <% if !flow_cell.notes.blank? %>
   <tr>

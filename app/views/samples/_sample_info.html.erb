@@ -1,49 +1,35 @@
+<% last_info_box ||= 'no' %>
 <% source ||= '' %>
 <% click_to_link ||= 'none' %>
 <% link_to_edit ||= 'yes' %>
 
-<fieldset class="info"><legend><%=source %>Sample Details</legend>
-<table class="info">
-<tr>
-  <th>Barcode:</th>
-  	<% if click_to_link == 'show' %>
-  	  <td><%=link_to sample.barcode_key, sample %></td>
-	<% else %>
-	  <td><%=h sample.barcode_key %></td>
-	<% end %>
-  <th>Collected/Created on:</th><td><%=h sample.sample_date %></td>
-<tr>
-  <th>Sample Type:</th><td><%=h sample.sample_tissue %>/<%=h sample.sample_type%></td>
-  <th>OR Designation: </th><td><%=h sample.tumor_normal %></td>
-</tr>
-<tr>  
-  <th>Pathology DX:</th>
-  <td><% if sample.sample_characteristic.pathology %><%=h sample.sample_characteristic.pathology.pathology_classification %><% end %></td>
-  <th>Histopathology: </th>
-  <td><% if sample.histology %><%=h sample.histology.histopathology %><% end %></td>
-</tr>
-<tr>
-  <th>Container Type:</th><td><%=h sample.container_type %></td>
-  <th>Amount:</th><td><%=h sample.sample_amt %></td>
-</tr>
-<tr>
-  <th>Remaining?</th><td><%=h sample.sample_remaining%></td>
-  <th>Room/Freezer:</th><td><% if sample.storage_location %><%=h sample.storage_location.location_string %><% end %></td>
-</tr>
-<tr>
-  <th>Shelf:</th><td><%=h sample.storage_shelf %></td>
-  <th>Rack#/Bin:</th><td><%=h sample.storage_boxbin %></td>
-</tr>
-<tr>
-  <% if !sample.comments.blank? %>
-  <th>Comments:</th><td><%=h sample.comments %></td>
-  <% end %>
-</tr>
-<tr>
-  <% if link_to_edit == 'yes' && (can? :edit, sample) %>
-  <td><div class="linkborder"><%= link_to 'Edit Sample', edit_sample_path(sample) %></div></td>
-  <% end %>  
-</tr>
-</table>
-</fieldset>
-<br clear="all" />
+<% click_to_link = 'none' if (click_to_link == 'edit' && (cannot? :edit, sample))%>
+<% click_to_link = 'none' if (click_to_link == 'show' && (cannot? :read, sample))%>
+
+<!-- Standard fields to be displayed -->
+<% info_flds   = [[(click_to_link == 'none'? 'Field' : 'Link'), 'Barcode', sample.barcode_key, click_to_link], 
+                  ['Field', 'Collected/Created On', sample.sample_date],
+                  ['Field', 'Sample Type', [sample.sample_tissue, sample.sample_type].join('/')],
+                  ['Field', 'OR Designation', sample.tumor_normal],
+                  ['Field', 'Pathology DX', (sample.sample_characteristic.pathology ? sample.sample_characteristic.pathology.pathology_classification : nil)], 
+                  ['Field', 'Histopathology', (sample.histology ? sample.histology.histopathology : nil)],
+                  ['Field', 'Container Type', sample.container_type],
+				  ['Field', 'Amount', sample.sample_amt],
+                  ['Field', 'Remaining?', sample.sample_remaining],
+                  ['Field', 'Storage Location', (sample.storage_location ? sample.storage_location.location_string : nil)],
+                  ['Field', 'Shelf', sample.storage_shelf],
+                  ['Field', 'Box/Bin#', sample.storage_boxbin]] %>
+				  
+<!-- Only include comments if non-blank -->
+<% info_flds.push(['Field', 'Comments', sample.comments]) if !sample.comments.blank? %>
+
+<!-- Links to be displayed with borders, in bottom row of info box -->
+<% info_links = [] %>
+<% info_links = [['Edit', 'edit']] if link_to_edit == 'yes' && (can? :edit, sample) %>
+
+<%= render :partial => 'shared/info_box', :locals => {:info_legend     => 'Sample Details',
+                                                      :info_flds       => info_flds,
+                                                      :info_links      => info_links,
+                                                      :link_controller => 'samples',
+                                                      :link_id         => sample.id,
+                                                      :last_info_box   => last_info_box} %>

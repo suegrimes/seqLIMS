@@ -7,7 +7,7 @@
 
   <%= render :partial => 'pathology_form', :locals => {:f => f} %>
   
-  <%= render :partial => 'clinical_info', :locals => {:sample_characteristics => @pathology.sample_characteristics} %>
+  <%= render :partial => 'clinical_dtls', :locals => {:sample_characteristics => @pathology.sample_characteristics} %>
   
   <%= f.submit "Update" %>
 <% end %>
