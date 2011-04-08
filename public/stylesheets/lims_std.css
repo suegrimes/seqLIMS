@@ -363,13 +363,21 @@ td {
     padding: 1px 4px;
 }
 
-.table_title,.form_title {
+.form_title {
     font-size: .9em;
     font-weight: 600;
     font-variant: small-caps;
 }
 
-.list {
+.table_title {
+    font-size: 1em;
+    font-weight: bold;
+	font-style: italic;
+    font-variant: small-caps;
+}
+
+table.list {
+	width: 55%;
     border: 1px solid #b0aa91;
     border-collapse: collapse;
 }
@@ -443,14 +451,14 @@ table.info {
 }
 
 .info th {
-    font-size: .8em;
+    font-size: .85em;
     font-weight: bolder;
 	text-align: right;
 	vertical-align:top;
 }
 
 .info td {
-    font-size: .8em;
+    font-size: .85em;
 	vertical-align: top;
 	padding-right: .75em;
 }
@@ -499,17 +507,12 @@ fieldset.info {
 
 /* end info fieldset styles */
 
-.form {
-    /*border: 1px solid #b0aa91;*/
-    /*border-collapse: collapse;*/
-}
-
-.form {
+table.form {
     background-color: #f1f2e3;
 }
 
 .form th {
-    font-size: .8em;
+    font-size: .85em;
     font-weight: bolder;
 	text-align: right;
 	vertical-align:top;
@@ -527,7 +530,7 @@ fieldset.info {
 
 
 .form td {
-	font-size: .8em;
+	font-size: .85em;
 	vertical-align: top;
 	padding-right: .75em;
 	/*
