@@ -1,3 +1,4 @@
+<% last_info_box ||= 'no' %>
 <% show_mrn ||= 'yes' %>
 
 <!-- Standard fields to be displayed -->
@@ -10,9 +11,14 @@
 <!-- Add/remove fields depending on user role/authorization -->				  
 <% info_flds.reject!{|fld| fld[1] == 'MRN'}       unless (show_mrn == 'yes' && (can? :read, Patient)) %>
 <% info_flds.reject!{|fld| fld[1] == 'PHI Notes'} unless (show_mrn == 'yes' && (can? :read, Patient) && !patient.hipaa_data.blank?) %>
-<% info_flds.push(['Link', nil, 'Edit', 'edit'])  if (can? :edit, Patient) %>
 
-<%= render :partial => 'shared/info_box', :locals => {:info_legend     => 'PATIENT_INFO',
+<!-- Links to be displayed with borders, in bottom row of info box -->
+<% info_links = [] %>
+<% info_links = [['Edit', 'edit']] if (can? :edit, Patient) %>
+
+<%= render :partial => 'shared/info_box', :locals => {:info_legend     => 'Patient Info',
                                                       :info_flds       => info_flds,
+                                                      :info_links      => info_links,
                                                       :link_controller => 'patients',
-                                                      :link_id         => patient.id} %>
+                                                      :link_id         => patient.id,
+                                                      :last_info_box   => last_info_box} %>

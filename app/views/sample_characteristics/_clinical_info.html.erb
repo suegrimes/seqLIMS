@@ -1,15 +1,17 @@
-<span class="table_title">Sample Aquisition:</span>
-<table class="info">
-	<tr>
-      <th>Collected</th>
-	  <td><%=h sample_characteristic.collection_date%></td>
-	  <th>From</th>
-	  <td><%=h sample_characteristic.clinic_or_location%></td>
-	  <th>Protocol</th>
-	  <td><%=h sample_characteristic.consent_nr %>
-	      <% if sample_characteristic.consent_protocol %>/<%=h sample_characteristic.consent_protocol.consent_abbrev%><% end %></td>
-	<% if can? :edit, sample_characteristic %>
-	  <td class="linkborder"><%=link_to 'Edit', edit_sample_characteristic_path(sample_characteristic) %></td>
-	<% end %>
-	</tr>
-</table>
+<% last_info_box ||= 'no' %>
+
+<!-- Standard fields to be displayed -->
+<% info_flds   = [['Field', 'Collected', sample_characteristic.collection_date],nil,
+                  ['Field', 'From', sample_characteristic.clinic_or_location],nil, 
+                  ['Field', 'Consent Protocol', sample_characteristic.consent_descr]] %>
+
+<!-- Links to be displayed with borders, in bottom row of info box -->
+<% info_links = [] %>
+<% info_links = [['Edit', 'edit']] if (can? :edit, sample_characteristic) %>
+
+<%= render :partial => 'shared/info_box', :locals => {:info_legend     => 'Sample Acquisition',
+                                                      :info_flds       => info_flds,
+                                                      :info_links      => info_links,
+                                                      :link_controller => 'sample_characteristics',
+                                                      :link_id         => sample_characteristic.id,
+                                                      :last_info_box   => last_info_box} %>

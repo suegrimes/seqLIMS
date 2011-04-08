@@ -43,6 +43,10 @@ class SampleCharacteristic < ActiveRecord::Base
     self.race      = self.patient.race
   end
   
+  def consent_descr
+    (consent_protocol.nil? ? consent_nr : [consent_nr, consent_protocol.consent_abbrev].join('/'))
+  end
+  
   def self.find_with_samples(patient_id=nil)
     condition_array = (patient_id.nil? ? [] : ['sample_characteristics.patient_id = ?', patient_id])
     self.find(:all, :include => :samples, 

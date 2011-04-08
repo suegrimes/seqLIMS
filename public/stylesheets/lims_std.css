@@ -405,14 +405,6 @@ td {
     border: 0 none;
 }
 
-.list a.linkborder {
-    border: 2px solid #c0c0c0;
-    border-radius: 8px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    padding: .07em .2em;
-}
-
 .info01 {
     border: 1px solid #b0aa91;
     border-collapse: separate;
@@ -434,11 +426,6 @@ td {
 
 table.info {
 	margin-bottom: 0;
-}
-
-.info td.linkborder, .list td.linkborder {
-    border: 2px solid #dedacb;
-	text-align: center;
 }
 
 .info th {
@@ -586,6 +573,19 @@ fieldset.info {
 
 .clear {
     clear: both;
+}
+
+.linkborder {
+   border: 2px solid #dedacb;
+   text-align: center;
+}
+
+a.linkborder {
+    border: 2px solid #c0c0c0;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    padding: .07em .2em;
 }
 
 /* styles for Rails error messages */

@@ -1,37 +1,30 @@
-<% edit_he ||= 'no' %>
-<fieldset class="info">
-<legend>H&E Slide</legend>
-  <table class="info">
-	<tr>
-	  <th>HE barcode: </th>
-	  <td><%=h histology.he_barcode_key %></td>
-	  <th>HE date: </th><td><%=h histology.he_date %></td>
-    </tr>
-	<tr>
-	  <th>Pathologist</th><td colspan=3><%=h histology.pathologist %></td>
-	  <th>Histopathology</th><td><%=h histology.histopathology %></td>
-    </tr>
-    <tr>
-	  <th>Tumor cell content</th><td><%=h histology.tumor_cell_content %></td>
-	  <th>Inflammation</th><td><%=h histology.inflammation_type %></td>
-    </tr>
-    <tr>
-	  <th>Infiltration</th><td><%=h histology.inflammation_infiltration %></td>
-	</tr>
-	<% if !histology.comments.blank? %>
-	<tr>
-	  <th>Comments</th>
-	  <td><%=h histology.comments %></td>
-	</tr>
-	<% end %>	
-	<tr>
-      <td class="linkborder"><%=link_to 'Attach', histology %></td>
-      <% if can? :edit, histology %>
-      <td class="linkborder"><%=link_to 'Edit', edit_histology_path(histology)%></td>
-      <% end %>
-      <% if can? :delete, histology %>
-      <td class="linkborder"><%=link_to 'Delete', histology, :confirm => 'Are you sure?', :method => :delete %></td>
-      <% end %>		
-	</tr>	
-  </table>
-</fieldset>
+<% last_info_box ||= 'no' %>
+<% click_to_link ||= 'none' %>
+
+<% click_to_link = 'none' if (click_to_link == 'edit' && (cannot? :edit, histology))%>
+<% click_to_link = 'none' if (click_to_link == 'show' && (cannot? :read, histology))%>
+
+<!-- Standard fields to be displayed -->
+<% info_flds   = [[(click_to_link == 'none'? 'Field' : 'Link'), 'Barcode', histology.he_barcode_key, click_to_link], 
+                  ['Field', 'HE Date', histology.he_date],
+                  ['Field', 'Pathologist', histology.pathologist],
+                  ['Field', 'Histopathology', histology.histopathology],
+                  ['Field', 'Tumor cell content', histology.tumor_cell_content], 
+                  ['Field', 'Inflammation', histology.inflammation_type],
+                  ['Field', 'Infiltration', histology.inflammation_infiltration]] %>
+				  
+<!-- Only include comments if non-blank -->
+<% info_flds.push(['Field', 'Comments', histology.comments]) if !histology.comments.blank? %>
+
+<!-- Links to be displayed with borders, in bottom row of info box -->
+<% info_links = [] %>
+<% info_links.push(['Attach', 'show'])   if (can? :read, histology) %>
+<% info_links.push(['Edit', 'edit'])     if (can? :edit, histology) %>
+<% info_links.push(['Delete', 'delete']) if (can? :delete, histology) %>
+
+<%= render :partial => 'shared/info_box', :locals => {:info_legend     => 'H&E Slide',
+                                                      :info_flds       => info_flds,
+                                                      :info_links      => info_links,
+                                                      :link_controller => 'histologies',
+                                                      :link_id         => histology.id,
+                                                      :last_info_box   => last_info_box} %>											  

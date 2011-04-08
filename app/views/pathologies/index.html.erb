@@ -4,7 +4,7 @@
 <% for pathology in @pathologies %>
 <%= render :partial => 'pathology_info', :locals => {:pathology => pathology, :incl_links => 'yes'} %>
 						
-<%= render :partial => 'clinical_info', :locals => {:sample_characteristics => pathology.sample_characteristics} %>
+<%= render :partial => 'clinical_dtls', :locals => {:sample_characteristics => pathology.sample_characteristics} %>
 <div style="width:100%; border-bottom:1px solid #999; margin-bottom:1em;"></div>
 <% end %>
 
@@ -16,5 +16,5 @@
 	  <td class="linkborder"><%= link_to 'Add New', new_pathology_path(:patient_id => @patient_id, :add_new => 'yes') %></td>
   	</tr>	
   </table> 
-  <%= render :partial => 'clinical_info', :locals => {:sample_characteristics => @sample_characteristics} %>
+  <%= render :partial => 'clinical_dtls', :locals => {:sample_characteristics => @sample_characteristics} %>
 <% end %>

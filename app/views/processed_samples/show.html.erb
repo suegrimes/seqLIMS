@@ -1,4 +1,4 @@
-<h3>Extracted Sample Details</h3>
+<h3>Details for Extraction: <%=h @processed_sample.barcode_key %></h3>
 <%= render :partial => 'sample_characteristics/clinical_summary', :locals => {:sample_characteristic => @processed_sample.sample.sample_characteristic,
                                                                               :patient => @processed_sample.sample.patient }%>
 
@@ -16,45 +16,4 @@
   <%= render :partial => 'histologies/histology_info', :locals => {:histology => @processed_sample.sample.source_sample.histology} %>
 <% end %>
   
-  <span class="table_title">Extracted Sample:</span>
-  <table class="info">
-	<tr>
-	  <th>Barcode</th>
-	  <td><%=h @processed_sample.barcode_key %></td>
-	  <th>Processing Date</th>
-	  <td><%=h format_date(@processed_sample.processing_date) %></td>
-	  <th>Type</th>
-	  <td><%=h @processed_sample.extraction_type %></td>
-	</tr>
-	
-	<tr>
-	  <th>Vial</th>
-	  <td><%=h @processed_sample.vial %></td>
-	  <th>Support</th>
-	  <td><%=h @processed_sample.support %></td>
-	  <th>Elution Buffer</th>
-	  <td><%=h @processed_sample.elution_buffer %></td>
-	</tr>
-
-	<tr>
-	  <th>Volume</th>
-	  <td><%=h @processed_sample.final_vol %></td>
-	  <th>Conc (ng/ul)</th>
-	  <td><%=h @processed_sample.final_conc %></td>
-	  <th>a260/a280</th>
-	  <td><%=h @processed_sample.final_a260_a280 %></td>
-	  <th>RIN#</th>
-	  <td><%=h @processed_sample.final_rin_nr %></td>
-	</tr>
-	
-	<% if !@processed_sample.comments.blank? %>
-	<tr>
-	  <th>Comments</th>
-	  <td colspan=5><%=h @processed_sample.comments %></td>
-	</tr>
-	<% end %>
-</table>
-
-<% if can? :edit, @processed_sample %>
-  <%= button_to 'Edit Sample', edit_processed_sample_path(@processed_sample), :method => :get %>
-<% end %>
+<%= render :partial => 'processed_sample_info', :locals => {:processed_sample => @processed_sample} %>

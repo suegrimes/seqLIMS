@@ -1,7 +1,9 @@
+<% last_info_box ||= 'no' %>
+<% show_mrn ||= 'yes' %>
+
 <% click_to_link ||= 'none' %>
 <% click_to_link = 'none' if (click_to_link == 'edit' && (cannot? :edit, patient))%>
 <% click_to_link = 'none' if (click_to_link == 'show' && (cannot? :read, patient))%>
-<% show_mrn ||= 'yes' %>
 
 <!-- Standard fields to be displayed -->
 <% info_flds   = [[(click_to_link == 'none'? 'Field' : 'Link'), 'Patient ID', patient.id, click_to_link],
@@ -10,13 +12,17 @@
                   ['Field', 'Race/Ethnicity', [patient.race, patient.ethnicity].join('/')],
 				  ['Field', 'PHI Notes', patient.hipaa_data]] %>
 
-<%= info_links = [['Edit', 'edit']] if (can? :edit, Patient) %>
-
 <!-- Add/remove fields depending on user role/authorization -->				  
 <% info_flds.reject!{|fld| fld[1] == 'MRN'}       unless (show_mrn == 'yes' && (can? :read, Patient)) %>
 <% info_flds.reject!{|fld| fld[1] == 'PHI Notes'} unless (show_mrn == 'yes' && (can? :read, Patient) && !patient.hipaa_data.blank?) %>
 
+<!-- Links to be displayed with borders, in bottom row of info box -->
+<% info_links = [] %>
+<% info_links = [['Edit', 'edit']] if (can? :edit, patient) %>
+
 <%= render :partial => 'shared/info_box', :locals => {:info_legend     => 'Patient Info',
                                                       :info_flds       => info_flds,
+                                                      :info_links      => info_links,
                                                       :link_controller => 'patients',
-                                                      :link_id         => patient.id} %>
+                                                      :link_id         => patient.id,
+                                                      :last_info_box   => last_info_box} %>

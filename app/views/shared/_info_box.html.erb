@@ -6,6 +6,8 @@
 
 <!--  Links are assumed to always need to specify an id, which is passed in the link_id field -->
 <!--  Controller name for link_to actions, is passed in the link_controller field -->
+<% info_links ||= [] %>
+<% last_info_box ||= 'no'%>
 
   <fieldset class="info">
     <legend><%= info_legend %></legend>
@@ -23,10 +25,21 @@
 		<% elsif fld[0] == "Link" %>
 		  <th><%= fld[1] %>:</th>
 		  <td><%=link_to fld[2], {:controller => link_controller, :action => fld[3], :id => link_id} %></td>
-		<% end %>  <!-- end if/ -->
+		<% end %>  <!-- end if (fld[0]) -->
 	  <% end %>  <!-- end do (j) -->
 	  </tr>
 	  <% end %>  <!-- end do (info_flds/i) -->
 	  
+	  <% if info_links && info_links.size > 0 %>
+	    <tr>
+	      <% info_links.each do |lnk| %>
+		    <% options_hash = {:confirm => 'Are you sure', :method => :delete} if lnk[1] == 'delete' %>
+		    <td><div class="linkborder"><%=link_to lnk[0], {:controller => link_controller, :action => lnk[1], :id => link_id}, options_hash %></div></td>
+		  <% end %>
+	    </tr>
+	  <% end %> <!-- end if (info_links) -->
+	  
 	 </table>
   </fieldset>
+  
+  <% if last_info_box == 'yes'%><br clear="all" /><% end %>

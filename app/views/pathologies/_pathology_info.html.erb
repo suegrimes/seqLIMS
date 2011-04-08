@@ -1,30 +1,27 @@
+<% last_info_box ||= 'no' %>
 <% click_to_link ||= 'none' %>
 
-<span class="table_title">Diagnosis/Pathology:</span>
-<table class="info">
-  <tr>
-	<th>Rpt Date</th>
-	<% if click_to_link == 'show' %>
-	<td><%=link_to pathology.pathology_date, pathology %></td>  
-	<% elsif click_to_link == 'edit' %>
-	<td><%=link_to pathology.pathology_date, edit_pathology_path(pathology) %></td>
-	<% else %>
-	<td><%=h pathology.pathology_date %></td>
-	<% end %>
-	<th>Pathology</th><td><%=h pathology.general_pathology %></td>
-	<th>Diagnosis/Notes</th><td><%=h pathology.pathology_classification %></td>
-	<% if can? :edit, pathology %>
-	  <td class="linkborder"><%= link_to 'Edit', edit_pathology_path(pathology) %></td>
-	<% end %>
-  </tr>
-  <tr>
-    <th>Stage</th><td><%=h pathology.tumor_stage %></td>
-	<th>XRT?</th><td><%=h pathology.xrt_flag %></td>
-    <th>TNM: </th><td><%=h pathology.tnm %></td>
-  </tr>
-  <% if !pathology.comments.blank? %>
-  <tr>
-	<th>Comments</th><td colspan=3><%=h pathology.comments %></td>
-  </tr>
-  <% end %>
-</table>
+<% click_to_link = 'none' if (click_to_link == 'edit' && (cannot? :edit, pathology))%>
+<% click_to_link = 'none' if (click_to_link == 'show' && (cannot? :read, pathology))%>
+
+<!-- Standard fields to be displayed -->
+<% info_flds   = [[(click_to_link == 'none'? 'Field' : 'Link'), 'Rpt DateX', pathology.pathology_date, click_to_link], 
+                  ['Field', 'Pathology', pathology.general_pathology],
+                  ['Field', 'Diagnosis/Notes', pathology.pathology_classification],
+                  ['Field', 'Stage', pathology.tumor_stage],
+                  ['Field', 'XRT?', pathology.xrt_flag], 
+                  ['Field', 'TNM', pathology.tnm]] %>
+			  
+<!-- Only include comments if non-blank -->
+<% info_flds.push(['Field', 'Comments', pathology.comments]) if !pathology.comments.blank? %>
+
+<!-- Links to be displayed with borders, in bottom row of info box -->
+<% info_links = [] %>
+<% info_links = [['Edit', 'edit']]  if (can? :edit, pathology) %>
+
+<%= render :partial => 'shared/info_box', :locals => {:info_legend     => 'Diagnosis/Pathology',
+                                                      :info_flds       => info_flds,
+                                                      :info_links      => info_links,
+                                                      :link_controller => 'pathologies',
+                                                      :link_id         => pathology.id,
+                                                      :last_info_box   => last_info_box} %>

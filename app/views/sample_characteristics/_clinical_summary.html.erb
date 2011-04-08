@@ -1,29 +1,26 @@
-<% click_to_link ||= 'none' %>
+<% last_info_box ||= 'no' %>
 
-<span class="table_title">Clinical Characteristics:</span>
-<table class="info">
-  <tr>
-  	<th>Patient ID: </th>
-	<% if click_to_link == 'show' && (can? :read, patient) %>
-	<td><%=link_to sample_characteristic.patient_id, patient %></td>
-	<% elsif click_to_link == 'edit' && (can? :edit, patient) %>
-	<td><%=link_to sample_characteristic.patient_id, edit_patient_path(patient) %></td>
-	<% else %>
-	<td><%=h sample_characteristic.patient_id %></td>
-	<% end %>
-	
-	<th>Gender: </th><td><%=h patient.gender %></td>
-	<th>Race/Ethnicity: </th><td><%=h patient.race %>/<%=h patient.ethnicity %></td>
-  </tr>
-  <tr>
-  	<th>Collected on: </th><td><%=h sample_characteristic.collection_date%></td>
-	<th>From: </th><td><%=h sample_characteristic.clinic_or_location %></td>
-	<th>Consent Protocol: </th><td><%=h sample_characteristic.consent_nr %>
-	    <% if sample_characteristic.consent_protocol %>/<%=h sample_characteristic.consent_protocol.consent_abbrev%><% end %></td>
-  </tr>
-  <% if !sample_characteristic.comments.blank? %>
-  <tr>
-	<th>Comments: </th><td colspan=5><%=h sample_characteristic.comments %></td>
-  </tr>
-  <% end %>
-</table>
+<% click_to_link ||= 'none' %>
+<% click_to_link = 'none' if (click_to_link == 'edit' && (cannot? :edit, patient))%>
+<% click_to_link = 'none' if (click_to_link == 'show' && (cannot? :read, patient))%>
+
+<!-- Standard fields to be displayed -->
+<% info_flds   = [[(click_to_link == 'none'? 'Field' : 'Link'), 'Patient ID', sample_characteristic.patient_id, click_to_link], 
+                  ['Field', 'Gender', patient.gender],
+                  ['Field', 'Race/Ethnicity', [patient.race, patient.ethnicity].join('/')],
+                  ['Field', 'Collected on', sample_characteristic.collection_date],
+                  ['Field', 'Clinic', sample_characteristic.clinic_or_location], 
+                  ['Field', 'Protocol', sample_characteristic.consent_descr]] %>
+				  
+<!-- Only include comments if non-blank -->
+<% info_flds.push(['Field', 'Comments', sample_characteristic.comments]) if !sample_characteristic.comments.blank? %>
+
+<!-- Links to be displayed with borders, in bottom row of info box -->
+<% info_links = [] %>
+
+<%= render :partial => 'shared/info_box', :locals => {:info_legend     => 'Patient/Sample Acquisition',
+                                                      :info_flds       => info_flds,
+                                                      :info_links      => info_links,
+                                                      :link_controller => 'patients',
+                                                      :link_id         => sample_characteristic.patient_id,
+													  :last_info_box   => last_info_box} %>
