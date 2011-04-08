@@ -2,73 +2,57 @@
 
 <% form_for(@psample_query, :action => 'index') do |f| %>
 <%= f.error_messages(:header_message => "Error(s) in query parameters") %>
-
+<fieldset class="form">
+<!--legend>Title of Form</legend-->
 <table class="form">
   <tr>
   <% if can? :read, Patient %>
   	<th>MRN:</th><td><%= f.text_field(:mrn) %></td>	
   <% end %>
   	<th>Patient ID:</th><td><%= f.text_field(:patient_id) %></td>
+  </tr>
+  <tr>
   	<th>Barcode:</th><td><%= f.text_field(:barcode_key)%></td>
   </tr>
-</table>
 
-<table class="form01">
   <tr>
-    <th>Consent Protocol</th>
-	<th>Clinic</th> 
-  </tr> 
-  <tr>
+  	<th>Consent Protocol:</th>
   	<td><%= f.collection_select(:consent_protocol_id, @consent_protocols, :id, :name_ver,
                                {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td> 
+    <th>Clinic:</th> 
 	<td><%= f.collection_select(:clinic_or_location, @clinics, :c_value, :c_value,
                                {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td> 
   </tr>
-</table>
 
-<table class="form01">
   <tr>
-  	<th>Sample Site</th>
-    <th>Sample Type</th>
-	<th>Preservation</th>
-    <th>OR Designation</th>
-  </tr> 
-  <tr>
-  	<td><%= f.collection_select(:sample_tissue, @source_tissue, :c_value, :c_value,
+  	<th>Sample Site:</th><td><%= f.collection_select(:sample_tissue, @source_tissue, :c_value, :c_value,
                                {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td> 
-    <td><%= f.collection_select(:sample_type, @sample_type, :c_value, :c_value,
+    <th>Sample Type:</th><td><%= f.collection_select(:sample_type, @sample_type, :c_value, :c_value,
                                {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td> 
-	<td><%= f.collection_select(:tissue_preservation, @preservation, :c_value, :c_value,
-                               {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td> 
-    <td><%= f.collection_select(:tumor_normal, @tumor_normal, :c_value, :c_value,
-                               {:include_blank => 'All'}) %></td> 
-    
-  </tr>
-</table> 
-
-<table class="form01">
-  <tr>
-  	<th>Extraction Protocol</th>
-  	<th>Extracted Type</th>
   </tr>
   <tr>
-  	<td><%= f.collection_select(:protocol_id, @protocols, :id, :name_ver,
+	<th>Preservation:</th><td><%= f.collection_select(:tissue_preservation, @preservation, :c_value, :c_value,
+                               {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td> 
+    <th>OR Designation:</th><td><%= f.collection_select(:tumor_normal, @tumor_normal, :c_value, :c_value,
+                               {:include_blank => 'All'}) %></td>     
+  </tr>
+
+  <tr>
+  	<th>Extraction Protocol:</th><td><%= f.collection_select(:protocol_id, @protocols, :id, :name_ver,
                              {:include_blank => 'All'}) %></td>
-  	<td><%= f.collection_select(:extraction_type, @extraction_type, :c_value, :c_value,
+  	<th>Extracted Type:</th><td><%= f.collection_select(:extraction_type, @extraction_type, :c_value, :c_value,
                              {:include_blank => 'All'}) %></td>
   </tr>	
-</table> 
 
-<table class="form01">
   <tr>
-  	<th>Processed From: </th>
-	<td><%= f.calendar_date_select(:from_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%></td>
-  	<th>To: </th>
-	<td><%= f.calendar_date_select(:to_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%></td>
+  	<th>Process Date Range:</th>
+	<td><%= f.calendar_date_select(:from_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%>
+	<strong>&nbsp=>&nbsp;</strong><%= f.calendar_date_select(:to_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%></td>
   </tr>
 </table>
-
-<p><%= submit_tag "Submit" %></p>
+</fieldset>
+<div class="clear"></div>
+<%= submit_tag "Submit" %>
 <%end%>
 
 
