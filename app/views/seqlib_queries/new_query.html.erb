@@ -1,8 +1,10 @@
-<h3>Sequencing Library - Select parameters </h3>
+<div>&nbsp;</div>
+<!--h3>Sequencing Library - Select parameters</h3-->
 
 <% form_for(@seqlib_query, :action=> 'index') do |f| %>
 <%= f.error_messages(:header_message => "Error(s) in query parameters") %>
-
+<fieldset class="form">
+<legend>Sequencing Library - Select parameters</legend>
 <table class="form">
   <tr>
   <th>Owner(s):</th>
@@ -11,8 +13,6 @@
   <td><%= f.collection_select(:target_pool, @target_pools, :target_pool, :target_pool,
                              {:include_blank => '(All)'}, {:size => 3, :multiple => :multiple}) %> </td> 
   </tr>
-  <tr><td></td></tr>
-  
   <tr>
   <th>Lib Name (search):</th>
   <td><%= f.text_field(:lib_name, :size => 10)%></td>
@@ -20,25 +20,21 @@
   <td><%= f.collection_select(:alignment_ref, @align_refs, :alignment_key, :alignment_key,
                              {:include_blank => '(All)'}, {:size => 3, :multiple => :multiple}) %> </td> 
   </tr> 
-  <tr><td></td></tr>
-  
   <tr>
   	<th>Prepared from:</th>
-	<td><%= f.calendar_date_select(:from_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%></td>
-  	<th align="right">To:</th>
-	<td><%= f.calendar_date_select(:to_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%></td>
-  </tr>	
-  
+	<td colspan="3"><%= f.calendar_date_select(:from_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%>
+	<strong>&nbsp;To:&nbsp;</strong><%= f.calendar_date_select(:to_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%></td>
+  </tr>	  
   <tr>
     <th>Exclude used libraries?</th>
     <td><%= check_box_tag(:excl_used, 'Y', false)%></td>
   </tr> 
+  <tr>
+  	<td><%= submit_tag "Submit" %></td>
+  </tr>
 </table>
+</fieldset>
 
-<br />
-<br />
-
-<p><%= submit_tag "Submit" %></p>
 <%end%>
 
 

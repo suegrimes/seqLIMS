@@ -1,8 +1,10 @@
-<h3>Sequencing Runs - Select parameters </h3>
+<div>&nbsp;</div>
+<!--h3>Sequencing Runs - Select parameters </h3-->
 
 <% form_for(@flowcell_query, :action => :index) do |f| %>
 <%= f.error_messages(:header_message => "Error(s) in query parameters") %>
-
+<fieldset class="form">
+<legend>Sequencing Runs - Select parameters</legend>
 <table class="form">
   <tr>
   	<th>Run#</th>
@@ -13,19 +15,18 @@
   	<th>Machine(s):</th>
     <td><%= f.collection_select(:machine_name, @sequencers, :machine_name, :machine_name, {:include_blank => '(All)'}) %></td> 
   <tr>
-  	<th>Run from:</th>
-	<td><%=f.calendar_date_select(:from_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15) %></td>
-	
-	<td>&nbsp;&nbsp;</td>
-  	<th align="right">To:</th>
-	<td><%=f.calendar_date_select(:to_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15) %></td>
-  </tr>	
+  	<th>Run Dates:</th>
+	<td><%=f.calendar_date_select(:from_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15) %>
+	<strong>&nbsp;To:&nbsp;</strong><%=f.calendar_date_select(:to_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15) %></td>
+  </tr>
+  <tr>
+  	<td><%= submit_tag "Submit" %></td>
+</tr>	
 </table>
+</fieldset>
 
-<br />
-<br />
-
-<p><%= submit_tag "Submit" %></p>
 <%end%>
+<br />
+<br />
 
 

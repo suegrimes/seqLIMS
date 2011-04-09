@@ -574,13 +574,12 @@ table.form {
 /* form fieldset styles */
 
 fieldset.form {
-    padding: .5em;
+    padding: .5em .5em 0 .5em;
     margin-bottom:.75em; 
     float:left; 
-    /* clear:right;*/
 	background: #f1f2e3;
 	border: 1px solid #999;
-    width:50%;
+    /*width:50%;*/
 }
 .form legend {
     margin-left:1em;
@@ -660,6 +659,7 @@ fieldset.form {
 	text-align: center;
 	padding: 0 4px;
 	line-height: 1.3em;
+	width: 3em;
 }
 
 /* styles for Rails error messages */
