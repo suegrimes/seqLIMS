@@ -8,12 +8,12 @@
 <table class="form">
   <tr>
   <% if can? :read, Patient %>
-  	<th>MRN:</th><td><%= f.text_field(:mrn) %></td>	
+  	<th>Patient MRN:</th>
+	<td><%= f.text_field(:mrn, :size => 10) %><strong> -or- Patient ID:&nbsp;&nbsp;</strong><%= f.text_field(:patient_id, :size => 10) %></td>
+  <% else %>
+  	<th>Patient ID:</th><td><%= f.text_field(:patient_id, :size => 10) %></td>
   <% end %>
-  	<th>Patient ID:</th><td><%= f.text_field(:patient_id) %></td>
-  </tr>
-  <tr>
-  	<th>Barcode:</th><td><%= f.text_field(:barcode_key)%></td>
+  	<th>Sample Barcode:</th><td><%= f.text_field(:barcode_key, :size => 12)%></td>
   </tr>
 
   <tr>
@@ -46,16 +46,13 @@
   </tr>	
 
   <tr>
-  	<th>Process Date Range:</th>
+  	<th>Extraction Date Range:</th>
 	<td><%= f.calendar_date_select(:from_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%>
 	<strong>&nbsp;To:&nbsp;</strong><%= f.calendar_date_select(:to_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%></td>
   </tr>
-  <tr>
-  	<td><%= submit_tag "Submit" %></td>
-  </tr>
 </table>
 </fieldset>
-
+<br clear="all" /><%= submit_tag "Submit" %>
 <%end%>
 
 

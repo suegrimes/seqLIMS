@@ -18,13 +18,10 @@
   	<th>Run Dates:</th>
 	<td><%=f.calendar_date_select(:from_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15) %>
 	<strong>&nbsp;To:&nbsp;</strong><%=f.calendar_date_select(:to_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15) %></td>
-  </tr>
-  <tr>
-  	<td><%= submit_tag "Submit" %></td>
-</tr>	
+  </tr>	
 </table>
+<%= submit_tag "Submit" %>
 </fieldset>
-
 <%end%>
 <br />
 <br />
