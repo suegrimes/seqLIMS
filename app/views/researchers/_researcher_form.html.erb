@@ -1,0 +1,12 @@
+<fieldset class="form">
+<legend>Researcher Details</legend>
+<table class="form">
+  <tr><%= f.text_field :researcher_name %></tr>
+  <tr><%= f.text_field :researcher_initials %></tr>
+  <tr><%= f.collection_select(:user_id, @users, :id, :login, {:include_blank => 'Select..'}, :label => 'User Login') %></tr>
+  <tr><%= f.text_field :phone_number %></tr>
+  <tr><%= f.text_field :company %></tr>
+  <tr><%=f.select(:active_inactive, %w{A I}, :label => 'Active(A)/Inactive(I)')%></tr>
+</table>
+</fieldset>
+<div class="clear"></div>

@@ -1,6 +1,6 @@
 <h3>Sample Extraction</h3>
 
-<% form_for(@processed_sample) do |f| %>
+<% tagged_form_for(@processed_sample) do |f| %>
   <%= f.error_messages %>
   
   <%= f.hidden_field :sample_id,  :value => @sample.id %>

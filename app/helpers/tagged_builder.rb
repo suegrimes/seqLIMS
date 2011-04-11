@@ -6,7 +6,11 @@ class TaggedBuilder < ActionView::Helpers::FormBuilder
   def self.created_tagged_field(method_name)
     define_method(method_name) do |field, *args|
       options = args.last.is_a?(Hash) ? args.pop : {}
-      @template.content_tag(:td, label(field, options[:label]) + super)
+      if options[:wraptags] == 'none'
+        super
+      else
+        @template.content_tag(:th, label(field, options[:label]) +  @template.content_tag(:td, super, :colspan => options[:tdcolspan]))
+      end
     end
   end
   

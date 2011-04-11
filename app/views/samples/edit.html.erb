@@ -17,7 +17,7 @@
   <%= render :partial => 'histologies/histology_info', :locals => {:histology => @sample.source_sample.histology} %>
 <% end %>
 									 
-<% form_for(@sample) do |f|%>
+<% tagged_form_for(@sample) do |f|%>
   <%= f.error_messages %>  
 						   
     <%= render :partial => 'sample_form', :locals => {:f => f}%>

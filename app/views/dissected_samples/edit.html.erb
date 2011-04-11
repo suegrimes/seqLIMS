@@ -5,7 +5,7 @@
 																			  
 <%= render :partial => 'samples/sample_info', :locals => {:sample => @source_sample } %>
 
-<% form_for @sample, :url => {:controller => 'dissected_samples', :action => :update} do |f| %>
+<% tagged_form_for @sample, :url => {:controller => 'dissected_samples', :action => :update} do |f| %>
   <%= f.error_messages %>
   
   <%= render :partial => 'dsample_form', :locals => {:f => f } %> 

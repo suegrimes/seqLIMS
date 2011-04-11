@@ -1,23 +1,6 @@
 <table class="form">
-  	<tr>
-  	  <th><%= f.label :consent_nr %></th>
-	  <td><%= f.text_field :consent_nr %></td>
-  	</tr>
-	
-	<tr>
-  	  <th><%= f.label :consent_abbrev %></th>
-	  <td><%= f.text_field :consent_abbrev %></td>
-  	</tr>
-	
-	<tr>
-  	  <th><%= f.label :consent_name %></th>
-	  <td><%= f.text_field :consent_name %></td>
-  	</tr>
-	
-	<tr>
-  	  <th><%= f.label 'Owner/Email to' %></th>
-	  <td><%= f.text_field :email_confirm_to %></td>
-  	</tr>
-	
-	
-  </table>
+  <tr><%=f.text_field :consent_nr %></tr>
+  <tr><%=f.text_field :consent_abbrev, :size => 50 %></tr>
+  <tr><%=f.text_area :consent_name, :rows => 3 %></tr>
+  <tr><%=f.text_field :email_confirm_to, :label => 'Owner/Email To' %></tr>
+</table>

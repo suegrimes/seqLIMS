@@ -1,13 +1,13 @@
 <h3>New protocol</h3>
 
-<% form_for(@protocol) do |f| %>
+<% tagged_form_for(@protocol) do |f| %>
   <%= f.error_messages %>
 
-  <%= render :partial => 'protocol_info', :locals => {:f => f} %>
+  <%= render :partial => 'protocol_form', :locals => {:f => f} %>
 
   <p>
     <%= f.submit "Create" %>
   </p>
 <% end %>
 
-<%= link_to 'Back', protocols_path %>
+<%= link_to 'List All', protocols_path %>

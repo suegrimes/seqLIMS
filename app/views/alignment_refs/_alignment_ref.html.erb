@@ -1,16 +1,5 @@
 <table class="form">
-  	<tr>
-  	  <th><%= f.label :alignment_key %></th>
-	  <td><%= f.text_field :alignment_key %></td>
-  	</tr>
-	
-	<tr>
-  	  <th><%= f.label :interface_name %></th>
-	  <td><%= f.text_field :interface_name %></td>
-  	</tr>
-	
-	<tr>
-  	  <th><%= f.label :genome_build %></th>
-	  <td><%= f.text_field :genome_build %></td>
-  	</tr>	
-  </table>
+  <tr><%=f.text_field :alignment_key %></tr>
+  <tr><%=f.text_field :interface_name %></tr>
+  <tr><%=f.text_field :genome_build, :size => 12 %></tr>
+</table>
