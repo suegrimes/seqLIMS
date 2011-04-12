@@ -1,28 +1,18 @@
-<table class="form01">
-	<tr>
-	  <th>Storage Device</th>
-	  <th>Run Directory</th>
-	  <th>Dir Size (GB)</th>
-	  <th># Files</th>
-	  <th>Date Sized</th>
-	  <th>Date Copied</th>
-	  <th>Date Verified</th>
-	</tr>
-	<tr>
-	  <td><%=f.collection_select(:storage_device_id, @storage_devices, :id, :device_name)%></td>
-	  <td><%=h flow_cell.sequencing_key %></td>
-	  <td><%=f.text_field(:total_size_gb, :size => 8) %></td>
-	  <td><%=f.text_field(:file_count, :size => 8) %></td>
-	  <td><%=f.calendar_date_select(:date_sized, :valid_date_check => "date <= (new Date()).stripTime()",
-                                                 :year_range => [1.years.ago, 0.years.ago], :size => 15) %></td>
-	  <td><%=f.calendar_date_select(:date_copied,:valid_date_check => "date <= (new Date()).stripTime()",
-                                                 :year_range => [1.years.ago, 0.years.ago], :size => 15) %></td>
-	  <td><%=f.calendar_date_select(:date_verified, :valid_date_check => "date <= (new Date()).stripTime()",
-                                                 :year_range => [1.years.ago, 0.years.ago], :size => 15) %></td>
-	  <td><%=f.hidden_field(:flow_cell_id, :value => flow_cell.id) %> 
-	</tr>
-	<tr>
-	  <th>Notes:</th>
-	  <td colspan=5><%=f.text_field(:notes, :size => 80) %></td> 
-	</tr>
+<fieldset class="form">
+<legend>Run Directory</legend>
+  <table class="form">
+	<tr><%=f.collection_select(:storage_device_id, @storage_devices, :id, :device_name)%></tr>
+	<tr><th>Run Directory</th><td><%=h flow_cell.sequencing_key %></td></tr>
+	<tr><%=f.text_field(:total_size_gb, :size => 8, :label => 'Dir Size (GB)') %></tr>
+	<tr><%=f.text_field(:file_count, :size => 8, :label => '# Files') %></tr>
+	<tr><%=f.calendar_date_select(:date_sized, :valid_date_check => "date <= (new Date()).stripTime()",
+                                               :year_range => [1.years.ago, 0.years.ago], :size => 15) %></tr>
+	<tr><%=f.calendar_date_select(:date_copied,:valid_date_check => "date <= (new Date()).stripTime()",
+                                                 :year_range => [1.years.ago, 0.years.ago], :size => 15) %></tr>
+	<tr><%=f.calendar_date_select(:date_verified, :valid_date_check => "date <= (new Date()).stripTime()",
+                                                 :year_range => [1.years.ago, 0.years.ago], :size => 15) %></tr>
+	<tr><%=f.hidden_field(:flow_cell_id, :value => flow_cell.id) %> 
+	<tr><%=f.text_area(:notes, :tdcolspan => 2, :cols => 50, :rows => 2) %></tr> 
   </table>
+</fieldset>
+<div class="clear"></div>

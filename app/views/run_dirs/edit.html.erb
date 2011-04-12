@@ -2,8 +2,7 @@
 
 <%= render :partial => 'flow_cells/flow_cell_show', :locals => {:flow_cell => @run_dir.flow_cell} %>
 
-<b>Edit run directory:</b>
-<% form_for @run_dir do |f| -%>
+<% tagged_form_for @run_dir do |f| -%>
   <%= error_messages_for :run_dir %>
   
   <%= render :partial => 'run_dir_form', :locals => {:f => f, :flow_cell => @run_dir.flow_cell} %>

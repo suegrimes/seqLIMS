@@ -1,0 +1,13 @@
+<fieldset class="form">
+<legend>Seq Machine</legend>
+<table class="form">
+  	<tr><%= f.text_field :machine_name, :label => 'Machine Code' %></tr>
+    <tr><%= f.text_field :machine_desc, :label => 'Description'  %></tr>
+	<tr><%= f.select(:machine_type, %w{GAIIx HiSeq}) %></tr>
+	<tr><%= f.select(:bldg_location, %w{SGTC Snyder Core Other}, :label => 'Building') %></tr>
+	<% if @seq_machine.machine_name == 'Run_Number' %>
+	  <tr><%= f.text_field :last_seq_num, :label => 'Last run number' %></tr>
+	<% end %>		
+  </table>
+</fieldset>
+<div class="clear"></div>

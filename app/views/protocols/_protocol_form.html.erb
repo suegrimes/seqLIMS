@@ -1,0 +1,22 @@
+<fieldset class="form">
+<legend>Protocol Details</legend>
+ <table class="form">
+  	<tr>
+  	  <%= f.select(:protocol_type, Protocol::PROTOCOL_TYPES, {:include_blank => 'Select Type'}) %>
+	</tr>
+	<tr><%= f.text_area :protocol_name, :tdcolspan => 3, :cols => 50, :rows => 2 %></tr>
+	<tr><%= f.text_field :protocol_abbrev, :tdcolspan => 2, :size => 50, :label => 'Short Name' %></tr>
+	<tr><%= f.text_field :protocol_version, :size => 10 %></tr>
+	<tr>
+	  <%=f.text_field :vendor, :size => 20 %>
+	  <%=f.text_field :lot_nr,     :size => 20 %>
+	</tr>
+    <tr>
+      <%=f.text_field :catalog_nr, :size => 20 %>   
+	  <%=f.text_field :reference,  :size => 20 %>
+	</tr>
+	<tr><%= f.text_area :protocol_steps, :tdcolspan => 3, :cols => 75, :rows => 6 %></tr>	
+	<tr><%= f.text_area :comments, :tdcolspan => 3, :cols => 75, :rows => 2 %></td>
+  </table>
+</fieldset>
+<div class="clear"></div> 

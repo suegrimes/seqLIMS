@@ -1,26 +1,29 @@
-<span class="form_title">Dissected Sample Info:</span>
+<fieldset class="form">
+<legend>Dissected Sample Info</legend>
+
   <%=f.hidden_field(:sample_characteristic_id) %>
   <%=f.hidden_field(:patient_id)%>
   <%=f.hidden_field(:source_sample_id)%>
   <%=f.hidden_field(:source_barcode_key)%>
+  <%=f.hidden_field(:barcode_key)%>
   
   <table class="form">
 	<tr>
-	  <th>Barcode</th><td><%=h f.object.barcode_key %><%=f.hidden_field(:barcode_key)%></td>	  
-      <th>Date Created</th><td><%=f.calendar_date_select(:sample_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15) %></td>
+	  <th>Barcode</th><td><%=h f.object.barcode_key %></td>	  
+      <%=f.calendar_date_select(:sample_date, :valid_date_check => "date <= (new Date()).stripTime()", :label => 'Date Created', :size => 15) %>
 	</tr>
 	<tr>
-	  <th>Amt Unit</th><td><%=f.collection_select(:amount_uom, @amount_uom, :c_value, :c_value)%></td>
-	  <th>Initial Amt</th><td><%=f.text_field :amount_initial, :size => 10 %></td>
-	  <th>Rem?</th><td><%=f.select(:sample_remaining, %w{Y N})%></td>
+	  <%=f.collection_select(:amount_uom, @amount_uom, :c_value, :c_value, :label => 'Amt Unit')%>
+	  <%=f.text_field :amount_initial, :label => 'Initial Amt', :size => 10 %>
+	  <%=f.select(:sample_remaining, %w{Y N}, :label => 'Rem?')%>
 	</tr>
 	<tr>
-	  <th>Room/Freezer</th> <%= render :partial => 'shared/storage_select', :locals => {:f => f} %>
-	  <th>Shelf</th><td><%=f.text_field :storage_shelf, :size => 12 %></td>
-	  <th>Rack#/Bin</th><td><%=f.text_field :storage_boxbin, :size => 12 %></td> 
+	  <%= render :partial => 'shared/storage_select', :locals => {:f => f} %>
+	  <%=f.text_field :storage_shelf, :label => 'Shelf', :size => 12 %>
+	  <%=f.text_field :storage_boxbin, :label => 'Rack#/Bin', :size => 12 %>
 	</tr>
 	<tr>
-	  <th>Comments</th>
-	  <td colspan=6><%=f.text_area :comments, :cols => 80, :rows => 2 %></td>
+	  <%=f.text_area :comments, :tdcolspan => 5, :cols => 80, :rows => 2 %>
 	</tr>
   </table>
+</fieldset>

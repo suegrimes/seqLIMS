@@ -6,7 +6,7 @@
 <%= render :partial => 'samples/sample_info', :locals => {:sample => @processed_sample.sample,
                                                           :source => 'Source'} %>
 
-<% form_for(@processed_sample) do |f| %>
+<% tagged_form_for(@processed_sample) do |f| %>
   <%= f.error_messages %>
   
   <%= render :partial => 'processed_sample_form', :locals => {:f => f} %>

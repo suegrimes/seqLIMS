@@ -22,8 +22,8 @@
     <td class="no_border_bottom"><%=h run_dir.total_size_gb %></td>
 	<td class="no_border_bottom"><%=h run_dir.date_copied %></td>
 	<td class="no_border_bottom"><%=h run_dir.date_verified %></td>
-    <td class="linkborder"><%= link_to 'Edit', edit_run_dir_path(run_dir) %></td>
-    <td class="linkborder"><%= link_to 'Delete', run_dir, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td class="linkbutton"><%= link_to 'Edit', edit_run_dir_path(run_dir) %></td>
+    <td class="linkbutton"><%= link_to 'Delete', run_dir, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
   <% end %>
   <tr><td colspan=9></td></tr>

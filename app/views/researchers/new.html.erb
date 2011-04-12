@@ -1,11 +1,11 @@
 <h3>New researcher</h3>
 
-<% form_for(@researcher) do |f| %>
+<% tagged_form_for(@researcher) do |f| %>
   <%= f.error_messages %>
 
-  <%= render :partial => 'researcher', :locals => {:f => f} %>
+  <%= render :partial => 'researcher_form', :locals => {:f => f} %>
   
   <%= f.submit "Create" %>
 <% end %>
 
-<%= link_to 'Back', researchers_path %>
+<%= link_to 'List All', researchers_path %>

@@ -1,3 +1,2 @@
-  <td><%= f.collection_select(:storage_location_id, @storage_locations, 
-                              :id, :location_string,
-                             {:include_blank => 'Select location'}) %></td>
+<%= f.collection_select(:storage_location_id, @storage_locations, 
+                        :id, :location_string, {:include_blank => 'Select location'}, :label => 'Room/Freezer') %>

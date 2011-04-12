@@ -13,7 +13,7 @@
 
 <div id="newdir", style="display:none">
 <b>New run directory:</b>
-<% form_for(:run_dir, @run_dir,
+<% tagged_form_for(:run_dir, @run_dir,
             :url => {:controller => 'run_dirs', :action=> 'create'}) do |f| -%>  
   <%= error_messages_for :run_dir %>
   

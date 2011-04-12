@@ -27,7 +27,7 @@
 <% info_links = [] %>
 <% info_links = [['Edit', 'edit']] if link_to_edit == 'yes' && (can? :edit, sample) %>
 
-<%= render :partial => 'shared/info_box', :locals => {:info_legend     => 'Sample Details',
+<%= render :partial => 'shared/info_box', :locals => {:info_legend     => [source, 'Sample Details'].join(' '),
                                                       :info_flds       => info_flds,
                                                       :info_links      => info_links,
                                                       :link_controller => 'samples',

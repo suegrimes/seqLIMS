@@ -1,6 +1,6 @@
 <h3>Update alignment reference</h3>
 
-<% form_for(@alignment_ref) do |f| %>
+<% tagged_form_for(@alignment_ref) do |f| %>
   <%= f.error_messages %>
 
   <%= render :partial => 'alignment_ref', :locals => {:f => f} %>
