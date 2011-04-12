@@ -7,6 +7,7 @@
         <meta name="keywords" content="<%= META_TAGS[:keywords] %>" />
         <%= stylesheet_link_tag 'lims_std' %>
 		<%= stylesheet_link_tag 'superfish' %>
+		<!--[if IE]><%= stylesheet_link_tag 'ie-fixes' %><![endif]-->
         <%= javascript_include_tag 'all', 'prototype', :cache => true %>
 		<%= calendar_date_select_includes %>
 		<script type="text/javascript">

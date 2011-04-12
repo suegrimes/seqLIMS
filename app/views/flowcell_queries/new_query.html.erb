@@ -4,7 +4,7 @@
 <% form_for(@flowcell_query, :action => :index) do |f| %>
 <%= f.error_messages(:header_message => "Error(s) in query parameters") %>
 <fieldset class="form">
-<legend>Sequencing Runs - Select parameters</legend>
+<legend>Sequencing Runs - Select parameter</legend>
 <table class="form">
   <tr>
   	<th>Run#</th>
@@ -19,8 +19,10 @@
 	<td><%=f.calendar_date_select(:from_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15) %>
 	<strong>&nbsp;To:&nbsp;</strong><%=f.calendar_date_select(:to_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15) %></td>
   </tr>	
+  <tr>
+  	<td colspan="4" align="center"><%= submit_tag "Submit" %></td>
+  </tr>
 </table>
-<%= submit_tag "Submit" %>
 </fieldset>
 <%end%>
 <br />
