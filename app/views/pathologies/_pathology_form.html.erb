@@ -1,29 +1,29 @@
-<span class="form_title">Diagnosis/Pathology</span>
+<fieldset class="form">
+<legend>Diagnosis/Pathology</legend>
 <table class="form">
   <tr>
-  	<th>Rpt Date</th>
-	<td><%=f.calendar_date_select(:pathology_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15) %></td>
-	<th>Pathology</th>
-	<td><%=f.collection_select(:general_pathology, @hpathology, :c_value, :c_value,
-                              {:include_blank => 'Select ..'})%></td>
-	<th>Classification</th>
-	<td><%=f.collection_select(:pathology_classification, @pathology_dx, :c_value, :c_value,
-                              {:include_blank => 'Select ..'})%></td>
+  	<%=f.calendar_date_select(:pathology_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15, :label => 'Rpt Date') %>
   </tr>
   <tr>
-	<th>XRT?</th>
-	<td><%=f.select(:xrt_flag, %w{Y N}, :include_blank => true)%></td>
-	<th>T <%=f.collection_select(:t_code, @tumor_T, :c_value, :c_value,
-                              {:include_blank => 'Select..'})%></th>
-	<th>N <%=f.collection_select(:n_code, @tumor_N, :c_value, :c_value,
-                              {:include_blank => 'Select..'})%></th>
-	<th>M <%=f.collection_select(:m_code, @tumor_M, :c_value, :c_value,
-                              {:include_blank => 'Select..'})%></th>
-	<th>Stage <%=f.collection_select(:tumor_stage, @tumor_stage, :c_value, :c_value,
-                              {:include_blank => 'Select..'})%></th>
+	<%=f.collection_select(:general_pathology, @hpathology, :c_value, :c_value, {:include_blank => 'Select ..'}, :label => 'Pathology')%>
+	<%=f.collection_select(:pathology_classification, @pathology_dx, :c_value, :c_value, {:include_blank => 'Select ..'}, :label => 'Classification')%>
   </tr>
+
   <tr>
-  	<th>Comments:</th>
-	<td colspan=7><%=f.text_area :comments, :cols => 80, :rows => 2 %></td>
+  	<th>XRT?</th><td><%=f.select(:xrt_flag, %w{Y N}, {:include_blank => true}, :wraptags => 'none')%></td>
+	<td colspan="2">
+	<strong>T&nbsp;&nbsp;</strong><%=f.collection_select(:t_code, @tumor_T, :c_value, :c_value, {:include_blank => 'Select..'}, :wraptags => 'none')%>&nbsp;&nbsp;
+	<strong>N&nbsp;&nbsp;</strong><%=f.collection_select(:n_code, @tumor_N, :c_value, :c_value, {:include_blank => 'Select..'}, :wraptags => 'none')%>&nbsp;&nbsp;
+	<strong>M&nbsp;&nbsp;<%=f.collection_select(:m_code, @tumor_M, :c_value, :c_value, {:include_blank => 'Select..'}, :wraptags => 'none')%>&nbsp;&nbsp;
+	</td>
+	<%=f.collection_select(:tumor_stage, @tumor_stage, :c_value, :c_value, {:include_blank => 'Select..'}, :label => 'Stage')%>
   </tr>
+  
+  <tr>
+	<%=f.text_area :comments, :tdcolspan => 7, :cols => 80, :rows => 2 %>
+  </tr>
+  
 </table>
+</fieldset>
+<div class="clear">
+

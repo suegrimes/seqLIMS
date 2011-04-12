@@ -1,10 +1,10 @@
-<div>&nbsp;</div>
-<!--h3>Sequencing Library - Select parameters</h3-->
+<h3>Sequencing Library Query</h3>
 
 <% form_for(@seqlib_query, :action=> 'index') do |f| %>
 <%= f.error_messages(:header_message => "Error(s) in query parameters") %>
+
 <fieldset class="form">
-<legend>Sequencing Library - Select parameters</legend>
+<legend>Select parameters</legend>
 <table class="form">
   <tr>
   <th>Owner(s):</th>
@@ -34,5 +34,3 @@
 <br clear="all" />
 <%= submit_tag "Submit" %>
 <%end%>
-
-

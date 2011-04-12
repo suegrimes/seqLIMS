@@ -2,7 +2,7 @@
 
 <%= render :partial => 'patients/patient_info',  :locals => {:patient => @pathology.patient} %>
 
-<% form_for(@pathology) do |f| %>
+<% tagged_form_for(@pathology) do |f| %>
   <%= f.error_messages %>
 
   <%= render :partial => 'pathology_form', :locals => {:f => f} %>

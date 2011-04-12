@@ -1,11 +1,11 @@
-<div>&nbsp;</div>
-<!--h3>Select <%= @type_of_sample.camelize %> Samples</h3-->
+<h3><%= @type_of_sample.camelize %> Samples Query</h3>
+
 <% form_for(@sample_query, :action => 'index') do |f| %>
 <%= hidden_field_tag(:stype, @type_of_sample)%>
 <%= f.error_messages(:header_message => "Error(s) in query parameters") %>
 
 <fieldset class="form">
-<legend><%= @type_of_sample.camelize %> Samples - Select parameters</legend>
+<legend>Select parameters</legend>
 <table class="form">
   <tr>
   <% if can? :read, Patient %>
@@ -16,6 +16,9 @@
   <% end %>
   	<th>Sample Barcode:</th><td><%= f.text_field(:barcode_key, :size => 12)%></td>
   </tr>
+  
+  <tr><td>&nbsp;</td></tr>
+  
   <tr>
   	<th>Consent Protocol:</th><td><%= f.collection_select(:consent_protocol_id, @consent_protocols, :id, :name_ver,
                              {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td> 
@@ -40,6 +43,9 @@
                    {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td> 
      
   </tr>
+  
+  <tr><td>&nbsp;</td></tr>
+  
   <tr>
   	<th>Date Filter:</th>
 	<td><%= f.select(:date_filter, ["Collection Date", "Dissection Date"]) %></td>
