@@ -1,5 +1,5 @@
 <fieldset class="form">
-<legend>H&E Slide</legend>
+<legend>H&amp;E Slides</legend>
   <table class="form">
 	<tr>
 	  <th>HE barcode:</th><td><%=f.object.he_barcode_key %><%=f.hidden_field(:he_barcode_key)%></td>
@@ -26,9 +26,12 @@
 	  <th>Comments:</th>
 	  <td><%=f.text_area :comments, :cols => 30, :rows => 2 %></td>
 	</tr>
+	
 	<tr>
-	  <td><%= submit_tag 'Submit' %></td>
+		<td colspan="4" align="center"><%= submit_tag 'Submit' %></td>
 	</tr>
+	
   </table>
 </fieldset>
-<div class="clear"></div>
+
+

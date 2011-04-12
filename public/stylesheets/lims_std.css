@@ -466,10 +466,10 @@ table.info {
 
 fieldset.info {
     padding: .5em;
-    margin-bottom:.75em; 
+    margin-bottom: 10px;
     float:left; 
     /* clear:right;*/
-	background: #f9f9f9;
+	background: #fafafa;
 	border: 1px solid #999;
     width:50%;
 }
@@ -482,32 +482,11 @@ fieldset.info {
 	background: #fff;
 	border: 1px solid #999;
 }
-.info fieldset ol {
-    list-style:none; 
-    padding:.5em 1em 0 1em;
-    margin: 0;
-}
-.info fieldset li {
-    float:left; 
-	/* clear:left; */
-    width:40%;
-    padding: 2px 0;
-	border: 1px solid green;
-}
-.info label {
-    float:left; 
-	/*width:9em; */
-	width: 40%;
-    margin-right: 1em;
-	text-align: right;
-    font-size: .9em;
-	border: 1px solid black;
-}
 
 /* end info fieldset styles */
 
 table.form {
-    background-color: #f1f2e3;
+    background-color: #e5e5e5;
 }
 
 .form th {
@@ -574,11 +553,12 @@ table.form {
 
 fieldset.form {
     padding: .5em .5em 0 .5em;
-    margin-bottom:.75em; 
+    margin-bottom: 10px;
     float:left; 
-	background: #f1f2e3;
+	background: #e5e5e5;
 	border: 1px solid #999;
-    /*width:50%;*/
+    min-width:25%;
+	max-width:65%;
 }
 .form legend {
     margin-left:1em;
@@ -588,18 +568,6 @@ fieldset.form {
     padding: 0 4px;
 	background: #fff;
 	border: 1px solid #999;
-}
-.form fieldset ol {
-    list-style:none; 
-    padding:.5em 1em 0 1em;
-    margin: 0;
-}
-.form fieldset li {
-    float:left; 
-	/* clear:left; */
-    width:40%;
-    padding: 2px 0;
-	border: 1px solid green;
 }
 
 /* end form fieldset styles */
