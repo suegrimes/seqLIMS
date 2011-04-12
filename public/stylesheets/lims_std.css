@@ -20,9 +20,9 @@ body {
 
 /* generic html tag styles */
 
-p,h1,h2,h3,h4,h5,h6 {
+p {
     padding-left: .5em;
-    padding-top: 0.5em;
+    padding-top: .5em;
 }
 
 h1 {
@@ -31,9 +31,16 @@ h1 {
     padding:0;
 }
 
+h1 {
+    font-size:1.25em;
+    margin:0;
+    padding:0;
+}
+
 h3 {
-    font-size: 1.05em;
+    font-size: 1.1em;
     color: #003366;
+	padding-left: 0.2em;
 }
 
 hr {clear:both; border:0; height:1px; background-color:#888;}
@@ -419,13 +426,12 @@ table.list {
 }
 
 .list a.linkborder {
-    border: 2px solid #c0c0c0;
-    border-radius: 8px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    padding: .07em .2em;
+	border: 1px solid #c5c5c5;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    padding: 0 .5em;
 }
-
 
 .info01 {
     border: 1px solid #b0aa91;
@@ -532,11 +538,6 @@ table.form {
 .form01 td {
     font-size: .9em;
     border-bottom: none;
-}
-
-.linkbutton td {
-    border: 1px solid #dedacb;
-    color: 0000FF;
 }
 
 .form ul {

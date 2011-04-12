@@ -15,17 +15,17 @@
   <% @run_dirs.sort.reverse.each do |run_number, run_dirs| %>
   <% run_dirs.each do |run_dir| %>
   <tr>
-    <td class="no_border_bottom"><%=h run_dir.sequencing_key %></td>
-	<td class="no_border_bottom"><%=h run_dir.device_name %></td>
-	<td class="no_border_bottom"><%=h run_dir.date_sized %></td>
-    <td class="no_border_bottom"><%=h run_dir.file_count %></td>
-    <td class="no_border_bottom"><%=h run_dir.total_size_gb %></td>
-	<td class="no_border_bottom"><%=h run_dir.date_copied %></td>
-	<td class="no_border_bottom"><%=h run_dir.date_verified %></td>
-    <td class="linkbutton"><%= link_to 'Edit', edit_run_dir_path(run_dir) %></td>
-    <td class="linkbutton"><%= link_to 'Delete', run_dir, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%=h run_dir.sequencing_key %></td>
+	<td><%=h run_dir.device_name %></td>
+	<td><%=h run_dir.date_sized %></td>
+    <td><%=h run_dir.file_count %></td>
+    <td><%=h run_dir.total_size_gb %></td>
+	<td><%=h run_dir.date_copied %></td>
+	<td><%=h run_dir.date_verified %></td>
+    <td><%= link_to 'Edit', edit_run_dir_path(run_dir) %></td>
+    <td><%= link_to 'Delete', run_dir, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
   <% end %>
-  <tr><td colspan=9></td></tr>
+  <!--<tr><td colspan=9></td></tr>-->
 <% end %>
 </table>
