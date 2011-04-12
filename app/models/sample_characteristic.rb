@@ -31,6 +31,8 @@ class SampleCharacteristic < ActiveRecord::Base
   belongs_to :consent_protocol
   belongs_to :pathology
   
+  accepts_nested_attributes_for :samples
+  
   validates_presence_of :collection_date, :if => Proc.new { |a| a.new_record? }
   validates_date :collection_date, :allow_blank => true
   validates_presence_of :consent_protocol_id, :clinic_or_location
@@ -41,6 +43,10 @@ class SampleCharacteristic < ActiveRecord::Base
     self.gender    = self.patient.gender
     self.ethnicity = self.patient.ethnicity
     self.race      = self.patient.race
+  end
+  
+  def before_save
+    self.consent_nr = self.consent_protocol.consent_nr if self.consent_protocol
   end
   
   def consent_descr
