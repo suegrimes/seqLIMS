@@ -1,16 +1,21 @@
+<h3>New User</h3>
+
+<% tagged_form_for :user, :url => users_path do |f| -%>
 <%= error_messages_for :user %>
-<% form_for :user, :url => users_path do |f| -%>
-<p><label for="login">Login</label><br/>
-<%= f.text_field :login %></p>
 
-<p><label for="email">Email</label><br/>
-<%= f.text_field :email %></p>
+<fieldset class="form">
+<legend>User Details</legend>
 
-<p><label for="password">Password</label><br/>
-<%= f.password_field :password %></p>
+<table class="form">
+  <tr><%= f.text_field :login %></tr>
+  <tr><%= f.text_field :email %></tr>
+  <tr><%= f.password_field :password %></tr>
+  <tr><%= f.password_field :password_confirmation, :label => 'Confirm Password' %></tr>
+</table>
+</fieldset>
+<div class="clear"></div>
 
-<p><label for="password_confirmation">Confirm Password</label><br/>
-<%= f.password_field :password_confirmation %></p>
+<p><%= submit_tag 'Sign up' -%></p>
+<% end %>
 
-<p><%= submit_tag 'Sign up' %></p>
-<% end -%>
+<div class="clear"></div>

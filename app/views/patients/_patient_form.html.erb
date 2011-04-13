@@ -1,4 +1,5 @@
-<span class="form_title">Patient Info:</span>
+<fieldset class="form">
+<legend>Patient Details</legend>
   <table class="form">
 	<tr>
 	  <% if controller.action_name == 'new' || controller.controller_name == 'patients' %>
@@ -27,4 +28,5 @@
                                 {:include_blank => 'Select race'})%></td>
 	</tr>
   </table>
-	
+</fieldset>
+<div class="clear"></div>	

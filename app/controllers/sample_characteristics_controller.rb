@@ -62,14 +62,6 @@ class SampleCharacteristicsController < ApplicationController
     @patient.update_attributes(params[:patient])
     
     params[:sample_characteristic].merge!(:patient_id  => params[:patient][:id])
-    
-    # Need error checking for protocol not found?
-    #(Not found should not occur, since selection is from drop-down box)
-    if !param_blank?(params[:sample_characteristic][:consent_protocol_id])
-      consent_nr = ConsentProtocol.find(params[:sample_characteristic][:consent_protocol_id]).consent_nr
-      params[:sample_characteristic].merge!(:consent_nr => consent_nr)
-    end
-  
     @sample_characteristic = SampleCharacteristic.new(params[:sample_characteristic])
                                         
     if @sample_characteristic.save
@@ -131,13 +123,6 @@ class SampleCharacteristicsController < ApplicationController
   # PUT /sample_characteristics/1
   def update 
     @sample_characteristic = SampleCharacteristic.find(params[:id])
-    
-    # Need error checking for protocol not found?
-    #(Not found should not occur, since selection is from drop-down box)
-    if !param_blank?(params[:sample_characteristic][:consent_protocol_id])
-      consent_nr = ConsentProtocol.find(params[:sample_characteristic][:consent_protocol_id]).consent_nr
-      params[:sample_characteristic].merge!(:consent_nr => consent_nr)
-    end
     
     if @sample_characteristic.update_attributes(params[:sample_characteristic])
       flash[:notice] = 'Clinical sample characteristics successfully updated'

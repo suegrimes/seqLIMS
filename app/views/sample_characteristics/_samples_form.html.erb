@@ -1,9 +1,10 @@
 <% removable ||= 'no' %>
 <div id="samples">
-  <span class="form_title">Physical Sample:</span>
   <% new_or_existing = sample.new_record? ? 'new' : 'existing' %>
   <% prefix = "sample_characteristic[#{new_or_existing}_sample_attributes][]" %>
-  
+
+<fieldset class="form">
+<legend>Physical Sample</legend> 
 <table class="form">
   <% fields_for prefix, sample do |s| %> 
     <%=s.hidden_field(:patient_id, :value => @patient_id) %>
@@ -64,5 +65,7 @@
 	<!--  link_to_function "remove", "$(this).up('.samples').remove()"  -->
   <% end %>
 </table>
+</fieldset>
+<div class="clear"></div>
 
 </div>
