@@ -9,5 +9,6 @@
 
 <% form_for @histology, :action => :update do |f| %>
   <%= render :partial => 'histology_form', :locals => {:f => f} %>
-  <%=submit_tag 'Update' %>
+  <br />
+  <table width="100%"><tr><td><%= submit_tag "Update" %></td></tr></table>
 <% end %>

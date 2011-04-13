@@ -5,7 +5,8 @@
                                    :sample_characteristic => @sample_characteristic}%>
 
 <%= render :partial => 'sample_characteristics/clinical_info', 
-                       :locals => {:sample_characteristic => @sample_characteristic}%>
+                       :locals => {:sample_characteristic => @sample_characteristic,
+                                   :last_info_box => 'yes'}%>
 
 <span class="table_title">Physical Samples:</span>
 <table class="list">
@@ -28,7 +29,7 @@
 
 <% elsif @added_sample_id %>
   <div id="more_to_add">
-    <p><%= link_to_function "Add another sample for this patient/collection date", toggle_div(:more_to_add, :add_more) %></p>
+    <%= link_to_function "Add another sample for this patient/collection date", div_toggle(:more_to_add, :add_more) %>
   </div>
 	
   <div id="add_more", style="display:none">	

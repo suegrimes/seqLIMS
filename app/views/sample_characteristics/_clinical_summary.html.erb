@@ -5,11 +5,12 @@
 <% click_to_link = 'none' if (click_to_link == 'show' && (cannot? :read, patient))%>
 
 <!-- Standard fields to be displayed -->
-<% info_flds   = [[(click_to_link == 'none'? 'Field' : 'Link'), 'Patient ID', sample_characteristic.patient_id, click_to_link], 
+<% info_flds   = [[(click_to_link == 'none'? 'Field' : 'Link'), 'Patient ID', sample_characteristic.patient_id, click_to_link],
+                   nil, 
                   ['Field', 'Gender', patient.gender],
                   ['Field', 'Race/Ethnicity', [patient.race, patient.ethnicity].join('/')],
-                  ['Field', 'Collected on', sample_characteristic.collection_date],
-                  ['Field', 'Clinic', sample_characteristic.clinic_or_location], 
+                  ['Field', 'Collected on', sample_characteristic.collection_date], nil,
+                  ['Field', 'Clinic', sample_characteristic.clinic_or_location], nil, 
                   ['Field', 'Protocol', sample_characteristic.consent_descr]] %>
 				  
 <!-- Only include comments if non-blank -->

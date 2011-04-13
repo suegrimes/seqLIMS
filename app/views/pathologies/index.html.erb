@@ -2,7 +2,9 @@
     <% if @patient_id %> for Patient: <%= @patient_id %><% end %></h3>
 
 <% for pathology in @pathologies %>
-<%= render :partial => 'pathology_info', :locals => {:pathology => pathology, :incl_links => 'yes'} %>
+<%= render :partial => 'pathology_info', :locals => {:pathology => pathology, 
+                                                     :incl_links => 'yes',
+                                                     :last_info_box => 'yes'} %>
 						
 <%= render :partial => 'clinical_dtls', :locals => {:sample_characteristics => pathology.sample_characteristics} %>
 <div style="width:100%; border-bottom:1px solid #999; margin-bottom:1em;"></div>

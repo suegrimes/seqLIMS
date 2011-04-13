@@ -1,5 +1,5 @@
 <fieldset class="form">
-<legend>H&amp;E Slides</legend>
+<legend>H&amp;E Slide</legend>
   <table class="form">
 	<tr>
 	  <th>HE barcode:</th><td><%=f.object.he_barcode_key %><%=f.hidden_field(:he_barcode_key)%></td>
@@ -13,22 +13,21 @@
 	</tr>
 	<tr>
 	  <th>Tumor cell content:</th><td><%=f.text_field :tumor_cell_content, :size => 10 %></td>  
+	</tr>
+	<tr>
 	  <th>Inflammation:</th>
 	  <td><%=f.collection_select(:inflammation_type, @inflam_type, :c_value, :c_value,
                                 {:include_blank => 'Select inflamm type'}) %></td>
-	</tr>
-	<tr>
 	  <th>Infiltration:</th>
 	  <td><%=f.collection_select(:inflammation_infiltration, @inflam_infiltr, :c_value, :c_value,
                                 {:include_blank => 'Select infiltration'}) %></td>
 	</tr>
 	<tr>
 	  <th>Comments:</th>
-	  <td><%=f.text_area :comments, :cols => 30, :rows => 2 %></td>
+	  <td colspan="3"><%=f.text_area :comments, :cols => 50, :rows => 2 %></td>
 	</tr>	
   </table>
 </fieldset>
-<br />
-<table width="100%"><tr><td><%= submit_tag "Submit" %></td></tr></table>
+
 
 

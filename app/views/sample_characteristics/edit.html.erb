@@ -8,6 +8,9 @@
   
   <%= render :partial => 'clinical_form',    :locals => {:f => f} %>
   
+  <br />
+  <table width="100%"><tr><td></td></tr></table>
+  
   <span class="table_title">Physical Sample(s):</span>
   <table class="list">
     <%= render :partial => 'samples/sample_hdr' %>
@@ -27,9 +30,9 @@
   
   <% else %>
     <div id="add_more">
-    <p><%= link_to_remote("Add another sample for this patient/collection date",
+      <%= link_to_remote("Add another sample for this patient/collection date",
                           :url => {:action => :add_new_sample, :id => @sample_characteristic.id, :from_sample_id => @last_sample_id},
-                          :method => :get) %></p>
+                          :method => :get) %>
     </div>
 	
   <% end %>

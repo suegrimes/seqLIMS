@@ -6,7 +6,7 @@
 
 <div id="addnew">
   <% if can? :new, RunDir %>
-    <p><%= link_to_function "Add new run directory", toggle_div(:addnew, :newdir) %> |
+    <p><%= link_to_function "Add new run directory", div_toggle(:addnew, :newdir) %> |
 	   <%= link_to "List All", run_dirs_path %></p>
   <% end %>
 </div>

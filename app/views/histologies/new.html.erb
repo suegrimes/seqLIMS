@@ -2,8 +2,7 @@
 
 <%= render :partial => 'patients/patient_info', :locals => {:patient => @sample.patient}%>
 
-<%= render :partial => 'sample_characteristics/summary_info', :locals => {:sample_characteristic => @sample.sample_characteristic,
-                                                              :sample => @sample }%>
+<%= render :partial => 'sample_characteristics/clinical_info', :locals => {:sample_characteristic => @sample.sample_characteristic}%>
 
 <% if @sample.sample_characteristic.pathology %>
   <%= render :partial => 'pathologies/pathology_info', :locals => {:pathology => @sample.sample_characteristic.pathology} %>
@@ -17,5 +16,7 @@
 <%= render :partial => 'histology_form', :locals => {:f => f} %>
 <%=f.hidden_field(:sample_id)%>
 
+<br />
+<table width="100%"><tr><td><%= submit_tag "Submit" %></td></tr></table>
 <% end %>
 

@@ -55,24 +55,6 @@ class PatientsController < ApplicationController
     render :action => 'debug'
   end
 
-  # POST /patients
-#  def create
-#    @patient_id = check_for_existing_mrn(params[:patient][:mrn])
-#    
-#    @patient = Patient.new(params[:patient])
-#    
-#    render :action => 'debug'
-    
-#    if @patient.save
-#      flash[:notice] = 'Patient was successfully created.'
-#      email = send_email(@patient, params[:patient][:mrn])
-#      #render(:text => "<pre>" + email.encoded + "</pre>")
-#      redirect_to(@patient)
-#    else
-#      render :action => "new" 
-#    end
-#  end
-
   # PUT /patients/1
   def update
     @patient = Patient.find(params[:id])

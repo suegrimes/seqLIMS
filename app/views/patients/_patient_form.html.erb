@@ -1,4 +1,5 @@
-<span class="form_title">Patient Info:</span>
+<fieldset class="form">
+<legend>Patient Details</legend>
   <table class="form">
 	<tr>
 	  <% if controller.action_name == 'new' || controller.controller_name == 'patients' %>
@@ -7,24 +8,18 @@
 	    <th>MRN</th><td><%=h patient.mrn%></td>    
       <% end %>
 	  
-	  <th>Patient ID</th><td><%=h patient_id %></td>
-		  <% hidden_field_tag(:patient_id, patient_id) %>
-	  
-	  <% if controller.action_name == 'new_sample' || controller.controller_name == 'patients' %> 
-	    <th>PHI Notes</th><td><%=f.text_field(:hipaa_data, :size => 10) %></td>
-	  <% elsif can? :read, Patient %>
-	    <th>PHI Notes</th><td><%=h patient.hipaa_data %>
-	  <% end %>
+	  <th>Patient ID</th><td><%=h patient_id %><% hidden_field_tag(:patient_id, patient_id) %></td>
 	</tr>
+
+	<tr><th>Gender</th><td><%=f.select(:gender, %w{U M F}) %></td></tr>
+    <tr><th>Ethnicity</th><td><%=f.collection_select(:ethnicity, @ethnicity, :c_value, :c_value, {:include_blank => 'Select ethnicity'})%></td></tr>
+    <tr><th>Race</th><td><%=f.collection_select(:race, @races, :c_value, :c_value, {:include_blank => 'Select race'})%></td></tr>
 	
-	<tr>
-	  <th>Gender</th><td><%=f.select(:gender, %w{U M F}) %></td>
-      <th>Ethnicity</th>
-	  <td><%=f.collection_select(:ethnicity, @ethnicity, :c_value, :c_value,
-                                {:include_blank => 'Select ethnicity'})%></td>
-      <th>Race</th>
-	  <td><%=f.collection_select(:race, @races, :c_value, :c_value,
-                                {:include_blank => 'Select race'})%></td>
-	</tr>
+	<% if controller.action_name == 'new_sample' || controller.controller_name == 'patients' %> 
+	  <tr><th>PHI Notes</th><td colspan="2"><%=f.text_field(:hipaa_data, :size => 30) %></td></tr>
+	<% elsif can? :read, Patient %>
+	  <tr><th>PHI Notes</th><td colspan="2"><%=h patient.hipaa_data %></td></tr>
+	<% end %>
+	
   </table>
-	
+</fieldset>

@@ -373,14 +373,13 @@ td {
 .form_title {
     font-size: .9em;
     font-weight: 600;
-    font-variant: small-caps;
+    font-style: italic;
 }
 
 .table_title {
-    font-size: 1em;
+    font-size: .9em;
     font-weight: bold;
 	font-style: italic;
-    font-variant: small-caps;
 }
 
 table.list {
