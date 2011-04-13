@@ -1,28 +1,25 @@
-<h3>Enter new order</h3>
+<h3>New item</h3>
 
 <% form_tag :action => 'create' do %>
-<fieldset class="form">
-<legend>Order Info</legend>  
-  <table class="form">
-  	<tr> 	  
+  
+  <table class="list">
+  	<tr>
+  	  <th>Timestamp</th>
 	  <th>Requestor</th>
-	  <td><%=select(:item_default, :requester_name, @researchers, {:include_blank => 'Select requestor'}) %></td>
-	  <td></td>
-	  <td><%=format_datetime(Time.now) %></td>	
-	</tr>
-	<tr>
 	  <th>Deliver Site</th> 
-	  <td><%=select(:item_default, :deliver_site, Item::DELIVER_SITES, {:include_blank => true})%></td>
 	  <th>Grant #</th>
-	  <td><%=text_field(:item_default, :grant_nr, :size => 10) %>
   	</tr>
+	<tr>
+	  <td><%=format_datetime(Time.now) %></td>
+	  <td><%=select(:item_default, :requester_name, @researchers, {:include_blank => 'Select requestor'}) %></td>
+	  <td><%=select(:item_default, :deliver_site, Item::DELIVER_SITES, {:include_blank => true})%></td>
+	  <td><%=text_field(:item_default, :grant_nr) %>
+	</tr>
   </table>
- </fieldset>
- <%= break_clear %>
   
   <% if @items.nil? %>
-  <div id='item_entry'>	
-  <span><em>Number of items to be ordered?&nbsp;&nbsp;<%= text_field_tag(:nr_items, '', :size => 5)-%></em></span>
+  <div id='item_entry'> 
+  <span><b>Enter how many items with these defaults?</b><%= text_field_tag(:nr_items, '', :size => 5)-%></span>
   <%= submit_to_remote 'MultiItem', 'Add Items',
       :url => {:action => 'populate_items'},
       :update => 'item_entry' -%>
