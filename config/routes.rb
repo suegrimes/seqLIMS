@@ -23,11 +23,11 @@ ActionController::Routing::Routes.draw do |map|
                                          :auto_complete_for_company_name     => :get,
                                          :auto_complete_for_catalog_nr       => :get}
   
-  map.view_items 'view_items',       :controller => 'items',  :action => 'get_params'
+  map.view_items 'view_items',       :controller => 'items',  :action => 'new_query'
   map.list_items 'list_items',       :controller => 'items',  :action => 'list_selected'
   map.notordered 'unordered_items',  :controller => 'items',  :action => 'list_unordered_items'
   map.edit_order_items 'edit_items', :controller => 'orders', :action => 'edit_order_items'
-  map.view_orders 'view_orders',     :controller => 'orders', :action => 'get_params'
+  map.view_orders 'view_orders',     :controller => 'orders', :action => 'new_query'
   
   # Routes for patients
   map.resources :patients

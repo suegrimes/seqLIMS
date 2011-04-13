@@ -1,8 +1,8 @@
 class ItemsController < ApplicationController
-  before_filter :dropdowns, :only => [:get_params, :new, :edit]
+  before_filter :dropdowns, :only => [:new_query, :new, :edit]
   protect_from_forgery :except => :populate_items
   
-  def get_params
+  def new_query
     @item_query = ItemQuery.new(:from_date => (Date.today - 1.month).beginning_of_month,
                                 :to_date   =>  Date.today)
   end
@@ -30,7 +30,7 @@ class ItemsController < ApplicationController
       
     else
       dropdowns
-      render :action => :get_params
+      render :action => :new_query
     end
   end
   
@@ -137,7 +137,7 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @item.destroy
 
-    redirect_to :action => 'list_selected', :item_status => "NotOrdered"
+    redirect_to :action => 'new_query'
   end
   
   def auto_complete_for_catalog_nr

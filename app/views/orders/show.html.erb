@@ -1,25 +1,25 @@
-<h3>Order Details</h3>
+<h3>Order Listing</h3>
 
-<table class="list">
-  <tr>
-    <th>Order Date</th>	
-    <th>Company Name</th>
-	<th>Chemicals?</th>
-	<th>RPO/CWA</th>
-    <th>PO Number</th>
-	<th>Order Number</th>
-	<th>Received?</th>  
-  </tr>
-  <tr>
-  	<td><%=h @order.date_ordered %></td>
-	<td><%=h @order.company_name%></td>
-	<td><%=h @order.incl_chemicals%></td>
-	<td><%=h @order.rpo_or_cwa%></td>
-	<td><%=h @order.po_number %></td>
-	<td><%=h @order.order_number %></td>
-	<td><%=h @order.order_received %></td>	
-  </tr>
-</table>
+<!-- Order Details -->
+<!-- Standard fields to be displayed -->
+<% info_flds   = [['Field', 'Order Date', @order.date_ordered],
+                  ['Field', 'Company Name', @order.company_name], 
+                  ['Field', 'Chemicals?', @order.incl_chemicals],
+                  ['Field', 'RPO/CWA', @order.rpo_or_cwa],
+                  ['Field', 'PO Number', @order.po_number],
+                  ['Field', 'Order Number', @order.order_number],
+                  ['Field', 'Received?', @order.order_received]] %>
+
+<!-- Links to be displayed with borders, in bottom row of info box -->
+<% info_links = [] %>
+<% info_links = [['Edit', 'edit']] if (can? :edit, @order) %>
+
+<%= render :partial => 'shared/info_box', :locals => {:info_legend     => 'Order Details',
+                                                      :info_flds       => info_flds,
+                                                      :info_links      => info_links,
+                                                      :link_id         => @order.id,
+                                                      :link_controller => 'orders',
+                                                      :last_info_box   => 'yes'} %>
 
 <table class="list">
   <tr>
@@ -33,13 +33,14 @@
     <th>Price</th>
     <th>Quantity</th>
 	<th>Recv'd?</th>
+	<th></th>
   </tr>
 
 <% for item in @order.items do %>
   <tr>
   	<td><%=h item.requester_abbrev %></td>
 	<td><%=h format_date(item.created_at) %></td>
-  	<td cols=80><%=h item.item_description %></td>
+  	<td><%=h item.item_description %></td>
 	<td><%=h item.company_name %></td>
     <td><%=h item.catalog_nr %></td>
 	<td><%=h item.chemical_flag %></td>
@@ -47,9 +48,7 @@
     <td><%=h item.item_price %></td>
     <td><%=h item.item_quantity %></td>
 	<td><%=h item.item_received %></td>
+	<td><%= link_to 'Edit', edit_item_path(item) %></td>
   </tr>
 <% end %>
 </table>
-
-<%= link_to 'Edit Order', edit_order_path(@order) %>
-

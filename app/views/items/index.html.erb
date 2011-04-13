@@ -1,18 +1,32 @@
 <h3>Listing items</h3>
 
-<% form_tag(:action => 'create', :controller => 'orders') do %>
+<% if can? :new, Order %>
+<% if @items_to_order && @items_to_order > 0 %>
+  <div id="order">
+    <p><%= link_to_function "Place order for items checked below", div_toggle(:place_order, :order) %></p>
+  </div>
+<% end %>
+<% end %>
 
+<% form_tag(:action => 'create', :controller => 'orders') do %>
+ <div id="place_order", style="display:none">	
+	<% fields_for Order.new(:date_ordered => Date.today) do |f|%>
+      <%= render :partial => 'orders/order_form', :locals => {:f => f, :have_company_list => 'yes'} %>
+	<% end %> 
+  <%= submit_tag "Submit"%><br /><br />
+ </div>
+ 
 <table class="list">
   <tr>
   	<th>Order?</th>
-  	<th>Requester</th>
+  	<th>Requestor&nbsp;&nbsp;</th>
 	<th>Date</th>
 	<th>Site</th>
 	<th>Chem</th>
 	<th>Company</th>
-    <th>Catalog nr/Descr</th>
+    <th>Catalog#/Descr</th>
     <th>Price</th>
-    <th>Quantity</th>
+    <th>Qty</th>
 	<th>Grant</th>
 	<th>Recv'd?</th>
 	<th colspan="3"></th>
@@ -21,22 +35,22 @@
 <% for item in @items %>
   <tr>
   	<% if item.ordered? %>
-	  <td class="no_cellborder"><%=h item.order.po_number %></td>
+	  <td class="dotted_border_bottom"><%=h item.order.po_number %></td>
 	<% elsif can? :new, Order %>
-  	  <td class="no_cellborder"><%= check_box_tag("item_id[]", item.id) %>
+  	  <td class="dotted_border_bottom"><%= check_box_tag("item_id[]", item.id) %>
 	<% else %>
-	  <td class="no_cellborder">n/a</td>
+	  <td class="dotted_border_bottom">n/a</td>
 	<% end %>
-  	<td class="no_cellborder"><%=h item.requester_abbrev %></td>
-	<td class="no_cellborder"><%=h format_date(item.created_at) %></td>
-	<td class="no_cellborder"><%=h item.deliver_site %></td>
-	<td align="center" class="no_cellborder"><%=h item.chemical_flag%></td>
-	<td class="no_cellborder"><%=h item.company_name %></td>
-    <td class="no_cellborder"><%=h item.catalog_nr %></td>
-    <td class="no_cellborder"><%=h number_to_currency(item.item_price) %></td>
-    <td class="no_cellborder">&nbsp;&nbsp;<%=h item.item_quantity %></td>
-	<td class="no_cellborder"><%=h item.grant_nr %></td>
-	<td class="no_cellborder"><%=h item.item_received %></td>
+  	<td class="dotted_border_bottom"><%=h item.requester_abbrev %></td>
+	<td class="dotted_border_bottom"><%=h format_date(item.created_at) %></td>
+	<td class="dotted_border_bottom"><%=h item.deliver_site %></td>
+	<td class="dotted_border_bottom" align="center"><%=h item.chemical_flag%></td>
+	<td class="dotted_border_bottom"><%=h item.company_name %></td>
+    <td class="dotted_border_bottom"><%=h item.catalog_nr %></td>
+    <td class="dotted_border_bottom"><%=h number_to_currency(item.item_price) %></td>
+    <td class="dotted_border_bottom">&nbsp;&nbsp;<%=h item.item_quantity %></td>
+	<td class="dotted_border_bottom"><%=h item.grant_nr %></td>
+	<td class="dotted_border_bottom"><%=h item.item_received %></td>
     <td rowspan=2><%= link_to 'Show', item %></td>
 	
 	<% if can? :edit, item %>
@@ -48,25 +62,9 @@
 	<% end %>
   </tr>
   <tr>
-  	<td class="border_bottom_only">&nbsp;</td>
-  	<td class="border_bottom_only" colspan="10"><%=h item.item_description %></td>
+  	<td colspan="6" class="border_bottom_only">&nbsp;</td>
+  	<td class="border_bottom_only" colspan="5"><%=h item.item_description %></td>
   </tr>
 <% end %>
 </table>
-
-<% if can? :new, Order %>
-<% if @items_to_order && @items_to_order > 0 %>
-  <div id="order">
-    <p><%= link_to_function "Place order for checked items", div_toggle(:place_order, :order) %></p>
-  </div>
-	
-  <div id="place_order", style="display:none">	
-	<% fields_for Order.new(:date_ordered => Date.today) do |f|%>
-      <%= render :partial => 'orders/order_form', :locals => {:f => f, :have_company_list => 'yes'} %>
-	<% end %>
-  </div>
-<%= submit_tag "Submit"%>
-<% end %>
-<% end %>
-
 <% end %>

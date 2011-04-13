@@ -1,16 +1,15 @@
-<h3>Orders - Specify Filter Criteria</h3>
+<h3>Orders Query</h3>
 
 <% form_for(@item_query, :url => {:controller => 'orders', :action=> 'list_selected'}) do |f| %>
 <%= f.error_messages(:header_message => "Error(s) in query parameters") %>
 
+<fieldset class="form">
+<legend>Select Parameters</legend>
 <table class="form">
   <tr>
   	<th>Deliver Site</th>
 	<td><%= f.select(:deliver_site, Item::DELIVER_SITES, {:include_blank => 'All'}) %></td>
   </tr>
-</table>
-
-<table class="form">
   <tr>
 	<th>Entered From:</th>
 	<td><%= f.calendar_date_select(:from_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%></td>
@@ -19,6 +18,8 @@
 	<td><%= f.calendar_date_select(:to_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%></td>
   </tr>
 </table>
+</fieldset>
+<%= break_clear %>
 
-<p><%= submit_tag "Submit" %></p>
+<%= submit_tag "Submit" %>
 <%end%>
