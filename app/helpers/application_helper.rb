@@ -8,8 +8,12 @@ module ApplicationHelper
     end
   end
   
-  def break_clear
-    '<br /><table width=100%><tr><td></td></tr></table>'
+  def break_clear(content=nil)
+    out = '<br />'
+    out << '<table width=100%><tr><td>'
+    out << content if !content.nil?
+    out << '</td></tr></table>'
+    out
   end
   
   def remove_this_line(div)
