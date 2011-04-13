@@ -55,9 +55,8 @@
 	<td><%=f.calendar_date_select(:from_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15) %>
 	<strong>&nbsp;To:&nbsp;</strong><%=f.calendar_date_select(:to_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15) %></td>
   </tr>
-  <tr>
-  	<td colspan="4" align="center"><%= submit_tag 'Submit' %></td>
-  </tr>
 </table>
 </fieldset>
+<br />
+<table width="100%"><tr><td><%= submit_tag "Submit" %></td></tr></table>
 <%end%>

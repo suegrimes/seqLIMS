@@ -18,14 +18,16 @@
 	<tr>
 	  <%=f.collection_select(:sample_container, @sample_units, :c_value, :c_value, :label => 'Container')%>
 	  <%=f.collection_select(:vial_type, @vial_types, :c_value, :c_value, {:include_blank => true}, :label => 'Vial Type')%>
+	</tr>
+	<tr>
       <%=f.collection_select(:amount_uom, @amount_uom, :c_value, :c_value, :label => 'Amt Unit')%>
       <%=f.text_field :amount_initial, :size => 10, :label => 'Initial Amt' %>
+	  <%=f.select(:sample_remaining, %w[Y N], {:include_blank => true}, :label => 'Rem?')%></td>
 	</tr>
 	<tr>
       <%= render :partial => 'shared/storage_select', :locals => {:f => f} %>
 	  <%=f.text_field :storage_shelf, :size => 10, :label => 'Shelf' %></td>
-      <%=f.text_field :storage_boxbin, :size => 10, :label => 'Rack/Bin#' %></td>
-	  <%=f.select(:sample_remaining, %w[Y N], {:include_blank => true}, :label => 'Rem?')%></td>
+      <%=f.text_field :storage_boxbin, :size => 10, :label => 'Rack/Bin#' %></td>  
     </tr>
 	
     <tr>

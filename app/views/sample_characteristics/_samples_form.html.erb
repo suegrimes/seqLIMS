@@ -34,6 +34,8 @@
 	  <th>Vial Type</th>
 	  <td><%=s.collection_select(:vial_type, @vial_types, :c_value, :c_value,
                                  {:include_blank => true})%></td>
+    </tr>
+	<tr>
 	  <th>Amt Unit</th>
 	  <td><%=s.collection_select(:amount_uom, @amount_uom, :c_value, :c_value)%></td>
 	  
@@ -43,6 +45,8 @@
 	  <% else %>
 	  <th>Amount-Initial</th>
 	  <td><%=s.text_field :amount_initial, :size => 8 %></td>
+	  <th>Amount-Rem</th>
+	  <td><%=s.text_field :amount_rem, :size => 8 %></td>
 	  <% end %>
     </tr>
 	
@@ -52,15 +56,11 @@
 	  <th>Shelf</th>
 	  <td><%=s.text_field :storage_shelf, :size => 10 %></td>
       <th>Rack#/Bin</th>
-	  <td><%=s.text_field :storage_boxbin, :size => 10 %></td>
-	  <% if new_or_existing != 'new' %>
-	  <th>Amount-Rem</th>
-	  <td><%=s.text_field :amount_rem, :size => 8 %></td>
-	  <% end %>
+	  <td><%=s.text_field :storage_boxbin, :size => 10 %></td>  
     </tr>
     <tr>
-      <th text-align="right">Comments: </th>
-      <td colspan=5><%=s.text_field :comments, :size => 100 %></td>
+      <th>Comments: </th>
+      <td colspan=5><%=s.text_area :comments, :cols => 80, :rows => 2 %></td>
     </tr>
 	<!--  link_to_function "remove", "$(this).up('.samples').remove()"  -->
   <% end %>

@@ -52,6 +52,8 @@
 	<tr>
 	  <%=f.text_field :final_vol, :size => 12, :label => 'Volume (ul)' %>
 	  <%=f.text_field :final_conc, :size => 12, :label => 'Conc (ng/ul)' %>
+	</tr>
+	<tr>
 	  <%=f.text_field :final_a260_a280, :size => 8, :label => 'a260/a280' %>
 	  <%=f.text_field :final_rin_nr, :size => 6, :label => 'RIN#' %>
 	</tr>
@@ -63,7 +65,7 @@
     </tr>
 	
 	<tr>
-	  <%=f.text_area :comments, :tdcolspan => 5, :cols => 100, :rows => 2 %>
+	  <%=f.text_area :comments, :tdcolspan => 5, :cols => 80, :rows => 2 %>
 	</tr>
   </table>
 </fieldset>

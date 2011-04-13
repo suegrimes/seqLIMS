@@ -4,6 +4,8 @@
 <tr>
   <th>Collect date</th>
   <td><%=f.calendar_date_select(:collection_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15) %></td>
+</tr>
+<tr>
   <th>Clinic from</th> 
   <td><%=f.collection_select(:clinic_or_location, @clinics, :c_value, :c_value,
                             {:include_blank => 'Select clinic'})%></td>
@@ -15,8 +17,7 @@
 </tr>  
 <tr>
   <th>Comments</th>  
-  <td colspan=3><%=f.text_field :comments, :size => 100 %></td>
+  <td colspan=3><%=f.text_area :comments, :cols => 80, :rows => 2 %></td>
 </tr>
 </table>
 </fieldset>
-<div class="clear"></div>
