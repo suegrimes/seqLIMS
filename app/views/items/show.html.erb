@@ -1,44 +1,28 @@
-<h3>Order Item</h3>
+<h3>Order Item Details</h3>
 
-<table class="list">
-  	<tr>
-  	  <th>Date</th>
-	  <th>Requestor</th>
-	  <th>Site</th>
-	  <th>Grant#</th>
-	  <th>Notes</th>
-  	</tr>
-	<tr>
-	  <td><%=h format_datetime(@item.created_at) %></td>
-	  <td><%=h @item.requester_abbrev %></td>
-	  <td><%=h @item.deliver_site %></td>
-	  <td><%=h @item.grant_nr %></td>
-	  <td><%=h @item.notes %></td>
-	</tr>
-  </table>
- 
-  <table class="list">
-	<tr>
-	  <th>Company</th> 
-	  <th>Catalog#</th>
-	  <th>Item Description</th> 
-	  <th>Chemical?</th> 	 
-	  <th>Size</th>
-	  <th>Price</th>
-	  <th>Quantity</th>
-	  <th>Recv'd?</th>
-	</tr>
-	
-	<tr>
-	  <td><%=h @item.company_name %></td>
-      <td><%=h @item.catalog_nr %></td>  
-	  <td><%=h @item.item_description %></td>
-	  <td><%=h @item.chemical_flag %></td>
-	  <td><%=h @item.item_size %></td>
-	  <td><%=h @item.item_price %></td>
-	  <td><%=h @item.item_quantity %></td>
-	  <td><%=h @item.item_received %></td>
-	</tr>
-  </table>
+<!-- Item Details -->
+<!-- Standard fields to be displayed -->
+<% info_flds   = [['Field', 'Date', format_datetime(@item.created_at)],
+                  ['Field', 'Requestor', @item.requester_abbrev], 
+                  ['Field', 'Site', @item.deliver_site],
+                  ['Field', 'Grant#', @item.grant_nr],
+                  ['Field', 'Company', @item.company_name],
+                  ['Field', 'Catalog#', @item.catalog_nr],
+                  ['Field', 'Chemical?', @item.chemical_flag],
+                  ['Field', 'Item Description', @item.item_description],
+				  ['Field', 'Size', @item.item_size],
+				  ['Field', 'Price', @item.item_price],
+				  ['Field', 'Qty', @item.item_quantity],
+				  ['Field', 'Recvd?', @item.item_received],
+                  ['Field', 'Notes', @item.notes]] %>
 
-<%= link_to 'Edit Item', edit_item_path(@item) %> 
+<!-- Links to be displayed with borders, in bottom row of info box -->
+<% info_links = [] %>
+<% info_links = [['Edit', 'edit']] if (can? :edit, @item) %>
+
+<%= render :partial => 'shared/info_box', :locals => {:info_legend     => 'Item Details',
+                                                      :info_flds       => info_flds,
+                                                      :info_links      => info_links,
+                                                      :link_id         => @item.id,
+                                                      :link_controller => 'items',
+                                                      :last_info_box   => 'yes'} %>

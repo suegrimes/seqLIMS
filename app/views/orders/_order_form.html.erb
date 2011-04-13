@@ -1,33 +1,36 @@
 <% have_company_list ||= 'no' %>
- 
- <span class="form_title">Order:</span>
-    <table class="form01">
+<fieldset class="form">
+ <legend>Order Details</legend>
+    <table class="form">
       <tr>
       	<th>RPO/CWA</th>
+		<td><%= f.select(:rpo_or_cwa, %w{RPO CWA Other}, {:include_blank => true}) %></td>
       	<th>Company Name</th>
-        <th>Order Date</th>
-		<th>Chemicals?</th>		
-		<th>PO Number</th>
-		<th>Order Number</th>
-		<th>Recv'd?</th>
-      </tr>	  
-	  <tr>
-	  	<td><%= f.select(:rpo_or_cwa, %w{RPO CWA Other}, {:include_blank => true}) %></td>
-	  	<% if have_company_list == 'yes' %>
+		<% if have_company_list == 'yes' %>
       	<td><%= f.select(:company_name, @companies, {:include_blank => 'Select Company'}) %></td>
 		<% else %>
 		<td><%= f.text_field(:company_name, :size => 30) %></td>
 		<% end %>
-        <td><%= f.calendar_date_select(:date_ordered, :valid_date_check => "date <= (new Date()).stripTime()",
-                                                      :year_range => [1.years.ago, 0.years.ago], :size => 15)%>
-		<td align=center><%= f.select(:incl_chemicals, %w{Y N}, {:include_blank => true}) %></td>
-        <td><%= f.text_field(:po_number, :size => 15) %></td>
-		<td><%= f.text_field(:order_number, :size => 15) %></td>
-		<td><%= f.select(:order_received, %w{Y N P}, {:include_blank => true}) %></td>	
-      </tr>
-	  
-	  <tr>
-	  	<th>Notes:</th>
-		<td colspan=5><%= f.text_field(:notes, :size => 100) %></td>
 	  </tr>
+	  <tr>
+        <th>Order Date</th>
+		<td><%= f.calendar_date_select(:date_ordered, :valid_date_check => "date <= (new Date()).stripTime()",
+                                                      :year_range => [1.years.ago, 0.years.ago], :size => 15)%>
+		<th>Chemicals?</th>
+		<td><%= f.select(:incl_chemicals, %w{Y N}, {:include_blank => true}) %></td>
+	  </tr>
+	  <tr>		
+		<th>PO Number</th>
+		<td><%= f.text_field(:po_number, :size => 15) %></td>
+		<th>Order Number</th>
+		<td><%= f.text_field(:order_number, :size => 15) %></td>
+		<th>Recv'd?</th>
+		<td><%= f.select(:order_received, %w{Y N P}, {:include_blank => true}) %></td>
+	  </tr>
+	  <tr>	
+		<th>Notes:</th>
+		<td colspan="5"><%= f.text_field(:notes, :size => 80) %></td>	
+      </tr>	  
 	</table>
+  </fieldset> 
+  <%= break_clear %>

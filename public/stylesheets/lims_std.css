@@ -383,7 +383,7 @@ td {
 }
 
 table.list {
-	width: 55%;
+	width: 75%;
     border: 1px solid #b0aa91;
     border-collapse: collapse;
 }
@@ -411,8 +411,14 @@ table.list {
     border-color: transparent transparent #B0AA91;
 }
 
-.list .no_border_bottom {
-    border-bottom: 0 none;
+.list .dotted_border_bottom {
+	border-bottom: 1px dotted #DEDACB;
+}
+
+.list .border_leftright_only {
+    border-width: 0 1px 0;
+    border-style: none dotted none;
+    border-color: transparent #DEDACB transparent;
 }
 
 .list .cellborder {
@@ -510,6 +516,7 @@ table.form {
 
 .form th.top-heading-row {
     text-align: left;
+	vertical-align:middle;
 }
 
 

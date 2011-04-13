@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   load_and_authorize_resource
   
-  def get_params
+  def new_query
     @item_query = ItemQuery.new(:from_date => (Date.today - 1.month).beginning_of_month,
                                 :to_date   =>  Date.today)
   end
@@ -16,7 +16,7 @@ class OrdersController < ApplicationController
       render :action => :index
       
     else
-      render :action => :get_params
+      render :action => :new_query
     end
   end
   
