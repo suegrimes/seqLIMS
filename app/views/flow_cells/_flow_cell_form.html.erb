@@ -2,14 +2,18 @@
   	<tr>
   	  <th>&nbsp;</th>
 	  <th>Partial</th>
-	  <% if can? :new, AlignmentRef %><th>&nbsp;</th><% end %>
+	  <% if controller.action_name != 'new' && (can? :new, AlignmentRef) %>
+	  <th>&nbsp;</th>
+	  <% end %>
 	  <th colspan=3, align="center">Number of Bases</th>
 	  <th colspan=2, align="center">Kit Versions</th>
 	</tr>
   	<tr>
 	  <th>Date</th>
 	  <th>Flowcell?</th>
-	  <% if can? :new, AlignmentRef %><th>Status</th><% end %>
+	  <% if controller.action_name != 'new' && (can? :new, AlignmentRef) %>
+	    <th>Status</th>
+	  <% end %>
 	  <th>Read 1</th>
 	  <th>Index</th>
 	  <th>Read 2</th>
@@ -25,7 +29,9 @@
 	    <%=h @partial_flowcell %><%= hidden_field_tag :partial_flowcell, @partial_flowcell %>
 	  <% end %>
 	  </td>
-	  <% if can? :new, AlignmentRef %><td><%= f.select(:flowcell_status, FlowCell::STATUS) %></td><% end %>
+	  <% if controller.action_name != 'new' && (can? :new, AlignmentRef) %>
+	    <td><%= f.select(:flowcell_status, FlowCell::STATUS) %></td>
+	  <% end %>
 	  <td><%= f.text_field :nr_bases_read1, :size => 8 %></td>
 	  <td><%= f.text_field :nr_bases_index, :size => 8 %></td>
 	  <td><%= f.text_field :nr_bases_read2, :size => 8 %></td>

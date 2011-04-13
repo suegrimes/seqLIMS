@@ -29,7 +29,7 @@
 
 <% elsif @added_sample_id %>
   <div id="more_to_add">
-    <%= link_to_function "Add another sample for this patient/collection date", toggle_div(:more_to_add, :add_more) %>
+    <%= link_to_function "Add another sample for this patient/collection date", div_toggle(:more_to_add, :add_more) %>
   </div>
 	
   <div id="add_more", style="display:none">	

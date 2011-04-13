@@ -57,7 +57,7 @@
 <% if can? :new, Order %>
 <% if @items_to_order && @items_to_order > 0 %>
   <div id="order">
-    <p><%= link_to_function "Place order for checked items", toggle_div(:place_order, :order) %></p>
+    <p><%= link_to_function "Place order for checked items", div_toggle(:place_order, :order) %></p>
   </div>
 	
   <div id="place_order", style="display:none">	

@@ -20,10 +20,10 @@
   <% end %>
   </table>
 </fieldset>
-<br clear="all" />
+<%= break_clear %>
 
 <div id="pswd_link">
-  <%= link_to_function "Change password", toggle_div(:chg_pswd, :pswd_link) %>
+  <%= link_to_function "Change password", div_toggle(:chg_pswd, :pswd_link) %><br /><br />
 </div>
 
 <div id="chg_pswd", style="display:none;">
@@ -40,8 +40,8 @@
     <tr><%= f.password_field :password_confirmation, :label => 'New Password Confirmation' %></tr>
   </table>
 </fieldset>
-<br clear="all" />
+<%= break_clear %>
 </div>
 
-<p><%= f.submit 'Update' -%>&nbsp;&nbsp;<%=link_to 'Cancel', :controller => 'welcome', :action => 'index' %></p>
+<div><%= f.submit 'Update' -%>&nbsp;&nbsp;<%=link_to 'Cancel', :back %></div>
 <% end -%>
