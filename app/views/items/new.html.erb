@@ -1,21 +1,24 @@
 <h3>New item</h3>
 
 <% form_tag :action => 'create' do %>
-  
-  <table class="list">
+<fieldset class="form">
+<legend>Order Details</legend>
+  <table class="form">
   	<tr>
-  	  <th>Timestamp</th>
-	  <th>Requestor</th>
-	  <th>Deliver Site</th> 
-	  <th>Grant #</th>
-  	</tr>
-	<tr>
-	  <td><%=format_datetime(Time.now) %></td>
+  	  <th>Requestor</th>
 	  <td><%=select(:item_default, :requester_name, @researchers, {:include_blank => 'Select requestor'}) %></td>
-	  <td><%=select(:item_default, :deliver_site, Item::DELIVER_SITES, {:include_blank => true})%></td>
-	  <td><%=text_field(:item_default, :grant_nr) %>
+  	  <td></td>
+	  <td><%=format_datetime(Time.now) %></td>
 	</tr>
+	<tr>
+	  <th>Deliver Site</th>
+	  <td><%=select(:item_default, :deliver_site, Item::DELIVER_SITES, {:include_blank => true})%></td>
+	  <th>Grant #</th>
+	  <td><%=text_field(:item_default, :grant_nr, :size => 10) %>
+  	</tr>
   </table>
+</fieldset>
+<%= break_clear %>
   
   <% if @items.nil? %>
   <div id='item_entry'> 
