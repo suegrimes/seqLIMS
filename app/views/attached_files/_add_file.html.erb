@@ -1,4 +1,5 @@
-<span class="form_title">Attach new file:</span>
+<fieldset class="form">
+<legend>New <%= obj.class.to_s.downcase %>&nbsp;attachment:</legend>
 <% form_for(:attached_file, @attached_file,
             :url => {:controller => 'attached_files', :action=> 'create'},
             :html => {:multipart => true}) do |f| -%>  
@@ -13,8 +14,9 @@
 	</tr>
 	<tr>
 	  <th>Notes:</th>
-	  <td><%= f.text_field(:notes, :size => 100) %></td>  
+	  <td><%= f.text_field(:notes, :size => 65) %></td>  
 	</tr>
   </table>
-  <%= f.submit "Upload File" %>
+</fieldset>
+<%= break_clear(f.submit("Upload File"))%>
 <% end %>

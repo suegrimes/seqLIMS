@@ -1,44 +1,38 @@
-<table class="info01">
-  <tr>
-  	<th>Lib Barcode</th>
-	<td><%= link_to seq_lib.lib_barcode, edit_seq_lib_path(seq_lib) %></td> 
-	<th>Protocol</th>
-	<td><%=h @protocol.protocol_name if @protocol %></td>	
-	<th>Adapter</th>
-	<td><%=h seq_lib.runtype_adapter %></td>
-	<th>Project</th>
-	<td><%=h seq_lib.target_pool %></td>
-    <th>Enzyme</th>
-	<td><%=h seq_lib.enzyme_code %></td>		
-  </tr>
-  <tr>
-  	<th>Library Name</th>
-	<td><%=h seq_lib.lib_name %></td>	
-    <th>Quantitation</th>
-	<td><%=h seq_lib.quantitation_method %></td>
-	<th>Lib Conc</th>
-	<td><%=h seq_lib.lib_conc_requested %> pM</td>
-	<td colspan="4"></td>
-  </tr>
-  <tr>
-  	<th>Owner</th>
-	<td><%=h seq_lib.owner_abbrev %></td>  	
-    <th>Size(Final PCR)</th>
-	<td><%=h seq_lib.pcr_size %></td> 
-    <th>Align Ref</th>
-	<td><%=h seq_lib.alignment_ref %></td>
-	<th>Notebook Ref</th>
-	<td colspan="3"><%=h seq_lib.notebook_ref %></td>
-  </tr>
-  <tr>
-  	<th>Preparation date</th>
-	<td><%=h seq_lib.preparation_date %></td>
-	 <th>Sample Conc</th>
-	<td><%=h number_with_precision(seq_lib.sample_conc, :precision => 2) %>
-	    <%=h seq_lib.sample_conc_uom %></td>
-	<th>Trim Bases</th>
-	<td><%=h seq_lib.trim_bases %></td>
-	<th>Notes</th>
-	<td colspan="3"><%=h seq_lib.notes %></td>
-  </tr>
-</table>
+<% last_info_box ||= 'no' %>
+<% link_to_edit ||= 'yes' %>
+
+<% click_to_link ||= 'none' %>
+<% click_to_link = 'none' if (click_to_link == 'edit' && (cannot? :edit, seq_lib))%>
+<% click_to_link = 'none' if (click_to_link == 'show' && (cannot? :read, seq_lib))%>
+
+<!-- Standard fields to be displayed -->
+<% info_flds   = [[(click_to_link == 'none'? 'Field' : 'Link'), 'Lib Barcode', seq_lib.lib_barcode, click_to_link], 
+                  ['Field', 'Library Name', seq_lib.lib_name],
+                  ['Field', 'Owner', seq_lib.owner_abbrev],
+                  ['Field', 'Prep Date', seq_lib.preparation_date],
+                  ['Field', 'Protocol', (@protocol ? @protocol.protocol_name : '')],
+                  ['Field', 'Adapter', seq_lib.runtype_adapter],
+                  ['Field', 'Sample Conc', [number_with_precision(seq_lib.sample_conc, :precision => 2), seq_lib.sample_conc_uom].join(' ')],
+                  ['Field', 'Lib Conc', seq_lib.lib_conc_requested],				  
+                  ['Field', 'Size(Final PCR)', seq_lib.pcr_size],
+                  ['Field', 'Quantitation', seq_lib.quantitation_method],
+                  ['Field', 'Align Ref', seq_lib.alignment_ref],
+                  ['Field', 'Trim Bases', seq_lib.trim_bases],
+                  ['Field', 'Project', seq_lib.target_pool],
+                  ['Field', 'Enzyme', seq_lib.enzyme_code], 
+                  ['Field', 'Notebook Ref', seq_lib.notebook_ref]] %>
+				  
+<!-- Only include comments if non-blank -->
+<% info_flds.push(['Field', 'Comments', seq_lib.notes]) if !seq_lib.notes.blank? %>
+
+<!-- Links to be displayed with borders, in bottom row of info box -->
+<% info_links = [] %>
+<% info_links = [['Edit', 'edit']] if link_to_edit == 'yes' && (can? :edit, seq_lib) %>
+
+<%= render :partial => 'shared/info_box', :locals => {:info_legend     => 'Seq Library',
+                                                      :info_flds       => info_flds,
+                                                      :info_links      => info_links,
+                                                      :link_controller => 'seq_libs',
+                                                      :link_id         => seq_lib.id,
+                                                      :last_info_box   => last_info_box} %>
+													  

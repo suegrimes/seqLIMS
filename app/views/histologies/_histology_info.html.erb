@@ -18,7 +18,6 @@
 
 <!-- Links to be displayed with borders, in bottom row of info box -->
 <% info_links = [] %>
-<% info_links.push(['Attach', 'show'])   if (can? :read, histology) %>
 <% info_links.push(['Edit', 'edit'])     if (can? :edit, histology) %>
 <% info_links.push(['Delete', 'delete']) if (can? :delete, histology) %>
 
