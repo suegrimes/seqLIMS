@@ -48,12 +48,12 @@
 	  <th>Price:</th>
 	  <td><%=f.text_field(:item_price, :size => 10) %></td> 	
 	  <th>Notes:</th>
-	  <td colspan="3"><%=f.text_field(:notes, :size => 65)%></td>
+	  <td><%=f.text_field(:notes, :size => 65)%></td>
 	</tr>
+	<tr><td colspan="4"><hr></td></tr>
 	<% end %>
   <% end %>
 </table>
 </fieldset>
-<br />
-<table width="100%"><tr><td><%= submit_tag "Save items"%></td></tr></table>
+<%= break_clear(submit_tag("Save Items"))%>
 

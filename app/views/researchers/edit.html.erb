@@ -5,7 +5,7 @@
 
   <%= render :partial => 'researcher_form', :locals => {:f => f} %>
   
-  <%= f.submit "Update" %>
+  <%= f.submit "Update" -%>&nbsp;&nbsp;<%= link_to 'List All', researchers_path %>
 <% end %>
 
-<%= link_to 'List All', researchers_path %>
+

@@ -13,7 +13,7 @@
 	<% fields_for Order.new(:date_ordered => Date.today) do |f|%>
       <%= render :partial => 'orders/order_form', :locals => {:f => f, :have_company_list => 'yes'} %>
 	<% end %> 
-  <%= submit_tag "Submit"%><br /><br />
+  <%= break_clear(submit_tag("Submit"))%><br />
  </div>
  
 <table class="list">

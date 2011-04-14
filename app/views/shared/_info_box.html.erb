@@ -19,12 +19,12 @@
 		
 		<% fld = info_flds[j] %>
 		<% if fld[0] == "Field" %>
-		  <th><%= fld[1] %>:</th>
-		  <td><%=h fld[2] %></td>
+		  <%= content_tag(:th, fld[1] + ':') %>
+		  <%= content_tag(:td, fld[2]) %>
 		  
 		<% elsif fld[0] == "Link" %>
-		  <th><%= fld[1] %>:</th>
-		  <td><%=link_to fld[2], {:controller => link_controller, :action => fld[3], :id => link_id} %></td>
+		  <%= content_tag(:th, fld[1] + ':') %>
+		  <%= content_tag(:td, (link_to fld[2], {:controller => link_controller, :action => fld[3], :id => link_id})) %>
 		<% end %>  <!-- end if (fld[0]) -->
 	  <% end %>  <!-- end do (j) -->
 	  </tr>
@@ -33,8 +33,10 @@
 	  <% if info_links && info_links.size > 0 %>
 	    <tr>
 	      <% info_links.each do |lnk| %>
-		    <% options_hash = {:confirm => 'Are you sure', :method => :delete} if lnk[1] == 'delete' %>
-		    <td><div class="linkborder"><%=link_to lnk[0], {:controller => link_controller, :action => lnk[1], :id => link_id}, options_hash %></div></td>
+		    <% div_options = {:class => "linkborder"} %>
+		    <% link_options = {:confirm => 'Are you sure', :method => :delete} if lnk[1] == 'destroy' %>
+			<%= content_tag(:td, 
+                  content_tag(:div, (link_to lnk[0], {:controller => link_controller, :action => lnk[1], :id => link_id}, link_options), div_options))%>
 		  <% end %>
 	    </tr>
 	  <% end %> <!-- end if (info_links) -->

@@ -1,29 +1,22 @@
-<table class="info">
-  	<tr>
-  	  <th>Researcher name:</th>
-	  <td><%=h @researcher.researcher_name %></td>
-	</tr>
-	
-	<tr>
-	  <th>Researcher initials:</th>
-      <td><%=h @researcher.researcher_initials %></td>
-	</tr>
-    
-	<tr>
-	  <th>User login:</th>
-      <td><%=h @researcher.user.login if @researcher.user %></td>
-	</tr>
-	
-    <tr>
-	  <th>Phone number: </th>
-      <td><%=h @researcher.phone_number %></td>
-	</tr>
-	
-	<tr>
-	  <th>Company</th>
-      <td><%=h @researcher.company %></td>
-	</tr>
-  </table>
+<h3>View Researcher</h3>
 
-<%= link_to 'Edit', edit_researcher_path(@researcher) %> |
-<%= link_to 'Back', researchers_path %>
+<!-- Standard fields to be displayed -->
+<% info_flds   = [['Field', 'Researcher Name', @researcher.researcher_name],
+                  ['Field', 'Initials', @researcher.researcher_initials], 
+                  ['Field', 'Login', (@researcher.user ? @researcher.user.login : 'N/A')],
+                  ['Field', 'Phone#', @researcher.phone_number],
+                  ['Field', 'Company', @researcher.company]] %>
+
+<!-- Links to be displayed with borders, in bottom row of info box -->
+<% info_links = [] %>
+<% info_links << ['Show', 'show'] if (can? :read, @researcher) %>
+<% info_links << ['Edit', 'edit'] if (can? :edit, @researcher) %>
+<% info_links << ['Delete', 'destroy'] if (can? :delete, @researcher) %>
+
+<%= render :partial => 'shared/info_box', :locals => {:info_legend     => 'Researcher Details',
+                                                      :info_flds       => info_flds,
+                                                      :info_links      => info_links,
+                                                      :link_id         => @researcher.id,
+                                                      :link_controller => 'researchers',
+                                                      :last_info_box   => 'yes'} %>
+													  
