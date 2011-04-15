@@ -1,62 +1,45 @@
 <fieldset class="form">
    <legend>Library Details</legend>
-<table class="form">
-<tr>
-  <th>Barcode</th>
-  <th>Lib Name</th>
-  <th>Source DNA/RNA</th>
-  <th>Protocol</th>
-  <th>Prep Date</th>
-  <th>Owner</th>
-  <th>Adapter</th>
+<table class="form" border="0">
+  <th>Prep Date:</th><td><%= f.calendar_date_select(:preparation_date, :size => 15) %></td>
+  <th>Owner:</th><td><%= f.select(:owner, @owners) %></td>
+  <th>Protocol:</th><td><%= f.collection_select(:protocol_id, @protocols, :id, :protocol_name,
+                             {:include_blank => 'Select Protocol'}) %></td>
 </tr>
 <tr>
-  <td><% if @seq_lib.new_record? || @seq_lib.dummy_barcode == false %><%= f.text_field :barcode_key, :size => 10 %>
+  <th>Barcode:</th><td><% if @seq_lib.new_record? || @seq_lib.dummy_barcode == false %><%= f.text_field :barcode_key, :size => 10 %>
         <% else %>&nbsp;<% end %></td>
-  <td><%= f.text_field :lib_name, :size => 15 %></td>
-  <td><%= text_field_with_auto_complete :lib_sample, :source_sample_name, {:size => 12},
+  <th>Adapter:</th><td><%= f.collection_select(:runtype_adapter, exclude_adapters(@adapters, 'S'),
+                              :c_value, :c_value) %></td>  						  	
+  <th>Project:</th><td><%= f.collection_select(:target_pool, @projects, :c_value, :c_value,
+                             {:include_blank => 'Select Project'}) %></td>
+</tr>
+<tr>
+  <th>Source DNA/RNA:</th><td><%= text_field_with_auto_complete :lib_sample, :source_sample_name, {:size => 12},
               {:url => {:controller => :processed_samples, :action => :auto_complete_for_barcode_key},
                :param_name => :search, :min_chars => 2, :method => :get} %></td>
-  <td><%= f.collection_select(:protocol_id, @protocols, :id, :protocol_name,
-                             {:include_blank => 'Select Protocol'}) %></td>
-  <td><%= f.calendar_date_select(:preparation_date, :size => 15) %></td>
-  <td><%= f.select(:owner, @owners) %></td>
-  <td><%= f.collection_select(:runtype_adapter, exclude_adapters(@adapters, 'S'),
-                              :c_value, :c_value) %></td>
-</tr>
-
-<tr> 
-  <th>Quantitation</th>
-  <th>Size(Final PCR))</th>
-  <th>Trim Bases</th>
-  <th>Sample Conc</th>
-  <th>Lib Conc(requested)</th>  
-  <th>Align Ref</th>
-  <th>Project</th>
-  <th>Enzyme</th>
-</tr>
-
-<tr>  
-  <td><%= f.collection_select(:quantitation_method, @quantitation, :c_value, :c_value, 
-                             {:include_blank => 'Select Method'}) %></td>
-  <td><%= f.text_field :pcr_size, :size => 6 %></td>
-  <td><%= f.text_field :trim_bases, :size => 6 %></td>
-  <td><%= f.text_field :sample_conc, :size => 10 %> ng/ul </td> 
-  <td><%= f.text_field :lib_conc_requested, :size => 10 %>pM</td> 
-  <td><%= f.collection_select(:alignment_ref_id, @align_refs, :id, :alignment_key) %></td>
-  <td><%= f.collection_select(:target_pool, @projects, :c_value, :c_value,
-                             {:include_blank => 'Select Project'}) %></td>
-  <td rowspan=5><%= f.collection_select(:enzyme_code, @enzymes, :c_value, :c_value,
-                             {:include_blank => 'N/A'},{:size => 5, :multiple => :multiple}) %></td>
-</tr>
-
-<tr>
-  <th colspan=2>Notebook Ref</th>
-  <th colspan=3>Library Notes</th>
+  <th>Quantitation:</th><td><%= f.collection_select(:quantitation_method, @quantitation, :c_value, :c_value, 
+                             {:include_blank => 'Select Method'}) %></td>							 	
+  <th rowspan="2">Enzyme:</th><td rowspan="2"><%= f.collection_select(:enzyme_code, @enzymes, :c_value, :c_value,
+                             {:include_blank => 'N/A'},{:size => 4, :multiple => :multiple}) %></td>
 </tr>
 <tr>
-  <td colspan=2><%= f.text_field :notebook_ref %></td>
-  <td colspan=3><%= f.text_field :notes, :size => 80 %></td>
+  <th colspan="3">Size(Final PCR))</th><td><%= f.text_field :pcr_size, :size => 12 %></td>
+</tr>
+<tr>
+  <th>Lib Name:</th><td><%= f.text_field :lib_name, :size => 15 %></td>
+  <th>Lib Conc(requested):</th><td><%= f.text_field :lib_conc_requested, :size => 10 %>&nbsp;pM</td>
+  <th>Sample Conc:</th><td><%= f.text_field :sample_conc, :size => 10 %>&nbsp;ng/ul </td>    
+</tr>
+<tr>
+  <th>Align Ref:</th><td><%= f.collection_select(:alignment_ref_id, @align_refs, :id, :alignment_key) %></td>
+  <th>Trim Bases:</th><td><%= f.text_field :trim_bases, :size => 6 %></td> 							 								 								   
+</tr>
+<tr>
+  <th>Notebook Ref:</th><td colspan="5"><%= f.text_field :notebook_ref %></td>
+</tr>
+<tr>
+  <th>Library Notes:</th><td colspan="5"><%= f.text_field :notes, :size => 80 %></td>
 </tr>
 </table> 
 </fieldset>
