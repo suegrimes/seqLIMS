@@ -7,7 +7,7 @@
 
 <fieldset class="form">
 <legend>Libraries</legend>
-<table class="form-with-columns" border="0">
+<table class="form-with-columns-no-th-underline" border="0">
  <%= hidden_field_tag(:nr_libs, @new_lib.size) %>
  <% @new_lib.each_with_index do |lib, i| %>
     <% fields_for 'seq_lib_' + i.to_s, lib do |f| %>
