@@ -342,12 +342,12 @@ text-decoration: none;
 
 #maincontent .big-login-buttons a {
     color: #990000;
-text-decoration: none;
+    text-decoration: none;
 }
 
 #maincontent .big-login-buttons a:hover {
     color: #333;
-text-decoration: none;
+    text-decoration: none;
 }
 
 /* styles for tables */
@@ -498,7 +498,8 @@ fieldset.info {
 /* end info fieldset styles */
 
 table.form {
-    background-color: #e5e5e5;
+    background-color: #e9e9e9;
+    border-collapse: collapse;
 }
 
 .form th {
@@ -506,12 +507,6 @@ table.form {
     font-weight: bolder;
 	text-align: right;
 	vertical-align:top;
-	/*
-    font-size: .9em;
-    background-color: #f1f2e3;
-    border-bottom: none;
-    text-align: right;
-    */
 }
 
 .form th.top-heading-row {
@@ -519,15 +514,29 @@ table.form {
 	vertical-align:middle;
 }
 
-
 .form td {
 	font-size: .85em;
 	vertical-align: top;
 	padding-right: .75em;
-	/*
-    font-size: .9em;
-    border-bottom: none;
-    */
+    white-space:nowrap;
+}
+
+table.form-with-columns {
+    background-color: #e9e9e9;
+    border-collapse: collapse;
+}
+
+.form-with-columns th {
+    font-size: .85em;
+    font-weight: bolder;
+	text-align: left;
+	vertical-align:top; 
+}
+
+.form-with-columns td {
+	font-size: .85em;
+	vertical-align: top;
+	padding-right: .75em;
 }
 
 .form01 {
@@ -563,7 +572,7 @@ fieldset.form {
     padding: .5em .5em 0 .5em;
     margin-bottom: 10px;
     float:left; 
-	background: #e5e5e5;
+	background: #e9e9e9;
 	border: 1px solid #999;
     min-width:25%;
 	max-width:65%;

@@ -1,26 +1,13 @@
 <div id='libs_form'>
-<p><%= submit_tag "Save libraries" %>&nbsp;&nbsp;&nbsp;
+<%= submit_tag "Save libraries" %>&nbsp;&nbsp;&nbsp;
 <%= submit_to_remote 'Singleplex', 'Refesh from Defaults',
       :url => {:action => 'populate_splex', :nr_libs => @new_lib.size},
-      :update => 'libs_form' %></p>
+      :update => 'libs_form' %>
+<div class="clear">&nbsp;</div>
 
-<span class="form_title">Libraries:</span>
-<table class="form01">
-<tr>
-  <th>Line</th>
-  <th>Adapter</th>
-  <th>Barcode</th>
-  <th>Lib Name</th>
-  <th>Sample Conc</th>
-  <th>Source DNA/RNA</th>
-  <th>Size(Final PCR)</th>
-  <th>Library Conc</th>
-  <th>Trim Bases</th>
-  <th>Align Ref</th>
-  <th>Project</th>
-  <th>Enzyme Code</th>
-</tr>
-
+<fieldset class="form">
+<legend>Libraries</legend>
+<table class="form-with-columns" border="0">
  <%= hidden_field_tag(:nr_libs, @new_lib.size) %>
  <% @new_lib.each_with_index do |lib, i| %>
     <% fields_for 'seq_lib_' + i.to_s, lib do |f| %>
@@ -31,31 +18,57 @@
 	<%= f.hidden_field(:preparation_date) %>
 	<%= f.hidden_field(:protocol_id) %>
 	<%= f.hidden_field(:quantitation_method)%>
-    
-	<tr>
-    <td><%= i+1 %></td>
-	<td><%= f.collection_select(:runtype_adapter, exclude_adapters(@adapters,'M'), :c_value, :c_value) %></td>
-	<td><%= f.text_field :barcode_key, :size => 10 %></td>
-	<td><%= f.text_field(:lib_name, :size => 15)%></td>
-    <td><%= f.text_field(:sample_conc, :size => 8)%> ng/ul</td>
-	<td><%= s.text_field_with_auto_complete :source_sample_name, {:size => 12},
+<tr>
+    <th><em>Library: <%= i+1 %></em></th>
+	<th>Barcode</th>
+	<th>Lib Name</th>
+    <th>Sample Conc</th>
+	<th>Source DNA/RNA</th>
+	<th>Adapter</th>
+</tr>
+<tr>
+    <td></td>
+    <td><%= f.text_field :barcode_key, :size => 10 %></td>
+    <td><%= f.text_field(:lib_name, :size => 15)%></td>
+	<td><%= f.text_field(:sample_conc, :size => 8)%> ng/ul</td>
+    <td><%= s.text_field_with_auto_complete :source_sample_name, {:size => 12},
               {:url => {:controller => :processed_samples, :action => :auto_complete_for_barcode_key},
                :param_name => :search, :min_chars => 2, :method => :get} %></td>
+    <td><%= f.collection_select(:runtype_adapter, exclude_adapters(@adapters,'M'), :c_value, :c_value) %></td>
+</tr>
+<tr>  
+    <td></td>   
+	<th>Quantitation</th>
+	<th>Size(Final PCR)</th>
+    <th>Library Conc</th>
+	<th>Align Ref</th>
+	<th>Trim Bases</th> 
+</tr>
+<tr>
+    <td></td>       
+    <td><%= collection_select(:lib_default, :quantitation_method, @quantitation, :c_value, :c_value, {:include_blank => 'Select Method'}) %></td>
 	<td><%= f.text_field(:pcr_size, :size => 6) %></td> 
 	<td><%= f.text_field(:lib_conc_requested, :size => 8)%>pM</td>
-	<td><%= f.text_field(:trim_bases, :size => 6) %></td> 
-	<td><%= f.collection_select(:alignment_ref_id, @align_refs, :id, :alignment_key) %></td>
-	<td><%= f.collection_select(:target_pool, @projects, :c_value, :c_value,
+    <td><%= f.collection_select(:alignment_ref_id, @align_refs, :id, :alignment_key) %></td>
+	<td><%= f.text_field(:trim_bases, :size => 6) %></td>
+</tr>
+<tr>
+  <th>Notebook Ref:</th>
+  <td colspan="3"><%= f.text_field(:notebook_ref, :size => 30)%></td>  
+</tr>
+<tr>
+  <th>Notes:</th>
+  <td colspan="3"><%= f.text_field(:notes, :size => 50)%></td>
+  <td><%= f.collection_select(:target_pool, @projects, :c_value, :c_value,
                                {:include_blank => 'Select Project'}) %></td>
-    <td><%= f.text_field(:enzyme_code, :size => 12) %></td>
-	</tr>
-	<tr>
-	  <td></td>
-	  <td style="background-color:#e8ead0" colspan=2><i>Notebook Ref:</i></td><td colspan=2><%= f.text_field(:notebook_ref, :size => 30)%></td> 
-      <td style="background-color:#e8ead0"><i>Notes:</i></td><td colspan=5><%= f.text_field(:notes, :size => 80)%></td>
-	</tr>
+  <th>Enzyme:&nbsp;&nbsp;<%= f.text_field(:enzyme_code, :size => 12) %></th>  
+</tr>
+<tr>
+  <td colspan="12" style="border-bottom: 1px solid #999; padding-top:.25em; margin-bottom:.75em;"></td>
+</tr>
   <% end %>
   <% end %>
 <% end %>
 </table>
+</fieldset>
 </div>

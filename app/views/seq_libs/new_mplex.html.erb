@@ -3,7 +3,6 @@
 <% form_for(@seq_lib, :url => {:action => :create_mplex}) do |f| %>
   <%= f.error_messages %>
   
-  <span class="form_title">Library Details:</span>
   <%= render :partial => 'mplex_lib_form', :locals => {:f => f}%> 
   
   <% if !@lib_samples %>
