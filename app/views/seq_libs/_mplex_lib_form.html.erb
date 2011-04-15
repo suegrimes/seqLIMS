@@ -12,7 +12,7 @@
 </tr>
 <tr>
   <td><% if @seq_lib.new_record? || @seq_lib.dummy_barcode == false %><%= f.text_field :barcode_key, :size => 10 %>
-	    <% else %>&nbsp;<% end %></td>
+        <% else %>&nbsp;<% end %></td>
   <td><%= f.text_field :lib_name, :size => 15 %></td>
   <td><%= text_field_with_auto_complete :lib_sample, :source_sample_name, {:size => 12},
               {:url => {:controller => :processed_samples, :action => :auto_complete_for_barcode_key},
