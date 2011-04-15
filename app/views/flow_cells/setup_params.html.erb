@@ -1,7 +1,8 @@
-<h3>Prepare Flow Cell - Sequencing Library parameters </h3>
+<h3>Prepare Flow Cell</h3>
 
 <% form_tag :action=> 'new'  do %>
-
+<fieldset class="form">
+	<legend>Sequencing Library Parameters</legend>
 <table class="form">
   <tr>
     <th>Owner(s):</th>
@@ -22,11 +23,8 @@
 	<td><%=calendar_date_select_tag(:to_date, @to_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%></td>
   </tr>	
 </table>
-
-<br />
-<br />
-
-<p><%= submit_tag "Submit" %></p>
+</fieldset>
+<%= break_clear(submit_tag "Submit")%>
 <%end%>
 
 

@@ -4,9 +4,10 @@
   <%= f.error_messages %>
   <%= render :partial => 'flow_cell_form', :locals => {:f => f} %>
   
-  <p class="notes">Note: to assign a sequencing library to multiple lanes, separate the lane numbers with commas (eg. 1,2)</p>
-
-  <table class="info01">
+<%= break_clear('<div class="notes">Note: to assign a sequencing library to multiple lanes, separate the lane numbers with commas (eg. 1,2)</div>') %>
+<fieldset class="form">
+  <legend>Lanes</legend>
+  <table class="form-with-columns">
     <tr>
       <th>Lane</th>
 	  <th>Lib Conc</th>
@@ -26,7 +27,7 @@
                                                                :flow_lane => flow_lane } %></tr>
 	<% end %>
   </table>
-  
+</fieldset>  
   <span><%= f.submit "Create" %></span>
 <% end %>
   
