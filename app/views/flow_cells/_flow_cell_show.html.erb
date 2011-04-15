@@ -1,40 +1,27 @@
-<% nr_cols = 6 %>
+<% last_info_box ||= 'no' %>
+<% link_to_edit ||= 'yes' %>
 
-<table class="list">
-  <tr>
-  	<% if flow_cell.flowcell_status != 'F' %><th class="no_border_bottom">&nbsp;</th><% nr_cols += 1 %><% end %>
-	<% if !flow_cell.hiseq_xref.blank? %><th class="no_border_bottom">&nbsp;</th><% nr_cols += 1 %><% end %>
-  	<th class="no_border_bottom">&nbsp;</th>	
-	<th colspan="3" class="no_border_bottom" style="text-align:center"><%= "Number of Bases".center(24, '-')%></th>
-	<th colspan="2" class="no_border_bottom" style="text-align:center"><%= "Kit Versions".center(24, '-')%></th>
-  </tr>
-  <tr>
-  	<% if flow_cell.flowcell_status != 'F' %><th>Sequencing key</th><% end %>
-	<% if !flow_cell.hiseq_xref.blank? %><th>HiSeq Run#</th><% end %>
-	<th>Date</th>
-	<th>Read 1</th>
-	<th>Index</th>
-	<th>Read 2</th>
-	<th>Cluster</th>
-	<th>Sequencing</th>
-  </tr>
-  <tr>
-  	<% if flow_cell.flowcell_status != 'F' %><td class="no_border_bottom"><%=h flow_cell.sequencing_key %></td><% end %>
-	<% if !flow_cell.hiseq_xref.blank? %><td class="no_border_bottom"><%=h flow_cell.hiseq_xref %></td><% end %>
-	<td class="no_border_bottom"><%=h flow_cell.flowcell_date %></td>
-	<td class="no_border_bottom"><%=h flow_cell.nr_bases_read1 %></td>
-	<td class="no_border_bottom"><%=h flow_cell.nr_bases_index %></td>
-	<td class="no_border_bottom"><%=h flow_cell.nr_bases_read2 %></td>
-	<td class="no_border_bottom"><%=h flow_cell.cluster_kit %></td>
-	<td class="no_border_bottom"><%=h flow_cell.sequencing_kit %></td>
-  </tr>
-  <% if !flow_cell.notes.blank? %>
-  <tr>
-  	<td colspan="<%= nr_cols %>" style="border-top:0; text-align:center;">
-  	<div style="padding: 0 20px; margin-bottom: 4px; width:90%; border: 1px solid #e5e5e5; text-align:left;">
-	Flow cell notes:&nbsp;&nbsp;&nbsp;&nbsp;<%=h flow_cell.notes %>
-	</div>
-	</td>
-  </tr>
-  <% end %>
-</table>
+<% click_to_link ||= 'none' %>
+<% click_to_link = 'none' if (click_to_link == 'edit' && (cannot? :edit, flow_cell))%>
+<% click_to_link = 'none' if (click_to_link == 'show' && (cannot? :read, flow_cell))%>
+
+<!-- Standard fields to be displayed -->
+<% info_flds   = [['Field', 'Date', flow_cell.flowcell_date],              
+                  ['Field', '# Reads(R1,Index,R2)', [flow_cell.nr_bases_read1, flow_cell.nr_bases_index, flow_cell.nr_bases_read2].join(',')],
+                  ['Field', 'Cluster Kit', flow_cell.cluster_kit],
+                  ['Field', 'Sequencing Kit', flow_cell.sequencing_kit]] %>
+				  
+<!-- Only include comments if non-blank -->
+<% info_flds.push(['Field', 'HiSeq Run#', flow_cell.hiseq_xref], nil) if !flow_cell.hiseq_xref.blank? %>
+<% info_flds.push(['Field', 'Comments', flow_cell.notes]) if !flow_cell.notes.blank? %>
+
+<!-- Links to be displayed with borders, in bottom row of info box -->
+<% info_links = [] %>
+<% info_links = [['Edit', 'edit']] if link_to_edit == 'yes' && (can? :edit, flow_cell) %>
+
+<%= render :partial => 'shared/info_box', :locals => {:info_legend     => flow_cell.id_name,
+                                                      :info_flds       => info_flds,
+                                                      :info_links      => info_links,
+                                                      :link_controller => 'flow_cells',
+                                                      :link_id         => flow_cell.id,
+                                                      :last_info_box   => last_info_box} %>

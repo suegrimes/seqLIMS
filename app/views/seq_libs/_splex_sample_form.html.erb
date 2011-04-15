@@ -63,9 +63,7 @@
                                {:include_blank => 'Select Project'}) %></td>
   <th>Enzyme:&nbsp;&nbsp;<%= f.text_field(:enzyme_code, :size => 12) %></th>  
 </tr>
-<tr>
-  <td colspan="12" style="border-bottom: 1px solid #999; padding-top:.25em; margin-bottom:.75em;"></td>
-</tr>
+<%= row_underline(cols=12)%>
   <% end %>
   <% end %>
 <% end %>
