@@ -9,6 +9,6 @@
   <%= render :partial => 'flow_cells/flow_cell_show', :locals => {:flow_cell => @obj} %>
 <% end %>
 
-<%= render :partial => 'attached_files/show_file', :locals => {:obj => obj} %>
-<%= render :partial => 'attached_files/add_file',  :locals => {:obj => obj} %>
+<%= render :partial => 'attached_files/show_file', :locals => {:obj => @obj} %>
+<%= render :partial => 'attached_files/add_file',  :locals => {:obj => @obj} %>
 
