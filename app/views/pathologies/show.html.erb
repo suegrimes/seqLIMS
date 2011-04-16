@@ -1,4 +1,4 @@
-<h3>Pathology Report for Patient: <%= @pathology.patient_id %></h3>
+<h3>Pathology Report for Patient: <%= @pathology.patient_id %>, Rpt Date: <%= @pathology.pathology_date %></h3>
 
 <%= render :partial => 'patients/patient_info',  :locals => {:patient => @pathology.patient,
                                                              :click_to_link => 'show'} %>

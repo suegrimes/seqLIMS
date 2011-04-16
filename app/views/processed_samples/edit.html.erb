@@ -10,8 +10,5 @@
   <%= f.error_messages %>
   
   <%= render :partial => 'processed_sample_form', :locals => {:f => f} %>
-  
-  <p>
-    <%= f.submit "Update" %>
-  </p>
+  <%= break_clear(f.submit "Update") %>
 <% end %>
