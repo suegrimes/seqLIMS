@@ -1,7 +1,6 @@
 <h3>Details for patient: <%= @patient.id %></h3>
 
-<%= render :partial => 'patient_info', :locals => {:patient => @patient,
-                                                   :click_to_link => 'edit'} %>
+<%= render :partial => 'patient_info', :locals => {:patient => @patient, :click_to_link => 'none'} %>
 <%= break_clear %>
 
 <table class="list">

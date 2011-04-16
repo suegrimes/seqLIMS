@@ -1,8 +1,8 @@
 <!-- info_flds array is an array of arrays.  Each inner array has the following fields -->
-<!-- 'Field' or 'Link' - Indicates whether value is a general field, or a href/link -->
-<!--  Label            - Value to be displayed as field label (can be nil) -->
-<!--  Value            - Field value -->
-<!--  Action           - If this is a link, specify action to be performed when link is clicked -->
+<!-- 'Field' or 'Link'        - Indicates whether value is a general field, or a href/link -->
+<!--  Label                   - Value to be displayed as field label (can be nil) -->
+<!--  Value                   - Field value -->
+<!--  Controller, Action, ID  - If this is a link, specify controller/action to be performed when link is clicked -->
 
 <!--  Links are assumed to always need to specify an id, which is passed in the link_id field -->
 <!--  Controller name for link_to actions, is passed in the link_controller field -->
@@ -24,7 +24,7 @@
 		  
 		<% elsif fld[0] == "Link" %>
 		  <%= content_tag(:th, fld[1] + ':') %>
-		  <%= content_tag(:td, (link_to fld[2], {:controller => link_controller, :action => fld[3], :id => link_id})) %>
+		  <%= content_tag(:td, (link_to fld[2], {:controller => fld[3][0], :action => fld[3][1], :id => fld[3][2]})) %>
 		<% end %>  <!-- end if (fld[0]) -->
 	  <% end %>  <!-- end do (j) -->
 	  </tr>

@@ -2,11 +2,12 @@
 <% if @sample %>
   <%= render :partial => 'samples/sample_info', :locals => {:source => 'Source',
                                                              :sample => @sample, 
-                                                             :sample_characteristic => @sample.sample_characteristic} %>
+                                                             :sample_characteristic => @sample.sample_characteristic,
+                                                             :last_info_box => 'yes'} %>
 <% end %>
 
-<span class="table_title">Extracted Samples</span>
-<% if @processed_samples %> (<%= @processed_samples.size %> samples) <% end %>
+<span class="table_title">Extracted Samples
+<% if @processed_samples %> (<%= @processed_samples.size %> samples) <% end %></span>
 <table class="list">
   <%= render :partial => 'processed_sample_hdr' %>
   

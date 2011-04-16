@@ -5,8 +5,13 @@
                                    :sample_characteristic => @sample_characteristic}%>
 
 <%= render :partial => 'sample_characteristics/clinical_info', 
-                       :locals => {:sample_characteristic => @sample_characteristic,
-                                   :last_info_box => 'yes'}%>
+                       :locals => {:sample_characteristic => @sample_characteristic}%>
+
+<% if @sample_characteristic.pathology %>								   
+<%= render :partial => 'pathologies/pathology_info',
+                       :locals => {:pathology => @sample_characteristic.pathology} %>
+<% end%>
+<%= break_clear %>
 
 <span class="table_title">Physical Samples:</span>
 <table class="list">

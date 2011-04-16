@@ -1,11 +1,11 @@
 <% last_info_box ||= 'no' %>
 
-<% click_to_link ||= 'none' %>
+<% click_to_link ||= 'show' %>
 <% click_to_link = 'none' if (click_to_link == 'edit' && (cannot? :edit, patient))%>
 <% click_to_link = 'none' if (click_to_link == 'show' && (cannot? :read, patient))%>
 
 <!-- Standard fields to be displayed -->
-<% info_flds   = [[(click_to_link == 'none'? 'Field' : 'Link'), 'Patient ID', sample_characteristic.patient_id, click_to_link],
+<% info_flds   = [[(click_to_link == 'none'? 'Field' : 'Link'), 'Patient ID', patient.id, ['patients', click_to_link, patient.id]],
                    nil, 
                   ['Field', 'Gender', patient.gender],
                   ['Field', 'Race/Ethnicity', [patient.race, patient.ethnicity].join('/')],
@@ -23,5 +23,5 @@
                                                       :info_flds       => info_flds,
                                                       :info_links      => info_links,
                                                       :link_controller => 'patients',
-                                                      :link_id         => sample_characteristic.patient_id,
+                                                      :link_id         => patient.id,
 													  :last_info_box   => last_info_box} %>

@@ -1,9 +1,15 @@
-<% last_info_box ||= 'no' %>
+<% click_to_link ||= 'show' %>
+<% click_to_link = 'none' if (click_to_link == 'edit' && (cannot? :edit, patient))%>
+<% click_to_link = 'none' if (click_to_link == 'show' && (cannot? :read, patient))%>
+
 <% show_mrn ||= 'yes' %>
+<% link_to_edit ||= 'no' %>
+
+<% last_info_box ||= 'no' %>
 
 <!-- Standard fields to be displayed -->
-<% info_flds   = [['Field', 'Patient ID', patient.id],
-                  ['Field', 'MRN', patient.mrn], 
+<% info_flds   =  [[(click_to_link == 'none'? 'Field' : 'Link'), 'Patient ID', patient.id, ['patients', click_to_link, patient.id]], 
+                  ['Field', 'MRN', patient.mrn],
                   ['Field', 'Gender', sample_characteristic.gender],
                   ['Field', 'Race/Ethnicity', [sample_characteristic.race, sample_characteristic.ethnicity].join('/')],
 				  ['Field', 'PHI Notes', patient.hipaa_data]] %>

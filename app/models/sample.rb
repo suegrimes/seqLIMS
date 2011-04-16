@@ -34,6 +34,7 @@ class Sample < ActiveRecord::Base
   belongs_to :patient
   belongs_to :sample_characteristic
   belongs_to :source_sample, :class_name => 'Sample', :foreign_key => 'source_sample_id'
+  has_many   :samples, :foreign_key => 'source_sample_id'
   belongs_to :user, :foreign_key => 'updated_by'
   belongs_to :storage_location
   has_one    :histology

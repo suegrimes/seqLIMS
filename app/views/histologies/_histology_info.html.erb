@@ -1,11 +1,11 @@
 <% last_info_box ||= 'no' %>
-<% click_to_link ||= 'none' %>
+<% click_to_link ||= 'show' %>
 
 <% click_to_link = 'none' if (click_to_link == 'edit' && (cannot? :edit, histology))%>
 <% click_to_link = 'none' if (click_to_link == 'show' && (cannot? :read, histology))%>
 
 <!-- Standard fields to be displayed -->
-<% info_flds   = [[(click_to_link == 'none'? 'Field' : 'Link'), 'Barcode', histology.he_barcode_key, click_to_link], 
+<% info_flds   = [[(click_to_link == 'none'? 'Field' : 'Link'), 'Barcode', histology.he_barcode_key, ['histologies', click_to_link, histology.id]], 
                   ['Field', 'HE Date', histology.he_date],
                   ['Field', 'Pathologist', histology.pathologist],
                   ['Field', 'Histopathology', histology.histopathology],
@@ -18,8 +18,8 @@
 
 <!-- Links to be displayed with borders, in bottom row of info box -->
 <% info_links = [] %>
-<% info_links.push(['Edit', 'edit'])     if (can? :edit, histology) %>
-<% info_links.push(['Delete', 'delete']) if (can? :delete, histology) %>
+<% info_links.push(['Edit', 'edit'])      if (can? :edit, histology) %>
+<% info_links.push(['Delete', 'destroy']) if (can? :delete, histology) %>
 
 <%= render :partial => 'shared/info_box', :locals => {:info_legend     => 'H&E Slide',
                                                       :info_flds       => info_flds,

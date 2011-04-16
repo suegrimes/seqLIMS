@@ -7,9 +7,9 @@
   
   <% if !@lib_samples %>
   <div id='mplex_samples'>
-  <%= submit_to_remote 'Multiplex', 'Enter Sample Details',
+  <%= break_clear(submit_to_remote 'Multiplex', 'Enter Sample Details',
       :url => {:action => 'populate_mplex'},
-      :update => 'mplex_samples' %>
+      :update => 'mplex_samples') %>
   </div>
   
   <% else %>
