@@ -26,14 +26,15 @@
 	  <td class="border_leftright_only"><%=h flow_lane.seq_lib.trim_bases %></td>
 	  <td class="border_leftright_only"><%=h flow_lane.lib_conc %></td>
     </tr>
+	<% if !flow_lane.notes.blank? %>  
 	<tr>
-		<td style="border-top:0;"></td>
-        <td colspan="8" style="border-top:0; text-align:center;">
-          <% if !flow_lane.notes.blank? %>        
-            <div style="padding: 0 10px; margin-bottom: 4px; width:95%; border: 1px solid #e5e5e5; text-align:left;">Notes:&nbsp;<%=h flow_lane.notes %></div>
-          <% end %>
-        </td>
-      </tr>
+	  <td></td>
+      <td colspan="8" style="border-top:0; text-align:center;">
+                
+          <div style="padding: 0 10px; margin-bottom: 4px; width:95%; border: 1px solid #e5e5e5; text-align:left;">Notes:&nbsp;<%=h flow_lane.notes %></div>
+        <% end %>
+      </td>
+    </tr>
   <% end %>
 </table>
   
