@@ -20,7 +20,8 @@
 	<td><%=h seq_lib.owner_abbrev %></td>
 	<td><%=h seq_lib.preparation_date %></td>
 	<td><%=h seq_lib.runtype_adapter %></td>
-	<%= render :partial => 'seq_libs/sample_conc', :locals => {:seq_lib => seq_lib} %>
+	<td><%=h sample_conc_string(seq_lib.sample_conc_ngul, 'ng/ul')%></td>
+    <td><%=h sample_conc_string(seq_lib.sample_conc_nm, 'nm')%></td>
 	<td><%=h seq_lib.target_pool %></td>
 	<td><%=h seq_lib.alignment_ref %></td>
 	<td><%=h seq_lib.seq_lane_cnt%></td>

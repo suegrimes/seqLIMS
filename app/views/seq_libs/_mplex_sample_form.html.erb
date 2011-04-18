@@ -8,40 +8,29 @@
 <%= error_messages_for :lib_samples, :object => @seq_lib.lib_samples %>
 <fieldset class="form">
 	<legend>Samples</legend>
-<table class="form-with-columns-no-th-underline">
+<table class="form-with-columns">
   <div class="lib_sample">
-  <% @i=0 %>
-  <% @lib_samples.each do |lib_sample| %>
-    <% fields_for 'lib_samples[]', lib_sample do |s| %>
-	<tr>
-      <th>Index Tag</th>
-      <th>Tag Seq</th>
-      <th>Adapter</th>
+  	<tr>
+      <th>Tag/Seq</th>
       <th>Sample Name</th>
       <th>Source DNA/RNA</th>
+	  <th>Project</th>
+	  <th>Enzyme(s)</th>
+	  <th>Sample Notes</th>
     </tr>
+  <% @i=0 %>
+  <% @lib_samples.each do |lib_sample| %>
+    <% fields_for 'lib_samples[]', lib_sample do |s| %>	
     <tr>
-      <td><%= s.text_field(:index_tag, :value => @i+1, :size => 8)%></td>
-      <td><%=h @tag_seqs[@i] %>
-      <td><%= s.text_field(:multiplex_type) %></td>
-      <td><%= s.text_field(:sample_name, :size => 15)%></td>
+      <td><%=h @i+1 %>&nbsp;-&nbsp;<%=h @tag_seqs[@i]%></td>
+      <td><%= s.text_field(:sample_name, :size => 25)%></td>
       <td><%= s.text_field_with_auto_complete :source_sample_name, {:size => 12},
               {:url => {:controller => :processed_samples, :action => :auto_complete_for_barcode_key},
-               :param_name => :search, :min_chars => 2, :method => :get} %></td>                   
-    </tr>
-	<tr>
-	  <th>Project</th>
-	  <th>Enzyme</th>
-	  <th colspan="3">Notes</th>    
-    </tr>
-	<tr>	  
+               :param_name => :search, :min_chars => 2, :method => :get} %></td>
 	  <td><%= s.collection_select(:target_pool, @projects, :c_value, :c_value,
-                             {:include_blank => 'Select Project'}) %></td>
-	  <td><%= s.text_field(:enzyme_code, :size => 15) %></td>	
-	  <td colspan="3"><%= s.text_field(:notes)%></td>	
-	</tr>
-    <tr>
-      <td colspan="5"><hr /></td>
+                                 {:include_blank => 'Select Project'}) %></td>
+	  <td><%= s.text_field(:enzyme_code, :size => 8) %></td> 
+	  <td><%= s.text_field(:notes, :size => 30)%></td>	               
     </tr>
     <% end %> <!--/lib_sample do -->
   <% @i+=1 %>

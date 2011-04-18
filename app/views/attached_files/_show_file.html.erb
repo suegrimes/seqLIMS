@@ -1,15 +1,22 @@
-<span class="table_title">Attached Files:</span>
+<fieldset class="info">
+<legend><%= obj.class %>&nbsp;Attached Files</legend>
   <table class="info">
   <% if !obj.attached_files.empty? %>
 	<% obj.attached_files.each do |att_file| %>
 	  <tr>
         <td><%=link_to att_file.basename_with_ext, att_file %></td>
 		<td><%=h att_file.notes %></td>
-	    <td class="linkborder"><%=link_to 'Delete File', att_file, :confirm => 'Are you sure?', :method => :delete %></td>
+	    <td class="linkborder"><%=link_to 'Delete', att_file, :confirm => 'Are you sure?', :method => :delete %></td>
 	  </tr>
       <% end %>
   <% else %>
       <tr><td>None</td></tr>
-  <% end %>	
+  <% end %>
+      <tr><td class="linkborder"><%= link_to_function "New Attachment", div_toggle(:newfile) %></td></tr>	
   </table>
-  
+</fieldset>
+<%= break_clear %>
+
+<div id="newfile", style="display:none">
+  <%= render :partial => '/attached_files/add_file', :locals => {:obj => obj} %>
+</div>

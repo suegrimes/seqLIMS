@@ -1,27 +1,29 @@
 <h3>Details for Sample: <%=h @sample.barcode_key %></h3>
 
-<%= render :partial => 'sample_characteristics/patient_info', 
+<%= render :partial => 'sample_characteristics/clinical_summary', 
                        :locals => {:sample_characteristic => @sample.sample_characteristic,
                                    :patient => @sample.sample_characteristic.patient}%>
 								   
-<%= render :partial => 'sample_characteristics/clinical_info', 
-                       :locals => {:sample_characteristic => @sample.sample_characteristic}%>
-
-<% if @sample.sample_characteristic.pathology %>
-  <%= render :partial => 'pathologies/pathology_info', :locals => {:pathology => @sample.sample_characteristic.pathology} %>
-<% end %>
-
-<% if @sample.histology %>
-  <%= render :partial => 'histologies/histology_info', :locals => {:histology => @sample.histology} %>
-<% elsif @sample.source_sample && @sample.source_sample.histology %>
-  <%= render :partial => 'histologies/histology_info', :locals => {:histology => @sample.source_sample.histology} %>
+<% histology = (@sample.histology ? @sample.histology : 
+                                   (@sample.source_sample && @sample.source_sample.histology ? @sample.source_sample.histology : nil)) %>
+<% pathology = @sample.sample_characteristic.pathology %>
+<% if pathology || histology %>
+  <%= render :partial => 'pathologies/pathology_summary', :locals => {:pathology => pathology, :histology => histology} %>
 <% end %>
 
 <% if !@sample.source_sample.nil? %>
   <%= render :partial => 'sample_info', :locals => {:source => 'Source',
                                                     :sample => @sample.source_sample} %>
   <%= render :partial => 'sample_info1', :locals => {:source => 'Dissected',
-                                                     :sample => @sample} %>
+                                                     :sample => @sample,
+                                                     :click_to_link => 'none',
+                                                     :last_info_box => 'yes'} %>
+  <%= render :partial => 'extraction_list', :locals => {:sample => @sample} %>
+  
 <% else %>
-  <%= render :partial => 'sample_info', :locals => {:sample => @sample} %>
+  <%= render :partial => 'sample_info', :locals => {:sample => @sample,
+                                                    :click_to_link => 'none',
+                                                    :last_info_box => 'yes'} %>
+  <%= render :partial => 'dissection_list', :locals => {:source_sample => @sample} %>
+  
 <% end %>

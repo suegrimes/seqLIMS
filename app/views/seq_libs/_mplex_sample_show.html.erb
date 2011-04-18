@@ -1,0 +1,20 @@
+<table class="list">
+  <tr>	
+  	<th>Index Tag</th>
+	<th>Tag Seq</th>
+  	<th>Runtype/Adapter</th>
+	<th>Sample Name</th>
+	<th>Source DNA/RNA</th>
+	<th>Notes</th>
+  </tr>
+  <% for lib_sample in @seq_lib.lib_samples %>
+    <tr>
+	  <td><%=h lib_sample.index_tag %></td>
+	  <td><%=h IndexTag.find_or_blank(lib_sample.multiplex_type, lib_sample.index_tag)%>
+      <td><%=h lib_sample.multiplex_type %></td>
+	  <td><%=h lib_sample.sample_name %></td>
+	  <td><%=h lib_sample.source_DNA %></td>
+	  <td><%=h lib_sample.notes %></td>
+    </tr>
+    <% end %>
+</table>

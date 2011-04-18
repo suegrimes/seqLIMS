@@ -8,7 +8,7 @@ class SamplesController < ApplicationController
   #########################################################################################
   def show
     @sample_is_new = (params[:new_sample] ||= false)
-    @sample = Sample.find(params[:id], :include => :sample_characteristic )
+    @sample = Sample.find(params[:id], :include => [{:sample_characteristic => :pathology}, :patient, :histology] )
   end
   
   # GET /samples/1/edit

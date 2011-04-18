@@ -2,31 +2,11 @@
 
 <%= render :partial => 'lib_show', :locals => {:seq_lib => @seq_lib} %>
 
-<table class="list">
-  <tr>
-  	<% if @seq_lib.runtype_adapter[0,1] == 'M' %>
-  	<th>Index Tag</th>
-	<th>Tag Seq</th>
-	<% end %>
-  	<th>Runtype/Adapter</th>
-	<th>Sample Name</th>
-	<th>Source DNA/RNA</th>
-	<th>Notes</th>
-  </tr>
-  <% for lib_sample in @seq_lib.lib_samples %>
-    <tr>
-      <% if @seq_lib.runtype_adapter[0,1] == 'M' %>
-	  <td><%=h lib_sample.index_tag %></td>
-	  <td><%=h IndexTag.find_or_blank(lib_sample.multiplex_type, lib_sample.index_tag)%>
-	  <% end %>
-      <td><%=h lib_sample.multiplex_type %></td>
-	  <td><%=h lib_sample.sample_name %></td>
-	  <td><%=h lib_sample.source_DNA %></td>
-	  <td><%=h lib_sample.notes %></td>
-    </tr>
-    <% end %>
-</table>
+<% if @seq_lib.runtype_adapter[0,1] == 'M' %>
+  <%= render :partial => 'mplex_sample_show', :locals => {:seq_lib => @seq_lib} %>
+<% else %>
+  <%= render :partial => 'splex_sample_show', :locals => {:lib_sample => @seq_lib.lib_samples[0]} %>
+<% end %>
 
-<%= render :partial => 'attached_files/show_and_add', :locals => {:obj => @seq_lib} %>
-
-<% if can? :edit, @seq_lib %><%= link_to 'Edit Library', edit_seq_lib_path(@seq_lib) %><% end %>
+<%= render :partial => 'attached_files/show_file', :locals => {:obj => @seq_lib} %>
+<%= break_clear %>

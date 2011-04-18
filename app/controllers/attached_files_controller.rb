@@ -43,7 +43,8 @@ class AttachedFilesController < ApplicationController
     
     if @attached_file.save
       flash[:notice] = 'Attached file successfully saved'
-      redirect_to :action => :new, :rec_type => params[:obj_klass].underscore, :obj_id => params[:obj_id]
+      redirect_to :controller => params[:obj_klass].underscore.pluralize, :action => :show, :id => params[:obj_id]
+      #redirect_to :action => :new, :rec_type => params[:obj_klass].underscore, :obj_id => params[:obj_id]
     else
       flash.now[:error] = "Error saving attached file: #{@attached_file.basename_with_ext}"
       @obj = source_rec(params[:obj_klass].underscore, nil, params[:obj_id])
@@ -64,7 +65,8 @@ class AttachedFilesController < ApplicationController
     rec_type = @attached_file.sampleproc_type.underscore
     obj_id   = @attached_file.sampleproc_id
     @attached_file.destroy
-    redirect_to :action => 'new', :rec_type => rec_type, :obj_id => obj_id
+    #redirect_to :action => 'new', :rec_type => rec_type, :obj_id => obj_id
+    redirect_to :controller => rec_type.pluralize, :action => :show, :id => obj_id
   end
 
 protected

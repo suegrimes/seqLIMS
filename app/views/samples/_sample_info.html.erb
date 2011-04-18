@@ -1,13 +1,13 @@
 <% last_info_box ||= 'no' %>
 <% source ||= '' %>
-<% click_to_link ||= 'none' %>
+<% click_to_link ||= 'show' %>
 <% link_to_edit ||= 'yes' %>
 
 <% click_to_link = 'none' if (click_to_link == 'edit' && (cannot? :edit, sample))%>
 <% click_to_link = 'none' if (click_to_link == 'show' && (cannot? :read, sample))%>
 
 <!-- Standard fields to be displayed -->
-<% info_flds   = [[(click_to_link == 'none'? 'Field' : 'Link'), 'Barcode', sample.barcode_key, click_to_link], 
+<% info_flds   = [[(click_to_link == 'none'? 'Field' : 'Link'), 'Barcode', sample.barcode_key, ['samples', click_to_link, sample.id]], 
                   ['Field', 'Collected/Created On', sample.sample_date],
                   ['Field', 'Sample Type', [sample.sample_tissue, sample.sample_type].join('/')],
                   ['Field', 'OR Designation', sample.tumor_normal],

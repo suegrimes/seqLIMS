@@ -3,13 +3,13 @@
 <%= render :partial => 'sample_characteristics/clinical_summary', :locals => {:sample_characteristic => @histology.sample.sample_characteristic,
                                                                               :patient => @histology.sample.patient } %>
 
-<%= render :partial => 'samples/sample_info', :locals => {:sample_characteristic => @histology.sample.sample_characteristic,
-                                                          :sample => @histology.sample } %>
-
 <% if @histology.sample.sample_characteristic.pathology %>
   <%= render :partial => 'pathologies/pathology_info', :locals => {:pathology => @histology.sample.sample_characteristic.pathology} %>
 <% end %>
 
-<%= render :partial => 'histology_info', :locals => {:histology => @histology, :edit_he => 'yes'} %>
+<%= render :partial => 'samples/sample_info', :locals => {:sample_characteristic => @histology.sample.sample_characteristic,
+                                                          :sample => @histology.sample } %>
 
-<%= render :partial => 'attached_files/show_and_add', :locals => {:obj => @histology} %>
+<%= render :partial => 'histology_info', :locals => {:histology => @histology, :click_to_link => 'none'} %>
+
+<%= render :partial => 'attached_files/show_file', :locals => {:obj => @histology} %>

@@ -1,0 +1,28 @@
+<span class="table_title">Dissected Samples
+  <% if source_sample.samples %> (<%= source_sample.samples.size %> samples) <% end %></span>
+  <table class="list">
+  <tr>
+    <th>Barcode</th>
+    <th>Sample Date</th>
+    <th>Sample Type</th>
+    <th>Container Type</th>
+    <th>Amount(Initial)</th>
+    <th>Remaining?</th>
+    <th>Room/Freezer</th>
+    <th>Shelf</th>
+    <th>Rack#/Bin</th>
+  </tr>
+  <% for sample in source_sample.samples %>
+    <tr>
+      <td><%=link_to sample.barcode_key, sample_path(sample)%></td>
+      <td><%=h sample.sample_date %></td>
+      <td><%=h sample.sample_category %></td>
+      <td><%=h sample.container_type %></td>
+      <td><%=h sample.sample_amt %></td>
+      <td><%=h sample.sample_remaining%></td>
+      <td><% if sample.storage_location %><%=h sample.storage_location.location_string %><% end %></td>
+      <td><%=h sample.storage_shelf %></td>
+      <td><%=h sample.storage_boxbin %></td>
+	</tr>
+  <% end %>
+  </table>

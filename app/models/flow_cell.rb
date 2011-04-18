@@ -48,7 +48,7 @@ class FlowCell < ActiveRecord::Base
   end
   
   def id_name
-  (sequenced? ? "Sequencing Run: #{sequencing_key}" : "Flow Cell: #{id.to_s}")
+  (sequenced? ? "Run #: #{sequencing_key}" : "Flow Cell: #{id.to_s}")
   end
   
   def self.find_sequencing_runs(condition_array=[])

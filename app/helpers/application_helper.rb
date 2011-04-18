@@ -16,6 +16,10 @@ module ApplicationHelper
     out
   end
   
+  def row_underline(cols)
+    content_tag(:tr, content_tag(:td, nil, {:style => "border-bottom: 1px solid #999; padding-top:.25em; margin-bottom:.75em;", :colspan => cols}))
+  end
+  
   def remove_this_line(div)
     link_to_function "remove", "$(this).up('.#{div}').remove()"
   end

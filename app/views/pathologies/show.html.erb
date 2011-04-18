@@ -1,16 +1,12 @@
-<h3>Pathology Report for Patient: <%= @pathology.patient_id %></h3>
+<h3>Pathology Report for Patient: <%= @pathology.patient_id %>, Rpt Date: <%= @pathology.pathology_date %></h3>
 
 <%= render :partial => 'patients/patient_info',  :locals => {:patient => @pathology.patient,
                                                              :click_to_link => 'show'} %>
   
+<%= render :partial => 'pathology_info', :locals => {:pathology => @pathology,
+                                                     :click_to_link => 'none',
+                                                     :last_info_box => 'yes'} %>
+													 
 <%= render :partial => 'clinical_dtls', :locals => {:sample_characteristics => @pathology.sample_characteristics,
                                                     :click_to_link => 'none'} %>
-
-<%= render :partial => 'pathology_info', :locals => {:pathology => @pathology,
-                                                     :click_to_link => 'edit'} %>
-													 												 
-<% if can? :delete, @pathology %>
-  <table><tr>
-	<td><%= button_to 'Delete Pathology Rpt', @pathology, :confirm => 'Are you sure?', :method => :delete -%></td>
-  </tr></table>
-<% end %>
+													

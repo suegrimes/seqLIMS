@@ -1,15 +1,21 @@
 <% last_info_box ||= 'no' %>
 
-<% click_to_link ||= 'none' %>
-<% click_to_link = 'none' if (click_to_link == 'edit' && (cannot? :edit, patient))%>
-<% click_to_link = 'none' if (click_to_link == 'show' && (cannot? :read, patient))%>
+<% click_to_link ||= 'show' %>
+<% click_to_link1 = click_to_link %>
+<% click_to_link1 = 'none' if (click_to_link1 == 'edit' && (cannot? :edit, patient))%>
+<% click_to_link1 = 'none' if (click_to_link1 == 'show' && (cannot? :read, patient))%>
+
+<% click_to_link2 = click_to_link %>
+<% click_to_link2 = 'none' if (click_to_link2 == 'edit' && (cannot? :edit, sample_characteristic))%>
+<% click_to_link2 = 'none' if (click_to_link2 == 'show' && (cannot? :read, sample_characteristic))%>
 
 <!-- Standard fields to be displayed -->
-<% info_flds   = [[(click_to_link == 'none'? 'Field' : 'Link'), 'Patient ID', sample_characteristic.patient_id, click_to_link],
+<% info_flds   = [[(click_to_link1 == 'none'? 'Field' : 'Link'), 'Patient ID', patient.id, ['patients', click_to_link1, patient.id]],
                    nil, 
                   ['Field', 'Gender', patient.gender],
                   ['Field', 'Race/Ethnicity', [patient.race, patient.ethnicity].join('/')],
-                  ['Field', 'Collected on', sample_characteristic.collection_date], nil,
+                  [(click_to_link2 == 'none'? 'Field' : 'Link'), 'Collected', sample_characteristic.collection_date,
+                                     ['sample_characteristics', click_to_link2, sample_characteristic.id]],nil,
                   ['Field', 'Clinic', sample_characteristic.clinic_or_location], nil, 
                   ['Field', 'Protocol', sample_characteristic.consent_descr]] %>
 				  
@@ -23,5 +29,5 @@
                                                       :info_flds       => info_flds,
                                                       :info_links      => info_links,
                                                       :link_controller => 'patients',
-                                                      :link_id         => sample_characteristic.patient_id,
+                                                      :link_id         => patient.id,
 													  :last_info_box   => last_info_box} %>
