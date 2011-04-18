@@ -532,6 +532,7 @@ table.form-with-columns, table.form-with-columns-no-th-underline {
 	text-align: left;
 	vertical-align:top;
 	text-decoration: underline;
+    padding-bottom: .3em;
 }
 
 .form-with-columns-no-th-underline th {
