@@ -7,8 +7,9 @@
   
   <%= render :partial => 'flow_cell_form', :locals => {:f => f}%> 
   <%= hidden_field_tag(:lane_count, @flow_cell.flow_lanes.size)%>
-    
-  <table class="form01">
+  <%= break_clear %>
+<fieldset class="form">
+  <table class="form-with-columns">
     <tr>
       <th>Lane</th>
 	  <th>Lib Conc</th>
@@ -24,9 +25,8 @@
       <tr><%= render :partial => 'flow_lane_edit', :locals => {:flow_lane => flow_lane} %></tr>
 	<% end %>
   </table>
- 
-<p><%= f.submit "Update" %></p>
+</fieldset> 
+<%= break_clear(f.submit "Update") %>
 <% end %>
-
 <%= link_to 'Show', @flow_cell %> |
 <%= link_to 'Back', :back %>
