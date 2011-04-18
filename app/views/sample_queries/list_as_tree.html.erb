@@ -31,40 +31,42 @@
       <th>&nbsp;</th>
     </tr>
     <% for sample in samples %>
-	  <!--<% td_no_border = have_comments?(sample) %>-->
+	  <% nonblank_comments = have_comments?(sample) %>
       <tr>
-        <td class="no_border_bottom"><%= link_to sample.barcode_key, sample_path(sample)%></td>
-        <td class="no_border_bottom"><%=h format_date(sample.created_at) %></td>
-        <td class="no_border_bottom"><%=h sample.sample_category %></td>
-        <td class="no_border_bottom"><%=h sample.tumor_normal %></td>
-        <td class="no_border_bottom">
+        <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%= link_to sample.barcode_key, sample_path(sample)%></td>
+        <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h format_date(sample.created_at) %></td>
+        <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.sample_category %></td>
+        <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.tumor_normal %></td>
+        <td class=<%= "dotted_border_bottom" if nonblank_comments %>>
           <% if sample.sample_characteristic.pathology %><%=h sample.sample_characteristic.pathology.pathology_classification %><% end %>
 	    </td>
-        <td class="no_border_bottom">
+        <td class=<%= "dotted_border_bottom" if nonblank_comments %>>
           <% if sample.histology %><%=h sample.histology.histopathology %>
           <% elsif sample.clinical_sample == 'no' && sample.source_sample.histology %><%=h sample.source_sample.histology.histopathology %>
           <% end %>
 		</td>
-        <td class="no_border_bottom">
+        <td class=<%= "dotted_border_bottom" if nonblank_comments %>>
           <% if sample.clinical_sample == 'no' %><%=h sample.sample_date %><% end %>
 		</td>
-        <td class="no_border_bottom"><%=h sample.sample_remaining %></td>
-        <td class="no_border_bottom">
+        <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.sample_remaining %></td>
+        <td class=<%= "dotted_border_bottom" if nonblank_comments %>>
           <% if sample.storage_location %><%=h sample.storage_location.location_string %><% end %>
 		</td>
-        <td class="no_border_bottom"><%=h sample.storage_shelf %></td>
-        <td class="no_border_bottom"><%=h sample.storage_boxbin %></td>
+        <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.storage_shelf %></td>
+        <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.storage_boxbin %></td>
         
 		<% if can? :delete, sample %>
           <% if !@source_sample_ids.include?(sample.id) && sample.processed_samples.size == 0 %>
-            <td class="no_border_bottom"><%= link_to 'Delete', sample, :confirm => 'Are you sure?', :method => :delete %></td>
+            <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%= link_to 'Delete', sample, :confirm => 'Are you sure?', :method => :delete %></td>
           <% else %>
-            <td class="ltgrey no_border_bottom"> Delete </td>
+            <td class="ltgrey <%= 'dotted_border_bottom' if nonblank_comments %>"> Delete </td>
           <% end %>
         <% end %>
 
         <%= hidden_field_tag("export_id[]", sample.id)  %>
-      </tr>   
+      </tr>
+	  
+	  <% if nonblank_comments %>   
       <tr>
         <td colspan="12" style="border-top:0; text-align:center;">
           <% if sample.sample_characteristic.pathology && !sample.sample_characteristic.pathology.comments.blank? %>        
@@ -75,7 +77,8 @@
           <% end %>
         </td>
       </tr>
-
+      <% end %>
+	  
       <% for processed_sample in sample.processed_samples %>
         <tr>
           <td><%=link_to processed_sample.barcode_key, processed_sample_path(processed_sample)%></td>
