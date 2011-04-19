@@ -15,26 +15,26 @@
 	<th>Lib Conc(pM)</th>
   </tr>
   <% for flow_lane in @flow_cell.flow_lanes %>
+    <% lane_notes = !flow_lane.notes.blank? %>
     <tr>
-	  <td class="border_leftright_only"><%=h flow_lane.lane_nr %></td>
-	  <td class="border_leftright_only"><%= link_to flow_lane.lib_barcode, flow_lane.seq_lib %></td>
-      <td class="border_leftright_only"><%=h flow_lane.seq_lib.lib_name %></td>
-	  <td class="border_leftright_only"><%=h flow_lane.runtype_adapter %></td>
-	  <td class="border_leftright_only"><%=h flow_lane.seq_lib.target_pool %></td>
-	  <td class="border_leftright_only"><%=h flow_lane.seq_lib.enzyme_code %></td>
-	  <td class="border_leftright_only"><%=h flow_lane.alignment_ref %></td>
-	  <td class="border_leftright_only"><%=h flow_lane.seq_lib.trim_bases %></td>
-	  <td class="border_leftright_only"><%=h flow_lane.lib_conc %></td>
+	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.lane_nr %></td>
+	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%= link_to flow_lane.lib_barcode, flow_lane.seq_lib %></td>
+      <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.seq_lib.lib_name %></td>
+	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.runtype_adapter %></td>
+	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.seq_lib.target_pool %></td>
+	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.seq_lib.enzyme_code %></td>
+	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.alignment_ref %></td>
+	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.seq_lib.trim_bases %></td>
+	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.lib_conc %></td>
     </tr>
-	<% if !flow_lane.notes.blank? %>  
+	<% if lane_notes %>  
 	<tr>
 	  <td></td>
-      <td colspan="8" style="border-top:0; text-align:center;">
-                
-          <div style="padding: 0 10px; margin-bottom: 4px; width:95%; border: 1px solid #e5e5e5; text-align:left;">Notes:&nbsp;<%=h flow_lane.notes %></div>
-        <% end %>
+      <td colspan="8" style="border-top:0; text-align:center;">            
+        <div style="padding: 0 10px; margin-bottom: 4px; width:95%; border: 1px solid #e5e5e5; text-align:left;">Notes:&nbsp;<%=h flow_lane.notes %></div>
       </td>
     </tr>
+	<% end %>
   <% end %>
 </table>
   
