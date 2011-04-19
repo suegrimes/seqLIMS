@@ -7,17 +7,16 @@
 
 <fieldset class="form">
 <legend>Libraries</legend>
-<table class="form-with-columns-no-th-underline" border="0">
  <%= hidden_field_tag(:nr_libs, @new_lib.size) %>
  <% @new_lib.each_with_index do |lib, i| %>
-    <% fields_for 'seq_lib_' + i.to_s, lib do |f| %>
- 
-    <% fields_for 'lib_sample_' + i.to_s, @lib_samples[i] do |s| %>
-    <%= s.error_messages %>
-    <%= f.hidden_field(:owner) %>
-	<%= f.hidden_field(:preparation_date) %>
-	<%= f.hidden_field(:protocol_id) %>
-	<%= f.hidden_field(:quantitation_method)%>
+    <% fields_for 'seq_lib_' + i.to_s, lib do |f| %> 
+      <% fields_for 'lib_sample_' + i.to_s, @lib_samples[i] do |s| %>
+        <%= s.error_messages %>
+        <%= f.hidden_field(:owner) %>
+	    <%= f.hidden_field(:preparation_date) %>
+	    <%= f.hidden_field(:protocol_id) %>
+	    <%= f.hidden_field(:quantitation_method)%>
+<table class="form-with-columns-no-th-underline">
 <tr>
     <th><em>Library: <%= i+1 %></em></th>
 	<th>Barcode</th>
@@ -63,10 +62,11 @@
                                {:include_blank => 'Select Project'}) %></td>
   <th>Enzyme:&nbsp;&nbsp;<%= f.text_field(:enzyme_code, :size => 12) %></th>  
 </tr>
-<%= row_underline(cols=12)%>
-  <% end %>
+<tr><td colspan="12"></td></tr>
+<!--%= row_underline(cols=12)%-->
+</table>
+    <% end %>
   <% end %>
 <% end %>
-</table>
 </fieldset>
 </div>

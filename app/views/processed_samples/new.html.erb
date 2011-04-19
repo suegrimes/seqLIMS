@@ -9,7 +9,6 @@
   
   <%= render :partial => 'processed_sample_form', :locals => {:f => f} %>
   
-  <p>
-    <%= f.submit "Save" %>
-  </p>
+  <%= break_clear(f.submit "Save") %>
+ 
 <% end %>
