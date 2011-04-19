@@ -39,7 +39,7 @@ ul.sf-menu li.sfHover li ul {
 }
 ul.sf-menu li li:hover ul,
 ul.sf-menu li li.sfHover ul {
-	left:			9.95em; /* match ul width - effects submenu line up */
+	left:			9.93em; /* match ul width - effects submenu line up */
 	top:			0;
 }
 ul.sf-menu li li:hover li ul,
