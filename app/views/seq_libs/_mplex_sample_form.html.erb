@@ -1,9 +1,14 @@
-<fieldset class="form" style="border: none; background:#ffffff;">
-<%= submit_tag "Save library" -%>&nbsp;&nbsp;&nbsp;
-<%= submit_to_remote 'Multiplex', 'Refresh from Defaults',
+<br />
+<table width="100%">
+  <tr>
+    <td>
+    <%= submit_tag "Save library" -%>&nbsp;&nbsp;&nbsp;
+    <%= submit_to_remote 'Multiplex', 'Refresh from Defaults',
       :url => {:action => 'populate_mplex'},
-      :update => 'mplex_samples' %>
-</fieldset>	  
+      :update => 'mplex_samples' %>   
+    </td>
+  </tr>
+</table>
 <div class="clear"></div>
 <%= error_messages_for :lib_samples, :object => @seq_lib.lib_samples %>
 <fieldset class="form">
