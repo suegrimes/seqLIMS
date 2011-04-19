@@ -7,13 +7,16 @@
         <meta name="keywords" content="<%= META_TAGS[:keywords] %>" />
         <%= stylesheet_link_tag 'lims_std' %>
 		<%= stylesheet_link_tag 'superfish' %>
-		<!--[if IE]><%= stylesheet_link_tag 'ie-fixes' %><![endif]-->
-        <%= javascript_include_tag 'application', 'controls', 'effects', 'prototype', :cache => true %>
+		<!--[if IE]><%= stylesheet_link_tag 'ie-fixes' %><![endif]-->        
+        <%= javascript_include_tag :all, :cache => true %>
 		<%= calendar_date_select_includes %>
+	    <script type="text/javascript">
+	        jQuery.noConflict();
+        </script>
 		<script type="text/javascript">
         // initialise Superfish 
-        $(document).ready(function() { 
-          $('ul.sf-menu').superfish({ 
+        jQuery(document).ready(function() { 
+          jQuery('ul.sf-menu').superfish({ 
             delay:       1000,                            // one second delay on mouseout 
             animation:   {opacity:'show',height:'show'},  // fade-in and slide-down animation 
             speed:       'fast',                          // faster animation speed  
@@ -30,7 +33,7 @@
   <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom: 0;">
     <tr>
       <td valign="top" rowspan="2" width="180"><div class="logo"><%= image_tag("sutech_reflect_DB_89.gif", :height => "89", :alt => "Stanford Genome Technology") %></div></td>
-      <td valign="top"><div class="sitename-graphic"><%= image_tag("seqlims-sitename.gif", :height => "58", :alt => "SGTC Sequencing Database") %></div></td>
+      <td valign="top"><div class="sitename-graphic"><%= image_tag("mendelims-sitename.gif", :height => "58", :title => "Mendelian LIMS Targeted Resequencing", :alt => "Mendelian LIMS Targeted Resequencing") %></div></td>
       <td valign="top" width="180"><div class="version"><% if APP_VERSION %>Version: <%= APP_VERSION %><% end %><br /><% if RAILS_ENV != 'production'%> <span style="font-size:larger;">(<%= RAILS_ENV%>)</span><%end%></div></td>
     </tr>
     <tr>
