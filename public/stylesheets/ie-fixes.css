@@ -1,6 +1,6 @@
 /* form fieldset styles */
 
-form {
+fieldset {
 	position: relative;
 	display: inline;
 	margin-top: 8px;
