@@ -1,33 +1,24 @@
-<p>
-  <b>Protocol name:</b>
-  <%=h @protocol.protocol_name %>
+<h3>View Protocol</h3>
 
-  <b>Protocol version:</b>
-  <%=h @protocol.protocol_version %>
-</p>
+<!-- Standard fields to be displayed -->
+<% info_flds   = [['Field', 'Protocol Name', @protocol.protocol_name],
+                  ['Field', 'Protocol Type', Protocol::PROTOCOL_TYPE_NAMES[@protocol.protocol_type]],
+                  ['Field', 'Abbreviation', @protocol.protocol_abbrev],
+                  ['Field', 'Version', @protocol.protocol_version]] %>
+				  
+<!-- Only include comments if non-blank -->
+<% info_flds.push(['Field', 'Comments', @protocol.comments]) if !@protocol.comments.blank? %>
 
-<p>
-  <b>Vendor:</b>
-  <%=h @protocol.vendor %>
-  
-  <b>Catalog Nr:</b>
-  <%=h @protocol.catalog_nr %>
-  
-  <b>Lot Nr:</b>
-  <%=h @protocol.lot_nr %>
-</p>
+<!-- Links to be displayed with borders, in bottom row of info box -->
+<% info_links = [] %>
+<% info_links << ['Edit', 'edit'] if (can? :edit, @protocol) %>
+<% info_links << ['Delete', 'destroy'] if (can? :delete, @protocol) %>
 
-<p>
-  <b>Reference:</b>
-  <%= @protocol.reference %>
-</p>
+<%= render :partial => 'shared/info_box', :locals => {:info_legend     => 'Protocol Details',
+                                                      :info_flds       => info_flds,
+                                                      :info_links      => info_links,
+                                                      :link_id         => @protocol.id,
+                                                      :link_controller => 'protocols',
+                                                      :last_info_box   => 'no'} %>
 
-<p>
-  <b>Protocol steps:</b>
-  <%= @protocol.protocol_steps %>
-</p>
-
-<% if can? :edit, @protocol %>
-  <%= link_to 'Edit', edit_protocol_path(@protocol) %> |
-<% end %>
-<%= link_to 'Back', protocols_path %>
+<%= break_clear(link_to 'List All', protocols_path(:type => @protocol.protocol_type)) %>

@@ -8,9 +8,11 @@ class ProtocolsController < ApplicationController
           redirect_to :action => :index, :type => 'E'
         when 'Library Prep'
           redirect_to :action => :index, :type => 'L'
+        when 'Molecular Assay'
+          redirect_to :action => :index, :type => 'M'
       end
     else
-      @protocol_types = ['Consent', 'Extraction', 'Library Prep']
+      @protocol_types = ['Consent'] | Protocol::PROTOCOL_TYPES.keys
     end
   end
   
@@ -23,6 +25,7 @@ class ProtocolsController < ApplicationController
   # GET /protocols/1
   def show
     @protocol = Protocol.find(params[:id])
+    @protocol_type_name = Protocol::PROTOCOL_TYPE_NAMES[@protocol.protocol_type]
   end
 
   # GET /protocols/new
