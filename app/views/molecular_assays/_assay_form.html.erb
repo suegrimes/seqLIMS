@@ -1,0 +1,27 @@
+<fieldset class="form">
+    <legend class="form">Assay defaults</legend>
+<table class="form" border="0">
+<tr>
+  <th>Prep Date:</th><td><%= calendar_date_select_tag("assay_default[preparation_date]", Date.today, :size => 15) %></td>
+  <th>Owner:</th><td><%= select_tag("assay_default[owner]", options_for_select(@owners, @requester))%></td> 
+  <th>Protocol:</th><td><%= collection_select(:assay_default, :protocol_id, @protocols, :id, :protocol_name,
+                           {:include_blank => 'Select Protocol'}) %></td>
+</tr>
+<tr> 
+  <th>Source DNA/RNA:</th><td><%= text_field_with_auto_complete :sample_default, :source_DNA, {:size => 12},
+              {:url => {:controller => :processed_samples, :action => :auto_complete_for_barcode_key},
+               :param_name => :search, :min_chars => 2, :method => :get} %></td>
+  <th>Quantitation:</th><td><%= debug(@quantitation) %></td>
+  <th>Size(Final PCR)</th><td><%= text_field(:assay_default, :pcr_size, :size => 12)%></td>	
+</tr>
+<tr>
+<tr>
+  <th>Notebook Ref:</th>
+  <td colspan="5"><%= text_field(:assay_default, :notebook_ref) %></td>
+</tr>
+<tr>  
+  <th>Notes:</th>
+  <td colspan="5"><%= text_field(:assay_default, :notes, :size => 80) %></td>
+</tr>
+</table>
+</fieldset>

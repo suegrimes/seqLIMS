@@ -1,0 +1,52 @@
+<div id='assays_form'>
+<%= submit_tag "Save assays" %>&nbsp;&nbsp;&nbsp;
+<%= submit_to_remote 'MolAssay', 'Refesh from Defaults',
+      :url => {:action => 'populate_assays', :nr_assays => @new_assay.size},
+      :update => 'assays_form' %>
+<div class="clear">&nbsp;</div>
+<fieldset class="form">
+<legend>Assays</legend>
+ <%= hidden_field_tag(:nr_assays, @new_assay.size) %>
+ <% @new_assay.each_with_index do |assay, i| %>
+    <% fields_for 'molecular_assay_' + i.to_s, assay do |f| %> 
+      <% fields_for 'lib_sample_' + i.to_s, @lib_samples[i] do |s| %>
+        <%= s.error_messages %>
+        <%= f.hidden_field(:owner) %>
+	    <%= f.hidden_field(:preparation_date) %>
+	    <%= f.hidden_field(:protocol_id) %>
+	    <%= f.hidden_field(:quantitation_method)%>
+<table class="form-with-columns-no-th-underline">
+<tr>
+    <th><em>Assay: <%= i+1 %></em></th>
+	<th>Barcode</th>
+	<th>Assay Descr</th>
+	<th>Source DNA/RNA</th>
+	<th>Size(Final PCR)</th>
+	<th>Quantitation</th>
+</tr>
+<tr>
+    <td></td>
+    <td><%= f.text_field :barcode_key, :size => 10 %></td>
+    <td><%= f.text_field(:assay_descr, :size => 15)%></td>
+    <td><%= s.text_field_with_auto_complete :source_sample_name, {:size => 12},
+              {:url => {:controller => :processed_samples, :action => :auto_complete_for_barcode_key},
+               :param_name => :search, :min_chars => 2, :method => :get} %></td>    
+	<td><%= @quantitation.inspect %></td>
+	<td><%= f.text_field(:pcr_size, :size => 6) %></td>
+</tr>
+<tr>
+  <th>Notebook Ref:</th>
+  <td colspan="3"><%= f.text_field(:notebook_ref, :size => 30)%></td>  
+</tr>
+<tr>
+  <th>Notes:</th>
+  <td colspan="3"><%= f.text_field(:notes, :size => 50)%></td> 
+</tr>
+<tr><td colspan="12"></td></tr>
+<!--%= row_underline(cols=12)%-->
+</table>
+    <% end %>
+  <% end %>
+<% end %>
+</fieldset>
+</div>

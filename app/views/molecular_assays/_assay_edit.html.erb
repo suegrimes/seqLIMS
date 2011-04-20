@@ -1,0 +1,51 @@
+<table class="form01">
+<tr>
+  <th>Barcode</th>
+  <th>Lib Name</th>
+  <th>Prep Date</th>
+  <th>Owner</th>
+  <th>Protocol</th>
+</tr>
+<tr>
+  <td><% if @seq_lib.dummy_barcode == false %><%= f.text_field :barcode_key, :size => 10 %><% else %><%=h @seq_lib.lib_barcode %><% end %></td>
+  <td><%= f.text_field :lib_name, :size => 20 %></td>
+  <td><%= f.calendar_date_select(:preparation_date, :size => 15) %></td>
+  <td><%= f.select(:owner, @owners, :include_blank => "Select..") %></td>
+  <td><%= f.collection_select(:protocol_id, @protocols, :id, :protocol_name,
+                             {:include_blank => 'Select Protocol'}) %></td>
+</tr>
+<tr>
+  <th>Adapter</th>
+  <th>Align Ref</th>
+  <th>Project</th>
+  <th>Enzyme</th>
+</tr>
+<tr>
+  <td><%= f.collection_select(:runtype_adapter, @adapters, :c_value, :c_value) %></td>
+  <td><%= f.collection_select(:alignment_ref_id, @align_refs, :id, :alignment_key) %></td>
+  <td><%= f.collection_select(:target_pool, @projects, :c_value, :c_value,
+                             {:include_blank => 'Select Project'}) %></td>
+  <td><%= f.text_field(:enzyme_code) %></td> 
+</tr>
+<tr>
+  <th>Quantitation</th>
+  <th>Size(Final PCR)</th>
+  <th>Trim Bases</th>
+  <th>Sample Conc</th> 
+  <th>Lib Conc</th>
+  <th>Notebook Ref</th>
+</tr>
+<tr> 
+  <td><%= f.collection_select(:quantitation_method, @quantitation, :c_value, :c_value, 
+                           {:include_blank => 'Select Method'}) %></td>
+  <td><%= f.text_field(:pcr_size, :size => 6) %></td>
+  <td><%= f.text_field(:trim_bases, :size => 6) %></td>
+  <td><%= f.text_field(:sample_conc, :value => number_with_precision(@seq_lib.sample_conc, :precision => 2), :size => 12)%>
+      <% if @seq_lib.dummy_barcode == false %><%=h @seq_lib.sample_conc_uom %><% else %> nM <% end %></td>
+  <td><%= f.text_field(:lib_conc_requested, :value => number_with_precision(@seq_lib.lib_conc_requested, :precision => 2), :size => 8) %>pM</td>
+  <td><%= f.text_field :notebook_ref %></td>
+</tr>
+<tr>
+  <th>Notes: </th><td colspan=4><%= f.text_field :notes, :size => 80 %></td>
+</tr>
+</table> 
