@@ -5,6 +5,7 @@
 
   <%= render :partial => 'orders/order_form', :locals => {:f => f} %>
   
+  <%= break_clear %>
   <b>Items:</b>
   <table class="list">
   	<tr>
@@ -40,7 +41,6 @@
   <% end %>
   </table>
   
-  <p>
-    <%= f.submit "Update" %>
-  </p>
+  <%= f.submit "Update" %>
+
 <% end %>

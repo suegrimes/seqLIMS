@@ -401,8 +401,7 @@ table.list {
     border-width: 1px;
     border-style: dotted dotted solid;
     border-color: #DEDACB #DEDACB #B0AA91;
-   /*border-bottom: 1px solid #B0AA91;*/
-   /*padding-left: .5em;*/
+    vertical-align: top;
 }
 
 .list .border_bottom_only {
