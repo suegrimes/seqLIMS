@@ -29,14 +29,15 @@ class SeqLibsController < ApplicationController
   # GET /seq_libs/new
   def new
     unauthorized! if cannot? :create, SeqLib
+    @requester = (current_user.researcher ? current_user.researcher.researcher_name : nil)
     
     params[:multiplex] ||= 'single'
-    @seq_lib = SeqLib.new(:preparation_date => Date.today)
-    
     if params[:multiplex] == 'single'
       @adapters.reject! {|adapter| adapter.c_value[0,1] == 'M'}
       render :action => 'new_splex'
     else
+      @seq_lib = SeqLib.new(:preparation_date => Date.today,
+                            :owner => @requester)
       @adapters.reject! {|adapter| adapter.c_value[0,1] == 'S'}
       render :action => 'new_mplex'      
     end  
