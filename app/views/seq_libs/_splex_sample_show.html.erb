@@ -2,8 +2,7 @@
 
 <!-- Standard fields to be displayed -->
 <% info_flds   = [['Field', 'Sample Name', lib_sample.sample_name], 
-                  ['Field', 'Source DNA', lib_sample.source_DNA],
-                  ['Field', 'Notes', lib_sample.notes]] %>
+                  ['Field', 'Source DNA', lib_sample.source_DNA]] %>
 				  
 <!-- Only include comments if non-blank -->
 <% info_flds.push(['Field', 'Comments', lib_sample.notes]) if !lib_sample.notes.blank? %>
