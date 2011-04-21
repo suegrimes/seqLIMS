@@ -11,8 +11,8 @@
   <th>Source DNA/RNA:</th><td><%= text_field_with_auto_complete :sample_default, :source_DNA, {:size => 12},
               {:url => {:controller => :processed_samples, :action => :auto_complete_for_barcode_key},
                :param_name => :search, :min_chars => 2, :method => :get} %></td>
-  <th>Quantitation:</th><td><%= debug(@quantitation) %></td>
-  <th>Size(Final PCR)</th><td><%= text_field(:assay_default, :pcr_size, :size => 12)%></td>	
+  <th>Size(Final PCR)</th><td><%= text_field(:assay_default, :pcr_size, :size => 12)%></td>
+  <th>Quantitation:</th><td><%= collection_select(:assay_default, :quantitation_method, @quantitation, :c_value, :c_value, {:include_blank => 'Select Method'}) %></td>	
 </tr>
 <tr>
 <tr>

@@ -1,11 +1,7 @@
-<div class="lib_sample">
-  <% new_or_existing = lib_sample.new_record? ? 'new' : 'existing' %>
-  <% prefix = "seq_lib[#{new_or_existing}_sample_attributes][]" %>
-  
-  <% fields_for prefix, lib_sample do |s| %>
+<tr>
     <td><%= s.text_field(:index_tag, :size => 10)%></td>
-	<td><% if lib_sample.index_tag %>
-	    <%=h IndexTag.find_or_blank(lib_sample.multiplex_type, lib_sample.index_tag)%>
+	<td><% if s.object.index_tag %>
+	    <%=h IndexTag.find_or_blank(s.object.multiplex_type, s.object.index_tag)%>
 	    <% end %></td>
 	<td><%= s.collection_select(:multiplex_type, @adapters, :c_value, :c_value) %></td>
     <td><%= s.text_field(:sample_name, :size => 20)%></td>
@@ -16,5 +12,4 @@
                              {:include_blank => 'Select Project'}) %></td>
     <td><%= s.text_field(:enzyme_code, :size => 15) %></td>
 	<td><%= s.text_field(:notes, :size => 80)%></td>
-  <% end %>
-</div>
+</tr>

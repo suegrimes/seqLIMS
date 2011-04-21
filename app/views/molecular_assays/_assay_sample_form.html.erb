@@ -1,9 +1,10 @@
 <div id='assays_form'>
 <%= submit_tag "Save assays" %>&nbsp;&nbsp;&nbsp;
-<%= submit_to_remote 'MolAssay', 'Refesh from Defaults',
+<%= submit_to_remote 'AssayRefresh', 'Refesh from Defaults',
       :url => {:action => 'populate_assays', :nr_assays => @new_assay.size},
       :update => 'assays_form' %>
-<div class="clear">&nbsp;</div>
+<%= break_clear %>
+	  
 <fieldset class="form">
 <legend>Assays</legend>
  <%= hidden_field_tag(:nr_assays, @new_assay.size) %>
@@ -30,9 +31,9 @@
     <td><%= f.text_field(:assay_descr, :size => 15)%></td>
     <td><%= s.text_field_with_auto_complete :source_sample_name, {:size => 12},
               {:url => {:controller => :processed_samples, :action => :auto_complete_for_barcode_key},
-               :param_name => :search, :min_chars => 2, :method => :get} %></td>    
-	<td><%= @quantitation.inspect %></td>
-	<td><%= f.text_field(:pcr_size, :size => 6) %></td>
+               :param_name => :search, :min_chars => 2, :method => :get} %></td>
+	<td><%= f.text_field(:pcr_size, :size => 6) %></td>   
+	<td><%= f.collection_select(:quantitation_method, @quantitation, :c_value, :c_value, {:include_blank => 'Select Method'}) %></td>
 </tr>
 <tr>
   <th>Notebook Ref:</th>

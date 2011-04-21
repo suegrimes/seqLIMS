@@ -1,12 +1,9 @@
-<h3>Sequencing Library</h3>
+<h3>Molecular Assay</h3>
 
-<%= render :partial => 'lib_show', :locals => {:seq_lib => @seq_lib} %>
+<%= render :partial => 'assay_show', :locals => {:molecular_assay => @molecular_assay} %>
 
-<% if @seq_lib.runtype_adapter[0,1] == 'M' %>
-  <%= render :partial => 'mplex_sample_show', :locals => {:seq_lib => @seq_lib} %>
-<% else %>
-  <%= render :partial => 'splex_sample_show', :locals => {:lib_sample => @seq_lib.lib_samples[0]} %>
+<% for lib_sample in @molecular_assay.lib_samples %>
+  <%= render :partial => 'assay_sample_show', :locals => {:lib_sample => lib_sample} %>
 <% end %>
 
-<%= render :partial => 'attached_files/show_file', :locals => {:obj => @seq_lib} %>
 <%= break_clear %>

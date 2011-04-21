@@ -1,14 +1,15 @@
 class MolecularAssaysController < ApplicationController
   #load_and_authorize_resource (# can't use because create method for singleplex lib has array of molecular_assays instead of single lib)
   
-  before_filter :dropdowns, :only => [:new, :edit]
+  before_filter :dropdowns, :only => [:new, :edit, :populate_assays]
   before_filter :query_dropdowns, :only => :query_params
   
   # GET /molecular_assays
   def index
     unauthorized! if cannot? :read, MolecularAssay
     if params[:assay_id]
-      @molecular_assays = MolecularAssay.find_all_by_id(params[:molecular_assay_id].to_a, :order => 'molecular_assays.preparation_date DESC')
+      @molecular_assays = MolecularAssay.find_all_by_id(params[:assay_id].to_a, :order => 'molecular_assays.preparation_date DESC')
+      @hdg_qualifier = ' - Added'
     else
       @molecular_assays = MolecularAssay.find(:all, :order => 'molecular_assays.preparation_date DESC')
     end
@@ -72,7 +73,7 @@ class MolecularAssaysController < ApplicationController
     end
     
     if assays_created == 0  # All lib_names were blank
-      flash[:error] = 'No assay(ies) created - no non-blank assay names found'
+      flash[:error] = 'No assay(s) created - no non-blank assay names found'
       @assay_with_error = nil
       reload_defaults(params, params[:nr_assays])
       render :action => 'new'

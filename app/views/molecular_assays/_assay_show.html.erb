@@ -6,8 +6,8 @@
 <% click_to_link = 'none' if (click_to_link == 'show' && (cannot? :read, molecular_assay))%>
 
 <!-- Standard fields to be displayed -->
-<% info_flds   = [[(click_to_link == 'none'? 'Field' : 'Link'), 'Lib Barcode', molecular_assay.lib_barcode, click_to_link], 
-                  ['Field', 'Assay Descr', molecular_assay.lib_name],
+<% info_flds   = [[(click_to_link == 'none'? 'Field' : 'Link'), 'Assay Barcode', molecular_assay.barcode_key, click_to_link], 
+                  ['Field', 'Assay Descr', molecular_assay.assay_descr],
                   ['Field', 'Owner', molecular_assay.owner_abbrev],
                   ['Field', 'Prep Date', molecular_assay.preparation_date],
                   ['Field', 'Protocol', (@protocol ? @protocol.protocol_name : '')],			  

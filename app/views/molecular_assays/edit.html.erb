@@ -1,27 +1,47 @@
-<h3>Editing Sequencing Library: <%=h @seq_lib.lib_name %></h3>
+<h3>Editing Molecular Assay: <%=h @molecular_assay.assay_descr %></h3>
 
-<% form_for(@seq_lib) do |f| %>
+<% form_for(@molecular_assay, :action => :update) do |f| %>
   <%= f.error_messages %>
   
-  <%= render :partial => 'seq_lib_edit', :locals => {:f => f}%> 
-    
-  <span class="form_title">Sample details</span>
-  <table class="form01">
+  <fieldset class="form">
+  <legend class="form">Molecular Assay</legend>
+  <table class="form" border="0">
+  <tr>
+    <th>Prep Date:</th><td><%= f.calendar_date_select(:preparation_date, :size => 15) %></td>
+    <th>Owner:</th><td><%= f.select(:owner, @owners)%></td> 
+    <th>Protocol:</th><td><%= f.collection_select(:protocol_id, @protocols, :id, :protocol_name,
+                                                 {:include_blank => 'Select Protocol'}) %></td>
+  </tr>
+  <tr> 
+    <th>Size(Final PCR)</th><td><%= f.text_field(:pcr_size, :size => 12)%></td>
+    <th>Quantitation:</th><td><%= f.collection_select(:quantitation_method, @quantitation, :c_value, :c_value, {:include_blank => 'Select Method'}) %></td>
+	<th>Notebook Ref:</th><td colspan="5"><%= f.text_field(:notebook_ref) %></td>	
+  </tr>
+  <tr>  
+    <th>Notes:</th>
+    <td colspan="5"><%= f.text_field(:notes, :size => 80) %></td>
+  </tr>
+  </table>
+</fieldset> 
+  
+  <fieldset class="form">
+  <legend>Sample details</legend>
+  <table class="form-with-columns">
     <tr>
-      <th>Index Tag</th>
-      <th>Sequence</th>
-      <th>Adapter</th>
       <th>Sample Name</th>
-      <th width="30">Source DNA</th>
-      <th>Project</th>
-      <th>Enzyme Code</th>
+      <th>Source DNA</th>
       <th>Notes</th>
     </tr>
 
-    <% @seq_lib.lib_samples.each do |lib_sample| %>
-      <tr><%= render :partial => 'lib_sample_edit', :locals => {:lib_sample => lib_sample} %></tr>
+    <% f.fields_for :lib_samples do |s| %>
+      <tr>
+      	<td><%= s.text_field(:sample_name) %></td>
+		<td><%= s.text_field(:source_DNA) %></td>
+		<td><%= s.text_field(:notes) %></td>
+      </tr>
 	<% end %>
-  </table>
- 
-<p><%= f.submit "Update" %></p>
+  </table> 
+  </fieldset>  
+
+<%=break_clear(f.submit 'Update') %>        
 <% end %>

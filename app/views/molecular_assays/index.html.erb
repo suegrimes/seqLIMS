@@ -1,41 +1,34 @@
-<h3>Sequencing Libraries <%= params[:hdg_qualifier] %></h3>
+<h3>Molecular Assays <%= @hdg_qualifier %></h3>
 
 <table class="list">
   <tr>
-  	<th>Lib Barcode</th>
-    <th>Library Name</th>
+  	<th>Assay Barcode</th>
+    <th>Descr</th>
 	<th>Owner</th>
 	<th>Prep Date</th>
-	<th>Adapter</th>
-	<th colspan="2">Sample Conc</th>
-	<th>Project</th>
-	<th>Alignment Ref</th>
-    <th colspan="3"></th>
+	<th>PCR Size</th>
+	<th>Quantitation</th>
+    <th colspan="2"></th>
   </tr>
 
-<% for seq_lib in @seq_libs %>
+<% for molecular_assay in @molecular_assays %>
   <tr>
-  	<td><%= link_to seq_lib.lib_barcode, seq_lib %></td>
-    <td><%=h seq_lib.lib_name %></td>
-	<td><%=h seq_lib.owner_abbrev %></td>
-	<td><%=h seq_lib.preparation_date %></td>
-	<td><%=h seq_lib.runtype_adapter %></td>
-	<td><%=h sample_conc_string(seq_lib.sample_conc_ngul, 'ng/ul') %></td>
-	<td><%=h sample_conc_string(seq_lib.sample_conc_nm, 'nm') %></td>
-	<td><%=h seq_lib.target_pool %></td>
-	<td><%=h seq_lib.alignment_ref %></td>
+  	<td><%= link_to molecular_assay.barcode_key, molecular_assay %></td>
+    <td><%=h molecular_assay.assay_descr %></td>
+	<td><%=h molecular_assay.owner_abbrev %></td>
+	<td><%=h molecular_assay.preparation_date %></td>
+	<td><%=h molecular_assay.pcr_size %></td>
+	<td><%=h molecular_assay.quantitation_method %></td>
 	
-	<% if can? :edit, seq_lib %>
-	  <td><%= link_to 'Edit',   edit_seq_lib_path(seq_lib) %></td>
+	<% if can? :edit, molecular_assay %>
+	  <td><%= link_to 'Edit',   edit_molecular_assay_path(molecular_assay) %></td>
 	<% else %>
       <td class="ltgrey"> Edit </td>
     <% end %>
 	
-	<td><%= link_to 'Attach', new_attached_file_path(:rec_type => 'seq_lib', :obj_id => seq_lib.id) %></td>
-	
-	<% if seq_lib.lib_status == 'L' %>
-	  <% if can? :delete, seq_lib %>
-	    <td><%= link_to 'Delete', seq_lib, :confirm => 'Are you sure?', :method => :delete %></td>	  
+	<% if molecular_assay.lib_samples[0].seq_lib_id.nil? %>
+	  <% if can? :delete, molecular_assay %>
+	    <td><%= link_to 'Delete', molecular_assay, :confirm => 'Are you sure?', :method => :delete %></td>	  
       <% end %>
     <% else %>
       <td class="ltgrey"> Delete </td>
