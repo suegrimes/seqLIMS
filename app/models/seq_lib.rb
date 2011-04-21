@@ -37,7 +37,7 @@ class SeqLib < ActiveRecord::Base
   has_many :flow_lanes
   has_many :attached_files, :as => :sampleproc
   
-  #accepts_nested_attributes_for :lib_samples
+  accepts_nested_attributes_for :lib_samples
   
   validates_presence_of :barcode_key, :lib_name, :owner, :runtype_adapter, :alignment_ref
   validates_uniqueness_of :barcode_key, :message => 'is not unique'
@@ -46,7 +46,7 @@ class SeqLib < ActiveRecord::Base
   validates_format_of :trim_bases, :with => /^\d+$/, :allow_blank => true, :message => "# bases to trim must be an integer"
   
   before_create :set_default_values
-  after_update :save_samples
+  #after_update :save_samples
   
   MULTIPLEX_SAMPLES = 16
   MILLUMINA_SAMPLES = 12
