@@ -192,12 +192,6 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
 #leftsidebar a {
     display: block;
 }
-    
-/* .leftnavlist {
-background-color:#FF9966;
-color: #000;
-text-decoration: none;
-} */
 
 #leftsidebar ul {
     margin: 0;
@@ -650,6 +644,10 @@ fieldset.form {
 	padding: 0 4px;
 	line-height: 1.3em;
 	width: 3em;
+}
+
+.wrap-line {
+	white-space:pre-line;
 }
 
 /* styles for Rails error messages */
