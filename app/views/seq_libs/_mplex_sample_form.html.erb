@@ -27,7 +27,7 @@
   <% @lib_samples.each do |lib_sample| %>
     <% fields_for 'lib_samples[]', lib_sample do |s| %>	
     <tr>
-      <td><%=h @i+1 %>&nbsp;-&nbsp;<%=h @tag_seqs[@i]%></td>
+      <td><%=h @i+1 %>&nbsp;-&nbsp;<%=h @tag_seqs[@i]%><%= s.hidden_field(:index_tag, :value => @i+1) %></td>
       <td><%= s.text_field(:sample_name, :size => 25)%></td>
       <td><%= s.text_field_with_auto_complete :source_sample_name, {:size => 12},
               {:url => {:controller => :processed_samples, :action => :auto_complete_for_barcode_key},

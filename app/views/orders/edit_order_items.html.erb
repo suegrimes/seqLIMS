@@ -5,26 +5,12 @@
 
   <%= render :partial => 'orders/order_form', :locals => {:f => f} %>
   
-  <b>Items:</b>
-  <table class="form01">
-  	<tr>
-  	  <th>Date</th>
-	  <th>Requestor</th>
-	  <th>Company</th>
-	  <th>Catalog#</th>
-	  <th>Item Description</th> 
-	  <th>Quantity</th>
-	  <th>Chemical?</th>
-	  <th>Recv'd?</th> 
-  	</tr>
-
-    <% @order.items.each do |item| %>
+    <fieldset class="form">
+    <legend>Items</legend>
+	<% @order.items.each do |item| %>
       <%= render :partial => 'order_items', :locals => {:item => item} %>
 	<% end %>
+	</fieldset>
 	
-  </table>
-  
-  <p>
-    <%= f.submit "Update" %>
-  </p>
+  <%= break_clear(f.submit "Update") %>
 <% end %>

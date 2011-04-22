@@ -3,23 +3,34 @@
   <% prefix = "order[#{new_or_existing}_item_attributes][]" %>
   
   <% fields_for prefix, item do |m| %>
-  <tr>
+  <table class="form-with-columns-no-th-underline">
+  	<tr>
+  	  <th>Date</th>
+	  <th>Requestor</th>
+	  <th>Company</th>
+	  <th>Catalog#</th>
+	  <th>Quantity</th>
+	  <th>Chemical?</th>
+	  <th>Recv'd?</th> 
+  	</tr>
+
+    <tr>
 	  <td><%=h format_date(item.created_at) %></td>
 	  <td><%=h item.requester_name %></td>
 	  <td><%=h item.company_name %></td>
 	  <td><%=h item.catalog_nr %></td>
-	  <td><%=h item.item_description %></td>
 	  <td align=center><%=h item.item_quantity %></td>
 	  <td><%=h item.chemical_flag %></td>
 	  <td><%=m.select(:item_received, %w{Y N}, {:include_blank => true}) %></td>
 	</tr>
+	<tr>
+	  <td><b>Description:</b></td>
+	  <td colspan=5><%=h item.item_description %></td>
   	<tr>
 	  <td><b>Notes:</b></td>
 	  <td colspan=5><%=m.text_field :notes, :size => 95 %></td>
 	</tr>
-	<tr>
-	  <th colspan=8>&nbsp;</th>
-	</tr>	
+  </table>
   <% end %>
 </div>
 	

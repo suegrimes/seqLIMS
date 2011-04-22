@@ -2,10 +2,12 @@
 
 <%= render :partial => 'lib_show', :locals => {:seq_lib => @seq_lib} %>
 
-<% if @seq_lib.runtype_adapter[0,1] == 'M' %>
-  <%= render :partial => 'mplex_sample_show', :locals => {:seq_lib => @seq_lib} %>
-<% else %>
-  <%= render :partial => 'splex_sample_show', :locals => {:lib_sample => @seq_lib.lib_samples[0]} %>
+<% if @seq_lib.lib_samples.size > 0 %>
+  <% if @seq_lib.runtype_adapter[0,1] == 'M' %>
+    <%= render :partial => 'mplex_sample_show', :locals => {:seq_lib => @seq_lib} %>
+  <% else %>
+    <%= render :partial => 'splex_sample_show', :locals => {:lib_sample => @seq_lib.lib_samples[0]} %>
+  <% end %>
 <% end %>
 
 <%= render :partial => 'attached_files/show_file', :locals => {:obj => @seq_lib} %>

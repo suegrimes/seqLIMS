@@ -155,13 +155,19 @@ class SeqLibsController < ApplicationController
   
   # PUT /seq_libs/1
   def update
-    params[:seq_lib][:existing_sample_attributes] ||= {}
+    #params[:seq_lib][:existing_sample_attributes] ||= {}
     
     @seq_lib = SeqLib.find(params[:id])
     unauthorized! if cannot? :update, @seq_lib
     
     alignment_key = AlignmentRef.get_align_key(params[:seq_lib][:alignment_ref_id])
     params[:seq_lib].merge!(:alignment_ref => alignment_key)
+    
+    if !@seq_lib.multiplexed?
+      params[:seq_lib][:lib_samples_attributes]["0"][:multiplex_type] = params[:seq_lib][:runtype_adapter]
+      params[:seq_lib][:lib_samples_attributes]["0"][:target_pool]    = params[:seq_lib][:target_pool]
+      params[:seq_lib][:lib_samples_attributes]["0"][:enzyme_code]    = params[:seq_lib][:enzyme_code]
+    end
 
     if @seq_lib.update_attributes(params[:seq_lib])
       FlowLane.upd_lib_lanes(@seq_lib)
@@ -251,7 +257,8 @@ protected
       
     sample_params.each_with_index do |ls, i|
       next if ls[:sample_name].blank?
-        
+      
+      ls[:multiplex_type] = lib_params[:runtype_adapter]
       seq_lib.lib_samples.build(ls)
       samples_built += 1
     end

@@ -5,23 +5,31 @@
   
   <%= render :partial => 'seq_lib_edit', :locals => {:f => f}%> 
     
-  <span class="form_title">Sample details</span>
-  <table class="form01">
+  <fieldset class="form">
+  <legend>Sample details</legend>
+  <table class="form-with-columns">
     <tr>
+      <% if @seq_lib.multiplexed? %>
       <th>Index Tag</th>
       <th>Sequence</th>
       <th>Adapter</th>
+	  <% end %>
       <th>Sample Name</th>
-      <th width="30">Source DNA</th>
+      <th>Source DNA</th>
+	  <% if @seq_lib.multiplexed? %>
       <th>Project</th>
       <th>Enzyme Code</th>
+	  <% end %>
       <th>Notes</th>
     </tr>
 
-    <% @seq_lib.lib_samples.each do |lib_sample| %>
-      <tr><%= render :partial => 'lib_sample_edit', :locals => {:lib_sample => lib_sample} %></tr>
+    <% f.fields_for :lib_samples do |s| %>
+      <tr><%= render :partial => 'lib_sample_edit', :locals => {:s => s,
+                                                                :multiplexed => @seq_lib.multiplexed?} %></tr>
 	<% end %>
   </table>
+  </fieldset>
  
-<p><%= f.submit "Update" %></p>
+<%= break_clear (f.submit "Update") %>
+
 <% end %>
