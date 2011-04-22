@@ -4,7 +4,7 @@ class FlowcellQueriesController < ApplicationController
   before_filter :dropdowns, :only => :new_query
   
   def new_query
-    unauthorized! if cannot? :read, FlowCell
+    authorize! :read, FlowCell
     @flowcell_query = FlowcellQuery.new(:from_date => (Date.today - 6.months).beginning_of_month,
                                         :to_date   =>  Date.today)
   end

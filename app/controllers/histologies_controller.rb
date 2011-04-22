@@ -4,7 +4,7 @@ class HistologiesController < ApplicationController
   before_filter :dropdowns, :only => [:new, :edit, :edit_by_barcode]
   
   def new_params
-    unauthorized! if cannot? :create, Histology
+    authorize! :create, Histology
     render :action => 'new_params'
   end
   

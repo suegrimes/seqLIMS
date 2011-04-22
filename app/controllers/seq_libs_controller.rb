@@ -10,7 +10,7 @@ class SeqLibsController < ApplicationController
  
   # GET /seq_libs
   def index
-    unauthorized! if cannot? :read, SeqLib
+    authorize! :read, SeqLib
     if params[:lib_id]
       @seq_libs = SeqLib.find_all_by_id(params[:lib_id].to_a, :order => 'seq_libs.preparation_date DESC')
     else
@@ -23,12 +23,12 @@ class SeqLibsController < ApplicationController
   def show
     @seq_lib = SeqLib.find(params[:id], :include => :lib_samples)
     @protocol = Protocol.find(@seq_lib.protocol_id) if @seq_lib.protocol_id
-    unauthorized! if cannot? :read, @seq_lib
+    authorize! :read, @seq_lib
   end
   
   # GET /seq_libs/new
   def new
-    unauthorized! if cannot? :create, SeqLib
+    authorize! :create, SeqLib
     @requester = (current_user.researcher ? current_user.researcher.researcher_name : nil)
     
     params[:multiplex] ||= 'single'
@@ -46,7 +46,7 @@ class SeqLibsController < ApplicationController
   # GET /seq_libs/1/edit
   def edit
     @seq_lib = SeqLib.find(params[:id], :include => :lib_samples)
-    unauthorized! if cannot? :edit, @seq_lib
+    authorize! :edit, @seq_lib
     
     # Add existing owner to owner/researcher drop-down list (for case where current owner is inactive)
   end
@@ -67,7 +67,7 @@ class SeqLibsController < ApplicationController
   end
 
   def create_splex
-    unauthorized! if cannot? :create, SeqLib
+    authorize! :create, SeqLib
     @new_lib = []; @lib_id = [];
     @lib_index = 0; libs_created = 0
     
@@ -130,7 +130,7 @@ class SeqLibsController < ApplicationController
   end
   
   def create_mplex
-    unauthorized! if cannot? :create, SeqLib
+    authorize! :create, SeqLib
     #lib_params = params[:seq_lib]; sample_params = params[:lib_samples]
       
     @seq_lib, samples_built = build_multiplex_lib(params[:seq_lib], params[:lib_samples])
@@ -158,7 +158,7 @@ class SeqLibsController < ApplicationController
     #params[:seq_lib][:existing_sample_attributes] ||= {}
     
     @seq_lib = SeqLib.find(params[:id])
-    unauthorized! if cannot? :update, @seq_lib
+    authorize! :update, @seq_lib
     
     alignment_key = AlignmentRef.get_align_key(params[:seq_lib][:alignment_ref_id])
     params[:seq_lib].merge!(:alignment_ref => alignment_key)
@@ -184,7 +184,7 @@ class SeqLibsController < ApplicationController
     # to delete seq_lib, need to first delete associated lib_samples
     # make this an admin only function in production
     @seq_lib = SeqLib.find(params[:id])
-    unauthorized! if cannot? :delete, SeqLib
+    authorize! :destroy, @seq_lib
     
     @seq_lib.destroy
     redirect_to(seq_libs_url) 

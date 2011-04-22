@@ -5,7 +5,7 @@
 # Any common non-RESTful actions across controllers can be mapped to a standard action such 
 # as 'read' using 'alias_action', below.
 # Alternatively, can restrict access within a specific controller method with:
-#   unauthorized! if cannot? :action, model_object
+#   authorize! :action, model_object
 
 # In views, to test whether the current user has permissions to perform a given 'action' on a
 # specific 'model_object', use: 
@@ -19,17 +19,21 @@ class Ability
   def initialize(user=current_user)
     alias_action :setup_params, :query_params, :list_selected, :index, :show, :show_qc, :to => :read
     
-    # Everyone can create a new user, or view/edit their own user information
-    can [:new, :create, :forgot, :reset], User
-    can [:show, :edit, :update], User do |usr|  # cannot use :manage, with do block
-        usr.login == user.login
-    end
-    
     # Everyone can read all data, and enter order items, but cannot read for patient tables
     can :read, :all
+    
+    # Everyone can create a new user, or view/edit their own user information
+    can [:new, :create, :forgot, :reset], User
+    can [:show, :edit, :update], User do |usr|
+       usr.login == user.login
+    end
+    
+    # Everyone can enter order items
     can :manage, Item
     cannot :delete, Item
     can [:edit, :edit_order_items, :update], Order
+    
+    # No-one can read patient data unless authorization overridden based on role below
     cannot :read, Patient
     
     return nil if user == :false
@@ -54,11 +58,11 @@ class Ability
       
       # Additional capabilities for clin_admin (update users, consent_protocols, locations)
       if user.has_role?("clin_admin")
-        can :read, User
-        can [:edit, :update], User do |usr| 
-          @_roles ||= usr.roles.collect(&:name)
-          @_roles.include?("clinical") || usr == user
-        end
+#        can :read, User
+#        can [:edit, :update], User do |usr| 
+#          @_roles ||= usr.roles.collect(&:name)
+#          @_roles.include?("clinical") || usr == user
+#        end
         
         can :manage, [ConsentProtocol, Protocol, StorageLocation]
         cannot :delete, ConsentProtocol            
@@ -76,8 +80,7 @@ class Ability
         can :manage, CategoryValue do |val|
           [1,2,3,6,7].include?(val.category.cgroup_id)
         end
-
-        
+       
       elsif user.has_role?("lab_admin")
         can [:edit, :update], Category do |cval|
           [4,5].include?(cval.cgroup_id)    # Drop-down lists for seq libraries, sequencing

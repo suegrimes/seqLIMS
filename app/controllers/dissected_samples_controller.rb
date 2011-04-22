@@ -7,7 +7,7 @@ class DissectedSamplesController < ApplicationController
   
   # GET /dissected_samples/new
   def new
-    unauthorized! if cannot? :create, Sample
+    authorize! :create, Sample
     
     if params[:source_sample_id]
       @source_sample = Sample.find(params[:source_sample_id], :include => :histology)
@@ -51,7 +51,7 @@ class DissectedSamplesController < ApplicationController
   
   # POST /dissected_samples
   def create
-    unauthorized! if cannot? :create, Sample
+    authorize! :create, Sample
     
     params[:sample].merge!(:amount_rem => params[:sample][:amount_initial].to_f)
     @sample        = Sample.new(params[:sample])

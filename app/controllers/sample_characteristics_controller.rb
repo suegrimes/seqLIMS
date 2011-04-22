@@ -10,7 +10,7 @@ class SampleCharacteristicsController < ApplicationController
   end
   
   def new_sample
-    unauthorized! if cannot? :create, SampleCharacteristic
+    authorize! :create, SampleCharacteristic
     error_found = false
     
     if !param_blank?(params[:patient_id])
