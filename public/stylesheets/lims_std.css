@@ -532,6 +532,7 @@ table.form-with-columns-no-th-underline {
     background-color: #fefefe;
     border-collapse: collapse;
     margin: 0 .2em .8em .2em;
+	width: 99%;
 }
 
 .form-with-columns-no-th-underline th {
