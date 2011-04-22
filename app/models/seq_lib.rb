@@ -90,6 +90,10 @@ class SeqLib < ActiveRecord::Base
     (dummy_barcode == true ? 'n/a' : barcode_key)
   end
   
+  def multiplexed?
+    (runtype_adapter[0,1] == 'M')
+  end
+  
   def control_lane_nr
     (lib_status == 'C'? 4 : nil)
   end
@@ -149,28 +153,28 @@ class SeqLib < ActiveRecord::Base
     end
   end
   
-  # As of Rails 2.3, can delete methods below and use nested attributes for lib_samples?
-  def new_sample_attributes=(sample_attributes)
-    sample_attributes.each do |attributes|
-      lib_samples.build(attributes) unless attributes[:sample_name].blank?
-    end
-  end
-  
-  def existing_sample_attributes=(sample_attributes)
-    lib_samples.reject(&:new_record?).each do |lib_sample|
-      upd_attributes = sample_attributes[lib_sample.id.to_s]
-      if upd_attributes
-        lib_sample.attributes = upd_attributes
-      else
-        lib_samples.delete(lib_sample)
-      end
-    end
-  end
-  
-  def save_samples
-    lib_samples.each do |lib_sample|
-      lib_sample.save(false)  
-    end
-  end
-  
+#  # As of Rails 2.3, can delete methods below and use nested attributes for lib_samples?
+#  def new_sample_attributes=(sample_attributes)
+#    sample_attributes.each do |attributes|
+#      lib_samples.build(attributes) unless attributes[:sample_name].blank?
+#    end
+#  end
+#  
+#  def existing_sample_attributes=(sample_attributes)
+#    lib_samples.reject(&:new_record?).each do |lib_sample|
+#      upd_attributes = sample_attributes[lib_sample.id.to_s]
+#      if upd_attributes
+#        lib_sample.attributes = upd_attributes
+#      else
+#        lib_samples.delete(lib_sample)
+#      end
+#    end
+#  end
+#  
+#  def save_samples
+#    lib_samples.each do |lib_sample|
+#      lib_sample.save(false)  
+#    end
+#  end
+#  
 end

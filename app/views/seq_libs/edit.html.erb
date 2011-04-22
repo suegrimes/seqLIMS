@@ -9,22 +9,27 @@
   <legend>Sample details</legend>
   <table class="form-with-columns">
     <tr>
+      <% if @seq_lib.multiplexed? %>
       <th>Index Tag</th>
       <th>Sequence</th>
       <th>Adapter</th>
+	  <% end %>
       <th>Sample Name</th>
       <th>Source DNA</th>
+	  <% if @seq_lib.multiplexed? %>
       <th>Project</th>
       <th>Enzyme Code</th>
+	  <% end %>
       <th>Notes</th>
     </tr>
 
     <% f.fields_for :lib_samples do |s| %>
-      <tr><%= render :partial => 'lib_sample_edit', :locals => {:s => s} %></tr>
+      <tr><%= render :partial => 'lib_sample_edit', :locals => {:s => s,
+                                                                :multiplexed => @seq_lib.multiplexed?} %></tr>
 	<% end %>
   </table>
   </fieldset>
  
-<p><%= f.submit "Update" %></p>
+<%= break_clear (f.submit "Update") %>
 
 <% end %>
