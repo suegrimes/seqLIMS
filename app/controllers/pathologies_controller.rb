@@ -4,7 +4,7 @@ class PathologiesController < ApplicationController
   before_filter :dropdowns, :only => [:new, :edit]
   
   def new_params
-    unauthorized! if cannot? :create, Pathology
+    authorize! :create, Pathology
     
     @to_date = Date.today
     render :action => 'new_params'

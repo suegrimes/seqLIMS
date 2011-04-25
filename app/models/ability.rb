@@ -5,7 +5,7 @@
 # Any common non-RESTful actions across controllers can be mapped to a standard action such 
 # as 'read' using 'alias_action', below.
 # Alternatively, can restrict access within a specific controller method with:
-#   unauthorized! if cannot? :action, model_object
+#   authorize! :action, model_object
 
 # In views, to test whether the current user has permissions to perform a given 'action' on a
 # specific 'model_object', use: 

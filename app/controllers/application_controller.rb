@@ -6,8 +6,8 @@ class ApplicationController < ActionController::Base
   include RoleRequirementSystem
   #  
   rescue_from CanCan::AccessDenied do |exception|
-    user_login = (current_user.nil? ? current_user.login : nil)
-    flash[:error] = "Sorry #{user_login}, you are not allowed to access that page"
+    user_login = (current_user.nil? ? nil : current_user.login)
+    flash[:error] = "Sorry #{user_login}, you are not authorized to access that page"
     redirect_to ''
   end
   # 
