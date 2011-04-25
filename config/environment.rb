@@ -24,7 +24,7 @@ Rails::Initializer.run do |config|
   # config.gem "ezcrypto",      :version => '0.7.2'
     config.gem "ezcrypto"
     config.gem "ar-extensions"
-    config.gem "cancan"
+    config.gem "cancan",        :version => '~> 1.6.4'
     config.gem 'will_paginate', :lib => 'will_paginate', :source => 'http://gems/github.com', :version => '~> 2.3.6'
     config.gem 'calendar_date_select'
 

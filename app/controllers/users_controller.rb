@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   ## cancan
-  #load_and_authorize_resource
+  load_and_authorize_resource
   
   ## declarative_authorization ##
   #filter_access_to [:new, :create, :index]
@@ -47,16 +47,13 @@ class UsersController < ApplicationController
   
   # render edit.html
   def edit 
-    @user = User.find(params[:id])
-    authorize! :edit, @user
+    #@user = User.find(params[:id])
     @roles = Role.find(:all)
   end
   
   def update
-    params[:user][:role_ids] ||= []
- 
-    @user = User.find(params[:id])
-    authorize! :update, @user
+    #@user = User.find(params[:id])
+    params[:user][:role_ids] ||= [] 
     
     if can? :edit, Role
       @user.roles = Role.find(params[:user][:role_ids])
@@ -69,8 +66,6 @@ class UsersController < ApplicationController
       
     elsif current_user.has_role?("admin") || @user.authenticated?(params[:curr_user][:current_password])
       if @user.update_attributes(params[:user])
-        # Reset cancan user variable to deal with caching problem
-        @current_ability = nil
         flash[:notice] = "User has been updated"
         redirect_to users_url
       else
@@ -93,8 +88,7 @@ class UsersController < ApplicationController
       redirect_to users_url
       
     else
-      @user = User.find(params[:id])
-      authorize! :destroy, @user
+      #@user = User.find(params[:id])
       @user.destroy
       redirect_to(users_url) 
     end
@@ -128,3 +122,4 @@ class UsersController < ApplicationController
   end
     
 end
+

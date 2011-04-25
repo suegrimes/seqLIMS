@@ -1,6 +1,5 @@
 class SampleQueriesController < ApplicationController
-  #load_and_authorize_resource
-  
+  authorize_resource :class => Sample
   before_filter :dropdowns, :only => :new_query
   
   def new_query
