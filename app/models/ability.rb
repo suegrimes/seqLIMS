@@ -17,7 +17,7 @@ class Ability
   include CanCan::Ability
   
   def initialize(user=current_user)
-    alias_action :setup_params, :query_params, :list_selected, :index, :show, :show_qc, :to => :read
+    alias_action :setup_params, :query_params, :new_query, :list_selected, :index, :show, :show_qc, :to => :read
     
     # Everyone can read all data, and enter order items, but cannot read for patient tables
     can :read, :all
@@ -98,7 +98,7 @@ class Ability
       
       # Orders users can create orders
       if user.has_role?("orders")
-        can [:new, :create], Order
+        can [:read, :new, :create, :edit, :update], Order
       end
       
     end
