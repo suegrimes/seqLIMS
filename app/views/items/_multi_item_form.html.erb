@@ -1,5 +1,5 @@
 <fieldset class="form">
-<legend>Item(s):</legend>
+<legend>Item(s)</legend>
 
   <% @items.each_with_index do |itm, i| %>
     <% fields_for 'items_' + i.to_s, itm do |f| %>
