@@ -5,13 +5,13 @@
 <legend>Order Details</legend>
   <table class="form">
   	<tr>
-  	  <th>Requestor</th>
+  	  <th>Requestor:</th>
 	  <td><%=select(:item_default, :requester_name, @researchers, {:include_blank => 'Select requestor'}) %></td>
   	  <td></td>
 	  <td><%=format_datetime(Time.now) %></td>
 	</tr>
 	<tr>
-	  <th>Deliver Site</th>
+	  <th>Deliver Site:</th>
 	  <td><%=select(:item_default, :deliver_site, Item::DELIVER_SITES, {:include_blank => true})%></td>
 	  <th>Grant #</th>
 	  <td><%=text_field(:item_default, :grant_nr, :size => 10) %>
