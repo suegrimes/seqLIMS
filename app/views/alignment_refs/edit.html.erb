@@ -5,7 +5,7 @@
 
   <%= render :partial => 'alignment_ref', :locals => {:f => f} %>
     
-  <%= f.submit "Update" %>
+  <%= break_clear(f.submit "Update") %>
 <% end %>
 
-<%= link_to 'Back', alignment_refs_path %>
+<%= link_to 'List All', alignment_refs_path %>

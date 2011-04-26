@@ -5,7 +5,7 @@
 
   <%= render :partial => 'storage_loc_form', :locals => {:f => f} %>
     
-  <%= f.submit "Update" %>
+  <%= break_clear(f.submit "Update") -%>&nbsp;&nbsp;<%= link_to 'Back', storage_locations_path %>
 <% end %>
 
-<%= link_to 'Back', storage_locations_path %>
+
