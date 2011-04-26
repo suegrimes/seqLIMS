@@ -26,21 +26,21 @@ p {
 }
 
 h1 {
-    font-size:1.5em;
-    margin:0;
-    padding:0;
+    font-size: 1.1em;
+    color: #003366;
+	padding-left: 0.2em;
 }
 
-h1 {
-    font-size:1.25em;
+h2 {
+    font-size: 1em;
     margin:0;
     padding:0;
 }
 
 h3 {
-    font-size: 1.1em;
-    color: #003366;
-	padding-left: 0.2em;
+    font-size: .9em;
+    margin:0;
+    padding:0;
 }
 
 hr {clear:both; border:0; height:1px; background-color:#888;}
@@ -192,12 +192,6 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
 #leftsidebar a {
     display: block;
 }
-    
-/* .leftnavlist {
-background-color:#FF9966;
-color: #000;
-text-decoration: none;
-} */
 
 #leftsidebar ul {
     margin: 0;
@@ -360,6 +354,10 @@ table {
     /*width: 95%;*/
 }
 
+table.break_clear {
+    margin-bottom: 0;    
+}
+
 th {
     white-space:nowrap;
     padding: 1px 4px;
@@ -383,31 +381,33 @@ td {
 }
 
 table.list {
-	width: 75%;
     border: 1px solid #b0aa91;
     border-collapse: collapse;
+	min-width: 25%;
+	max-width: 100%;
 }
 
 .list th {
     font-size: .9em;
 	padding: .1em .3em;
     background-color: #e9e9e9;
-    border-bottom: 1px solid #999;
+	border-width: 1px;
+	border-style: none dotted solid;
+    border-color: transparent #999 #999;
+    vertical-align: top;
 }
 
 .list td {
     font-size: .9em;
     padding: .1em .3em;
     border-width: 1px;
-    border-style: dotted dotted solid;
-    border-color: #DEDACB #DEDACB #B0AA91;
+    border-style: none dotted solid;
+    border-color: transparent #DEDACB #B0AA91;
     vertical-align: top;
 }
 
-.list .border_bottom_only {
-    border-width: 0 0 1px;
-    border-style: none none solid;
-    border-color: transparent transparent #B0AA91;
+.list .solid_border_bottom {
+	border-bottom: 1px solid #B0AA91;
 }
 
 .list .dotted_border_bottom {
@@ -501,6 +501,10 @@ table.form {
     border-collapse: collapse;
 }
 
+table.border {
+    border: 1px solid #999;
+}
+
 .form th {
     font-size: .85em;
     font-weight: bolder;
@@ -538,6 +542,7 @@ table.form-with-columns-no-th-underline {
     background-color: #fefefe;
     border-collapse: collapse;
     margin: 0 .2em .8em .2em;
+	width: 99%;
 }
 
 .form-with-columns-no-th-underline th {
@@ -546,12 +551,23 @@ table.form-with-columns-no-th-underline {
     text-align: left;
     vertical-align:top;
     padding-top: .3em;
+    padding-left: 2px;
 }
 
-.form-with-columns td, .form-with-columns-no-th-underline td {
+.form-with-columns-no-th-underline th.right {    
+    text-align: right;
+}
+
+.form-with-columns td {
 	font-size: .85em;
 	vertical-align: top;
 	padding-right: .75em;
+}
+
+.form-with-columns-no-th-underline td {
+	font-size: .85em;
+	vertical-align: top;
+	padding: .25em .5em .25em 0;
 }
 
 .form01 {
@@ -650,6 +666,10 @@ fieldset.form {
 	padding: 0 4px;
 	line-height: 1.3em;
 	width: 3em;
+}
+
+.wrap-line {
+	white-space:pre-line;
 }
 
 /* styles for Rails error messages */

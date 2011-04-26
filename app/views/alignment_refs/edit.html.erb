@@ -1,11 +1,11 @@
-<h3>Update alignment reference</h3>
+<h1>Update alignment reference</h1>
 
 <% tagged_form_for(@alignment_ref) do |f| %>
   <%= f.error_messages %>
 
   <%= render :partial => 'alignment_ref', :locals => {:f => f} %>
     
-  <%= f.submit "Update" %>
+  <%= break_clear(f.submit "Update") %>
 <% end %>
 
-<%= link_to 'Back', alignment_refs_path %>
+<%= link_to 'List All', alignment_refs_path %>

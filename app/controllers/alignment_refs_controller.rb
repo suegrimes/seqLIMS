@@ -8,7 +8,7 @@ class AlignmentRefsController < ApplicationController
 
   # GET /alignment_refs/1
   def show
-    @alignment_ref = AlignmentRef.find(params[:id])
+    #@alignment_ref = AlignmentRef.find(params[:id])
   end
 
   # GET /alignment_refs/new
@@ -18,7 +18,7 @@ class AlignmentRefsController < ApplicationController
 
   # GET /alignment_refs/1/edit
   def edit
-    @alignment_ref = AlignmentRef.find(params[:id])
+    #@alignment_ref = AlignmentRef.find(params[:id])
   end
 
   # POST /alignment_refs
@@ -35,7 +35,7 @@ class AlignmentRefsController < ApplicationController
 
   # PUT /alignment_refs/1
   def update
-    @alignment_ref = AlignmentRef.find(params[:id])
+    #@alignment_ref = AlignmentRef.find(params[:id])
 
     if @alignment_ref.update_attributes(params[:alignment_ref])
       flash[:notice] = 'AlignmentRef was successfully updated.'
@@ -47,7 +47,7 @@ class AlignmentRefsController < ApplicationController
 
   # DELETE /alignment_refs/1
   def destroy
-    @alignment_ref = AlignmentRef.find(params[:id])
+    #@alignment_ref = AlignmentRef.find(params[:id])
     @alignment_ref.destroy
     redirect_to(alignment_refs_url) 
   end

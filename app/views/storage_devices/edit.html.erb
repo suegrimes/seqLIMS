@@ -1,11 +1,10 @@
-<h3>Edit storage device</h3>
+<h1>Edit storage device</h1>
 
 <% tagged_form_for(@storage_device) do |f| %>
   <%= f.error_messages %>
 
   <%= render :partial => 'storage_device_form', :locals => {:f => f} %>
   
-  <%= f.submit "Update" %>
+  <%= break_clear %>
+  <%= f.submit "Update" -%>&nbsp;&nbsp;<%= link_to 'List All', storage_devices_path %>
 <% end %>
-
-<%= link_to 'List All', storage_devices_path %>

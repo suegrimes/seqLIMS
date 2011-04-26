@@ -1,4 +1,4 @@
-<h3><%= @type_of_sample.camelize %> Samples - Processing Tree</h3>
+<h1><%= @type_of_sample.camelize %> Samples - Processing Tree</h1>
 
 <% if @samples_by_patient && @nr_samples[1] > 0 %>
 
@@ -13,7 +13,7 @@
     <% if can? :read, Patient %>
       / <%=h patient_id[1]%>
     <% end %>
-    </td>
+    </th>
     </tr>
     
     <tr>
@@ -68,12 +68,12 @@
 	  
 	  <% if nonblank_comments %>   
       <tr>
-        <td colspan="12" style="border-top:0; text-align:center;">
+        <td colspan="12" style="border-top:0;">
           <% if sample.sample_characteristic.pathology && !sample.sample_characteristic.pathology.comments.blank? %>        
-            <div style="padding: 0 10px; margin-bottom: 4px; width:70%; border: 1px solid #e5e5e5; text-align:left;">Pathology Comments:&nbsp;<%=h sample.sample_characteristic.pathology.comments %></div>
+            <div>Pathology Comments:&nbsp;<%=h sample.sample_characteristic.pathology.comments %></div>
           <% end %>
           <% if !sample.comments.blank? %>
-            <div style="padding: 0 10px; margin-bottom: 4px; width:70%; border: 1px solid #e5e5e5; text-align:left;">Sample Comments:&nbsp;&nbsp;&nbsp;&nbsp;<%=h sample.comments %></div>
+            <div>Sample Comments:&nbsp;<%=h sample.comments %></div>
           <% end %>
         </td>
       </tr>

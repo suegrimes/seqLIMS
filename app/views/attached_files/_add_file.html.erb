@@ -1,12 +1,12 @@
-<fieldset class="form">
-<legend>New <%= obj.class.to_s.downcase %>&nbsp;attachment:</legend>
 <% form_for(:attached_file, @attached_file,
             :url => {:controller => 'attached_files', :action=> 'create'},
             :html => {:multipart => true}) do |f| -%>  
   <%= error_messages_for :attached_file %>
   <%= hidden_field_tag(:obj_klass, obj.class.name)%>
   <%= hidden_field_tag(:obj_id, obj.id)%>
-  
+
+<fieldset class="form">
+<legend>New <%= obj.class.to_s.downcase %>&nbsp;attachment:</legend>
   <table class="form">
 	<tr>
 	  <th>File name:</th>

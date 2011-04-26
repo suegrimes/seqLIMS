@@ -1,4 +1,4 @@
-<h3>Edit User</h3>
+<h1>Edit User</h1>
 
 <% tagged_form_for(@user) do |f| -%>
 <%= error_messages_for :user %>
@@ -9,6 +9,13 @@
   <table class="form">
     <tr><%= f.text_field :login %></tr>  
     <tr><%= f.text_field :email %></tr>
+	<tr>
+      <th><%= label :curr_user, :current_password %></th>
+      <td><%= password_field :curr_user, :current_password %></td>
+	</tr>
+	<tr><td>&nbsp;</td></tr>
+    <tr><%= f.password_field :password, :label => 'New Password' %></tr>
+    <tr><%= f.password_field :password_confirmation, :label => 'New Password Confirmation' %></tr>
 
   <% if can? :update, Role %>
     <tr><th><%= f.label :roles %></th>
@@ -21,27 +28,5 @@
   </table>
 </fieldset>
 <%= break_clear %>
-
-<div id="pswd_link">
-  <%= link_to_function "Change password", div_toggle(:chg_pswd, :pswd_link) %><br /><br />
-</div>
-
-<div id="chg_pswd", style="display:none;">
-<fieldset class="form">
-<legend>Change Password</legend>
-
-  <table class="form">
-    <tr>
-      <th><%= label :curr_user, :current_password %></th>
-      <td><%= password_field :curr_user, :current_password %></td>
-	</tr>
-
-    <tr><%= f.password_field :password, :label => 'New Password' %></tr>
-    <tr><%= f.password_field :password_confirmation, :label => 'New Password Confirmation' %></tr>
-  </table>
-</fieldset>
-<%= break_clear %>
-</div>
-
 <div><%= f.submit 'Update' -%>&nbsp;&nbsp;<%=link_to 'Cancel', :back %></div>
-<% end -%>
+<% end %>

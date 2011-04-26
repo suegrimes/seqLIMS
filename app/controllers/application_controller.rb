@@ -4,21 +4,20 @@
 class ApplicationController < ActionController::Base
   include AuthenticatedSystem
   include RoleRequirementSystem
-  #  
+  #
+  #Make current_user accessible from model (via User.current_user)
+  before_filter :set_current_user
+  before_filter :log_user_action
+  
   rescue_from CanCan::AccessDenied do |exception|
-    user_login = (current_user.nil? ? current_user.login : nil)
-    flash[:error] = "Sorry #{user_login}, you are not allowed to access that page"
+    user_login = (current_user.nil? ? nil : current_user.login)
+    flash[:error] = "Sorry #{user_login}, you are not authorized to access that page"
     redirect_to ''
   end
   # 
   require 'fastercsv'
   require 'calendar_date_select'
 
-  # 
-  #Make current_user accessible from model (via User.current_user)
-  before_filter :set_current_user
-  before_filter :log_user_action
-  #
   helper :all # include all helpers, all the time
   #
   # See ActionController::RequestForgeryProtection for details

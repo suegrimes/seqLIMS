@@ -3,13 +3,13 @@
   <% new_or_existing = sample.new_record? ? 'new' : 'existing' %>
   <% prefix = "sample_characteristic[#{new_or_existing}_sample_attributes][]" %>
 
+<% fields_for prefix, sample do |s| %> 
+  <%=s.hidden_field(:patient_id, :value => @patient_id) %>
+  <%=s.error_messages%>
+
 <fieldset class="form">
 <legend>Physical Sample</legend> 
 <table class="form">
-  <% fields_for prefix, sample do |s| %> 
-    <%=s.hidden_field(:patient_id, :value => @patient_id) %>
-	<%=s.error_messages%>
-	
     <tr>
       <th>Barcode</th>
 	  <td><%=s.text_field :barcode_key, :size => 10 %></td>
@@ -52,7 +52,7 @@
 	
     <tr>
       <th>Room/Freezer</th>
-	  <%= render :partial => 'shared/storage_select', :locals => {:f => s} %>
+	  <td><%= render :partial => 'shared/storage_select', :locals => {:f => s} %></td>
 	  <th>Shelf</th>
 	  <td><%=s.text_field :storage_shelf, :size => 10 %></td>
       <th>Rack#/Bin</th>
@@ -63,9 +63,7 @@
       <td colspan=5><%=s.text_area :comments, :cols => 80, :rows => 2 %></td>
     </tr>
 	<!--  link_to_function "remove", "$(this).up('.samples').remove()"  -->
-  <% end %>
 </table>
 </fieldset>
-<%= break_clear %>
-
+<% end %>
 </div>

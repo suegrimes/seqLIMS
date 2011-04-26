@@ -51,11 +51,11 @@
 	<td><%= f.text_field(:trim_bases, :size => 6) %></td>
 </tr>
 <tr>
-  <th>Notebook Ref:</th>
+  <th class="right">Notebook Ref:</th>
   <td colspan="3"><%= f.text_field(:notebook_ref, :size => 30)%></td>  
 </tr>
 <tr>
-  <th>Notes:</th>
+  <th class="right">Notes:</th>
   <td colspan="3"><%= f.text_field(:notes, :size => 50)%></td>
   <td><%= f.collection_select(:target_pool, @projects, :c_value, :c_value,
                                {:include_blank => 'Select Project'}) %></td>

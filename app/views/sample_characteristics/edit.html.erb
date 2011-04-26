@@ -1,4 +1,4 @@
-<h3>Editing Sample Acquisition details for Patient: <%= @sample_characteristic.patient_id %>, Collection Date: <%= @sample_characteristic.collection_date %></h3>
+<h1>Editing Sample Acquisition details for Patient: <%= @sample_characteristic.patient_id %>, Collection Date: <%= @sample_characteristic.collection_date %></h1>
 
 <% form_for @sample_characteristic do |f| %>
   <%= f.error_messages %>
@@ -8,8 +8,7 @@
   
   <%= render :partial => 'clinical_form',    :locals => {:f => f} %>
   
-  <br />
-  <table width="100%"><tr><td></td></tr></table>
+  <%= break_clear %>
   
   <span class="table_title">Physical Sample(s):</span>
   <table class="list">
@@ -35,7 +34,6 @@
                           :method => :get) %>
     </div>
 	
-  <% end %>
-  
-  <%= f.submit "Update" %>
+  <% end %> 
+  <%= break_clear(f.submit "Update") %>
 <% end %>

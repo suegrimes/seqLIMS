@@ -1,7 +1,7 @@
 <% @researchers.sort.each do |active_inactive, researchers| %>
 <% active_inactive_text = (active_inactive == 'A'? 'Active' : 'Inactive') %>
 
-<h3><%= active_inactive_text %> researchers</h3>
+<h1><%= active_inactive_text %> researchers</h1>
 
 <table class="list">
   <tr>

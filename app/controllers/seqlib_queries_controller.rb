@@ -4,14 +4,14 @@ class SeqlibQueriesController < ApplicationController
   before_filter :dropdowns, :only => :new_query
   
   def new_query
-   unauthorized! if cannot? :read, SeqLib
+   authorize! :read, SeqLib
    @seqlib_query = SeqlibQuery.new(:from_date => (Date.today - 12.months).beginning_of_month,
                                    :to_date   =>  Date.today)
   end
   
   # GET /seq_libs
   def index
-    unauthorized! if cannot? :read, SeqLib
+    authorize! :read, SeqLib
     
     @seqlib_query = SeqlibQuery.new(params[:seqlib_query])
     

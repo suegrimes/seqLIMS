@@ -1,13 +1,11 @@
-<h3>Editing protocol</h3>
+<h1>Editing protocol</h1>
 
 <% tagged_form_for(@protocol) do |f| %>
   <%= f.error_messages %>
 
   <%= render :partial => 'protocol_form', :locals => {:f => f}%>
   
-  <p>
-    <%= f.submit "Update" %>
-  </p>
+  <%= break_clear (f.submit "Update") %>
 <% end %>
 
 <%= link_to 'Show', @protocol %> |

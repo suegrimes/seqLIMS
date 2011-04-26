@@ -47,14 +47,13 @@ class UsersController < ApplicationController
   
   # render edit.html
   def edit 
-    @user = User.find(params[:id])
+    #@user = User.find(params[:id])
     @roles = Role.find(:all)
   end
   
   def update
-    params[:user][:role_ids] ||= []
- 
-    @user = User.find(params[:id])
+    #@user = User.find(params[:id])
+    params[:user][:role_ids] ||= [] 
     
     if can? :edit, Role
       @user.roles = Role.find(params[:user][:role_ids])
@@ -89,7 +88,7 @@ class UsersController < ApplicationController
       redirect_to users_url
       
     else
-      @user = User.find(params[:id])
+      #@user = User.find(params[:id])
       @user.destroy
       redirect_to(users_url) 
     end
@@ -123,3 +122,4 @@ class UsersController < ApplicationController
   end
     
 end
+
