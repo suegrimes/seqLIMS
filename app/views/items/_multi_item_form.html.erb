@@ -2,14 +2,14 @@
 <legend>Item(s):</legend>
 
   <% @items.each_with_index do |itm, i| %>
-    <% fields_for 'items_' + i.to_s, itm do |f| %>
-	<%= f.error_messages %>
+  <% fields_for 'items_' + i.to_s, itm do |f| %>
+	
+  <table class="form-with-columns-no-th-underline">	
+	<tr><td colspan="4"><%= f.error_messages %></td></tr>
 	
 	<%= f.hidden_field(:requester_name) %>
 	<%= f.hidden_field(:deliver_site) %>
 	<%= f.hidden_field(:grant_nr) %>
-	
-  <table class="form-with-columns-no-th-underline">	
 	<tr>
 	  <th class="right">Catalog#</th>
 	  <td><%= f.text_field_with_auto_complete :catalog_nr, {:size => 10},
@@ -50,9 +50,9 @@
 	  <th class="right">Notes:</th>
 	  <td><%=f.text_field(:notes, :size => 65)%></td>
 	</tr>
-	<% end %>
+  </table>
   <% end %>
-</table>
+  <% end %>
 </fieldset>
 <%= break_clear(submit_tag("Save Items"))%>
 
