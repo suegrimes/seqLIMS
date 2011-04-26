@@ -9,9 +9,9 @@
 	<%= f.hidden_field(:deliver_site) %>
 	<%= f.hidden_field(:grant_nr) %>
 	
-  <table class="form">	
+  <table class="form-with-columns-no-th-underline">	
 	<tr>
-	  <th>Catalog#</th>
+	  <th class="right">Catalog#</th>
 	  <td><%= f.text_field_with_auto_complete :catalog_nr, {:size => 10},
               {:url => {:controller => :items, :action => :auto_complete_for_catalog_nr},
                :param_name => :search, :min_chars => 3, :method => :get,
@@ -20,15 +20,15 @@
 			     remote_function(:url => { :action => :update_fields, :i => i},
                                  :with => "'catalog_nr=' + element.value") + "}"} %>
 	  </td>
-	  <th>Company Name:</th>
+	  <th class="right">Company Name:</th>
 	  <td><%=f.text_field_with_auto_complete(:company_name, {},
              {:url => {:controller => :items, :action => :auto_complete_for_company_name},
               :param_name => :search, :min_chars => 3, :method => :get})%></td>  
 	</tr>
 	<tr>
-	  <th>Chemical?</th>	
+	  <th class="right">Chemical?</th>	
 	  <td><%=f.select(:chemical_flag, %w{Y N}, {:include_blank => true}) %></td> 
-	  <th>Description:</th>
+	  <th class="right">Description:</th>
 	  <td colspan="3"><%= f.text_field_with_auto_complete :item_description, {:size => 50},
               {:url => {:controller => :items, :action => :auto_complete_for_item_description},
                :param_name => :search, :min_chars => 3, :method => :get,
@@ -39,18 +39,17 @@
 	  </td>
 	</tr>
 	<tr>
-	  <th>Quantity:</th>
+	  <th class="right">Quantity:</th>
 	  <td><%=f.text_field(:item_quantity, :size => 10) %></td>
-	  <th>Size:</th>
+	  <th class="right">Size:</th>
 	  <td><%=f.text_field(:item_size, :size => 15) %></td>  
 	</tr>
 	<tr>
-	  <th>Price:</th>
+	  <th class="right">Price:</th>
 	  <td><%=f.text_field(:item_price, :size => 10) %></td> 	
-	  <th>Notes:</th>
+	  <th class="right">Notes:</th>
 	  <td><%=f.text_field(:notes, :size => 65)%></td>
 	</tr>
-	<tr><td colspan="4"><hr></td></tr>
 	<% end %>
   <% end %>
 </table>

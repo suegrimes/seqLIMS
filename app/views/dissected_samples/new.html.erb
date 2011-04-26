@@ -1,4 +1,4 @@
-<h3>New dissection from sample: <%=h @source_sample.barcode_key %></h3>
+<h1>New dissection from sample: <%=h @source_sample.barcode_key %></h1>
 
 <%= render :partial => 'sample_characteristics/clinical_summary', :locals => {:sample_characteristic => @source_sample.sample_characteristic,
                                                                               :patient => @source_sample.patient } %>
@@ -13,8 +13,6 @@
                                                      :sample_characteristic => @sample_characteristic,
                                                      :source_sample => @source_sample,
                                                      :sample => @sample } %> 
-  
-  <br />
-  <table width="100%"><tr><td><%= f.submit "Save" %></td></tr></table>
+  <%= break_clear(f.submit "Save") %>
 <% end %>
 

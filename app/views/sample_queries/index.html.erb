@@ -1,4 +1,4 @@
-<h3>Listing <%= @type_of_sample.camelize %> Samples - <%=h @heading_string %></h3>
+<h1>Listing <%= @type_of_sample.camelize %> Samples - <%=h @heading_string %></h1>
 
 <% form_tag :action => :export_samples do %>
 
@@ -18,13 +18,13 @@
     <th>Shelf</th>
     <th>Rack#/Bin</th>
 	<th>Extracted?</th> 
-	<th colspan=2></th>
+	<th></th>
   </tr>
   
   <% if @samples_by_patient %>
     <% @samples_by_patient.sort.each do | patient_id, samples| %>
     <tr>
-    <td colspan=13><b>Patient: </b><%=link_to patient_id[0], patient_path(:id => patient_id[0]) %>
+    <td colspan=12><b>Patient: </b><%=link_to patient_id[0], patient_path(:id => patient_id[0]) %>
     <% if can? :read, Patient %>
       / <%=h patient_id[1]%>
     <% end %>
@@ -32,30 +32,29 @@
     </tr>
 
     <% samples.each do |sample| %>
+      <% nonblank_comments = have_comments?(sample) %>
       <tr>
-      	<td><%= link_to sample.barcode_key, edit_sample_path(sample)%></td>
+      	<td class=<%= "dotted_border_bottom" if nonblank_comments %>><%= link_to sample.barcode_key, edit_sample_path(sample)%></td>
         <% if sample.clinical_sample == 'yes' %>
-		<td> Clinical </td>
+		<td class=<%= "dotted_border_bottom" if nonblank_comments %>> Clinical </td>
         <% else %>
-		<td>Sample: <%=h sample.source_barcode_key %></td>
+		<td class=<%= "dotted_border_bottom" if nonblank_comments %>>Sample: <%=h sample.source_barcode_key %></td>
         <% end %>
-        <td><%=h sample.sample_date %></td>
-        <td><%=h sample.tumor_normal %></td>
-        <td><%=h sample.container_type %></td>
-        <td><%=h sample.sample_amt %></td>
-        <td><%=h sample.sample_remaining%></td>
-        <td><% if sample.storage_location %><%=h sample.storage_location.location_string %><% end %></td>
-        <td><%=h sample.storage_shelf %></td>
-        <td><%=h sample.storage_boxbin %></td>
+        <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.sample_date %></td>
+        <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.tumor_normal %></td>
+        <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.container_type %></td>
+        <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.sample_amt %></td>
+        <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.sample_remaining%></td>
+        <td class=<%= "dotted_border_bottom" if nonblank_comments %>><% if sample.storage_location %><%=h sample.storage_location.location_string %><% end %></td>
+        <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.storage_shelf %></td>
+        <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.storage_boxbin %></td>
 		<%= render :partial => 'sample_links', :locals => {:sample => sample,
                                                :sample_characteristic => sample.sample_characteristic} %>
-	    <td><%= hidden_field_tag("export_id[]", sample.id)  %></td>
+	    <%= hidden_field_tag("export_id[]", sample.id)  %>
       </tr>
-	  <% if !sample.comments.blank? %>
+	  <% if nonblank_comments %>
 	  <tr>
-	  	<td colspan=2></td>
-		<td>Comments: </td>
-        <td colspan=7><%=h sample.comments %></td>
+		<td colspan="12">Comments: <%=h sample.comments %></td>
 	  </tr>
 	  <% end %>
     <% end %>
