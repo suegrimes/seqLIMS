@@ -1,4 +1,4 @@
-<h3>Sequencing Library Query</h3>
+<h1>Sequencing Library Query</h1>
 
 <% form_for(@seqlib_query, :action=> 'index') do |f| %>
 <%= f.error_messages(:header_message => "Error(s) in query parameters") %>
@@ -32,5 +32,5 @@
 </table>
 </fieldset>
 <br />
-<table width="100%"><tr><td><%= submit_tag "Submit" %></td></tr></table>
+<%= break_clear(submit_tag "Submit") %>
 <%end%>

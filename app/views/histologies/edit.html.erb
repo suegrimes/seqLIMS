@@ -1,4 +1,4 @@
-<h3>Editing H&E Slide: <%=h @histology.he_barcode_key %></h3>
+<h1>Editing H&E Slide: <%=h @histology.he_barcode_key %></h1>
 
 <%= render :partial => 'samples/sample_info', :locals => {:sample_characteristic => @histology.sample.sample_characteristic,
                                                           :sample => @histology.sample} %>
@@ -9,6 +9,5 @@
 
 <% form_for @histology, :action => :update do |f| %>
   <%= render :partial => 'histology_form', :locals => {:f => f} %>
-  <br />
-  <table width="100%"><tr><td><%= submit_tag "Update" %></td></tr></table>
+<%= break_clear(submit_tag "Update") %>
 <% end %>

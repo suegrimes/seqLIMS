@@ -1,4 +1,4 @@
-<h3>Sequencing Library</h3>
+<h1>Sequencing Library</h1>
 
 <%= render :partial => 'lib_show', :locals => {:seq_lib => @seq_lib} %>
 
@@ -9,6 +9,6 @@
     <%= render :partial => 'splex_sample_show', :locals => {:lib_sample => @seq_lib.lib_samples[0]} %>
   <% end %>
 <% end %>
-
-<%= render :partial => 'attached_files/show_file', :locals => {:obj => @seq_lib} %>
 <%= break_clear %>
+<%= render :partial => 'attached_files/show_file', :locals => {:obj => @seq_lib} %>
+

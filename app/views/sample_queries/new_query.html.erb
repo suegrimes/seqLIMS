@@ -1,4 +1,4 @@
-<h3><%= @type_of_sample.camelize %> Samples Query</h3>
+<h1><%= @type_of_sample.camelize %> Samples Query</h1>
 
 <% form_for(@sample_query, :action => 'index') do |f| %>
 <%= hidden_field_tag(:stype, @type_of_sample)%>
@@ -57,6 +57,5 @@
   </tr>
 </table>
 </fieldset>
-<br />
-<table width="100%"><tr><td><%= submit_tag "Submit" %></td></tr></table>
+<%= break_clear(submit_tag "Submit") %>
 <%end%>

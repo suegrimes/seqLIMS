@@ -10,7 +10,7 @@ module ApplicationHelper
   
   def break_clear(content=nil)
     out = '<br />'
-    out << '<table width=100%><tr><td>'
+    out << '<table class="break_clear" width="100%"><tr><td>'
     out << content if !content.nil?
     out << '</td></tr></table>'
     out

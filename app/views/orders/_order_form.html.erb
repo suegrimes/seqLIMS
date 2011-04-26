@@ -3,9 +3,9 @@
  <legend>Order Details</legend>
     <table class="form">
       <tr>
-      	<th>RPO/CWA</th>
+      	<th>RPO/CWA:</th>
 		<td><%= f.select(:rpo_or_cwa, %w{RPO CWA Other}, {:include_blank => true}) %></td>
-      	<th>Company Name</th>
+      	<th>Company Name:</th>
 		<% if have_company_list == 'yes' %>
       	<td><%= f.select(:company_name, @companies, {:include_blank => 'Select Company'}) %></td>
 		<% else %>
@@ -13,16 +13,16 @@
 		<% end %>
 	  </tr>
 	  <tr>
-        <th>Order Date</th>
+        <th>Order Date:</th>
 		<td><%= f.calendar_date_select(:date_ordered, :valid_date_check => "date <= (new Date()).stripTime()",
                                                       :year_range => [1.years.ago, 0.years.ago], :size => 15)%>
 		<th>Chemicals?</th>
 		<td><%= f.select(:incl_chemicals, %w{Y N}, {:include_blank => true}) %></td>
 	  </tr>
 	  <tr>		
-		<th>PO Number</th>
+		<th>PO Number:</th>
 		<td><%= f.text_field(:po_number, :size => 15) %></td>
-		<th>Order Number</th>
+		<th>Order Number:</th>
 		<td><%= f.text_field(:order_number, :size => 15) %></td>
 		<th>Recv'd?</th>
 		<td><%= f.select(:order_received, %w{Y N P}, {:include_blank => true}) %></td>

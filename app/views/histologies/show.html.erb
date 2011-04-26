@@ -1,4 +1,4 @@
-<h3>H&E Slide: <%=h @histology.he_barcode_key %></h3>
+<h1>H&E Slide: <%=h @histology.he_barcode_key %></h1>
 
 <%= render :partial => 'sample_characteristics/clinical_summary', :locals => {:sample_characteristic => @histology.sample.sample_characteristic,
                                                                               :patient => @histology.sample.patient } %>

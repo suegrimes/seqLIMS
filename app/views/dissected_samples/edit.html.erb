@@ -1,4 +1,4 @@
-<h3>Editing dissected sample: <%=h @sample.barcode_key %></h3>
+<h1>Editing dissected sample: <%=h @sample.barcode_key %></h1>
 
 <%= render :partial => 'sample_characteristics/clinical_summary', :locals => {:sample_characteristic => @sample.sample_characteristic,
                                                                               :patient => @sample.patient } %>
@@ -9,7 +9,7 @@
   <%= f.error_messages %>
   
   <%= render :partial => 'dsample_form', :locals => {:f => f } %> 
-  <p><%= f.submit "Save" %></p>
+  <%= break_clear(f.submit "Save") %>
 <% end %>
 
 <%= link_to 'Back', :back %>

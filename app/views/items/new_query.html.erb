@@ -1,4 +1,4 @@
-<h3>View Order Items</h3>
+<h1>View Order Items</h1>
 
 <% tagged_form_for(@item_query, :url => {:controller => 'items', :action => 'list_selected'}) do |f| %>
 <%= f.error_messages(:header_message => "Error(s) in query parameters") %>
@@ -20,7 +20,6 @@
   </tr>
 </table>
 </fieldset>
-<%= break_clear %>
 
-<%= f.submit "Submit" %>
+<%= break_clear(f.submit "Submit") %>
 <%end%>

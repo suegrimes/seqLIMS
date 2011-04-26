@@ -1,4 +1,4 @@
-<h3>New item</h3>
+<h1>New item</h1>
 
 <% form_tag :action => 'create' do %>
 <fieldset class="form">
@@ -22,7 +22,7 @@
   
   <% if @items.nil? %>
   <div id='item_entry'> 
-  <span><b>Enter how many items with these defaults?</b><%= text_field_tag(:nr_items, '', :size => 5)-%></span>
+  <span><b>Enter how many items with these defaults?</b>&nbsp;<%= text_field_tag(:nr_items, '', :size => 5)-%></span>
   <%= submit_to_remote 'MultiItem', 'Add Items',
       :url => {:action => 'populate_items'},
       :update => 'item_entry' -%>

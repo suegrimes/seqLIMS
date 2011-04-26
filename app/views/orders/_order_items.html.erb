@@ -24,10 +24,10 @@
 	  <td><%=m.select(:item_received, %w{Y N}, {:include_blank => true}) %></td>
 	</tr>
 	<tr>
-	  <td style="text-align:right;"><b>Description:</b></td>
+	  <th class="right"><b>Description:</b></th>
 	  <td colspan=5 width="75%"><div class="wrap-line"><%=h item.item_description %></div></td>
   	<tr>
-	  <td style="text-align:right;"><b>Notes:</b></td>
+	  <th class="right"><b>Notes:</b></th>
 	  <td colspan=5><%=m.text_field :notes, :size => 95 %></td>
 	</tr>
   </table>
