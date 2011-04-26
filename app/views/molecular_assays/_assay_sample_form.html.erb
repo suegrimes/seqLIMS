@@ -7,47 +7,43 @@
 	  
 <fieldset class="form">
 <legend>Assays</legend>
- <%= hidden_field_tag(:nr_assays, @new_assay.size) %>
- <% @new_assay.each_with_index do |assay, i| %>
+  <%= hidden_field_tag(:nr_assays, @new_assay.size) %>
+  <table class="form-with-columns">
+  <tr>
+    <th></th>
+	<th>Barcode</th>
+	<th>Source DNA/RNA</th>
+	<th>Volume</th>
+	<th>Conc(ng/ul)</th>
+	<th>Notes</th>
+  </tr>
+  
+  <% @new_assay.each_with_index do |assay, i| %>
     <% fields_for 'molecular_assay_' + i.to_s, assay do |f| %> 
       <% fields_for 'lib_sample_' + i.to_s, @lib_samples[i] do |s| %>
-        <%= s.error_messages %>
+        <tr><td colspan="5"><%= s.error_messages %></td></tr>
         <%= f.hidden_field(:owner) %>
 	    <%= f.hidden_field(:preparation_date) %>
 	    <%= f.hidden_field(:protocol_id) %>
-	    <%= f.hidden_field(:quantitation_method)%>
-<table class="form-with-columns-no-th-underline">
-<tr>
-    <th><em>Assay: <%= i+1 %></em></th>
-	<th>Barcode</th>
-	<th>Assay Descr</th>
-	<th>Source DNA/RNA</th>
-	<th>Size(Final PCR)</th>
-	<th>Quantitation</th>
-</tr>
-<tr>
-    <td></td>
-    <td><%= f.text_field :barcode_key, :size => 10 %></td>
-    <td><%= f.text_field(:assay_descr, :size => 15)%></td>
-    <td><%= s.text_field_with_auto_complete :source_sample_name, {:size => 12},
+  <tr>
+    <td><em>Sample: <%= i+1 %></em></td>
+    <td>Generated</td>
+    <td><%= s.text_field_with_auto_complete :source_DNA, {:size => 12},
               {:url => {:controller => :processed_samples, :action => :auto_complete_for_barcode_key},
-               :param_name => :search, :min_chars => 2, :method => :get} %></td>
-	<td><%= f.text_field(:pcr_size, :size => 6) %></td>   
-	<td><%= f.collection_select(:quantitation_method, @quantitation, :c_value, :c_value, {:include_blank => 'Select Method'}) %></td>
-</tr>
-<tr>
-  <th>Notebook Ref:</th>
-  <td colspan="3"><%= f.text_field(:notebook_ref, :size => 30)%></td>  
-</tr>
-<tr>
-  <th>Notes:</th>
-  <td colspan="3"><%= f.text_field(:notes, :size => 50)%></td> 
-</tr>
-<tr><td colspan="12"></td></tr>
-<!--%= row_underline(cols=12)%-->
-</table>
+               :param_name => :search, :min_chars => 2, :method => :get, 
+			   
+			   :after_update_element => "function(element,value){" + 
+			     remote_function(:url => { :action => :update_fields, :i => i},
+                                 :with => "'source_DNA=' + element.value") + "}"} %></td>
+	<td><input id=<%= "lib_sample_" + i.to_s + "_final_vol"%> size="8">&nbsp;</input></td>
+	<td><input id=<%= "lib_sample_" + i.to_s + "_final_conc"%> size="8">&nbsp;</input></td>
+	<td><%= f.text_field(:notes, :size => 30)%></td> 
+  </tr>
+  <tr><td colspan="7"></td></tr>
+  <!--%= row_underline(cols=12)%-->
     <% end %>
   <% end %>
 <% end %>
+</table>
 </fieldset>
 </div>

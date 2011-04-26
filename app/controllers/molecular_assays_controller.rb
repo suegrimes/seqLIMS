@@ -45,7 +45,7 @@ class MolecularAssaysController < ApplicationController
     
     0.upto(params[:nr_assays].to_i - 1) do |i|
       @new_assay[i]    = MolecularAssay.new(params[:assay_default])
-      @lib_samples[i] = LibSample.new(:source_DNA => params[:sample_default][:source_DNA])
+      @lib_samples[i] = LibSample.new
     end
     render :partial => 'assay_sample_form'
     #render :action => :debug
@@ -63,7 +63,7 @@ class MolecularAssaysController < ApplicationController
       assay_param = params['molecular_assay_' + i.to_s]
       sample_param = params['lib_sample_' + i.to_s]
       @new_assay[i] = build_assay(assay_param, sample_param)
-      if !@new_assay[i][:assay_descr].blank?
+      if !@new_assay[i][:source_DNA].blank?
         @assay_index = i
         @new_assay[i].save! 
         @assay_id.push(@new_assay[i].id)
@@ -73,15 +73,15 @@ class MolecularAssaysController < ApplicationController
     end
     
     if assays_created == 0  # All lib_names were blank
-      flash[:error] = 'No assay(s) created - no non-blank assay names found'
+      flash[:error] = 'No assay(s) created - no source DNA fields entered'
       @assay_with_error = nil
       reload_defaults(params, params[:nr_assays])
-      render :action => 'new'
-      #render :action => 'debug'
+      #render :action => 'new'
+      render :action => 'debug'
     else
       flash[:notice] = assays_created.to_s + ' assay(s) successfully created'
-      redirect_to :action => 'index', :assay_id => @assay_id
-      #render :action => :debug
+      #redirect_to :action => 'index', :assay_id => @assay_id
+      render :action => :debug
     end
     
     # Validation error(s)
@@ -123,11 +123,26 @@ class MolecularAssaysController < ApplicationController
     render :inline => "<%= auto_complete_result(@molecular_assays, 'barcode_key') %>"
   end
   
+  def update_fields
+    params[:i] ||= 0
+    if params[:source_DNA]
+      @processed_sample = ProcessedSample.find_by_barcode_key(params[:source_DNA])
+    end
+    
+    if @processed_sample.nil?
+      render :nothing => true
+    else
+      render :update do |page|
+        page['lib_sample_' + params[:i] + '_final_vol'].value   = @processed_sample.final_vol
+        page['lib_sample_' + params[:i] + '_final_conc'].value  = @processed_sample.final_conc
+       end
+    end
+  end
+  
 protected
   def dropdowns
     @owners       = Researcher.populate_dropdown('active_only')
     @protocols    = Protocol.find_for_protocol_type('M')
-    @quantitation = Category.populate_dropdown_for_category('quantitation')
   end
   
   def reload_defaults(params, nr_assays)
@@ -135,7 +150,7 @@ protected
     @assay_default = MolecularAssay.new(params[:assay_default])
     @sample_default = LibSample.new(params[:sample_default])
    
-    @new_assay = []     if !@new_assay
+    @new_assay = []   if !@new_assay
     @lib_samples = [] if !@lib_samples
     
     0.upto(nr_assays.to_i - 1) do |i|
@@ -145,12 +160,17 @@ protected
   end
   
   def build_assay(assay_param, sample_param)
-     molecular_assay = MolecularAssay.new(assay_param)
+    if sample_param[:source_DNA].blank?
+      return nil
+      
+    else
+      molecular_assay = MolecularAssay.new(assay_param)
      
-     sample_param.merge!(:sample_name     => assay_param[:assay_descr],
-                         :notes           => assay_param[:notes])
-     molecular_assay.lib_samples.build(sample_param)
-     return molecular_assay
+      sample_param.merge!(:notes     => assay_param[:notes])
+      molecular_assay.lib_samples.build(sample_param)
+      return molecular_assay
+    end
+     
   end
  
  

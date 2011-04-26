@@ -21,7 +21,7 @@ class MolecularAssay < ActiveRecord::Base
   has_many :lib_samples  
   accepts_nested_attributes_for :lib_samples
   
-  validates_presence_of :barcode_key, :assay_descr, :owner
+  validates_presence_of :barcode_key, :source_DNA, :owner
   validates_uniqueness_of :barcode_key, :message => "is not unique"
   validates_format_of :barcode_key, :with => /^M\d+$/, :message => "must start with 'M', followed by digits"
   validates_date :preparation_date
