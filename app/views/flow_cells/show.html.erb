@@ -1,4 +1,4 @@
-<h3><%= (@flow_cell.sequenced? ? 'View Sequencing Run' : 'View Flow Cell') %></h3>
+<h1><%= (@flow_cell.sequenced? ? 'View Sequencing Run' : 'View Flow Cell') %></h1>
 
 <%= render :partial => 'flow_cell_show', :locals => {:flow_cell => @flow_cell} %>
 

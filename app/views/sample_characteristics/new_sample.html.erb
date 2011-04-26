@@ -1,4 +1,4 @@
-<h3>New sample for patient: <%=h @patient.id %>/<%=h @patient.mrn %> </h3>
+<h1>New sample for patient: <%=h @patient.id %>/<%=h @patient.mrn %> </h1>
 
 <% form_for :patient, :url => {:action => 'create'} do |f| %>
   <%= f.error_messages %>

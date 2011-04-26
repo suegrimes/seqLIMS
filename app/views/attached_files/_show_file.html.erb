@@ -15,8 +15,7 @@
       <tr><td class="linkborder"><%= link_to_function "New Attachment", div_toggle(:newfile) %></td></tr>	
   </table>
 </fieldset>
-<%= break_clear %>
-
+<%=break_clear %>
 <div id="newfile", style="display:none">
   <%= render :partial => '/attached_files/add_file', :locals => {:obj => obj} %>
 </div>

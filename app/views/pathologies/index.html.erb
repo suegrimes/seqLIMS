@@ -1,5 +1,5 @@
-<h3>Listing Pathologies/Sample Characteristics 
-    <% if @patient_id %> for Patient: <%= @patient_id %><% end %></h3>
+<h1>Listing Pathologies/Sample Characteristics 
+    <% if @patient_id %> for Patient: <%= @patient_id %><% end %></h1>
 
 <% for pathology in @pathologies %>
 <%= render :partial => 'pathology_info', :locals => {:pathology => pathology, 

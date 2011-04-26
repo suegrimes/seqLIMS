@@ -1,9 +1,9 @@
-<h3>Sample Acquisition - Select parameters</h3>
+<h1>Sample Acquisition - Select parameters</h1>
 
 <% form_tag :action=> 'edit_params'  do %>
 <%= hidden_field_tag(:filter, 'edit')%>
 
-<table class="form">
+<table class="form border">
   <tr>
   <% if can? :read, Patient %>
   	<th>MRN:</th><td><%= text_field_tag(:mrn) %></td>	
@@ -13,5 +13,5 @@
   </tr>
 </table>
 
-<p><%= submit_tag "Submit" %></p>
+<%= submit_tag "Submit" %>
 <%end%>
