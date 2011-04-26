@@ -8,11 +8,13 @@
   
   <%= render :partial => '/patients/patient_form', :locals => {:f => f, :patient => @patient,
                                                                :patient_id => @patient.id} %>
+  <%= break_clear %>
   
     <% fields_for @sample_characteristic do |c| %>
 	  <%= c.error_messages %>
 	  
       <%= render :partial => 'clinical_form',   :locals => {:f => c} %>
+	  <%= break_clear %>
   
 	  <% for sample in @sample_characteristic.samples %>
          <%= render :partial => 'samples_form', :locals => {:sample => sample,
@@ -22,7 +24,6 @@
 	  <!-- <p>If you have another physical sample with identical characteristics, click <%= add_sample_link(" here ")%>to add</p> -->
 	<% end %>
   
-<%= f.submit "Save" %>
+  <%= break_clear %>
+  <%= f.submit "Save" -%>&nbsp;&nbsp;<%= link_to 'Back', :back %>
   <% end %>
-<br />
-<%= link_to 'Back', :back %>

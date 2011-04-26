@@ -5,8 +5,6 @@
 
   <%= render :partial => 'patient_form',      :locals => {:f => f, :patient_id => @patient.id} %>
   
-  <br />
-  <table class="break_clear" width="100%"><tr><td>
-  	<%= f.submit "Update" -%>&nbsp;&nbsp;<%= link_to 'Cancel', :back %>
-  </td></tr></table>  
+  <%= break_clear %>
+  <%= f.submit "Update" -%>&nbsp;&nbsp;<%= link_to 'Cancel', :back %>
 <% end %>
