@@ -1,5 +1,5 @@
 
-<h3><%=h @obj.class.name %>:</h3>
+<h1><%=h @obj.class.name %>:</h1>
 
 <% if @obj.class.name == 'Histology' %>
   <%= render :partial => 'histologies/histology_info', :locals => {:histology => @obj} %>

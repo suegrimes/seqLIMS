@@ -1,15 +1,21 @@
-<tr>
-    <td><%= s.text_field(:index_tag, :size => 10)%></td>
+  <% if multiplexed %>	
+	<td><%= s.text_field(:index_tag, :size => 10)%></td>
 	<td><% if s.object.index_tag %>
 	    <%=h IndexTag.find_or_blank(s.object.multiplex_type, s.object.index_tag)%>
 	    <% end %></td>
 	<td><%= s.collection_select(:multiplex_type, @adapters, :c_value, :c_value) %></td>
+  <% end %>
+  
     <td><%= s.text_field(:sample_name, :size => 20)%></td>
 	<td width="30"><%= s.text_field_with_auto_complete(:source_sample_name, {:size => 15},
               {:url => {:controller => :processed_samples, :action => :auto_complete_for_barcode_key},
                :param_name => :search, :min_chars => 3, :method => :get})%></td>
+			   
+  <% if multiplexed %>
 	<td><%= s.collection_select(:target_pool, @projects, :c_value, :c_value,
                              {:include_blank => 'Select Project'}) %></td>
     <td><%= s.text_field(:enzyme_code, :size => 15) %></td>
+  <% end %>
+  
 	<td><%= s.text_field(:notes, :size => 80)%></td>
-</tr>
+	

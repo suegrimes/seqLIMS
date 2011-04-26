@@ -1,11 +1,11 @@
-<h3>Editing order</h3>
+<h1>Editing order</h1>
 
 <% form_for(@order) do |f| %>
   <%= f.error_messages %>
 
   <%= render :partial => 'orders/order_form', :locals => {:f => f} %>
-  
   <%= break_clear %>
+  
   <b>Items:</b>
   <table class="list">
   	<tr>

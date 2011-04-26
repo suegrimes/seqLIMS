@@ -1,4 +1,4 @@
-<h3>Samples for Patient: <%=h @sample_characteristic.patient_id %>, Collection Date: <%=h @sample_characteristic.collection_date %></h3>
+<h1>Samples for Patient: <%=h @sample_characteristic.patient_id %>, Collection Date: <%=h @sample_characteristic.collection_date %></h1>
 
 <%= render :partial => 'sample_characteristics/patient_info', 
                        :locals => {:patient => @sample_characteristic.patient,
@@ -29,7 +29,7 @@
 <% if @new_sample_with_error %>
   <% form_for @sample_characteristic, :url => {:action => 'update'} do |f| %>
     <%= render :partial => 'samples_form', :locals => {:sample => @new_sample_with_error} %>
-  <%= submit_tag "Submit" %>
+    <%= break_clear(submit_tag "Submit") %>
   <% end %>
 
 <% elsif @added_sample_id %>
@@ -41,7 +41,7 @@
   	<% form_for @sample_characteristic, :url => {:action => 'update'} do |f| %>
 	  <%= render :partial => 'samples_form', :locals => {:sample => @sample_characteristic.samples.build(@sample_params),
                                                          :removable => 'no'} %>
-	<%= submit_tag "Submit" %>
+	  <%= break_clear(submit_tag "Submit") %>
 	<% end %>
   </div>
 <% end %>

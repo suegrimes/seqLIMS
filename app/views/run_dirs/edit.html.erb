@@ -1,4 +1,4 @@
-<h3>Sequencing Run:</h3>
+<h1>Sequencing Run:</h1>
 
 <%= render :partial => 'flow_cells/flow_cell_show', :locals => {:flow_cell => @run_dir.flow_cell} %>
 
@@ -7,7 +7,7 @@
   
   <%= render :partial => 'run_dir_form', :locals => {:f => f, :flow_cell => @run_dir.flow_cell} %>
   
-  <%= f.submit "Save" %></td> 
+  <%= break_clear(f.submit "Save") %>
 <% end %>
 
 

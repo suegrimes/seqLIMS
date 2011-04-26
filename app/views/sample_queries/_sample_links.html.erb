@@ -1,14 +1,15 @@
+<% nonblank_comments = have_comments?(sample) %>
 <% if sample.processed_samples.size > 0 %>
-<td> <%=link_to sample.processed_samples.size, :controller => :processed_samples,
+<td class=<%= "dotted_border_bottom" if nonblank_comments %>> <%=link_to sample.processed_samples.size, :controller => :processed_samples,
                        :action => :show_by_sample, :sample_id => sample.id   %></td>
 <% else %>
-<td><%=h sample.processed_samples.size %></td>
+<td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.processed_samples.size %></td>
 <% end %>
 
 <% if can? :delete, sample %>
   <% if sample.processed_samples.size == 0 %>
-    <td><%= link_to 'Delete', sample, :confirm => 'Are you sure?', :method => :delete %>
+    <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%= link_to 'Delete', sample, :confirm => 'Are you sure?', :method => :delete %>
   <% else %>
-    <td class="ltgrey"> Delete </td>
+    <td class=<%= "dotted_border_bottom ltgrey" if nonblank_comments %>> Delete </td>
   <% end %>
 <% end %>

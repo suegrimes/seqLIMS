@@ -1,4 +1,4 @@
-<h3>Details for Extraction: <%=h @processed_sample.barcode_key %></h3>
+<h1>Details for Extraction: <%=h @processed_sample.barcode_key %></h1>
 <%= render :partial => 'sample_characteristics/clinical_summary', :locals => {:sample_characteristic => @processed_sample.sample.sample_characteristic,
                                                                               :patient => @processed_sample.sample.patient }%>
 

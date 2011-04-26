@@ -130,9 +130,10 @@
 	<% end %> <!-- /admin -->
 	
     <li><a class="last-topmenu-item" href="#">Orders</a>
+	  <% view_items_label = (user_has_access?(user_roles, ["orders"]) ? 'View/Order items' : 'View Items') %>
 	  <ul>
         <li><%= link_to 'New item', new_item_path %></li>
-        <li><%= link_to 'View/Order items', view_items_path %></li>
+        <li><%= link_to view_items_label, view_items_path %></li>
         <li><%= link_to 'List/Upd orders', view_orders_path, :class => 'last-submenu-item' %></li>
       </ul>
 	</li> 
