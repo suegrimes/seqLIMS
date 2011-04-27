@@ -2,13 +2,11 @@
 
 <% form_for(@category) do |cform| %>
   <%= cform.error_messages %>
+  
+  <fieldset class="form">
+  <legend>Category: <%=h @category.category %></legend>
 
-  <p>Category: <%=h @category.category %></p>
-
-  <p>
-    <%= cform.label :category_description %><br />
-    <%= cform.text_field :category_description %>
-  </p>
+  <p><%= cform.label :category_description %>&nbsp;&nbsp;<%= cform.text_field :category_description %></p>
   
   <div id="category">
     <%= render :partial => 'cat_values', :locals => {:category_values => @category.category_values,
@@ -16,10 +14,9 @@
   </div>
   
   <%= add_value_link("Add Value", cform) %>
+  </fieldset>
   
-  <p>
-    <%= cform.submit "Update" %>
-  </p>
+  <%= break_clear(cform.submit "Update" )%>
 <% end %>
 
 <%= link_to 'Show', @category %> |
