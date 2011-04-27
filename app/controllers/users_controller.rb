@@ -7,12 +7,12 @@ class UsersController < ApplicationController
   #filter_access_to [:edit, :update, :show], :attribute_check => true
   
   ## role_authorization ##
-  #skip_before_filter :login_required, :only => [:new, :create]
+  skip_before_filter :login_required, :only => [:new, :create, :forget, :reset]
   #require_role "admin", :for_all_except => [:new, :create]
 
   # render index.rhtml
   def index
-    @users = current_user.find_all_with_authorization
+    @users = User.find_all_with_authorization
   end
 
   # render new.rhtml
@@ -48,8 +48,7 @@ class UsersController < ApplicationController
   # render edit.html
   def edit 
     @user = User.find(params[:id])
-    authorize! :edit, @user
-    
+    @user = current_user if (cannot? :edit, @user)
     @roles = Role.find(:all)
   end
   

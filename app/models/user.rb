@@ -61,16 +61,16 @@ class User < ActiveRecord::Base
   # All users may see their own record;
   # Clin_admin can additionally see all users with role = clinical, or clin_admin
   # Admin can see all users
-  def find_all_with_authorization
-    if has_role?("admin")
+  def self.find_all_with_authorization(user=current_user)
+    if user.has_role?("admin")
       condition_array = []
-    elsif has_role?("clin_admin")
+    elsif user.has_role?("clin_admin")
       condition_array = ["roles.name IN (?)", ["clin_admin", "clinical"]]
     else
-      condition_array = ["users.login = ?", login]
+      condition_array = ["users.login = ?", user.login]
     end
     
-    User.find(:all, :include => :roles, :conditions => condition_array)
+    self.find(:all, :include => :roles, :conditions => condition_array)
   end
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
