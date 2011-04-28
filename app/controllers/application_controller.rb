@@ -4,6 +4,7 @@
 class ApplicationController < ActionController::Base
   include AuthenticatedSystem
   include RoleRequirementSystem
+  before_filter :login_required
   #
   #Make current_user accessible from model (via User.current_user)
   before_filter :set_current_user

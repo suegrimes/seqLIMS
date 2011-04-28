@@ -1,18 +1,18 @@
 class UsersController < ApplicationController
   ## cancan
-  load_and_authorize_resource
+  #load_and_authorize_resource
   
   ## declarative_authorization ##
   #filter_access_to [:new, :create, :index]
   #filter_access_to [:edit, :update, :show], :attribute_check => true
   
   ## role_authorization ##
-  #skip_before_filter :login_required, :only => [:new, :create]
+  skip_before_filter :login_required, :only => [:new, :create, :forget, :reset]
   #require_role "admin", :for_all_except => [:new, :create]
 
   # render index.rhtml
   def index
-    @users = current_user.find_all_with_authorization
+    @users = User.find_all_with_authorization
   end
 
   # render new.rhtml
@@ -47,12 +47,14 @@ class UsersController < ApplicationController
   
   # render edit.html
   def edit 
-    #@user = User.find(params[:id])
+    @user = User.find(params[:id])
+    @user = current_user if (cannot? :edit, @user)
     @roles = Role.find(:all)
   end
   
   def update
-    #@user = User.find(params[:id])
+    @user = User.find(params[:id])
+    authorize! :update, @user
     params[:user][:role_ids] ||= [] 
     
     if can? :edit, Role
@@ -88,7 +90,9 @@ class UsersController < ApplicationController
       redirect_to users_url
       
     else
-      #@user = User.find(params[:id])
+      @user = User.find(params[:id])
+      authorize! :destroy, @user
+      
       @user.destroy
       redirect_to(users_url) 
     end

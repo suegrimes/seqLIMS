@@ -72,8 +72,9 @@
         </li>
       </ul>
     </li>
-    <% else %>
-    <li><a href="#">Clinical</a></li>
+    
+    <!--% else %-->
+    <!--<li><a href="#">Clinical</a></li>-->
     <% end %>
 	<!-- /clinical -->   
 	
@@ -86,8 +87,8 @@
         <!--li><a href="#">Molecular assays</a></li-->
       </ul>
     </li>
-	<% else %>
-	<li><a href="#">Sample Processing</a></li>
+	<!--% else %-->
+	<!--<li><a href="#">Sample Processing</a></li>-->
     <% end %>  
 	<!-- /sample processing -->
 	
@@ -109,12 +110,11 @@
 		<% end %>
 		<li><a href="#">Run Directories</a>
 		  <ul>
-		  	<li><%= link_to 'List Run Directories', run_dirs_path %></li>
-            <li><%= link_to 'Edit Run Directories', dir_params_path %></li>
-            <li><%= link_to 'List Storage Devices', storage_devices_path, :class => 'last-submenu-item' %></li>		
+		  	<li><%= link_to 'List Run Locations', run_dirs_path %></li>
+            <li><%= link_to 'Edit Run Locations', dir_params_path %></li>
+            <li><%= link_to 'List Disks/Directories', storage_devices_path, :class => 'last-submenu-item' %></li>		
 		  </ul>
 		</li>
-        <li><%= link_to 'List Seq Libraries', seq_libs_path %></li>
         <li><%= link_to 'List Seq Runs', flow_cells_path(:rpt_type => 'list'), :class => 'last-submenu-item' %></li>
       </ul>
     </li>
@@ -166,12 +166,10 @@
         
     <li> <a href="#">System Tables</a>  
       <ul>
-      	<% if user_has_access?(user_roles, ["clin_admin", "lab_admin"]) %> 
-      	<li><%= link_to 'Storage Locations', storage_locations_path %></li>
+      	<li><%= link_to 'Freezer Locations', storage_locations_path %></li>
         <li><%= link_to 'Protocols', protocol_type_path %></li>
-		<% end %>
 		
-		<% if user_has_access?(user_roles, ["lab_admin"]) %> 
+		<% if user_has_access?(user_roles, ["researcher", "lab_admin", "alignment"])%>
  		<li><%= link_to 'Multiplex Tags', index_tags_path %></li>
 		<% end %>
 		
