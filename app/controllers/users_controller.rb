@@ -7,12 +7,12 @@ class UsersController < ApplicationController
   #filter_access_to [:edit, :update, :show], :attribute_check => true
   
   ## role_authorization ##
-  #skip_before_filter :login_required, :only => [:new, :create]
+  skip_before_filter :login_required, :only => [:new, :create, :forget, :reset]
   #require_role "admin", :for_all_except => [:new, :create]
 
   # render index.rhtml
   def index
-    @users = current_user.find_all_with_authorization
+    @users = User.find_all_with_authorization
   end
 
   # render new.rhtml
@@ -48,15 +48,14 @@ class UsersController < ApplicationController
   # render edit.html
   def edit 
     @user = User.find(params[:id])
-    authorize! :edit, @user
+    @user = current_user if (cannot? :edit, @user)
     @roles = Role.find(:all)
   end
   
   def update
-    params[:user][:role_ids] ||= []
- 
     @user = User.find(params[:id])
     authorize! :update, @user
+    params[:user][:role_ids] ||= [] 
     
     if can? :edit, Role
       @user.roles = Role.find(params[:user][:role_ids])
@@ -69,8 +68,6 @@ class UsersController < ApplicationController
       
     elsif current_user.has_role?("admin") || @user.authenticated?(params[:curr_user][:current_password])
       if @user.update_attributes(params[:user])
-        # Reset cancan user variable to deal with caching problem
-        @current_ability = nil
         flash[:notice] = "User has been updated"
         redirect_to users_url
       else
@@ -95,6 +92,7 @@ class UsersController < ApplicationController
     else
       @user = User.find(params[:id])
       authorize! :destroy, @user
+      
       @user.destroy
       redirect_to(users_url) 
     end
@@ -128,3 +126,4 @@ class UsersController < ApplicationController
   end
     
 end
+

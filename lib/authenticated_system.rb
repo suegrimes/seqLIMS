@@ -65,7 +65,8 @@ module AuthenticatedSystem
       respond_to do |accepts|
         accepts.html do
           store_location
-          redirect_to :controller => '/welcome1', :action => 'login'
+          flash[:notice] = 'Please log in'
+          redirect_to :controller => 'welcome', :action => 'login'
         end
         accepts.xml do
           headers["Status"]           = "Unauthorized"
