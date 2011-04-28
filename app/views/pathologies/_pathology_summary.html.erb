@@ -14,7 +14,7 @@
                   ['Field', 'Stage', pathology.tumor_stage],
                   ['Field', 'XRT?', pathology.xrt_flag], 
                   ['Field', 'TNM', pathology.tnm]] %>
-<% flds_prpt.push(['Field', 'Comments', pathology.comments]) if !pathology.comments.blank? %>
+<% flds_prpt.push(['Field', 'Comments', pathology.comments], nil) if !pathology.comments.blank? %>
 <% end %>
 
 <% if !histology.nil? %>
