@@ -123,7 +123,7 @@ class ProcessedSamplesController < ApplicationController
   end
   
   def auto_complete_for_barcode_key
-    @processed_samples = ProcessedSample.find(:all, :conditions => ["barcode_key LIKE ?", params[:search] + '%'])
+    @processed_samples = ProcessedSample.barcode_search(params[:search])
     render :inline => "<%= auto_complete_result(@processed_samples, 'barcode_key') %>"
   end
 
