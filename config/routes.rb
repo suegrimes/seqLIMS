@@ -74,7 +74,9 @@ ActionController::Routing::Routes.draw do |map|
   map.processed_query   'processed_query',   :controller => 'psample_queries',   :action => 'new_query'
   
   # Routes for molecular assays
-  map.resources :molecular_assays, :member => {:create_assays => :post}
+  map.resources :molecular_assays, :collection => {:auto_complete_for_extraction_barcode => :get,
+                                                   :auto_complete_for_barcode_key => :get},
+                                   :member => {:create_assays => :post}
   
   # Routes for sequencing libraries
   map.resources :seq_libs,     :collection => {:auto_complete_for_barcode_key => :get},

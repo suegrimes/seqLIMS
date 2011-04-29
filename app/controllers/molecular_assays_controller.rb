@@ -18,7 +18,7 @@ class MolecularAssaysController < ApplicationController
   
   # GET /molecular_assays/1
   def show
-    @molecular_assay = MolecularAssay.find(params[:id], :include => :lib_samples)
+    @molecular_assay = MolecularAssay.find(params[:id], :include => {:processed_sample => :libsamples})
     @protocol = Protocol.find(@molecular_assay.protocol_id) if @molecular_assay.protocol_id
     unauthorized! if cannot? :read, @molecular_assay
   end
@@ -31,7 +31,7 @@ class MolecularAssaysController < ApplicationController
 
   # GET /molecular_assays/1/edit
   def edit
-    @molecular_assay = MolecularAssay.find(params[:id], :include => :lib_samples)
+    @molecular_assay = MolecularAssay.find(params[:id], :include => {:processed_sample => :lib_samples})
     unauthorized! if cannot? :edit, @molecular_assay
     
     # Add existing owner to owner/researcher drop-down list (for case where current owner is inactive)
@@ -40,12 +40,10 @@ class MolecularAssaysController < ApplicationController
   # Used to populate rows of molecular assays/samples to be entered 
   def populate_assays
     @new_assay = []
-    @lib_samples = []
     params[:nr_assays] ||= 4  
     
     0.upto(params[:nr_assays].to_i - 1) do |i|
       @new_assay[i]    = MolecularAssay.new(params[:assay_default])
-      @lib_samples[i] = LibSample.new
     end
     render :partial => 'assay_sample_form'
     #render :action => :debug
@@ -60,9 +58,7 @@ class MolecularAssaysController < ApplicationController
     #***** otherwise when error occurs with one library, all libraries are created again, resulting in duplicates ****#
     MolecularAssay.transaction do 
     0.upto(params[:nr_assays].to_i - 1) do |i|
-      assay_param = params['molecular_assay_' + i.to_s]
-      sample_param = params['lib_sample_' + i.to_s]
-      @new_assay[i] = build_assay(assay_param, sample_param)
+      @new_assay[i] = build_assay(params['molecular_assay_' + i.to_s])
       if !@new_assay[i][:source_DNA].blank?
         @assay_index = i
         @new_assay[i].save! 
@@ -123,18 +119,23 @@ class MolecularAssaysController < ApplicationController
     render :inline => "<%= auto_complete_result(@molecular_assays, 'barcode_key') %>"
   end
   
+  def auto_complete_for_extraction_barcode
+    @processed_samples = ProcessedSample.barcode_search(params[:search])
+    render :inline => "<%= auto_complete_result(@processed_samples, 'barcode_key') %>"
+  end
+  
   def update_fields
     params[:i] ||= 0
-    if params[:source_DNA]
-      @processed_sample = ProcessedSample.find_by_barcode_key(params[:source_DNA])
+    if params[:source_sample_name]
+      @processed_sample = ProcessedSample.find_by_barcode_key(params[:source_sample_name])
     end
     
     if @processed_sample.nil?
       render :nothing => true
     else
       render :update do |page|
-        page['lib_sample_' + params[:i] + '_final_vol'].value   = @processed_sample.final_vol
-        page['lib_sample_' + params[:i] + '_final_conc'].value  = @processed_sample.final_conc
+        page['psample_' + params[:i] + '_final_vol'].value   = @processed_sample.final_vol
+        page['psample_' + params[:i] + '_final_conc'].value  = @processed_sample.final_conc
        end
     end
   end
@@ -159,15 +160,12 @@ protected
     end
   end
   
-  def build_assay(assay_param, sample_param)
+  def build_assay(assay_param)
     if sample_param[:source_DNA].blank?
       return nil
       
     else
       molecular_assay = MolecularAssay.new(assay_param)
-     
-      sample_param.merge!(:notes     => assay_param[:notes])
-      molecular_assay.lib_samples.build(sample_param)
       return molecular_assay
     end
      

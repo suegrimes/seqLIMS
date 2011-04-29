@@ -34,5 +34,13 @@ class Protocol < ActiveRecord::Base
   def name_ver
     [protocol_name, protocol_version].join('/')
   end
+  
+  def molecule_type
+    if protocol_type != 'M'
+      return nil
+    else
+      return (protocol_name.include?('Expresssion') ? 'R' : 'D')
+    end
+  end
 
 end

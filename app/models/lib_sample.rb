@@ -19,7 +19,6 @@
 
 class LibSample < ActiveRecord::Base
   
-  belongs_to :molecular_assay
   belongs_to :seq_lib
   belongs_to :processed_sample
   

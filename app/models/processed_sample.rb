@@ -33,6 +33,9 @@ class ProcessedSample < ActiveRecord::Base
   belongs_to :sample
   belongs_to :patient
   belongs_to :storage_location
+  has_many :molecular_assays
+  has_many :lib_samples
+  has_many :seq_libs, :through => :lib_samples
   
   validates_date :processing_date
   
@@ -57,6 +60,10 @@ class ProcessedSample < ActiveRecord::Base
       else '?'
     end
     return echar
+  end
+  
+  def self.barcode_search(search_string)
+    self.find(:all, :conditions => ["barcode_key LIKE ?", search_string + '%'])
   end
   
   def self.find_all_incl_sample
