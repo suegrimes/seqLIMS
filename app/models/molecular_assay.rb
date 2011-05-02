@@ -3,42 +3,45 @@
 # Table name: molecular_assays
 #
 #  id                  :integer(4)      not null, primary key
-#  barcode_key         :string(20)
-#  assay_descr         :string(50)      default(""), not null
+#  barcode_key         :string(20)      default(""), not null
+#  processed_sample_id :integer(4)
 #  protocol_id         :integer(4)
 #  owner               :string(25)
 #  preparation_date    :date
-#  notebook_ref        :string(50)
+#  volume              :integer(2)
+#  concentration       :decimal(8, 3)
 #  notes               :string(255)
-#  quantitation_method :string(20)
 #  updated_by          :string(50)
 #  created_at          :datetime
 #  updated_at          :timestamp       not null
 #
 
 class MolecularAssay < ActiveRecord::Base
-  
+  belongs_to :protocol
   belongs_to :processed_sample
   
-  validates_presence_of :barcode_key, :source_DNA, :owner
+  validates_presence_of :barcode_key, :owner, :protocol_id, :processed_sample_id
   validates_uniqueness_of :barcode_key, :message => "is not unique"
-  validates_format_of :barcode_key, :with => /^M\d+$/, :message => "must start with 'M', followed by digits"
+  #validates_format_of :barcode_key, :with => /^M\d+$/, :message => "must start with 'M', followed by digits"
   validates_date :preparation_date
   
-  def before_create
-    # Need to add the following logic here:
-    # - case where source sample is not in the processed sample table
-    # - make protocol type a variable, dependent on actual molecular assay protocol (currently hardcoded as 'C')
-    self.barcode_key = MolecularAssay.next_assay_barcode(self.processed_sample_id, self.processed_sample.barcode_key, 'C')
+  def before_validation
+    # Need to add the following logic here?:
+    # - case where source sample is not in the processed sample table? (is this going to be allowable?)
+    protocol_code = (self.protocol ? self.protocol.protocol_code : '?')
+    self.barcode_key = MolecularAssay.next_assay_barcode(self.processed_sample_id, self.processed_sample.barcode_key, protocol_code)
   end
-  
-  
+   
   def source_sample_name
     return (self.processed_sample ? self.processed_sample.barcode_key : nil)
   end
   
   def source_sample_name=(barcode)
     self.processed_sample = ProcessedSample.find(:first, :conditions => ["barcode_key = ?", barcode]) if !barcode.blank?
+  end
+  
+  def protocol_name
+    return (self.protocol ? self.protocol.protocol_name : '')
   end
   
   def owner_abbrev

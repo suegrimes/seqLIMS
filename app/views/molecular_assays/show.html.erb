@@ -1,9 +1,24 @@
-<h1>Molecular Assay</h1>
+<h1>Details for Molecular Assay: <%= @molecular_assay.barcode_key %></h1>
+<% processed_sample = (@molecular_assay.processed_sample ? @molecular_assay.processed_sample : nil) %>
 
-<%= render :partial => 'assay_show', :locals => {:molecular_assay => @molecular_assay} %>
+<% if processed_sample %>
+<%= render :partial => 'sample_characteristics/clinical_summary', :locals => {:sample_characteristic => processed_sample.sample.sample_characteristic,
+                                                                              :patient => processed_sample.sample.patient }%>
 
-<% for lib_sample in @molecular_assay.lib_samples %>
-  <%= render :partial => 'assay_sample_show', :locals => {:lib_sample => lib_sample} %>
+<% histology = (processed_sample.sample.histology ? processed_sample.sample.histology : 
+               (processed_sample.sample.source_sample && processed_sample.sample.source_sample.histology ? processed_sample.sample.source_sample.histology : nil)) %>
+<% pathology = processed_sample.sample.sample_characteristic.pathology %>
+<% if pathology || histology %>
+  <%= render :partial => 'pathologies/pathology_summary', :locals => {:pathology => pathology, :histology => histology,
+                                                                      :click_to_link => 'show'} %>
 <% end %>
 
+<%= render :partial => 'samples/sample_info', :locals => {:sample => processed_sample.sample,
+                                                          :source => 'Source'} %>
+
+<%= render :partial => 'processed_samples/processed_sample_info', :locals => {:processed_sample => processed_sample} %>
+<%= break_clear %>
+<% end %>
+
+<%= render :partial => 'assay_show', :locals => {:molecular_assay => @molecular_assay} %>
 <%= break_clear %>

@@ -1,12 +1,12 @@
 <% last_info_box ||= 'no' %>
 <% link_to_edit ||= 'yes' %>
 
-<% click_to_link ||= 'none' %>
+<% click_to_link ||= 'show' %>
 <% click_to_link = 'none' if (click_to_link == 'edit' && (cannot? :edit, processed_sample))%>
 <% click_to_link = 'none' if (click_to_link == 'show' && (cannot? :read, processed_sample))%>
 
 <!-- Standard fields to be displayed -->
-<% info_flds   = [[(click_to_link == 'none'? 'Field' : 'Link'), 'Barcode', processed_sample.barcode_key, click_to_link], 
+<% info_flds   = [[(click_to_link == 'none'? 'Field' : 'Link'), 'Barcode', processed_sample.barcode_key, ['processed_samples', click_to_link, processed_sample.id]], 
                   ['Field', 'Processed On', processed_sample.processing_date],
                   ['Field', 'Type', processed_sample.extraction_type],
                   ['Field', 'Vial', processed_sample.vial],

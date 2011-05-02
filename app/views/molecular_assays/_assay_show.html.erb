@@ -7,13 +7,11 @@
 
 <!-- Standard fields to be displayed -->
 <% info_flds   = [[(click_to_link == 'none'? 'Field' : 'Link'), 'Assay Barcode', molecular_assay.barcode_key, click_to_link], 
-                  ['Field', 'Assay Descr', molecular_assay.assay_descr],
+                  ['Field', 'Protocol', molecular_assay.protocol_name],	
                   ['Field', 'Owner', molecular_assay.owner_abbrev],
-                  ['Field', 'Prep Date', molecular_assay.preparation_date],
-                  ['Field', 'Protocol', (@protocol ? @protocol.protocol_name : '')],			  
-                  ['Field', 'Size(Final PCR)', molecular_assay.pcr_size],
-                  ['Field', 'Quantitation', molecular_assay.quantitation_method],
-                  ['Field', 'Notebook Ref', molecular_assay.notebook_ref]] %>
+                  ['Field', 'Prep Date', molecular_assay.preparation_date],      		  
+                  ['Field', 'Volume', molecular_assay.volume],
+                  ['Field', 'Concentration', molecular_assay.concentration]] %>
 				  
 <!-- Only include comments if non-blank -->
 <% info_flds.push(['Field', 'Comments', molecular_assay.notes]) if !molecular_assay.notes.blank? %>

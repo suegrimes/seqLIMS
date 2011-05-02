@@ -1,3 +1,7 @@
+<h1>View Storage Device</h1>
+
+<fieldset class="info">
+<legend>Device Details</legend>
 <table class="info">
   	<tr>
   	  <th>Device name:</th>
@@ -14,6 +18,8 @@
       <td><%=h @storage_device.base_run_dir %></td>
 	</tr>
   </table>
+</fieldset>
+<%= break_clear %>
 
-<%= link_to 'Edit', edit_storage_device_path(@storage_device) %> |
+<% if can? :edit, @storage_device %><%= link_to 'Edit', edit_storage_device_path(@storage_device) %> | <% end %>
 <%= link_to 'List All', storage_devices_path %>

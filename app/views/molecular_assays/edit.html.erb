@@ -1,47 +1,28 @@
-<h1>Editing Molecular Assay: <%=h @molecular_assay.assay_descr %></h1>
+<h1>Editing Molecular Assay: <%=h @molecular_assay.barcode_key %></h1>
 
-<% form_for(@molecular_assay, :action => :update) do |f| %>
+<% tagged_form_for(@molecular_assay, :action => :update) do |f| %>
   <%= f.error_messages %>
   
   <fieldset class="form">
   <legend class="form">Molecular Assay</legend>
   <table class="form" border="0">
   <tr>
-    <th>Prep Date:</th><td><%= f.calendar_date_select(:preparation_date, :size => 15) %></td>
-    <th>Owner:</th><td><%= f.select(:owner, @owners)%></td> 
-    <th>Protocol:</th><td><%= f.collection_select(:protocol_id, @protocols, :id, :protocol_name,
-                                                 {:include_blank => 'Select Protocol'}) %></td>
+  	<%= f.collection_select(:protocol_id, @protocols, :id, :protocol_name, {:include_blank => 'Select Protocol'}) %>
+	<%= f.select(:owner, @owners)%>
+    <%= f.calendar_date_select(:preparation_date, :size => 15, :label => 'Prep Date') %> 
   </tr>
-  <tr> 
-    <th>Size(Final PCR)</th><td><%= f.text_field(:pcr_size, :size => 12)%></td>
-    <th>Quantitation:</th><td><%= f.collection_select(:quantitation_method, @quantitation, :c_value, :c_value, {:include_blank => 'Select Method'}) %></td>
-	<th>Notebook Ref:</th><td colspan="5"><%= f.text_field(:notebook_ref) %></td>	
+  <tr>
+  	<%= f.text_field_with_auto_complete(:source_sample_name, {:size => 12, :label => 'Source DNA/RNA'},
+              {:url => {:controller => :molecular_assays, :action => :auto_complete_for_extraction_barcode},
+               :param_name => :search, :min_chars => 2, :method => :get}) %> 
+    <%= f.text_field(:volume, :size => 8)%>
+    <%= f.text_field(:concentration, :size => 8)%>	
   </tr>
   <tr>  
-    <th>Notes:</th>
-    <td colspan="5"><%= f.text_field(:notes, :size => 80) %></td>
+    <%= f.text_field(:notes, :size => 80, :tdcolspan => 5) %></td>
   </tr>
   </table>
 </fieldset> 
-  
-  <fieldset class="form">
-  <legend>Sample details</legend>
-  <table class="form-with-columns">
-    <tr>
-      <th>Sample Name</th>
-      <th>Source DNA</th>
-      <th>Notes</th>
-    </tr>
-
-    <% f.fields_for :lib_samples do |s| %>
-      <tr>
-      	<td><%= s.text_field(:sample_name) %></td>
-		<td><%= s.text_field(:source_DNA) %></td>
-		<td><%= s.text_field(:notes) %></td>
-      </tr>
-	<% end %>
-  </table> 
-  </fieldset>  
 
 <%=break_clear(f.submit 'Update') %>        
 <% end %>

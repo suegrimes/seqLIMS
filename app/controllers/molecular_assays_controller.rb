@@ -8,18 +8,19 @@ class MolecularAssaysController < ApplicationController
   def index
     unauthorized! if cannot? :read, MolecularAssay
     if params[:assay_id]
-      @molecular_assays = MolecularAssay.find_all_by_id(params[:assay_id].to_a, :order => 'molecular_assays.preparation_date DESC')
+      @molecular_assays = MolecularAssay.find_all_by_id(params[:assay_id].to_a, :include => :processed_sample,
+                                                        :order => 'molecular_assays.preparation_date DESC')
       @hdg_qualifier = ' - Added'
     else
-      @molecular_assays = MolecularAssay.find(:all, :order => 'molecular_assays.preparation_date DESC')
+      @molecular_assays = MolecularAssay.find(:all, :include => :processed_sample,          
+                                              :order => 'molecular_assays.preparation_date DESC')
     end
     render :action => 'index'
   end
   
   # GET /molecular_assays/1
   def show
-    @molecular_assay = MolecularAssay.find(params[:id], :include => {:processed_sample => :libsamples})
-    @protocol = Protocol.find(@molecular_assay.protocol_id) if @molecular_assay.protocol_id
+    @molecular_assay = MolecularAssay.find(params[:id], :include => [:processed_sample, :protocol])
     unauthorized! if cannot? :read, @molecular_assay
   end
   
@@ -59,7 +60,7 @@ class MolecularAssaysController < ApplicationController
     MolecularAssay.transaction do 
     0.upto(params[:nr_assays].to_i - 1) do |i|
       @new_assay[i] = build_assay(params['molecular_assay_' + i.to_s])
-      if !@new_assay[i][:source_DNA].blank?
+      if !@new_assay[i].nil?
         @assay_index = i
         @new_assay[i].save! 
         @assay_id.push(@new_assay[i].id)
@@ -72,12 +73,12 @@ class MolecularAssaysController < ApplicationController
       flash[:error] = 'No assay(s) created - no source DNA fields entered'
       @assay_with_error = nil
       reload_defaults(params, params[:nr_assays])
-      #render :action => 'new'
-      render :action => 'debug'
+      render :action => 'new'
+      #render :action => 'debug'
     else
       flash[:notice] = assays_created.to_s + ' assay(s) successfully created'
-      #redirect_to :action => 'index', :assay_id => @assay_id
-      render :action => :debug
+      redirect_to :action => 'index', :assay_id => @assay_id
+      #render :action => :debug
     end
     
     # Validation error(s)
@@ -161,7 +162,7 @@ protected
   end
   
   def build_assay(assay_param)
-    if sample_param[:source_DNA].blank?
+    if assay_param[:source_sample_name].blank?
       return nil
       
     else

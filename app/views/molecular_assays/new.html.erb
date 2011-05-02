@@ -2,7 +2,7 @@
 
 <% form_tag(:action => :create_assays) do %>
   
-  <%= render :partial => 'assay_form' %>
+  <%= render :partial => 'assay_defaults' %>
   <%= break_clear %>
 
   <% if @assay_with_error %><%= error_messages_for :molecular_assay, :object => @assay_with_error %><% end %>

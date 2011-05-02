@@ -22,7 +22,6 @@
   
   <% @new_assay.each_with_index do |assay, i| %>
     <% fields_for 'molecular_assay_' + i.to_s, assay do |f| %> 
-        <tr><td colspan="5"><%= f.error_messages %></td></tr>
         <%= f.hidden_field(:owner) %>
 	    <%= f.hidden_field(:preparation_date) %>
 	    <%= f.hidden_field(:protocol_id) %>

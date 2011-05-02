@@ -3,9 +3,7 @@
 <tr>
 <td><%=h processed_sample.sample.patient_id %></td>
 <td>
-<% if can? :edit, processed_sample && controller.action_name == 'show' %>
-    <%=link_to processed_sample.barcode_key, edit_processed_sample_path(processed_sample)%> /
-<% elsif controller.action_name == 'show' %>
+<% if controller.action_name == 'show' %>
     <%=h processed_sample.barcode_key %> /
 <% else %>
     <%=link_to processed_sample.barcode_key, processed_sample_path(processed_sample)%> /

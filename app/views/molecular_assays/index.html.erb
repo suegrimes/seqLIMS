@@ -3,22 +3,24 @@
 <table class="list">
   <tr>
   	<th>Assay Barcode</th>
-    <th>Descr</th>
+	<th>Source Barcode</th>
+	<th>Protocol</th>
 	<th>Owner</th>
 	<th>Prep Date</th>
-	<th>PCR Size</th>
-	<th>Quantitation</th>
+	<th>Volume(ul)</th>
+	<th>Concentration(ng/ul)</th>
     <th colspan="2"></th>
   </tr>
 
 <% for molecular_assay in @molecular_assays %>
   <tr>
   	<td><%= link_to molecular_assay.barcode_key, molecular_assay %></td>
-    <td><%=h molecular_assay.assay_descr %></td>
+	<td><% if molecular_assay.processed_sample %><%=h molecular_assay.processed_sample.barcode_key %><% end %></td>
+	<td><%=h molecular_assay.protocol_name %></td>
 	<td><%=h molecular_assay.owner_abbrev %></td>
 	<td><%=h molecular_assay.preparation_date %></td>
-	<td><%=h molecular_assay.pcr_size %></td>
-	<td><%=h molecular_assay.quantitation_method %></td>
+	<td><%=h molecular_assay.volume %></td>
+	<td><%=h molecular_assay.concentration %></td>
 	
 	<% if can? :edit, molecular_assay %>
 	  <td><%= link_to 'Edit',   edit_molecular_assay_path(molecular_assay) %></td>
@@ -26,10 +28,8 @@
       <td class="ltgrey"> Edit </td>
     <% end %>
 	
-	<% if molecular_assay.lib_samples[0].seq_lib_id.nil? %>
-	  <% if can? :delete, molecular_assay %>
-	    <td><%= link_to 'Delete', molecular_assay, :confirm => 'Are you sure?', :method => :delete %></td>	  
-      <% end %>
+	<% if can? :delete, molecular_assay %>
+	  <td><%= link_to 'Delete', molecular_assay, :confirm => 'Are you sure?', :method => :delete %></td>	  
     <% else %>
       <td class="ltgrey"> Delete </td>
 	<% end %>  
