@@ -37,14 +37,18 @@
                                  :with => "'source_sample_name=' + element.value") + "}"} %></td>
 	<td><%= f.text_field(:volume, :size => 8) %></td>
 	<td><%= f.text_field(:concentration, :size => 8) %></td>
-	<td><input id=<%= "psample_" + i.to_s + "_final_vol"%> size="8">&nbsp;</input></td>
+	<td><input id=<%= "psample_" + i.to_s + "_final_vol"%> size => "8">&nbsp;</input></td>
 	<td><input id=<%= "psample_" + i.to_s + "_final_conc"%> size="8">&nbsp;</input></td>
 	<td><%= f.text_field(:notes, :size => 30)%></td> 
   </tr>
   <tr><td colspan="7"></td></tr>
-  <!--%= row_underline(cols=12)%-->
   <% end %>
 <% end %>
+<%= observe_field("molecular_assay_0_volume", :on => :onchange, :update => "default_vol",
+                                              :url => {:action => :populate_vol}, :with => "'vol='+escape(value)") %>
 </table>
 </fieldset>
 </div>
+
+<%= break_clear %>
+Default volume:&nbsp;<span id="default_vol"></span>

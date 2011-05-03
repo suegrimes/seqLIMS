@@ -9,7 +9,7 @@
   
   <% if @lib_samples.nil?%>   
     <div id='assays'>	
-    <b>Samples to add for this assay:</b>&nbsp;<%= text_field_tag(:nr_assays, '', :size => 5)-%>
+    <b>Number of samples for this assay:</b>&nbsp;<%= text_field_tag(:nr_assays, '', :size => 5)-%>
     <%= submit_to_remote 'MolAssay', 'Add Samples',
     :url => {:action => 'populate_assays'},
     :update => 'assays' -%>

@@ -125,6 +125,15 @@ class MolecularAssaysController < ApplicationController
     render :inline => "<%= auto_complete_result(@processed_samples, 'barcode_key') %>"
   end
   
+  def populate_vol
+     @vol = params[:vol]
+     render :inline => "<%= @vol %>"
+#     render :update do |page|
+#       #page['default_vol'].value = @vol
+#       page['molecular_assay_1_volume'].value = @vol
+#     end
+  end
+  
   def update_fields
     params[:i] ||= 0
     if params[:source_sample_name]

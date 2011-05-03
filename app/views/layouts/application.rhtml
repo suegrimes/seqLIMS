@@ -83,15 +83,25 @@
 	  <ul>
         <li><%= link_to 'New Dissection', new_dissection_path %></li>
         <li><%= link_to 'New Extraction', new_extraction_path %></li>
-		<li><%= link_to 'New Molecular Assay', new_molecular_assay_path %></li>
         <li><%= link_to 'Edit Sample', upd_sample_path, :class => 'last-submenu-item' %></li>
-        <!--li><a href="#">Molecular assays</a></li-->
       </ul>
     </li>
 	<!--% else %-->
 	<!--<li><a href="#">Sample Processing</a></li>-->
     <% end %>  
 	<!-- /sample processing -->
+	
+	 <% if user_has_access?(user_roles, ["clinical", "clin_admin", "researcher", "lab_admin"]) %>
+    <li><a href="#">Molecular Assays</a>
+	  <ul>
+        <li><%= link_to 'New Assay', new_molecular_assay_path %></li>
+        <li><%= link_to 'List Assays', molecular_assays_path, :class => 'last-submenu-item' %></li>
+      </ul>
+    </li>
+	<!--% else %-->
+	<!--<li><a href="#">Molecular Assays</a></li>-->
+    <% end %>  
+	<!-- /molecular assays -->
 	
     <li><a href="#">Sequencing/Alignment</a>
       <ul>

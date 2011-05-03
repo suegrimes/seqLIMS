@@ -8,8 +8,6 @@
 <tr>
   <th>Protocol:</th><td><%= collection_select(:assay_default, :protocol_id, @protocols, :id, :protocol_name,
                            {:include_blank => 'Select Protocol'}) %></td>
-  <th>Volume:</th><td><%= text_field(:assay_default, :volume, :size => 8) %></td>
-  <th>Concentration:</th><td><%= text_field(:assay_default, :concentration, :size => 10) %></td>	
 </tr>
 <tr>  
   <th>Notes:</th>
