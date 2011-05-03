@@ -1,0 +1,29 @@
+<% last_info_box ||= 'no' %>
+<% link_to_edit ||= 'yes' %>
+
+<% click_to_link ||= 'none' %>
+<% click_to_link = 'none' if (click_to_link == 'edit' && (cannot? :edit, molecular_assay))%>
+<% click_to_link = 'none' if (click_to_link == 'show' && (cannot? :read, molecular_assay))%>
+
+<!-- Standard fields to be displayed -->
+<% info_flds   = [[(click_to_link == 'none'? 'Field' : 'Link'), 'Assay Barcode', molecular_assay.barcode_key, click_to_link], 
+                  ['Field', 'Protocol', molecular_assay.protocol_name],	
+                  ['Field', 'Owner', molecular_assay.owner_abbrev],
+                  ['Field', 'Prep Date', molecular_assay.preparation_date],      		  
+                  ['Field', 'Volume', molecular_assay.volume],
+                  ['Field', 'Concentration', molecular_assay.concentration]] %>
+				  
+<!-- Only include comments if non-blank -->
+<% info_flds.push(['Field', 'Comments', molecular_assay.notes]) if !molecular_assay.notes.blank? %>
+
+<!-- Links to be displayed with borders, in bottom row of info box -->
+<% info_links = [] %>
+<% info_links = [['Edit', 'edit']] if link_to_edit == 'yes' && (can? :edit, molecular_assay) %>
+
+<%= render :partial => 'shared/info_box', :locals => {:info_legend     => 'Molecular Assay',
+                                                      :info_flds       => info_flds,
+                                                      :info_links      => info_links,
+                                                      :link_controller => 'molecular_assays',
+                                                      :link_id         => molecular_assay.id,
+                                                      :last_info_box   => last_info_box} %>
+													  

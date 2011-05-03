@@ -2,23 +2,22 @@
 
 <% form_for(@category) do |cform| %>
   <%= cform.error_messages %>
-
-  <p>
-    <%= cform.label :category %><br />
-    <%= cform.text_field :category %>
-  </p>
-  <p>
-    <%= cform.label :category_description %><br />
-    <%= cform.text_field :category_description %>
-  </p>
+  
+  <fieldset class="form">
+  <legend>Category details</legend>
+  <div>
+    <%= cform.label :category %>:&nbsp;<%= cform.text_field :category %><br />
+    <%= cform.label :category_description, 'Description' %>:&nbsp;<%= cform.text_field :category_description %>
+  </div>
+  <br />
   
   <div id="category">
     <%= render :partial => 'cat_values', :locals => {:cform => cform} %>
   </div>
+  <br />
+  </fieldset>
   
-  <p>
-    <%= cform.submit "Create" %>
-  </p>
+  <%= break_clear(cform.submit "Create")%>
 <% end %>
 
-<%= link_to 'Back', categories_path %>
+<%= link_to 'List All', categories_path %>

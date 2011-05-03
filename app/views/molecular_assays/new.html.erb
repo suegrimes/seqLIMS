@@ -1,0 +1,20 @@
+<h1>New Molecular Assay </h1>
+
+<% form_tag(:action => :create_assays) do %>
+  
+  <%= render :partial => 'assay_defaults' %>
+  <%= break_clear %>
+
+  <% if @assay_with_error %><%= error_messages_for :molecular_assay, :object => @assay_with_error %><% end %>
+  
+  <% if @lib_samples.nil?%>   
+    <div id='assays'>	
+    <b>Number of samples for this assay:</b>&nbsp;<%= text_field_tag(:nr_assays, '', :size => 5)-%>
+    <%= submit_to_remote 'MolAssay', 'Add Samples',
+    :url => {:action => 'populate_assays'},
+    :update => 'assays' -%>
+    </div>      
+  <% else %>
+    <%= render :partial => 'assay_sample_form' %>
+  <% end %>
+<% end %>

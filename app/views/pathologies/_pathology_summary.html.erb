@@ -8,7 +8,7 @@
 
 <!-- Standard fields to be displayed -->
 <% if !pathology.nil? %>
-<% flds_prpt = [[(click_to_link == 'none'? 'Field' : 'Link'), 'Rpt Date', pathology.pathology_date, ['pathologies', click_to_link, pathology.id]], 
+<% flds_prpt = [[(click_to_link == 'none'? 'Field' : 'Link'), 'Path Rpt Date', pathology.pathology_date, ['pathologies', click_to_link, pathology.id]], 
                   ['Field', 'Pathology', pathology.general_pathology],
                   ['Field', 'Diagnosis/Notes', pathology.pathology_classification],
                   ['Field', 'Stage', pathology.tumor_stage],

@@ -11,4 +11,24 @@
 <% end %>
 <%= break_clear %>
 <%= render :partial => 'attached_files/show_file', :locals => {:obj => @seq_lib} %>
+<% break_clear %>
+
+<span class="table_title">Sequencing Lanes 
+  <% if @seq_lib.flow_lanes %> (<%= @seq_lib.flow_lanes.size %> lanes) <% end %></span>
+  <table class="list">
+  <tr>
+    <th>Sequencing Run#</th>
+    <th>Lane</th>
+	<th>Lib Barcode</th>
+	<th>Lib Name</th>
+  </tr>
+  <% for flow_lane in @seq_lib.flow_lanes %>
+  <tr>
+  	<td><%= link_to flow_lane.sequencing_key, flow_lane.flow_cell %></td>
+    <td><%=h flow_lane.lane_nr %></td>
+	<td><%=h flow_lane.lib_barcode %></td>
+	<td><%=h flow_lane.lib_name %></td>
+  </tr>
+  <% end %>
+</table>
 

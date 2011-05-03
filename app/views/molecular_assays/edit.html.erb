@@ -1,0 +1,28 @@
+<h1>Editing Molecular Assay: <%=h @molecular_assay.barcode_key %></h1>
+
+<% tagged_form_for(@molecular_assay, :action => :update) do |f| %>
+  <%= f.error_messages %>
+  
+  <fieldset class="form">
+  <legend class="form">Molecular Assay</legend>
+  <table class="form" border="0">
+  <tr>
+  	<%= f.collection_select(:protocol_id, @protocols, :id, :protocol_name, {:include_blank => 'Select Protocol'}) %>
+	<%= f.select(:owner, @owners)%>
+    <%= f.calendar_date_select(:preparation_date, :size => 15, :label => 'Prep Date') %> 
+  </tr>
+  <tr>
+  	<%= f.text_field_with_auto_complete(:source_sample_name, {:size => 12, :label => 'Source DNA/RNA'},
+              {:url => {:controller => :molecular_assays, :action => :auto_complete_for_extraction_barcode},
+               :param_name => :search, :min_chars => 2, :method => :get}) %> 
+    <%= f.text_field(:volume, :size => 8)%>
+    <%= f.text_field(:concentration, :size => 8)%>	
+  </tr>
+  <tr>  
+    <%= f.text_field(:notes, :size => 80, :tdcolspan => 5) %></td>
+  </tr>
+  </table>
+</fieldset> 
+
+<%=break_clear(f.submit 'Update') %>        
+<% end %>
