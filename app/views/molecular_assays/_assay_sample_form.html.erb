@@ -1,8 +1,5 @@
 <div id='assays_form'>
-<%= submit_tag "Save sample assays" %>&nbsp;&nbsp;&nbsp;
-<%= submit_to_remote 'AssayRefresh', 'Refesh from Defaults',
-      :url => {:action => 'populate_assays', :nr_assays => @new_assay.size},
-      :update => 'assays_form' %>
+<%= submit_tag "Save assays" %>
 <%= break_clear %>
 	  
 <fieldset class="form">
@@ -11,7 +8,6 @@
   <table class="form-with-columns">
   <tr>
     <th></th>
-	<th>Barcode</th>
 	<th>Source DNA/RNA</th>
 	<th>Volume</th>
 	<th>Conc(ng/ul)</th>
@@ -27,7 +23,6 @@
 	    <%= f.hidden_field(:protocol_id) %>
   <tr>
     <td><em>Sample: <%= i+1 %></em></td>
-    <td>Generated</td>
     <td><%= f.text_field_with_auto_complete :source_sample_name, {:size => 12},
               {:url => {:controller => :molecular_assays, :action => :auto_complete_for_extraction_barcode},
                :param_name => :search, :min_chars => 2, :method => :get, 
@@ -37,7 +32,7 @@
                                  :with => "'source_sample_name=' + element.value") + "}"} %></td>
 	<td><%= f.text_field(:volume, :size => 8) %></td>
 	<td><%= f.text_field(:concentration, :size => 8) %></td>
-	<td><input id=<%= "psample_" + i.to_s + "_final_vol"%> size => "8">&nbsp;</input></td>
+	<td><input id=<%= "psample_" + i.to_s + "_final_vol"%> size="8">&nbsp;</input></td>
 	<td><input id=<%= "psample_" + i.to_s + "_final_conc"%> size="8">&nbsp;</input></td>
 	<td><%= f.text_field(:notes, :size => 30)%></td> 
   </tr>
