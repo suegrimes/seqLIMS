@@ -161,9 +161,13 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
     font: inherit;
 }
 
+#footer .funding-text {
+    padding: 0 10px;
+    text-align: center;
+}
 #footer .funding-text a {
-    color: #333;
-    font-size: .8em;
+    color: #888;
+    font-size: .65em;
     line-height: 1.1em;
 }
 #footer .funding-text a:hover {
