@@ -154,7 +154,7 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
     line-height:1.3em;
     font-style: italic;
     white-space: nowrap;
-	margin-top: 1em;
+    margin-top: 1em;
 }
 
 #footer .site-blurb a {
@@ -162,7 +162,6 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
 }
 
 #footer .funding-text {
-    padding: 0 10px;
     text-align: center;
 }
 #footer .funding-text a {
@@ -462,7 +461,7 @@ fieldset.info {
     border: 1px solid #999;
     width:50%;
 }
-.info legend {
+fieldset.info legend {
     margin-left:1em;
     font-size: .9em;
     font-weight: bold;
@@ -516,6 +515,12 @@ table.form-with-columns {
     padding-bottom: .3em;
 }
 
+.form-with-columns td {
+    font-size: .85em;
+    vertical-align: top;
+    padding-right: .75em;
+}
+
 table.form-with-columns-no-th-underline {
     background-color: #fefefe;
     border-collapse: collapse;
@@ -534,12 +539,6 @@ table.form-with-columns-no-th-underline {
 
 .form-with-columns-no-th-underline th.right {    
     text-align: right;
-}
-
-.form-with-columns td {
-    font-size: .85em;
-    vertical-align: top;
-    padding-right: .75em;
 }
 
 .form-with-columns-no-th-underline td {
@@ -564,19 +563,6 @@ table.form-with-columns-no-th-underline {
     border-bottom: none;
 }
 
-/*
-.form ul {
-    margin: 0;
-    padding: 0;
-    text-indent: 1em;
-    list-style-type: none;
-}
-
-.form li {
-    float: left;
-}
-*/
-
 /* form fieldset styles */
 
 fieldset.form {
@@ -588,7 +574,7 @@ fieldset.form {
     min-width: 25%;
     max-width: 125%;
 }
-.form legend {
+fieldset.form legend {
     margin-left:1em;
     font-size: .9em;
     font-weight: bold;
