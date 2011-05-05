@@ -146,9 +146,10 @@ class MolecularAssaysController < ApplicationController
       render :nothing => true
     else
       render :update do |page|
-        page['psample_' + params[:i] + '_final_vol'].value   = @processed_sample.final_vol
-        page['psample_' + params[:i] + '_final_conc'].value  = @processed_sample.final_conc
-       end
+        i = params[:i]
+        page.replace_html "psample_vol_#{i}", @processed_sample.final_vol
+        page.replace_html "psample_conc_#{i}", @processed_sample.final_conc
+      end
     end
   end
   
