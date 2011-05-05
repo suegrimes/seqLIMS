@@ -2,20 +2,28 @@
 
 <table class="list">
   <tr>
-  	<th>Assay Barcode</th>
-	<th>Source Barcode</th>
+  	<th>Assay Code</th>
+	<th>Patient ID</th>
+	<th>Tissue</th>
+	<th>Preservation</th>
 	<th>Protocol</th>
 	<th>Owner</th>
 	<th>Prep Date</th>
 	<th>Volume(ul)</th>
-	<th>Concentration(ng/ul)</th>
+	<th>Conc(ng/ul)</th>
     <th colspan="2"></th>
   </tr>
 
 <% for molecular_assay in @molecular_assays %>
   <tr>
   	<td><%= link_to molecular_assay.barcode_key, molecular_assay %></td>
-	<td><% if molecular_assay.processed_sample %><%=h molecular_assay.processed_sample.barcode_key %><% end %></td>
+	<% if molecular_assay.processed_sample %>
+	  <td><%=h molecular_assay.processed_sample.sample.patient_id %></td>
+	  <td><%=h molecular_assay.processed_sample.sample.sample_tissue %></td>
+	  <td><%=h molecular_assay.processed_sample.sample.tissue_preservation %></td>
+	<% else %>
+	  <td colspan="3">&nbsp;</td>
+	<% end %>
 	<td><%=h molecular_assay.protocol_name %></td>
 	<td><%=h molecular_assay.owner_abbrev %></td>
 	<td><%=h molecular_assay.preparation_date %></td>

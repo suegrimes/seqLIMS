@@ -8,12 +8,12 @@ class MolecularAssaysController < ApplicationController
   def index
     unauthorized! if cannot? :read, MolecularAssay
     if params[:assay_id]
-      @molecular_assays = MolecularAssay.find_all_by_id(params[:assay_id].to_a, :include => :processed_sample,
-                                                        :order => 'molecular_assays.preparation_date DESC')
+      @molecular_assays = MolecularAssay.find_all_by_id(params[:assay_id].to_a, :include => {:processed_sample => :sample},
+                                                        :order => 'samples.patient_id, molecular_assays.preparation_date DESC')
       @hdg_qualifier = ' - Added'
     else
-      @molecular_assays = MolecularAssay.find(:all, :include => :processed_sample,          
-                                              :order => 'molecular_assays.preparation_date DESC')
+      @molecular_assays = MolecularAssay.find(:all, :include => {:processed_sample => :sample},          
+                                              :order => 'samples.patient_id, molecular_assays.preparation_date DESC')
     end
     render :action => 'index'
   end
