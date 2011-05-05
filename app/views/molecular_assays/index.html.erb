@@ -18,7 +18,7 @@
   <tr>
   	<td><%= link_to molecular_assay.barcode_key, molecular_assay %></td>
 	<% if molecular_assay.processed_sample %>
-	  <td><%=h molecular_assay.processed_sample.sample.patient_id %></td>
+	  <td class="number-pad-right"><%=h molecular_assay.processed_sample.sample.patient_id %></td>
 	  <td><%=h molecular_assay.processed_sample.sample.sample_tissue %></td>
 	  <td><%=h molecular_assay.processed_sample.sample.tissue_preservation %></td>
 	<% else %>
@@ -27,8 +27,8 @@
 	<td><%=h molecular_assay.protocol_name %></td>
 	<td><%=h molecular_assay.owner_abbrev %></td>
 	<td><%=h molecular_assay.preparation_date %></td>
-	<td><%=h molecular_assay.volume %></td>
-	<td><%=h molecular_assay.concentration %></td>
+	<td class="number-pad-right"><%=h molecular_assay.volume %></td>
+	<td class="number-pad-right"><%=h molecular_assay.concentration %></td>
 	
 	<% if can? :edit, molecular_assay %>
 	  <td><%= link_to 'Edit',   edit_molecular_assay_path(molecular_assay) %></td>

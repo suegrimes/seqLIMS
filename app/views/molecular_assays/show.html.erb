@@ -21,4 +21,5 @@
 <% end %>
 
 <%= render :partial => 'assay_show', :locals => {:molecular_assay => @molecular_assay} %>
+<%= render :partial => 'attached_files/show_file', :locals => {:obj => @molecular_assay} %>
 <%= break_clear %>

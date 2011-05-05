@@ -9,11 +9,11 @@ class MolecularAssaysController < ApplicationController
     unauthorized! if cannot? :read, MolecularAssay
     if params[:assay_id]
       @molecular_assays = MolecularAssay.find_all_by_id(params[:assay_id].to_a, :include => {:processed_sample => :sample},
-                                                        :order => 'samples.patient_id, molecular_assays.preparation_date DESC')
+                                                        :order => 'samples.patient_id, molecular_assays.barcode_key')
       @hdg_qualifier = ' - Added'
     else
       @molecular_assays = MolecularAssay.find(:all, :include => {:processed_sample => :sample},          
-                                              :order => 'samples.patient_id, molecular_assays.preparation_date DESC')
+                                              :order => 'samples.patient_id, molecular_assays.barcode_key')
     end
     render :action => 'index'
   end
@@ -32,7 +32,7 @@ class MolecularAssaysController < ApplicationController
 
   # GET /molecular_assays/1/edit
   def edit
-    @molecular_assay = MolecularAssay.find(params[:id], :include => {:processed_sample => :lib_samples})
+    @molecular_assay = MolecularAssay.find(params[:id], :include => :processed_sample)
     unauthorized! if cannot? :edit, @molecular_assay
     
     # Add existing owner to owner/researcher drop-down list (for case where current owner is inactive)
@@ -55,8 +55,8 @@ class MolecularAssaysController < ApplicationController
     @new_assay = []; @assay_id = [];
     @assay_index = 0; assays_created = 0;
     
-    #***** Libraries are created as a transaction - either all created or none ****#
-    #***** otherwise when error occurs with one library, all libraries are created again, resulting in duplicates ****#
+    #***** Assays are created as a transaction - either all created or none ****#
+    #***** otherwise when error occurs with one assay, all assays are created again, resulting in duplicates ****#
     MolecularAssay.transaction do 
     0.upto(params[:nr_assays].to_i - 1) do |i|
       @new_assay[i] = build_assay(params['molecular_assay_' + i.to_s])
@@ -69,7 +69,7 @@ class MolecularAssaysController < ApplicationController
     end
     end
     
-    if assays_created == 0  # All lib_names were blank
+    if assays_created == 0  # No valid assays were created
       flash[:error] = 'No assay(s) created - no source DNA fields entered'
       @assay_with_error = nil
       reload_defaults(params, params[:nr_assays])
@@ -106,8 +106,6 @@ class MolecularAssaysController < ApplicationController
 
   # DELETE /molecular_assays/1
   def destroy
-    # to delete molecular_assay, need to first delete associated lib_samples
-    # make this an admin only function in production
     @molecular_assay = MolecularAssay.find(params[:id])
     unauthorized! if cannot? :delete, MolecularAssay
     
@@ -165,11 +163,9 @@ protected
     @sample_default = LibSample.new(params[:sample_default])
    
     @new_assay = []   if !@new_assay
-    @lib_samples = [] if !@lib_samples
     
     0.upto(nr_assays.to_i - 1) do |i|
       @new_assay[i] ||= MolecularAssay.new(params['molecular_assay_' + i.to_s])
-      @lib_samples[i] = LibSample.new(params['lib_sample_' + i.to_s])
     end
   end
   
@@ -180,9 +176,7 @@ protected
     else
       molecular_assay = MolecularAssay.new(assay_param)
       return molecular_assay
-    end
-     
+    end   
   end
- 
  
 end

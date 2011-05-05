@@ -19,6 +19,7 @@
 class MolecularAssay < ActiveRecord::Base
   belongs_to :protocol
   belongs_to :processed_sample
+  has_many :attached_files, :as => :sampleproc
   
   validates_presence_of :barcode_key, :owner, :protocol_id, :processed_sample_id
   validates_uniqueness_of :barcode_key, :message => "is not unique"

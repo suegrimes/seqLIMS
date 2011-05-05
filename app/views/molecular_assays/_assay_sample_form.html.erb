@@ -30,9 +30,9 @@
 			     remote_function(:url => { :action => :update_fields, :i => i},
                                  :with => "'source_sample_name=' + element.value") + "}"} %></td>
 								 
-	<td><%= f.text_field(:volume, :size => 8) %></td>
-								  
+	<td><%= f.text_field(:volume, :size => 8) %></td>							  
 	<td><%= f.text_field(:concentration, :size => 8) %></td>
+	
 	<td class="number-pad-right" id=<%="psample_vol_" + i.to_s%>>&nbsp;</td>
     <td class="number-pad-right" id=<%="psample_conc_" + i.to_s%>>&nbsp;</td>
 	<td><%= f.text_field(:notes, :size => 30)%></td> 
