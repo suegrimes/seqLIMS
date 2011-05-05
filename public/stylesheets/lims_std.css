@@ -638,6 +638,10 @@ fieldset.form legend {
     white-space:pre-line;
 }
 
+.no-wrap-line {
+    white-space: nowrap;
+}
+
 .number-pad-right, td.number-pad-right {
     text-align: right;
     padding-right: 1em;
