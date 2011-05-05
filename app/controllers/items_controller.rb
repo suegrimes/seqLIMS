@@ -16,9 +16,9 @@ class ItemsController < ApplicationController
       items_notordered = items_all.reject{|item| item.ordered?}
      
       # Eliminate items from array, based on order status if specified
-      if params[:item_status] && params[:item_status] != 'All'
-        @items = items_notordered                        if params[:item_status] == 'NotOrdered'
-        @items = items_all.reject{|item| !item.ordered?} if params[:item_status] == 'Ordered' 
+      if params[:item_query][:item_status] && params[:item_query][:item_status] != 'All'
+        @items = items_notordered                        if params[:item_query][:item_status] == 'NotOrdered'
+        @items = items_all.reject{|item| !item.ordered?} if params[:item_query][:item_status] == 'Ordered' 
       else
         @items = items_all
       end
@@ -215,6 +215,8 @@ protected
         @where_values.push(sql_value(val))
       end
     end
+    
+    
     
     date_fld = 'items.created_at'
     @where_select, @where_values = sql_conditions_for_date_range(@where_select, @where_values, params[:item_query], date_fld)

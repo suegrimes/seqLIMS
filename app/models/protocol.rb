@@ -34,7 +34,7 @@ class Protocol < ActiveRecord::Base
     if protocol_type != 'M'
       return nil
     else
-      return (protocol_name.include?('Expresssion') ? 'R' : 'D')
+      return (protocol_name.include?('Expression') ? 'R' : 'D')
     end
   end
 
