@@ -27,7 +27,7 @@
                :with => "value + '&assay[protocol_id]=' + jQuery('#assay_default_protocol_id').val()",
                            
 			   :after_update_element => "function(element,value){" + 
-			     remote_function(:url => { :action => :update_fields, :i => i},
+			     remote_function(:url => { :action => :update_fields, :i => i}, :update => "idto update",
                                  :with => "'source_sample_name=' + element.value") + "}"} %></td>
 								 
 	<td><%= f.text_field(:volume, :size => 8) %></td>
