@@ -21,16 +21,19 @@ class MolecularAssay < ActiveRecord::Base
   belongs_to :processed_sample
   has_many :attached_files, :as => :sampleproc
   
-  validates_presence_of :barcode_key, :owner, :protocol_id, :processed_sample_id
-  validates_uniqueness_of :barcode_key, :message => "is not unique"
-  #validates_format_of :barcode_key, :with => /^M\d+$/, :message => "must start with 'M', followed by digits"
+  validates_presence_of :owner, :protocol_id, :volume, :concentration
+  validates_presence_of :source_sample_name, :message => "must be in LIMS - please select from auto-fill list"
+  validates_uniqueness_of :barcode_key, :message => "generated is not unique - contact system admin"
   validates_date :preparation_date
+  #validates_associated :processed_sample, :message => "- source DNA/RNA must be selected from auto-fill list"
   
   def before_validation
     # Need to add the following logic here?:
     # - case where source sample is not in the processed sample table? (is this going to be allowable?)
     protocol_code = (self.protocol ? self.protocol.protocol_code : '?')
-    self.barcode_key = MolecularAssay.next_assay_barcode(self.processed_sample_id, self.processed_sample.barcode_key, protocol_code)
+    if self.processed_sample_id
+      self.barcode_key = MolecularAssay.next_assay_barcode(self.processed_sample_id, self.processed_sample.barcode_key, protocol_code)
+    end
   end
    
   def source_sample_name

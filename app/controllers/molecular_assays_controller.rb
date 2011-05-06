@@ -1,5 +1,5 @@
 class MolecularAssaysController < ApplicationController
-  #load_and_authorize_resource (# can't use because create method for singleplex lib has array of molecular_assays instead of single lib)
+  #load_and_authorize_resource (# can't use because create method has array of molecular_assays instead of assay)
   
   before_filter :dropdowns, :only => [:new, :edit, :populate_assays]
   before_filter :query_dropdowns, :only => :query_params
@@ -83,7 +83,7 @@ class MolecularAssaysController < ApplicationController
     
     # Validation error(s)
     rescue ActiveRecord::ActiveRecordError
-      flash.now[:error] = 'Error creating molecular assay -please enter all required fields'
+      flash.now[:error] = 'Error creating molecular assays - please enter all required fields'
       @assay_with_error = @new_assay[@assay_index]
       reload_defaults(params, params[:nr_assays])
       render :action => 'new'
@@ -160,12 +160,13 @@ protected
   def reload_defaults(params, nr_assays)
     dropdowns
     @assay_default = MolecularAssay.new(params[:assay_default])
-    @sample_default = LibSample.new(params[:sample_default])
-   
     @new_assay = []   if !@new_assay
+    @source_barcode = []; @processed_sample = [];
     
     0.upto(nr_assays.to_i - 1) do |i|
       @new_assay[i] ||= MolecularAssay.new(params['molecular_assay_' + i.to_s])
+      #@source_barcode[i] = params['molecular_assay_' + i.to_s][:source_sample_name] 
+      @processed_sample[i] = @new_assay[i].processed_sample
     end
   end
   

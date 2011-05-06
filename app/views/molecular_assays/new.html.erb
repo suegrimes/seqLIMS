@@ -5,9 +5,12 @@
   <%= render :partial => 'assay_defaults' %>
   <%= break_clear %>
 
-  <% if @assay_with_error %><%= error_messages_for :molecular_assay, :object => @assay_with_error %><% end %>
+  <% if @assay_with_error %>
+    <%= error_messages_for :molecular_assay, :object => @assay_with_error, 
+                           :header_message => "Unable to save assay sample #{@assay_index + 1} - no assays saved" %>
+  <% end %>
   
-  <% if @lib_samples.nil?%>   
+  <% if @new_assay.nil?%>   
     <div id='assays'>	
     <b>Number of samples for this assay:</b>&nbsp;<%= text_field_tag(:nr_assays, '', :size => 5)-%>
     <%= submit_to_remote 'MolAssay', 'Add Samples',
