@@ -62,6 +62,7 @@
   <% for molecular_assay in @processed_sample.molecular_assays %>
   <tr>
   	<td><%= link_to molecular_assay.barcode_key, molecular_assay %></td>
+	<td><% if molecular_assay.protocol %><%=h molecular_assay.protocol.protocol_name %><% end %></td>
 	<td><%=h molecular_assay.owner_abbrev %></td>
 	<td><%=h molecular_assay.preparation_date %></td>
 	<td><%=h molecular_assay.volume %></td>
