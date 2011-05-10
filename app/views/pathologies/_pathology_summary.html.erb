@@ -14,14 +14,15 @@
                   ['Field', 'Stage', pathology.tumor_stage],
                   ['Field', 'XRT?', pathology.xrt_flag], 
                   ['Field', 'TNM', pathology.tnm]] %>
-<% flds_prpt.push(['Field', 'Comments', pathology.comments]) if !pathology.comments.blank? %>
+<% flds_prpt.push(['Field', 'Comments', pathology.comments], nil) if !pathology.comments.blank? %>
 <% end %>
 
 <% if !histology.nil? %>
 <% flds_he   = [[(click_to_link == 'none'? 'Field' : 'Link'), 'H&E Barcode', histology.he_barcode_key, ['histologies', click_to_link, histology.id]], 
-                  ['Field', 'HE Date', histology.he_date],
+                  ['Field', 'H&E Date', histology.he_date],
                   ['Field', 'Pathologist', histology.pathologist],
                   ['Field', 'Histopathology', histology.histopathology]] %>
+<% flds_he.push(['Field', 'H&E Comments', histology.comments]) if !histology.comments.blank? %>
 <% end %>
 			  
 
