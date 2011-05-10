@@ -40,11 +40,12 @@ class MolecularAssaysController < ApplicationController
   
   # Used to populate rows of molecular assays/samples to be entered 
   def populate_assays
-    @new_assay = []
+    @new_assay = []; @processed_sample = []
     params[:nr_assays] ||= 4  
     
     0.upto(params[:nr_assays].to_i - 1) do |i|
       @new_assay[i]    = MolecularAssay.new(params[:assay_default])
+      @processed_sample[i] = @new_assay[i].processed_sample
     end
     render :partial => 'assay_sample_form'
     #render :action => :debug
@@ -59,7 +60,7 @@ class MolecularAssaysController < ApplicationController
     #***** otherwise when error occurs with one assay, all assays are created again, resulting in duplicates ****#
     MolecularAssay.transaction do 
     0.upto(params[:nr_assays].to_i - 1) do |i|
-      @new_assay[i] = build_assay(params['molecular_assay_' + i.to_s])
+      @new_assay[i] = build_assay(params['molecular_assay_' + i.to_s], params[:assay_default])
       if !@new_assay[i].nil?
         @assay_index = i
         @new_assay[i].save! 
@@ -119,9 +120,14 @@ class MolecularAssaysController < ApplicationController
   end
   
   def auto_complete_for_extraction_barcode
-    molecule_type = Protocol.find(params[:assay][:protocol_id]).molecule_type
     @processed_samples = ProcessedSample.barcode_search(params[:search])
-    @processed_samples.reject! {|psample| psample.barcode_key[-3,1] != molecule_type} if ['D','R'].include?(molecule_type)
+    if !params[:assay][:protocol_id].blank?
+      protocol = Protocol.find(params[:assay][:protocol_id])
+      if protocol
+        molecule_type = protocol.molecule_type
+        @processed_samples.reject! {|psample| psample.barcode_key[-3,1] != molecule_type} if ['D','R'].include?(molecule_type)
+      end
+    end
     render :inline => "<%= auto_complete_result(@processed_samples, 'barcode_key') %>"
   end
   
@@ -170,7 +176,7 @@ protected
     end
   end
   
-  def build_assay(assay_param)
+  def build_assay(assay_param, assay_defaults)
     if assay_param[:source_sample_name].blank?
       return nil
       
