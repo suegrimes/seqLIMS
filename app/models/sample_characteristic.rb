@@ -53,6 +53,10 @@ class SampleCharacteristic < ActiveRecord::Base
     (consent_protocol.nil? ? consent_nr : [consent_nr, consent_protocol.consent_abbrev].join('/'))
   end
   
+  def from_nccc?
+    (clinic_or_location == 'NCCC' ? true : false)
+  end
+  
   def self.find_with_samples(patient_id=nil)
     condition_array = (patient_id.nil? ? [] : ['sample_characteristics.patient_id = ?', patient_id])
     self.find(:all, :include => :samples, 

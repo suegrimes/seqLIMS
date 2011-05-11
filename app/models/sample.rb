@@ -79,6 +79,10 @@ class Sample < ActiveRecord::Base
     barcode_key.slice(barcode_key.index('.'), barcode_key.length)
   end
   
+  def barcode_incl_nccc
+    (alt_identifier.nil? ? barcode_key : [barcode_key, " (", alt_identifier, ")"])
+  end
+  
   def clinical_sample
     (source_sample_id.blank? ? 'yes' : 'no')
   end
