@@ -2,7 +2,7 @@ class StorageDevicesController < ApplicationController
   load_and_authorize_resource
   
   def index
-    @storage_devices = StorageDevice.find(:all)
+    @storage_devices = StorageDevice.find(:all, :order => :device_name)
   end
 
   def show
