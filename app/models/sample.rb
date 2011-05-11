@@ -8,7 +8,7 @@
 #  source_sample_id         :integer(4)
 #  source_barcode_key       :string(20)
 #  barcode_key              :string(20)      default(""), not null
-#  old_barcode              :string(20)
+#  alt_identifier           :string(20)
 #  sample_date              :date
 #  sample_type              :string(50)
 #  sample_tissue            :string(50)
