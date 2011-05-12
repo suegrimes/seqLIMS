@@ -40,12 +40,13 @@ class MolecularAssaysController < ApplicationController
   
   # Used to populate rows of molecular assays/samples to be entered 
   def populate_assays
-    @new_assay = []; @processed_sample = []
+    @new_assay = []; @processed_sample = []; @assay_calc = [];
     params[:nr_assays] ||= 4  
     
     0.upto(params[:nr_assays].to_i - 1) do |i|
       @new_assay[i]    = MolecularAssay.new(params[:assay_default])
       @processed_sample[i] = @new_assay[i].processed_sample
+      @assay_calc[i] = nil
     end
     render :partial => 'assay_sample_form'
     #render :action => :debug
@@ -139,6 +140,14 @@ class MolecularAssaysController < ApplicationController
 #       page['molecular_assay_1_volume'].value = @vol
 #     end
   end
+
+#  def calc_vol
+#    i = params[:i]
+#    render :update do |page|
+#      page.replace_html "sample_vol_#{i}", params[:assay_vol]
+#      page.replace_html "buffer_vol_#{i}", 8888
+#    end
+#  end
   
   def update_fields
     params[:i] ||= 0
@@ -167,12 +176,13 @@ protected
     dropdowns
     @assay_default = MolecularAssay.new(params[:assay_default])
     @new_assay = []   if !@new_assay
-    @source_barcode = []; @processed_sample = [];
+    @source_barcode = []; @processed_sample = []; @assay_calc = [];
     
     0.upto(nr_assays.to_i - 1) do |i|
       @new_assay[i] ||= MolecularAssay.new(params['molecular_assay_' + i.to_s])
       #@source_barcode[i] = params['molecular_assay_' + i.to_s][:source_sample_name] 
       @processed_sample[i] = @new_assay[i].processed_sample
+      @assay_calc[i] = calc_vol_conc(@new_assay[i], @processed_sample[i])
     end
   end
   
@@ -184,6 +194,12 @@ protected
       molecular_assay = MolecularAssay.new(assay_param)
       return molecular_assay
     end   
+  end
+  
+  def calc_vol_conc(molecular_assay, processed_sample)
+    sample_vol_needed = (molecular_assay.volume * molecular_assay.concentration) / processed_sample.final_conc
+    buffer_vol_needed =  molecular_assay.volume - sample_vol_needed
+    return {:sample_vol_needed => sample_vol_needed, :buffer_vol_needed => buffer_vol_needed}
   end
  
 end

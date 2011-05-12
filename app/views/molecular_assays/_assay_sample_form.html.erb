@@ -9,6 +9,7 @@
 	<th>Source DNA/RNA</th>
 	<th>Volume(ul)</th>
 	<th>Conc(ng/ul)</th>
+	<th colspan=3></th>
 	<th>Available Vol</th>
 	<th>Sample Conc</th>
 	<th>Notes</th>
@@ -32,6 +33,11 @@
 								 
 	<td><%= f.text_field(:volume, :size => 8) %></td>							  
 	<td><%= f.text_field(:concentration, :size => 8) %></td>
+	<td><%= link_to_remote 'Calc volume', :url => {:action => :calc_vol, :i => i},
+                                          :with => "'assay_vol=' + jQuery('#molecular_assay_0_volume').val()" %></td>
+										  
+	<td class="number-pad-right" id=<%="sample_vol_" + i.to_s%>><%=h (@assay_calc[i]? @assay_calc[i][:sample_vol_needed] : '') %></td>
+	<td class="number-pad-right" id=<%="buffer_vol_" + i.to_s%>><%=h (@assay_calc[i]? @assay_calc[i][:buffer_vol_needed] : '') %></td>
 	
 	<td class="number-pad-right" id=<%="psample_vol_" + i.to_s%>><%=h (@processed_sample[i]? @processed_sample[i].final_vol : ' ')%></td>
     <td class="number-pad-right" id=<%="psample_conc_" + i.to_s%>><%=h (@processed_sample[i]? @processed_sample[i].final_conc : ' ')%></td>
