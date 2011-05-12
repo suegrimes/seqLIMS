@@ -1,15 +1,17 @@
-<% row_tags     ||= 'yes' %>
+<% row_tags  ||= 'yes' %>
+<% from_nccc ||= false %>
 
 <% if row_tags == 'yes' %><tr><% end %>
 
   <th>Barcode</th>
+  <% if from_nccc %><th>NCCC ID</th><% end %>
   <th>Source</th>
   <th>Sample Date</th>
   <th>Sample Type</th>
   <th>OR Designation</th>
   <th>Container Type</th>
   <th>Amount(Initial)</th>
-  <th>Remaining?</th>
+  <th>Rem?</th>
   <th>Room/Freezer</th>
   <th>Shelf</th>
   <th>Rack#/Bin</th>
