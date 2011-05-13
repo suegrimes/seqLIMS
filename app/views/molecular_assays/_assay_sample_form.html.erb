@@ -30,8 +30,8 @@
 			     remote_function(:url => { :action => :update_fields, :i => i},
                                  :with => "'source_sample_name=' + element.value") + "}"} %></td>
 								 
-	<td><%= f.text_field(:volume, :size => 8) %></td>							  
-	<td><%= f.text_field(:concentration, :size => 8) %></td>
+	<td><%= f.text_field(:volume, :size => 8, :onchange => "$('default_vol').update($F(this)*$F('molecular_assay_#{i}_concentration'))") %></td>							  
+	<td><%= f.text_field(:concentration, :size => 8, :onchange => "$('default_vol').update($F(this)*$F('molecular_assay_#{i}_volume'))") %></td>
 	
 	<td class="number-pad-right" id=<%="psample_vol_" + i.to_s%>><%=h (@processed_sample[i]? @processed_sample[i].final_vol : ' ')%></td>
     <td class="number-pad-right" id=<%="psample_conc_" + i.to_s%>><%=h (@processed_sample[i]? @processed_sample[i].final_conc : ' ')%></td>
@@ -45,7 +45,7 @@
 </div>
 
 <%= break_clear(submit_tag "Save assays") %>
-<div id="default_vol">&nbsp;</div>
+<div id="default_vol">calc goes here</div>
 <!-- f.text_field(:volume, :size => 8, :onchange => "$('default_vol').update($F(this));") --> 
 <!-- observe_field("molecular_assay_0_volume", :on => :onchange, :update => "default_vol",
                                               :url => {:action => :populate_vol}, :with => "'vol='+escape(value)") -->
