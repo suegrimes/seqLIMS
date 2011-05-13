@@ -3,6 +3,9 @@
 <table class="form">	
     <tr>
       <th>Barcode: </th><td><%=f.object.barcode_key %></td>
+	  <% if f.object.sample_characteristic.clinic_or_location == 'NCCC' %>
+	    <%=f.text_field(:alt_identifier, :size => 12, :label => 'NCCC Label')%>
+	  <% end %>
 	  <%=f.collection_select(:tumor_normal, @tumor_normal, :c_value, :c_value, :label => 'OR Designation') %>
 	</tr>
 	
