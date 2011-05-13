@@ -1,8 +1,9 @@
 <% last_info_box ||= 'no' %>
 
 <!-- Standard fields to be displayed -->
-<% info_flds   = [['Field', 'Sample Name', lib_sample.sample_name], 
-                  ['Field', 'Source DNA', lib_sample.source_DNA]] %>
+<% info_flds   = [['Field', 'Sample Name', lib_sample.sample_name],
+                  [(lib_sample.processed_sample ? 'Link' : 'Field'), 'Source DNA/RNA', lib_sample.source_DNA, ['processed_samples', 'show', lib_sample.processed_sample_id]] 
+                 ] %>
 				  
 <!-- Only include comments if non-blank -->
 <% info_flds.push(['Field', 'Comments', lib_sample.notes]) if !lib_sample.notes.blank? %>

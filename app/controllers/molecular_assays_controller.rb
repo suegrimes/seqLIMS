@@ -45,6 +45,7 @@ class MolecularAssaysController < ApplicationController
     
     0.upto(params[:nr_assays].to_i - 1) do |i|
       @new_assay[i]    = MolecularAssay.new(params[:assay_default])
+      @processed_sample[i] = @new_assay[i].processed_sample
     end
     render :partial => 'assay_sample_form'
     #render :action => :debug
@@ -59,7 +60,7 @@ class MolecularAssaysController < ApplicationController
     #***** otherwise when error occurs with one assay, all assays are created again, resulting in duplicates ****#
     MolecularAssay.transaction do 
     0.upto(params[:nr_assays].to_i - 1) do |i|
-      @new_assay[i] = build_assay(params['molecular_assay_' + i.to_s])
+      @new_assay[i] = build_assay(params['molecular_assay_' + i.to_s], params[:assay_default])
       if !@new_assay[i].nil?
         @assay_index = i
         @new_assay[i].save! 
@@ -120,10 +121,13 @@ class MolecularAssaysController < ApplicationController
   
   def auto_complete_for_extraction_barcode
     @processed_samples = ProcessedSample.barcode_search(params[:search])
-    if params[:assay][:protocol_id] && !params[:assay][:protocol_id].blank?
-      molecule_type = Protocol.find(params[:assay][:protocol_id]).molecule_type
-      @processed_samples.reject! {|psample| psample.barcode_key[-3,1] != molecule_type} if ['D','R'].include?(molecule_type)
-    end  
+    if !params[:assay][:protocol_id].blank?
+      protocol = Protocol.find(params[:assay][:protocol_id])
+      if protocol
+        molecule_type = protocol.molecule_type
+        @processed_samples.reject! {|psample| psample.barcode_key[-3,1] != molecule_type} if ['D','R'].include?(molecule_type)
+      end
+    end
     render :inline => "<%= auto_complete_result(@processed_samples, 'barcode_key') %>"
   end
   
@@ -135,6 +139,14 @@ class MolecularAssaysController < ApplicationController
 #       page['molecular_assay_1_volume'].value = @vol
 #     end
   end
+
+#  def calc_vol
+#    i = params[:i]
+#    render :update do |page|
+#      page.replace_html "sample_vol_#{i}", params[:assay_vol]
+#      page.replace_html "buffer_vol_#{i}", 8888
+#    end
+#  end
   
   def update_fields
     params[:i] ||= 0
@@ -163,7 +175,7 @@ protected
     dropdowns
     @assay_default = MolecularAssay.new(params[:assay_default])
     @new_assay = []   if !@new_assay
-    @source_barcode = []; @processed_sample = [];
+    @source_barcode = []; @processed_sample = []; 
     
     0.upto(nr_assays.to_i - 1) do |i|
       @new_assay[i] ||= MolecularAssay.new(params['molecular_assay_' + i.to_s])
@@ -172,7 +184,7 @@ protected
     end
   end
   
-  def build_assay(assay_param)
+  def build_assay(assay_param, assay_defaults)
     if assay_param[:source_sample_name].blank?
       return nil
       
@@ -180,6 +192,12 @@ protected
       molecular_assay = MolecularAssay.new(assay_param)
       return molecular_assay
     end   
+  end
+  
+  def calc_vol_conc(molecular_assay, processed_sample)
+    sample_vol_needed = (molecular_assay.volume * molecular_assay.concentration) / processed_sample.final_conc
+    buffer_vol_needed =  molecular_assay.volume - sample_vol_needed
+    return {:sample_vol_needed => sample_vol_needed, :buffer_vol_needed => buffer_vol_needed}
   end
  
 end

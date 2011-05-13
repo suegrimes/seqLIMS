@@ -2,25 +2,23 @@
 #
 # Table name: sample_characteristics
 #
-#  id                      :integer(4)      not null, primary key
-#  patient_id              :integer(4)
-#  collection_date         :date
-#  clinic_or_location      :string(100)
-#  consent_protocol_id     :integer(4)
-#  consent_nr              :string(15)
-#  gender                  :string(1)
-#  ethnicity               :string(35)
-#  race                    :string(70)
-#  xxx_sample_type         :string(50)
-#  xxx_sample_tissue       :string(50)
-#  xxx_left_right          :string(1)
-#  xxx_tissue_preservation :string(25)
-#  pathology_id            :integer(4)
-#  pathology               :string(50)
-#  comments                :string(255)
-#  updated_by              :string(50)
-#  created_at              :datetime
-#  updated_at              :datetime
+#  id                  :integer(4)      not null, primary key
+#  patient_id          :integer(4)
+#  collection_date     :date
+#  clinic_or_location  :string(100)
+#  consent_protocol_id :integer(4)
+#  consent_nr          :string(15)
+#  gender              :string(1)
+#  ethnicity           :string(35)
+#  race                :string(70)
+#  nccc_tumor_id       :string(20)
+#  nccc_pathno         :string(20)
+#  pathology_id        :integer(4)
+#  pathology           :string(50)
+#  comments            :string(255)
+#  updated_by          :string(50)
+#  created_at          :datetime
+#  updated_at          :datetime
 #
 
 class SampleCharacteristic < ActiveRecord::Base
@@ -51,6 +49,10 @@ class SampleCharacteristic < ActiveRecord::Base
   
   def consent_descr
     (consent_protocol.nil? ? consent_nr : [consent_nr, consent_protocol.consent_abbrev].join('/'))
+  end
+  
+  def from_nccc?
+    (clinic_or_location == 'NCCC' ? true : false)
   end
   
   def self.find_with_samples(patient_id=nil)

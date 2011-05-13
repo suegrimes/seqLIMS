@@ -26,4 +26,9 @@
                                                     :last_info_box => 'yes'} %>
   <%= render :partial => 'dissection_list', :locals => {:source_sample => @sample} %>
   
+  <!-- if extractions taken directly from source sample (eg blood), list extractions -->
+  <% if @sample.processed_samples && @sample.processed_samples.size > 0 %>
+  <%= render :partial => 'extraction_list', :locals => {:sample => @sample} %>
+  <% end %>
+  
 <% end %>

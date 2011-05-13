@@ -1,37 +1,43 @@
 <% row_tags     ||= 'yes' %>
 <% barcode_link ||= 'none' %>
+<% from_nccc ||= false %>
+<% nonblank_comments = !sample.comments.blank? %>
 
 <% if row_tags == 'yes' %><tr><% end %>
 
-<td> 
+<td class=<%= "dotted_border_bottom" if nonblank_comments %>> 
 <% if    barcode_link == 'edit' %><%= link_to sample.barcode_key, edit_sample_path(sample)%> 
 <% elsif barcode_link == 'show' %><%= link_to sample.barcode_key, sample_path(sample)%>
 <% else %>                        <%=h sample.barcode_key %>
 <% end %>
 </td>
 
-<% if sample.clinical_sample == 'yes' %><td> Clinical </td>
-<% else %>                              <td>Sample: <%=h sample.source_barcode_key %></td>
+<% if from_nccc %><td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.alt_identifier %></td><% end %>
+
+<% if sample.clinical_sample == 'yes' %><td class=<%= "dotted_border_bottom" if nonblank_comments %>> Clinical </td>
+<% else %>                              <td class=<%= "dotted_border_bottom" if nonblank_comments %>>Sample: <%=h sample.source_barcode_key %></td>
 <% end %>
 
-<td><%=h sample.sample_date %></td>
-<td><%=h sample.sample_category %></td>
-<td><%=h sample.tumor_normal %></td>
-<td><%=h sample.container_type %></td>
-<td><%=h sample.sample_amt %></td>
-<td><%=h sample.sample_remaining%></td>
-<td><% if sample.storage_location %><%=h sample.storage_location.location_string %><% end %></td>
-<td><%=h sample.storage_shelf %></td>
-<td><%=h sample.storage_boxbin %></td>
+<td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.sample_date %></td>
+<td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.sample_category %></td>
+<td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.tumor_normal %></td>
+<td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.container_type %></td>
+<td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.sample_amt %></td>
+<td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.sample_remaining%></td>
+<td class=<%= "dotted_border_bottom" if nonblank_comments %>><% if sample.storage_location %><%=h sample.storage_location.location_string %><% end %></td>
+<td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.storage_shelf %></td>
+<td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.storage_boxbin %></td>
 <% if can? :edit, sample %>
-<td class="linkborder"><%=link_to 'Edit', edit_sample_path(sample) %></td>
+<td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=link_to 'Edit', edit_sample_path(sample) %></td>
 <% end %>
 
-<% if !sample.comments.blank? %>
-</tr><tr>
-  <td></td>
-  <th>Comments:</th>
-  <td colspan=5><%=h sample.comments %></td>
+<% if !sample.comments.blank? %> 
+  </tr>  
+  <tr>
+  	<td></td>
+    <td colspan="12" style="border-top:0;">     
+      <div>Sample Comments:&nbsp;<%=h sample.comments %></div>
+    </td>
 <% end %>
 
 <% if row_tags == 'yes' %></tr><% end %>
