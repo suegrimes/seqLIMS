@@ -14,7 +14,15 @@
   <th>Consent protocol</th>
   <td colspan=3><%=f.collection_select(:consent_protocol_id, @consent_protocols, :id, :name_ver,
                                       {:include_blank => 'Select protocol'}) %></td>
-</tr>  
+</tr> 
+<% if controller.action_name == 'edit' && f.object.clinic_or_location == 'NCCC' %>
+<tr>
+  <th>NCCC Path No</th>
+  <td><%=f.text_field(:nccc_pathno) %></td>
+  <th>NCCC Tumor ID</th>
+  <td><%=f.text_field(:nccc_tumor_id) %></td>
+</tr>
+<% end %>
 <tr>
   <th>Comments</th>  
   <td colspan=3><%=f.text_area :comments, :cols => 80, :rows => 2 %></td>
