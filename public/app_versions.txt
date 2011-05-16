@@ -1,3 +1,4 @@
+v2.02	05/16/2011	Molecular assay functionality
 v2.01	05/11/2011	Various usability and cosmetic changes, add fields for NCCC identifiers
 v2.0	03/29/2011	Various changes to UI, menu navigation
 v1.7	02/10/2011	Changes to UI, moved 4 fields from sample_characteristics to samples
