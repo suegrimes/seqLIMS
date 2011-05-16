@@ -5,14 +5,14 @@
 
 <table class="list">
 <tr>
-<th colspan="5">Samples Collected:</th>	
+<th colspan="6">Samples Collected:</th>	
 </tr>
 <tr>
   <th>Collect Date</th>
   <th>Clinic</th>
   <th>Protocol</th>
   <th># Samples</th>
-  <th></th>
+  <th colspan="2"></th>
 </tr> 
 
 <% for sample_characteristic in @patient.sample_characteristics %>
@@ -23,6 +23,7 @@
 	<td> <%=h sample_characteristic.clinic_or_location %></td>
     <td> <% if sample_characteristic.consent_protocol %><%=h sample_characteristic.consent_protocol.name_ver %></td><% end %>
     <td> <%=h source_samples.size %></td>
+	<td> <%= link_to 'Show', sample_characteristic %></td>
     <% if can? :edit, SampleCharacteristic %>
       <td><%= link_to 'Edit', edit_sample_characteristic_path(sample_characteristic) %>
     <% end %>

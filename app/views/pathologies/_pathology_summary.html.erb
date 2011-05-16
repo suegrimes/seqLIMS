@@ -19,9 +19,10 @@
 
 <% if !histology.nil? %>
 <% flds_he   = [[(click_to_link == 'none'? 'Field' : 'Link'), 'H&E Barcode', histology.he_barcode_key, ['histologies', click_to_link, histology.id]], 
-                  ['Field', 'HE Date', histology.he_date],
+                  ['Field', 'H&E Date', histology.he_date],
                   ['Field', 'Pathologist', histology.pathologist],
                   ['Field', 'Histopathology', histology.histopathology]] %>
+<% flds_he.push(['Field', 'H&E Comments', histology.comments]) if !histology.comments.blank? %>
 <% end %>
 			  
 
