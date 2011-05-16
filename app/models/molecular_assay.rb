@@ -25,7 +25,7 @@ class MolecularAssay < ActiveRecord::Base
   validates_presence_of :source_sample_name, :message => "must be in LIMS - please select from auto-fill list"
   validates_uniqueness_of :barcode_key, :message => "generated is not unique - contact system admin"
   validates_date :preparation_date
-  #validates_associated :processed_sample, :message => "- source DNA/RNA must be selected from auto-fill list"
+  validates_associated :processed_sample, :message => "- source DNA/RNA must be selected from auto-fill list"
   
   def before_validation
     # Need to add the following logic here?:
@@ -35,6 +35,12 @@ class MolecularAssay < ActiveRecord::Base
       self.barcode_key = MolecularAssay.next_assay_barcode(self.processed_sample_id, self.processed_sample.barcode_key, protocol_code)
     end
   end
+  
+  def validate
+    if self.processed_sample
+      errors.add(:volume, "- insufficent source volume/concentration") if self.vol_from_source > self.processed_sample.final_vol 
+    end
+  end
    
   def source_sample_name
     return (self.processed_sample ? self.processed_sample.barcode_key : nil)
@@ -42,6 +48,14 @@ class MolecularAssay < ActiveRecord::Base
   
   def source_sample_name=(barcode)
     self.processed_sample = ProcessedSample.find(:first, :conditions => ["barcode_key = ?", barcode]) if !barcode.blank?
+  end
+  
+  def vol_from_source
+    if !self.processed_sample || self.processed_sample.final_conc.nil?
+      return nil
+    else
+      return (volume * concentration)/self.processed_sample.final_conc
+    end
   end
   
   def protocol_name

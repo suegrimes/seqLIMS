@@ -77,7 +77,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :molecular_assays, :collection => {:auto_complete_for_extraction_barcode => :get,
                                                    :auto_complete_for_barcode_key => :get,
                                                    :populate_vol => :get,
-                                                   :calc_vol => :get},
+                                                   :list_added => :get},
                                    :member => {:create_assays => :post}
   
   # Routes for sequencing libraries

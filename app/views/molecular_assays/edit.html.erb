@@ -18,6 +18,10 @@
     <%= f.text_field(:volume, :size => 8)%>
     <%= f.text_field(:concentration, :size => 8)%>	
   </tr>
+  <tr>
+  	<%= f.text_field(:plate_number, :size => 20, :label => 'Plate') %>
+	<%= f.text_field(:plate_coord, :size => 6, :label => 'Coord') %>
+  </tr>
   <tr>  
     <%= f.text_field(:notes, :size => 80, :tdcolspan => 5) %></td>
   </tr>

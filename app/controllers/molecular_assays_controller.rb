@@ -7,15 +7,16 @@ class MolecularAssaysController < ApplicationController
   # GET /molecular_assays
   def index
     unauthorized! if cannot? :read, MolecularAssay
-    if params[:assay_id]
-      @molecular_assays = MolecularAssay.find_all_by_id(params[:assay_id].to_a, :include => {:processed_sample => :sample},
-                                                        :order => 'samples.patient_id, molecular_assays.barcode_key')
-      @hdg_qualifier = ' - Added'
-    else
-      @molecular_assays = MolecularAssay.find(:all, :include => {:processed_sample => :sample},          
-                                              :order => 'samples.patient_id, molecular_assays.barcode_key')
-    end
+    @molecular_assays = MolecularAssay.find(:all, :include => {:processed_sample => :sample},          
+                                            :order => 'samples.patient_id, molecular_assays.barcode_key')
     render :action => 'index'
+  end
+  
+  def list_added
+    unauthorized! if cannot? :read, MolecularAssay
+    @molecular_assays = MolecularAssay.find_all_by_id(params[:assay_id].to_a, :include => {:processed_sample => :sample},
+                                                        :order => 'molecular_assays.barcode_key')
+    render :action => 'list_added'
   end
   
   # GET /molecular_assays/1
@@ -78,7 +79,7 @@ class MolecularAssaysController < ApplicationController
       #render :action => 'debug'
     else
       flash[:notice] = assays_created.to_s + ' assay(s) successfully created'
-      redirect_to :action => 'index', :assay_id => @assay_id
+      redirect_to :action => 'list_added', :assay_id => @assay_id
       #render :action => :debug
     end
     
@@ -178,8 +179,7 @@ protected
     @source_barcode = []; @processed_sample = []; 
     
     0.upto(nr_assays.to_i - 1) do |i|
-      @new_assay[i] ||= MolecularAssay.new(params['molecular_assay_' + i.to_s])
-      #@source_barcode[i] = params['molecular_assay_' + i.to_s][:source_sample_name] 
+      @new_assay[i] ||= MolecularAssay.new(params['molecular_assay_' + i.to_s].merge!(params[:assay_default]))
       @processed_sample[i] = @new_assay[i].processed_sample
     end
   end
@@ -189,15 +189,9 @@ protected
       return nil
       
     else
-      molecular_assay = MolecularAssay.new(assay_param)
+      molecular_assay = MolecularAssay.new(assay_param.merge!(assay_defaults))
       return molecular_assay
     end   
   end
   
-  def calc_vol_conc(molecular_assay, processed_sample)
-    sample_vol_needed = (molecular_assay.volume * molecular_assay.concentration) / processed_sample.final_conc
-    buffer_vol_needed =  molecular_assay.volume - sample_vol_needed
-    return {:sample_vol_needed => sample_vol_needed, :buffer_vol_needed => buffer_vol_needed}
-  end
- 
 end
