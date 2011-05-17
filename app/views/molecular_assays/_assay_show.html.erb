@@ -11,7 +11,9 @@
                   ['Field', 'Owner', molecular_assay.owner_abbrev],
                   ['Field', 'Prep Date', molecular_assay.preparation_date],      		  
                   ['Field', 'Volume', molecular_assay.volume],
-                  ['Field', 'Concentration', molecular_assay.concentration]] %>
+                  ['Field', 'Concentration', molecular_assay.concentration],
+                  ['Field', 'Plate', molecular_assay.plate_number],
+                  ['Field', 'Coord', molecular_assay.plate_coord]] %>
 				  
 <!-- Only include comments if non-blank -->
 <% info_flds.push(['Field', 'Comments', molecular_assay.notes]) if !molecular_assay.notes.blank? %>
