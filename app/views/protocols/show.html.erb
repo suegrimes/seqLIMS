@@ -4,7 +4,8 @@
 <% info_flds   = [['Field', 'Protocol Name', @protocol.protocol_name],
                   ['Field', 'Protocol Type', Protocol::PROTOCOL_TYPE_NAMES[@protocol.protocol_type]],
                   ['Field', 'Abbreviation', @protocol.protocol_abbrev],
-                  ['Field', 'Version', @protocol.protocol_version]] %>
+                  ['Field', 'Code', @protocol.protocol_code],
+                  ['Field', 'Version', @protocol.protocol_version],nil] %>
 				  
 <!-- Only include comments if non-blank -->
 <% info_flds.push(['Field', 'Comments', @protocol.comments]) if !@protocol.comments.blank? %>

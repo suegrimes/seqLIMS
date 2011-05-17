@@ -76,7 +76,6 @@ ActionController::Routing::Routes.draw do |map|
   # Routes for molecular assays
   map.resources :molecular_assays, :collection => {:auto_complete_for_extraction_barcode => :get,
                                                    :auto_complete_for_barcode_key => :get,
-                                                   :populate_vol => :get,
                                                    :list_added => :get},
                                    :member => {:create_assays => :post}
   
