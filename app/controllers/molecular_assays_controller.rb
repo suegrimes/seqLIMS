@@ -6,14 +6,14 @@ class MolecularAssaysController < ApplicationController
   
   # GET /molecular_assays
   def index
-    unauthorized! if cannot? :read, MolecularAssay
+    authorize! :read, MolecularAssay
     @molecular_assays = MolecularAssay.find(:all, :include => {:processed_sample => :sample},          
                                             :order => 'samples.patient_id, molecular_assays.barcode_key')
     render :action => 'index'
   end
   
   def list_added
-    unauthorized! if cannot? :read, MolecularAssay
+    authorize! :read, MolecularAssay
     @molecular_assays = MolecularAssay.find_all_by_id(params[:assay_id].to_a, :include => {:processed_sample => :sample},
                                                         :order => 'molecular_assays.barcode_key')
     render :action => 'list_added'
@@ -22,19 +22,19 @@ class MolecularAssaysController < ApplicationController
   # GET /molecular_assays/1
   def show
     @molecular_assay = MolecularAssay.find(params[:id], :include => [:processed_sample, :protocol])
-    unauthorized! if cannot? :read, @molecular_assay
+    authorize! :read, @molecular_assay
   end
   
   # GET /molecular_assays/new
   def new
-    unauthorized! if cannot? :create, MolecularAssay
+    authorize! :create, MolecularAssay
     @requester = (current_user.researcher ? current_user.researcher.researcher_name : nil)
   end
 
   # GET /molecular_assays/1/edit
   def edit
     @molecular_assay = MolecularAssay.find(params[:id], :include => :processed_sample)
-    unauthorized! if cannot? :edit, @molecular_assay
+    authorize! :edit, @molecular_assay
     
     # Add existing owner to owner/researcher drop-down list (for case where current owner is inactive)
   end
@@ -53,7 +53,7 @@ class MolecularAssaysController < ApplicationController
   end
 
   def create_assays
-    unauthorized! if cannot? :create, MolecularAssay
+    authorize! :create, MolecularAssay
     @new_assay = []; @assay_id = [];
     @assay_index = 0; assays_created = 0;
     
@@ -95,7 +95,7 @@ class MolecularAssaysController < ApplicationController
   # PUT /molecular_assays/1
   def update    
     @molecular_assay = MolecularAssay.find(params[:id])
-    unauthorized! if cannot? :update, @molecular_assay
+    authorize! :update, @molecular_assay
     
     if @molecular_assay.update_attributes(params[:molecular_assay])
       flash[:notice] = 'Molecular assay was successfully updated.'
@@ -109,7 +109,7 @@ class MolecularAssaysController < ApplicationController
   # DELETE /molecular_assays/1
   def destroy
     @molecular_assay = MolecularAssay.find(params[:id])
-    unauthorized! if cannot? :delete, MolecularAssay
+    authorize! :delete, MolecularAssay
     
     @molecular_assay.destroy
     redirect_to(molecular_assays_url) 
