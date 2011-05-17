@@ -11,11 +11,11 @@
 
 <!-- Standard fields to be displayed -->
 <% info_flds   = [[(click_to_link1 == 'none'? 'Field' : 'Link'), 'Patient ID', patient.id, ['patients', click_to_link1, patient.id]],
-                   nil, 
-                  ['Field', 'Gender', patient.gender],
+                   nil,
                   ['Field', 'Race/Ethnicity', [patient.race, patient.ethnicity].join('/')],
+                  ['Field', 'Gender', patient.gender],
                   [(click_to_link2 == 'none'? 'Field' : 'Link'), 'Collected', sample_characteristic.collection_date,
-                                     ['sample_characteristics', click_to_link2, sample_characteristic.id]],nil,
+                  ['sample_characteristics', click_to_link2, sample_characteristic.id]],nil,
                   ['Field', 'Clinic', sample_characteristic.clinic_or_location],
                   (sample_characteristic.from_nccc? ? ['Field', 'NCCC Tumor ID', sample_characteristic.nccc_tumor_id] : nil),
                   ['Field', 'Protocol', sample_characteristic.consent_descr],
