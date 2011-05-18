@@ -12,7 +12,7 @@
                   ['Field', 'Sequencing Kit', flow_cell.sequencing_kit]] %>
 				  
 <!-- Only include comments if non-blank -->
-<% info_flds.push(['Field', 'HiSeq Run#', flow_cell.hiseq_xref], nil) if !flow_cell.hiseq_xref.blank? %>
+<% info_flds.push(['Field', 'Alt Run#', flow_cell.hiseq_xref], nil) if !flow_cell.hiseq_xref.blank? %>
 <% info_flds.push(['Field', 'Comments', flow_cell.notes]) if !flow_cell.notes.blank? %>
 
 <!-- Links to be displayed with borders, in bottom row of info box -->
