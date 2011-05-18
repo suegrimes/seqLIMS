@@ -3,7 +3,7 @@
 <%= submit_to_remote 'Singleplex', 'Refesh from Defaults',
       :url => {:action => 'populate_splex', :nr_libs => @new_lib.size},
       :update => 'libs_form' %>
-<div class="clear">&nbsp;</div>
+<div>&nbsp;</div>
 <fieldset class="form">
 <legend>Libraries</legend>
  <%= hidden_field_tag(:nr_libs, @new_lib.size) %>

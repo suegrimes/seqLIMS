@@ -8,3 +8,4 @@ lib/mysql.rb
 public/images/*
 app/views/proto/*
 app/controllers/proto_controller.rb
+public/javascripts/all.js

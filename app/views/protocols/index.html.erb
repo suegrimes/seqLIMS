@@ -4,9 +4,9 @@
   <tr>
   	<th>Type</th>
     <th>Protocol name</th>
+	<th>Code</th>
     <th>Protocol version</th>
-    <th>Protocol steps</th>
-    <th>Vendor</th>
+	<th>Reference</th>
 	<th colspan=3></th>
   </tr>
 
@@ -14,9 +14,9 @@
   <tr>
   	<td><%=h protocol.protocol_type %></td>
     <td><%=h protocol.protocol_name %></td>
+	<td style="text-align:center"><%=h protocol.protocol_code %></td>
     <td><%=h protocol.protocol_version %></td>
-    <td><%= protocol.protocol_steps %></td>
-    <td><%=h protocol.vendor %></td>
+	<td><%=h protocol.reference %></td>
 
     <td><%= link_to 'Show', protocol %></td>
 	<% if can? :edit, protocol %>

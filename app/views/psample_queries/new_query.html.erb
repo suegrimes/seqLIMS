@@ -15,7 +15,9 @@
   <% end %>
   	<th>Sample Barcode:</th><td><%= f.text_field(:barcode_key, :size => 12)%></td>
   </tr>
-
+  
+  <tr><td>&nbsp;</td></tr>
+  
   <tr>
   	<th>Consent Protocol:</th>
   	<td><%= f.collection_select(:consent_protocol_id, @consent_protocols, :id, :name_ver,

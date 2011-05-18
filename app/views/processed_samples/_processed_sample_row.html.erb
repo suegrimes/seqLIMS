@@ -3,9 +3,7 @@
 <tr>
 <td><%=h processed_sample.sample.patient_id %></td>
 <td>
-<% if can? :edit, processed_sample && controller.action_name == 'show' %>
-    <%=link_to processed_sample.barcode_key, edit_processed_sample_path(processed_sample)%> /
-<% elsif controller.action_name == 'show' %>
+<% if controller.action_name == 'show' %>
     <%=h processed_sample.barcode_key %> /
 <% else %>
     <%=link_to processed_sample.barcode_key, processed_sample_path(processed_sample)%> /
@@ -28,6 +26,10 @@
 <td><%=h processed_sample.storage_shelf %></td>
 <td><%=h processed_sample.storage_boxbin %></td>
 <% if capture_ids == 'yes' %><%= hidden_field_tag("export_id[]", processed_sample.id)  %><% end %>
+
+<% if can? :edit, processed_sample %>
+  <td><%= link_to 'Edit', edit_processed_sample_path(processed_sample) %></td>
+<% end %>
 
 <% if can? :delete, processed_sample %>
   <td><%= link_to 'Delete', processed_sample, :confirm => 'Are you sure?', :method => :delete %></td>

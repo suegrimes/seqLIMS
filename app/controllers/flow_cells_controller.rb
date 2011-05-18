@@ -8,6 +8,7 @@ class FlowCellsController < ApplicationController
   def setup_params
    @from_date = (Date.today - 3.months).beginning_of_month
    @to_date   =  Date.today
+   @seq_lib   = SeqLib.new(:owner => (current_user.researcher ? current_user.researcher.researcher_name : nil))
   end
   
   # GET /flow_cells

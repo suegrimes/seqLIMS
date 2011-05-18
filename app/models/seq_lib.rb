@@ -35,6 +35,7 @@ class SeqLib < ActiveRecord::Base
   
   has_many :lib_samples, :dependent => :destroy
   has_many :flow_lanes
+  has_many :align_qc, :through => :flow_lanes
   has_many :attached_files, :as => :sampleproc
   
   accepts_nested_attributes_for :lib_samples
