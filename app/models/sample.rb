@@ -8,7 +8,7 @@
 #  source_sample_id         :integer(4)
 #  source_barcode_key       :string(20)
 #  barcode_key              :string(20)      default(""), not null
-#  old_barcode              :string(20)
+#  alt_identifier           :string(20)
 #  sample_date              :date
 #  sample_type              :string(50)
 #  sample_tissue            :string(50)
@@ -77,6 +77,10 @@ class Sample < ActiveRecord::Base
   
   def barcode_num
     barcode_key.slice(barcode_key.index('.'), barcode_key.length)
+  end
+  
+  def barcode_incl_nccc
+    (alt_identifier.nil? ? barcode_key : [barcode_key, " (", alt_identifier, ")"])
   end
   
   def clinical_sample

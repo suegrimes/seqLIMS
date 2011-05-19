@@ -18,7 +18,7 @@
 #
 
 class Order < ActiveRecord::Base
-  has_many :items
+  has_many :items, :dependent => :destroy
   
   #validates_presence_of :rpo_or_cwa, :company_name, :incl_chemicals, :po_number
   validates_presence_of :rpo_or_cwa, :company_name, :po_number

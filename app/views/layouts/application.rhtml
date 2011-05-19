@@ -84,13 +84,24 @@
         <li><%= link_to 'New Dissection', new_dissection_path %></li>
         <li><%= link_to 'New Extraction', new_extraction_path %></li>
         <li><%= link_to 'Edit Sample', upd_sample_path, :class => 'last-submenu-item' %></li>
-        <!--li><a href="#">Molecular assays</a></li-->
       </ul>
     </li>
 	<!--% else %-->
 	<!--<li><a href="#">Sample Processing</a></li>-->
     <% end %>  
 	<!-- /sample processing -->
+	
+	 <% if user_has_access?(user_roles, ["clinical", "clin_admin", "researcher", "lab_admin"]) %>
+    <li><a href="#">Molecular Assays</a>
+	  <ul>
+        <li><%= link_to 'New Assay', new_molecular_assay_path %></li>
+        <li><%= link_to 'List Assays', molecular_assays_path, :class => 'last-submenu-item' %></li>
+      </ul>
+    </li>
+	<!--% else %-->
+	<!--<li><a href="#">Molecular Assays</a></li>-->
+    <% end %>  
+	<!-- /molecular assays -->
 	
     <li><a href="#">Sequencing/Alignment</a>
       <ul>
@@ -108,13 +119,7 @@
           </ul>
         </li>
 		<% end %>
-		<li><a href="#">Run Directories</a>
-		  <ul>
-		  	<li><%= link_to 'List Run Locations', run_dirs_path %></li>
-            <li><%= link_to 'Edit Run Locations', dir_params_path %></li>
-            <li><%= link_to 'List Disks/Directories', storage_devices_path, :class => 'last-submenu-item' %></li>		
-		  </ul>
-		</li>
+		<li><%= link_to 'List Run Locations', run_dirs_path %></li>
         <li><%= link_to 'List Seq Runs', flow_cells_path(:rpt_type => 'list'), :class => 'last-submenu-item' %></li>
       </ul>
     </li>
@@ -122,7 +127,8 @@
 	    
 	<% if user_has_access?(user_roles, ["admin"]) %> 
 	<li><a href="#">Admin</a>
-      <ul>  
+      <ul>
+      	<li><%= link_to 'New Seq Run Dir', dir_params_path %></li>  
         <li><%= link_to 'Users',  users_path %></li>
         <li><%= link_to 'Researchers', researchers_path, :class => 'last-submenu-item' %></li>             
       </ul>
@@ -159,6 +165,7 @@
       <ul>
        <li><%= link_to 'Source/Dissections', unprocessed_query_path %></li>
        <li><%= link_to 'Extracted Samples',  processed_query_path %></li>
+	   <li><%= link_to 'Molecular Assays (List)',  molecular_assays_path %></li>
        <li><%= link_to 'Seq Libraries',      lib_query_path  %></li>
        <li><%= link_to 'Sequencing Runs',    seq_run_query_path %></li>
       </ul>
@@ -176,6 +183,10 @@
 		<% if user_has_access?(user_roles, ["alignment"]) %>  
         <li><%= link_to 'Alignment Refs', alignment_refs_path %></li>
 		<% end %>
+		
+		<% if user_has_access?(user_roles, ["researcher", "lab_admin", "alignment"])%>
+		<li><%= link_to 'Disks/Directories', storage_devices_path %></li>
+		<% end %>		
 		
 		<% if user_has_access?(user_roles, ["clin_admin", "lab_admin"]) %> 
 		<li><%= link_to 'Drop-Down Lists', categories_path %></li>

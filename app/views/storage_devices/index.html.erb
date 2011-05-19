@@ -13,10 +13,12 @@
     <td><%=h device.device_name %></td>
 	<td><%=h device.building_loc %></td>
 	<td><%=h device.base_run_dir %></td>
-    <td><%= link_to 'Edit', edit_storage_device_path(device) %></td>
-    <td><%= link_to 'Delete', device, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><% if can? :edit, device %><%= link_to 'Edit', edit_storage_device_path(device) %><% end %></td>
+    <td><% if can? :destroy, device %><%= link_to 'Delete', device, :confirm => 'Are you sure?', :method => :delete %><% end %></td>
   </tr>
 <% end %>
 </table>
 
+<% if can? :new, StorageDevice %>
 <%= link_to 'New storage device', new_storage_device_path %>
+<% end %>

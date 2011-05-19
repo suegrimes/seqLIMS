@@ -1,0 +1,58 @@
+<div id='assays_form'>
+
+<fieldset class="form">
+<legend>Assay Samples</legend>
+  <%= hidden_field_tag(:nr_assays, @new_assay.size) %>
+  <table class="form-with-columns">
+  <tr>
+  	<th colspan="2"></th>
+	<th colspan="2" style="text-align:center">Molecular Assay</th>
+	<th colspan="2" style="text-align:center">Source DNA/RNA</th>
+	<th colspan="3"></th>
+  <tr>
+    <th></th>
+	<th>Source DNA/RNA</th>
+	<th>Vol(ul)</th>
+	<th>Conc(ng/ul)</th>
+	<th>Vol(ul)</th>
+	<th>Conc(ng/ul)</th>
+	<th>Plate</th>
+	<th>Coord</th>
+	<th>Notes</th>
+  </tr>
+  
+  <% @new_assay.each_with_index do |assay, i| %>
+    <% fields_for 'molecular_assay_' + i.to_s, assay do |f| %> 
+  <tr>
+    <td><em>Sample: <%= i+1 %></em></td>
+    <td><%= f.text_field_with_auto_complete :source_sample_name, {:size => 12},
+              {:url => {:controller => :molecular_assays, :action => :auto_complete_for_extraction_barcode},
+               :param_name => :search, :min_chars => 2, :method => :get, 
+               :with => "value + '&assay[protocol_id]=' + $F('assay_default_protocol_id')",
+                           
+			   :after_update_element => "function(element,value){" + 
+			     remote_function(:url => { :action => :update_fields, :i => i},
+                                 :with => "'source_sample_name=' + element.value") + "}"} %></td>
+								 
+	<td><%= f.text_field(:volume, :size => 8, :onchange => "$('default_vol').update($F(this)*$F('molecular_assay_#{i}_concentration')/$('psample_conc_#{i}').innerHTML)") %></td>							  
+	<td><%= f.text_field(:concentration, :size => 8, :onchange => "$('default_vol').update($F(this)*$F('molecular_assay_#{i}_volume')/$('psample_conc_#{i}').innerHTML)") %></td>
+	
+	<td class="number-pad-right" id=<%="psample_vol_" + i.to_s%>><%=h (@processed_sample[i]? @processed_sample[i].final_vol : ' ')%></td>
+    <td class="number-pad-right" id=<%="psample_conc_" + i.to_s%>><%=h (@processed_sample[i]? @processed_sample[i].final_conc : ' ')%></td>
+	<td><%= f.text_field :plate_number, :size => 15 %></td>
+	<td><%= f.text_field :plate_coord, :size => 4 %></td>
+	<td><%= f.text_field(:notes, :size => 30)%></td> 
+  </tr>
+  <tr><td colspan="7"></td></tr>
+  <% end %>
+<% end %>
+</table>
+</fieldset>
+</div>
+
+<%= break_clear(submit_tag "Save assays") %>
+<div id="default_vol" style="display:none"></div>
+<!-- f.text_field(:volume, :size => 8, :onchange => "$('default_vol').update($F(this));") --> 
+<!-- observe_field("molecular_assay_0_volume", :on => :onchange, :update => "default_vol",
+                                              :url => {:action => :populate_vol}, :with => "'vol='+escape(value)") -->
+<!-- '&assay[search]=' + jQuery('#molecular_assay_#{i}_source_sample_name').val()",-->    

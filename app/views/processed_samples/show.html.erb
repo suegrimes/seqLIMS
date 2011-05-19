@@ -14,3 +14,61 @@
                                                           :source => 'Source'} %>
 
 <%= render :partial => 'processed_sample_info', :locals => {:processed_sample => @processed_sample} %>
+<%= break_clear %>
+
+<span class="table_title">Sequencing Libraries 
+  <% if @processed_sample.seq_libs %> (<%= @processed_sample.seq_libs.size %> libraries) <% end %></span>
+  <% if @processed_sample.seq_libs && @processed_sample.seq_libs.size > 0 %>
+  <table class="list">
+  <tr>
+    <th>Lib Barcode</th>
+    <th>Library Name</th>
+	<th>Owner</th>
+	<th>Prep Date</th>
+	<th>Adapter</th>
+	<th colspan="2">Sample Conc</th>
+	<th>Project</th>
+	<th>Alignment Ref</th>
+  </tr>
+  <% for seq_lib in @processed_sample.seq_libs %>
+  <tr>
+  	<td><%= link_to seq_lib.lib_barcode, seq_lib %></td>
+    <td><%=h seq_lib.lib_name %></td>
+	<td><%=h seq_lib.owner_abbrev %></td>
+	<td><%=h seq_lib.preparation_date %></td>
+	<td><%=h seq_lib.runtype_adapter %></td>
+	<td><%=h sample_conc_string(seq_lib.sample_conc_ngul, 'ng/ul') %></td>
+	<td><%=h sample_conc_string(seq_lib.sample_conc_nm, 'nm') %></td>
+	<td><%=h seq_lib.target_pool %></td>
+	<td><%=h seq_lib.alignment_ref %></td>
+  </tr>
+  <% end %>
+</table>
+<%= break_clear %>
+<% end %>
+
+<span class="table_title">Molecular Assays 
+  <% if @processed_sample.molecular_assays %> (<%= @processed_sample.molecular_assays.size %> assays) <% end %></span>
+  <% if @processed_sample.molecular_assays && @processed_sample.molecular_assays.size > 0 %>
+  <table class="list">
+  <tr>
+    <th>Assay Barcode</th>
+	<th>Protocol</th>
+	<th>Owner</th>
+	<th>Prep Date</th>
+	<th>Volume(ul)</th>
+	<th>Conc(ng/ul)</th>
+  </tr>
+  <% for molecular_assay in @processed_sample.molecular_assays %>
+  <tr>
+  	<td><%= link_to molecular_assay.barcode_key, molecular_assay %></td>
+	<td><% if molecular_assay.protocol %><%=h molecular_assay.protocol.protocol_name %><% end %></td>
+	<td><%=h molecular_assay.owner_abbrev %></td>
+	<td><%=h molecular_assay.preparation_date %></td>
+	<td><%=h molecular_assay.volume %></td>
+	<td><%=h molecular_assay.concentration %></td>
+  </tr>
+  <% end %>
+</table>
+<% end %>
+<%= break_clear %>

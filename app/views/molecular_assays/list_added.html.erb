@@ -1,0 +1,65 @@
+<h1>Molecular Assays <%= @hdg_qualifier %></h1>
+
+<table class="list">
+  <tr>
+  	<th colspan="9"></th>
+	<th colspan="2" style="text-align:center">Molecular Assay</th>
+	<th colspan="2" style="text-align:center">Source DNA/RNA</th>
+	<th colspan="2" style="text-align:center">Vol to Pipette</th>
+	<th colspan="2"></th>
+  </tr>
+  <tr>
+  	<th>Assay Code</th>
+	<th>Patient ID</th>
+	<th>Tissue</th>
+	<th>Preservation</th>
+	<th>Protocol</th>
+	<th>Owner</th>
+	<th>Prep Date</th>
+	<th>Plate</th>
+	<th>Coord</th>
+	<th>Volume(ul)</th>
+	<th>Conc(ng/ul)</th>
+	<th>Volume(ul)</th>
+	<th>Conc(ng/ul)</th>
+	<th>Sample Vol(ul)</th>
+	<th>Buffer Vol(ul)</th>
+    <th colspan="2"></th>
+  </tr>
+
+<% for molecular_assay in @molecular_assays %>
+  <tr>
+  	<td><%= link_to molecular_assay.barcode_key, molecular_assay %></td>
+	<% if molecular_assay.processed_sample %>
+	  <td class="number-pad-right"><%=h molecular_assay.processed_sample.sample.patient_id %></td>
+	  <td><%=h molecular_assay.processed_sample.sample.sample_tissue %></td>
+	  <td><%=h molecular_assay.processed_sample.sample.tissue_preservation %></td>
+	<% else %>
+	  <td colspan="3">&nbsp;</td>
+	<% end %>
+	<td><%=h molecular_assay.protocol_name %></td>
+	<td><%=h molecular_assay.owner_abbrev %></td>
+	<td><%=h molecular_assay.preparation_date %></td>
+	<td><%=h molecular_assay.plate_number %></td>
+	<td><%=h molecular_assay.plate_coord %></td>
+	<td class="number-pad-right"><%=h molecular_assay.volume %></td>
+	<td class="number-pad-right"><%=h molecular_assay.concentration %></td>
+	<td class="number-pad-right"><%=h molecular_assay.processed_sample.final_vol %></td>
+	<td class="number-pad-right"><%=h molecular_assay.processed_sample.final_conc %></td>
+	<td class="number-pad-right"><%=h sample_vol(molecular_assay) %></td>
+	<td class="number-pad-right"><%=h buffer_vol(molecular_assay) %></td>
+	
+	<% if can? :edit, molecular_assay %>
+	  <td><%= link_to 'Edit', edit_molecular_assay_path(molecular_assay) %></td>
+	<% else %>
+      <td class="ltgrey"> Edit </td>
+    <% end %>
+	
+	<% if can? :delete, molecular_assay %>
+	  <td><%= link_to 'Delete', molecular_assay, :confirm => 'Are you sure?', :method => :delete %></td>	  
+    <% else %>
+      <td class="ltgrey"> Delete </td>
+	<% end %>  
+  </tr>
+  <% end %>
+</table>

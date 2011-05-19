@@ -20,6 +20,10 @@
                   ['Field', 'Shelf', sample.storage_shelf],
                   ['Field', 'Box/Bin#', sample.storage_boxbin]] %>
 				  
+<!-- Include NCCC sample identifier if non-blank -->
+<% info_flds.insert(2, ['Field', 'NCCC Identifier', sample.alt_identifier]) if !sample.alt_identifier.blank? %>
+<% info_flds.insert(5, nil) if !sample.alt_identifier.blank? %>
+				  
 <!-- Only include comments if non-blank -->
 <% info_flds.push(['Field', 'Comments', sample.comments]) if !sample.comments.blank? %>
 
