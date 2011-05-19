@@ -17,7 +17,8 @@ class ProcessedSamplesController < ApplicationController
   # GET /processed_samples/1
   def show
     @processed_sample = ProcessedSample.find(params[:id], 
-                                       :include => {:sample => {:sample_characteristic => :pathology}} )
+                                       :include => [{:sample => {:sample_characteristic => :pathology}},
+                                                    {:lib_samples => :seq_lib}, :molecular_assays])
   end
   
   def new_params
