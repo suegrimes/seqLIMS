@@ -7,27 +7,30 @@
 <legend>Select parameters</legend>
 <table class="form">
   <tr>
-  <th>Owner(s):</th>
-  <td><%= f.select(:owner, @owners, {:include_blank => '(All)'},{:size => 3, :multiple => :multiple}) %></td>
-  <th>Project(s):</th>
-  <td><%= f.collection_select(:target_pool, @target_pools, :target_pool, :target_pool,
-                             {:include_blank => '(All)'}, {:size => 3, :multiple => :multiple}) %> </td> 
+    <th>Lib Barcode: </th>
+    <td><%=f.text_field(:barcode_key, :size => 10)%></td>
+  	<th>Lib Name (search):</th>
+    <td><%= f.text_field(:lib_name, :size => 10)%></td>
   </tr>
   <tr>
-  <th>Lib Name (search):</th>
-  <td><%= f.text_field(:lib_name, :size => 10)%></td>
-  <th>Align Ref(s):</th>
-  <td><%= f.collection_select(:alignment_ref, @align_refs, :alignment_key, :alignment_key,
-                             {:include_blank => '(All)'}, {:size => 3, :multiple => :multiple}) %> </td> 
-  </tr> 
+    <th>Owner(s):</th>
+    <td><%= f.select(:owner, @owners, {:include_blank => '(All)'},{:size => 3, :multiple => :multiple}) %></td>
+  </tr>
+  <tr>
+    <th>Project(s):</th>
+    <td><%= f.collection_select(:target_pool, @target_pools, :target_pool, :target_pool,
+                               {:include_blank => '(All)'}, {:size => 3, :multiple => :multiple}) %> </td> 
+    <th>Align Ref(s):</th>
+    <td><%= f.collection_select(:alignment_ref, @align_refs, :alignment_key, :alignment_key,
+                               {:include_blank => '(All)'}, {:size => 3, :multiple => :multiple}) %> </td> 
+  </tr>
   <tr>
   	<th>Prepared from:</th>
 	<td colspan="3"><%= f.calendar_date_select(:from_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%>
 	<strong>&nbsp;To:&nbsp;</strong><%= f.calendar_date_select(:to_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%></td>
   </tr>	  
   <tr>
-    <th>Exclude used libraries?</th>
-    <td><%= check_box_tag(:excl_used, 'Y', false)%></td>
+    <th colspan="2" style="text-align:left">Exclude used libraries?&nbsp;<%= check_box_tag(:excl_used, 'Y', false)%></th>
   </tr> 
 </table>
 </fieldset>
