@@ -8,7 +8,7 @@
         <%= stylesheet_link_tag 'lims_std' %>
 		<%= stylesheet_link_tag 'lims-superfish' %>
 		<!--[if IE]><%= stylesheet_link_tag 'ie-fixes' %><![endif]-->        
-        <%= javascript_include_tag :all, :cache => true %>
+        <%= javascript_include_tag :defaults, 'jquery-1.5.1.min', 'superfish', :cache => true %>
 		<%= calendar_date_select_includes %>
 	    <script type="text/javascript">
 	        jQuery.noConflict();
