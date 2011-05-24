@@ -174,6 +174,7 @@ protected
   
   def reload_defaults(params, nr_assays)
     dropdowns
+    @requester = (current_user.researcher ? current_user.researcher.researcher_name : nil)
     @assay_default = MolecularAssay.new(params[:assay_default])
     @new_assay = []   if !@new_assay
     @source_barcode = []; @processed_sample = []; 

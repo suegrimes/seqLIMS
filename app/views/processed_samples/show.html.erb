@@ -16,7 +16,7 @@
 <%= render :partial => 'processed_sample_info', :locals => {:processed_sample => @processed_sample} %>
 <%= break_clear %>
 
-<span class="table_title">Sequencing Libraries 
+<span class="table_title">Sequencing Libraries
   <% if @processed_sample.seq_libs %> (<%= @processed_sample.seq_libs.size %> libraries) <% end %></span>
   <% if @processed_sample.seq_libs && @processed_sample.seq_libs.size > 0 %>
   <table class="list">
@@ -26,17 +26,20 @@
 	<th>Owner</th>
 	<th>Prep Date</th>
 	<th>Adapter</th>
+	<th>Tag</th>
 	<th colspan="2">Sample Conc</th>
 	<th>Project</th>
 	<th>Alignment Ref</th>
   </tr>
-  <% for seq_lib in @processed_sample.seq_libs %>
+  <% for lib_sample in @processed_sample.lib_samples %>
+  <% seq_lib = lib_sample.seq_lib %>
   <tr>
   	<td><%= link_to seq_lib.lib_barcode, seq_lib %></td>
     <td><%=h seq_lib.lib_name %></td>
 	<td><%=h seq_lib.owner_abbrev %></td>
 	<td><%=h seq_lib.preparation_date %></td>
 	<td><%=h seq_lib.runtype_adapter %></td>
+	<td><%=h lib_sample.index_tag if seq_lib.multiplexed? %></td>
 	<td><%=h sample_conc_string(seq_lib.sample_conc_ngul, 'ng/ul') %></td>
 	<td><%=h sample_conc_string(seq_lib.sample_conc_nm, 'nm') %></td>
 	<td><%=h seq_lib.target_pool %></td>
@@ -46,6 +49,7 @@
 </table>
 <%= break_clear %>
 <% end %>
+<%= break_clear %>
 
 <span class="table_title">Molecular Assays 
   <% if @processed_sample.molecular_assays %> (<%= @processed_sample.molecular_assays.size %> assays) <% end %></span>
