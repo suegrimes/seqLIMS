@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   #filter_access_to [:edit, :update, :show], :attribute_check => true
   
   ## role_authorization ##
-  skip_before_filter :login_required, :only => [:new, :create, :forget, :reset]
+  skip_before_filter :login_required, :only => [:new, :create, :forgot, :reset]
   #require_role "admin", :for_all_except => [:new, :create]
 
   # render index.rhtml
