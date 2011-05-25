@@ -26,7 +26,8 @@
     </head>
 
 <body id='body'>
-	<% user_roles = (logged_in? ? current_user.roles.collect(&:name) : nil) %> 	
+	<% user_roles = (logged_in? ? current_user.roles.collect(&:name) : nil) %>
+	<% env_descr  = (DEMO_APP == true ? "(DEMO)" : (RAILS_ENV == 'production' ? nil : "(#{RAILS_ENV})"))%> 	
 <div id="container" style="width: 98%;">
 	
 <div id="header">
@@ -34,7 +35,7 @@
     <tr>
       <td valign="top" rowspan="2" width="180"><div class="logo"><%= image_tag("sutech_reflect_DB_89.gif", :height => "89", :alt => "Stanford Genome Technology") %></div></td>
       <td valign="top"><div class="sitename-graphic"><%= image_tag("mendelims-sitename.gif", :height => "58", :title => "Mendelian LIMS Targeted Resequencing", :alt => "Mendelian LIMS Targeted Resequencing") %></div></td>
-      <td valign="top" width="180"><div class="version"><% if APP_VERSION %>Version: <%= APP_VERSION %><% end %><br /><% if RAILS_ENV != 'production'%> <span style="font-size:larger;">(<%= RAILS_ENV%>)</span><%end%></div></td>
+      <td valign="top" width="180"><div class="version"><% if APP_VERSION %>Version: <%= APP_VERSION %><% end %><br /><span style="font-size:larger;"><%=h env_descr %></span></div></td>
     </tr>
     <tr>
       <td><div class="tagline">&nbsp;</div></td>      

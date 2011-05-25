@@ -1,6 +1,4 @@
 class UserNotifier < ActionMailer::Base
-  SITE_URL = 'reve.stanford.edu:4200'
-  
   def signup_notification(user)
     setup_email(user)
     @subject    += 'Please activate your new account'

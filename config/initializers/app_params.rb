@@ -3,11 +3,15 @@ email_file       = "#{RAILS_ROOT}/public/system/emails.txt"
 ezkeys_file      = "#{RAILS_ROOT}/public/system/ez_keys.txt"
 environment_file = "#{RAILS_ROOT}/public/system/environment.txt"
 
+app_url = {:DEMO => 'mendelims.stanford.edu', :PROD => 'reve.stanford.edu:4200'}
+
 app_type = 'PROD'
 if FileTest.file?(environment_file)
   demo_app = IO.readlines(environment_file)
-  app_type = demo_app[0].chomp
+  app_type = (demo_app[0].chomp)[0..3].upcase
 end
+
+SITE_URL = app_url[app_type.to_sym] ||= 'localhost:3000'
 
 DEMO_APP = (app_type == 'DEMO'? true : false)
 DEMO_USERS = ['admin', 'clinical', 'researcher']
