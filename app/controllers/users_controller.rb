@@ -61,7 +61,7 @@ class UsersController < ApplicationController
       @user.roles = Role.find(params[:user][:role_ids])
     end
     
-    if DEMO_APP && DEMO_USERS.include?(current_user.login)
+    if DEMO_APP && DEMO_USERS.include?(@user.login)
       flash.now[:error] = "Change functionality disabled for default user logins in demo application"
       @roles = Role.find(:all)
       render :action => 'edit'
@@ -85,14 +85,13 @@ class UsersController < ApplicationController
   
   # DELETE /users/1
   def destroy
-    if DEMO_APP && DEMO_USERS.include?(current_user.login)
+    @user = User.find(params[:id])
+    if DEMO_APP && DEMO_USERS.include?(@user.login)
       flash[:error] = "Delete functionality disabled for default user logins in demo application"
       redirect_to users_url
       
     else
-      @user = User.find(params[:id])
-      authorize! :destroy, @user
-      
+      authorize! :destroy, @user      
       @user.destroy
       redirect_to(users_url) 
     end
