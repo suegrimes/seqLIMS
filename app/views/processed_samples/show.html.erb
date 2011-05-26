@@ -32,24 +32,26 @@
 	<th>Alignment Ref</th>
   </tr>
   <% for lib_sample in @processed_sample.lib_samples %>
-  <% seq_lib = lib_sample.seq_lib %>
-  <tr>
-  	<td><%= link_to seq_lib.lib_barcode, seq_lib %></td>
-    <td><%=h seq_lib.lib_name %></td>
-	<td><%=h seq_lib.owner_abbrev %></td>
-	<td><%=h seq_lib.preparation_date %></td>
-	<td><%=h seq_lib.runtype_adapter %></td>
-	<td><%=h lib_sample.index_tag if seq_lib.multiplexed? %></td>
-	<td><%=h sample_conc_string(seq_lib.sample_conc_ngul, 'ng/ul') %></td>
-	<td><%=h sample_conc_string(seq_lib.sample_conc_nm, 'nm') %></td>
-	<td><%=h seq_lib.target_pool %></td>
-	<td><%=h seq_lib.alignment_ref %></td>
-  </tr>
+  <% if lib_sample.seq_lib %>
+    <% seq_lib = lib_sample.seq_lib %>
+    <tr>
+  	  <td><%= link_to seq_lib.lib_barcode, seq_lib %></td>
+      <td><%=h seq_lib.lib_name %></td>
+	  <td><%=h seq_lib.owner_abbrev %></td>
+	  <td><%=h seq_lib.preparation_date %></td>
+	  <td><%=h seq_lib.runtype_adapter %></td>
+	  <td><%=h lib_sample.index_tag if seq_lib.multiplexed? %></td>
+	  <td><%=h sample_conc_string(seq_lib.sample_conc_ngul, 'ng/ul') %></td>
+	  <td><%=h sample_conc_string(seq_lib.sample_conc_nm, 'nm') %></td>
+	  <td><%=h seq_lib.target_pool %></td>
+	  <td><%=h seq_lib.alignment_ref %></td>
+    </tr>
+  <% end %>
   <% end %>
 </table>
+<% else %>
 <%= break_clear %>
 <% end %>
-<%= break_clear %>
 
 <span class="table_title">Molecular Assays 
   <% if @processed_sample.molecular_assays %> (<%= @processed_sample.molecular_assays.size %> assays) <% end %></span>
@@ -74,5 +76,6 @@
   </tr>
   <% end %>
 </table>
-<% end %>
+<% else %>
 <%= break_clear %>
+<% end %>
