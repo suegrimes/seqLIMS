@@ -33,7 +33,7 @@
 	  <% if info_links && info_links.size > 0 %>
 	    <tr>
 	      <% info_links.each do |lnk| %>
-		    <% div_options = {:class => "linkborder"} %>
+		    <% div_options = {:class => "linkborder no-print"} %>
 		    <% link_options = {:confirm => 'Are you sure', :method => :delete} if lnk[1] == 'destroy' %>
 			<%= content_tag(:td, 
                   content_tag(:div, (link_to lnk[0], {:controller => link_controller, :action => lnk[1], :id => link_id}, link_options), div_options))%>

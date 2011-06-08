@@ -1,0 +1,43 @@
+body {
+    font-family: serif;	
+}
+
+a:after { content:' [' attr(href) '] '}
+
+#header {
+	display: none;
+}
+
+table {
+	width: 100%;
+    border-collapse:collapse;
+}
+table, th, td {
+    /*border: 1px solid black;*/
+}
+
+th, td {
+    white-space: nowrap;
+	padding: .5em;
+}
+
+td {
+	vertical-align: top;
+}
+
+.sf-menu {
+	display: none;
+}
+
+#leftsidebar {
+	display: none;
+}
+
+.no-print {
+	display: none;
+}
+
+#footer {
+	   display: none;
+}
+

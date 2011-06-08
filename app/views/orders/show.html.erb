@@ -1,3 +1,4 @@
+<div class="no-print" style="float:right;"><%= link_to_function("Print this Page", "javascript:print()") %></div>
 <h1>Order Listing</h1>
 
 <!-- Order Details -->
@@ -48,7 +49,7 @@
     <td><%=h item.item_price %></td>
     <td><%=h item.item_quantity %></td>
 	<td><%=h item.item_received %></td>
-	<td><%= link_to 'Edit', edit_item_path(item) %></td>
+	<td><%= link_to 'Edit', edit_item_path(item), :class => 'no-print' %></td>
   </tr>
 <% end %>
 </table>
