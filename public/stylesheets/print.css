@@ -1,5 +1,6 @@
 body {
-    font-family: serif;	
+    font-family: serif;
+    font-size:0.8em;	
 }
 
 a:after { content:' [' attr(href) '] '}
@@ -9,15 +10,16 @@ a:after { content:' [' attr(href) '] '}
 }
 
 table {
-	width: 100%;
+	/*width: 100%;*/
     border-collapse:collapse;
 }
-table, th, td {
-    /*border: 1px solid black;*/
+
+th {
+    white-space: nowrap;
+    text-align: left;
 }
 
 th, td {
-    white-space: nowrap;
 	padding: .5em;
 }
 
