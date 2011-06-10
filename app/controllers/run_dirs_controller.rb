@@ -25,7 +25,7 @@ class RunDirsController < ApplicationController
       set_error_message(rc)
       render :action => :get_params
     else
-      @run_dir  = RunDir.new(:date_verified => nil, :date_sized => nil)
+      @run_dir  = RunDir.new(:rdir_name => @flow_cell.sequencing_key, :date_verified => nil, :date_sized => nil)
       run_devices = @flow_cell.run_dirs.map(&:device_name)
       @storage_devices.delete_if{|device| run_devices.include?(device.device_name)}
       render :action => :new
