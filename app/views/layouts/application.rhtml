@@ -135,8 +135,7 @@
 	    
 	<% if user_has_access?(user_roles, ["admin"]) %> 
 	<li><a href="#">Admin</a>
-      <ul>
-      	<li><%= link_to 'New Seq Run Dir', dir_params_path %></li>  
+      <ul> 
         <li><%= link_to 'Users',  users_path %></li>
         <li><%= link_to 'Researchers', researchers_path, :class => 'last-submenu-item' %></li>             
       </ul>
