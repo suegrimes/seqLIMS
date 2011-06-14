@@ -10,38 +10,36 @@
   <tr>
   <% if can? :read, Patient %>
   	<th>Patient MRN:</th>
-	<td><%= f.text_field(:mrn, :size => 10) %><strong> -or- Patient ID:&nbsp;&nbsp;</strong><%= f.text_field(:patient_id, :size => 10) %></td>
-  <% else %>
-  	<th>Patient ID:</th><td><%= f.text_field(:patient_id, :size => 10) %></td>
+	<td><%= f.text_field(:mrn, :size => 10) %></td>
   <% end %>
+  	<th>Patient ID:</th><td><%= f.text_field(:patient_id, :size => 10) %></td>
   	<th>Sample Barcode:</th><td><%= f.text_field(:barcode_key, :size => 12)%></td>
   </tr>
   
   <tr><td>&nbsp;</td></tr>
   
   <tr>
-  	<th>Consent Protocol:</th><td><%= f.collection_select(:consent_protocol_id, @consent_protocols, :id, :name_ver,
+  	<th>Consent Protocol:</th><td colspan="3"><%= f.collection_select(:consent_protocol_id, @consent_protocols, :id, :name_ver,
                              {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td> 
 	<th>Clinic:</th><td><%= f.collection_select(:clinic_or_location, @clinics, :c_value, :c_value,
                              {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td> 
   </tr>
   <tr>
-  	<th>OR Designation:</th><td><%= f.collection_select(:tumor_normal, @tumor_normal, :c_value, :c_value,
-                   {:include_blank => 'All'}) %></td>    
-  	<th>Gender:</th><td><%= f.select(:gender, %w{M F}, {:include_blank => 'All'}) %></td>
-  </tr>
-  <tr>
-  	<th>Sample Site:</th><td><%= f.collection_select(:sample_tissue, @source_tissue, :c_value, :c_value,
-                   {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td> 
+	<th>Gender:&nbsp;&nbsp</th><td><%= f.select(:gender, %w{M F}, {:include_blank => 'All'})%></td>  
+  	<th>Ethnicity:</th><td><%= f.collection_select(:ethnicity, @ethnicities, :c_value, :c_value, {:include_blank => 'All'}) %></td>
 	<th>Race:</th><td><%= f.collection_select(:race, @races, :c_value, :c_value,
                              {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td> 
   </tr>
   <tr>
+  	<th>OR Designation:</th><td><%= f.collection_select(:tumor_normal, @tumor_normal, :c_value, :c_value,
+                   {:include_blank => 'All'}) %></td>
+  <tr>
+  	<th>Sample Site:</th><td><%= f.collection_select(:sample_tissue, @source_tissue, :c_value, :c_value,
+                   {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td> 
   	<th>Sample Type:</th><td><%= f.collection_select(:sample_type, @sample_type, :c_value, :c_value,
                    {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td>
 	<th>Preservation:</th><td><%= f.collection_select(:tissue_preservation, @preservation, :c_value, :c_value,
-                   {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td> 
-     
+                   {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td>    
   </tr>
   
   <tr><td>&nbsp;</td></tr>
@@ -52,7 +50,7 @@
   </tr>
   <tr>
   	<th>Select Date Range:</th>
-	<td><%=f.calendar_date_select(:from_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15) %>
+	<td colspan="3"><%=f.calendar_date_select(:from_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15) %>
 	<strong>&nbsp;To:&nbsp;</strong><%=f.calendar_date_select(:to_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15) %></td>
   </tr>
 </table>

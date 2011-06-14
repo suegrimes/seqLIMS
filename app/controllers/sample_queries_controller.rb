@@ -128,6 +128,7 @@ protected
     @consent_protocols  = ConsentProtocol.populate_dropdown
     @category_dropdowns = Category.populate_dropdowns([Cgroup::CGROUPS['Sample'], Cgroup::CGROUPS['Clinical']])
     @races              = category_filter(@category_dropdowns, 'race')
+    @ethnicities        = category_filter(@category_dropdowns, 'ethnicity')
     @clinics            = category_filter(@category_dropdowns, 'clinic')  
     @sample_type        = category_filter(@category_dropdowns, 'sample type')
     @source_tissue      = category_filter(@category_dropdowns, 'source tissue')
