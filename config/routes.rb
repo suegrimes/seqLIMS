@@ -34,6 +34,9 @@ ActionController::Routing::Routes.draw do |map|
   map.modify_patient  'modify_patient',  :controller => 'patients', :action => 'edit_params'
   map.encrypt_patient 'encrypt_patient', :controller => 'patients', :action => 'loadtodb'
   
+  # Routes for reserved barcodes
+  map.resources :assigned_barcodes
+  
   # Routes for clinical samples/sample characteristics
   map.resources :sample_characteristics, :member => {:add_new_sample => :get}
   map.resources :pathologies

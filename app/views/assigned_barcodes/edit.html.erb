@@ -1,0 +1,11 @@
+<h1>Update assigned barcode ranges</h1>
+
+<% tagged_form_for(@assigned_barcode) do |f| %>
+  <%= f.error_messages %>
+
+  <%= render :partial => 'assigned_barcode', :locals => {:f => f} %>
+    
+  <%= break_clear(f.submit "Update") %>
+<% end %>
+
+<%= link_to 'List All', assigned_barcodes_path %>

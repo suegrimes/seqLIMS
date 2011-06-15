@@ -1,0 +1,11 @@
+<h1>New assigned barcode range</h1>
+
+<% tagged_form_for @assigned_barcode, :action => 'create' do |f| %>
+  <%= f.error_messages %>
+  
+  <%= render :partial => 'assigned_barcode', :locals => {:f => f} %>
+  
+  <%= break_clear(f.submit "Create") %>
+<% end %>
+
+
