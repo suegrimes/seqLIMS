@@ -42,7 +42,7 @@
 	<td><%=h assigned_barcode.sample_type %></td>
 	<td><%=h assigned_barcode.start_barcode %></td>
 	<td><%=h assigned_barcode.end_barcode %></td>
-	<td><%=h link_to 'List Samples', list_assigned_barcodes_path(:start => assigned_barcode.start_barcode, :end => assigned_barcode.end_barcode) %></td>
+	<td><%= link_to 'List Samples', list_assigned_barcodes_path(:start => assigned_barcode.start_barcode, :end => assigned_barcode.end_barcode) %></td>
 	<% if can? :edit, assigned_barcode %>
       <td><%= link_to 'Edit Range', edit_assigned_barcode_path(assigned_barcode) %></td>
 	<% end %>
