@@ -10,7 +10,7 @@ class AssignedBarcodesController < ApplicationController
   def check_available
     @range_start = params[:start]
     @range_end   = params[:end]
-    @samples = Sample.find(:all, :include => :sample_characteristic,
+    @samples = Sample.find(:all, :include => {:sample_characteristic => :consent_protocol},
                            :conditions => ["source_sample_id IS NULL AND CAST(barcode_key AS UNSIGNED) BETWEEN ? AND ?", params[:start], params[:end]],
                            :order => "CAST(barcode_key AS UNSIGNED)")
   end
