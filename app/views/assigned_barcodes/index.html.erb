@@ -1,3 +1,26 @@
+<h1>Available Barcode Ranges</h1>
+
+<table class="list">
+  <tr>
+	<th>Range Start</th>
+	<th>Range End</th>
+	<th># Available</th>
+	<th colspan="2"></th>
+  </tr>
+
+<% for free_range in @free_ranges %>
+  <tr>
+    <td style="text-align:right"><%=h free_range[:start_range] %></td>
+    <td style="text-align:right"><%=h free_range[:end_range] %></td>
+	<td style="text-align:right"><%=h free_range[:end_range].to_i - free_range[:start_range].to_i + 1 %></td>
+	<td><%= link_to 'Verify Available', check_available_barcodes_path(:start => free_range[:start_range], :end => free_range[:end_range]) %></td>
+	<% if can? :new, AssignedBarcode %>
+      <td><%= link_to 'Assign Range', new_assigned_barcode_path(:start => free_range[:start_range], :end => free_range[:end_range]) %></td>
+	<% end %>
+  </tr>
+<% end %>
+</table>
+
 <h1>Assigned Barcode Ranges</h1>
 
 <table class="list">
@@ -8,7 +31,7 @@
 	<th>Sample Type</th>
 	<th>Range Start</th>
 	<th>Range End</th>
-    <th colspan="2"></th>
+    <th colspan="3"></th>
   </tr>
 
 <% for assigned_barcode in @assigned_barcodes %>
@@ -19,31 +42,12 @@
 	<td><%=h assigned_barcode.sample_type %></td>
 	<td><%=h assigned_barcode.start_barcode %></td>
 	<td><%=h assigned_barcode.end_barcode %></td>
+	<td><%=h link_to 'List Samples', list_assigned_barcodes_path(:start => assigned_barcode.start_barcode, :end => assigned_barcode.end_barcode) %></td>
 	<% if can? :edit, assigned_barcode %>
-      <td><%= link_to 'Edit', edit_assigned_barcode_path(assigned_barcode) %></td>
+      <td><%= link_to 'Edit Range', edit_assigned_barcode_path(assigned_barcode) %></td>
 	<% end %>
 	<% if can? :delete, assigned_barcode %>
-      <td><%= link_to 'Delete', assigned_barcode, :confirm => 'Are you sure?', :method => :delete %></td>
-	<% end %>
-  </tr>
-<% end %>
-</table>
-
-<h1>Available Barcode Ranges</h1>
-
-<table class="list">
-  <tr>
-	<th>Range Start</th>
-	<th>Range End</th>
-	<th></th>
-  </tr>
-
-<% for free_range in @free_ranges %>
-  <tr>
-    <td><%=h free_range[:start_range] %></td>
-    <td><%=h free_range[:end_range] %></td>
-	<% if can? :new, AssignedBarcode %>
-      <td><%= link_to 'Assign', new_assigned_barcode_path(:start => free_range[:start_range], :end => free_range[:end_range]) %></td>
+      <td><%= link_to 'Delete Range', assigned_barcode, :confirm => 'Are you sure?', :method => :delete %></td>
 	<% end %>
   </tr>
 <% end %>

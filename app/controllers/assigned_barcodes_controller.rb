@@ -7,6 +7,22 @@ class AssignedBarcodesController < ApplicationController
     @free_ranges     = free_contigs(@assigned_ranges)
   end
   
+  def check_available
+    @range_start = params[:start]
+    @range_end   = params[:end]
+    @samples = Sample.find(:all, :include => :sample_characteristic,
+                           :conditions => ["source_sample_id IS NULL AND CAST(barcode_key AS UNSIGNED) BETWEEN ? AND ?", params[:start], params[:end]],
+                           :order => "CAST(barcode_key AS UNSIGNED)")
+  end
+  
+  def list_assigned
+    @range_start = params[:start]
+    @range_end   = params[:end]
+    @samples = Sample.find(:all, :include => :sample_characteristic,
+                           :conditions => ["source_sample_id IS NULL AND CAST(barcode_key AS UNSIGNED) BETWEEN ? AND ?", params[:start], params[:end]],
+                           :order => "CAST(barcode_key AS UNSIGNED)")
+  end
+  
   # GET /assigned_barcodes/1
   def show
     @assigned_barcode = AssignedBarcode.find(params[:id])
@@ -14,7 +30,9 @@ class AssignedBarcodesController < ApplicationController
 
   # GET /assigned_barcodes/new
   def new
-    @assigned_barcode = AssignedBarcode.new
+    @assigned_barcode = AssignedBarcode.new(:assign_date => Date.today,
+                                            :start_barcode => params[:start], 
+                                            :end_barcode => params[:end])
   end
 
   # GET /assigned_barcodes/1/edit
@@ -78,9 +96,9 @@ protected
   
   def free_contigs(assigned_contigs)
     contigs = []
-    start_contig = 0
+    start_contig = 1
     assigned_contigs.each do |assigned|
-      contigs.push({:start_range => start_contig, :end_range => assigned[:start_range] - 1})
+      contigs.push({:start_range => start_contig, :end_range => assigned[:start_range] - 1}) if assigned[:start_range].to_i > start_contig
       start_contig = assigned[:end_range] + 1
     end
     contigs.push({:start_range => start_contig, :end_range => 999999})

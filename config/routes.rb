@@ -36,6 +36,8 @@ ActionController::Routing::Routes.draw do |map|
   
   # Routes for reserved barcodes
   map.resources :assigned_barcodes
+  map.check_available_barcodes 'check_available_barcodes', :controller => 'assigned_barcodes', :action => 'check_available'
+  map.list_assigned_barcodes 'list_assigned_barcodes',     :controller => 'assigned_barcodes', :action => 'list_assigned'
   
   # Routes for clinical samples/sample characteristics
   map.resources :sample_characteristics, :member => {:add_new_sample => :get}

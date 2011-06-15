@@ -1,0 +1,25 @@
+<table class="list">
+  <tr>
+  	<th>Barcode</th>
+	<th>Patient ID</th>
+	<th>Consent Protocol</th>
+    <th>Clinic</th>
+    <th>Sample Date</th>
+	<th>Sample Type</th>
+    <th>OR Designation</th>
+    <th>Container Type</th>
+  </tr>
+  
+  <% samples.each do |sample| %>
+      <tr>
+      	<td><%=link_to sample.barcode_key, sample_path(sample) %></td>
+		<td><%=h sample.patient_id %></td>
+		<td><%=h sample.sample_characteristic.consent_nr %>
+		<td><%=h sample.sample_characteristic.clinic_or_location %>
+        <td><%=h sample.sample_date %></td>
+		<td><%=h sample.sample_category %></td>
+        <td><%=h sample.tumor_normal %></td>
+        <td><%=h sample.container_type %></td>
+      </tr>
+    <% end %>
+</table>

@@ -1,9 +1,10 @@
 <fieldset class="form">
 <legend>Assigned Barcode Ranges</legend>
 <table class="form">
-  <tr><%=f.text_field :assign_date %></tr>
+  <tr><%=f.calendar_date_select(:assign_date, :year_range => [2.years.ago, 0.years.from_now],
+                                :valid_date_check => "date <= (new Date()).stripTime()", :label => 'Date Assigned', :size => 15) %></tr>
   <tr><%=f.text_field :group_name %><%=f.text_field :owner_name %></tr>
   <tr><%=f.text_field :sample_type %></tr>
-  <tr><%=f.text_field :start_barcode %><%=f.text_field :end_barcode %></tr>
+  <tr><%=f.text_field :start_barcode, :size => 10 %><%=f.text_field :end_barcode, :size => 10 %></tr>
 </table>
 </fieldset>

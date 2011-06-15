@@ -167,5 +167,9 @@ class Sample < ActiveRecord::Base
                         :conditions => ['samples.id = ? OR samples.source_sample_id = ?', source_sample_id, source_sample_id])
                    #    :order => '(if(source_barcode_key IS NOT NULL, source_barcode_key, samples.barcode_key)), source_barcode_key)')
   end
+  
+  def self.count_samples_in_range(rstart, rend)
+    return self.count(:conditions => ["source_sample_id IS NULL AND CAST(barcode_key AS UNSIGNED) BETWEEN ? AND ?", rstart, rend])
+  end
  
 end
