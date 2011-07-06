@@ -96,6 +96,10 @@ class Ability
         cannot :delete, [AlignmentRef, SeqMachine]
       end
       
+      if user.has_role?("barcodes")
+        can :manage, AssignedBarcode
+      end
+      
       # Orders users can create orders
       if user.has_role?("orders")
         can [:read, :new, :create, :edit, :update], Order

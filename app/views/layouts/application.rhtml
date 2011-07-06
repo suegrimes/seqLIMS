@@ -69,6 +69,10 @@
         <li><%= link_to 'New Clinical Sample', new_sample_characteristic_path %></li>
 		<li><%= link_to 'New Pathology Report', new_path_rpt_path %></li>
 		<li><%= link_to 'New H &amp; E Slide', new_he_slide_path %></li>
+		<% barcode_menu_item = (user_has_access?(user_roles, ["barcodes"]) ? 'Manage Barcodes' : 'Barcode Ranges') %>
+		<% if user_has_access?(user_roles, ["barcodes"]) %>
+		<li><%= link_to barcode_menu_item, assigned_barcodes_path %></li>
+		<% end %>
 		<li><a class="last-submenu-item" href="#">Edit</a>
           <ul>
           	<li><%= link_to 'Patient', modify_patient_path %></li>
