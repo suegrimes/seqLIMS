@@ -49,7 +49,7 @@
 	<td><%=h item.item_size %></td>
     <td><%=h item.item_quantity %></td>
 	<td style="text-align:right"><%=h number_to_currency(item.item_price)%></td>
-	<td style="text-align:right"><%=h number_to_currency(item.item_quantity.to_i > 0 ? item.item_quantity.to_i * item.item_price : nil) %></td>
+	<td style="text-align:right"><%=h number_to_currency(item.item_ext_price) %></td>
 	<td><%=h item.item_received %></td>
 	<td><%= link_to 'Edit', edit_item_path(item), :class => 'no-print' %></td>
   </tr>
