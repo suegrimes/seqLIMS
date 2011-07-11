@@ -31,6 +31,14 @@ class Item < ActiveRecord::Base
                         
   DELIVER_SITES = %w{SGTC CCSR}
   
+  def item_ext_price
+    if (item_quantity.nil? || item_price.nil?)
+      return nil
+    else
+      return item_quantity.to_i * item_price
+    end
+  end
+  
   def ordered?
     !(order_id.nil? || order_id == 0)
     #!(po_number.nil? || po_number.blank?)
