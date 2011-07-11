@@ -7,20 +7,18 @@ class AssignedBarcodesController < ApplicationController
     @free_ranges     = free_contigs(@assigned_ranges)
   end
   
-  def check_available
+  def check_barcodes
     @range_start = params[:start]
     @range_end   = params[:end]
     @samples = Sample.find(:all, :include => {:sample_characteristic => :consent_protocol},
                            :conditions => ["source_sample_id IS NULL AND CAST(barcode_key AS UNSIGNED) BETWEEN ? AND ?", params[:start], params[:end]],
                            :order => "CAST(barcode_key AS UNSIGNED)")
-  end
-  
-  def list_assigned
-    @range_start = params[:start]
-    @range_end   = params[:end]
-    @samples = Sample.find(:all, :include => :sample_characteristic,
-                           :conditions => ["source_sample_id IS NULL AND CAST(barcode_key AS UNSIGNED) BETWEEN ? AND ?", params[:start], params[:end]],
-                           :order => "CAST(barcode_key AS UNSIGNED)")
+                           
+    if params[:rtype] == 'available'
+      render :action => 'check_available'
+    else
+      render :action => 'list_assigned'
+    end   
   end
   
   # GET /assigned_barcodes/1
@@ -45,7 +43,7 @@ class AssignedBarcodesController < ApplicationController
     @assigned_barcode = AssignedBarcode.new(params[:assigned_barcode])
 
     if @assigned_barcode.save
-      flash[:notice] = 'AssignedBarcode was successfully created.'
+      flash[:notice] = 'Assigned barcode range was successfully created.'
       redirect_to(assigned_barcodes_url)
     else
       render :action => "new" 
@@ -57,7 +55,7 @@ class AssignedBarcodesController < ApplicationController
     @assigned_barcode = AssignedBarcode.find(params[:id])
 
     if @assigned_barcode.update_attributes(params[:assigned_barcode])
-      flash[:notice] = 'AssignedBarcode was successfully updated.'
+      flash[:notice] = 'Assigned barcode range was successfully updated.'
       redirect_to(assigned_barcodes_url)
     else
       render :action => "edit" 

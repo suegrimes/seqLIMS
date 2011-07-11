@@ -47,6 +47,10 @@ class Item < ActiveRecord::Base
     return req_nm
   end
   
+  def item_ext_price
+    return (item_quantity.to_i > 0 ? item_quantity.to_i * item_price : nil)
+  end
+  
   def self.find_all_unique(condition_array=nil)
     self.find(:all, :group => "item_description, catalog_nr",
                     :conditions => condition_array)
