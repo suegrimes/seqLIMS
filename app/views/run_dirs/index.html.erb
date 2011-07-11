@@ -15,7 +15,7 @@
   <% @run_dirs.sort.reverse.each do |run_number, run_dirs| %>
   <% run_dirs.each do |run_dir| %>
   <tr>
-    <td class="border_leftright_only"><%=h run_dir.flow_cell.sequencing_key %></td>
+    <td class="border_leftright_only"><%=link_to run_dir.flow_cell.sequencing_key, run_dir.flow_cell %></td>
 	<td class="border_leftright_only"><%=h run_dir.device_name %></td>
 	<td class="border_leftright_only"><%=h run_dir.date_sized %></td>
     <td class="border_leftright_only"><%=h run_dir.file_count %></td>
