@@ -6,6 +6,7 @@
 	<th colspan="3" class="no_border_bottom"><%="Alignment".center(26, '-')%></th>
 	<th colspan=5 class="no_border_bottom"><%="Unique Matches".center(55,'-')%></th>
 	<th colspan=4 class="no_border_bottom"><%="Non-Unique".center(50,'-')%></th>
+	<th>&nbsp;</th>
   </tr>
   <tr>
   	<th>Ln</th>
@@ -28,6 +29,7 @@
 	<th>NM</th>
 	<th>QC</th>
 	<th>RX</th>
+	<th>&nbsp;</th>
   </tr>
   <% for flow_lane in @flow_cell.flow_lanes %>
     <tr>
@@ -53,6 +55,9 @@
 	  <td style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.nr_NM, :delimiter => ',') %></td>
       <td style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.nr_QC, :delimiter => ',') %></td>
 	  <td style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.nr_RX, :delimiter => ',') %></td>
+	  <% if can? :edit, flow_lane.align_qc %>
+	  <td><%= link_to 'Edit', edit_align_qc_path(flow_lane.align_qc) %></td>
+	  <% end %>
 	  <% end %>
     </tr>
   <% end %>

@@ -103,6 +103,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :alignment_refs
   map.resources :seq_machines, :collection => {:auto_complete_for_machine_desc => :get}
   map.resources :flowcell_queries, :only => :index
+  map.resources :align_qcs, :only => [:new, :create, :edit, :update]
   
   map.auto_complete ':controller/:action?:search', 
      :requirements => { :action => /auto_complete_for_\S+/ },
