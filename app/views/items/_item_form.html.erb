@@ -15,7 +15,7 @@
       <th>Deliver Site:</th>
 	  <td><%=f.select(:deliver_site, Item::DELIVER_SITES, {:include_blank => true})%></td>
 	  <th>Grant #:</th>
-	  <td><%=f.text_field :grant_nr %>
+	  <td><%=f.collection_select(:grant_nr, @grant_nrs, :c_value, :c_value, {:include_blank => 'Select..'}) %></td>
 	</tr>
 	<tr>
 	  <th>Company:</th>

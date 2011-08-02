@@ -14,7 +14,7 @@
 	  <th>Deliver Site:</th>
 	  <td><%=select(:item_default, :deliver_site, Item::DELIVER_SITES, {:include_blank => true})%></td>
 	  <th>Grant #</th>
-	  <td><%=text_field(:item_default, :grant_nr, :size => 10) %>
+	  <td><%=collection_select(:item_default, :grant_nr, @grant_nrs, :c_value, :c_value, {:include_blank => 'Select..'}) %>
   	</tr>
   </table>
 </fieldset>
