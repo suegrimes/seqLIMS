@@ -33,6 +33,7 @@
 
 class SeqLib < ActiveRecord::Base
   
+  belongs_to :user, :foreign_key => :updated_by
   has_many :lib_samples, :dependent => :destroy
   has_many :flow_lanes
   has_many :align_qc, :through => :flow_lanes

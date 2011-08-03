@@ -33,6 +33,7 @@ class ProcessedSample < ActiveRecord::Base
   belongs_to :sample
   belongs_to :patient
   belongs_to :storage_location
+  belongs_to :user, :foreign_key => :updated_by
   has_many :molecular_assays
   has_many :lib_samples
   has_many :seq_libs, :through => :lib_samples
@@ -72,7 +73,7 @@ class ProcessedSample < ActiveRecord::Base
   end
   
   def self.find_for_query(condition_array=nil)
-    self.find(:all, :include => [{:sample => :sample_characteristic}, :storage_location],
+    self.find(:all, :include => [{:sample => :sample_characteristic}, :storage_location, :user],
                     :order => "samples.patient_id, samples.barcode_key, processed_samples.barcode_key",
                     :conditions => condition_array)
   end

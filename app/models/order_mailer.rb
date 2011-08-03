@@ -8,7 +8,7 @@ class OrderMailer < ActionMailer::Base
   # DELIVER_FLAG = 'None'    # No email delivered
   
   MAIL_FLAG = 'Test'
-  DELIVER_FLAG = 'Deliver'
+  DELIVER_FLAG = 'None'
   
   TO_EMAIL_ADMIN   = ['sgrimes@stanford.edu']
   TO_EMAIL_CCSR    = ['drgalvez@stanford.edu']
