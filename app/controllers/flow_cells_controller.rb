@@ -141,7 +141,7 @@ class FlowCellsController < ApplicationController
     # make this an admin only function in production
     @flow_cell = FlowCell.find(params[:id])
     @flow_cell.destroy
-    redirect_to(flow_cell_seq_url) 
+    redirect_to flow_cells_url(:rpt_type => 'seq') 
   end
   
   def auto_complete_for_sequencing_key
