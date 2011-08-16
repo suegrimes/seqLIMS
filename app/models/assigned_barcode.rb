@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: assigned_barcodes
+#
+#  id            :integer(4)      not null, primary key
+#  assign_date   :date
+#  group_name    :string(30)
+#  owner_name    :string(25)
+#  sample_type   :string(25)
+#  start_barcode :integer(3)      not null
+#  end_barcode   :integer(3)      not null
+#  created_at    :datetime
+#  updated_by    :integer(4)
+#
+
 class AssignedBarcode < ActiveRecord::Base
   validates_numericality_of :start_barcode, :end_barcode, :only_integer => true
   validates_date :assign_date

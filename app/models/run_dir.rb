@@ -7,6 +7,7 @@
 #  sequencing_key    :string(50)
 #  storage_device_id :integer(2)      not null
 #  device_name       :string(25)
+#  rdir_name         :string(50)
 #  file_count        :integer(4)
 #  total_size_gb     :decimal(6, 2)
 #  date_sized        :date

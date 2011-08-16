@@ -7,7 +7,7 @@
 #  protocol_abbrev  :string(25)
 #  protocol_version :string(10)
 #  protocol_type    :string(1)
-#  protocol_code    :string(1)
+#  protocol_code    :string(3)
 #  reference        :string(100)
 #  comments         :string(255)
 #  created_at       :datetime

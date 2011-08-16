@@ -9,6 +9,7 @@
 #  consent_protocol_id :integer
 #  clinic_or_location  :string
 #  race                :string
+#  ethnicity           :string
 #  sample_tissue       :string
 #  sample_type         :string
 #  tissue_preservation :string
