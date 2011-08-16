@@ -17,7 +17,8 @@
     <th>Room/Freezer</th>
     <th>Shelf</th>
     <th>Rack#/Bin</th>
-	<th>Extracted?</th> 
+	<th>Upd By</th>
+	<th>Extracted?</th>
 	<th></th>
   </tr>
   
@@ -48,6 +49,7 @@
         <td class=<%= "dotted_border_bottom" if nonblank_comments %>><% if sample.storage_location %><%=h sample.storage_location.location_string %><% end %></td>
         <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.storage_shelf %></td>
         <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.storage_boxbin %></td>
+		 <td class=<%= "dotted_border_bottom" if nonblank_comments %>><% if sample.user %><%=h sample.user.login %><% end %></td>
 		<%= render :partial => 'sample_links', :locals => {:sample => sample,
                                                :sample_characteristic => sample.sample_characteristic} %>
 	    <%= hidden_field_tag("export_id[]", sample.id)  %>

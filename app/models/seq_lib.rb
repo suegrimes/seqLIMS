@@ -33,6 +33,7 @@
 
 class SeqLib < ActiveRecord::Base
   
+  belongs_to :user, :foreign_key => :updated_by
   has_many :lib_samples, :dependent => :destroy
   has_many :flow_lanes
   has_many :align_qc, :through => :flow_lanes
@@ -127,8 +128,10 @@ class SeqLib < ActiveRecord::Base
   end
   
   def self.find_for_query(condition_array)
-    self.find(:all, :select => "seq_libs.*, COUNT(DISTINCT(flow_cells.id)) AS 'seq_run_cnt', COUNT(flow_lanes.id) as 'seq_lane_cnt'",
+    self.find(:all, :select => "seq_libs.*, COUNT(DISTINCT(flow_cells.id)) AS 'seq_run_cnt', COUNT(flow_lanes.id) AS 'seq_lane_cnt', " +
+                               "COUNT(align_qc.id) AS 'qc_lane_cnt'",
                     :joins => "LEFT JOIN flow_lanes ON flow_lanes.seq_lib_id = seq_libs.id 
+                               LEFT JOIN align_qc ON align_qc.flow_lane_id = flow_lanes.id
                                LEFT JOIN flow_cells ON flow_lanes.flow_cell_id = flow_cells.id",
                     :group => "seq_libs.id",
                     :conditions => condition_array)

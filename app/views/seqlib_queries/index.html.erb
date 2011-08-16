@@ -31,7 +31,7 @@
 	  <td><%= link_to 'Edit',   edit_seq_lib_path(seq_lib) %></td>
 	<% end %>
 	
-	<% if seq_lib.seq_lane_cnt != '0' %>
+	<% if seq_lib.qc_lane_cnt.to_i > 0 %>
 	  <td> <%=link_to 'Show QC', :controller => :seqlib_lanes, :action => :show, :id => seq_lib.id %></td>
 	<% else %>
       <td class="ltgrey"> Show QC </td>

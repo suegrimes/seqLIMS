@@ -78,8 +78,7 @@ class ItemsController < ApplicationController
   end
 
   # POST /items
-  def create      
-    
+  def create         
     # items should ideally be in an array params[:items], but workaround to have the auto-populate after the auto-complete
     # on the multi-item form, with html tags identified => item params are instead in params[:items_1], params[:items_2] etc.
     
@@ -101,10 +100,10 @@ class ItemsController < ApplicationController
         when 'None'
           redirect_to :action => 'list_unordered_items'
         when 'Debug'
-          email  = send_email(@items, current_user) 
+          email  = send_email(@items, current_user, 'Debug') 
           render(:text => "<pre>" + email.encoded + "</pre>")
         when 'Deliver'
-          email = send_email(@items, current_user)
+          email = send_email(@items, current_user, 'Deliver')
           redirect_to :action => 'list_unordered_items'
         else
           redirect_to :action => 'list_unordered_items'
@@ -178,10 +177,10 @@ class ItemsController < ApplicationController
   end
   
 protected
-  def send_email(items, user)
-    email = OrderMailer.create_new_item(items, user)
+  def send_email(items, user, deliver_flag)
+    email = OrderMailer.create_new_items(items, user)
     email.set_content_type("text/html")
-    OrderMailer.deliver(email) if OrderMailer::DELIVER_FLAG == 'Deliver'
+    OrderMailer.deliver(email) if deliver_flag == 'Deliver'
     return email
   end
 
@@ -190,6 +189,7 @@ protected
     @companies = list_companies_from_items(items_all)
     @requestors = items_all.collect(&:requester_name).sort.uniq
     @researchers = Researcher.populate_dropdown
+    @grant_nrs = Category.populate_dropdown_for_category('grants')
   end
   
   def reload_defaults(item_params)
