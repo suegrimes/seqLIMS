@@ -1,4 +1,4 @@
-<div class="no-print" style="float:right;"><%= link_to_function("Print this Page", "javascript:print()") %></div>
+<%= render :partial => 'shared/page_print' %>
 <h1>Order Listing</h1>
 
 <!-- Order Details -->
@@ -31,8 +31,9 @@
     <th>Catalog nr</th>
 	<th>Chemicals?</th>
 	<th>Size</th>
+	<th>Qty</th>
     <th>Price</th>
-    <th>Quantity</th>
+    <th>Ext Price</th>
 	<th>Recv'd?</th>
 	<th></th>
   </tr>
@@ -46,8 +47,9 @@
     <td><%=h item.catalog_nr %></td>
 	<td><%=h item.chemical_flag %></td>
 	<td><%=h item.item_size %></td>
-    <td><%=h item.item_price %></td>
     <td><%=h item.item_quantity %></td>
+	<td style="text-align:right"><%=h number_to_currency(item.item_price)%></td>
+	<td style="text-align:right"><%=h number_to_currency(item.item_ext_price) %></td>
 	<td><%=h item.item_received %></td>
 	<td><%= link_to 'Edit', edit_item_path(item), :class => 'no-print' %></td>
   </tr>

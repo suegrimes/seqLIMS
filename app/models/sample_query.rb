@@ -9,6 +9,7 @@
 #  consent_protocol_id :integer
 #  clinic_or_location  :string
 #  race                :string
+#  ethnicity           :string
 #  sample_tissue       :string
 #  sample_type         :string
 #  tissue_preservation :string
@@ -32,6 +33,7 @@ class SampleQuery < NoTable
   column :consent_protocol_id, :integer
   column :clinic_or_location, :string
   column :race, :string
+  column :ethnicity, :string
   column :sample_tissue, :string
   column :sample_type, :string
   column :tissue_preservation, :string
@@ -43,7 +45,7 @@ class SampleQuery < NoTable
   validates_format_of :patient_id, :with => /^\d+$/, :allow_blank => true, :message => "id must be an integer"
   validates_date :to_date, :from_date, :allow_blank => true
   
-  SCHAR_FLDS = %w{patient_id gender consent_protocol_id clinic_or_location race }
+  SCHAR_FLDS = %w{patient_id gender race ethnicity consent_protocol_id clinic_or_location}
   SAMPLE_FLDS = %w{barcode_key tumor_normal sample_tissue sample_type tissue_preservation}
   ALL_FLDS    = SCHAR_FLDS | SAMPLE_FLDS
 end

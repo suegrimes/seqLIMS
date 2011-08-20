@@ -34,6 +34,11 @@ ActionController::Routing::Routes.draw do |map|
   map.modify_patient  'modify_patient',  :controller => 'patients', :action => 'edit_params'
   map.encrypt_patient 'encrypt_patient', :controller => 'patients', :action => 'loadtodb'
   
+  # Routes for reserved barcodes
+  map.resources :assigned_barcodes
+  map.check_available_barcodes 'check_barcodes/available', :controller => 'assigned_barcodes', :action => 'check_barcodes', :rtype => 'available'
+  map.list_assigned_barcodes   'check_barcodes/assigned',  :controller => 'assigned_barcodes', :action => 'check_barcodes', :rtype => 'assigned'
+  
   # Routes for clinical samples/sample characteristics
   map.resources :sample_characteristics, :member => {:add_new_sample => :get}
   map.resources :pathologies
@@ -98,6 +103,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :alignment_refs
   map.resources :seq_machines, :collection => {:auto_complete_for_machine_desc => :get}
   map.resources :flowcell_queries, :only => :index
+  map.resources :align_qcs, :only => [:new, :create, :edit, :update]
   
   map.auto_complete ':controller/:action?:search', 
      :requirements => { :action => /auto_complete_for_\S+/ },

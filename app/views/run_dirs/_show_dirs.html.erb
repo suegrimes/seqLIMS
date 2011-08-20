@@ -9,12 +9,13 @@
 	  <th>Date Sized</th>
 	  <th>Date Copied</th>
 	  <th>Date Verified</th>
+	  <th colspan=2></th>
 	</tr>
     
 	<% flow_cell.run_dirs.each do |run_dir| %>
 	  <tr>
         <td><%=h run_dir.device_name %></td>
-		<td><%=h File.join(run_dir.storage_device.base_run_dir, flow_cell.sequencing_key) %></td>
+		<td><%=h File.join(run_dir.storage_device.base_run_dir, run_dir.rdir_name) %></td>
 		<td><%=h run_dir.total_size_gb %></td>
 		<td><%=h run_dir.file_count %></td>
 		<td><%=h run_dir.date_sized %></td>

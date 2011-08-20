@@ -1,0 +1,8 @@
+<h1>Check Available Sample Barcodes from: <%=h @range_start %> to: <%= @range_end %></h1>
+
+<% warning = (@samples.size > 0? 'WARNING: ' : 'RANGE AVAILABLE: ' ) %>
+<p class=<%= "dkred" if @samples.size > 0 %>><%=h warning %><%=h @samples.size %> barcodes exist in LIMS in this range</p>
+
+<% if @samples.size > 0 %>
+  <%= render :partial => 'list_samples', :locals => {:samples => @samples} %>
+<% end %>

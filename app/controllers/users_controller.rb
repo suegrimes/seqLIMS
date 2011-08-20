@@ -1,3 +1,4 @@
+
 class UsersController < ApplicationController
   ## cancan
   #load_and_authorize_resource

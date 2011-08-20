@@ -2,7 +2,7 @@
 <legend>Run Directory</legend>
   <table class="form">
 	<tr><%=f.collection_select(:storage_device_id, @storage_devices, :id, :device_name)%></tr>
-	<tr><th>Run Directory</th><td><%=h flow_cell.sequencing_key %></td></tr>
+	<tr><%=f.text_field(:rdir_name, :label => 'Dir Name') %></tr>
 	<tr><%=f.text_field(:total_size_gb, :size => 8, :label => 'Dir Size (GB)') %></tr>
 	<tr><%=f.text_field(:file_count, :size => 8, :label => '# Files') %></tr>
 	<tr><%=f.calendar_date_select(:date_sized, :valid_date_check => "date <= (new Date()).stripTime()",

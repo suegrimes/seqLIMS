@@ -1,0 +1,73 @@
+<h1>Editing GA2 QC/Alignment for: <%=h @align_qc.sequencing_key %>, Lane: <%=h @align_qc.lane_nr %></h1>
+<table class="list">
+  <tr>
+  	<th>Ln</th>
+	<th>Barcode</th>
+  	<th>Lib Name</th>
+  </tr>
+  <tr>
+    <td><%=h @align_qc.flow_lane.lane_nr %></td>
+	<td><%=h @align_qc.flow_lane.seq_lib.lib_barcode %></td>
+    <td><%=h @align_qc.flow_lane.lib_name %></td>	
+  </tr>
+</table>
+
+<% form_for @align_qc, :action => :update do |f| %>
+<%= f.error_messages %>
+<fieldset class="form">
+<legend>Clusters/Intensity/Alignment Score</legend>
+<table class="form-with-columns">
+  <tr>
+	<th>Yield(kb)</th>
+	<th>Raw Clusters</th>
+	<th>PF Clusters</th>
+	<th>% PF Clusters</th>
+	<th>Cycle1 Intensity</th>
+	<th>Cycle20 Pct</th>
+	<th>Align Score</th>
+	<th>Align%</th>
+	<th>Error%</th>
+  </tr>
+  <tr>
+	<td><%=f.text_field(:lane_yield, :size => 10) %></td>
+    <td><%=f.text_field(:clusters_raw, :size => 10) %></td>
+	<td><%=f.text_field(:clusters_pf, :size => 10) %></td>
+	<td><%=f.text_field(:pct_pf_clusters, :size => 10) %></td>
+	<td><%=f.text_field(:cycle1_intensity_pf, :size => 10) %></td>
+	<td><%=f.text_field(:cycle20_intensity_pct_pf, :size => 10) %></td>
+	<td><%=f.text_field(:align_score_pf, :size => 10) %></td>
+	<td><%=f.text_field(:pct_align_pf, :size => 10) %></td>
+	<td><%=f.text_field(:pct_error_rate_pf, :size => 10) %></td>
+  </tr>
+</table>	
+</fieldset>
+
+<fieldset class="form">
+<legend>Alignment Match/NoMatch </legend>
+<table class="form-with-columns">
+  <tr>
+  	<th>Total Unique</th>
+	<th>U0</th>
+	<th>U1</th>
+	<th>U2</th>
+	<th>UM</th>
+	<th>Total NonUnique</th>
+	<th>NM</th>
+	<th>QC</th>
+	<th>RX</th>
+  </tr>
+  <tr>
+  	<td><%=f.text_field(:nr_uniques, :size => 10) %></td>
+	<td><%=f.text_field(:nr_U0, :size => 10) %></td>
+	<td><%=f.text_field(:nr_U1, :size => 10) %></td>
+	<td><%=f.text_field(:nr_U2, :size => 10) %></td>
+	<td><%=f.text_field(:nr_UM, :size => 10) %></td>
+	<td><%=f.text_field(:nr_nonuniques, :size => 10) %></td>
+	<td><%=f.text_field(:nr_NM, :size => 10) %></td>
+    <td><%=f.text_field(:nr_QC, :size => 10) %></td>
+    <td><%=f.text_field(:nr_RX, :size => 10) %></td>	
+  </tr>	
+</table>
+</fieldset>
+<%= break_clear(f.submit('Update'))%>
+<% end %>

@@ -10,6 +10,8 @@
 #  preparation_date    :date
 #  volume              :integer(2)
 #  concentration       :decimal(8, 3)
+#  plate_number        :string(25)
+#  plate_coord         :string(4)
 #  notes               :string(255)
 #  updated_by          :string(50)
 #  created_at          :datetime

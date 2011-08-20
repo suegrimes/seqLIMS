@@ -1,0 +1,7 @@
+<h1>List Samples in Barcode Range: <%=h @range_start %> to <%= @range_end %></h1>
+
+<p><%=h @samples.size %> samples exist in LIMS in this barcode range</p>
+
+<% if @samples.size > 0 %>
+  <%= render :partial => 'list_samples', :locals => {:samples => @samples} %>
+<% end %>
