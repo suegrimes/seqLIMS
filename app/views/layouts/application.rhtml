@@ -27,10 +27,10 @@
     </head>
 
 <body id='body'>
-	<% user_roles = (logged_in? ? current_user.roles.collect(&:name) : nil) %>
-	<% env_descr  = (DEMO_APP == true ? "(DEMO)" : (RAILS_ENV == 'production' ? nil : "(#{RAILS_ENV})"))%> 	
+    <% user_roles = (logged_in? ? current_user.roles.collect(&:name) : nil) %>
+    <% env_descr  = (DEMO_APP == true ? "(DEMO)" : (RAILS_ENV == 'production' ? nil : "(#{RAILS_ENV})"))%>  
 <div id="container" style="width: 98%;">
-	
+    
 <div id="header">
   <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom: 0;">
     <tr>
