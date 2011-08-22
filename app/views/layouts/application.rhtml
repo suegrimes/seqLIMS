@@ -59,7 +59,7 @@
       <td valign="top" width="180" style="background: url(/images/twisted_sequence.gif); background-repeat: no-repeat; background-position:bottom;"><div class="version"><% if APP_VERSION %>Version: <%= APP_VERSION %><% end %><br /><span class="grey"><%=h env_descr %></span></div></td>
     </tr>
     <tr>
-      <td><div class="tagline">&nbsp;DEBUG: controller: <%= controller.controller_name %>, action: <%= controller.action_name %> </div></td>      
+      <td><div class="tagline">&nbsp;</div></td>      
       <td valign="bottom">
       	<% if (logged_in? && controller.action_name != "logout") %>
         <div class="logout-link">
