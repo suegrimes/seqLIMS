@@ -1,0 +1,6 @@
+.frontpages {
+    background: url(/images/samples01-bg.gif);
+	background-repeat: repeat;
+	height: 400px;
+    margin-left: 10px;
+}

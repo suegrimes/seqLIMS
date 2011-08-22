@@ -21,6 +21,7 @@ class WelcomeController < ApplicationController
       end
       render :action => 'index'
     else
+      @invalid_login_flag = 1;
       flash.now[:error] = "Invalid login - please try again"
       render :action => 'login'
     end
