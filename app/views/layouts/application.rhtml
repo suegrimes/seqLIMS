@@ -7,6 +7,7 @@
         <meta name="keywords" content="<%= META_TAGS[:keywords] %>" />
         <%= stylesheet_link_tag('print', :media => :print)  %>
         <%= stylesheet_link_tag 'lims_std' %>
+		<%= stylesheet_link_tag 'mendelims_styles' %>
 		<%= stylesheet_link_tag 'lims-superfish' %>
 		<!--[if IE]><%= stylesheet_link_tag 'ie-fixes' %><![endif]-->        
         <%= javascript_include_tag :defaults, 'jquery-1.5.1.min', 'superfish', :cache => true %>
@@ -27,10 +28,23 @@
     </head>
 
 <body id='body'>
-	<% user_roles = (logged_in? ? current_user.roles.collect(&:name) : nil) %>
-	<% env_descr  = (DEMO_APP == true ? "(DEMO)" : (RAILS_ENV == 'production' ? nil : "(#{RAILS_ENV})"))%> 	
-<div id="container" style="width: 98%;">
-	
+    <% user_roles = (logged_in? ? current_user.roles.collect(&:name) : nil) %>
+    <% env_descr  = (DEMO_APP == true ? "(DEMO)" : (RAILS_ENV == 'production' ? nil : "(#{RAILS_ENV})"))%>  
+
+<% check_actions_user = ["forgot"] %>
+<% check_actions_welcome = ["add_user", "user_login" ] %>
+<% if ( 
+        (controller.controller_name == "welcome" && !check_actions_welcome.include?(controller.action_name)) || 
+        (controller.controller_name == "users" && check_actions_user.include?(controller.action_name)) ||
+        (@invalid_login_flag) 
+      )
+%>
+    <% @frontpages = "1" %>
+    <div id="container" style="width: 800px;">
+<% else %>
+    <div id="container" style="width: 98%;">
+<% end %>
+    
 <div id="header">
   <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom: 0;">
     <tr>
@@ -42,12 +56,12 @@
 		<% end %>
 	  </div></td>
       <td valign="top"><div class="sitename-graphic"><%= image_tag("mendelims-sitename.gif", :height => "58", :title => "Mendelian LIMS Targeted Resequencing", :alt => "Mendelian LIMS Targeted Resequencing") %></div></td>
-      <td valign="top" width="180"><div class="version"><% if APP_VERSION %>Version: <%= APP_VERSION %><% end %><br /><span style="font-size:larger;"><%=h env_descr %></span></div></td>
+      <td valign="top" width="180" style="background: url(/images/twisted_sequence.gif); background-repeat: no-repeat; background-position:bottom;"><div class="version"><% if APP_VERSION %>Version: <%= APP_VERSION %><% end %><br /><span class="grey"><%=h env_descr %></span></div></td>
     </tr>
     <tr>
       <td><div class="tagline">&nbsp;</div></td>      
       <td valign="bottom">
-      	<% if logged_in? %>
+      	<% if (logged_in? && controller.action_name != "logout") %>
         <div class="logout-link">
           <%= link_to 'User Profile', edit_user_path(current_user) %>&nbsp;&nbsp;&nbsp;&nbsp;
           <%= link_to 'Logout', logout_url %>
@@ -60,7 +74,7 @@
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-bottom:0; table-layout:fixed;">
   <tr><td id="topnavbar">
-  <% if logged_in? %>
+  <% if (logged_in? && controller.action_name != "logout") %>
   <ul class="sf-menu">
   	
     <% if user_has_access?(user_roles, ["clinical", "clin_admin"]) %>
@@ -166,7 +180,7 @@
 
 <div id="main">
 
-<% if logged_in? %>	
+<% if (logged_in? && controller.action_name != "logout") %>	
 <div id="leftsidebar">
   <div class="user_info">
      <em>Logged in as: <%= current_user.login %></em>
@@ -207,8 +221,12 @@
   </ul>  <!-- /opened -->
 </div> <!-- /leftsidebar -->    
 <% end %>
-    
+
+<% if (@frontpages || (controller.controller_name == "welcome" && controller.action_name == "user_login")) %>
+<div id="maincontent" class="frontpages">
+<% else %>  
 <div id="maincontent">
+<% end %> 
 	<div style='color:red'> <%= flash[:error]%></div>
 	<div style='color:green'> <%= flash[:notice]%></div>
 	<%= yield %>

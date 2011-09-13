@@ -26,7 +26,7 @@
   </table>
   
   <% if @new_sample_with_error %>
-	  <% render :partial => 'samples_form', :locals => {:sample => @new_sample_with_error} %>
+	  <%= render :partial => 'samples_form', :locals => {:sample => @new_sample_with_error} %>
   
   <% else %>
     <div id="add_more">
