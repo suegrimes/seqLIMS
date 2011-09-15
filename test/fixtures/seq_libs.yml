@@ -26,7 +26,7 @@
 #  starting_amt_ng     :decimal(11, 3)
 #  pcr_size            :integer(2)
 #  dilution            :decimal(6, 3)
-#  updated_by          :string(50)
+#  updated_by          :integer(2)
 #  created_at          :datetime
 #  updated_at          :timestamp       not null
 #

@@ -25,7 +25,7 @@
 #  storage_shelf            :string(10)
 #  storage_boxbin           :string(25)
 #  comments                 :string(255)
-#  updated_by               :string(50)
+#  updated_by               :integer(2)
 #  created_at               :datetime
 #  updated_at               :timestamp       not null
 #

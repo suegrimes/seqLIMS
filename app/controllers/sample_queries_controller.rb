@@ -134,6 +134,7 @@ protected
     @source_tissue      = category_filter(@category_dropdowns, 'source tissue')
     @preservation       = category_filter(@category_dropdowns, 'tissue preservation')
     @tumor_normal       = category_filter(@category_dropdowns, 'tumor_normal')
+    @users              = User.find(:all)
   end
   
   def define_conditions(params)
@@ -154,6 +155,20 @@ protected
       end
     end
     
+    if !params[:sample_query][:barcode_to].blank?
+      barcode_from = params[:sample_query][:barcode_from].to_i
+      barcode_to   = params[:sample_query][:barcode_to].to_i
+      if barcode_from > 0 && barcode_to > 0
+        @where_select.push("(CAST(samples.barcode_key AS UNSIGNED) BETWEEN ? AND ?  OR " + 
+                           " CAST(samples.source_barcode_key AS UNSIGNED) BETWEEN ? AND ?)")
+        @where_values.push(barcode_from, barcode_to, barcode_from, barcode_to)
+      else
+        @where_select.push("(samples.barcode_key BETWEEN ? AND ? OR samples.source_barcode_key BETWEEN ? AND ?)")
+        @where_values.push(params[:sample_query][:barcode_from], params[:sample_query][:barcode_to],
+                           params[:sample_query][:barcode_from], params[:sample_query][:barcode_to])
+      end
+    end
+    
     db_fld = (params[:sample_query][:date_filter] == 'Dissection Date' ? 'samples.sample_date' : 'sample_characteristics.collection_date')
     @where_select, @where_values = sql_conditions_for_date_range(@where_select, @where_values, params[:sample_query], db_fld)
     
@@ -162,9 +177,10 @@ protected
   end
   
   def setup_sql_params(params)
-    sql_params = {}
+    sql_params = {} 
     
     # Standard case, just put sample_query attribute/value into sql_params hash
+    params[:sample_query][:barcode_key] = params[:sample_query][:barcode_from] if params[:sample_query][:barcode_to].blank?
     params[:sample_query].each do |attr, val|
       sql_params["#{attr}"] = val if !val.blank? && SampleQuery::ALL_FLDS.include?("#{attr}")
     end

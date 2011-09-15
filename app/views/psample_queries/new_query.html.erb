@@ -51,6 +51,7 @@
   	<th>Extraction Date Range:</th>
 	<td><%= f.calendar_date_select(:from_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%>
 	<strong>&nbsp;To:&nbsp;</strong><%= f.calendar_date_select(:to_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%></td>
+	<th>Last Upd By:</th><td><%=f.collection_select(:updated_by, @users, :id, :login, {:include_blank => 'Any'}) %></td>
   </tr>
 </table>
 </fieldset>

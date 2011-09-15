@@ -24,7 +24,7 @@
 #  storage_shelf       :string(10)
 #  storage_boxbin      :string(25)
 #  comments            :string(255)
-#  updated_by          :string(50)
+#  updated_by          :integer(2)
 #  created_at          :datetime
 #  updated_at          :timestamp       not null
 #
@@ -33,6 +33,7 @@ class ProcessedSample < ActiveRecord::Base
   belongs_to :sample
   belongs_to :patient
   belongs_to :storage_location
+  belongs_to :user, :foreign_key => 'updated_by'
   has_many :molecular_assays
   has_many :lib_samples
   has_many :seq_libs, :through => :lib_samples

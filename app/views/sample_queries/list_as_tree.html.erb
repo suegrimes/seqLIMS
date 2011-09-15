@@ -9,7 +9,7 @@
   <table class="list">  
     <% @samples_by_patient.sort.each do | patient_id, samples| %>
     <tr>
-    <th colspan=12><b>Patient: </b><%= link_to patient_id[0], patient_path(patient_id[0]) %>
+    <th colspan=13><b>Patient: </b><%= link_to patient_id[0], patient_path(patient_id[0]) %>
     <% if can? :read, Patient %>
       / <%=h patient_id[1]%>
     <% end %>
@@ -28,6 +28,7 @@
       <th>Room/Freezer</th>
       <th>Shelf</th>
       <th>Box/Bin</th>
+	  <th>Upd By</th>
       <th>&nbsp;</th>
     </tr>
     <% for sample in samples %>
@@ -54,6 +55,7 @@
 		</td>
         <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.storage_shelf %></td>
         <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.storage_boxbin %></td>
+		<td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.user.login if sample.user %>
         
 		<% if can? :delete, sample %>
           <% if !@source_sample_ids.include?(sample.id) && sample.processed_samples.size == 0 %>
@@ -91,6 +93,7 @@
           <td><% if processed_sample.storage_location %><%=h processed_sample.storage_location.location_string %><% end %></td>
           <td><%=h processed_sample.storage_shelf %></td>
           <td><%=h processed_sample.storage_boxbin %></td>
+		  <td><%=h processed_sample.user.login if processed_sample.user %>
           <td>&nbsp;</td>
         </tr>
       <% end %>   
