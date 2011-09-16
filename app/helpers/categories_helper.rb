@@ -1,9 +1,10 @@
 module CategoriesHelper
   def add_value_link(name, form) 
     link_to_function name do |page|
+      page["add_val"].hide
       page.insert_html :bottom, :category, :partial => 'cat_value', 
-                                           :locals => {:category_value => @category.category_values.build(:c_value => 'aab'),
-                                           :cform => form}         
+                                           :locals => {:category_value => @category.category_values.build(:c_value => ''),
+                                           :cform => form}    
     end
   end
   
