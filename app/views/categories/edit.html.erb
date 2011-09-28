@@ -11,9 +11,8 @@
   <div id="category">
     <%= render :partial => 'cat_values', :locals => {:category_values => @category.category_values,
                                                      :cform => cform} %>
-  </div>
-  
-  <%= add_value_link("Add Value", cform) %>
+  </div>  
+  <div id="add_val"><%= add_value_link("Add Value", cform) %></div>
   </fieldset>
   
   <%= break_clear(cform.submit "Update" )%>
