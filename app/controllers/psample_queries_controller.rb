@@ -51,6 +51,7 @@ protected
     @preservation       = category_filter(@category_dropdowns, 'tissue preservation')
     @tumor_normal       = category_filter(@category_dropdowns, 'tumor_normal')
     @extraction_type    = category_filter(@category_dropdowns, 'extraction type')
+    @users              = User.find(:all)
   end
   
   def define_conditions(params)

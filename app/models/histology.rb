@@ -13,7 +13,7 @@
 #  inflammation_type         :string(25)
 #  inflammation_infiltration :string(25)
 #  comments                  :string(255)
-#  updated_by                :string(10)
+#  updated_by                :integer(2)
 #  created_at                :datetime
 #  updated_at                :timestamp
 #

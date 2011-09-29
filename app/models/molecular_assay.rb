@@ -13,7 +13,7 @@
 #  plate_number        :string(25)
 #  plate_coord         :string(4)
 #  notes               :string(255)
-#  updated_by          :string(50)
+#  updated_by          :integer(2)
 #  created_at          :datetime
 #  updated_at          :timestamp       not null
 #
