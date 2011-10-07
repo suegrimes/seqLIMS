@@ -4,9 +4,9 @@
 
 <% if @seq_lib.lib_samples.size > 0 %>
   <% if @seq_lib.runtype_adapter[0,1] == 'M' %>
-    <%= render :partial => 'mplex_sample_show', :locals => {:seq_lib => @seq_lib} %>
+    <%= render :partial => 'mplex_libs/sample_show', :locals => {:seq_lib => @seq_lib} %>
   <% else %>
-    <%= render :partial => 'splex_sample_show', :locals => {:lib_sample => @seq_lib.lib_samples[0]} %>
+    <%= render :partial => 'seq_libs/sample_show', :locals => {:lib_sample => @seq_lib.lib_samples[0]} %>
   <% end %>
 <% end %>
 <%= break_clear %>

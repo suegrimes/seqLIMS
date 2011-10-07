@@ -1,0 +1,44 @@
+<h1>Editing Sequencing Library: <%=h @seq_lib.lib_name %></h1>
+
+<% form_for(@seq_lib) do |f| %>
+  <%= f.error_messages %>
+  
+  <%= render :partial => 'seq_libs/lib_edit', :locals => {:f => f}%> 
+    
+  <fieldset class="form">
+  <legend>Sample details</legend>
+  <table class="form-with-columns">
+    <tr>
+      <th>Index Tag</th>
+      <th>Sequence</th>
+      <th>Adapter</th>
+      <th>Sample Name</th>
+      <th>Source DNA</th>
+      <th>Project</th>
+      <th>Enzyme Code</th>
+      <th>Notes</th>
+    </tr>
+
+    <% f.fields_for :lib_samples do |s| %>
+      <tr>
+      	<td><%= s.text_field(:index_tag, :size => 10)%></td>
+	    <td><% if s.object.index_tag %>
+	        <%=h IndexTag.find_or_blank(s.object.multiplex_type, s.object.index_tag)%>
+	        <% end %></td>
+	    <td><%= s.collection_select(:multiplex_type, @adapters, :c_value, :c_value) %></td>  
+        <td><%= s.text_field(:sample_name, :size => 20)%></td>
+	    <td width="30"><%= s.text_field_with_auto_complete(:source_sample_name, {:size => 15},
+                  {:url => {:controller => :processed_samples, :action => :auto_complete_for_barcode_key},
+                   :param_name => :search, :min_chars => 3, :method => :get})%></td>
+	    <td><%= s.collection_select(:target_pool, @projects, :c_value, :c_value,
+                                   {:include_blank => 'Select Project'}) %></td>
+        <td><%= s.text_field(:enzyme_code, :size => 15) %></td>
+	    <td><%= s.text_field(:notes, :size => 80)%></td>
+	  </tr>
+	<% end %>
+  </table>
+  </fieldset>
+ 
+<%= break_clear (f.submit "Update") %>
+
+<% end %>

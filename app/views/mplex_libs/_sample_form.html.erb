@@ -4,7 +4,7 @@
     <td>
     <%= submit_tag "Save library" -%>&nbsp;&nbsp;&nbsp;
     <%= submit_to_remote 'Multiplex', 'Refresh from Defaults',
-      :url => {:action => 'populate_mplex'},
+      :url => {:action => 'populate_libs'},
       :update => 'mplex_samples' %>   
     </td>
   </tr>

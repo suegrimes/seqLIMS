@@ -3,29 +3,25 @@
 <% form_for(@seq_lib) do |f| %>
   <%= f.error_messages %>
   
-  <%= render :partial => 'seq_lib_edit', :locals => {:f => f}%> 
+  <%= render :partial => 'seq_libs/lib_edit', :locals => {:f => f}%> 
     
   <fieldset class="form">
   <legend>Sample details</legend>
   <table class="form-with-columns">
     <tr>
-      <% if @seq_lib.multiplexed? %>
-      <th>Index Tag</th>
-      <th>Sequence</th>
-      <th>Adapter</th>
-	  <% end %>
       <th>Sample Name</th>
       <th>Source DNA</th>
-	  <% if @seq_lib.multiplexed? %>
-      <th>Project</th>
-      <th>Enzyme Code</th>
-	  <% end %>
       <th>Notes</th>
     </tr>
 
     <% f.fields_for :lib_samples do |s| %>
-      <tr><%= render :partial => 'lib_sample_edit', :locals => {:s => s,
-                                                                :multiplexed => @seq_lib.multiplexed?} %></tr>
+      <tr>
+      	<td><%= s.text_field(:sample_name, :size => 20)%></td>
+	    <td width="30"><%= s.text_field_with_auto_complete(:source_sample_name, {:size => 15},
+              {:url => {:controller => :processed_samples, :action => :auto_complete_for_barcode_key},
+               :param_name => :search, :min_chars => 3, :method => :get})%></td>
+	    <td><%= s.text_field(:notes, :size => 80)%></td>
+	  </tr>
 	<% end %>
   </table>
   </fieldset>

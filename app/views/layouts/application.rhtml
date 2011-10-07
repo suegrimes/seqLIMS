@@ -134,8 +134,8 @@
       	<% if user_has_access?(user_roles, ["researcher", "lab_admin", "alignment"]) %>
         <li><a href="#">Library Prep</a>
           <ul>
-            <li><%= link_to 'New Lib-Singleplex', new_lib_S_path  %></li>
-            <li><%= link_to 'New Lib-Multiplex',  new_lib_M_path, :class => 'last-submenu-item' %></li>
+            <li><%= link_to 'New Lib-Singleplex', new_seq_lib_path  %></li>
+            <li><%= link_to 'New Lib-Multiplex',  new_mplex_lib_path, :class => 'last-submenu-item' %></li>
           </ul>
         </li>
         <li><a href="#">Sequencing</a>
