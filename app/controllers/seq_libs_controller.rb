@@ -30,7 +30,6 @@ class SeqLibsController < ApplicationController
   def new
     authorize! :create, SeqLib
     @requester = (current_user.researcher ? current_user.researcher.researcher_name : nil)
-    #@adapters.reject! {|adapter| adapter.c_value[0,1] == 'M'}
     @lib_default = SeqLib.new(:alignment_ref_id => AlignmentRef.default_id)
     render :action => 'new'
   end

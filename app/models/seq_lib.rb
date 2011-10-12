@@ -100,7 +100,8 @@ class SeqLib < ActiveRecord::Base
   end
   
   def sample_conc_with_uom
-    [sample_conc, sample_conc_uom].join(' ')
+    conc = (sample_conc ? number_with_precision(sample_conc, :precision => 2) : '--')
+    return [conc, sample_conc_uom].join(' ')
   end
   
   def sample_conc_nm
