@@ -20,6 +20,7 @@
 class LibSample < ActiveRecord::Base
   
   belongs_to :seq_lib
+  belongs_to :mplex_lib, :class_name => 'SeqLib', :foreign_key => :mplex_lib_id
   belongs_to :processed_sample
   
   validates_presence_of :sample_name

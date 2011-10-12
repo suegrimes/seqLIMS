@@ -9,8 +9,8 @@
   </tr>
   <% for lib_sample in @seq_lib.lib_samples %>
     <tr>
-	  <td><%=h lib_sample.index_tag %></td>
-	  <td><%=h IndexTag.find_or_blank(lib_sample.multiplex_type, lib_sample.index_tag)%></td>
+	  <td><%=h lib_sample.index_tags %></td>
+	  <td><%=h IndexTag.find_or_blank(lib_sample.multiplex_type, lib_sample.index_tags)%></td>
       <td><%=h lib_sample.multiplex_type %></td>
 	  <td><%=h lib_sample.sample_name %></td>
 	  <% if lib_sample.processed_sample %>
