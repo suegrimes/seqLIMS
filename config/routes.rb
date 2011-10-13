@@ -91,6 +91,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :seqlib_lanes
   map.resources :seqlib_queries, :only => :index
   
+  map.mplex_setup 'mplex_setup',     :controller => 'mplex_libs', :action => 'setup_params'
   map.lib_qc      'lib_qc',          :controller => 'seqlib_lanes', :action => 'export_libqc'
   map.lib_query   'lib_query',       :controller => 'seqlib_queries', :action => 'new_query'
   

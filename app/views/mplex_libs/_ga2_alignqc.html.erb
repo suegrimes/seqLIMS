@@ -1,0 +1,64 @@
+<table class="list">
+  <tr>
+  	<th colspan=5 class="no_border_bottom">&nbsp;</th>
+	<th class="no_border_bottom">PF:</th>
+	<th colspan=2 class="no_border_bottom"><%="Intensity".center(18,'-')%></th>
+	<th colspan="3" class="no_border_bottom"><%="Alignment".center(26, '-')%></th>
+	<th colspan=5 class="no_border_bottom"><%="Unique Matches".center(55,'-')%></th>
+	<th colspan=4 class="no_border_bottom"><%="Non-Unique".center(50,'-')%></th>
+	<th>&nbsp;</th>
+  </tr>
+  <tr>
+  	<th>Ln</th>
+	<th>Barcode</th>
+  	<th>Lib Name</th>
+	<th>Yield(kb)</th>
+	<th>Clusters</th>
+	<th>Clusters</th>
+	<th>Cycle1</th>
+	<th>Cycle20</th>
+	<th>Score</th>
+	<th>Percent</th>
+	<th>Error</th>
+	<th>Total</th>
+	<th>U0</th>
+	<th>U1</th>
+	<th>U2</th>
+	<th>UM</th>
+	<th>Total</th>
+	<th>NM</th>
+	<th>QC</th>
+	<th>RX</th>
+	<th>&nbsp;</th>
+  </tr>
+  <% for flow_lane in @flow_cell.flow_lanes %>
+    <tr>
+	  <td ><%=h flow_lane.lane_nr %></td>
+	  <td ><%= link_to flow_lane.lib_barcode, flow_lane.seq_lib %></td>
+      <td ><%=h flow_lane.lib_name %></td>
+	  <% if flow_lane.align_qc %>
+	  <td style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.lane_yield,   :delimiter => ',') %></td>
+	  <td style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.clusters_raw, :delimiter => ',') %></td>
+	  <td style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.clusters_pf,  :delimiter => ',') %>
+	                    <%=h pct_with_parens(flow_lane.align_qc.pct_pf_clusters) %></td>
+	  <td style="text-align:right;"><%=h flow_lane.align_qc.cycle1_intensity_pf %></td>
+	  <td style="text-align:right;"><%=h flow_lane.align_qc.cycle20_intensity_pct_pf %>%</td>
+	  <td style="text-align:right;"><%=h number_with_precision(flow_lane.align_qc.align_score_pf,    :precision => 2) %></td>
+	  <td style="text-align:right;"><%=h number_with_precision(flow_lane.align_qc.pct_align_pf,      :precision => 2) %>%</td>
+	  <td style="text-align:right;"><%=h number_with_precision(flow_lane.align_qc.pct_error_rate_pf, :precision => 2) %>%</td>
+	  <td style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.nr_uniques, :delimiter => ',') %></td>
+	  <td style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.nr_U0, :delimiter => ',') %></td>
+	  <td style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.nr_U1, :delimiter => ',') %></td>
+	  <td style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.nr_U2, :delimiter => ',') %></td>
+	  <td style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.nr_UM, :delimiter => ',') %></td>
+	  <td style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.nr_nonuniques, :delimiter => ',') %></td>
+	  <td style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.nr_NM, :delimiter => ',') %></td>
+      <td style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.nr_QC, :delimiter => ',') %></td>
+	  <td style="text-align:right;"><%=h number_with_delimiter(flow_lane.align_qc.nr_RX, :delimiter => ',') %></td>
+	  <% if can? :edit, flow_lane.align_qc %>
+	  <td><%= link_to 'Edit', edit_align_qc_path(flow_lane.align_qc) %></td>
+	  <% end %>
+	  <% end %>
+    </tr>
+  <% end %>
+</table>
