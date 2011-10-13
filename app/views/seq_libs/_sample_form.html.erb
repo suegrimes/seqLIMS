@@ -1,7 +1,7 @@
 <div id='libs_form'>
 <%= submit_tag "Save libraries" %>&nbsp;&nbsp;&nbsp;
 <%= submit_to_remote 'Singleplex', 'Refesh from Defaults',
-      :url => {:action => 'populate_splex', :nr_libs => @new_lib.size},
+      :url => {:action => 'populate_libs', :nr_libs => @new_lib.size},
       :update => 'libs_form' %>
 <div>&nbsp;</div>
 <fieldset class="form">
@@ -46,7 +46,7 @@
 </tr>
 <tr>
     <td></td>       
-    <td><%= collection_select(:lib_default, :quantitation_method, @quantitation, :c_value, :c_value, {:include_blank => 'Select Method'}) %></td>
+    <td><%= f.collection_select(:quantitation_method, @quantitation, :c_value, :c_value, {:include_blank => 'Select Method'}) %></td>
 	<td><%= f.text_field(:pcr_size, :size => 6) %></td> 
 	<td><%= f.text_field(:lib_conc_requested, :size => 8)%>pM</td>
     <td><%= f.collection_select(:alignment_ref_id, @align_refs, :id, :alignment_key) %></td>
@@ -58,10 +58,7 @@
 </tr>
 <tr>
   <th class="right">Notes:</th>
-  <td colspan="3"><%= f.text_field(:notes, :size => 50)%></td>
-  <td><%= f.collection_select(:target_pool, @projects, :c_value, :c_value,
-                               {:include_blank => 'Select Project'}) %></td>
-  <th colspan="2">Enzyme:&nbsp;&nbsp;<%= f.text_field(:enzyme_code, :size => 12) %></th>  
+  <td colspan="3"><%= f.text_field(:notes, :size => 50)%></td> 
 </tr>
 <tr><td colspan="12"></td></tr>
 <!--%= row_underline(cols=12)%-->

@@ -24,7 +24,7 @@ class LibSample < ActiveRecord::Base
   belongs_to :processed_sample
   
   validates_presence_of :sample_name
-  validates_presence_of :multiplex_type, :if => Proc.new {|s| !s.seq_lib_id.nil? }
+  validates_presence_of :runtype_adapter, :if => Proc.new {|s| !s.seq_lib_id.nil? }
   
   def source_sample_name
     return source_DNA

@@ -33,9 +33,9 @@ class SeqlibQueriesController < ApplicationController
   
 protected
   def dropdowns
-    @owners        = Researcher.populate_dropdown('incl_inactive')
-    @target_pools  = SeqLib.unique_target_pools
-    @align_refs    = AlignmentRef.populate_dropdown
+    @owners    = Researcher.populate_dropdown('incl_inactive')
+    @projects  = SeqLib.unique_projects
+    @align_refs = AlignmentRef.populate_dropdown
   end
   
   def define_conditions(params)

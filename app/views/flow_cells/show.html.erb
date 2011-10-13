@@ -8,8 +8,7 @@
 	<th>Lib Barcode</th>
   	<th>Lib Name</th>
 	<th>Runtype/Adapter</th>
-	<th>Oligo Pool</th>
-	<th>Enzyme</th>
+	<th>Project</th>
 	<th>Alignment Ref</th>
 	<th>Trim Bases</th>
 	<th>Lib Conc(pM)</th>
@@ -21,8 +20,7 @@
 	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%= link_to flow_lane.lib_barcode, flow_lane.seq_lib %></td>
       <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.seq_lib.lib_name %></td>
 	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.runtype_adapter %></td>
-	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.seq_lib.target_pool %></td>
-	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.seq_lib.enzyme_code %></td>
+	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.seq_lib.project %></td>
 	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.alignment_ref %></td>
 	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.seq_lib.trim_bases %></td>
 	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.lib_conc %></td>

@@ -28,10 +28,9 @@
   <th>Notebook Ref</th><td><%= f.text_field :notebook_ref %></td>
 </tr>
 <tr>
-  <th>Project</th><td><%= f.collection_select(:target_pool, @projects, :c_value, :c_value,
+  <th>Project</th><td><%= f.collection_select(:project, @projects, :c_value, :c_value,
                              {:include_blank => 'Select Project'}) %></td>
-  <th>Enzyme</th><td><%= f.text_field(:enzyme_code) %></td> 
-</tr> 
+</tr>  
 <tr>
   <th>Notes: </th><td colspan=4><%= f.text_field :notes, :size => 80 %></td>
 </tr>
