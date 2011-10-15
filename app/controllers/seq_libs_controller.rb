@@ -33,11 +33,13 @@ class SeqLibsController < ApplicationController
     
     params[:multiplex] ||= 'single'
     if params[:multiplex] == 'single'
+      @lib_default = SeqLib.new(:alignment_ref_id => AlignmentRef.default_id)
       @adapters.reject! {|adapter| adapter.c_value[0,1] == 'M'}
       render :action => 'new_splex'
     else
       @seq_lib = SeqLib.new(:preparation_date => Date.today,
-                            :owner => @requester)
+                            :owner => @requester,
+                            :alignment_ref_id => AlignmentRef.default_id)
       @adapters.reject! {|adapter| adapter.c_value[0,1] == 'S'}
       render :action => 'new_mplex'      
     end  
