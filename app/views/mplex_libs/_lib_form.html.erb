@@ -1,5 +1,5 @@
 <fieldset class="form">
-   <legend>Library Details</legend>
+<legend>Multiplex Library Details</legend>
 <table class="form" border="0">
   <th>Prep Date:</th><td><%= f.calendar_date_select(:preparation_date, :size => 15) %></td>
   <th>Owner:</th><td><%= f.select(:owner, @owners) %></td>
@@ -9,20 +9,15 @@
 <tr>
   <th>Barcode:</th><td><% if @seq_lib.new_record? || @seq_lib.dummy_barcode == false %><%= f.text_field :barcode_key, :size => 10 %>
         <% else %>&nbsp;<% end %></td>
-  <th>Adapter:</th><td><%= f.collection_select(:runtype_adapter, exclude_adapters(@adapters, 'S'),
-                              :c_value, :c_value) %></td>  						  	
-  <th>Project:</th><td><%= f.collection_select(:target_pool, @projects, :c_value, :c_value,
+  <th>Adapter:</th><td><%= f.collection_select(:runtype_adapter, @adapters, :c_value, :c_value) %></td>  						  	
+  <th>Project:</th><td><%= f.collection_select(:project, @projects, :c_value, :c_value,
                              {:include_blank => 'Select Project'}) %></td>
 </tr>
 <tr>
   <th>Lib Name:</th><td><%= f.text_field :lib_name, :size => 15 %></td>
   <th>Quantitation:</th><td><%= f.collection_select(:quantitation_method, @quantitation, :c_value, :c_value, 
                              {:include_blank => 'Select Method'}) %></td>							 	
-  <th rowspan="2">Enzyme:</th><td rowspan="2"><%= f.collection_select(:enzyme_code, @enzymes, :c_value, :c_value,
-                             {:include_blank => 'N/A'},{:size => 4, :multiple => :multiple}) %></td>
-</tr>
-<tr>
-  <th colspan="3">Size(Final PCR))</th><td><%= f.text_field :pcr_size, :size => 12 %></td>
+  <th>Size(Final PCR))</th><td><%= f.text_field :pcr_size, :size => 12 %></td>
 </tr>
 <tr>
   <th>Sample Conc:</th><td><%= f.text_field :sample_conc, :size => 10 %>&nbsp;ng/ul </td>  

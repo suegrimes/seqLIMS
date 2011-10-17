@@ -1,20 +1,36 @@
-<h1>New Sequencing Library - Multiplex</h1>
+<h1>New Multiplex Sequencing Library</h1>
 
-<% form_for(@seq_lib, :url => {:action => :create}) do |f| %>
+<% form_for(@seq_lib) do |f| %>
   <%= f.error_messages %>
+  <%= render :partial => 'lib_form', :locals => {:f => f} %>
   
-  <%= render :partial => 'lib_form', :locals => {:f => f}%> 
-  
-  <% if !@lib_samples %>
-  <div id='mplex_samples'>
-  <%= break_clear(submit_to_remote 'Multiplex', 'Enter Sample Details',
-      :url => {:action => 'populate_libs', :method => :get},
-      :update => 'mplex_samples') %>
-  </div>
-  
-  <% else %>
-    <%= render :partial => 'sample_form' %>
-  <% end %>
-<% end %>
+<%= break_clear('<div class="notes">Note: to assign multiple index tags to a library, separate the tag numbers with commas (eg. 1,2)</div>') %>
+<br />
 
-<%= break_clear (link_to 'Back', :back) %>
+<div>&nbsp;</div>
+<%= error_messages_for :lib_samples, :object => @seq_lib.lib_samples %>
+
+<fieldset class="form">
+<legend>Libraries/Samples</legend>
+<table class="form-with-columns">
+  <div class="lib_sample">
+  	<tr>
+  	  <th>Lib Barcode</th>
+  	  <th>RunType Adapter</th>
+      <th>Tag/Seq</th>
+      <th>Sample Name</th>
+      <th>Source DNA/RNA</th>
+	  <th>Enzyme(s)</th>
+	  <th>Sample Notes</th>
+    </tr>
+
+    <% @lib_samples.each_with_index do |lib_sample, i| %>
+      <tr><%= render :partial => 'sample_form', :locals => {:seq_lib => @singleplex_libs[i],
+                                                            :lib_sample => lib_sample } %></tr>
+	<% end %>
+  </table>
+</fieldset>  
+<%= break_clear(f.submit "Create") %>
+<% end %>
+  
+<%= link_to 'Back', :back %>

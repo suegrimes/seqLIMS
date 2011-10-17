@@ -1,0 +1,45 @@
+<br />
+<table class="break_clear" width="100%">
+  <tr>
+    <td>
+    <%= submit_tag "Save library" -%>&nbsp;&nbsp;&nbsp;
+    <%= submit_to_remote 'Multiplex', 'Refresh from Defaults',
+      :url => {:action => 'populate_libs'},
+      :update => 'mplex_samples' %>   
+    </td>
+  </tr>
+</table>
+<div>&nbsp;</div>
+<%= error_messages_for :lib_samples, :object => @seq_lib.lib_samples %>
+<fieldset class="form">
+	<legend>Samples</legend>
+<table class="form-with-columns">
+  <div class="lib_sample">
+  	<tr>
+      <th>Tag/Seq</th>
+      <th>Sample Name</th>
+      <th>Source DNA/RNA</th>
+	  <th>Project</th>
+	  <th>Enzyme(s)</th>
+	  <th>Sample Notes</th>
+    </tr>
+  <% @i=0 %>
+  <% @lib_samples.each do |lib_sample| %>
+    <% fields_for 'lib_samples[]', lib_sample do |s| %>	
+    <tr>
+      <td><%=h @i+1 %>&nbsp;-&nbsp;<%=h @tag_seqs[@i]%><%= s.hidden_field(:index_tags, :value => @i+1) %></td>
+      <td><%= s.text_field(:sample_name, :size => 25)%></td>
+      <td><%= s.text_field_with_auto_complete :source_sample_name, {:size => 12},
+              {:url => {:controller => :processed_samples, :action => :auto_complete_for_barcode_key},
+               :param_name => :search, :min_chars => 2, :method => :get} %></td>
+	  <td><%= s.collection_select(:target_pool, @projects, :c_value, :c_value,
+                                 {:include_blank => 'Select Project'}) %></td>
+	  <td><%= s.text_field(:enzyme_code, :size => 8) %></td> 
+	  <td><%= s.text_field(:notes, :size => 30)%></td>	               
+    </tr>
+    <% end %> <!--/lib_sample do -->
+  <% @i+=1 %>
+  <% end %> <!--/@lib_samples.each do -->
+  </div>
+</table>
+</fieldset>

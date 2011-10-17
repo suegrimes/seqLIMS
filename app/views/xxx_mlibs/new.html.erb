@@ -1,0 +1,20 @@
+<h1>New Sequencing Library - Multiplex</h1>
+
+<% form_for(@seq_lib, :url => {:action => :create}) do |f| %>
+  <%= f.error_messages %>
+  
+  <%= render :partial => 'lib_form', :locals => {:f => f}%> 
+  
+  <% if !@lib_samples %>
+  <div id='mplex_samples'>
+  <%= break_clear(submit_to_remote 'Multiplex', 'Enter Sample Details',
+      :url => {:action => 'populate_libs', :method => :get},
+      :update => 'mplex_samples') %>
+  </div>
+  
+  <% else %>
+    <%= render :partial => 'sample_form' %>
+  <% end %>
+<% end %>
+
+<%= break_clear (link_to 'Back', :back) %>

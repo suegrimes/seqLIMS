@@ -1,0 +1,63 @@
+<h1><%= (@flow_cell.sequenced? ? 'View Sequencing Run' : 'View Flow Cell') %></h1>
+
+<%= render :partial => 'flow_cell_show', :locals => {:flow_cell => @flow_cell} %>
+
+<table class="list">
+  <tr>
+  	<th>Lane</th>
+	<th>Lib Barcode</th>
+  	<th>Lib Name</th>
+	<th>Runtype/Adapter</th>
+	<th>Project</th>
+	<th>Alignment Ref</th>
+	<th>Trim Bases</th>
+	<th>Lib Conc(pM)</th>
+  </tr>
+  <% for flow_lane in @flow_cell.flow_lanes %>
+    <% lane_notes = !flow_lane.notes.blank? %>
+    <tr>
+	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.lane_nr %></td>
+	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%= link_to flow_lane.lib_barcode, flow_lane.seq_lib %></td>
+      <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.seq_lib.lib_name %></td>
+	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.runtype_adapter %></td>
+	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.seq_lib.project %></td>
+	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.alignment_ref %></td>
+	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.seq_lib.trim_bases %></td>
+	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.lib_conc %></td>
+    </tr>
+	<% if lane_notes %>  
+	<tr>
+	  <td></td>
+      <td colspan="8" style="border-top:0; text-align:center;">            
+        <div style="padding: 0 10px; margin-bottom: 4px; width:95%; border: 1px solid #e5e5e5; text-align:left;">Notes:&nbsp;<%=h flow_lane.notes %></div>
+      </td>
+    </tr>
+	<% end %>
+  <% end %>
+</table>
+  
+  <div id="sequencing">
+    <% if @flow_cell.flowcell_status == 'F' %>
+      <%= link_to_function "Submit for Sequencing", div_toggle(:run_params, :sequencing) %>
+	<% end %>
+  </div>
+	
+  <div id="run_params", style="display:none">
+    <% form_for(@flow_cell, :action => 'update') do |f|%>
+	  <%= hidden_field_tag(:utype, 'seq')%>
+		
+      <table class="list">
+      <tr>
+        <th>Experiment Date</th>
+        <th>Machine</th>
+      </tr>
+      <tr>
+      	<% @flow_cell[:sequencing_date] ||= Date.today %>
+        <td><%= f.calendar_date_select(:sequencing_date, :year_range => [1.years.ago, 0.years.from_now],
+                                       :valid_date_check => "date <= (new Date()).stripTime()", :size => 15 )%>
+        <td><%= collection_select(:seq_machine, :id, @sequencers, :id, :machine_name) %></td>
+      </tr>
+      </table>
+	<%= f.submit "Submit"%>
+    <% end %>
+  </div>
