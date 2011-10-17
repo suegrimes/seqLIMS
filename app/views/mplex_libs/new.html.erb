@@ -1,11 +1,9 @@
 <h1>New Multiplex Sequencing Library</h1>
 
-<% form_for(@seq_lib) do |f| %>
+<% form_for @seq_lib, :url => 'create_mplex' do |f| %>
   <%= f.error_messages %>
-  <%= render :partial => 'lib_form', :locals => {:f => f} %>
-  
-<%= break_clear('<div class="notes">Note: to assign multiple index tags to a library, separate the tag numbers with commas (eg. 1,2)</div>') %>
-<br />
+  <%= render :partial => 'lib_form', :locals => {:f => f} %> 
+  <%= break_clear %>
 
 <div>&nbsp;</div>
 <%= error_messages_for :lib_samples, :object => @seq_lib.lib_samples %>
@@ -15,8 +13,10 @@
 <table class="form-with-columns">
   <div class="lib_sample">
   	<tr>
+  	  <td>&nbsp;</td>
   	  <th>Lib Barcode</th>
-  	  <th>RunType Adapter</th>
+	  <th>Lib Name</th>
+  	  <th>Adapter</th>
       <th>Tag/Seq</th>
       <th>Sample Name</th>
       <th>Source DNA/RNA</th>

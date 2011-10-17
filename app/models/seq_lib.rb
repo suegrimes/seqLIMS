@@ -11,8 +11,7 @@
 #  owner               :string(25)
 #  preparation_date    :date
 #  runtype_adapter     :string(25)
-#  target_pool         :string(50)
-#  enzyme_code         :string(50)
+#  project             :string(50)
 #  alignment_ref_id    :integer(4)
 #  alignment_ref       :string(50)
 #  trim_bases          :integer(2)
@@ -88,7 +87,7 @@ class SeqLib < ActiveRecord::Base
   end
   
   def lib_barcode
-    (dummy_barcode == true ? 'n/a' : barcode_key)
+    (dummy_barcode == true ? 'N/A' : barcode_key)
   end
   
   def multiplexed?

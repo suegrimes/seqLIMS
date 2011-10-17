@@ -16,7 +16,7 @@
 #  pathology_id        :integer(4)
 #  pathology           :string(50)
 #  comments            :string(255)
-#  updated_by          :string(50)
+#  updated_by          :integer(2)
 #  created_at          :datetime
 #  updated_at          :datetime
 #

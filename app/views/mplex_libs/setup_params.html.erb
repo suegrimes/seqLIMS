@@ -1,13 +1,19 @@
+<%= debug(@seq_libs) %>
+
 <h1>Prepare Multiplex Library</h1>
 
 <% form_tag :action=> 'new'  do %>
 <fieldset class="form">
-	<legend>Singleplex Sequencing Library Parameters</legend>
+<legend>Singleplex Sequencing Library Parameters</legend>
 <table class="form">
   <tr>
     <th>Owner(s):</th>
     <td><%= select(:seq_lib, :owner, @owners,
-                  {:include_blank => '(All)'}, {:size => 3, :multiple => :multiple}) %> </td> 
+                  {:include_blank => '(All)'}, {:size => 3, :multiple => :multiple}) %> </td>
+  </tr>
+  <tr>
+	<th>Runtype Adapter:</th>
+	<td><%= collection_select(:seq_lib, :runtype_adapter, @adapters, :c_value, :c_value) %></td>
   </tr>  
   <tr>
     <th>Exclude used libraries?</th>

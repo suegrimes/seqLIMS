@@ -1,0 +1,21 @@
+<table class="list">
+  <tr>
+  	<th>Source Lib</th>
+	<th>Sample Name</th>
+	<th>Source DNA</th>
+	<th>Adapter</th>
+	<th>Index Tags</th>
+	<th>Enzyme</th>
+  </tr>
+  
+  <% for lib_sample in lib_samples %>
+    <tr>
+	  <td><%=link_to lib_sample.splex_lib_barcode, SeqLib.find(lib_sample.splex_lib_id) %></td>
+      <td><%=h lib_sample.sample_name %></td>
+	  <td><%=h lib_sample.source_DNA %></td>
+	  <td><%=h lib_sample.runtype_adapter %></td>
+	  <td><%=h lib_sample.index_tags %></td>
+	  <td><%=h lib_sample.enzyme_code %></td>
+    </tr>
+  <% end %>
+</table>

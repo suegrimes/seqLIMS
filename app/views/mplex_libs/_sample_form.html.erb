@@ -1,14 +1,14 @@
 <div id="lib_samples">
 <% fields_for 'lib_samples[]', lib_sample do |s| %>	
     <tr>
-      <td><%= s.text_field(:splex_lib_barcode, :size => 10) %></td>
-	  <td><%= s.text_field(:runtype_adapter, :size => 10) %></td>
-      <td><%= s.text_field(:index_tags, :size => 10) %></td>
-      <td><%= s.text_field(:sample_name, :size => 25)%></td>
-      <td><%= s.text_field_with_auto_complete :source_sample_name, {:size => 12},
-              {:url => {:controller => :processed_samples, :action => :auto_complete_for_barcode_key},
-               :param_name => :search, :min_chars => 2, :method => :get} %></td>
-	  <td><%= s.text_field(:enzyme_code, :size => 8) %></td> 
+      <td><%= s.check_box(:splex_lib_id, {}, seq_lib.id, nil) %></td>
+      <td><%=h seq_lib.lib_barcode %></td>
+	  <td><%=h seq_lib.lib_name %></td>
+	  <td><%=h lib_sample.runtype_adapter %></td>
+      <td><%=h lib_sample.index_tags %></td>
+      <td><%=h lib_sample.sample_name %></td>
+      <td><%=h lib_sample.source_sample_name %></td> 
+	  <td><%=h lib_sample.enzyme_code %></td> 
 	  <td><%= s.text_field(:notes, :size => 30)%></td>	               
     </tr>
     <% end %> <!--/lib_sample do -->

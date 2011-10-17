@@ -1,9 +1,0 @@
-<h1>Sequencing Run - Alignment/QC Results</h1>
-
-<%= render :partial => 'flow_cell_show', :locals => {:flow_cell => @flow_cell} %>
-
-<% if @flow_cell.sequencer_type == 'H' %>
-  <%= render :partial => 'hiseq_alignqc' %>
-<% else %>
-  <%= render :partial => 'ga2_alignqc' %>
-<% end %>

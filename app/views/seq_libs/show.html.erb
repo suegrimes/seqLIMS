@@ -4,12 +4,14 @@
 
 <% if @seq_lib.lib_samples.size > 0 %>
   <% if @seq_lib.multiplexed? %>
-    <%= render :partial => 'mplex_libs/sample_show', :locals => {:seq_lib => @seq_lib} %>
+    <%= break_clear %>
+    <%= render :partial => 'mplex_libs/sample_show', :locals => {:lib_samples => @seq_lib.lib_samples} %>
   <% else %>
     <%= render :partial => 'seq_libs/sample_show', :locals => {:lib_sample => @seq_lib.lib_samples[0]} %>
+	<%= break_clear %>
   <% end %>
 <% end %>
-<%= break_clear %>
+
 <%= render :partial => 'attached_files/show_file', :locals => {:obj => @seq_lib} %>
 <% break_clear %>
 
