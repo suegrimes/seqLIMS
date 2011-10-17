@@ -4,8 +4,8 @@
 #
 #  mrn                 :string
 #  patient_id          :string
-#  barcode_to          :string
 #  barcode_from        :string
+#  barcode_to          :string
 #  gender              :string
 #  consent_protocol_id :integer
 #  clinic_or_location  :string

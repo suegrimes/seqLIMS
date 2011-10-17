@@ -3,7 +3,7 @@
 # Table name: seqlib_queries
 #
 #  owner         :string
-#  target_pool   :string
+#  project       :string
 #  lib_name      :string
 #  barcode_key   :string
 #  alignment_ref :string
@@ -19,7 +19,7 @@ class SeqlibQuery < NoTable
   end
   
   column :owner,         :string
-  column :target_pool,   :string
+  column :project,       :string
   column :lib_name,      :string
   column :barcode_key,   :string
   column :alignment_ref, :string
@@ -28,6 +28,6 @@ class SeqlibQuery < NoTable
 
   validates_date :to_date, :from_date, :allow_blank => true
   
-  SEQLIB_FLDS = %w{owner target_pool barcode_key lib_name alignment_ref}
+  SEQLIB_FLDS = %w{owner project barcode_key lib_name alignment_ref}
   ALL_FLDS    = SEQLIB_FLDS
 end

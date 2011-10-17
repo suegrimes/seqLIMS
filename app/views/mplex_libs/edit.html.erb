@@ -21,9 +21,9 @@
 
     <% f.fields_for :lib_samples do |s| %>
       <tr>
-      	<td><%= s.text_field(:index_tag, :size => 10)%></td>
-	    <td><% if s.object.index_tag %>
-	        <%=h IndexTag.find_or_blank(s.object.multiplex_type, s.object.index_tag)%>
+      	<td><%= s.text_field(:index_tags, :size => 10)%></td>
+	    <td><% if s.object.index_tags %>
+	        <%=h IndexTag.find_or_blank(s.object.multiplex_type, s.object.index_tags)%>
 	        <% end %></td>
 	    <td><%= s.collection_select(:multiplex_type, @adapters, :c_value, :c_value) %></td>  
         <td><%= s.text_field(:sample_name, :size => 20)%></td>

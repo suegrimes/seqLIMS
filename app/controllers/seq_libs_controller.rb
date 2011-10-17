@@ -30,7 +30,6 @@ class SeqLibsController < ApplicationController
   def new
     authorize! :create, SeqLib
     @requester = (current_user.researcher ? current_user.researcher.researcher_name : nil)
-    #@adapters.reject! {|adapter| adapter.c_value[0,1] == 'M'}
     @lib_default = SeqLib.new(:alignment_ref_id => AlignmentRef.default_id)
     render :action => 'new'
   end
@@ -53,11 +52,11 @@ class SeqLibsController < ApplicationController
     @new_lib = []
     @lib_samples = []
     params[:nr_libs] ||= 4
-    params[:lib_default][:enzyme_code] = array_to_string(params[:lib_default][:enzyme_code])   
     
     0.upto(params[:nr_libs].to_i - 1) do |i|
       @new_lib[i]    = SeqLib.new(params[:lib_default])
-      @lib_samples[i] = LibSample.new(:source_DNA => params[:sample_default][:source_DNA])
+      @lib_samples[i] = LibSample.new(:source_DNA => params[:sample_default][:source_DNA],
+                                      :enzyme_code => array_to_string(params[:sample_default][:enzyme_code]))
     end
     render :partial => 'sample_form'
     #render :action => :debug
@@ -114,10 +113,8 @@ class SeqLibsController < ApplicationController
     
     alignment_key = AlignmentRef.get_align_key(params[:seq_lib][:alignment_ref_id])
     params[:seq_lib].merge!(:alignment_ref => alignment_key)
-    params[:seq_lib][:lib_samples_attributes]["0"][:multiplex_type] = params[:seq_lib][:runtype_adapter]
-    params[:seq_lib][:lib_samples_attributes]["0"][:target_pool]    = params[:seq_lib][:target_pool]
-    params[:seq_lib][:lib_samples_attributes]["0"][:enzyme_code]    = params[:seq_lib][:enzyme_code]
-
+    params[:seq_lib][:lib_samples_attributes]["0"][:runtype_adapter] = params[:seq_lib][:runtype_adapter]
+    
     if @seq_lib.update_attributes(params[:seq_lib])
       FlowLane.upd_lib_lanes(@seq_lib)
       flash[:notice] = 'Sequencing library was successfully updated.'
@@ -152,8 +149,6 @@ protected
     @projects     = Category.populate_dropdown_for_category('project')
     @owners       = Researcher.populate_dropdown('active_only')
     @protocols    = Protocol.find_for_protocol_type('L')
-    # Delete target_pools, and drop table - not needed (replaced by project)
-    #@target_pools = TargetPool.find(:all, :order => :pool_name)
     @quantitation= Category.populate_dropdown_for_category('quantitation')
   end
   
@@ -172,13 +167,12 @@ protected
   end
   
   def build_simplex_lib(lib_param, sample_param)
-     lib_param.merge!(:alignment_ref => AlignmentRef.get_align_key(lib_param[:alignment_ref_id]))
+     lib_param.merge!(:library_type => 'S',
+                      :alignment_ref => AlignmentRef.get_align_key(lib_param[:alignment_ref_id]))
      seq_lib = SeqLib.new(lib_param)
      
      sample_param.merge!(:sample_name     => lib_param[:lib_name],
-                         :multiplex_type  => lib_param[:runtype_adapter],
-                         :target_pool     => lib_param[:target_pool],
-                         :enzyme_code     => lib_param[:enzyme_code],
+                         :runtype_adapter => lib_param[:runtype_adapter],
                          :notes           => lib_param[:notes])
      seq_lib.lib_samples.build(sample_param)
      return seq_lib

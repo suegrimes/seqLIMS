@@ -18,7 +18,7 @@
   </tr>
   <tr>
     <th>Project(s):</th>
-    <td><%= f.collection_select(:target_pool, @target_pools, :target_pool, :target_pool,
+    <td><%= f.collection_select(:project, @projects, :project, :project,
                                {:include_blank => '(All)'}, {:size => 3, :multiple => :multiple}) %> </td> 
     <th>Align Ref(s):</th>
     <td><%= f.collection_select(:alignment_ref, @align_refs, :alignment_key, :alignment_key,

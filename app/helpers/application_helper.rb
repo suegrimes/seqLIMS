@@ -44,8 +44,8 @@ module ApplicationHelper
     (datetime.nil? ? '' : datetime.strftime("%Y-%m-%d %I:%M%p"))
   end
   
-  def format_conc(conc)
-    (conc.nil? ? '' : sprintf('%02.2f', conc))
+  def format_conc(conc, val_if_nil='--')
+    (conc.nil? ? val_if_nil : sprintf('%02.2f', conc))
   end
   
   def pct_with_parens(pct)

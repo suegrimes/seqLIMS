@@ -5,7 +5,7 @@
 #  id                  :integer(4)      not null, primary key
 #  barcode_key         :string(20)
 #  lib_name            :string(50)      default(""), not null
-#  library_type        :string(50)
+#  library_type        :string(2)
 #  lib_status          :string(2)
 #  protocol_id         :integer(4)
 #  owner               :string(25)
@@ -92,7 +92,7 @@ class SeqLib < ActiveRecord::Base
   end
   
   def multiplexed?
-    (runtype_adapter[0,1] == 'M')
+    (library_type == 'M')
   end
   
   def control_lane_nr
@@ -100,7 +100,8 @@ class SeqLib < ActiveRecord::Base
   end
   
   def sample_conc_with_uom
-    [sample_conc, sample_conc_uom].join(' ')
+    conc = (sample_conc ? number_with_precision(sample_conc, :precision => 2) : '--')
+    return [conc, sample_conc_uom].join(' ')
   end
   
   def sample_conc_nm
@@ -139,8 +140,8 @@ class SeqLib < ActiveRecord::Base
                   :conditions => "flow_cells.flowcell_status <> 'F'")
   end
   
-  def self.unique_target_pools
-    self.find(:all, :select => 'DISTINCT target_pool', :order => 'target_pool')
+  def self.unique_projects
+    self.find(:all, :select => 'DISTINCT project', :order => 'project')
   end
   
   def self.getwith_attach(id)
