@@ -7,15 +7,11 @@ class MplexLibsController < ApplicationController
   def setup_params
    @from_date = (Date.today - 3.months).beginning_of_month
    @to_date   =  Date.today
-   @seq_lib   = SeqLib.new(:owner => (current_user.researcher ? current_user.researcher.researcher_name : nil))
+   @seq_lib   = SeqLib.new(:owner => (current_user.researcher ? current_user.researcher.researcher_name : nil),
+                           :runtype_adapter => 'M_PE')
   end
   
-  # GET /seq_libs
-  def index
-    @seq_libs = SeqLib.find(:all, :include => :lib_samples, :conditions => ['library_type = ?', 'M'])
-  end
-  
-  # GET /seq_libs/1
+  # GET /mplex_libs/1
   def show
     @seq_lib = SeqLib.find(params[:id], :include => :lib_samples)
   end
@@ -29,7 +25,7 @@ class MplexLibsController < ApplicationController
     
     # Get sequencing libraries based on parameters entered
     @condition_array = define_lib_conditions(params)
-    @singleplex_libs = SeqLib.find(:all, :include => :lib_samples,
+    @singleplex_libs = SeqLib.find(:all, :include => {:lib_samples => :processed_sample},
                                    :conditions => @condition_array,
                                    :order => 'barcode_key, lib_name')
                                    
@@ -38,33 +34,42 @@ class MplexLibsController < ApplicationController
     @singleplex_libs.reject!{|s_lib| s_lib.lib_samples[0].nil?}
     
     @singleplex_libs.each_with_index do |s_lib, i|
-      @lib_samples[i] = LibSample.new(s_lib.lib_samples[0].attributes)
+      @lib_samples[i] = LibSample.new(:processed_sample_id => s_lib.lib_samples[0].processed_sample_id,
+                                      :sample_name         => s_lib.lib_samples[0].sample_name,
+                                      :source_DNA          => s_lib.lib_samples[0].source_DNA,
+                                      :runtype_adapter     => s_lib.lib_samples[0].runtype_adapter,
+                                      :index_tag           => s_lib.lib_samples[0].index_tag,
+                                      :enzyme_code         => s_lib.lib_samples[0].enzyme_code,
+                                      :notes               => s_lib.lib_samples[0].notes)
     end     
     
     render :action => 'new'
   end
   
-  # GET /seq_libs/1/edit
+  # GET /mplex_libs/1/edit
   def edit
     @seq_lib = SeqLib.find(params[:id], :include => :lib_samples)
   end
 
-  # POST /seq_libs
+  # POST /mplex_libs
   def create_mplex
     @seq_lib       = SeqLib.new(params[:seq_lib])
     @seq_lib[:library_type] = 'M'
     @seq_lib[:alignment_ref] = AlignmentRef.get_align_key(params[:seq_lib][:alignment_ref_id])
-#    @seq_lib.save
-#    render :action => :debug
     
     params[:lib_samples].each do |lib_sample|
       next if param_blank?(lib_sample[:splex_lib_id])
       
-      splex_lib = SeqLib.find(lib_sample[:splex_lib_id], :include => :lib_samples)
-      slib_sample = splex_lib.lib_samples[0].attributes
-      slib_sample[:splex_lib_id] = splex_lib.id
-      slib_sample[:splex_lib_barcode] = splex_lib.barcode_key
-
+      s_lib = SeqLib.find(lib_sample[:splex_lib_id], :include => :lib_samples)
+      slib_sample = {:processed_sample_id => s_lib.lib_samples[0].processed_sample_id,
+                     :sample_name         => s_lib.lib_samples[0].sample_name,
+                     :source_DNA          => s_lib.lib_samples[0].source_DNA,
+                     :runtype_adapter     => s_lib.lib_samples[0].runtype_adapter,
+                     :index_tag           => s_lib.lib_samples[0].index_tag,
+                     :enzyme_code         => s_lib.lib_samples[0].enzyme_code,
+                     :splex_lib_id        => s_lib.id,
+                     :splex_lib_barcode   => s_lib.barcode_key,
+                     :notes               => lib_sample[:notes]}
       @seq_lib.lib_samples.build(slib_sample)
     end
     
@@ -75,57 +80,39 @@ class MplexLibsController < ApplicationController
     else
       flash.now[:error] = 'ERROR - Unable to create multiplex library'
       slib_ids = params[:lib_samples].collect{|lib_sample| lib_sample[:splex_lib_id] if !param_blank?(lib_sample[:splex_lib_id])}
-      #@singleplex_libs = SeqLib.find(:all, :conditions => ['id IN (?)', slib_ids])
-      @singleplex_libs = SeqLib.find(:all, :conditions => ['seq_libs.id IN (?)', [347,348,349]])
-      @singleplex_libs.reject!{|s_lib| s_lib.lib_samples[0].nil?}
-#      @singleplex_libs.each_with_index do |s_lib, i|
-#        @lib_samples[i] = LibSample.new(s_lib.lib_samples[0].attributes) 
-#      end
+      @singleplex_libs = SeqLib.find(:all, :conditions => ['id IN (?)', slib_ids])
+      #@singleplex_libs.reject!{|s_lib| s_lib.lib_samples[0].nil?}
+      
+      @lib_samples = []
+      @singleplex_libs.each_with_index do |s_lib, i|
+        @lib_samples[i] = LibSample.new(s_lib.lib_samples[0].attributes) 
+      end
       dropdowns
-      render :action => 'debug'
+      render :action => 'new'
     end
   end
 
-  # PUT /seq_libs/1
+  # PUT /mplex_libs/1
   def update
-    @seq_lib = FlowCell.find(params[:id])
-    
-    if params[:utype] == 'seq'
-      fc_attrs = upd_for_sequencing(params)
-      lane_errors = [0, '']
-      success_msg = 'queued for sequencing'
-    else
-      fc_attrs = params[:seq_lib]
-      lane_errors = validate_lane_nrs(params[:seq_lib][:existing_lane_attributes], 'update', params[:lane_count].to_i)
-      success_msg = 'updated'
-    end
-    
-    if lane_errors[0] > 0
-      flash[:error] = "ERROR - #{lane_errors[1]}"
-      dropdowns
-      @seq_lib.existing_lane_attributes = params[:seq_lib][:existing_lane_attributes]
-      render :action => 'edit'
-      #render :action => 'debug'
+    @seq_lib = SeqLib.find(params[:id])
       
-    elsif @seq_lib.update_attributes(fc_attrs)
-      FlowLane.upd_seq_key(@seq_lib)  if params[:utype] == 'seq'
-      flash[:notice] = 'Flow cell was successfully ' + success_msg
+    if @seq_lib.update_attributes(params[:seq_lib])
+      flash[:notice] = 'Sequencing Library was successfully updated'
       redirect_to(@seq_lib) 
-      #render :action => 'debug'
       
     else
-      flash[:error] = 'ERROR - Unable to update flow cell'
+      flash[:error] = 'ERROR - Unable to update sequencing library'
       dropdowns
-      @seq_lib.existing_lane_attributes = params[:seq_lib][:existing_lane_attributes]
       render :action => "edit"
     end
   end
 
-  # DELETE /seq_libs/1
+  # DELETE /mplex_libs/1
   def destroy
     @seq_lib = SeqLib.find(params[:id])
     @seq_lib.destroy
-    redirect_to mplex_libs_url
+    flash[:notice] = 'Sequencing library successfully updated'
+    redirect_to seq_libs_url
   end
   
 protected
@@ -159,6 +146,13 @@ protected
       end
     end
     
+    if !param_blank?(params[:barcode_from]) || !param_blank?(params[:barcode_to])
+      @where_select.push("seq_libs.barcode_key LIKE 'L%'")
+    end
+    @where_select, @where_values = sql_conditions_for_range(@where_select, @where_values, 
+                                                            params[:barcode_from], params[:barcode_to],
+                                                           "CAST(SUBSTRING(seq_libs.barcode_key,2) AS UNSIGNED)")
+                                     
     if params[:excl_used] && params[:excl_used] == 'Y'
       @where_select.push("seq_libs.lib_status <> 'F'")
     end

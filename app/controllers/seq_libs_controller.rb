@@ -62,7 +62,7 @@ class SeqLibsController < ApplicationController
     #render :action => :debug
   end
 
-  def create_mplex
+  def create
     authorize! :create, SeqLib
     @new_lib = []; @lib_id = [];
     @lib_index = 0; libs_created = 0

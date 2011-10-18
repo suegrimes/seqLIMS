@@ -11,15 +11,14 @@
 #
 
 class IndexTag < ActiveRecord::Base
-  def self.find_or_blank(runtype, tag_nr_string) 
-    if tag_nr_string.nil?
+  def self.find_or_blank(runtype, tag_nr) 
+    if tag_nr.nil?
       return nil
     else
       adapter = (runtype == 'M_SR'? 'M_PE' : runtype)
-      tag_nrs = tag_nr_string.split(',').sort  
-      index_tags = self.find(:all, :order => :tag_nr,
-                             :conditions => ["runtype_adapter = ? AND tag_nr IN (?)", adapter, tag_nrs])
-      return (index_tags.nil? ? ' ' : index_tags.map{|tag| tag.tag_sequence}.join(','))
+      index_tag = self.find(:first, :order => :tag_nr,
+                             :conditions => ["runtype_adapter = ? AND tag_nr = ?", adapter, tag_nr])
+      return (index_tag.nil? ? ' ' : index_tag.tag_sequence)
     end   
   end
 end

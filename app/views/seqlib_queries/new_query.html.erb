@@ -7,25 +7,26 @@
 <legend>Select parameters</legend>
 <table class="form">
   <tr>
-    <th>Lib Barcode: </th>
-    <td><%=f.text_field(:barcode_key, :size => 10)%></td>
+    <th>Lib Barcode:</th>
+    <td><strong>L</strong><%=f.text_field(:barcode_from, :size => 10)%></td>
+	<th>To:</th>
+	<td><strong>L</strong><%=f.text_field(:barcode_to, :size => 10)%></td>
+  </tr>
+  <tr>
   	<th>Lib Name (search):</th>
     <td><%= f.text_field(:lib_name, :size => 10)%></td>
   </tr>
+  <tr><td>&nbsp;</td></tr>
   <tr>
-    <th>Owner(s):</th>
+  	<th>Owner(s):</th>
     <td><%= f.select(:owner, @owners, {:include_blank => '(All)'},{:size => 3, :multiple => :multiple}) %></td>
-  </tr>
-  <tr>
     <th>Project(s):</th>
     <td><%= f.collection_select(:project, @projects, :project, :project,
                                {:include_blank => '(All)'}, {:size => 3, :multiple => :multiple}) %> </td> 
-    <th>Align Ref(s):</th>
-    <td><%= f.collection_select(:alignment_ref, @align_refs, :alignment_key, :alignment_key,
-                               {:include_blank => '(All)'}, {:size => 3, :multiple => :multiple}) %> </td> 
   </tr>
+  <tr><td>&nbsp;</td></tr>
   <tr>
-  	<th>Prepared from:</th>
+   	<th>Prepared from:</th>
 	<td colspan="3"><%= f.calendar_date_select(:from_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%>
 	<strong>&nbsp;To:&nbsp;</strong><%= f.calendar_date_select(:to_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%></td>
   </tr>	  

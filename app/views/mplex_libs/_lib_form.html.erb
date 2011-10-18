@@ -15,7 +15,7 @@
 <tr>
   <th>Quantitation:</th><td><%= f.collection_select(:quantitation_method, @quantitation, :c_value, :c_value, 
                              {:include_blank => 'Select Method'}) %></td>							 	
-  <th>Size(Final PCR))</th><td><%= f.text_field :pcr_size, :size => 12 %></td>
+  <th>Size(Final PCR)</th><td><%= f.text_field :pcr_size, :size => 12 %></td>
   <th>Sample Conc:</th><td><%= f.text_field :sample_conc, :size => 10 %>&nbsp;ng/ul </td>  
 </tr>
 <tr> 

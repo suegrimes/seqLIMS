@@ -5,10 +5,10 @@
       <td><%=h seq_lib.lib_barcode %></td>
 	  <td><%=h seq_lib.lib_name %></td>
 	  <td><%=h lib_sample.runtype_adapter %></td>
-      <td><%=h lib_sample.index_tags %></td>
+      <td><%=h lib_sample.index_tag %></td>
       <td><%=h lib_sample.sample_name %></td>
+	  <td><%=h lib_sample.processed_sample.patient_id if lib_sample.processed_sample %>
       <td><%=h lib_sample.source_sample_name %></td> 
-	  <td><%=h lib_sample.enzyme_code %></td> 
 	  <td><%= s.text_field(:notes, :size => 30)%></td>	               
     </tr>
     <% end %> <!--/lib_sample do -->

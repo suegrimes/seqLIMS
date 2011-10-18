@@ -1,11 +1,16 @@
-<%= debug(@seq_libs) %>
-
 <h1>Prepare Multiplex Library</h1>
 
 <% form_tag :action=> 'new'  do %>
 <fieldset class="form">
 <legend>Singleplex Sequencing Library Parameters</legend>
 <table class="form">
+  <tr>
+  	<th>Library Barcode:</th>
+	<td><strong>L</strong><%= text_field_tag(:barcode_from, '', {:size => 10})%></td>
+	<th>To:</th>
+	<td><strong>L</strong><%= text_field_tag(:barcode_to, '', {:size => 10})%></td>
+  </tr> 
+  <tr><td>&nbsp;</td></tr>
   <tr>
     <th>Owner(s):</th>
     <td><%= select(:seq_lib, :owner, @owners,
@@ -24,7 +29,6 @@
   <tr>
   	<th>Prepared from:</th>
 	<td><%=calendar_date_select_tag(:from_date, @from_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%></td>
-	<td>&nbsp;&nbsp;</td>
   	<th>To:</th>
 	<td><%=calendar_date_select_tag(:to_date, @to_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%></td>
   </tr>	

@@ -23,7 +23,7 @@
     <th>Sample Conc</th>
 	<th>Source DNA/RNA</th>
 	<th>Adapter</th>
-	<th>Tags</th>
+	<th>Tag#</th>
 </tr>
 <tr>
     <td></td>
@@ -34,7 +34,7 @@
               {:url => {:controller => :processed_samples, :action => :auto_complete_for_barcode_key},
                :param_name => :search, :min_chars => 2, :method => :get} %></td>
     <td><%= f.collection_select(:runtype_adapter, @adapters, :c_value, :c_value) %></td>
-	<td><%= s.text_field(:index_tags, :size => 8) %></td>
+	<td><%= s.text_field(:index_tag, :size => 4) %></td>
 </tr>
 <tr>  
     <td></td>   

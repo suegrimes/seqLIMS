@@ -168,8 +168,9 @@ class MolecularAssaysController < ApplicationController
   
 protected
   def dropdowns
-    @owners       = Researcher.populate_dropdown('active_only')
-    @protocols    = Protocol.find_for_protocol_type('M')
+    active_flag = (['new', 'create_assays'].include?(self.action_name) ? 'active_only' : nil)
+    @owners     = Researcher.populate_dropdown(active_flag)
+    @protocols  = Protocol.find_for_protocol_type('M')
   end
   
   def reload_defaults(params, nr_assays)

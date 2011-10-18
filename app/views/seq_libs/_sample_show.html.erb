@@ -1,17 +1,28 @@
-<% last_info_box ||= 'no' %>
-
-<!-- Standard fields to be displayed -->
-<% info_flds   = [['Field', 'Sample Name', lib_sample.sample_name],
-                  [(lib_sample.processed_sample ? 'Link' : 'Field'), 'Source DNA/RNA', lib_sample.source_DNA, ['processed_samples', 'show', lib_sample.processed_sample_id]],
-                  ['Field', 'Index Tag(s)', lib_sample.index_tags],
-                  ['Field', 'Tag Seq(s)', IndexTag.find_or_blank(lib_sample.runtype_adapter, lib_sample.index_tags)]
-                 ] %>
-				  
-<!-- Only include comments if non-blank -->
-<% info_flds.push(['Field', 'Comments', lib_sample.notes]) if !lib_sample.notes.blank? %>
-
-<%= render :partial => 'shared/info_box', :locals => {:info_legend     => 'Lib Sample',
-                                                      :info_flds       => info_flds,
-                                                      :info_links      => [],
-                                                      :last_info_box   => last_info_box} %>
-													  
+<table class="list">
+  <tr>
+  	<th>Tag#</th>
+	<th>Tag Seq</th>
+	<th>Source Lib</th>
+	<th>Sample Name</th>
+	<th>Patient ID</th>
+	<th>Source DNA</th>	
+	<th>Notes</th>
+  </tr>
+  
+  <% for lib_sample in lib_samples %>
+    <tr>
+      <td><%=h lib_sample.index_tag %></td>
+	  <td><%=h IndexTag.find_or_blank(lib_sample.runtype_adapter, lib_sample.index_tag) if !lib_sample.index_tag.nil? %></td>
+	  <td><%=link_to lib_sample.splex_lib_barcode, SeqLib.find(lib_sample.splex_lib_id) if !lib_sample.splex_lib_id.nil? %></td>
+      <td><%=h lib_sample.sample_name %></td>
+	  <% if lib_sample.processed_sample %>
+	    <td><%=h lib_sample.processed_sample.patient_id %></td>
+	    <td><%= link_to lib_sample.source_DNA, lib_sample.processed_sample %>
+	  <% else %>
+	    <td>&nbsp;</td>
+	    <td><%=h lib_sample.source_DNA %></td>
+	  <% end %>  
+	  <td><%=h lib_sample.notes %></td>
+    </tr>
+  <% end %>
+</table>

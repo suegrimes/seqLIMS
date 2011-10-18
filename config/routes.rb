@@ -84,6 +84,9 @@ ActionController::Routing::Routes.draw do |map|
                                                    :list_added => :get},
                                    :member => {:create_assays => :post}
   
+  map.resources :molassay_queries, :only => :index
+  map.mol_assay_query   'mol_assay_query',   :controller => 'molassay_queries',   :action => 'new_query'
+  
   # Routes for sequencing libraries
   map.resources :seq_libs,     :collection => {:auto_complete_for_barcode_key => :get}
   map.resources :mplex_libs,   :collection => {:auto_complete_for_barcode_key => :get}
