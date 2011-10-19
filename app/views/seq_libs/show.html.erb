@@ -4,7 +4,8 @@
 <%= break_clear %>
 
 <% if @seq_lib.lib_samples.size > 0 %>
-  <%= render :partial => 'sample_show', :locals => {:lib_samples => @seq_lib.lib_samples} %>
+  <%= render :partial => 'sample_show', :locals => {:lib_type => @seq_lib.library_type,
+                                                    :lib_samples => @seq_lib.lib_samples} %>
 <% end %>
 
 <%= render :partial => 'attached_files/show_file', :locals => {:obj => @seq_lib} %>

@@ -1,33 +1,34 @@
-<h1>Editing <%=h @flow_cell.id_name %></h1>
-<p class="notes">Note: Changes to lane number are limited to switching lanes - cannot add or delete sequencing libraries/lane
-   once flow cell has been created. </p>
+<h1>Editing Multiplex Sequencing Library</h1>
 
-<% form_for(@flow_cell) do |f| %>
+<% form_for @seq_lib, :action => 'update' do |f| %>
   <%= f.error_messages %>
-  
-  <%= render :partial => 'flow_cell_form', :locals => {:f => f}%> 
-  <%= hidden_field_tag(:lane_count, @flow_cell.flow_lanes.size)%>
+  <%= render :partial => 'lib_form', :locals => {:f => f} %> 
   <%= break_clear %>
 
+<div>&nbsp;</div>
 <fieldset class="form">
+  <legend>Libraries/Samples</legend>
   <table class="form-with-columns">
-    <tr>
-      <th>Lane</th>
-	  <th>Lib Conc</th>
-	  <th>Lib Barcode</th>
-	  <th>Lib name</th>
-	  <th>Run type/Adapter</th>
-	  <th>Alignment Ref</th>
-	  <th>Owner</th>
-	  <th>Notes</th>
+  	<tr>
+  	  <th>Lib Barcode</th>
+	  <th>Lib Name</th>
+  	  <th>Adapter</th>
+      <th>Tag/Seq</th>
+      <th>Sample Name</th>
+	  <th>Patient ID</th>
+      <th>Source DNA/RNA</th>
+	  <th>Sample Notes</th>
     </tr>
 
-    <% @flow_cell.flow_lanes.each do |flow_lane| %>
-      <tr><%= render :partial => 'flow_lane_edit', :locals => {:flow_lane => flow_lane} %></tr>
-	<% end %>
+<% f.fields_for :lib_samples do |s| %>
+  <%= s.error_messages %>
+  <tr><%= render :partial => 'sample_edit', :locals => {:s => s} %></tr>
+  <% end %>
+  
   </table>
-</fieldset> 
+</fieldset>  
+
 <%= break_clear(f.submit "Update") %>
 <% end %>
-<%= link_to 'Show', @flow_cell %> |
+  
 <%= link_to 'Back', :back %>

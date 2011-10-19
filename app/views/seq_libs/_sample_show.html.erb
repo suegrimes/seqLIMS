@@ -2,7 +2,10 @@
   <tr>
   	<th>Tag#</th>
 	<th>Tag Seq</th>
-	<th>Source Lib</th>
+	<% if lib_type == 'M' %>
+	  <th>Source Lib</th>
+	  <th>Lib Name</th>
+	<% end %>
 	<th>Sample Name</th>
 	<th>Patient ID</th>
 	<th>Source DNA</th>	
@@ -13,7 +16,13 @@
     <tr>
       <td><%=h lib_sample.index_tag %></td>
 	  <td><%=h IndexTag.find_or_blank(lib_sample.runtype_adapter, lib_sample.index_tag) if !lib_sample.index_tag.nil? %></td>
-	  <td><%=link_to lib_sample.splex_lib_barcode, SeqLib.find(lib_sample.splex_lib_id) if !lib_sample.splex_lib_id.nil? %></td>
+	  <% if lib_type == 'M' && lib_sample.splex_lib %>	  
+	    <td><%=link_to lib_sample.splex_lib_barcode, lib_sample.splex_lib %></td>
+		<td><%=h lib_sample.splex_lib.lib_name %></td>
+	  <% elsif lib_type == 'M' %>
+	    <td><%=h lib_sample.splex_lib_barcode %></td>
+		<td>&nbsp;</td>
+	  <% end %>
       <td><%=h lib_sample.sample_name %></td>
 	  <% if lib_sample.processed_sample %>
 	    <td><%=h lib_sample.processed_sample.patient_id %></td>

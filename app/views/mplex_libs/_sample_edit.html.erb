@@ -1,0 +1,21 @@
+<div id="lib_samples">
+    <tr>
+      <% if s.object.splex_lib %>
+	    <td><%= s.text_field(:splex_lib_barcode, :size => 10) %></td>
+	    <td><%=h s.object.splex_lib.lib_name %></td>
+	  <% else %>
+	    <td><%= s.text_field(:singleplex_lib, :size => 10) %></td>
+		<td>&nbsp;</td>
+	  <% end %>
+	  <td><%=h s.object.runtype_adapter %></td>
+      <td><%=h s.object.index_tag %>(<%=h IndexTag.find_or_blank(s.object.runtype_adapter, s.object.index_tag)%>)</td>
+      <td><%=h s.object.sample_name %></td>
+	  <td><%=h s.object.processed_sample.patient_id if s.object.processed_sample %>
+	  <% if s.object.splex_lib %>
+	    <td><%=h s.object.source_sample_name %></td>
+	  <% else %>
+        <td><%= s.text_field(:source_sample_name, :size => 10) %></td> 
+	  <% end %>
+	  <td><%= s.text_field(:notes, :size => 30)%></td>	               
+    </tr>
+</div>
