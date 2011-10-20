@@ -11,7 +11,7 @@
   <th>Adapter:</th><td><%= collection_select(:lib_default, :runtype_adapter, @adapters, :c_value, :c_value) %></td> 
   <th>Project:</th><td><%= collection_select(:lib_default, :project, @projects, :c_value, :c_value,
                            {:include_blank => 'Select Project'}) %></td>
-  <th>Enzyme:</th><td><%= collection_select(:sample_default, :enzyme, @enzymes, :c_value, :c_value, 
+  <th>Enzyme:</th><td><%= collection_select(:sample_default, :enzyme_code, @enzymes, :c_value, :c_value, 
                            {:include_blank => 'Select Enzyme'}) %></td>
 </tr>
 <tr> 

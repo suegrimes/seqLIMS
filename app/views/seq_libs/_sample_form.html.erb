@@ -43,6 +43,7 @@
     <th>Library Conc</th>
 	<th>Align Ref</th>
 	<th>Trim Bases</th> 
+	<th>Enzyme</th>
 </tr>
 <tr>
     <td></td>       
@@ -51,6 +52,7 @@
 	<td><%= f.text_field(:lib_conc_requested, :size => 8)%>pM</td>
     <td><%= f.collection_select(:alignment_ref_id, @align_refs, :id, :alignment_key) %></td>
 	<td><%= f.text_field(:trim_bases, :size => 6) %></td>
+	<td><%= s.collection_select(:enzyme_code, @enzymes, :c_value, :c_value, {:include_blank => 'Select Enzyme'}) %></td>
 </tr>
 <tr>
   <th class="right">Notebook Ref:</th>
