@@ -210,6 +210,7 @@
 		<% end %>
 		
 		<% if user_has_access?(user_roles, ["researcher", "lab_admin", "alignment"])%>
+		<li><%= link_to 'Seq Machines', seq_machines_path %></li>
 		<li><%= link_to 'Disks/Directories', storage_devices_path %></li>
 		<% end %>		
 		

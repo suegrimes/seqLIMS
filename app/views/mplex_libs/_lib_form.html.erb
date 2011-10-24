@@ -7,26 +7,25 @@
   <th>Owner:</th><td><%= f.select(:owner, @owners) %></td>
 </tr>
 <tr>
-  <th>Lib Name:</th><td><%= f.text_field :lib_name, :size => 15 %></td>
+  <th>Lib Name:</th><td><%= f.text_field(:lib_name, :size => 15) %></td>
   <th>Adapter:</th><td><%= f.collection_select(:runtype_adapter, @adapters, :c_value, :c_value) %></td>
   <th>Protocol:</th><td><%= f.collection_select(:protocol_id, @protocols, :id, :protocol_name,
                              {:include_blank => 'Select Protocol'}) %></td> 						  	  		
 </tr>
 <tr>
-  <th>Quantitation:</th><td><%= f.collection_select(:quantitation_method, @quantitation, :c_value, :c_value, 
-                             {:include_blank => 'Select Method'}) %></td>							 	
-  <th>Size(Final PCR)</th><td><%= f.text_field :pcr_size, :size => 12 %></td>
-  <th>Sample Conc:</th><td><%= f.text_field :sample_conc, :size => 10 %>&nbsp;ng/ul </td>  
+  <th>PCR Size:</th><td><%= f.text_field(:pcr_size, :size => 6) %></td>  
+  <th>Sample Conc:</th><td><%= f.text_field(:sample_conc, :size => 10) %>&nbsp;ng/ul </td>
+  <th>Lib Conc(requested):</th><td><%= f.text_field(:lib_conc_requested, :size => 10) %>&nbsp;pM</td>  
 </tr>
 <tr> 
-  <th>Lib Conc(requested):</th><td><%= f.text_field :lib_conc_requested, :size => 10 %>&nbsp;pM</td> 
+  
   <th>Align Ref:</th><td><%= f.collection_select(:alignment_ref_id, @align_refs, :id, :alignment_key) %></td>
-  <th>Trim Bases:</th><td><%= f.text_field :trim_bases, :size => 6 %></td> 
-  				 								 								   
+  <th>Trim Bases:</th><td><%= f.text_field(:trim_bases, :size => 6) %></td> 
+  <th>Project:</th><td><%= f.collection_select(:project, @projects, :c_value, :c_value,
+                             {:include_blank => 'Select Project'}) %></td>	  				 								 								   
 </tr>
 <tr>
-  <th>Project:</th><td><%= f.collection_select(:project, @projects, :c_value, :c_value,
-                             {:include_blank => 'Select Project'}) %></td>	
+  
   <th>Notebook Ref:</th><td colspan="3"><%= f.text_field :notebook_ref %></td>
 </tr>
 <tr>

@@ -25,13 +25,13 @@ class MplexLibsController < ApplicationController
     
     # Get sequencing libraries based on parameters entered
     @condition_array = define_lib_conditions(params)
-    @singleplex_libs = SeqLib.find(:all, :include => {:lib_samples => :processed_sample},
+    @singleplex_libs = SeqLib.find(:all, :include => [:mlib_samples, {:lib_samples => :processed_sample}],
                                    :conditions => @condition_array,
                                    :order => 'barcode_key, lib_name')
                                    
     # Populate lib_samples based on data in each sequencing library
     @lib_samples = []
-    @singleplex_libs.reject!{|s_lib| s_lib.lib_samples[0].nil?}
+    @singleplex_libs.reject!{|s_lib| !s_lib.mlib_samples.empty?} #Exclude if already included in a multiplex library
     
     @singleplex_libs.each_with_index do |s_lib, i|
       @lib_samples[i] = LibSample.new(:processed_sample_id => s_lib.lib_samples[0].processed_sample_id,
@@ -44,6 +44,7 @@ class MplexLibsController < ApplicationController
     end     
     
     render :action => 'new'
+ #    render :action => 'debug'
   end
   
   # GET /mplex_libs/1/edit
@@ -75,7 +76,7 @@ class MplexLibsController < ApplicationController
     
     if @seq_lib.save
       flash[:notice] = 'Multiplex library successfully created'
-      redirect_to :action => :show, :id => @seq_lib.id
+      redirect_to(@seq_lib)
      
     else
       flash.now[:error] = 'ERROR - Unable to create multiplex library'
@@ -133,7 +134,8 @@ protected
   end
   
   def define_lib_conditions(params)
-    @where_select = []; @where_values = []
+    @where_select = ["seq_libs.library_type = 'S'"] 
+    @where_values = []
     
     if params[:seq_lib] 
       if !param_blank?(params[:seq_lib][:owner])
@@ -160,14 +162,8 @@ protected
     date_fld = 'seq_libs.preparation_date'
     @where_select, @where_values = sql_conditions_for_date_range(@where_select, @where_values, params, date_fld)
     
-    # Include control libraries, irrespective of other parameters entered
-    if @where_select.length > 0
-      @where_string = "seq_libs.lib_status = 'C' OR (" + @where_select.join(' AND ') + ")"
-    else
-      @where_string = "seq_libs.lib_status = 'C'"
-    end
-    
-    return [@where_string] | @where_values
+    sql_where_clause = (@where_select.length == 0 ? [] : [@where_select.join(' AND ')].concat(@where_values))
+    return sql_where_clause
   end
   
 end 

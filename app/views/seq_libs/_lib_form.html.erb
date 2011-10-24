@@ -12,7 +12,7 @@
   <th>Project:</th><td><%= collection_select(:lib_default, :project, @projects, :c_value, :c_value,
                            {:include_blank => 'Select Project'}) %></td>
   <th>Enzyme:</th><td><%= collection_select(:sample_default, :enzyme_code, @enzymes, :c_value, :c_value, 
-                           {:include_blank => 'Select Enzyme'}) %></td>
+                           {:include_blank => 'Select Enzyme'}, {:size => 3, :multiple => :multiple}) %></td>
 </tr>
 <tr> 
   <th>Source DNA/RNA:</th><td><%= text_field_with_auto_complete :sample_default, :source_DNA, {:size => 12},

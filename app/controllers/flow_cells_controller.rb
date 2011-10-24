@@ -39,9 +39,14 @@ class FlowCellsController < ApplicationController
     
     # Get sequencing libraries based on parameters entered
     @condition_array = define_lib_conditions(params)
-    @seq_libs        = SeqLib.find(:all, :conditions => @condition_array,
+    @seq_libs        = SeqLib.find(:all, :include => :mlib_samples, :conditions => @condition_array,
                                    :order => 'lib_status, lib_name')
                                    
+    # Exclude sequencing libraries which have been included in one or more multiplex libraries
+    if params[:excl_used] && params[:excl_used] == 'Y'  
+      @seq_libs.reject!{|seq_lib| !seq_lib.mlib_samples.empty?}
+    end
+    
     # Populate flow lanes for each sequencing library
     @flow_lanes = []
     @seq_libs.each_with_index do |lib, i|
