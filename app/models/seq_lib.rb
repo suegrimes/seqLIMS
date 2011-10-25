@@ -60,7 +60,7 @@ class SeqLib < ActiveRecord::Base
         errors.add(:barcode_key, "must start with 'L'") if barcode_key[0,1] != 'L'
       end
       errors.add(:pcr_size,    "must be entered")     if pcr_size.blank?
-      errors.add(:sample_conc, "cannot be > 10nM")    if library_type == 'S' && (!sample_conc.nil? && sample_conc_uom == 'nM' && sample_conc > 10) 
+      errors.add(:sample_conc, "must be entered")     if sample_conc.blank?  
     elsif !barcode_key.nil?
       errors.add(:barcode_key, "must start with 'L'") if !['L','X'].include?(barcode_key[0,1])
     end
@@ -70,7 +70,8 @@ class SeqLib < ActiveRecord::Base
         errors.add(:barcode_key, "must be numeric after the 'L'") 
       end
     end
-    errors.add(:sample_conc, "must be entered")     if library_type == 'S' && sample_conc.blank?
+    
+    errors.add(:sample_conc, "cannot be > 10nM")    if (!sample_conc.nil? && sample_conc_uom == 'nM' && sample_conc > 10)    
   end
   
   def owner_abbrev
