@@ -28,11 +28,12 @@ class MplexLibsController < ApplicationController
     @singleplex_libs = SeqLib.find(:all, :include => [:mlib_samples, {:lib_samples => :processed_sample}],
                                    :conditions => @condition_array,
                                    :order => 'barcode_key, lib_name')
+    if params[:excl_used] && params[:excl_used] == 'Y'
+      @singleplex_libs.reject!{|s_lib| !s_lib.mlib_samples.empty?} #Exclude if already included in a multiplex library
+    end
                                    
     # Populate lib_samples based on data in each sequencing library
-    @lib_samples = []
-    @singleplex_libs.reject!{|s_lib| !s_lib.mlib_samples.empty?} #Exclude if already included in a multiplex library
-    
+    @lib_samples = []    
     @singleplex_libs.each_with_index do |s_lib, i|
       @lib_samples[i] = LibSample.new(:processed_sample_id => s_lib.lib_samples[0].processed_sample_id,
                                       :sample_name         => s_lib.lib_samples[0].sample_name,
