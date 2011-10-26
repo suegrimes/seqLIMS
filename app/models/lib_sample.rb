@@ -27,8 +27,17 @@ class LibSample < ActiveRecord::Base
   validates_presence_of :sample_name
   validates_presence_of :runtype_adapter, :if => Proc.new {|s| !s.seq_lib_id.nil? }
   validates_presence_of :index_tag, :if => Proc.new{|s| s.runtype_adapter[0,1] == 'M'}, :message => 'must be supplied for multiplex adapters'
-  validates_numericality_of :index_tag, :only_integer => true, :allow_blank => true, :message => 'must be an integer'
+  #validates_numericality_of :index_tag, :only_integer => true, :allow_blank => true, :message => 'must be an integer'
   #validates_format_of :index_tag, :with => /^\d+$/, :allow_blank => true, :message => "must be an integer"
+  #validates_inclusion_of :index_tag, :in => 1..12, :if => Proc.new{|s| s.runtype_adapter[0,1] == 'M'},
+  #                       :message => 'must be between 1 and 12'
+   
+  def validate
+    max_tags = (runtype_adapter == 'M_PE_Illumina' ? SeqLib::MILLUMINA_SAMPLES : SeqLib::MULTIPLEX_SAMPLES)
+    if runtype_adapter == 'M_PE' && !index_tag.nil?
+      errors.add(:index_tag, "must be in range 1 - #{max_tags} for #{runtype_adapter} adapter") if (index_tag < 1 || index_tag > max_tags)
+    end  
+  end
   
   def source_sample_name
     return source_DNA
