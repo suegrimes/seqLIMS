@@ -59,39 +59,47 @@ class MplexLibsController < ApplicationController
     @seq_lib[:library_type] = 'M'
     @seq_lib[:alignment_ref] = AlignmentRef.get_align_key(params[:seq_lib][:alignment_ref_id])
     
-    params[:lib_samples].each do |lib_sample|
-      next if param_blank?(lib_sample[:splex_lib_id])
-      
-      s_lib = SeqLib.find(lib_sample[:splex_lib_id], :include => :lib_samples)
-      slib_sample = {:processed_sample_id => s_lib.lib_samples[0].processed_sample_id,
-                     :sample_name         => s_lib.lib_samples[0].sample_name,
-                     :source_DNA          => s_lib.lib_samples[0].source_DNA,
-                     :runtype_adapter     => s_lib.lib_samples[0].runtype_adapter,
-                     :index_tag           => s_lib.lib_samples[0].index_tag,
-                     :enzyme_code         => s_lib.lib_samples[0].enzyme_code,
-                     :splex_lib_id        => s_lib.id,
-                     :splex_lib_barcode   => s_lib.barcode_key,
-                     :notes               => lib_sample[:notes]}
-      @seq_lib.lib_samples.build(slib_sample)
-    end
-    
-    if @seq_lib.save
-      flash[:notice] = 'Multiplex library successfully created'
-      redirect_to(@seq_lib)
-     
+    slib_ids = params[:lib_samples].collect{|lsample| lsample[:splex_lib_id] if !param_blank?(lsample[:splex_lib_id])}
+    splex_libs = SeqLib.find(:all, :include => :lib_samples, :conditions => ['seq_libs.id IN (?)', slib_ids])
+   
+    slib_tags = splex_libs.collect{|slib| slib.lib_samples[0].index_tag }  
+    if slib_tags.size > slib_tags.uniq.size
+      flash[:notice] = 'Duplicate index tags'
     else
-      flash.now[:error] = 'ERROR - Unable to create multiplex library'
-      slib_ids = params[:lib_samples].collect{|lib_sample| lib_sample[:splex_lib_id] if !param_blank?(lib_sample[:splex_lib_id])}
-      @singleplex_libs = SeqLib.find(:all, :conditions => ['id IN (?)', slib_ids])
-      #@singleplex_libs.reject!{|s_lib| s_lib.lib_samples[0].nil?}
-      
-      @lib_samples = []
-      @singleplex_libs.each_with_index do |s_lib, i|
-        @lib_samples[i] = LibSample.new(s_lib.lib_samples[0].attributes) 
-      end
-      dropdowns
-      render :action => 'new'
+      flash[:notice] = 'All index tags are unique'
     end
+    render :action => 'debug'
+    
+#    splex_libs.each do |s_lib|
+#      slib_sample = {:processed_sample_id => s_lib.lib_samples[0].processed_sample_id,
+#                     :sample_name         => s_lib.lib_samples[0].sample_name,
+#                     :source_DNA          => s_lib.lib_samples[0].source_DNA,
+#                     :runtype_adapter     => s_lib.lib_samples[0].runtype_adapter,
+#                     :index_tag           => s_lib.lib_samples[0].index_tag,
+#                     :enzyme_code         => s_lib.lib_samples[0].enzyme_code,
+#                     :splex_lib_id        => s_lib.id,
+#                     :splex_lib_barcode   => s_lib.barcode_key,
+#                     :notes               => lib_sample[:notes]}
+#      @seq_lib.lib_samples.build(slib_sample)
+#    end
+#    
+#    if @seq_lib.save
+#      flash[:notice] = 'Multiplex library successfully created'
+#      redirect_to(@seq_lib)
+#     
+#    else
+#      flash.now[:error] = 'ERROR - Unable to create multiplex library'
+#      slib_ids = params[:lib_samples].collect{|lib_sample| lib_sample[:splex_lib_id] if !param_blank?(lib_sample[:splex_lib_id])}
+#      @singleplex_libs = SeqLib.find(:all, :conditions => ['id IN (?)', slib_ids])
+#      #@singleplex_libs.reject!{|s_lib| s_lib.lib_samples[0].nil?}
+#      
+#      @lib_samples = []
+#      @singleplex_libs.each_with_index do |s_lib, i|
+#        @lib_samples[i] = LibSample.new(s_lib.lib_samples[0].attributes) 
+#      end
+#      dropdowns
+#      render :action => 'new'
+#    end
   end
 
   # PUT /mplex_libs/1
