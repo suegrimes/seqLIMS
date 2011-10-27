@@ -11,11 +11,6 @@ class MplexLibsController < ApplicationController
                            :runtype_adapter => 'M_PE')
   end
   
-  # GET /mplex_libs/1
-  def show
-    @seq_lib = SeqLib.find(params[:id], :include => :lib_samples)
-  end
- 
   def new
     @requester = (current_user.researcher ? current_user.researcher.researcher_name : nil)
     @seq_lib   = SeqLib.new(:library_type => 'M',
@@ -55,7 +50,7 @@ class MplexLibsController < ApplicationController
   end
 
   # POST /mplex_libs
-  def create_mplex
+  def create
     @seq_lib       = SeqLib.new(params[:seq_lib])
     @seq_lib[:library_type] = 'M'
     @seq_lib[:alignment_ref] = AlignmentRef.get_align_key(params[:seq_lib][:alignment_ref_id])
@@ -87,11 +82,12 @@ class MplexLibsController < ApplicationController
         flash.now[:error] = 'ERROR - Unable to create multiplex library'
       end
       
-    elsif splex_libs.size < 2   #Index tags are not unique
-      flash.now[:error] = 'ERROR - Duplicate index tags entered for this multiplex library'
-      error_found = true 
-    elsif slib_tags.size > slib_tags.uniq.size
+    elsif splex_libs.size < 2   #Index tags are not unique     
       flash.now[:error] = 'ERROR - Only one sequencing library selected for multiplexing'
+      error_found = true 
+      
+    elsif slib_tags.size > slib_tags.uniq.size
+      flash.now[:error] = 'ERROR - Duplicate index tags entered for this multiplex library'
       error_found = true
     end
      
@@ -114,9 +110,12 @@ class MplexLibsController < ApplicationController
   # PUT /mplex_libs/1
   def update
     @seq_lib = SeqLib.find(params[:id])
-      
+    alignment_key = AlignmentRef.get_align_key(params[:seq_lib][:alignment_ref_id])
+    params[:seq_lib].merge!(:alignment_ref => alignment_key)
+     
     if @seq_lib.update_attributes(params[:seq_lib])
-      flash[:notice] = 'Sequencing Library was successfully updated'
+      FlowLane.upd_lib_lanes(@seq_lib)
+      flash[:notice] = 'Multiplex library was successfully updated'
       redirect_to(@seq_lib) 
       
     else
@@ -130,7 +129,7 @@ class MplexLibsController < ApplicationController
   def destroy
     @seq_lib = SeqLib.find(params[:id])
     @seq_lib.destroy
-    flash[:notice] = 'Sequencing library successfully updated'
+    flash[:notice] = 'Multiplex sequencing library successfully deleted'
     redirect_to seq_libs_url
   end
   

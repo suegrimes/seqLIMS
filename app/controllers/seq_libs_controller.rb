@@ -120,6 +120,7 @@ class SeqLibsController < ApplicationController
       flash[:notice] = 'Sequencing library was successfully updated.'
       redirect_to(@seq_lib) 
     else
+      flash[:error] = 'ERROR - Unable to update sequencing library'
       dropdowns
       render :action => 'edit' 
     end
