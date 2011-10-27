@@ -4,33 +4,31 @@
 <tr>
   <th>Barcode</th><td><% if @seq_lib.dummy_barcode == false %><%= f.text_field :barcode_key, :size => 10 %><% else %><%=h @seq_lib.lib_barcode %><% end %></td>
   <th>Lib Name</th><td><%= f.text_field :lib_name, :size => 20 %></td>
-  <th>Prep Date</th><td><%= f.calendar_date_select(:preparation_date, :size => 15) %></td>
+  <th>Adapter</th><td><%= f.collection_select(:runtype_adapter, @adapters, :c_value, :c_value) %></td>
 </tr>
 <tr>
+  <th>Prep Date</th><td><%= f.calendar_date_select(:preparation_date, :size => 15) %></td>
   <th>Owner</th<td><%= f.select(:owner, @owners, :include_blank => "Select..") %></td>
   <th>Protocol</th><td><%= f.collection_select(:protocol_id, @protocols, :id, :protocol_name,
                              {:include_blank => 'Select Protocol'}) %></td>
 </tr>
 <tr>
-  <th>Adapter</th><td><%= f.collection_select(:runtype_adapter, @adapters, :c_value, :c_value) %></td>
-  <th>Align Ref</th><td><%= f.collection_select(:alignment_ref_id, @align_refs, :id, :alignment_key) %></td>
-  <th>Trim Bases</th><td><%= f.text_field(:trim_bases, :size => 6) %></td>
-</tr>
-<tr>
   <th>Size(Final PCR)</th><td><%= f.text_field(:pcr_size, :size => 6) %></td>
   <th>Quantitation</th><td><%= f.collection_select(:quantitation_method, @quantitation, :c_value, :c_value, 
                            {:include_blank => 'Select Method'}) %></td>
-  <th>Sample Conc</th><td><%= f.text_field(:sample_conc, :value => number_with_precision(@seq_lib.sample_conc, :precision => 2), :size => 12)%>
+  <th>Sample Conc</th><td><%= f.text_field(:sample_conc, :value => format_conc(@seq_lib.sample_conc, nil), :size => 6)%>
       <% if @seq_lib.dummy_barcode == false %><%=h @seq_lib.sample_conc_uom %><% else %> nM <% end %></td>
 </tr>
 <tr>
-  <th>Lib Conc</th><td><%= f.text_field(:lib_conc_requested, :value => number_with_precision(@seq_lib.lib_conc_requested, :precision => 2), :size => 8) %>pM</td>
-  <th>Notebook Ref</th><td><%= f.text_field :notebook_ref %></td>
+  <th>Lib Conc</th><td><%= f.text_field(:lib_conc_requested, :value => format_conc(@seq_lib.lib_conc_requested, nil), :size => 6) %>&nbsp;pM</td>
+  <th>Align Ref</th><td><%= f.collection_select(:alignment_ref_id, @align_refs, :id, :alignment_key) %></td>
+  <th>Trim Bases</th><td><%= f.text_field(:trim_bases, :size => 6) %></td>
 </tr>
-<tr>
+<tr> 
+  <th>Notebook Ref</th><td><%= f.text_field :notebook_ref %></td>
   <th>Project</th><td><%= f.collection_select(:project, @projects, :c_value, :c_value,
                              {:include_blank => 'Select Project'}) %></td>
-</tr>  
+</tr> 
 <tr>
   <th>Notes: </th><td colspan=4><%= f.text_field :notes, :size => 80 %></td>
 </tr>

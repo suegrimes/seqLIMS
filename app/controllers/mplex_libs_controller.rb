@@ -21,6 +21,7 @@ class MplexLibsController < ApplicationController
     @seq_lib   = SeqLib.new(:library_type => 'M',
                             :owner => @requester,
                             :preparation_date => Date.today,
+                            :runtype_adapter => params[:seq_lib][:runtype_adapter],
                             :alignment_ref_id => AlignmentRef.default_id)
     
     # Get sequencing libraries based on parameters entered
@@ -68,7 +69,7 @@ class MplexLibsController < ApplicationController
     error_found = false
     slib_tags = splex_libs.collect{|slib| slib.lib_samples[0].index_tag } 
     
-    if slib_tags.size == slib_tags.uniq.size  # All index tags are unique
+    if splex_libs.size > 1 && slib_tags.size == slib_tags.uniq.size # More than 1 library selected; All index tags are unique, 
       splex_libs.each do |s_lib|
         slib_notes = slib_params.assoc(s_lib.id)[1] #Find params array entry for this seq_lib.id, and extract notes field 
         @seq_lib.lib_samples.build(:processed_sample_id => s_lib.lib_samples[0].processed_sample_id,
@@ -86,9 +87,12 @@ class MplexLibsController < ApplicationController
         flash.now[:error] = 'ERROR - Unable to create multiplex library'
       end
       
-    else   #Index tags are not unique
+    elsif splex_libs.size < 2   #Index tags are not unique
       flash.now[:error] = 'ERROR - Duplicate index tags entered for this multiplex library'
       error_found = true 
+    elsif slib_tags.size > slib_tags.uniq.size
+      flash.now[:error] = 'ERROR - Only one sequencing library selected for multiplexing'
+      error_found = true
     end
      
     if error_found    
