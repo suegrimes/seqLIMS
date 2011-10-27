@@ -62,7 +62,7 @@ class FlowCellsController < ApplicationController
   def edit
     @flow_cell = FlowCell.find(params[:id], :include => {:flow_lanes => :seq_lib}, 
                                :order => 'flow_lanes.lane_nr')
-    @partial_flowcell = (@flow_cell.flow_lanes.size < FlowCell::NR_LANES ? 'Y' : 'N')
+    @partial_flowcell = (@flow_cell.flow_lanes.size < FlowCell::NR_LANES[@flow_cell.machine_type.to_sym] ? 'Y' : 'N')
   end
 
   # POST /flow_cells
@@ -75,17 +75,14 @@ class FlowCellsController < ApplicationController
     @flow_cell       = FlowCell.new(params[:flow_cell])
     
     lane_nrs = non_blank_lane_nrs(non_blank_lanes(params[:flow_lane]))  # Array of lane#s which are non-blank
-    lanes_required  = (params[:partial_flowcell] == 'Y'? lane_nrs.size : FlowCell::NR_LANES)
-      
+    machine_type = (param_blank?(params[:flow_cell][:machine_type]) ? FlowCell::DEFAULT_MACHINE_TYPE : params[:flow_cell][:machine_type])
+    max_lane_nr = FlowCell::NR_LANES[machine_type.to_sym]
+    lanes_required  = (params[:partial_flowcell] == 'Y'? lane_nrs.size : max_lane_nr)
+         
     # Validation check to ensure lanes 1-8 entered, and no duplicate lanes
-    lane_errors = validate_lane_nrs(params[:flow_lane], 'create', lanes_required)
+    lane_errors = validate_lane_nrs(params[:flow_lane], 'create', lanes_required, max_lane_nr)
     
-    if param_blank?(params[:flow_cell][:nr_bases_read1])
-      flash[:error] = "ERROR - Please enter number of bases, read 1"
-      prepare_for_render_new(params)
-      render :action => 'new'
-      
-    elsif lane_errors[0] > 0
+    if lane_errors[0] > 0
       flash[:error] = "ERROR - #{lane_errors[1]}"
       prepare_for_render_new(params)
       render :action => 'new'
@@ -184,7 +181,7 @@ protected
     end
   end
   
-  def validate_lane_nrs(lanes, create_or_update, lanes_required = FlowCell::NR_LANES)
+  def validate_lane_nrs(lanes, create_or_update, lanes_required, max_lane_nr = FlowCell::NR_LANES[FlowCell::DEFAULT_MACHINE_TYPE.to_sym])
     errno = 0
     
     if create_or_update == 'create'    
@@ -205,11 +202,11 @@ protected
       when 5
         return [errno, "Lane number must be integer - cannot assign a sequencing library to multiple lanes, after flow cell creation"]
       else
-        return check_for_lane_errors(lane_nrs.collect{|lane| lane.to_i}, lanes_required)
+        return check_for_lane_errors(lane_nrs.collect{|lane| lane.to_i}, lanes_required, max_lane_nr)
     end  
   end
   
-  def check_for_lane_errors(lane_nrs, lanes_required)
+  def check_for_lane_errors(lane_nrs, lanes_required, max_lane_nr)
     nr_entered_lanes = lane_nrs.size
     nr_unique_lanes  = lane_nrs.uniq.size
     
@@ -221,9 +218,9 @@ protected
       errno  = 2
       errmsg = "One or more lane numbers assigned multiple times"
     
-    elsif (lane_nrs.min < 1 || lane_nrs.max > FlowCell::NR_LANES)
+    elsif (lane_nrs.min < 1 || lane_nrs.max > max_lane_nr)
       errno = 3
-      errmsg = "Lane numbers must be integers between 1 and #{FlowCell::NR_LANES}"
+      errmsg = (max_lane_nr == 1 ? "Lane number must be 1" : "Lane numbers must be integers between 1 and #{max_lane_nr}")
       
     else
       errno = 0
@@ -284,7 +281,7 @@ protected
     # flow cell status updated to 'R' to signify ready for sequencing
     params[:flow_cell].merge!(:sequencing_key  => format_seq_key(seq_date_ymd, seq_machine.machine_name, seq_runnr),
                               :seq_machine_id  => seq_machine.id,
-                              :sequencer_type  => seq_machine.machine_type[0,1],
+                              :machine_type    => seq_machine.machine_type,
                               :seq_run_nr      => seq_runnr,
                               :flowcell_status => 'R')
     return params[:flow_cell]

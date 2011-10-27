@@ -6,6 +6,7 @@
 #  flow_cell_id     :integer(4)      not null
 #  seq_lib_id       :integer(4)
 #  sequencing_key   :string(50)
+#  machine_type     :string(10)
 #  sequencer_type   :string(2)
 #  lib_barcode      :string(20)
 #  lib_name         :string(50)
@@ -32,7 +33,7 @@ class FlowLane < ActiveRecord::Base
   
   def self.upd_seq_key(flow_cell)
     cell_attrs = {:sequencing_key => flow_cell.sequencing_key,
-                  :sequencer_type => flow_cell.sequencer_type}
+                  :machine_type   => flow_cell.machine_type}
     flow_lanes = self.find_all_by_flow_cell_id(flow_cell.id)
     self.upd_multi_lanes(flow_lanes, cell_attrs) if flow_lanes
   end

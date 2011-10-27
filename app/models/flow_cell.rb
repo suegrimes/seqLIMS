@@ -15,6 +15,7 @@
 #  seq_machine_id  :integer(4)
 #  seq_run_nr      :integer(2)
 #  sequencer_type  :string(2)
+#  machine_type    :string(10)
 #  hiseq_xref      :string(50)
 #  notes           :string(255)
 #  created_at      :datetime
@@ -22,6 +23,7 @@
 #
 
 class FlowCell < ActiveRecord::Base
+  belongs_to :seq_machine
   has_many :flow_lanes, :dependent => :destroy
   has_many :run_dirs,   :dependent => :destroy
   has_many :attached_files, :as => :sampleproc
@@ -29,13 +31,14 @@ class FlowCell < ActiveRecord::Base
   before_create :set_flowcell_status
   after_update :save_lanes
   
-  validates_presence_of :nr_bases_read1
+  validates_presence_of :machine_type, :nr_bases_read1
   validates_date :flowcell_date, :sequencing_date, :allow_blank => true
   
   named_scope :sequenced,   :conditions => "flowcell_status <> 'F'"
   named_scope :unsequenced, :conditions => "flowcell_status = 'F'"
   
-  NR_LANES = 8
+  DEFAULT_MACHINE_TYPE = 'GAIIx'
+  NR_LANES = {:MiSeq => 1, :GAIIx => 8, :HiSeq => 8}
   STATUS = %w{F R S Q N}
   
   def sequenced?
@@ -43,7 +46,7 @@ class FlowCell < ActiveRecord::Base
   end
   
   def hiseq_run?
-    (sequencer_type == 'H' && !hiseq_xref.blank?)
+    (machine_type == 'HiSeq' && !hiseq_xref.blank?)
   end
   
   def seq_run_key

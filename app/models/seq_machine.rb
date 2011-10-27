@@ -19,6 +19,13 @@ class SeqMachine < ActiveRecord::Base
   
   named_scope :sequencers, :conditions => ['machine_name <> ?', 'Run_Number' ]
   
+  #MACHINE_TYPES = %w{GAIIx HiSeq MiSeq}
+  MACHINE_TYPES = self.sequencers.find(:all, :select => "DISTINCT(machine_type)", :order => :machine_type).map(&:machine_type) 
+  
+  def machine_name_and_type
+    return [machine_name, '(', machine_type, ')']
+  end
+  
   def self.find_and_incr_run_nr
     seq_run_nr = self.find_by_machine_name('Run_Number')
     seq_run_nr.update_attributes(:last_seq_num => seq_run_nr.last_seq_num + 1) 
