@@ -150,6 +150,7 @@ protected
     @projects     = Category.populate_dropdown_for_category('project')
     @owners       = Researcher.populate_dropdown('active_only')
     @protocols    = Protocol.find_for_protocol_type('L')
+    @oligo_pools  = Pool.populate_dropdown
     @quantitation= Category.populate_dropdown_for_category('quantitation')
   end
   

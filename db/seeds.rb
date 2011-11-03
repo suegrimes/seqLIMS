@@ -1,0 +1,113 @@
+data_file_path = File.join(RAILS_ROOT, 'db', 'data_files')
+
+##########################################################################################
+### Populate user and roles tables                                                     ###
+##########################################################################################
+
+# Create initial entries for roles table (unless already exist)
+%w{admin clin_admin clinical researcher lab_admin alignment orders barcodes}.each do |role|
+  Role.find_or_create_by_name(role)
+end
+
+# Create admin user, with admin role (unless already exists)
+if !User.find_by_login('admin')
+  user = User.create(:login => 'admin',
+                     :email => 'youremail@yourdomain.com',
+                     :password => 'LIMS!pswd',
+                     :password_confirmation => 'LIMS!pswd')
+  user.roles << Role.find_by_name('admin')
+  user.save!             
+end
+
+# Create researcher, linked to admin user (unless already exists)
+admin_user = User.find_by_login('admin')
+if admin_user && !Researcher.find_by_user_id(admin_user.id)
+  Researcher.create!(:user_id => admin_user.id,
+                     :researcher_name => 'Admin User',
+                     :researcher_initials => 'AU',
+                     :active_inactive => 'A')
+end
+
+##########################################################################################
+### Populate tables for category drop-down lists                                       ###
+##########################################################################################
+# Truncate all category related tables
+CategoryValue.connection.execute("TRUNCATE TABLE category_values")
+Category.connection.execute("TRUNCATE TABLE categories")
+Cgroup.connection.execute("TRUNCATE TABLE cgroups")
+
+# Populate category groups
+['Clinical', 'Sample', 'Extraction', 'Seq Library', 'Sequencing', 'Pathology', 'Histology', 'Other', 'Orders'].each_with_index do |cgrp, i|
+  Cgroup.create!(:group_name => cgrp, :sort_order => i+1)
+end
+
+# Populate categories
+file_path = File.join(data_file_path, 'categories.txt')
+if FileTest.file?(file_path)
+  File.open(file_path, 'r') do |file|
+    file.read.each_line do |category|
+      cgroup_id, category, category_description = category.chomp.split("\t")
+      Category.create!(:cgroup_id => cgroup_id, 
+                       :category => category,
+                       :category_description => category_description)
+    end
+  end
+end
+
+# Populate category values
+file_path = File.join(data_file_path, 'category_values.txt')
+if FileTest.file?(file_path)
+  File.open(file_path, 'r') do |file|
+    file.read.each_line do |cat_value|
+      @category_name, c_position, c_value = cat_value.chomp.split("\t")
+      if !@category || @category.category != @category_name
+        @category = Category.find_by_category(@category_name)
+      end
+      CategoryValue.create!(:category_id => @category.id, 
+                            :c_position => c_position,
+                            :c_value => c_value)
+    end
+  end
+end
+
+##########################################################################################
+### Populate tables for alignment references, sequencing machines                      ###
+##########################################################################################
+# Truncate alignment reference and sequencing machine tables
+AlignmentRef.connection.execute("TRUNCATE TABLE alignment_refs")
+SeqMachine.connection.execute("TRUNCATE TABLE seq_machines")
+
+# Populate sequencing machines
+%w{Run_Number SG1 SG2}.each do |machine|
+  SeqMachine.create!(:machine_name => machine,
+                     :machine_type => (machine == 'Run_Number' ? nil : 'GAIIx'),
+                     :last_seq_num => (machine == 'Run_Number' ? 0 : nil))
+  end
+  
+# Populate alignment reference(s)
+AlignmentRef.create!(:alignment_key => 'HWG_37.1',
+                     :genome_build => '37.1')
+                     
+##########################################################################################
+### Populate tables for sample storage locations                                       ###
+##########################################################################################
+# Truncate storage location tables
+StorageLocation.connection.execute("TRUNCATE TABLE storage_locations")
+
+StorageLocation.create!(:room_nr => '123',
+                        :freezer_nr => '1')
+                        
+##########################################################################################
+### Populate tables for sequencing data disks/directories                              ###
+##########################################################################################
+StorageDevice.connection.execute("TRUNCATE TABLE storage_devices")
+
+StorageDevice.create!(:device_name => 'Disk1',
+                      :building_loc => 'Building1',
+                      :base_run_dir => '/')
+
+# Consent Protocols
+
+# Assay Protocols
+
+# Multiplex Tags
