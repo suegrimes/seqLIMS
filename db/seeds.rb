@@ -91,7 +91,6 @@ AlignmentRef.create!(:alignment_key => 'HWG_37.1',
 ##########################################################################################
 ### Populate tables for sample storage locations                                       ###
 ##########################################################################################
-# Truncate storage location tables
 StorageLocation.connection.execute("TRUNCATE TABLE storage_locations")
 
 StorageLocation.create!(:room_nr => '123',
@@ -106,8 +105,48 @@ StorageDevice.create!(:device_name => 'Disk1',
                       :building_loc => 'Building1',
                       :base_run_dir => '/')
 
-# Consent Protocols
+##########################################################################################
+### Populate tables for consent protocols                                              ###
+##########################################################################################
+StorageDevice.connection.execute("TRUNCATE TABLE consent_protocols")
 
-# Assay Protocols
+%w{['NA', 'Anonymous Sample'], ['1123', 'Consent Protocol']}.each do |consent|
+  ConsentProtocol.create!(:consent_nr   => consent[0],
+                          :consent_name => consent[1],
+                          :consent_abbrev => consent[1])
+end
 
-# Multiplex Tags
+##########################################################################################
+### Populate tables for assay protocols                                                ###
+##########################################################################################
+Protocol.connection.execute("TRUNCATE TABLE protocols")
+
+file_path = File.join(data_file_path, 'protocols.txt')
+if FileTest.file?(file_path)
+  File.open(file_path, 'r') do |file|
+    file.read.each_line do |protocol|
+      name, abbrev, ptype, pcode = protocol.chomp.split("\t")
+      Protocol.create!(:protocol_name   => name, 
+                       :protocol_abbrev => abbrev,
+                       :protocol_type   => ptype,
+                       :protocol_code   => pcode)
+    end
+  end
+end
+
+##########################################################################################
+### Populate tables for multiplex tags                                                 ###
+##########################################################################################
+IndexTag.connection.execute("TRUNCATE TABLE index_tags")
+
+file_path = File.join(data_file_path, 'index_tags.txt')
+if FileTest.file?(file_path)
+  File.open(file_path, 'r') do |file|
+    file.read.each_line do |index_tag|
+      adapter, tag_nr, sequence = index_tag.chomp.split("\t")
+      IndexTag.create!(:runtype_adapter => adapter, 
+                       :tag_nr          => tag_nr,
+                       :tag_sequence    => sequence)
+    end
+  end
+end
