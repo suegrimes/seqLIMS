@@ -1,0 +1,185 @@
+clinic	1	Lucille-Packard Ped. Oncology Service
+clinic	2	Stanford Cancer Genetics
+clinic	3	Stanford Medical Oncology Service
+clinic	4	Stanford Gastroenterology Service
+clinic	5	Stanford Radiation Oncology Service
+clinic	6	Stanford Surgical Service
+clinic	7	Stanford Thoracic Oncology Division
+clinic	8	Stanford Tissue Bank - Frozen
+clinic	9	Veterans Affairs Oncology
+clinic	10	Veterans Affairs Surgical Service
+clinic	11	NCCC
+clinic	12	NCCC/John Muir
+clinic	13	Outside Laboratory
+clinic	99	Other
+ethnicity	1	[Unknown]
+ethnicity	2	Non-Hispanic/Non-Latino
+ethnicity	3	Hispanic/Latino
+race	1	[Unknown]
+race	2	White
+race	3	Black/African American
+race	4	Asian
+race	5	American Indian/Alaska Native
+race	6	Native Hawaiian/Pacific Islander
+sample type	1	[Unknown]
+sample type	2	Tissue
+sample type	4	Peripheral Blood
+sample type	5	Core Biopsy
+sample type	6	Urine
+sample type	7	Cell Line
+sample type	8	Fine Needle Aspirate
+sample type	9	Pap Smear
+sample type	10	Ductal Lavage
+sample type	11	[Other]
+source tissue	1	[Unknown]
+source tissue	2	Arm
+source tissue	3	Anal
+source tissue	4	Brain
+source tissue	5	Breast
+source tissue	6	Cecum
+source tissue	7	Colon
+source tissue	8	Duodenum
+source tissue	9	Gallbladder
+source tissue	10	Gastric
+source tissue	11	Liver
+source tissue	12	Myometrium
+source tissue	13	Ovarian
+source tissue	14	Pancreatic
+source tissue	15	Rectal
+source tissue	16	Small Intestine
+source tissue	17	Upper GI
+source tissue	18	Wrist
+source tissue	20	Peritoneum
+source tissue	121	[Other]
+tissue preservation	1	Fresh
+tissue preservation	2	Fresh Frozen
+tissue preservation	3	Formalin-Fixed
+sample unit	1	NA/Other
+sample unit	2	Vial
+sample unit	3	Block
+sample unit	4	Bag
+tumor_normal	1	[Unknown]
+tumor_normal	2	Normal
+tumor_normal	3	Tumor
+tumor_normal	4	Leukemia
+tumor_normal	5	Colitis - ulcerative
+tumor_normal	6	Colitis - Crohn's
+tumor_normal	7	[Other]
+unit of measure	1	Volume (ml)
+unit of measure	2	Weight (mg)
+unit of measure	3	Vial
+unit of measure	4	Block
+unit of measure	5	Bag
+unit of measure	6	Nr of cells
+vial type	1	EDTA (purple top)
+vial type	2	Heparin (green top)
+vial type	3	Serum (red top)
+vial type	4	Falcon
+vial type	5	Disk
+vial type	6	Other
+vial volume	1	2ml
+vial volume	2	1.5ml
+vial volume	3	3ml
+vial volume	4	15ml
+vial volume	5	50ml
+vial volume	6	Bag
+elution buffer	1	TB
+elution buffer	2	H2O
+extraction type	1	Genomic DNA
+extraction type	2	ChIP DNA
+extraction type	3	Meth DNA
+extraction type	4	TotalRNA
+extraction type	5	MiRNA
+extraction type	6	Nucleic Acid
+extraction type	7	Protein
+support	1	Solution
+support	2	Lyophilized
+library type	1	DNA Seq Lib - Whole Genome
+library type	2	DNA Seq Lib - Targeted
+library type	3	DNA Seq Lib - ChIP
+library type	4	RNA Seq Lib
+library type	4	PCR Product
+library type	5	Control
+protocol type	1	D- Dissection
+protocol type	2	E- Extraction
+protocol type	3	M- Molecular Assay
+protocol type	4	L- Library Prep
+protocol type	5	A- Analysis
+quantitation	1	Q-PCR
+quantitation	2	Gel
+quantitation	3	BioAnalyzer
+quantitation	4	Sybr Dye
+quantitation	5	Nanodrop
+cluster kit	1	V5
+cluster kit	2	V4
+cluster kit	3	V2
+cluster kit	4	V3_cBOT_HS
+enzyme	1	All
+enzyme	2	MseI
+enzyme	3	BfaI
+enzyme	4	CviQI
+enzyme	5	DpnII
+project	1	OSSEQ
+project	1	whole_genome
+project	2	106gene
+project	3	96gene
+project	4	lymphoma50
+project	5	lymphoma25
+project	6	cancer10
+project	7	leukemia
+project	8	H1N1
+project	9	breastcancer
+project	10	other
+project	11	NA
+run_type	1	S_SR
+run_type	2	S_PE
+run_type	4	M_PE
+run_type	5	M_PE_Illumina
+run_type	6	M_SR
+run_type	7	M_7BR1
+sequencing kit	1	V5
+sequencing kit	2	V4
+sequencing kit	3	V3
+sequencing kit	4	V3_HS_50
+sequencing kit	5	V3_HS_200
+pathology	1	Malignant
+pathology	2	Pre-Malignant
+pathology	5	Benign
+pathology dx	1	AdenoCA
+pathology dx	2	AdenoCA: Colon/Rectum
+pathology dx	3	Adenoma
+pathology dx	4	IBD
+pathology dx	5	Dysplasia
+pathology dx	6	Other-Benign
+pathology dx	7	Other-Malignant
+pathology dx	8	Other-PreMalignant
+tumor stage	1	0
+tumor stage	2	1
+tumor stage	3	2A
+tumor stage	4	2B
+tumor stage	5	2C
+tumor stage	6	3A
+tumor stage	7	3B
+tumor stage	8	3C
+tumor stage	9	4
+tumor_M	1	0
+tumor_M	2	1
+tumor_M	3	X
+tumor_N	1	0
+tumor_N	2	1
+tumor_N	3	2
+tumor_N	4	3
+tumor_N	5	4
+tumor_N	6	X
+tumor_T	1	0, is
+tumor_T	2	1
+tumor_T	3	2
+tumor_T	4	3
+tumor_T	5	4
+tumor_T	6	X
+inflammation infiltration	1	Absent
+inflammation infiltration	2	Mild
+inflammation infiltration	3	Moderate
+inflammation infiltration	4	High
+inflammation type	1	Chronic
+inflammation type	2	Acute

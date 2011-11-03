@@ -35,4 +35,5 @@ class Pool < ActiveRecord::Base
   def self.populate_dropdown
     return self.find(:all, :order => "tube_label")
   end
+
 end
