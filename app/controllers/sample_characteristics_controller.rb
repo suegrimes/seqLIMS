@@ -69,8 +69,8 @@ class SampleCharacteristicsController < ApplicationController
       
       # Sample Characteristic successfully saved => send emails
       sample = new_sample_entered(@sample_characteristic.id, params[:sample_characteristic])
-      email  = send_email(sample, @patient.mrn, current_user) if !sample.nil? && LimsMailer::MAIL_FLAG != 'Dev'
-      if LimsMailer::DELIVER_FLAG  == 'Debug'
+      email  = send_email(sample, @patient.mrn, current_user) unless sample.nil? || EMAIL_CREATE[:samples] == 'None'
+      if EMAIL_DELIVERY[:samples]  == 'Debug'
         render(:text => "<pre>" + email.encoded + "</pre>")
       else
         redirect_to :action => 'show', :id => @sample_characteristic.id, :added_sample_id => @sample_characteristic.samples[-1].id
@@ -130,9 +130,12 @@ class SampleCharacteristicsController < ApplicationController
       # Sample Characteristic successfully saved; send emails if new sample was added
       sample = new_sample_entered(params[:id], params[:sample_characteristic])
       if !sample.nil?
-        email  = send_email(sample, @sample_characteristic.patient.mrn, current_user) if LimsMailer::MAIL_FLAG != 'Dev'
-        #render(:text => "<pre>" + email.encoded + "</pre>")
-        redirect_to :action => 'show', :id => @sample_characteristic.id, :added_sample_id => sample.id
+        email  = send_email(sample, @sample_characteristic.patient.mrn, current_user) unless EMAIL_CREATE[:samples] == 'None'
+        if EMAIL_DELIVERY[:samples] == 'Debug'
+          render(:text => "<pre>" + email.encoded + "</pre>")
+        else
+          redirect_to :action => 'show', :id => @sample_characteristic.id, :added_sample_id => sample.id
+        end
       else
         redirect_to(@sample_characteristic)
       end
@@ -206,10 +209,10 @@ protected
   
 private
   def owner_email(consent_protocol)
-    case LimsMailer::MAIL_FLAG
-      when 'Dev', 'Test1'
+    case EMAIL_CREATE[:samples]
+      when 'None', 'Test'
         return nil
-      when 'Test2', 'Prod'
+      when 'Test1', 'Prod'
         return (consent_protocol && !consent_protocol.email_confirm_to.blank? ? consent_protocol.email_confirm_to : nil)
     end
   end
@@ -228,7 +231,7 @@ private
     consent_protocol = ConsentProtocol.find(sample.sample_characteristic.consent_protocol_id) 
     email = LimsMailer.create_new_sample(sample, mrn, user.login, owner_email(consent_protocol))
     email.set_content_type("text/html")
-    LimsMailer.deliver(email) unless LimsMailer::DELIVER_FLAG == 'Debug'
+    LimsMailer.deliver(email) unless EMAIL_DELIVERY[:samples] == 'Debug'
     return email
   end
   

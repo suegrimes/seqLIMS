@@ -12,7 +12,6 @@
         <%= f.hidden_field(:owner) %>
 	    <%= f.hidden_field(:preparation_date) %>
 	    <%= f.hidden_field(:protocol_id) %>
-		<%= f.hidden_field(:project) %>
 <table class="list">
 <tr>
 	<th>Barcode</th>
@@ -24,7 +23,8 @@
 	<th>Size(Final PCR)</th>
     <th>Library Conc</th>
 	<th>Align Ref</th>
-	<th>Trim Bases</th> 
+	<th>Trim Bases</th>
+    <th>Oligo Pool</th>
 	<th>Enzyme</th>
 </tr>
 <tr>
@@ -39,6 +39,7 @@
 	<td class="dotted_border_bottom"><%= f.text_field(:lib_conc_requested, :size => 6)%>pM</td>
     <td class="dotted_border_bottom"><%= f.collection_select(:alignment_ref_id, @align_refs, :id, :alignment_key) %></td>
 	<td class="dotted_border_bottom"><%= f.text_field(:trim_bases, :size => 6) %></td>
+	<td class="dotted_border_bottom"><%= f.collection_select(:pool_id, @oligo_pools, :id, :tube_label, {:include_blank => 'Select Pool'}) %></td>
 	<td class="dotted_border_bottom"><%= s.text_field(:enzyme_code, :size => 10) %></td>
 </tr>
 <tr>

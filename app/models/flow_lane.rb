@@ -48,6 +48,8 @@ class FlowLane < ActiveRecord::Base
     lib_attrs  = {:lib_barcode      => seq_lib.lib_barcode,
                   :lib_name         => seq_lib.lib_name,
                   :runtype_adapter  => seq_lib.runtype_adapter,
+                  :pool_id          => seq_lib.pool_id,
+                  :oligo_pool       => seq_lib.oligo_pool,
                   :alignment_ref_id => seq_lib.alignment_ref_id,
                   :alignment_ref    => seq_lib.alignment_ref}
                   

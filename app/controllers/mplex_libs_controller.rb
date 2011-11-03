@@ -63,6 +63,13 @@ class MplexLibsController < ApplicationController
     splex_libs = SeqLib.find(:all, :include => :lib_samples, :conditions => ['seq_libs.id IN (?)', slib_ids])  
     error_found = false
     slib_tags = splex_libs.collect{|slib| slib.lib_samples[0].index_tag } 
+    slib_pools = splex_libs.collect{|slib| [slib.pool_id, slib.oligo_pool]}
+    if slib_pools.uniq.size > 1 
+      @seq_lib[:oligo_pool] =  'Multiple'
+    else
+      @seq_lib[:pool_id] = slib_pools[0][0]
+      @seq_lib[:oligo_pool] = slib_pools[0][1]
+    end
     
     if splex_libs.size > 1 && slib_tags.size == slib_tags.uniq.size # More than 1 library selected; All index tags are unique, 
       splex_libs.each do |s_lib|

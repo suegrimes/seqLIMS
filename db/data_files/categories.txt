@@ -13,7 +13,6 @@
 3	extraction type	Eg DNA, RNA, Protein
 3	support	Eg solution or lysophilized
 4	library type	Multiplex or singleplex
-4	protocol type	Protocol Type
 4	quantitation	Quantitation method
 5	cluster kit	Cluster kit version number
 5	enzyme	Restriction enzyme

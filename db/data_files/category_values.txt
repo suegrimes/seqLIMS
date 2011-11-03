@@ -1,15 +1,4 @@
-clinic	1	Lucille-Packard Ped. Oncology Service
-clinic	2	Stanford Cancer Genetics
-clinic	3	Stanford Medical Oncology Service
-clinic	4	Stanford Gastroenterology Service
-clinic	5	Stanford Radiation Oncology Service
-clinic	6	Stanford Surgical Service
-clinic	7	Stanford Thoracic Oncology Division
-clinic	8	Stanford Tissue Bank - Frozen
-clinic	9	Veterans Affairs Oncology
-clinic	10	Veterans Affairs Surgical Service
-clinic	11	NCCC
-clinic	12	NCCC/John Muir
+clinic	1	Default Clinic
 clinic	13	Outside Laboratory
 clinic	99	Other
 ethnicity	1	[Unknown]
@@ -61,9 +50,6 @@ sample unit	4	Bag
 tumor_normal	1	[Unknown]
 tumor_normal	2	Normal
 tumor_normal	3	Tumor
-tumor_normal	4	Leukemia
-tumor_normal	5	Colitis - ulcerative
-tumor_normal	6	Colitis - Crohn's
 tumor_normal	7	[Other]
 unit of measure	1	Volume (ml)
 unit of measure	2	Weight (mg)
@@ -100,11 +86,6 @@ library type	3	DNA Seq Lib - ChIP
 library type	4	RNA Seq Lib
 library type	4	PCR Product
 library type	5	Control
-protocol type	1	D- Dissection
-protocol type	2	E- Extraction
-protocol type	3	M- Molecular Assay
-protocol type	4	L- Library Prep
-protocol type	5	A- Analysis
 quantitation	1	Q-PCR
 quantitation	2	Gel
 quantitation	3	BioAnalyzer
@@ -121,22 +102,12 @@ enzyme	4	CviQI
 enzyme	5	DpnII
 project	1	OSSEQ
 project	1	whole_genome
-project	2	106gene
-project	3	96gene
-project	4	lymphoma50
-project	5	lymphoma25
-project	6	cancer10
-project	7	leukemia
-project	8	H1N1
-project	9	breastcancer
 project	10	other
 project	11	NA
 run_type	1	S_SR
 run_type	2	S_PE
 run_type	4	M_PE
-run_type	5	M_PE_Illumina
 run_type	6	M_SR
-run_type	7	M_7BR1
 sequencing kit	1	V5
 sequencing kit	2	V4
 sequencing kit	3	V3
@@ -145,11 +116,6 @@ sequencing kit	5	V3_HS_200
 pathology	1	Malignant
 pathology	2	Pre-Malignant
 pathology	5	Benign
-pathology dx	1	AdenoCA
-pathology dx	2	AdenoCA: Colon/Rectum
-pathology dx	3	Adenoma
-pathology dx	4	IBD
-pathology dx	5	Dysplasia
 pathology dx	6	Other-Benign
 pathology dx	7	Other-Malignant
 pathology dx	8	Other-PreMalignant
@@ -171,7 +137,7 @@ tumor_N	3	2
 tumor_N	4	3
 tumor_N	5	4
 tumor_N	6	X
-tumor_T	1	0, is
+tumor_T	1	0
 tumor_T	2	1
 tumor_T	3	2
 tumor_T	4	3

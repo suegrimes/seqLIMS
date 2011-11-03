@@ -39,6 +39,18 @@ Rails::Initializer.run do |config|
   # Activate observers that should always be running
   #config.active_record.observers = :cacher, :garbage_collector, :forum_observer
   config.active_record.observers = :user_observer
+  
+  # Configure action mailer
+  config.action_mailer.smtp_settings = {
+             :address => 'smtp.stanford.edu',
+             :port    => 25,
+             :domain  => 'stanford.edu',
+             :tls     => true,
+             :enable_starttls_auto => true,
+#             :authentication => :login,
+#             :user_name => 'sgrimes',
+#             :password  => '[mypswd]'
+             }
 
   # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
   # Run "rake -D time" for a list of tasks for finding time zone names.
