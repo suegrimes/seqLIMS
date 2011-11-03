@@ -2,10 +2,10 @@
 #
 # Table name: molassay_queries
 #
-#  patient_id          :string
-#  from_date           :date
-#  to_date             :date
-#  owner               :string
+#  patient_id :string
+#  from_date  :date
+#  to_date    :date
+#  owner      :string
 #
 
 class MolassayQuery < NoTable

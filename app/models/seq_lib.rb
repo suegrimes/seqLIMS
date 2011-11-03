@@ -12,6 +12,8 @@
 #  preparation_date    :date
 #  runtype_adapter     :string(25)
 #  project             :string(50)
+#  pool_id             :integer(3)
+#  oligo_pool          :string(8)
 #  alignment_ref_id    :integer(4)
 #  alignment_ref       :string(50)
 #  trim_bases          :integer(2)

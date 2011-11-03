@@ -14,6 +14,8 @@
 #  lib_conc         :float(11)
 #  lib_conc_uom     :string(6)
 #  runtype_adapter  :string(20)
+#  pool_id          :integer(3)
+#  oligo_pool       :string(8)
 #  alignment_ref_id :integer(4)
 #  alignment_ref    :string(50)
 #  notes            :string(255)

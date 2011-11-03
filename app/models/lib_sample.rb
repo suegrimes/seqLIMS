@@ -10,7 +10,7 @@
 #  sample_name         :string(50)
 #  source_DNA          :string(50)
 #  runtype_adapter     :string(50)
-#  index_tags          :string(20)
+#  index_tag           :integer(2)
 #  enzyme_code         :string(50)
 #  notes               :string(255)
 #  updated_by          :integer(4)

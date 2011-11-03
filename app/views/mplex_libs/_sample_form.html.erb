@@ -9,6 +9,7 @@
       <td><%=h lib_sample.sample_name %></td>
 	  <td><%=h lib_sample.processed_sample.patient_id if lib_sample.processed_sample %>
       <td><%=h lib_sample.source_sample_name %></td> 
+	  <td><%=h seq_lib.oligo_pool %></td>
 	  <td><%= s.text_field(:notes, :size => 30)%></td>	               
     </tr>
     <% end %> <!--/lib_sample do -->

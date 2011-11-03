@@ -15,7 +15,6 @@
 #  seq_machine_id  :integer(4)
 #  seq_run_nr      :integer(2)
 #  sequencer_type  :string(2)
-#  machine_type    :string(10)
 #  hiseq_xref      :string(50)
 #  notes           :string(255)
 #  created_at      :datetime

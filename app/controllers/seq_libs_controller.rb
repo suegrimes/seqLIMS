@@ -111,8 +111,10 @@ class SeqLibsController < ApplicationController
     @seq_lib = SeqLib.find(params[:id])
     authorize! :update, @seq_lib
     
+    pool_label = Pool.get_pool_label(params[:seq_lib][:pool_id])
     alignment_key = AlignmentRef.get_align_key(params[:seq_lib][:alignment_ref_id])
-    params[:seq_lib].merge!(:alignment_ref => alignment_key)
+    params[:seq_lib].merge!(:alignment_ref => alignment_key,
+                            :oligo_pool => pool_label)
     params[:seq_lib][:lib_samples_attributes]["0"][:runtype_adapter] = params[:seq_lib][:runtype_adapter]
     
     if @seq_lib.update_attributes(params[:seq_lib])
@@ -147,7 +149,7 @@ protected
     @adapters     = Category.populate_dropdown_for_category('run_type')
     @enzymes      = Category.populate_dropdown_for_category('enzyme')
     @align_refs   = AlignmentRef.populate_dropdown
-    @projects     = Category.populate_dropdown_for_category('project')
+    @oligo_pools  = Pool.populate_dropdown
     @owners       = Researcher.populate_dropdown('active_only')
     @protocols    = Protocol.find_for_protocol_type('L')
     @quantitation= Category.populate_dropdown_for_category('quantitation')
@@ -169,6 +171,7 @@ protected
   
   def build_simplex_lib(lib_param, sample_param)
      lib_param.merge!(:library_type => 'S',
+                      :oligo_pool => Pool.get_pool_name(lib_param[:pool_id]),
                       :alignment_ref => AlignmentRef.get_align_key(lib_param[:alignment_ref_id]))
      seq_lib = SeqLib.new(lib_param)
      
