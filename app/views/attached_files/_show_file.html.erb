@@ -1,7 +1,7 @@
 <fieldset class="info">
 <legend><%= obj.class %>&nbsp;Attached Files</legend>
   <table class="info">
-  <% if !obj.attached_files.empty? %>
+  <% if obj.attached_files && !obj.attached_files.empty? %>
 	<% obj.attached_files.each do |att_file| %>
 	  <tr>
         <td><%=link_to att_file.basename_with_ext, att_file %></td>

@@ -69,7 +69,7 @@ class SampleCharacteristicsController < ApplicationController
       
       # Sample Characteristic successfully saved => send emails
       sample = new_sample_entered(@sample_characteristic.id, params[:sample_characteristic])
-      email  = send_email(sample, @patient.mrn, current_user) unless sample.nil? || EMAIL_CREATE[:samples] == 'None'
+      email  = send_email(sample, @patient.mrn, current_user) unless sample.nil? || EMAIL_CREATE[:samples] == 'NoEmail'
       if EMAIL_DELIVERY[:samples]  == 'Debug'
         render(:text => "<pre>" + email.encoded + "</pre>")
       else
@@ -130,7 +130,7 @@ class SampleCharacteristicsController < ApplicationController
       # Sample Characteristic successfully saved; send emails if new sample was added
       sample = new_sample_entered(params[:id], params[:sample_characteristic])
       if !sample.nil?
-        email  = send_email(sample, @sample_characteristic.patient.mrn, current_user) unless EMAIL_CREATE[:samples] == 'None'
+        email  = send_email(sample, @sample_characteristic.patient.mrn, current_user) unless EMAIL_CREATE[:samples] == 'NoEmail'
         if EMAIL_DELIVERY[:samples] == 'Debug'
           render(:text => "<pre>" + email.encoded + "</pre>")
         else
@@ -210,7 +210,7 @@ protected
 private
   def owner_email(consent_protocol)
     case EMAIL_CREATE[:samples]
-      when 'None', 'Test'
+      when 'NoEmail', 'Test'
         return nil
       when 'Test1', 'Prod'
         return (consent_protocol && !consent_protocol.email_confirm_to.blank? ? consent_protocol.email_confirm_to : nil)

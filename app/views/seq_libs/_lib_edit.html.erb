@@ -28,6 +28,7 @@
   <th>Notebook Ref</th><td><%= f.text_field :notebook_ref %></td>
   <th>Oligo Pool</th><td><%= f.collection_select(:pool_id, @oligo_pools, :id, :pool_string,
                              {:include_blank => 'Select Project'}) %></td>
+  <th>Project</th><td><%= f.text_field :project %></td>
 </tr> 
 <tr>
   <th>Notes: </th><td colspan=4><%= f.text_field :notes, :size => 80 %></td>

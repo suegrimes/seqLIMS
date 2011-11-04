@@ -95,19 +95,13 @@ class ItemsController < ApplicationController
       @items.each(&:save!)
       flash[:notice] = 'Items were successfully saved.'
       
-      # item successfully saved => send emails as indicated by OrderMailer::DELIVER_FLAG
-      case EMAIL_DELIVERY[:orders]
-        when 'None'
-          redirect_to :action => 'list_unordered_items'
-        when 'Debug'
-          email  = send_email(@items, current_user) 
-          render(:text => "<pre>" + email.encoded + "</pre>")
-        when 'Deliver'
-          email = send_email(@items, current_user)
-          redirect_to :action => 'list_unordered_items'
-        else
-          redirect_to :action => 'list_unordered_items'
-        end
+      # item successfully saved => send emails as indicated by EMAIL_CREATE and EMAIL_DELIVERY flags
+      email = send_email(@items, current_user) unless EMAIL_CREATE[:orders] == 'NoEmail'
+      if EMAIL_DELIVERY[:orders] == 'Debug'
+        render(:text => "<pre>" + email.encoded + "</pre>")
+      else
+        redirect_to :action => 'list_unordered_items'
+      end
          
     else
       reload_defaults(params[:item_default])

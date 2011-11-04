@@ -21,7 +21,7 @@ class SeqLibsController < ApplicationController
   
   # GET /seq_libs/1
   def show
-    @seq_lib = SeqLib.find(params[:id], :include => :lib_samples)
+    @seq_lib = SeqLib.find(params[:id], :include => [:lib_samples, :attached_files])
     @protocol = Protocol.find(@seq_lib.protocol_id) if @seq_lib.protocol_id
     authorize! :read, @seq_lib
   end
