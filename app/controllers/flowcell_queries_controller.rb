@@ -30,7 +30,7 @@ class FlowcellQueriesController < ApplicationController
 
 protected
   def dropdowns
-    @sequencers       = SeqMachine.sequencers.find(:all)  
+    @sequencers_by_bldg = SeqMachine.populate_dropdown_grouped  
   end
   
   def define_conditions(params)

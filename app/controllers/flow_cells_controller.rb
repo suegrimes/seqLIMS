@@ -166,7 +166,7 @@ protected
   end
   
   def seq_dropdowns
-    @sequencers       = SeqMachine.sequencers.find(:all)  
+    @sequencers_by_bldg = SeqMachine.populate_dropdown_grouped
   end
   
   def prepare_for_render_new(params)
