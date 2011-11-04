@@ -87,30 +87,31 @@ class FlowCell < ActiveRecord::Base
       lane_nrs = lane[:lane_nr].split(',')
       lane_nrs[0..(lane_nrs.size - 1)].each_with_index do |lnr, i|
         lane[:lane_nr] = lnr
+        lane[:oligo_pool] = Pool.find(lane[:pool_id]).tube_label if !lane[:pool_id].blank?
         flow_lanes.build(lane)
       end  
     end
-  end
+  end 
   
-  
-  def new_lane_attributes=(lane_attributes)
-    # Remove blank lines (ie sequencing libraries which were not assigned to a lane)
-    lane_attributes.reject!{|attr| attr[:lane_nr].blank?}
-    
-    lane_attributes.each do |attributes|
-      # Check for sequencing libraries assigned to multiple lanes, and replicate if needed
-      lane_nrs = attributes[:lane_nr].split(',')
-      lane_nrs[0..(lane_nrs.size - 1)].each do |lnr|
-        attributes[:lane_nr] = lnr
-        flow_lanes.build(attributes)
-      end
-    end
-  end
+#  def new_lane_attributes=(lane_attributes)
+#    # Remove blank lines (ie sequencing libraries which were not assigned to a lane)
+#    lane_attributes.reject!{|attr| attr[:lane_nr].blank?}
+#    
+#    lane_attributes.each do |attributes|
+#      # Check for sequencing libraries assigned to multiple lanes, and replicate if needed
+#      lane_nrs = attributes[:lane_nr].split(',')
+#      lane_nrs[0..(lane_nrs.size - 1)].each do |lnr|
+#        attributes[:lane_nr] = lnr
+#        flow_lanes.build(attributes)
+#      end
+#    end
+#  end
   
   def existing_lane_attributes=(lane_attributes)
     flow_lanes.reject(&:new_record?).each do |flow_lane|
       upd_attributes = lane_attributes[flow_lane.id.to_s]
       if upd_attributes
+        upd_attributes[:oligo_pool] = Pool.find(upd_attributes[:pool_id]).tube_label if !upd_attributes[:pool_id].blank?
         flow_lane.attributes = upd_attributes
       else
         flow_lanes.delete(flow_lane)

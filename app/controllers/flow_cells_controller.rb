@@ -72,15 +72,16 @@ class FlowCellsController < ApplicationController
     # Builds flow_lanes for all lanes (even blank lane#s).  Need to include blank
     # lanes so that all sequencing libraries show with appropriate lanes (or blank)
     # when error condition is encountered
-    @flow_cell       = FlowCell.new(params[:flow_cell])
+    @flow_cell       = FlowCell.new(params[:flow_cell]) 
+    lane_params = params[:flow_lane]
     
-    lane_nrs = non_blank_lane_nrs(non_blank_lanes(params[:flow_lane]))  # Array of lane#s which are non-blank
+    lane_nrs = non_blank_lane_nrs(non_blank_lanes(lane_params))  # Array of lane#s which are non-blank
     machine_type = (param_blank?(params[:flow_cell][:machine_type]) ? FlowCell::DEFAULT_MACHINE_TYPE : params[:flow_cell][:machine_type])
     max_lane_nr = FlowCell::NR_LANES[machine_type.to_sym]
     lanes_required  = (params[:partial_flowcell] == 'Y'? lane_nrs.size : max_lane_nr)
          
     # Validation check to ensure lanes 1-8 entered, and no duplicate lanes
-    lane_errors = validate_lane_nrs(params[:flow_lane], 'create', lanes_required, max_lane_nr)
+    lane_errors = validate_lane_nrs(lane_params, 'create', lanes_required, max_lane_nr)
     
     if lane_errors[0] > 0
       flash[:error] = "ERROR - #{lane_errors[1]}"
@@ -88,7 +89,7 @@ class FlowCellsController < ApplicationController
       render :action => 'new'
         
     else 
-      @flow_cell.build_flow_lanes(params[:flow_lane])
+      @flow_cell.build_flow_lanes(lane_params)
       if @flow_cell.save
         SeqLib.upd_lib_status(@flow_cell, 'F') 
         flash[:notice] = 'Flow cell was successfully created'
@@ -157,6 +158,7 @@ protected
     @cluster_kits       = category_filter(@category_dropdowns, 'cluster kit')
     @seq_kits           = category_filter(@category_dropdowns, 'sequencing kit')
     @adapters           = category_filter(@category_dropdowns, 'run_type')
+    @oligo_pools        = Pool.populate_dropdown
     @enzymes            = category_filter(@category_dropdowns, 'enzyme')
     @align_refs         = AlignmentRef.populate_dropdown
   end

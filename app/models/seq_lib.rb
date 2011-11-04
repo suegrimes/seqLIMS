@@ -98,6 +98,10 @@ class SeqLib < ActiveRecord::Base
     (library_type == 'M')
   end
   
+  def control_lane?
+    (lib_status == 'C')
+  end
+  
   def control_lane_nr
     (lib_status == 'C'? 4 : nil)
   end

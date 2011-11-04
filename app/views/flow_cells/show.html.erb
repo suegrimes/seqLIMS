@@ -55,7 +55,7 @@
       	<% @flow_cell[:sequencing_date] ||= Date.today %>
         <td><%= f.calendar_date_select(:sequencing_date, :year_range => [1.years.ago, 0.years.from_now],
                                        :valid_date_check => "date <= (new Date()).stripTime()", :size => 15 )%>
-        <td><%= select_tag('seq_machine[id]', grouped_options_for_select(@sequencers_by_bldg, selected_key='SG1')) %></td>
+        <td><%= select_tag('seq_machine[id]', grouped_options_for_select(@sequencers_by_bldg, 1)) %></td>
       </tr>
       </table>
 	<%= f.submit "Submit"%>

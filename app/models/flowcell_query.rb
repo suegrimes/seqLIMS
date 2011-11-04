@@ -16,7 +16,7 @@ class FlowcellQuery < NoTable
   end
   
   column :run_nr,    :string
-  column :machine_name, :string
+  column :machine_type, :string
   column :from_date, :date
   column :to_date,   :date
 

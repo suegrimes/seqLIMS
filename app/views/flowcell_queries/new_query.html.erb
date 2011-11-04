@@ -12,8 +12,8 @@
   </tr>
   <tr><td align="center" class="grey">-OR-</td></tr>
   <tr>
-  	<th>Machine(s):</th>
-    <td><%= select_tag('flowcell_query[machine_name]', grouped_options_for_select(@sequencers_by_bldg, selected_key='SG1')) %></td> 
+  	<th>Machine Type:</th>
+    <td><%= f.select(:machine_type, SeqMachine::MACHINE_TYPES, :include_blank => '(All)') %></td> 
   <tr>
   	<th>Run Dates:</th>
 	<td><%=f.calendar_date_select(:from_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15) %>

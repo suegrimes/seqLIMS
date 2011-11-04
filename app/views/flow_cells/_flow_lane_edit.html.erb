@@ -1,6 +1,5 @@
 <div class="flow_lane">
-  <% new_or_existing = flow_lane.new_record? ? 'new' : 'existing' %>
-  <% prefix = "flow_cell[#{new_or_existing}_lane_attributes][]" %>
+  <% prefix = "flow_cell[existing_lane_attributes][]" %>
   
   <% fields_for prefix, flow_lane do |n| %>
     <td><%= n.text_field(:lane_nr, :size => 5) %></td>
@@ -9,7 +8,12 @@
 	<td><%=h flow_lane.lib_name %></td>
 	<td><%=h flow_lane.runtype_adapter %></td>
 	<td><%=h flow_lane.alignment_ref %></td>
-	<td><%=h flow_lane.seq_lib.owner_abbrev %></td>	
+	<td><%=h flow_lane.seq_lib.owner_abbrev %></td>
+	<% if flow_lane.seq_lib.oligo_pool.blank? && !flow_lane.seq_lib.control_lane? %>	
+	<td><%=n.collection_select(:pool_id, @oligo_pools, :id, :tube_label, {:include_blank => 'Select..'}) %></td>
+	<% else %>
+	<td><%=n.text_field(:oligo_pool, {:value => flow_lane.seq_lib.oligo_pool, :size => 10, :readonly => true, :style => "background-color:#ddd"}) %>
+	<% end %>	
 	<td><%= n.text_field(:notes) %></td>	
   <% end %>
 </div>
