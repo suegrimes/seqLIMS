@@ -106,36 +106,50 @@ class FlowCellsController < ApplicationController
   # PUT /flow_cells/1
   def update
     @flow_cell = FlowCell.find(params[:id])
-    
-    if params[:utype] == 'seq'
-      fc_attrs = upd_for_sequencing(params)
-      lane_errors = [0, '']
-      success_msg = 'queued for sequencing'
-    else
-      fc_attrs = params[:flow_cell]
-      lane_errors = validate_lane_nrs(params[:flow_cell][:existing_lane_attributes], 'update', params[:lane_count].to_i)
-      success_msg = 'updated'
-    end
+    fc_attrs = params[:flow_cell]
+    machine_type = @flow_cell.machine_type
+    max_lane_nr = FlowCell::NR_LANES[machine_type.to_sym]
+    lanes_required  = (params[:partial_flowcell] == 'Y'? params[:lane_count].to_i : max_lane_nr)
+   
+    lane_errors = validate_lane_nrs(params[:flow_cell][:existing_lane_attributes], 'update', lanes_required, max_lane_nr)
     
     if lane_errors[0] > 0
-      flash[:error] = "ERROR - #{lane_errors[1]}"
+      flash[:error] = "ERROR - #{lane_errors[1]}"     
       dropdowns
-      @flow_cell.existing_lane_attributes = params[:flow_cell][:existing_lane_attributes]
+      @flow_cell[:existing_lane_attributes] = params[:flow_cell][:existing_lane_attributes]
       render :action => 'edit'
-      #render :action => 'debug'
       
     elsif @flow_cell.update_attributes(fc_attrs)
-      FlowLane.upd_seq_key(@flow_cell)  if params[:utype] == 'seq'
-      flash[:notice] = 'Flow cell was successfully ' + success_msg
+      flash[:notice] = 'Flow cell was successfully updated'
       redirect_to(@flow_cell) 
       #render :action => 'debug'
       
     else
       flash[:error] = 'ERROR - Unable to update flow cell'
       dropdowns
-      @flow_cell.existing_lane_attributes = params[:flow_cell][:existing_lane_attributes]
-      render :action => "edit"
+      @flow_cell[:existing_lane_attributes] = params[:flow_cell][:existing_lane_attributes]
+      render :action => 'edit'
     end
+  end
+  
+  def upd_for_sequencing
+    @flow_cell = FlowCell.find(params[:id])
+    fc_attrs = attrs_for_sequencing(params)
+    
+    if fc_attrs[:machine_type] != @flow_cell.machine_type  # Sequencing machine selected is not same type as specified on flow cell
+      flash[:error] = "ERROR - Sequencing machine selected is not same type as flow cell"
+      redirect_to(@flow_cell)
+      
+    elsif @flow_cell.update_attributes(fc_attrs)
+      FlowLane.upd_seq_key(@flow_cell)
+      flash[:notice] = 'Flow cell was successfully queued for sequencing'
+      redirect_to(@flow_cell) 
+      #render :action => 'debug'
+      
+    else
+      flash[:error] = 'ERROR - Unable to update flow cell'
+      redirect_to(@flow_cell)
+    end 
   end
 
   # DELETE /flow_cells/1
@@ -183,53 +197,42 @@ protected
     end
   end
   
-  def validate_lane_nrs(lanes, create_or_update, lanes_required, max_lane_nr = FlowCell::NR_LANES[FlowCell::DEFAULT_MACHINE_TYPE.to_sym])
+  def validate_lane_nrs(lanes, upd_method, lanes_required, max_lane_nr = nil)
     errno = 0
+    max_lane_nr ||= FlowCell::NR_LANES[FlowCell::DEFAULT_MACHINE_TYPE.to_sym]
+        
+    lanes_nb = non_blank_lanes(lanes)   
+    lane_nrs = non_blank_lane_nrs(lanes_nb)
+    nr_entered_lanes = lane_nrs.size
+    nr_unique_lanes  = lane_nrs.uniq.size
+      
+    if upd_method == 'update'
+      errno = case
+        when lanes_nb.size != lanes_required    then 5
+        when nr_entered_lanes != lanes_required then 6
+        when (lane_nrs.min < 1 || lane_nrs.max > max_lane_nr) then (max_lane_nr == 1 ? 3 : 4)
+        else 0
+      end
+    end
     
-    if create_or_update == 'create'    
-      lanes_nb = non_blank_lanes(lanes)   
-      lane_nrs = non_blank_lane_nrs(lanes_nb)
-      
-    else # create_or_update == update
-      lanes_nb = non_blank_lanes(lanes) 
-      errno = 4 if lanes_nb.size != lanes_required
-      
-      lane_nrs = non_blank_lane_nrs(lanes_nb)
-      errno = 5 if lane_nrs.size != lanes_required
+    if upd_method == 'create'
+      errno = case
+        when nr_entered_lanes != lanes_required then 1
+        when nr_unique_lanes != lanes_required  then 2
+        when (lane_nrs.min < 1 || lane_nrs.max > max_lane_nr) then (max_lane_nr == 1 ? 3 : 4)
+        else 0
+      end
     end
     
     case errno
-      when 4
-        return [errno, "Lane number cannot be blank - cannot add or delete lib/lanes after flow cell creation"]
-      when 5
-        return [errno, "Lane number must be integer - cannot assign a sequencing library to multiple lanes, after flow cell creation"]
-      else
-        return check_for_lane_errors(lane_nrs.collect{|lane| lane.to_i}, lanes_required, max_lane_nr)
-    end  
-  end
-  
-  def check_for_lane_errors(lane_nrs, lanes_required, max_lane_nr)
-    nr_entered_lanes = lane_nrs.size
-    nr_unique_lanes  = lane_nrs.uniq.size
-    
-    if nr_entered_lanes != lanes_required
-      errno  = 1
-      errmsg = "Must have exactly #{lanes_required} lanes - #{nr_entered_lanes} were assigned"
-      
-    elsif nr_unique_lanes != lanes_required
-      errno  = 2
-      errmsg = "One or more lane numbers assigned multiple times"
-    
-    elsif (lane_nrs.min < 1 || lane_nrs.max > max_lane_nr)
-      errno = 3
-      errmsg = (max_lane_nr == 1 ? "Lane number must be 1" : "Lane numbers must be integers between 1 and #{max_lane_nr}")
-      
-    else
-      errno = 0
-      errmsg = ''
+      when 0 then return [errno, ""]
+      when 1 then return [errno, "Must have exactly #{lanes_required} lanes for this machine type - #{nr_entered_lanes} were assigned"]
+      when 2 then return [errno, "One or more lane numbers assigned multiple times"]
+      when 3 then return [errno, "Lane number must be 1"]
+      when 4 then return [errno, "Lane numbers must be integers between 1 and #{max_lane_nr}"]
+      when 5 then return [errno, "Lane number cannot be blank - cannot add or delete lib/lanes after flow cell creation"]
+      when 6 then return [errno, "Lane number must be integer - cannot assign a sequencing library to multiple lanes, after flow cell creation"]
     end
-    
-    return [errno, errmsg]
   end
   
   def non_blank_lanes(lanes)
@@ -242,10 +245,11 @@ protected
   
   def non_blank_lane_nrs(nb_lanes)
     if nb_lanes.is_a? Array
-      nb_lanes.collect{|lane| lane[:lane_nr].split(',')}.flatten
+      lane_nrs = nb_lanes.collect{|lane| lane[:lane_nr].to_s.split(',')}.flatten
     else  # Hash
-      nb_lanes.collect{|lane_id, lane_attrs| lane_attrs[:lane_nr].split(',')}.flatten
+      lane_nrs = nb_lanes.collect{|lane_id, lane_attrs| lane_attrs[:lane_nr].to_s.split(',')}.flatten
     end
+    return lane_nrs.collect{|lane| lane.to_i}
   end
   
   def define_lib_conditions(params)
@@ -273,7 +277,7 @@ protected
     return [@where_string] | @where_values
   end
   
-  def upd_for_sequencing(params)
+  def attrs_for_sequencing(params)
     seq_date_ymd    = params[:flow_cell][:sequencing_date].gsub(/-/, '')
       
     # create sequencing key (concatenate date, machine name, sequential#)  

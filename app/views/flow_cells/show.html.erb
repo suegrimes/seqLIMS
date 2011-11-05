@@ -43,9 +43,9 @@
   </div>
 	
   <div id="run_params", style="display:none">
-    <% form_for(@flow_cell, :action => 'update') do |f|%>
-	  <%= hidden_field_tag(:utype, 'seq')%>
-		
+    <% form_for(@flow_cell, :url => {:action => :upd_for_sequencing}) do |f|%>
+	  <%= f.hidden_field(:id, :value => @flow_cell.id)%>
+	  
       <table class="list">
       <tr>
         <th>Sequencing Date</th>

@@ -100,7 +100,8 @@ ActionController::Routing::Routes.draw do |map|
   map.lib_query   'lib_query',       :controller => 'seqlib_queries', :action => 'new_query'
   
   # Routes for flow cells/sequencing runs
-  map.resources :flow_cells,  :collection => {:auto_complete_for_sequencing_key => :get}
+  map.resources :flow_cells,  :collection => {:auto_complete_for_sequencing_key => :get},
+                              :member => {:upd_for_sequencing => :put}
   map.resources :analysis_qc
   map.resources :index_tags
   map.resources :alignment_refs

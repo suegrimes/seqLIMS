@@ -8,6 +8,8 @@
 <!-- Standard fields to be displayed -->
 <% info_flds   = [['Field', 'Date', flow_cell.flowcell_date],              
                   ['Field', '# Reads(R1,Index,R2)', [flow_cell.nr_bases_read1, flow_cell.nr_bases_index, flow_cell.nr_bases_read2].join(',')],
+                  ['Field', 'Machine Type', flow_cell.machine_type],
+                  ['Field', 'Status Code', flow_cell.flowcell_status],
                   ['Field', 'Cluster Kit', flow_cell.cluster_kit],
                   ['Field', 'Sequencing Kit', flow_cell.sequencing_kit]] %>
 				  
