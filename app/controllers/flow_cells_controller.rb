@@ -72,7 +72,7 @@ class FlowCellsController < ApplicationController
     # Builds flow_lanes for all lanes (even blank lane#s).  Need to include blank
     # lanes so that all sequencing libraries show with appropriate lanes (or blank)
     # when error condition is encountered
-    @flow_cell       = FlowCell.new(params[:flow_cell]) 
+    @flow_cell  = FlowCell.new(params[:flow_cell]) 
     lane_params = params[:flow_lane]
     
     lane_nrs = non_blank_lane_nrs(non_blank_lanes(lane_params))  # Array of lane#s which are non-blank
@@ -87,19 +87,23 @@ class FlowCellsController < ApplicationController
       flash[:error] = "ERROR - #{lane_errors[1]}"
       prepare_for_render_new(params)
       render :action => 'new'
-        
-    else 
+           
+    elsif @flow_cell.valid?
       @flow_cell.build_flow_lanes(lane_params)
       if @flow_cell.save
-        SeqLib.upd_lib_status(@flow_cell, 'F') 
+        SeqLib.upd_lib_status(@flow_cell, 'F') #Update seq_lib status for all libs on this flowcell
         flash[:notice] = 'Flow cell was successfully created'
         redirect_to(@flow_cell)
-     
       else
-        flash[:error] = 'ERROR - Unable to create flow cell'
+        flash[:error] = 'ERROR - Unable to create flow cell'  #Shouldn't get here (all errors should be trapped prior to this)
         prepare_for_render_new(params)
         render :action => 'new'
       end
+     
+    else
+      flash[:error] = 'ERROR - Flow cell validation failed, check required fields'
+      prepare_for_render_new(params)
+      render :action => 'new'
     end
   end
 
@@ -110,8 +114,10 @@ class FlowCellsController < ApplicationController
     machine_type = @flow_cell.machine_type
     max_lane_nr = FlowCell::NR_LANES[machine_type.to_sym]
     lanes_required  = (params[:partial_flowcell] == 'Y'? params[:lane_count].to_i : max_lane_nr)
-   
-    lane_errors = validate_lane_nrs(params[:flow_cell][:existing_lane_attributes], 'update', lanes_required, max_lane_nr)
+    
+    # Create copy of params, since need to delete blank lanes during validation, but want all lanes available for render :new, if error
+    lane_params = params[:flow_cell][:existing_lane_attributes]  
+    lane_errors = validate_lane_nrs(lane_params, 'update', lanes_required, max_lane_nr)
     
     if lane_errors[0] > 0
       flash[:error] = "ERROR - #{lane_errors[1]}"     
@@ -122,7 +128,6 @@ class FlowCellsController < ApplicationController
     elsif @flow_cell.update_attributes(fc_attrs)
       flash[:notice] = 'Flow cell was successfully updated'
       redirect_to(@flow_cell) 
-      #render :action => 'debug'
       
     else
       flash[:error] = 'ERROR - Unable to update flow cell'
@@ -144,7 +149,6 @@ class FlowCellsController < ApplicationController
       FlowLane.upd_seq_key(@flow_cell)
       flash[:notice] = 'Flow cell was successfully queued for sequencing'
       redirect_to(@flow_cell) 
-      #render :action => 'debug'
       
     else
       flash[:error] = 'ERROR - Unable to update flow cell'
@@ -172,7 +176,7 @@ protected
     @cluster_kits       = category_filter(@category_dropdowns, 'cluster kit')
     @seq_kits           = category_filter(@category_dropdowns, 'sequencing kit')
     @adapters           = category_filter(@category_dropdowns, 'run_type')
-    @oligo_pools        = Pool.populate_dropdown
+    @oligo_pools        = Pool.populate_dropdown('flowcell')
     @enzymes            = category_filter(@category_dropdowns, 'enzyme')
     @align_refs         = AlignmentRef.populate_dropdown
   end
@@ -188,12 +192,12 @@ protected
   def prepare_for_render_new(params)
     dropdowns
     # Need to recreate seq_lib rows, using lanes[:seq_lib_id]
-    @seq_libs = []
-    @flow_lanes = []
+    @seq_libs = []; @flow_lanes = [];
     @partial_flowcell = params[:partial_flowcell]
+    
     params[:flow_lane].each do |lane|
       @flow_lanes.push(FlowLane.new(lane))
-      @seq_libs.push(SeqLib.find_by_id(lane[:seq_lib_id])) 
+      @seq_libs.push(SeqLib.find_by_id(lane[:seq_lib_id]))
     end
   end
   

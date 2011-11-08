@@ -22,11 +22,12 @@
 <tr> 
   <th>Align Ref:</th><td><%= f.collection_select(:alignment_ref_id, @align_refs, :id, :alignment_key) %></td>
   <th>Trim Bases:</th><td><%= f.text_field(:trim_bases, :size => 6) %></td> 
-  <th>Project:</th><td><%= f.collection_select(:project, @projects, :c_value, :c_value,
-                             {:include_blank => 'Select Project'}) %></td>	  				 								 								   
+  <th>Pool:</th><td><%= f.text_field(:oligo_pool, :readonly => true, :size => 10, :style => "background-color:#ddd") %></td>				 								 								   
 </tr>
 <tr>
   <th>Notebook Ref:</th><td colspan="3"><%= f.text_field :notebook_ref %></td>
+  <th>Project:</th><td><%= f.collection_select(:project, @projects, :c_value, :c_value,
+                             {:include_blank => 'Select Project'}) %></td>	 
 </tr>
 <tr>
   <th>Library Notes:</th><td colspan="5"><%= f.text_field :notes, :size => 80 %></td>

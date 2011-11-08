@@ -21,7 +21,7 @@ class SeqLibsController < ApplicationController
   
   # GET /seq_libs/1
   def show
-    @seq_lib = SeqLib.find(params[:id], :include => [:lib_samples, :attached_files])
+    @seq_lib = SeqLib.find(params[:id], :include => [{:lib_samples => :splex_lib}, :attached_files])
     @protocol = Protocol.find(@seq_lib.protocol_id) if @seq_lib.protocol_id
     authorize! :read, @seq_lib
   end
@@ -118,6 +118,7 @@ class SeqLibsController < ApplicationController
     params[:seq_lib][:lib_samples_attributes]["0"][:runtype_adapter] = params[:seq_lib][:runtype_adapter]
     
     if @seq_lib.update_attributes(params[:seq_lib])
+      SeqLib.upd_oligo_pool(@seq_lib) #if @seq_lib.oligo_pool_changed?
       FlowLane.upd_lib_lanes(@seq_lib)
       flash[:notice] = 'Sequencing library was successfully updated.'
       redirect_to(@seq_lib) 
@@ -149,7 +150,7 @@ protected
     @adapters     = Category.populate_dropdown_for_category('run_type')
     @enzymes      = Category.populate_dropdown_for_category('enzyme')
     @align_refs   = AlignmentRef.populate_dropdown
-    @oligo_pools  = Pool.populate_dropdown
+    @oligo_pools  = Pool.populate_dropdown('lib')
     @owners       = Researcher.populate_dropdown('active_only')
     @protocols    = Protocol.find_for_protocol_type('L')
     @quantitation= Category.populate_dropdown_for_category('quantitation')

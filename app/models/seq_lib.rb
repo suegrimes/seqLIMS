@@ -49,6 +49,7 @@ class SeqLib < ActiveRecord::Base
   validates_format_of :trim_bases, :with => /^\d+$/, :allow_blank => true, :message => "# bases to trim must be an integer"
   
   before_create :set_default_values
+  #after_update :upd_mplex_pool, :if => Proc.new { |lib| lib.oligo_pool_changed? }
   #after_update :save_samples
   
   MULTIPLEX_SAMPLES = 16
@@ -159,6 +160,26 @@ class SeqLib < ActiveRecord::Base
     flow_lanes = FlowLane.find_all_by_flow_cell_id(flow_cell.id)
     flow_lanes.each do |lane|
       self.update(lane.seq_lib_id, :lib_status => lib_status) if lane.seq_lib.lib_status != 'C'
+    end
+  end
+  
+  def self.upd_oligo_pool(seq_lib)
+    # Find all cases where supplied sequencing library is one of the 'samples' in a multiplex library
+    lib_samples = LibSample.find_all_by_splex_lib_id(seq_lib.id)
+    
+    # If any cases found, collect all the multiplex libraries and their associated 'samples'(=singleplex libs)
+    # Determine if all pools for associated samples are the same, if so, update multiplex pool accordingly
+    if !lib_samples.nil?
+      mplex_ids   = lib_samples.collect(&:seq_lib_id)
+      mplex_libs  = self.find_all_by_id(mplex_ids, :include => {:lib_samples => :splex_lib})
+      mplex_libs.each do |lib|
+        slib_pools = lib.lib_samples.collect{|lsamp| [lsamp.splex_lib.pool_id, lsamp.splex_lib.oligo_pool]}
+        if slib_pools.uniq.size > 1 
+          self.update(lib.id, :oligo_pool => 'Multiple')
+        else
+          self.update(lib.id, :pool_id => slib_pools[0][0], :oligo_pool => slib_pools[0][1])
+        end
+      end
     end
   end
   

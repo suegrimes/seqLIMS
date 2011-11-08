@@ -23,9 +23,9 @@
 	  <th>Notes</th>
     </tr>
 
-    <% @flow_lanes.each_with_index do |flow_lane, i| %>
+    <% (0..@flow_lanes.size-1).each do |i| %>
       <tr><%= render :partial => 'flow_lane_form', :locals => {:seq_lib => @seq_libs[i],
-                                                               :flow_lane => flow_lane } %></tr>
+                                                               :flow_lane => @flow_lanes[i]} %></tr>
 	<% end %>
   </table>
 </fieldset>  

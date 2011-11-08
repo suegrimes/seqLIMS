@@ -81,9 +81,11 @@ class FlowCell < ActiveRecord::Base
   end
   
   def build_flow_lanes(lanes)
-    lanes.reject!{|lane| lane[:lane_nr].blank?}
-    
     lanes.each do |lane|
+      # Ignore blank lines (ie sequencing libraries which were not assigned to a lane)
+      next if lane[:lane_nr].blank?
+      
+      # Check for sequencing libraries assigned to multiple lanes, and replicate if needed
       lane_nrs = lane[:lane_nr].split(',')
       lane_nrs[0..(lane_nrs.size - 1)].each_with_index do |lnr, i|
         lane[:lane_nr] = lnr
@@ -91,7 +93,7 @@ class FlowCell < ActiveRecord::Base
         flow_lanes.build(lane)
       end  
     end
-  end 
+  end
   
 #  def new_lane_attributes=(lane_attributes)
 #    # Remove blank lines (ie sequencing libraries which were not assigned to a lane)

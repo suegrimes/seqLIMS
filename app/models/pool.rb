@@ -32,8 +32,9 @@ class Pool < ActiveRecord::Base
     return (pool.nil? ? nil : pool.tube_label)
   end
   
-  def self.populate_dropdown
-    return self.find(:all, :order => "tube_label")
+  def self.populate_dropdown(lib_or_flowcell='lib')
+    like_or_not = (lib_or_flowcell == 'lib' ? 'NOT LIKE' : 'LIKE')
+    return self.find(:all, :order => "tube_label", :conditions => "tube_label #{like_or_not} 'OS%'")
   end
 
 end

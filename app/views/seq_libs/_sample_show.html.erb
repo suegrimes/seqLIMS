@@ -5,6 +5,7 @@
 	<% if lib_type == 'M' %>
 	  <th>Source Lib</th>
 	  <th>Lib Name</th>
+	  <th>Pool</th>
 	<% end %>
 	<th>Sample Name</th>
 	<th>Patient ID</th>
@@ -19,8 +20,10 @@
 	  <% if lib_type == 'M' && lib_sample.splex_lib %>	  
 	    <td><%=link_to lib_sample.splex_lib_barcode, lib_sample.splex_lib %></td>
 		<td><%=h lib_sample.splex_lib.lib_name %></td>
+		<td><%=h lib_sample.splex_lib.oligo_pool %></td>
 	  <% elsif lib_type == 'M' %>
 	    <td><%=h lib_sample.splex_lib_barcode %></td>
+		<td>&nbsp;</td>
 		<td>&nbsp;</td>
 	  <% end %>
       <td><%=h lib_sample.sample_name %></td>
