@@ -100,8 +100,8 @@ class SeqLibsController < ApplicationController
       flash.now[:error] = 'Error creating sequencing library -please enter all required fields'
       @lib_with_error = @new_lib[@lib_index]
       reload_lib_defaults(params, params[:nr_libs])
-      #render :action => 'new'
-      render :action => 'debug'
+      render :action => 'new'
+      #render :action => 'debug'
   end
   
   # PUT /seq_libs/1
