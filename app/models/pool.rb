@@ -24,12 +24,12 @@ class Pool < ActiveRecord::Base
   
   def self.get_pool_name(id=nil)
     pool = self.find(id) if !id.nil?
-    return (pool.nil? ? nil : pool.pool_name)
+    return (pool.nil? ? '' : pool.pool_name)
   end
   
   def self.get_pool_label(id=nil)
     pool = self.find(id) if !id.nil?
-    return (pool.nil? ? nil : pool.tube_label)
+    return (pool.nil? ? '' : pool.tube_label)
   end
   
   def self.populate_dropdown(lib_or_flowcell='lib')

@@ -3,11 +3,11 @@
 <% form_tag(:action => :create) do %>
   
   <%= render :partial => 'lib_form' %>
+  <%= break_clear %>
 
   <% if @lib_with_error %><%= error_messages_for :seq_lib, :object => @lib_with_error %><% end %>
   
   <% if @lib_samples.nil?%>
-    <%= break_clear %> 
     <div id='splex_libs'>	
     <b>Populate how many libraries with these defaults?</b>&nbsp;<%= text_field_tag(:nr_libs, '', :size => 5)-%>
     <%= submit_to_remote 'Singleplex', 'Add Libraries',

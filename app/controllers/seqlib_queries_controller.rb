@@ -54,12 +54,16 @@ protected
       @where_select.push("seq_libs.lib_status <> 'F'")
     end
     
+    if !param_blank?(params[:seqlib_query][:barcode_from]) && param_blank?(params[:seqlib_query][:barcode_to])
+      params[:seqlib_query][:barcode_to] = params[:seqlib_query][:barcode_from]
+    end
+    
     if !param_blank?(params[:seqlib_query][:barcode_from]) || !param_blank?(params[:seqlib_query][:barcode_to])
       @where_select.push("seq_libs.barcode_key LIKE 'L%'")
-    end
-    @where_select, @where_values = sql_conditions_for_range(@where_select, @where_values, 
+      @where_select, @where_values = sql_conditions_for_range(@where_select, @where_values, 
                                                             params[:seqlib_query][:barcode_from], params[:seqlib_query][:barcode_to],
                                                             "CAST(SUBSTRING(seq_libs.barcode_key,2) AS UNSIGNED)")
+    end    
     
     date_fld = 'seq_libs.preparation_date'
     @where_select, @where_values = sql_conditions_for_date_range(@where_select, @where_values, params[:seqlib_query], date_fld)

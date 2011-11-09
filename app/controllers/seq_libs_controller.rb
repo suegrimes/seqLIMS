@@ -100,8 +100,8 @@ class SeqLibsController < ApplicationController
       flash.now[:error] = 'Error creating sequencing library -please enter all required fields'
       @lib_with_error = @new_lib[@lib_index]
       reload_lib_defaults(params, params[:nr_libs])
-      render :action => 'new'
-      #render :action => :debug
+      #render :action => 'new'
+      render :action => 'debug'
   end
   
   # PUT /seq_libs/1
@@ -160,6 +160,7 @@ protected
     dropdowns
     @lib_default = SeqLib.new(params[:lib_default])
     @sample_default = LibSample.new(params[:sample_default])
+    @requester = params[:lib_default][:owner]
    
     @new_lib = []     if !@new_lib
     @lib_samples = [] if !@lib_samples
@@ -172,8 +173,8 @@ protected
   
   def build_simplex_lib(lib_param, sample_param)
      lib_param.merge!(:library_type => 'S',
-                      :oligo_pool => Pool.get_pool_name(lib_param[:pool_id]),
                       :alignment_ref => AlignmentRef.get_align_key(lib_param[:alignment_ref_id]))
+     lib_param.merge!(:oligo_pool => Pool.get_pool_label(lib_param[:pool_id])) if !param_blank?(lib_param[:pool_id])
      seq_lib = SeqLib.new(lib_param)
      
      sample_param.merge!(:sample_name     => lib_param[:lib_name],
