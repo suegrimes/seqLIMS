@@ -100,7 +100,9 @@ class MplexLibsController < ApplicationController
     end
      
     if error_found    
-      @singleplex_libs = SeqLib.find(:all, :include => :lib_samples, :conditions => ['seq_libs.id IN (?)', slib_ids_all])      
+      @singleplex_libs = SeqLib.find(:all, :include => {:lib_samples => :processed_sample},
+                                     :conditions => ['seq_libs.id IN (?)', slib_ids_all],
+                                     :order => 'barcode_key, lib_name')      
       @lib_samples = []
       @singleplex_libs.each_with_index do |slib, i|
         @lib_samples[i] = LibSample.new(slib.lib_samples[0].attributes)
