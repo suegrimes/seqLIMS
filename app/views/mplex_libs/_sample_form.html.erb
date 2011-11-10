@@ -1,7 +1,8 @@
 <div id="lib_samples">
 <% fields_for 'lib_samples[]', lib_sample do |s| %>	
+    <%=hidden_field_tag("lib_id[]", seq_lib.id) %>
     <tr>
-      <td><%= s.check_box(:splex_lib_id, {}, seq_lib.id) %></td>
+      <td><%=s.check_box(:splex_lib_id, {}, seq_lib.id) %></td>
       <td><%=h seq_lib.lib_barcode %></td>
 	  <td><%=h seq_lib.lib_name %></td>
 	  <td><%=h lib_sample.runtype_adapter %></td>

@@ -57,16 +57,17 @@ class MplexLibsController < ApplicationController
     
     #slib_params = array of arrays [][id, notes]; slib_ids = array of ids [id1, id2, ..]
     slib_params = params[:lib_samples].collect{|lsample| [lsample[:splex_lib_id].to_i, lsample[:notes]]}
-    slib_params.delete_if {|sparam| sparam[0].to_i == 0}  # Delete libraries which were not checked (splex_lib_id = '0')
-    slib_ids    = slib_params.collect{|sparam| sparam[0]} # Create array of ids for all checked libraries
-    
-    splex_libs = SeqLib.find(:all, :include => :lib_samples, :conditions => ['seq_libs.id IN (?)', slib_ids])  
+    slib_params.delete_if{|sparam| sparam[0] == 0}
+    slib_ids_checked = slib_params.collect{|sparam| sparam[0]}
+    slib_ids_all = params[:lib_id].to_a
+      
+    splex_libs = SeqLib.find(:all, :include => :lib_samples, :conditions => ['seq_libs.id IN (?)', slib_ids_checked])  
     error_found = false
     slib_tags = splex_libs.collect{|slib| slib.lib_samples[0].index_tag } 
     slib_pools = splex_libs.collect{|slib| [slib.pool_id, slib.oligo_pool]}
     if slib_pools.uniq.size > 1 
       @seq_lib[:oligo_pool] =  'Multiple'
-    else
+    elsif slib_pools.uniq.size == 1
       @seq_lib[:pool_id] = slib_pools[0][0]
       @seq_lib[:oligo_pool] = slib_pools[0][1]
     end
@@ -85,25 +86,28 @@ class MplexLibsController < ApplicationController
                                    :notes               => slib_notes)
       end  
       if !@seq_lib.save
-        error_found = true
+        error_found = true  # Validation or other error when saving to database
         flash.now[:error] = 'ERROR - Unable to create multiplex library'
       end
       
-    elsif splex_libs.size < 2   #Index tags are not unique     
+    elsif splex_libs.size < 2   #Only one sequencing library selected     
       flash.now[:error] = 'ERROR - Only one sequencing library selected for multiplexing'
       error_found = true 
       
-    elsif slib_tags.size > slib_tags.uniq.size
+    elsif slib_tags.size > slib_tags.uniq.size  # One or more duplicate tags
       flash.now[:error] = 'ERROR - Duplicate index tags entered for this multiplex library'
       error_found = true
     end
      
     if error_found    
-      @singleplex_libs = splex_libs      
+      @singleplex_libs = SeqLib.find(:all, :include => :lib_samples, :conditions => ['seq_libs.id IN (?)', slib_ids_all])      
       @lib_samples = []
-      @singleplex_libs.each_with_index do |s_lib, i|
-        @lib_samples[i] = LibSample.new(s_lib.lib_samples[0].attributes)
-        @lib_samples[i][:splex_lib_id] = s_lib.id
+      @singleplex_libs.each_with_index do |slib, i|
+        @lib_samples[i] = LibSample.new(slib.lib_samples[0].attributes)
+        if slib_ids_checked.include?(slib.id)
+          @lib_samples[i][:splex_lib_id] = slib.id 
+          @lib_samples[i][:notes] = slib_params.assoc(slib.id)[1]
+        end
       end
       dropdowns
       render :action => 'new'
