@@ -3,7 +3,7 @@
 # Table name: flowcell_queries
 #
 #  run_nr       :string
-#  machine_name :string
+#  machine_type :string
 #  from_date    :date
 #  to_date      :date
 #
