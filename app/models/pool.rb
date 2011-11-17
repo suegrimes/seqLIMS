@@ -15,9 +15,7 @@
 #  updated_at          :timestamp
 #
 
-class Pool < ActiveRecord::Base
-  establish_connection (:oligo_inventory)
-  
+class Pool < InventoryDB  
   def pool_string
     return [tube_label, pool_name].join('/')
   end
