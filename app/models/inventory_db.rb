@@ -1,4 +1,4 @@
 class InventoryDB < ActiveRecord::Base
   self.abstract_class = true
-  establish_connection(:inventory) if RAILS_ENV != 'demo' 
+  establish_connection(:oligo_inventory) if !DEMO_APP
 end
