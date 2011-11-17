@@ -1,0 +1,17 @@
+<div id="lib_samples">
+<% fields_for 'lib_samples[]', lib_sample do |s| %>	
+    <%=hidden_field_tag("lib_id[]", seq_lib.id) %>
+    <tr>
+      <td><%=s.check_box(:splex_lib_id, {}, seq_lib.id) %></td>
+      <td><%=h seq_lib.lib_barcode %></td>
+	  <td><%=h seq_lib.lib_name %></td>
+	  <td><%=h lib_sample.runtype_adapter %></td>
+      <td><%=h lib_sample.index_tag %></td>
+      <td><%=h lib_sample.sample_name %></td>
+	  <td><%=h lib_sample.processed_sample.patient_id if lib_sample.processed_sample %>
+      <td><%=h lib_sample.source_sample_name %></td> 
+	  <td><%=h seq_lib.oligo_pool %></td>
+	  <td><%= s.text_field(:notes, :size => 30)%></td>	               
+    </tr>
+    <% end %> <!--/lib_sample do -->
+</div>

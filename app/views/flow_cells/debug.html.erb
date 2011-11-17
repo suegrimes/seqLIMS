@@ -1,7 +1,11 @@
 Params: <%= debug(params) %>
 
-Query Params: <%= debug(@query_param) %>
+Flow Cell: <%= debug(@flow_cell) %>
 
-Flow cell: <%= debug(@flow_cell) %>
+Sizes: Flow Lanes: <%=h @flow_lanes.size %> Seq Libs: <%=h @seq_libs.size %> <br/><br/>
+
+Flow Lanes: <%= debug(@flow_lanes) %>
+
+Seq Libs: <%= debug(@seq_libs) %>
 
 Lane errors: <%= debug(@lane_errors) %>

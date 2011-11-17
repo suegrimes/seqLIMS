@@ -23,16 +23,7 @@ config.action_view.cache_template_loading            = true
 
 # Configure action mailer
 config.action_mailer.delivery_method = :smtp
-config.action_mailer.smtp_settings = {
-             :enable_starttls_auto => true,
-             :address => 'smtp.stanford.edu',
-             :port    => 25,
-             :domain  => 'stanford.edu',
-             :tls     => true,
-#             :authentication => :login,
-#             :user_name => 'sgrimes',
-#             :password  => '[mypswd]'
-             }
+
 # Enable delivery error messages
 config.action_mailer.raise_delivery_errors = true
 

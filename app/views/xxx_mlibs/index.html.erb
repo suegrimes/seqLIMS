@@ -1,0 +1,45 @@
+<h1>Sequencing Libraries <%= params[:hdg_qualifier] %></h1>
+
+<table class="list">
+  <tr>
+  	<th>Lib Barcode</th>
+    <th>Library Name</th>
+	<th>Owner</th>
+	<th>Prep Date</th>
+	<th>Adapter</th>
+	<th colspan="2">Sample Conc</th>
+	<th>Project</th>
+	<th>Alignment Ref</th>
+    <th colspan="3"></th>
+  </tr>
+
+<% for seq_lib in @seq_libs %>
+  <tr>
+  	<td><%= link_to seq_lib.lib_barcode, seq_lib %></td>
+    <td><%=h seq_lib.lib_name %></td>
+	<td><%=h seq_lib.owner_abbrev %></td>
+	<td><%=h seq_lib.preparation_date %></td>
+	<td><%=h seq_lib.runtype_adapter %></td>
+	<td><%=h format_conc(seq_lib.sample_conc_ngul)%> ng/ul</td>
+	<td><%=h format_conc(seq_lib.sample_conc_nm)%> nM</td>
+	<td><%=h seq_lib.target_pool %></td>
+	<td><%=h seq_lib.alignment_ref %></td>
+	
+	<% if can? :edit, seq_lib %>
+	  <td><%= link_to 'Edit',   edit_seq_lib_path(seq_lib) %></td>
+	<% else %>
+      <td class="ltgrey"> Edit </td>
+    <% end %>
+	
+	<td><%= link_to 'Attach', new_attached_file_path(:rec_type => 'seq_lib', :obj_id => seq_lib.id) %></td>
+	
+	<% if seq_lib.lib_status == 'L' %>
+	  <% if can? :delete, seq_lib %>
+	    <td><%= link_to 'Delete', seq_lib, :confirm => 'Are you sure?', :method => :delete %></td>	  
+      <% end %>
+    <% else %>
+      <td class="ltgrey"> Delete </td>
+	<% end %>  
+  </tr>
+  <% end %>
+</table>

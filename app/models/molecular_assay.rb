@@ -84,4 +84,9 @@ class MolecularAssay < ActiveRecord::Base
     end
   end
   
+  def self.find_for_query(condition_array=nil)
+    self.find(:all, :include => :processed_sample,
+                    :order => "processed_samples.patient_id, processed_samples.barcode_key, molecular_assays.barcode_key",
+                    :conditions => condition_array)
+  end
 end

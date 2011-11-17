@@ -134,8 +134,8 @@
       	<% if user_has_access?(user_roles, ["researcher", "lab_admin", "alignment"]) %>
         <li><a href="#">Library Prep</a>
           <ul>
-            <li><%= link_to 'New Lib-Singleplex', new_lib_S_path  %></li>
-            <li><%= link_to 'New Lib-Multiplex',  new_lib_M_path, :class => 'last-submenu-item' %></li>
+            <li><%= link_to 'New Lib-Singleplex', new_seq_lib_path  %></li>
+            <li><%= link_to 'New Lib-Multiplex',  mplex_setup_path, :class => 'last-submenu-item' %></li>
           </ul>
         </li>
         <li><a href="#">Sequencing</a>
@@ -190,7 +190,7 @@
       <ul>
        <li><%= link_to 'Source/Dissections', unprocessed_query_path %></li>
        <li><%= link_to 'Extracted Samples',  processed_query_path %></li>
-	   <li><%= link_to 'Molecular Assays (List)',  molecular_assays_path %></li>
+	   <li><%= link_to 'Molecular Assays',   mol_assay_query_path %></li>
        <li><%= link_to 'Seq Libraries',      lib_query_path  %></li>
        <li><%= link_to 'Sequencing Runs',    seq_run_query_path %></li>
       </ul>
@@ -203,6 +203,7 @@
 		
 		<% if user_has_access?(user_roles, ["researcher", "lab_admin", "alignment"])%>
  		<li><%= link_to 'Multiplex Tags', index_tags_path %></li>
+		<li><%= link_to 'Oligo Pools', oligo_pools_path %></li>
 		<% end %>
 		
 		<% if user_has_access?(user_roles, ["alignment"]) %>  
@@ -210,6 +211,7 @@
 		<% end %>
 		
 		<% if user_has_access?(user_roles, ["researcher", "lab_admin", "alignment"])%>
+		<li><%= link_to 'Seq Machines', seq_machines_path %></li>
 		<li><%= link_to 'Disks/Directories', storage_devices_path %></li>
 		<% end %>		
 		

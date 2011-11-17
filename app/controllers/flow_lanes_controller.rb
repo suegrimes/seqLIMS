@@ -1,2 +1,0 @@
-class FlowLanesController < ApplicationController
-end

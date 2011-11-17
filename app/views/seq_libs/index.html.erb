@@ -9,6 +9,7 @@
 	<th>Adapter</th>
 	<th colspan="2">Sample Conc</th>
 	<th>Project</th>
+	<th>Pool</th>
 	<th>Alignment Ref</th>
     <th colspan="3"></th>
   </tr>
@@ -20,9 +21,10 @@
 	<td><%=h seq_lib.owner_abbrev %></td>
 	<td><%=h seq_lib.preparation_date %></td>
 	<td><%=h seq_lib.runtype_adapter %></td>
-	<td><%=h sample_conc_string(seq_lib.sample_conc_ngul, 'ng/ul') %></td>
-	<td><%=h sample_conc_string(seq_lib.sample_conc_nm, 'nm') %></td>
-	<td><%=h seq_lib.target_pool %></td>
+	<td><%=h format_conc(seq_lib.sample_conc_ngul)%> ng/ul</td>
+	<td><%=h format_conc(seq_lib.sample_conc_nm)%> nM</td>
+	<td><%=h seq_lib.project %></td>
+	<td><%=h seq_lib.oligo_pool %></td>
 	<td><%=h seq_lib.alignment_ref %></td>
 	
 	<% if can? :edit, seq_lib %>

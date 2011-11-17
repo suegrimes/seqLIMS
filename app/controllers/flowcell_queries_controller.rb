@@ -30,7 +30,7 @@ class FlowcellQueriesController < ApplicationController
 
 protected
   def dropdowns
-    @sequencers       = SeqMachine.sequencers.find(:all)  
+    @machine_types = SeqMachine::MACHINE_TYPES  
   end
   
   def define_conditions(params)
@@ -41,9 +41,9 @@ protected
       sql_where_clause = ["flow_cells.seq_run_nr = ?", params[:flowcell_query][:run_nr].to_i]
       
     else
-      if !param_blank?(params[:flowcell_query][:machine_name])
-        @where_select.push("flow_cells.sequencing_key LIKE ?")
-        @where_values.push('%' + params[:flowcell_query][:machine_name] + '%')
+      if !param_blank?(params[:flowcell_query][:machine_type])
+        @where_select.push("flow_cells.machine_type = ?")
+        @where_values.push(params[:flowcell_query][:machine_type])
       end
       
       date_fld = 'flow_cells.sequencing_date'

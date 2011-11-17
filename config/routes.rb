@@ -84,20 +84,24 @@ ActionController::Routing::Routes.draw do |map|
                                                    :list_added => :get},
                                    :member => {:create_assays => :post}
   
+  map.resources :molassay_queries, :only => :index
+  map.mol_assay_query   'mol_assay_query',   :controller => 'molassay_queries',   :action => 'new_query'
+  
   # Routes for sequencing libraries
-  map.resources :seq_libs,     :collection => {:auto_complete_for_barcode_key => :get},
-                               :member => {:create_splex => :post,
-                                           :create_mplex => :post}
+  map.resources :seq_libs,     :collection => {:auto_complete_for_barcode_key => :get}
+  map.resources :mplex_libs,   :collection => {:auto_complete_for_barcode_key => :get}
+  map.resources :oligo_pools,  :only => :index
+                          
   map.resources :seqlib_lanes
   map.resources :seqlib_queries, :only => :index
   
-  map.new_lib_S   'new_lib_S',       :controller => 'seq_libs',    :action => 'new',   :multiplex => 'single'
-  map.new_lib_M   'new_lib_M',       :controller => 'seq_libs',    :action => 'new',   :multiplex => 'multi'
+  map.mplex_setup 'mplex_setup',     :controller => 'mplex_libs', :action => 'setup_params'
   map.lib_qc      'lib_qc',          :controller => 'seqlib_lanes', :action => 'export_libqc'
   map.lib_query   'lib_query',       :controller => 'seqlib_queries', :action => 'new_query'
   
   # Routes for flow cells/sequencing runs
-  map.resources :flow_cells,  :collection => {:auto_complete_for_sequencing_key => :get}
+  map.resources :flow_cells,  :collection => {:auto_complete_for_sequencing_key => :get},
+                              :member => {:upd_for_sequencing => :put}
   map.resources :analysis_qc
   map.resources :index_tags
   map.resources :alignment_refs

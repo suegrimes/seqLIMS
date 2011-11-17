@@ -1,3 +1,4 @@
+v2.1	10/25/2011	Redesign of multiplex library creation (mplex library from splex libraries)
 v2.03	06/13/2011	Misc cosmetic changes and minor bug fixes
 v2.02	05/16/2011	Molecular assay functionality
 v2.01	05/11/2011	Various usability and cosmetic changes, add fields for NCCC identifiers
