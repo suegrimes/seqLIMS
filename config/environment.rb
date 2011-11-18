@@ -25,7 +25,7 @@ Rails::Initializer.run do |config|
     config.gem "ezcrypto"
     config.gem "ar-extensions"
     config.gem "cancan",        :version => '~> 1.6.4'
-    config.gem 'will_paginate', :lib => 'will_paginate', :source => 'http://gems/github.com', :version => '~> 2.3.6'
+  # config.gem 'will_paginate', :lib => 'will_paginate', :source => 'http://gems/github.com', :version => '~> 2.3.6'
     config.gem 'calendar_date_select'
 
   # Only load the plugins named here, in the order given (default is alphabetical).
