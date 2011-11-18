@@ -1,0 +1,40 @@
+<table class="list">
+  <tr>
+  	<th>Tag#</th>
+	<th>Tag Seq</th>
+	<% if lib_type == 'M' %>
+	  <th>Source Lib</th>
+	  <th>Lib Name</th>
+	  <th>Pool</th>
+	<% end %>
+	<th>Sample Name</th>
+	<th>Patient ID</th>
+	<th>Source DNA</th>	
+	<th>Notes</th>
+  </tr>
+  
+  <% for lib_sample in lib_samples %>
+    <tr>
+      <td><%=h lib_sample.index_tag %></td>
+	  <td><%=h IndexTag.find_or_blank(lib_sample.runtype_adapter, lib_sample.index_tag) if !lib_sample.index_tag.nil? %></td>
+	  <% if lib_type == 'M' && lib_sample.splex_lib %>	  
+	    <td><%=link_to lib_sample.splex_lib_barcode, lib_sample.splex_lib %></td>
+		<td><%=h lib_sample.splex_lib.lib_name %></td>
+		<td><%=h lib_sample.splex_lib.oligo_pool %></td>
+	  <% elsif lib_type == 'M' %>
+	    <td><%=h lib_sample.splex_lib_barcode %></td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	  <% end %>
+      <td><%=h lib_sample.sample_name %></td>
+	  <% if lib_sample.processed_sample %>
+	    <td><%=h lib_sample.processed_sample.patient_id %></td>
+	    <td><%= link_to lib_sample.source_DNA, lib_sample.processed_sample %>
+	  <% else %>
+	    <td>&nbsp;</td>
+	    <td><%=h lib_sample.source_DNA %></td>
+	  <% end %>  
+	  <td><%=h lib_sample.notes %></td>
+    </tr>
+  <% end %>
+</table>

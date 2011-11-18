@@ -9,7 +9,6 @@
   	<th>Lib Name</th>
 	<th>Runtype/Adapter</th>
 	<th>Oligo Pool</th>
-	<th>Enzyme</th>
 	<th>Alignment Ref</th>
 	<th>Trim Bases</th>
 	<th>Lib Conc(pM)</th>
@@ -21,8 +20,7 @@
 	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%= link_to flow_lane.lib_barcode, flow_lane.seq_lib %></td>
       <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.seq_lib.lib_name %></td>
 	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.runtype_adapter %></td>
-	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.seq_lib.target_pool %></td>
-	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.seq_lib.enzyme_code %></td>
+	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.oligo_pool %></td>
 	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.alignment_ref %></td>
 	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.seq_lib.trim_bases %></td>
 	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.lib_conc %></td>
@@ -45,19 +43,19 @@
   </div>
 	
   <div id="run_params", style="display:none">
-    <% form_for(@flow_cell, :action => 'update') do |f|%>
-	  <%= hidden_field_tag(:utype, 'seq')%>
-		
+    <% form_for(@flow_cell, :url => {:action => :upd_for_sequencing}) do |f|%>
+	  <%= f.hidden_field(:id, :value => @flow_cell.id)%>
+	  
       <table class="list">
       <tr>
-        <th>Experiment Date</th>
+        <th>Sequencing Date</th>
         <th>Machine</th>
       </tr>
       <tr>
       	<% @flow_cell[:sequencing_date] ||= Date.today %>
         <td><%= f.calendar_date_select(:sequencing_date, :year_range => [1.years.ago, 0.years.from_now],
                                        :valid_date_check => "date <= (new Date()).stripTime()", :size => 15 )%>
-        <td><%= collection_select(:seq_machine, :id, @sequencers, :id, :machine_name) %></td>
+        <td><%= select_tag('seq_machine[id]', grouped_options_for_select(@sequencers_by_bldg, 1)) %></td>
       </tr>
       </table>
 	<%= f.submit "Submit"%>

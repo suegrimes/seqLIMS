@@ -8,22 +8,18 @@
                            {:include_blank => 'Select Protocol'}) %></td>
 </tr>
 <tr> 
-  <th>Adapter:</th><td><%= collection_select(:lib_default, :runtype_adapter, exclude_adapters(@adapters,'M'), :c_value, :c_value) %></td> 
-  <td colspan="2"></td>
-  <th>Project:</th><td><%= collection_select(:lib_default, :target_pool, @projects, :c_value, :c_value,
-                           {:include_blank => 'Select Project'}) %></td>
+  <th>Adapter:</th><td><%= collection_select(:lib_default, :runtype_adapter, @adapters, :c_value, :c_value) %></td> 
+  <th>Oligo Pool:</th><td><%= collection_select(:lib_default, :pool_id, @oligo_pools, :id, :pool_string,
+                           {:include_blank => 'Select Pool'}) %></td>
+  <th>Enzyme:</th><td><%= collection_select(:sample_default, :enzyme_code, @enzymes, :c_value, :c_value, 
+                           {:include_blank => 'Select Enzyme'}, {:size => 3, :multiple => :multiple}) %></td>
 </tr>
 <tr> 
   <th>Source DNA/RNA:</th><td><%= text_field_with_auto_complete :sample_default, :source_DNA, {:size => 12},
               {:url => {:controller => :processed_samples, :action => :auto_complete_for_barcode_key},
                :param_name => :search, :min_chars => 2, :method => :get} %></td>
   <th>Quantitation:</th><td><%= collection_select(:lib_default, :quantitation_method, @quantitation, :c_value, :c_value, {:include_blank => 'Select Method'}) %></td>
-  <th rowspan="2">Enzyme:</th><td rowspan="2"><%= collection_select(:lib_default, :enzyme_code, @enzymes, :c_value, :c_value,
-                           {:include_blank => 'N/A'},
-                           {:size => 4, :multiple => :multiple}) %></td>
-</tr>
-<tr>
-  <th colspan="3">Size(Final PCR)</th><td><%= text_field(:lib_default, :pcr_size, :size => 12)%></td>	
+  <th>Size(Final PCR)</th><td><%= text_field(:lib_default, :pcr_size, :size => 12)%></td>	
 </tr>
 <tr>
   <th>Library conc:</th><td><%= text_field(:lib_default, :lib_conc_requested, :size => 10) %>&nbsp;pM</td>

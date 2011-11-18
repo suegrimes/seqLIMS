@@ -33,9 +33,9 @@ class SeqlibQueriesController < ApplicationController
   
 protected
   def dropdowns
-    @owners        = Researcher.populate_dropdown('incl_inactive')
-    @target_pools  = SeqLib.unique_target_pools
-    @align_refs    = AlignmentRef.populate_dropdown
+    @owners    = Researcher.populate_dropdown('incl_inactive')
+    @projects  = SeqLib.unique_projects
+    @align_refs = AlignmentRef.populate_dropdown
   end
   
   def define_conditions(params)
@@ -53,6 +53,17 @@ protected
     if params[:excl_used] && params[:excl_used] == 'Y'
       @where_select.push("seq_libs.lib_status <> 'F'")
     end
+    
+    if !param_blank?(params[:seqlib_query][:barcode_from]) && param_blank?(params[:seqlib_query][:barcode_to])
+      params[:seqlib_query][:barcode_to] = params[:seqlib_query][:barcode_from]
+    end
+    
+    if !param_blank?(params[:seqlib_query][:barcode_from]) || !param_blank?(params[:seqlib_query][:barcode_to])
+      @where_select.push("seq_libs.barcode_key LIKE 'L%'")
+      @where_select, @where_values = sql_conditions_for_range(@where_select, @where_values, 
+                                                            params[:seqlib_query][:barcode_from], params[:seqlib_query][:barcode_to],
+                                                            "CAST(SUBSTRING(seq_libs.barcode_key,2) AS UNSIGNED)")
+    end    
     
     date_fld = 'seq_libs.preparation_date'
     @where_select, @where_values = sql_conditions_for_date_range(@where_select, @where_values, params[:seqlib_query], date_fld)

@@ -1,10 +1,7 @@
 log
 tmp
 db/*.sqlite3
-db/seeds.rb
 public/system/*
-config/database.yml
+config/*.yml
 lib/mysql.rb
-app/views/proto/*
-app/controllers/proto_controller.rb
 public/javascripts/all.js

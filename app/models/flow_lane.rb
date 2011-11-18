@@ -6,6 +6,7 @@
 #  flow_cell_id     :integer(4)      not null
 #  seq_lib_id       :integer(4)
 #  sequencing_key   :string(50)
+#  machine_type     :string(10)
 #  sequencer_type   :string(2)
 #  lib_barcode      :string(20)
 #  lib_name         :string(50)
@@ -13,6 +14,8 @@
 #  lib_conc         :float(11)
 #  lib_conc_uom     :string(6)
 #  runtype_adapter  :string(20)
+#  pool_id          :integer(3)
+#  oligo_pool       :string(8)
 #  alignment_ref_id :integer(4)
 #  alignment_ref    :string(50)
 #  notes            :string(255)
@@ -32,7 +35,7 @@ class FlowLane < ActiveRecord::Base
   
   def self.upd_seq_key(flow_cell)
     cell_attrs = {:sequencing_key => flow_cell.sequencing_key,
-                  :sequencer_type => flow_cell.sequencer_type}
+                  :machine_type   => flow_cell.machine_type}
     flow_lanes = self.find_all_by_flow_cell_id(flow_cell.id)
     self.upd_multi_lanes(flow_lanes, cell_attrs) if flow_lanes
   end
@@ -45,6 +48,8 @@ class FlowLane < ActiveRecord::Base
     lib_attrs  = {:lib_barcode      => seq_lib.lib_barcode,
                   :lib_name         => seq_lib.lib_name,
                   :runtype_adapter  => seq_lib.runtype_adapter,
+                  :pool_id          => seq_lib.pool_id,
+                  :oligo_pool       => seq_lib.oligo_pool,
                   :alignment_ref_id => seq_lib.alignment_ref_id,
                   :alignment_ref    => seq_lib.alignment_ref}
                   
