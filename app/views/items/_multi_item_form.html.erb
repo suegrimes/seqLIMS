@@ -1,58 +1,57 @@
 <fieldset class="form">
-<legend>Item(s)</legend>
-
+<legend>Items</legend>
+<table class="form-with-columns" cellspacing="2">   
+  <th></th>
+  <th>Catalog #</th>
+  <th>Company Name:</th>
+  <th>Chemical?</th>
+  <th>Description:</th>
+  <th>Quantity:</th>
+  <th>Size:</th>
+  <th>Price:</th>   
   <% @items.each_with_index do |itm, i| %>
   <% fields_for 'items_' + i.to_s, itm do |f| %>
-	
-  <table class="form-with-columns-no-th-underline">	
-	<tr><td colspan="4"><%= f.error_messages %></td></tr>
-	
-	<!-- f.hidden_field(:requester_name)-->
-	<!-- f.hidden_field(:deliver_site) -->
-	<!-- f.hidden_field(:grant_nr) -->
-	<tr>
-	  <th class="right">Catalog#</th>
-	  <td><%= f.text_field_with_auto_complete :catalog_nr, {:size => 10},
+    
+    <%= f.error_messages %>
+    
+    <!-- f.hidden_field(:requester_name)-->
+    <!-- f.hidden_field(:deliver_site) -->
+    <!-- f.hidden_field(:grant_nr) -->
+<tr>
+  <th style="text-decoration: none;">Item <%= i+1 %></th>     
+  <td><%= f.text_field_with_auto_complete :catalog_nr, {:size => 8},
               {:url => {:controller => :items, :action => :auto_complete_for_catalog_nr},
                :param_name => :search, :min_chars => 3, :method => :get,
-			   
-			   :after_update_element => "function(element,value){" + 
-			     remote_function(:url => { :action => :update_fields, :i => i},
+               
+               :after_update_element => "function(element,value){" + 
+                 remote_function(:url => { :action => :update_fields, :i => i},
                                  :with => "'catalog_nr=' + element.value") + "}"} %>
-	  </td>
-	  <th class="right">Company Name:</th>
-	  <td><%=f.text_field_with_auto_complete(:company_name, {},
+  </td>   
+  <td><%=f.text_field_with_auto_complete(:company_name, {},
              {:url => {:controller => :items, :action => :auto_complete_for_company_name},
-              :param_name => :search, :min_chars => 3, :method => :get})%></td>  
-	</tr>
-	<tr>
-	  <th class="right">Chemical?</th>	
-	  <td><%=f.select(:chemical_flag, %w{Y N}, {:include_blank => true}) %></td> 
-	  <th class="right">Description:</th>
-	  <td colspan="3"><%= f.text_field_with_auto_complete :item_description, {:size => 50},
+              :param_name => :search, :min_chars => 3, :method => :get})%></td>       
+  <td><%=f.select(:chemical_flag, %w{Y N}, {:include_blank => true}) %></td>      
+  <td><%= f.text_field_with_auto_complete :item_description, {:size => 45},
               {:url => {:controller => :items, :action => :auto_complete_for_item_description},
                :param_name => :search, :min_chars => 3, :method => :get,
-			   
-			   :after_update_element => "function(element,value){" + 
-			     remote_function(:url => { :action => :update_fields, :i => i},
+               
+               :after_update_element => "function(element,value){" + 
+                 remote_function(:url => { :action => :update_fields, :i => i},
                                  :with => "'item_description=' + element.value") + "}"} %>
-	  </td>
-	</tr>
-	<tr>
-	  <th class="right">Quantity:</th>
-	  <td><%=f.text_field(:item_quantity, :size => 10) %></td>
-	  <th class="right">Size:</th>
-	  <td><%=f.text_field(:item_size, :size => 15) %></td>  
-	</tr>
-	<tr>
-	  <th class="right">Price:</th>
-	  <td><%=f.text_field(:item_price, :size => 10) %></td> 	
-	  <th class="right">Notes:</th>
-	  <td><%=f.text_field(:notes, :size => 65)%></td>
-	</tr>
-  </table>
+  </td>   
+  <td><%=f.text_field(:item_quantity, :size => 8) %></td>     
+  <td><%=f.text_field(:item_size, :size => 8) %></td>             
+  <td><%=f.text_field(:item_price, :size => 8) %></td>
+</tr>   
+<tr>
+  <td></td><th style="text-decoration: none; text-align: right;">Notes:</th><td colspan="6"><%=f.text_field(:notes, :size => 50)%></td>
+</tr>
+<tr>
+  <td colspan="8"><hr /></td>
+</tr>
   <% end %>
   <% end %>
-</fieldset>
-<%= break_clear(submit_tag("Save Items"))%>
+</table>
+</fieldset><br />
+<%= break_clear(submit_tag("Save Items")) %>
 
