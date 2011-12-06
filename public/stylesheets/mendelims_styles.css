@@ -10,3 +10,6 @@
     background-repeat: no-repeat; 
     background-position:bottom;
 }
+
+.strike {text-decoration: line-through}   
+
