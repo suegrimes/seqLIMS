@@ -1,7 +1,7 @@
 class OrderMailer < ActionMailer::Base
-  # EMAIL_CREATE[:orders] = 'Prod'  #Create normal production emails
-  # EMAIL_CREATE[:orders] = 'Test'  #Create emails to send to admin account
-  # EMAIL_CREATE[:orders] = 'None'  #Do not create any emails
+  # EMAIL_CREATE[:orders] = 'Production'  #Create normal production emails
+  # EMAIL_CREATE[:orders] = 'Test'        #Create emails but send to admin account
+  # EMAIL_CREATE[:orders] = 'NoEmail'     #Do not create any emails
   
   def new_items(items, user)
     subject    'LIMSMailer - New item(s) ordered'

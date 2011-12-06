@@ -103,7 +103,7 @@ class ItemsController < ApplicationController
       email_create_orders = email_value(EMAIL_CREATE, 'orders', @items[0].deliver_site)
       email_delivery_orders = email_value(EMAIL_DELIVERY, 'orders', @items[0].deliver_site)
       
-      email = send_email(@items, current_user) unless email_create_orders == 'None'
+      email = send_email(@items, current_user, email_delivery_orders) unless email_create_orders == 'NoEmail'
       if email_delivery_orders == 'Debug'
         render(:text => "<pre>" + email.encoded + "</pre>")
       else
@@ -178,10 +178,10 @@ class ItemsController < ApplicationController
   end
   
 protected
-  def send_email(items, user)
+  def send_email(items, user, email_delivery)
     email = OrderMailer.create_new_items(items, user)
     email.set_content_type("text/html")
-    OrderMailer.deliver(email) if EMAIL_DELIVERY[:orders] == 'Deliver'
+    OrderMailer.deliver(email) if email_delivery == 'Deliver'
     return email
   end
 
