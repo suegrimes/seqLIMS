@@ -52,6 +52,7 @@ class SeqLib < ActiveRecord::Base
   #after_update :upd_mplex_pool, :if => Proc.new { |lib| lib.oligo_pool_changed? }
   #after_update :save_samples
   
+  BARCODE_PREFIX = 'L'
   MULTIPLEX_SAMPLES = 16
   MILLUMINA_SAMPLES = 12
   SAMPLE_CONC = ['ng/ul', 'nM']
@@ -60,17 +61,17 @@ class SeqLib < ActiveRecord::Base
   def validate
     if self.new_record?
       if !barcode_key.nil?
-        errors.add(:barcode_key, "must start with 'L'") if barcode_key[0,1] != 'L'
+        errors.add(:barcode_key, "must start with '#{BARCODE_PREFIX}'") if barcode_key[0,1] != BARCODE_PREFIX
       end
       errors.add(:pcr_size,    "must be entered")     if pcr_size.blank?
       errors.add(:sample_conc, "must be entered")     if sample_conc.blank?  
     elsif !barcode_key.nil?
-      errors.add(:barcode_key, "must start with 'L'") if !['L','X'].include?(barcode_key[0,1])
+      errors.add(:barcode_key, "must start with '#{BARCODE_PREFIX}'") if ![BARCODE_PREFIX,'X'].include?(barcode_key[0,1])
     end
     
     if barcode_key.size > 0
       if barcode_key.size == 1 || barcode_key[1..-1].scan(/\D/).size > 0
-        errors.add(:barcode_key, "must be numeric after the 'L'") 
+        errors.add(:barcode_key, "must be numeric after the '#{BARCODE_PREFIX}'") 
       end
     end
     

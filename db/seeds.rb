@@ -108,7 +108,7 @@ StorageDevice.create!(:device_name => 'Disk1',
 ##########################################################################################
 ### Populate tables for consent protocols                                              ###
 ##########################################################################################
-StorageDevice.connection.execute("TRUNCATE TABLE consent_protocols")
+ConsentProtocol.connection.execute("TRUNCATE TABLE consent_protocols")
 
 %w{['NA', 'Anonymous Sample'], ['1123', 'Consent Protocol']}.each do |consent|
   ConsentProtocol.create!(:consent_nr   => consent[0],
