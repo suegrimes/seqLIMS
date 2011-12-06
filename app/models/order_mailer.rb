@@ -26,7 +26,7 @@ protected
   end
   
   def email_value(email_hash, email_type, deliver_site)
-    site_and_type = [deliver_site, email_type].join('_')
+    site_and_type = [deliver_site.downcase, email_type].join('_')
     return (email_hash[site_and_type.to_sym].nil? ? email_hash[email_type.to_sym] : email_hash[site_and_type.to_sym])
   end
 

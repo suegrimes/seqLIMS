@@ -2,5 +2,8 @@ Params: <%= debug(params) %>
 
 Items: <%= debug(@items) %>
 
-Create Value: <%= debug(@email_create_orders) %>
-Delivery Value: <%= debug(@email_delivery_orders) %>
+Constant(Email Create): <%= debug(EMAIL_CREATE) %>
+Constant(Email Delivery): <%= debug(EMAIL_DELIVERY)%>
+
+Orders (Email Create): <%= debug(@email_create_orders) %>
+Orders (Email Delivery): <%= debug(@email_delivery_orders) %>

@@ -90,30 +90,31 @@ class ItemsController < ApplicationController
       next  if (param_blank?(this_item[:item_description]) && param_blank?(this_item[:catalog_nr]))
       @items.push(Item.new(params[:item_default].merge(this_item))) # merge in this direction so that company name is not overridden by default value
     end
-    @email_create_orders = email_value(EMAIL_CREATE, 'orders', @items[0].deliver_site)
-    @email_delivery_orders = email_value(EMAIL_DELIVERY, 'orders', @items[0].deliver_site)
-    render :action => 'debug'
     
-#    if @items.all?(&:valid?) 
-#      @items.each(&:save!)
-#      flash[:notice] = 'Items were successfully saved.'
-#      
-#      # item successfully saved => send emails as indicated by EMAIL_CREATE and EMAIL_DELIVERY flags
-#      email_create_orders = email_value(EMAIL_CREATE, 'orders', @items[0].deliver_site)
-#      email_delivery_orders = email_value(EMAIL_DELIVERY, 'orders', @items[0].deliver_site)
-#      
-#      email = send_email(@items, current_user) unless email_create_orders == 'None'
-#      if email_delivery_orders == 'Debug'
-#        render(:text => "<pre>" + email.encoded + "</pre>")
-#      else
-#        redirect_to :action => 'list_unordered_items'
-#      end
-#         
-#    else
-#      reload_defaults(params[:item_default])
-#      flash.now[:error] = 'One or more errors - no items saved, please enter all required fields'
-#      render :action => 'new'
-#    end 
+    #@email_create_orders = email_value(EMAIL_CREATE, 'orders', @items[0].deliver_site.downcase)
+    #@email_delivery_orders = email_value(EMAIL_DELIVERY, 'orders', @items[0].deliver_site.downcase)
+    #render :action => 'debug'
+    
+    if @items.all?(&:valid?) 
+      @items.each(&:save!)
+      flash[:notice] = 'Items were successfully saved.'
+      
+      # item successfully saved => send emails as indicated by EMAIL_CREATE and EMAIL_DELIVERY flags
+      email_create_orders = email_value(EMAIL_CREATE, 'orders', @items[0].deliver_site)
+      email_delivery_orders = email_value(EMAIL_DELIVERY, 'orders', @items[0].deliver_site)
+      
+      email = send_email(@items, current_user) unless email_create_orders == 'None'
+      if email_delivery_orders == 'Debug'
+        render(:text => "<pre>" + email.encoded + "</pre>")
+      else
+        redirect_to :action => 'list_unordered_items'
+      end
+         
+    else
+      reload_defaults(params[:item_default])
+      flash.now[:error] = 'One or more errors - no items saved, please enter all required fields'
+      render :action => 'new'
+    end 
 
   end
 

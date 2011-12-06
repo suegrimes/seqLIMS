@@ -21,11 +21,11 @@ DEMO_USERS = ['admin', 'clinical', 'researcher']
 
 # Samples_Email <Env>             where <Env> is either Production, Test, or NoEmail
 # Samples_Delivery  <Delivery>    where <Delivery> is Deliver, Debug or None
-# Samples_To  <Email>             where <Email> is an array of email addresses to which new samples should be sent
+# Samples_To  <Email>             where <Email> is comma-separated list of email addresses to which new samples should be sent
 
 # Orders_Email <Env>              where <Env> is either Production, Test, or NoEmail
 # Orders_Delivery <Delivery>      where <Delivery> is Deliver, Debug or None
-# Orders_To <Email>               where <Email> is an array of email addresses to which new orders should be sent
+# Orders_To <Email>               where <Email> is comma-separated list of email addresses to which new orders should be sent
 
 EMAIL_CREATE = {}
 EMAIL_TO = {}
@@ -37,11 +37,11 @@ if FileTest.file?(email_file)
     when erow[0] == 'Send_From'
       EMAIL_FROM = erow[1]
     when erow[0].match(/_Email/)
-      EMAIL_CREATE.merge!(erow[0].split('_')[0].downcase.to_sym => erow[1])
+      EMAIL_CREATE.merge!(erow[0][0..-7].downcase.to_sym => erow[1]) # Strip off _Email
     when erow[0].match(/_To/)
-      EMAIL_TO.merge!(erow[0].split('_')[0].downcase.to_sym => erow[1])
+      EMAIL_TO.merge!(erow[0][0..-4].downcase.to_sym => erow[1]) # Strip off _To
     when erow[0].match(/_Delivery/)
-      EMAIL_DELIVERY.merge!(erow[0].split('_')[0].downcase.to_sym => erow[1])
+      EMAIL_DELIVERY.merge!(erow[0][0..-10].downcase.to_sym => erow[1]) # Strip off _Delivery
     end
   end
 end
