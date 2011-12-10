@@ -75,6 +75,15 @@ class RunDirsController < ApplicationController
     
     redirect_to :action => 'new', :flow_cell_id => flow_cell_id
   end
+  
+  def devices
+    @storage_devices = StorageDevice.populate_dropdown
+  end
+  
+  def del_run
+    @run_dir_info = RunDir.find_by_storage_device_id(params[:storage_devices][:id])    
+    render :text => @run_dir_info.device_name
+  end
 
 protected
   def dropdowns

@@ -1,0 +1,7 @@
+<h1>Delete Device</h1>
+
+<% form_tag(:action => :del_run) do %>
+  <%= collection_select(:storage_devices, :id, @storage_devices, :id, :device_name, 
+      {:include_blank => 'Select Device'}) %>
+  <%= submit_tag "Go" %>
+<% end %>
