@@ -25,7 +25,7 @@ class Ability
     # Everyone can create a new user, or view/edit their own user information
     can [:new, :create, :forgot, :reset], User
     can [:show, :edit, :update], User do |usr|
-      (user.has_role?("admin")? true : usr.login == user.login)   
+      (!DEMO_APP && user.has_role?("admin")? true : usr.login == user.login)   
     end
     
     # Everyone can enter order items

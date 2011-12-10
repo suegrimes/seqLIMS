@@ -4,8 +4,8 @@
 <%= render :partial => 'seq_libs/lib_show', :locals => {:seq_lib => @seq_lib} %>
 
   <% if @lib_lanes_by_seq_type %>
-  <% @lib_lanes_by_seq_type.each do | seq_type, flow_lanes| %>
-    <% if seq_type == 'H' %>
+  <% @lib_lanes_by_seq_type.each do | machine_type, flow_lanes| %>
+    <% if machine_type == 'HiSeq' %>
 	  <%= render :partial => 'hiseq_align_qc', :locals => {:flow_lanes => flow_lanes} %>
 	<% else %>
 	  <%= render :partial => 'ga2_align_qc',   :locals => {:flow_lanes => flow_lanes} %>
