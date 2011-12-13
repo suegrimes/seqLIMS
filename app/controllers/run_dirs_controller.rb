@@ -81,8 +81,10 @@ class RunDirsController < ApplicationController
   end
   
   def del_run
-    @run_dir_info = RunDir.find_by_storage_device_id(params[:storage_devices][:id])    
-    render :text => @run_dir_info.device_name
+    @storage_devices = StorageDevice.populate_dropdown
+    @run_dirs = RunDir.find(:all, :conditions => ["run_dirs.storage_device_id = ?", params[:storage_devices][:id]])    
+    render :devices
+    #render :text => params[:storage_devices][:id]
   end
 
 protected
