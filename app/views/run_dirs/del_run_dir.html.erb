@@ -1,8 +1,8 @@
-<h1>Delete Run</h1>
+<h1>Delete Run Directory</h1>
 
 <p></p>
 
-<% form_tag(:action => :del_run) do %>
+<% form_tag(:action => :del_run_dir) do %>
   <%= collection_select(:storage_devices, :id, @storage_devices, :id, :device_name, 
       {:include_blank => 'Select Device'}) %>
   <%= submit_tag "Go" %>
@@ -11,9 +11,10 @@
 <p></p>
 
 <% if !@run_dirs.blank? %>
-
-  <%= render :partial => 'del_device_form' %>
-  
+  <% form_tag :action => :debug do %>
+    <%= render :partial => 'del_run_dir_form' %>
+    <%= submit_tag 'Mark For Delete' %>
+  <% end %>  
 <% end %>
 
 <%= link_to 'List All', run_dirs_path %>

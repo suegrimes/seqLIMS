@@ -76,15 +76,20 @@ class RunDirsController < ApplicationController
     redirect_to :action => 'new', :flow_cell_id => flow_cell_id
   end
   
-  def devices
+  def del_run_dir
+    # TODO
+    # device not found error
+    # exclude flag already marked Y
+    # date select field
+    
     @storage_devices = StorageDevice.populate_dropdown
-  end
-  
-  def del_run
-    @storage_devices = StorageDevice.populate_dropdown
-    @run_dirs = RunDir.find(:all, :conditions => ["run_dirs.storage_device_id = ?", params[:storage_devices][:id]])    
-    render :devices
-    #render :text => params[:storage_devices][:id]
+      
+    if params[:storage_devices]
+      @run_dirs = RunDir.find(:all, :include => :flow_cell, :conditions => ["run_dirs.storage_device_id = ?", params[:storage_devices][:id]]) 
+      @dev_name = StorageDevice.find_by_id(params[:storage_devices][:id]).device_name
+      render 'del_run_dir'
+    end
+    #render :text => debug(params)
   end
 
 protected
