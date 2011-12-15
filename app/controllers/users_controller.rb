@@ -29,15 +29,11 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     
     if @user.errors.empty?
-      #  Not populating roles.  Need to change this to @user.roles.build with parameters. 
-      #  Change in OligoDB also.
-      if Role::DEFAULT_ROLE
-        role_id = Role.find_by_name(Role::DEFAULT_ROLE).id if Role::DEFAULT_ROLE
-        @user.roles = Role.find(:all, :conditions => ["id = ?", role_id])
-      end      
-      
-	    @user.save
+      default_role = Role.find_by_name(Role::DEFAULT_ROLE) if Role::DEFAULT_ROLE
+      @user.roles << Role.find(:all, :conditions => ["id = ?", default_role.id]) if default_role
+      @user.save
       self.current_user = @user
+      
       #Authorization::current_user = @user   # for declarative_authorization #
       redirect_to('/')
       flash[:notice] = "Thanks for signing up!"
