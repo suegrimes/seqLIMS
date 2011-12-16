@@ -1,6 +1,7 @@
 <fieldset class="form">
 <legend>Run Directory</legend>
   <table class="form">
+  	<%=f.hidden_field(:flow_cell_id, :value => flow_cell.id) %> 
 	<tr><%=f.collection_select(:storage_device_id, @storage_devices, :id, :device_name)%></tr>
 	<tr><%=f.text_field(:rdir_name, :label => 'Dir Name') %></tr>
 	<tr><%=f.text_field(:total_size_gb, :size => 8, :label => 'Dir Size (GB)') %></tr>
@@ -11,7 +12,8 @@
                                                  :year_range => [1.years.ago, 0.years.ago], :size => 15) %></tr>
 	<tr><%=f.calendar_date_select(:date_verified, :valid_date_check => "date <= (new Date()).stripTime()",
                                                  :year_range => [1.years.ago, 0.years.ago], :size => 15) %></tr>
-	<tr><%=f.hidden_field(:flow_cell_id, :value => flow_cell.id) %> 
+	<tr><%=f.calendar_date_select(:date_deleted, :valid_date_check => "date <= (new Date()).stripTime()",
+                                                 :year_range => [1.years.ago, 0.years.ago], :size => 15) %></tr>
 	<tr><%=f.text_area(:notes, :tdcolspan => 2, :cols => 50, :rows => 2) %></tr> 
   </table>
 </fieldset>

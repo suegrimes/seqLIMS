@@ -5,6 +5,7 @@
     <th>Device name</th>
 	<th>Building location</th>
 	<th>Seq Run Directory</th>
+	<th>Last Upd</th>
     <th colspan="2"></th>
   </tr>
 
@@ -13,6 +14,7 @@
     <td><%=h device.device_name %></td>
 	<td><%=h device.building_loc %></td>
 	<td><%=h device.base_run_dir %></td>
+	<td><%=h device.last_upd_of_runs %></td>
     <td><% if can? :edit, device %><%= link_to 'Edit', edit_storage_device_path(device) %><% end %></td>
     <td><% if can? :destroy, device %><%= link_to 'Delete', device, :confirm => 'Are you sure?', :method => :delete %><% end %></td>
   </tr>
