@@ -81,6 +81,7 @@ class RunDirsController < ApplicationController
     # device not found error
     # exclude flag already marked Y
     # date select field
+    # update with flag and date
     
     @storage_devices = StorageDevice.populate_dropdown
       
