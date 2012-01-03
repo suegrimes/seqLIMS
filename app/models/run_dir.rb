@@ -15,6 +15,8 @@
 #  copied_by         :integer(2)
 #  date_verified     :date
 #  verified_by       :integer(2)
+#  delete_flag       :string(1)
+#  date_deleted      :date
 #  notes             :string(255)
 #  updated_by        :integer(2)
 #  updated_at        :timestamp

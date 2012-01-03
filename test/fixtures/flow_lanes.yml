@@ -7,7 +7,6 @@
 #  seq_lib_id       :integer(4)
 #  sequencing_key   :string(50)
 #  machine_type     :string(10)
-#  sequencer_type   :string(2)
 #  lib_barcode      :string(20)
 #  lib_name         :string(50)
 #  lane_nr          :integer(1)      not null
