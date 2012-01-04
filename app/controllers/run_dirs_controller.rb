@@ -78,19 +78,18 @@ class RunDirsController < ApplicationController
   
   def del_run_dir
     # TODO
-    # device not found error
-    # exclude flag already marked Y
     # date select field
     # update with flag and date
     
     @storage_devices = StorageDevice.populate_dropdown
       
     if params[:storage_devices]
-      @run_dirs = RunDir.find(:all, :include => :flow_cell, :conditions => ["run_dirs.storage_device_id = ?", params[:storage_devices][:id]]) 
+      @run_dirs = RunDir.find(:all, :include => :flow_cell, :conditions => ["run_dirs.delete_flag IS NULL AND run_dirs.storage_device_id = ?", params[:storage_devices][:id]]) 
       @dev_name = StorageDevice.find_by_id(params[:storage_devices][:id]).device_name
-      render 'del_run_dir'
+      unless !@run_dirs.blank? 
+        flash.now[:error] = "Error - Run directories not available for #{ @dev_name }"
+      end
     end
-    #render :text => debug(params)
   end
 
 protected

@@ -8,16 +8,18 @@
 	<th>Date Sized</th>
     <th># Files</th>
     <th>Size (GB)</th>
+    <th>debug: Delete Flag</th>
   </tr>
   <% @run_dirs.each do |run_dir| %>
   <tr>
     <td><%= check_box_tag("run_dir[id][]", run_dir.id)%>&nbsp;debug:ID:<%= run_dir.id %></td>
-    <%= hidden_field_tag("run_dir[date][]", Date.current)%>
-    <td><%= Date.current %></td>    
-  	<td><%=link_to run_dir.flow_cell.sequencing_key, run_dir.flow_cell %></td>
+    <%= hidden_field_tag("run_dir[date][]", 'Selected date')%>
+    <td>Select Date Field here</td>    
+  	<td><%= link_to run_dir.flow_cell.sequencing_key, run_dir.flow_cell %></td>
 	<td><%= run_dir.date_sized %></td>
     <td><%= run_dir.file_count %></td>
     <td><%= run_dir.total_size_gb %></td>
+    <td>debug: <%= run_dir.delete_flag %></td>
   </tr>
   <% end %>
   </table>
