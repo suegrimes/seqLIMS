@@ -11,7 +11,7 @@
 <p></p>
 
 <% if !@run_dirs.blank? %>
-  <% form_tag :action => :debug do %>
+  <% form_tag :action => 'debug' do %>
     <%= render :partial => 'del_run_dir_form' %>
     <%= submit_tag 'Mark For Delete' %>
   <% end %>  

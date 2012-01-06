@@ -1,6 +1,18 @@
 class RunDirsController < ApplicationController
   before_filter :dropdowns, :only => [:new, :edit]
-  
+
+  ################################################
+  # include SslRequirement after other important before_filters.
+  # After testing, put the include in application controller, 
+  # or controllers of resources that need ssl 
+  # url: https://github.com/rails/ssl_requirement
+  ################################################
+
+  #include SslRequirement 
+  #ssl_required :del_run_dir # Non-SSL access will be redirected to SSL
+  #ssl_allowed :index # This action will work either with or without SSL
+  # other methods: SSL access will be redirected to non-SSL
+ 
   def index
     run_dirs  = RunDir.find(:all, :include => :flow_cell,
                             :order => "flow_cells.seq_run_nr, run_dirs.delete_flag, run_dirs.device_name")
@@ -78,7 +90,8 @@ class RunDirsController < ApplicationController
   
   def del_run_dir
     # TODO
-    # date select field
+    # fix form to only update with params where item is CHECKED AND HAS BOTH AN ID AND A DATE
+    # see iscc sample/list_in_transit for how to deal with checkbox/date
     # update with flag and date
     
     @storage_devices = StorageDevice.populate_dropdown
