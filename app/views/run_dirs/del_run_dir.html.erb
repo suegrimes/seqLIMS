@@ -1,4 +1,4 @@
-<h1>Delete Run Directory</h1>
+<h1>Delete Run Directories</h1>
 
 <p>&nbsp;</p>
 
@@ -11,9 +11,9 @@
 <p></p>
 
 <% if !@run_dirs.blank? %>
-  <% form_tag :action => 'debug' do %>
+  <% form_tag :action => :update_multi_flagged do %>
     <%= render :partial => 'del_run_dir_form' %>
-    <%= submit_tag 'Mark For Delete' %>
+    <%= submit_tag 'Flag For Delete' %>
   <% end %>  
 <% end %>
 

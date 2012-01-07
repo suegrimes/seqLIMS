@@ -2,23 +2,31 @@
 <legend>Delete Runs from <%= @dev_name %></legend>
   <table class="form-with-columns" cellspacing="2">
   <tr>
+  	<th>RunDir ID</th>
     <th>Delete</th>
     <th>Date</th>
   	<th>Sequencing Run</th>
 	<th>Date Sized</th>
     <th># Files</th>
     <th>Size (GB)</th>
+	<th>Delete Flag</th>
+	<th>Delete Date</th>
   </tr>
   <% @run_dirs.each do |dir| %>
+  <!--% fields_for 'run_dir[]', dir do |d| %-->
   <tr>
-    <td><%= check_box_tag("run_dir[id][]", dir.id)%></td>
-    <td><%= calendar_date_select_tag("run_dir[date_selected][]", Date.today, :size => 10) %></td>    
+  	<td><%= dir.id %></td>
+    <td><%= check_box_tag("run_dir[#{dir.id}][delete_flag]", "Y", false)%></td>
+    <td><%= calendar_date_select_tag("run_dir[#{dir.id}][date_deleted]", '', :size => 10) %></td>    
   	<td><%= link_to dir.flow_cell.sequencing_key, dir.flow_cell %></td>
 	<td><%= dir.date_sized %></td>
     <td><%= dir.file_count %></td>
     <td><%= dir.total_size_gb %></td>
+	<td><%= dir.delete_flag %></td>
+	<td><%= dir.date_deleted %></td>
   </tr>
   <% end %>
+  <!--% end %-->
   </table>
 </fieldset>
 <%= break_clear %>

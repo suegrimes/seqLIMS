@@ -88,21 +88,35 @@ class RunDirsController < ApplicationController
     redirect_to :action => 'new', :flow_cell_id => flow_cell_id
   end
   
-  def del_run_dir
-    # TODO
-    # fix form to only update with params where item is CHECKED AND HAS BOTH AN ID AND A DATE
-    # see iscc sample/list_in_transit for how to deal with checkbox/date
-    # update with flag and date
-    
+  def del_run_dir        
     @storage_devices = StorageDevice.populate_dropdown
       
     if params[:storage_devices]
-      @run_dirs = RunDir.find(:all, :include => :flow_cell, :conditions => ["run_dirs.delete_flag IS NULL AND run_dirs.storage_device_id = ?", params[:storage_devices][:id]]) 
+      #@run_dirs = RunDir.find(:all, :include => :flow_cell, :conditions => ["run_dirs.delete_flag IS NULL AND run_dirs.storage_device_id = ?", params[:storage_devices][:id]]) 
+      @run_dirs = RunDir.find(:all, :include => :flow_cell, :conditions => ["run_dirs.storage_device_id = ?", params[:storage_devices][:id]]) 
       @dev_name = StorageDevice.find_by_id(params[:storage_devices][:id]).device_name
       unless !@run_dirs.blank? 
         flash.now[:error] = "Error - Run directories not available for #{ @dev_name }"
       end
     end
+  end
+  
+  def update_multi_flagged
+    # TODO
+    # form validation
+    # redirect back to orig form
+
+    params[:run_dir].each do |id, rdir|
+      next if rdir[:date_deleted].blank?
+      flagged_run_dir = RunDir.find(id)          
+      if (flagged_run_dir.update_attributes(rdir))
+        flash[:notice] = 'Run directory was successfully updated.'         
+      else
+        flash[:error] = 'Error - Run directory not saved'
+      end
+    end
+    redirect_to(:action => :del_run_dir)
+    #render :action => 'debug'
   end
 
 protected
