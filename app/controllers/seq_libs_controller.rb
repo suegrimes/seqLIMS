@@ -111,7 +111,7 @@ class SeqLibsController < ApplicationController
     @seq_lib = SeqLib.find(params[:id])
     authorize! :update, @seq_lib
     
-    pool_label = Pool.get_pool_label(params[:seq_lib][:pool_id])
+    pool_label = Pool.get_pool_label(params[:seq_lib][:pool_id]) if !param_blank?(params[:seq_lib][:pool_id])
     alignment_key = AlignmentRef.get_align_key(params[:seq_lib][:alignment_ref_id])
     params[:seq_lib].merge!(:alignment_ref => alignment_key,
                             :oligo_pool => pool_label)
