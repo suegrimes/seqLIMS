@@ -103,8 +103,9 @@ class RunDirsController < ApplicationController
   
   def update_multi_flagged
     # TODO
-    # form validation
-    # redirect back to orig form
+    # form validation for checkbox
+    # autofill on check
+    # redirect page listing like /run_dirs/ for the device without the links at right
 
     params[:run_dir].each do |id, rdir|
       next if rdir[:date_deleted].blank?
