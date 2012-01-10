@@ -4,18 +4,17 @@ role :web, "reve.stanford.edu"
 #role :db,  "hjdb.stanford.edu", :primary => true
 
 set :user, "sgrimes"
-set :ssh_options, { :forward_agent => true }
+#set :ssh_options, { :forward_agent => true }
 default_run_options[:pty] = true
 
 set :deploy_to, "/opt/rails/seqLIMS"
-set :deploy_via, :remote_cache
 set :use_sudo, false
 
 set :scm, "git"
-set :repository, "git@github.com:suegrimes/seqLIMS.git"
+set :repository, "git://github.com/suegrimes/seqLIMS.git"
 set :branch, "master"
-set :git_shallow_clone, 1
-set :deploy_via, :remote_cache
+set :deploy_via, :remote_cache  # Just copy new/changed objects
+#set :git_shallow_clone, 1      # Pull down entire clone, but just top commit
 
 namespace :deploy do
 #  desc "Tell Passenger to restart the app."

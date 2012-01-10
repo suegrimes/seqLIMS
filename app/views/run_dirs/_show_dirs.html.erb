@@ -9,6 +9,7 @@
 	  <th>Date Sized</th>
 	  <th>Date Copied</th>
 	  <th>Date Verified</th>
+	  <th>Date Deleted</th>
 	  <th colspan=2></th>
 	</tr>
     
@@ -21,6 +22,7 @@
 		<td><%=h run_dir.date_sized %></td>
 		<td><%=h run_dir.date_copied %></td>
 		<td><%=h run_dir.date_verified %></td>
+		<td><%=h run_dir.date_deleted %></td>
 		
 		<td><%=link_to 'Edit',   edit_run_dir_path(run_dir) %></td>
 	    <td><%=link_to 'Delete', run_dir, :confirm => 'Are you sure?', :method => :delete %></td>

@@ -93,7 +93,13 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
 
 #header .sitename-graphic {
     margin-top: 3px;
-    text-align: center; 
+}
+
+#header .sitename-description {
+    font-family: Verdana, Geneva;
+    font-size: .85em;
+    font-weight: bold;
+    color: #555;
 }
 
 #header .version {  
@@ -119,7 +125,7 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
     font-size: 0.9em;
     color: #777;
     font-style:italic;
-    font-weight:bold;
+    font-weight:normal;
     text-align: center; 
 }
 
@@ -236,7 +242,7 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
     background: #e8ead0;
     vertical-align: middle;
     font-size: 0.8em;
-    padding-left: 15px;
+    padding: 0 10px 0 15px;
 }
 
 #leftsidebar ul li a:hover {
