@@ -48,9 +48,9 @@ class AlignQc < ActiveRecord::Base
   
   belongs_to :flow_lane
   
-  validates_numericality_of :cycle20_intensity_pct_pf, :pct_pf_clusters, :align_score_pf, :pct_align_pf, :pct_error_rate_pf 
+  validates_numericality_of :cycle20_intensity_pct_pf, :pct_pf_clusters, :align_score_pf, :pct_align_pf, :pct_error_rate_pf, :allow_blank => true
   validates_numericality_of :clusters_raw, :clusters_pf, :cycle1_intensity_pf, :nr_NM, :nr_QC, :nr_RX, :nr_U0, :nr_U1, :nr_U2, :nr_UM,
-                            :only_integer => true, :message => 'must be an integer'
+                            :only_integer => true, :allow_blank => true, :message => 'must be an integer'
   
   def self.add_qc_for_flow_cell(flow_cell_id)
     qc_added = 0
@@ -58,8 +58,7 @@ class AlignQc < ActiveRecord::Base
     flow_lanes.each do |flow_lane|
       align_qc = AlignQc.find_or_initialize_by_flow_lane_id_and_lane_nr_and_sequencing_key(flow_lane.id, flow_lane.lane_nr, flow_lane.sequencing_key)
       if align_qc.new_record?
-        align_qc.save
-        qc_added += 1
+        qc_added +=1 if align_qc.save
       end
     end
     FlowCell.update(flow_cell_id, :flowcell_status => 'Q') if qc_added > 0
