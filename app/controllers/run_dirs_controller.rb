@@ -105,18 +105,23 @@ class RunDirsController < ApplicationController
     # TODO
     # form validation for checkbox
     # autofill on check
-    # redirect page listing like /run_dirs/ for the device without the links at right
 
     params[:run_dir].each do |id, rdir|
       next if rdir[:date_deleted].blank?
       flagged_run_dir = RunDir.find(id)          
       if (flagged_run_dir.update_attributes(rdir))
-        flash[:notice] = 'Run directory was successfully updated.'         
+        flash.now[:notice] = 'Run directory was successfully updated.'
       else
-        flash[:error] = 'Error - Run directory not saved'
+        flash[:error] = 'Error - Run directory not updated'
+        redirect_to(:action => :del_run_dir)
       end
     end
-    redirect_to(:action => :del_run_dir)
+    
+    run_dirs  = RunDir.find(:all, :include => :flow_cell, :conditions => ["run_dirs.device_name = ?", params[:device_name]], 
+      :order => "flow_cells.seq_run_nr, run_dirs.delete_flag, run_dirs.device_name")
+    @run_dirs = run_dirs.group_by {|run_dir| run_dir.flow_cell.seq_run_nr}
+    @device_name = params[:device_name] 
+    render :action => :show_updated_dirs
     #render :action => 'debug'
   end
 
