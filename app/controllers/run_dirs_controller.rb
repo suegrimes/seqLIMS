@@ -1,17 +1,5 @@
 class RunDirsController < ApplicationController
   before_filter :dropdowns, :only => [:new, :edit]
-
-  ################################################
-  # include SslRequirement after other important before_filters.
-  # After testing, put the include in application controller, 
-  # or controllers of resources that need ssl 
-  # url: https://github.com/rails/ssl_requirement
-  ################################################
-
-  #include SslRequirement 
-  #ssl_required :del_run_dir # Non-SSL access will be redirected to SSL
-  #ssl_allowed :index # This action will work either with or without SSL
-  # other methods: SSL access will be redirected to non-SSL
  
   def index
     run_dirs  = RunDir.find(:all, :include => :flow_cell,
