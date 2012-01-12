@@ -29,7 +29,7 @@ class AlignQcsController < ApplicationController
       redirect_to flow_cell_qc_url(:id => @flow_cell.id)
       
     else
-      #redirect_to flow_cell_qc_url(:id => @flow_cell.id)
+      flash[:notice] = "Unable to add QC for: #{@flow_cell.sequencing_key} - validation error"
       dropdowns
       render :action => "new" 
     end
