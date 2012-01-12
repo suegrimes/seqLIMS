@@ -1,15 +1,6 @@
 # Filters added to this controller apply to all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
 
-#include SslRequirement
-  # Usage:
-  # include SslRequirement should go after other important before_filters.  
-  # Put the following in controllers to fine tune the ssl requirements:
-  # ssl_required :action1_name, :action2_name - Non-SSL access will be redirected to SSL
-  # ssl_allowed :action_name - This action will work either with or without SSL
-  # other methods: SSL access will be redirected to non-SSL
-  # https://github.com/rails/ssl_requirement
-
 class ApplicationController < ActionController::Base
   include AuthenticatedSystem
   include RoleRequirementSystem
@@ -18,7 +9,7 @@ class ApplicationController < ActionController::Base
   #Make current_user accessible from model (via User.current_user)
   before_filter :set_current_user
   before_filter :log_user_action
-  
+    
   rescue_from CanCan::AccessDenied do |exception|
     user_login = (current_user.nil? ? nil : current_user.login)
     flash[:error] = "Sorry #{user_login}, you are not authorized to access that page"

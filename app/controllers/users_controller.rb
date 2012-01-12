@@ -10,6 +10,10 @@ class UsersController < ApplicationController
   ## role_authorization ##
   skip_before_filter :login_required, :only => [:new, :create, :forgot, :reset]
   #require_role "admin", :for_all_except => [:new, :create]
+  if DEMO_APP
+    include SslRequirement   
+    ssl_required :index, :new, :create, :edit, :update, :destroy, :reset if DEMO_APP
+  end
 
   # render index.rhtml
   def index
