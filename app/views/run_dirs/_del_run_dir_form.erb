@@ -16,8 +16,13 @@
   <!--% fields_for 'run_dir[]', dir do |d| %-->
   <tr>
   	<td align="center"><%= dir.delete_flag %></td>
-    <td><%= check_box_tag("run_dir[#{dir.id}][delete_flag]", "Y", false)%></td>
-    <td><%= calendar_date_select_tag("run_dir[#{dir.id}][date_deleted]", '', :size => 10) %></td>
+    <td><%= check_box_tag("run_dir[#{dir.id}][delete_flag]", "Y")%></td>
+    
+    <script type="text/javascript">
+    	load_del_date('<%= dir.id %>');         
+    </script>	
+    
+    <td><%= calendar_date_select_tag("run_dir[#{dir.id}][date_deleted]", '', :id => "run_dir_#{dir.id}_date_deleted", :size => 10) %></td>
     <td><%= dir.date_deleted %></td>    
   	<td><%= link_to dir.flow_cell.sequencing_key, dir.flow_cell %></td>
 	<td><%= dir.date_sized %></td>
