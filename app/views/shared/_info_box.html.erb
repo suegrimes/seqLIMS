@@ -20,7 +20,7 @@
 		<% fld = info_flds[j] %>
 		<% if fld[0] == "Field" %>
 		  <%= content_tag(:th, fld[1] + ':') %>
-		  <%= content_tag(:td, fld[2]) %>
+		  <%= content_tag(:td, fld[2], (fld.size == 4 ? fld[3] : nil)) %>
 		  
 		<% elsif fld[0] == "Link" %>
 		  <%= content_tag(:th, fld[1] + ':') %>

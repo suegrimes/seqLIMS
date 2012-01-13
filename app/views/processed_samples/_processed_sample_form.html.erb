@@ -57,15 +57,12 @@
 	  <%=f.text_field :final_a260_a280, :size => 8, :label => 'a260/a280' %>
 	  <%=f.text_field :final_rin_nr, :size => 6, :label => 'RIN#' %>
 	</tr>
-	
-	<tr>
-	  <%= render :partial => 'shared/storage_select', :locals => {:f => f} %>
-	  <%=f.text_field :storage_shelf, :size => 12, :label => 'Shelf' %>
-	  <%=f.text_field :storage_boxbin, :size => 12, :label => 'Box/Bin' %>
-    </tr>
-	
 	<tr>
 	  <%=f.text_area :comments, :tdcolspan => 5, :cols => 80, :rows => 2 %>
 	</tr>
   </table>
 </fieldset>
+
+<% f.fields_for :sample_storage_container do |c| %>
+  <%= render :partial => 'shared/storage_container', :locals => {:f => c} %>
+<% end %>

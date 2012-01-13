@@ -36,9 +36,11 @@ class Sample < ActiveRecord::Base
   belongs_to :source_sample, :class_name => 'Sample', :foreign_key => 'source_sample_id'
   has_many   :samples, :foreign_key => 'source_sample_id'
   belongs_to :user, :foreign_key => 'updated_by'
-  belongs_to :storage_location
-  has_one    :histology
+  has_one    :histology, :dependent => :destroy
   has_many :processed_samples
+  has_one :sample_storage_container, :as => :stored_sample, :dependent => :destroy
+  
+  accepts_nested_attributes_for :sample_storage_container
   
   #before_validation :check_sample_date
   
@@ -54,7 +56,7 @@ class Sample < ActiveRecord::Base
   # Start year will be 2001, end year will be current year
   START_YEAR = 2000
   END_YEAR   = Time.now.strftime('%Y').to_i
-  FLDS_FOR_COPY = (%w{sample_type sample_tissue left_right tissue_preservation sample_container vial_type amount_uom storage_location_id})
+  FLDS_FOR_COPY = (%w{sample_type sample_tissue left_right tissue_preservation sample_container vial_type amount_uom})
   SOURCE_FLDS_FOR_COPY = (%w{sample_characteristic_id patient_id tumor_normal sample_type sample_tissue left_right tissue_preservation})
  
   #def check_sample_date
@@ -106,6 +108,14 @@ class Sample < ActiveRecord::Base
     return [amount_initial.to_s, uom].join(' ')
   end
   
+  def room_and_freezer
+    (sample_storage_container ? sample_storage_container.room_and_freezer : '')
+  end
+  
+  def container_and_position
+    (sample_storage_container ? sample_storage_container.container_and_position : '')
+  end
+  
   def self.next_dissection_barcode(source_sample_id, source_barcode)
     barcode_max = self.maximum(:barcode_key, :conditions => ["source_sample_id = ? AND barcode_key LIKE ?", source_sample_id.to_i, source_barcode + '%'])
     if barcode_max
@@ -116,7 +126,7 @@ class Sample < ActiveRecord::Base
   end
   
   def self.find_newly_added_sample(sample_characteristic_id, barcode_key)
-    self.find(:first, :include => [:sample_characteristic, :patient, :storage_location],
+    self.find(:first, :include => [:sample_characteristic, :patient, :sample_storage_container],
               :conditions => ["samples.sample_characteristic_id = ? AND samples.barcode_key = ?",
                                sample_characteristic_id, barcode_key])
   end
@@ -147,7 +157,7 @@ class Sample < ActiveRecord::Base
   end
   
   def self.find_for_export(sample_ids)
-    self.find(:all, :include => [:patient, [:sample_characteristic => :pathology], :histology, :storage_location, :processed_samples],
+    self.find(:all, :include => [:patient, [:sample_characteristic => :pathology], :histology, :sample_storage_container, :processed_samples],
               :conditions => ["samples.id IN (?)", sample_ids],
               :order => "samples.patient_id, samples.barcode_key")
   end

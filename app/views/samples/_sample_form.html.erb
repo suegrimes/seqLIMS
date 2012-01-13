@@ -10,7 +10,7 @@
 	</tr>
 	
     <tr>
-      <th>Sample Site - L/R</th>
+      <th>Sample Site - L/R:</th>
       <td><%=f.collection_select(:sample_tissue, @source_tissue, :c_value, :c_value, :wraptags => 'none')%>
       <%=f.select(:left_right, %w[NA L R], :wraptags => 'none') %></td>
       <%=f.collection_select(:sample_type, @sample_type, :c_value, :c_value, :label => 'Sample Type')%>
@@ -27,14 +27,12 @@
       <%=f.text_field :amount_initial, :size => 10, :label => 'Initial Amt' %>
 	  <%=f.select(:sample_remaining, %w[Y N], {:include_blank => true}, :label => 'Rem?')%></td>
 	</tr>
-	<tr>
-      <%= render :partial => 'shared/storage_select', :locals => {:f => f} %>
-	  <%=f.text_field :storage_shelf, :size => 10, :label => 'Shelf' %></td>
-      <%=f.text_field :storage_boxbin, :size => 10, :label => 'Rack/Bin#' %></td>  
-    </tr>
-	
     <tr>
       <%=f.text_area :comments, :tdcolspan => 5, :cols => 85, :rows => 2 %></td>
     </tr>
 </table>
 </fieldset>
+
+<% f.fields_for :sample_storage_container do |c| %>
+  <%= render :partial => 'shared/storage_container', :locals => {:f => c} %>
+<% end %>

@@ -24,9 +24,8 @@
 <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.container_type %></td>
 <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.sample_amt %></td>
 <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.sample_remaining%></td>
-<td class=<%= "dotted_border_bottom" if nonblank_comments %>><% if sample.storage_location %><%=h sample.storage_location.location_string %><% end %></td>
-<td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.storage_shelf %></td>
-<td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.storage_boxbin %></td>
+<td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.room_and_freezer %></td>
+<td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.container_and_position%></td>
 <% if can? :edit, sample %>
 <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=link_to 'Edit', edit_sample_path(sample) %></td>
 <% end %>
@@ -35,7 +34,7 @@
   </tr>  
   <tr>
   	<td></td>
-    <td colspan="12" style="border-top:0;">     
+    <td colspan="11" style="border-top:0;">     
       <div>Sample Comments:&nbsp;<%=h sample.comments %></div>
     </td>
 <% end %>

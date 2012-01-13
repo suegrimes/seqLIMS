@@ -13,12 +13,12 @@
                   ['Field', 'Container Type', sample.container_type],
 				  ['Field', 'Amount', sample.sample_amt],
                   ['Field', 'Remaining?', sample.sample_remaining],
-                  ['Field', 'Storage Location', (sample.storage_location ? sample.storage_location.location_string : nil)],
-                  ['Field', 'Shelf', sample.storage_shelf],
-                  ['Field', 'Box/Bin#', sample.storage_boxbin]] %>
+                  ['Field', 'Room/Freezer', sample.room_and_freezer],
+                  ['Field', 'Storage Container', sample.container_and_position],
+                  ] %>
 				  
 <!-- Only include comments if non-blank -->
-<% info_flds.push(['Field', 'Comments', sample.comments]) if !sample.comments.blank? %>
+<% info_flds.push(['Field', 'Comments', sample.comments, {:colspan => 3}]) if !sample.comments.blank? %>
 
 <!-- Links to be displayed with borders, in bottom row of info box -->
 <% info_links = [] %>

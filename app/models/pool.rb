@@ -9,6 +9,7 @@
 #  from_pools          :string(100)
 #  from_plates         :string(100)
 #  total_oligos        :integer(4)      default(0), not null
+#  cherrypick_oligos   :integer(4)      default(0), not null
 #  enzyme_code         :string(50)
 #  source_conc_um      :decimal(8, 3)
 #  pool_volume         :decimal(8, 3)
@@ -18,7 +19,9 @@
 #  updated_at          :timestamp
 #
 
-class Pool < InventoryDB  
+class Pool < InventoryDB
+  USING_POOLS = (self.find(:first).total_oligos == 0 && self.find(:all).size == 1 ? nil : True)
+ 
   def pool_string
     return [tube_label, pool_name].join('/')
   end

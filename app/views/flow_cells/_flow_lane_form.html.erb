@@ -5,10 +5,15 @@
     <td><%= n.text_field(:lane_nr, :size => 4) %></td>
 	<td><%= n.text_field(:lib_conc, :size => 4) %>pM</td>
 	
-	<% if flow_lane.seq_lib.oligo_pool.blank? && !flow_lane.seq_lib.control_lane? %>		
-	<td><%=n.collection_select(:pool_id, @oligo_pools, :id, :tube_label, {:include_blank => 'Select..'}) %></td>
+	<% if Pool::USING_POOLS %>
+	  <% if flow_lane.seq_lib.oligo_pool.blank? && !flow_lane.seq_lib.control_lane? %>		
+	  <td><%=n.collection_select(:pool_id, @oligo_pools, :id, :tube_label, {:include_blank => 'Select..'}) %></td>
+	  <% else %>
+	  <td class="ltgrey"><%=n.text_field(:oligo_pool, {:value => seq_lib.oligo_pool, :size => 10, :readonly => true, :style => "background-color:#ddd"}) %>
+	  <% end %>
+	
 	<% else %>
-	<td class="ltgrey"><%=n.text_field(:oligo_pool, {:value => seq_lib.oligo_pool, :size => 10, :readonly => true, :style => "background-color:#ddd"}) %>
+	  <td><%=n.collection_select(:oligo_pool, @projects, :c_value, :c_value, {:include_blank => 'Select..'})%></td>
 	<% end %>
 	
     <td><%=h seq_lib.lib_barcode %></td>

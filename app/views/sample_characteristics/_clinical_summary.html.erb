@@ -22,7 +22,7 @@
                   (sample_characteristic.from_nccc? ? ['Field', 'NCCC Path No ', sample_characteristic.nccc_pathno] : nil)] %>
 				  
 <!-- Only include comments if non-blank -->
-<% info_flds.push(['Field', 'Comments', sample_characteristic.comments]) if !sample_characteristic.comments.blank? %>
+<% info_flds.push(['Field', 'Comments', sample_characteristic.comments, {:colspan => 3}]) if !sample_characteristic.comments.blank? %>
 
 <!-- Links to be displayed with borders, in bottom row of info box -->
 <% info_links = [] %>
