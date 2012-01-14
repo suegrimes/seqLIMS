@@ -1,6 +1,7 @@
 <fieldset class="form">
 <legend>Sample Storage Location</legend>
   <table class="form">
+  <%=f.hidden_field(:sample_name_or_barcode, :value => barcode) %>
 	<tr>
 	  <th><%=f.label(:container_type, 'Container Type/Name:')%></th>
 	  <td><%=f.collection_select(:container_type, @containers, :c_value, :c_value, 

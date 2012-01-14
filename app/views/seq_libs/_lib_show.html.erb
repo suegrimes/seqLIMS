@@ -22,7 +22,7 @@
                   ['Field', 'Notebook Ref', seq_lib.notebook_ref]] %>
 				  
 <!-- Only include comments if non-blank -->
-<% info_flds.push(['Field', 'Comments', seq_lib.notes]) if !seq_lib.notes.blank? %>
+<% info_flds.push(['Field', 'Comments', seq_lib.notes, {:colspan => "3"}]) if !seq_lib.notes.blank? %>
 
 <!-- Links to be displayed with borders, in bottom row of info box -->
 <% info_links = [] %>

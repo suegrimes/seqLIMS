@@ -30,6 +30,6 @@ class SampleStorageContainer < ActiveRecord::Base
   end
   
   def room_and_freezer
-    return freezer_location.room_and_freezer
+    (freezer_location ? freezer_location.room_and_freezer : '')
   end
 end

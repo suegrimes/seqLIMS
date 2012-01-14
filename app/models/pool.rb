@@ -20,7 +20,7 @@
 #
 
 class Pool < InventoryDB
-  USING_POOLS = (self.find(:first).total_oligos == 0 && self.find(:all).size == 1 ? nil : True)
+  USING_POOLS = (self.find(:first).total_oligos == 0 && self.find(:all).size == 1 ? nil : 'yes')
  
   def pool_string
     return [tube_label, pool_name].join('/')
