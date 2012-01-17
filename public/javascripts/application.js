@@ -29,7 +29,6 @@ var $j = jQuery.noConflict(); //use jQuery object with $j and won't conflict wit
 var load_del_date = function(id) {
     var delete_flag_id = "run_dir_" + id + "_delete_flag";
     var date_deleted_id = "run_dir_" + id + "_date_deleted";
-    //alert(chk_bx_id + " " + date_deleted_id);
 	$j('#' + delete_flag_id).click(function() {
 	    if ( $j('#' + delete_flag_id).is(':checked') ) { 
 	        $j('#' + date_deleted_id).val(num_date());
