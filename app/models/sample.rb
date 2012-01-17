@@ -138,7 +138,7 @@ class Sample < ActiveRecord::Base
   end
   
   def self.find_with_conditions(condition_array)
-    self.find(:all, :include => [:patient, [:sample_characteristic => :pathology], :source_sample, :histology, :processed_samples],
+    self.find(:all, :include => [:patient, [:sample_characteristic => :pathology], :source_sample, :histology, :sample_storage_container, :processed_samples],
                                  :conditions => condition_array,
                                  :order => 'samples.patient_id,
                                  (if(samples.source_barcode_key IS NOT NULL, samples.source_barcode_key, samples.barcode_key)), samples.barcode_key')                                
