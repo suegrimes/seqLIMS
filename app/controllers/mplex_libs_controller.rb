@@ -39,7 +39,7 @@ class MplexLibsController < ApplicationController
                                       :enzyme_code         => s_lib.lib_samples[0].enzyme_code,
                                       :notes               => s_lib.lib_samples[0].notes)
     end     
-    
+    @checked = false
     render :action => 'new'
  #    render :action => 'debug'
   end
