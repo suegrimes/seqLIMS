@@ -68,7 +68,7 @@
       <td valign="top" width="180"><div class="version"><% if APP_VERSION %>Version: <%= APP_VERSION %><% end %><br /><span class="grey"><%=h env_descr %></span></div></td>
     </tr>
     <tr>
-      <td><div class="tagline">&nbsp;</div></td>      
+      <td><div class="tagline"><%= APP_TAGLINE if APP_TAGLINE %></div></td>      
       <td valign="bottom">
       	<% if (logged_in? && controller.action_name != "logout") %>
         <div class="logout-link">

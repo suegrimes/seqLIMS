@@ -9,6 +9,7 @@
 2	unit of measure	Unit of weight or volume
 2	vial type	Type of vial
 2	vial volume	Vial volume
+2	container	Sample storage container (eg rack, box)
 3	elution buffer	Elution buffer
 3	extraction type	Eg DNA, RNA, Protein
 3	support	Eg solution or lysophilized
