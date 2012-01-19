@@ -5,6 +5,13 @@
   <%= render :partial => 'lib_form', :locals => {:f => f} %> 
   <%= break_clear %>
 
+<% @checked ||= false %>  
+<span class="notes"> Check boxes below, to include libraries in new multiplex library</span><br/>
+  <%= check_box_tag("checkall", '1', @checked, {:onclick => "checkUncheckAll(this);"}) %>
+  <span style="font-size:90%">Check/Uncheck All</span>&nbsp;&nbsp;&nbsp;
+  <%= f.submit 'Create Library' %><br/>
+  <br/>
+
 <div>&nbsp;</div>
 <%= error_messages_for :lib_samples, :object => @seq_lib.lib_samples %>
 
@@ -30,7 +37,6 @@
 	<% end %>
   </table>
 </fieldset>  
-<%= break_clear(f.submit "Create") %>
 <% end %>
   
 <%= link_to 'Back', :back %>
