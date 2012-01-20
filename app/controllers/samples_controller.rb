@@ -8,13 +8,14 @@ class SamplesController < ApplicationController
   #########################################################################################
   def show
     @sample_is_new = (params[:new_sample] ||= false)
-    @sample = Sample.find(params[:id], :include => [{:sample_characteristic => :pathology}, :patient, :histology] )
+    @sample = Sample.find(params[:id], :include => [{:sample_characteristic => :pathology}, :patient, :histology, :sample_storage_container] )
   end
   
   # GET /samples/1/edit
   def edit
     @sample_is_new = (params[:new_sample] ||= false)
     @sample = Sample.find(params[:id], :include => [:sample_characteristic, :patient])
+    @sample.build_sample_storage_container if @sample.sample_storage_container.nil?
   end
   
   def edit_params 
@@ -40,6 +41,7 @@ class SamplesController < ApplicationController
       if @sample.clinical_sample == 'no' 
         redirect_to :controller => :dissected_samples, :action => :edit, :id => @sample.id
       else
+        @sample.build_sample_storage_container if @sample.sample_storage_container.nil?
         render :action => :edit
       end
     else
@@ -86,7 +88,8 @@ protected
     @sample_units       = category_filter(@category_dropdowns, 'sample unit')
     @vial_types         = category_filter(@category_dropdowns, 'vial type')
     @amount_uom         = category_filter(@category_dropdowns, 'unit of measure') 
-    @storage_locations  = StorageLocation.list_all_by_room
+    @containers         = category_filter(@category_dropdowns, 'container')
+    @freezer_locations  = FreezerLocation.list_all_by_room
   end
 
 end

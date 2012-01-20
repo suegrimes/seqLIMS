@@ -531,7 +531,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.timestamp "updated_at"
   end
 
-  create_table "storage_locations", :force => true do |t|
+  create_table "freezer_locations", :force => true do |t|
     t.string    "room_nr",     :limit => 25, :default => "", :null => false
     t.string    "freezer_nr",  :limit => 25
     t.string    "owner_name",  :limit => 25

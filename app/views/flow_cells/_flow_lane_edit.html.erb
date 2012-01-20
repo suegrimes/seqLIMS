@@ -9,11 +9,18 @@
 	<td><%=h flow_lane.runtype_adapter %></td>
 	<td><%=h flow_lane.alignment_ref %></td>
 	<td><%=h flow_lane.seq_lib.owner_abbrev %></td>
-	<% if flow_lane.seq_lib.oligo_pool.blank? && !flow_lane.seq_lib.control_lane? %>	
-	<td><%=n.collection_select(:pool_id, @oligo_pools, :id, :tube_label, {:include_blank => 'Select..'}) %></td>
+	
+	<% if Pool::USING_POOLS %>
+	  <% if flow_lane.seq_lib.oligo_pool.blank? && !flow_lane.seq_lib.control_lane? %>	
+	  <td><%=n.collection_select(:pool_id, @oligo_pools, :id, :tube_label, {:include_blank => 'Select..'}) %></td>
+	  <% else %>
+	  <td><%=n.text_field(:oligo_pool, {:value => flow_lane.seq_lib.oligo_pool, :size => 10, :readonly => true, :style => "background-color:#ddd"}) %>
+	  <% end %>
+	  
 	<% else %>
-	<td><%=n.text_field(:oligo_pool, {:value => flow_lane.seq_lib.oligo_pool, :size => 10, :readonly => true, :style => "background-color:#ddd"}) %>
-	<% end %>	
+	  <td><%=n.collection_select(:oligo_pool, @projects, :c_value, :c_value, {:include_blank => 'Select..'})%></td>
+	<% end %>
+		
 	<td><%= n.text_field(:notes) %></td>	
   <% end %>
 </div>

@@ -46,7 +46,7 @@ class Ability
       # Researchers can enter/update processed samples, seq libs, flow cells
       if user.has_role?("researcher") || user.has_role?("lab_admin")
         can :manage, [Sample, ProcessedSample, MolecularAssay, SeqLib, LibSample, FlowCell,
-                      FlowLane, Protocol, StorageLocation, Researcher]
+                      FlowLane, Protocol, FreezerLocation, Researcher]
         cannot [:edit, :update, :delete], Sample
       end
     
@@ -64,7 +64,7 @@ class Ability
 #          @_roles.include?("clinical") || usr == user
 #        end
         
-        can :manage, [ConsentProtocol, Protocol, StorageLocation]
+        can :manage, [ConsentProtocol, Protocol, FreezerLocation]
         cannot :delete, ConsentProtocol            
       end
       

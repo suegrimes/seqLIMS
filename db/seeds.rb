@@ -91,9 +91,9 @@ AlignmentRef.create!(:alignment_key => 'HWG_37.1',
 ##########################################################################################
 ### Populate tables for sample storage locations                                       ###
 ##########################################################################################
-StorageLocation.connection.execute("TRUNCATE TABLE storage_locations")
+FreezerLocation.connection.execute("TRUNCATE TABLE freezer_locations")
 
-StorageLocation.create!(:room_nr => '123',
+FreezerLocation.create!(:room_nr => '123',
                         :freezer_nr => '1')
                         
 ##########################################################################################

@@ -207,7 +207,7 @@
         
     <li> <a href="#">System Tables</a>  
       <ul>
-      	<li><%= link_to 'Freezer Locations', storage_locations_path %></li>
+      	<li><%= link_to 'Freezer Locations', freezer_locations_path %></li>
         <li><%= link_to 'Protocols', protocol_type_path %></li>
 		
 		<% if user_has_access?(user_roles, ["researcher", "lab_admin", "alignment"])%>

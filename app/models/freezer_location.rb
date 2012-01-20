@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: storage_locations
+# Table name: freezer_locations
 #
 #  id          :integer(4)      not null, primary key
 #  room_nr     :string(25)      default(""), not null
@@ -12,13 +12,14 @@
 #  updated_at  :timestamp       not null
 #
 
-class StorageLocation < ActiveRecord::Base
+class FreezerLocation < ActiveRecord::Base
   #has_many :samples
   #has_many :processed_samples
+  has_many :sample_storage_containers
   
   #validates_uniqueness_of :location_string
   
-  def location_string
+  def room_and_freezer
     name_array      = owner_name.split(' ')
     last_nm         = (owner_name.nil? ? ' ' : name_array[-1])
     last_nm_wparens = (last_nm.blank? ? ' ' : ['(', last_nm, ')'].join)
@@ -26,6 +27,6 @@ class StorageLocation < ActiveRecord::Base
   end
   
   def self.list_all_by_room
-    self.find(:all, :order => 'storage_locations.room_nr, storage_locations.freezer_nr')
+    self.find(:all, :order => 'freezer_locations.room_nr, freezer_locations.freezer_nr')
   end
 end

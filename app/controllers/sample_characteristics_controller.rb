@@ -204,7 +204,7 @@ protected
     @sample_units       = category_filter(@category_dropdowns, 'sample unit')
     @vial_types         = category_filter(@category_dropdowns, 'vial type')
     @amount_uom         = category_filter(@category_dropdowns, 'unit of measure')
-    @storage_locations  = StorageLocation.list_all_by_room
+    @freezer_locations  = FreezerLocation.list_all_by_room
   end
   
 private
