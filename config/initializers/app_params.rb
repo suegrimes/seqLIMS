@@ -8,7 +8,8 @@ require 'fastercsv'
 if FileTest.file?(environment_file)
   env_array = FasterCSV.read(environment_file, {:col_sep => "\t"})
   APP_TYPE = env_array[0][0][0..3].upcase
-  SITE_URL = env_array[0][1]
+  SITE_URL = env_array[0][1] 
+  APP_TAGLINE = ((env_array.size > 1 && env_array[1][0] = 'Tagline')? env_array[1][1] : '')
 end
 
 DEMO_APP = (APP_TYPE == 'DEMO'? true : false)

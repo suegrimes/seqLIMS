@@ -150,3 +150,12 @@ if FileTest.file?(file_path)
     end
   end
 end
+
+##########################################################################################
+### Populate tables for oligo pools                                                    ###
+##########################################################################################
+Pool.connection.execute("TRUNCATE TABLE pools")
+
+Pool.create!(:pool_name  => 'ProjectOrPool',
+             :tube_label => 'XX0001',
+             :pool_description => 'Test project/pool')
