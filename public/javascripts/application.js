@@ -14,6 +14,15 @@ $(link).previous("input[type=hidden]").value = "1";
 $(link).up(".fields").hide();  
 }
 
+function checkUncheckAll(theElement) {
+var theForm = theElement.form, z = 0;
+for(z=0; z<theForm.length;z++){
+if(theForm[z].type == 'checkbox' && theForm[z].name != 'checkall'){
+theForm[z].checked = theElement.checked;
+}
+}
+}
+
 function num_date() {
     var mm = new Array("01", "02", "03","04", "05", "06", "07", "08", "09","10", "11", "12");
     var full_date = new Date();
@@ -38,11 +47,4 @@ var load_del_date = function(id) {
 	});
 };
 
-function checkUncheckAll(theElement) {
-var theForm = theElement.form, z = 0;
-for(z=0; z<theForm.length;z++){
-if(theForm[z].type == 'checkbox' && theForm[z].name != 'checkall'){
-theForm[z].checked = theElement.checked;
-}
-}
-}
+
