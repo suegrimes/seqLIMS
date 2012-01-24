@@ -45,6 +45,9 @@ class SampleCharacteristicsController < ApplicationController
        end 
        
        @sample_characteristic.samples.build
+       @sample_characteristic.samples.each do |sample|
+         sample.build_sample_storage_container
+       end
        params[:new_patient] = new_patient 
        render :action => 'new_sample'
        #render :action => 'debug'
@@ -205,6 +208,7 @@ protected
     @vial_types         = category_filter(@category_dropdowns, 'vial type')
     @amount_uom         = category_filter(@category_dropdowns, 'unit of measure')
     @freezer_locations  = FreezerLocation.list_all_by_room
+    @containers         = category_filter(@category_dropdowns, 'container')
   end
   
 private

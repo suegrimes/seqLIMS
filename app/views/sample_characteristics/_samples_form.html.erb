@@ -49,15 +49,7 @@
 	  <td><%=s.text_field :amount_rem, :size => 8 %></td>
 	  <% end %>
     </tr>
-	
-    <tr>
-      <th>Room/Freezer</th>
-	  <td><%= render :partial => 'shared/storage_select', :locals => {:f => s} %></td>
-	  <th>Shelf</th>
-	  <td><%=s.text_field :storage_shelf, :size => 10 %></td>
-      <th>Rack#/Bin</th>
-	  <td><%=s.text_field :storage_boxbin, :size => 10 %></td>  
-    </tr>
+
     <tr>
       <th>Comments: </th>
       <td colspan=5><%=s.text_area :comments, :cols => 80, :rows => 2 %></td>
@@ -65,5 +57,10 @@
 	<!--  link_to_function "remove", "$(this).up('.samples').remove()"  -->
 </table>
 </fieldset>
+
+<% s.fields_for :sample_storage_container do |c| %>
+  <%= render :partial => 'shared/storage_container_tags', :locals => {:f => c, :barcode => s.object.barcode_key} %>
+<% end %>
+
 <% end %>
 </div>

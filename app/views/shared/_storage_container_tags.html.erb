@@ -1,0 +1,20 @@
+<fieldset class="form">
+<legend>Sample Storage Location</legend>
+  <table class="form" border="0">
+  <%=f.hidden_field(:sample_name_or_barcode, :value => barcode) %>
+	<tr>
+	  <th><%=f.label(:container_type, 'Container Type/Name:')%></th>
+	  <td><%=f.collection_select(:container_type, @containers, :c_value, :c_value, 
+                                {:include_blank => 'Select..'}, {:wraptags => 'none'}) %>
+	  <%=f.text_field(:container_name, :size => 25, :wraptags => 'none') %></td>
+	  <th><%=f.label(:position_in_container, 'Position in Container:')%></th>
+      <td rowspan="2"><%=f.text_field(:position_in_container, :size => 15)  %></td>	 
+    </tr>
+	<tr>
+	  <th><%=f.label(:freezer_location_id, 'Room/Freezer')%></th> 
+	  <td><%= f.collection_select(:freezer_location_id, @freezer_locations, :id, :room_and_freezer,
+                             {:include_blank => 'Select..'}) %></td>
+	</tr>
+  </table>
+</fieldset>
+ 
