@@ -164,7 +164,8 @@
 	<li><a href="#">Admin</a>
       <ul> 
         <li><%= link_to 'Users',  users_path %></li>
-        <li><%= link_to 'Researchers', researchers_path, :class => 'last-submenu-item' %></li>             
+        <li><%= link_to 'Researchers', researchers_path %></li> 
+        <li><%= link_to 'Run Dir Management', del_run_dir_path, :class => 'last-submenu-item' %></li>            
       </ul>
     </li>
 	<% end %> <!-- /admin -->
