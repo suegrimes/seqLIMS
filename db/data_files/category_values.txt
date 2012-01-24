@@ -69,6 +69,12 @@ vial volume	3	3ml
 vial volume	4	15ml
 vial volume	5	50ml
 vial volume	6	Bag
+container	1	Rack
+container	2	Box
+container	3	Conical
+container	4	Shelf
+container	8	[Other]
+container	9	[Unknown]
 elution buffer	1	TB
 elution buffer	2	H2O
 extraction type	1	Genomic DNA

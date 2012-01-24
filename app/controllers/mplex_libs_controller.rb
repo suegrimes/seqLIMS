@@ -7,8 +7,7 @@ class MplexLibsController < ApplicationController
   def setup_params
    @from_date = (Date.today - 3.months).beginning_of_month
    @to_date   =  Date.today
-   @seq_lib   = SeqLib.new(:owner => (current_user.researcher ? current_user.researcher.researcher_name : nil),
-                           :runtype_adapter => 'M_PE')
+   @seq_lib   = SeqLib.new(:owner => (current_user.researcher ? current_user.researcher.researcher_name : nil))
   end
   
   def new
@@ -39,7 +38,7 @@ class MplexLibsController < ApplicationController
                                       :enzyme_code         => s_lib.lib_samples[0].enzyme_code,
                                       :notes               => s_lib.lib_samples[0].notes)
     end     
-    
+    @checked = false
     render :action => 'new'
  #    render :action => 'debug'
   end

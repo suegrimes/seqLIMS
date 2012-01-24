@@ -13,7 +13,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :consent_protocols
   map.resources :protocols
   map.resources :categories
-  map.resources :storage_locations 
+  map.resources :freezer_locations 
   
   map.protocol_type 'protocol_type', :controller => 'protocols', :action => 'query_params'
   

@@ -130,7 +130,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.date      "sequencing_date"
     t.integer   "seq_machine_id"
     t.integer   "seq_run_nr",      :limit => 2
-    t.string    "sequencer_type",  :limit => 2
+    t.string    "machine_type",    :limit => 10
     t.string    "hiseq_xref",      :limit => 50
     t.string    "notes"
     t.datetime  "created_at"
@@ -142,7 +142,6 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer   "seq_lib_id"
     t.string    "sequencing_key",   :limit => 50
     t.string    "machine_type",     :limit => 10
-    t.string    "sequencer_type",   :limit => 2
     t.string    "lib_barcode",      :limit => 20
     t.string    "lib_name",         :limit => 50
     t.integer   "lane_nr",          :limit => 1,  :null => false
@@ -160,6 +159,16 @@ ActiveRecord::Schema.define(:version => 0) do
 
   add_index "flow_lanes", ["flow_cell_id"], :name => "fl_flow_cell_fk"
   add_index "flow_lanes", ["seq_lib_id"], :name => "fl_seq_lib_fk"
+
+  create_table "freezer_locations", :force => true do |t|
+    t.string    "room_nr",     :limit => 25, :default => "", :null => false
+    t.string    "freezer_nr",  :limit => 25
+    t.string    "owner_name",  :limit => 25
+    t.string    "owner_email", :limit => 50
+    t.string    "comments"
+    t.datetime  "created_at"
+    t.timestamp "updated_at",                                :null => false
+  end
 
   create_table "histologies", :force => true do |t|
     t.integer   "sample_id"
@@ -302,20 +311,21 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "prepared_samples", :force => true do |t|
-    t.integer   "processed_sample_id"
-    t.string    "barcode_key",         :limit => 25,                                :default => "", :null => false
-    t.integer   "protocol_id"
-    t.date      "preparation_date"
-    t.decimal   "input_amt",                          :precision => 8, :scale => 3
-    t.decimal   "amt_used",                           :precision => 8, :scale => 3
-    t.string    "image_file",          :limit => 100
-    t.decimal   "yield",                              :precision => 8, :scale => 3
-    t.decimal   "gc_content",                         :precision => 8, :scale => 3
-    t.string    "comments"
-    t.integer   "updated_by"
-    t.datetime  "created_at"
+  
+  create_table "pools", :force => true do |t|
+    t.string    "pool_name",           :limit => 35,                                :default => "", :null => false
+    t.string    "tube_label",          :limit => 15,                                :default => "", :null => false
+    t.string    "pool_description",    :limit => 80
+    t.string    "from_pools",          :limit => 100
+    t.string    "from_plates",         :limit => 100
+    t.integer   "total_oligos",                                                     :default => 0,  :null => false
+    t.integer   "cherrypick_oligos",                                                :default => 0,  :null => false
+    t.string    "enzyme_code",         :limit => 50
+    t.decimal   "source_conc_um",                     :precision => 8, :scale => 3
+    t.decimal   "pool_volume",                        :precision => 8, :scale => 3
+    t.integer   "project_id",          :limit => 2
+    t.integer   "storage_location_id", :limit => 2
+    t.string    "notes"
     t.timestamp "updated_at"
   end
 
@@ -379,18 +389,6 @@ ActiveRecord::Schema.define(:version => 0) do
 
   add_index "reserved_barcodes", ["barcode_key"], :name => "rb_barcode_idx", :unique => true
 
-  create_table "result_files", :force => true do |t|
-    t.integer   "analysis_id"
-    t.string    "rfile"
-    t.string    "rfile_content_type", :limit => 100
-    t.integer   "rfile_size",         :limit => 3
-    t.string    "notes"
-    t.datetime  "created_at"
-    t.timestamp "updated_at",                        :null => false
-  end
-
-  add_index "result_files", ["analysis_id"], :name => "rf_analysis_fk"
-
   create_table "roles", :force => true do |t|
     t.string "name"
   end
@@ -416,6 +414,8 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer   "copied_by",         :limit => 2
     t.date      "date_verified"
     t.integer   "verified_by",       :limit => 2
+    t.string    "delete_flag",       :limit => 1
+    t.date      "date_deleted"
     t.string    "notes"
     t.integer   "updated_by",        :limit => 2
     t.timestamp "updated_at"
@@ -439,6 +439,23 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "sample_storage_containers", :force => true do |t|
+    t.integer   "stored_sample_id"
+    t.string    "stored_sample_type",     :limit => 50
+    t.string    "sample_name_or_barcode", :limit => 25,  :default => "", :null => false
+    t.string    "container_type",         :limit => 10
+    t.string    "container_name",         :limit => 25,  :default => "", :null => false
+    t.string    "position_in_container",  :limit => 15
+    t.integer   "freezer_location_id"
+    t.integer   "storage_container_id"
+    t.string    "row_nr",                 :limit => 2
+    t.string    "position_nr",            :limit => 3,   :default => ""
+    t.string    "notes",                  :limit => 100
+    t.timestamp "updated_by"
+  end
+
+  add_index "sample_storage_containers", ["stored_sample_id"], :name => "cn_sample_idx"
 
   create_table "samples", :force => true do |t|
     t.integer   "patient_id"
@@ -512,67 +529,12 @@ ActiveRecord::Schema.define(:version => 0) do
     t.timestamp "updated_at"
   end
 
-  create_table "storage_containers", :force => true do |t|
-    t.string    "container_type",      :limit => 4
-    t.string    "container_nr",        :limit => 3
-    t.string    "project_name",        :limit => 25
-    t.string    "container_descr",     :limit => 25
-    t.integer   "storage_location_id"
-    t.string    "notes"
-    t.datetime  "created_at"
-    t.timestamp "updated_at"
-  end
-
   create_table "storage_devices", :force => true do |t|
-    t.string    "device_name",  :limit => 25, :default => "", :null => false
-    t.string    "building_loc", :limit => 25
-    t.string    "base_run_dir", :limit => 50
-    t.integer   "updated_by",   :limit => 2
-    t.timestamp "updated_at"
-  end
-
-  create_table "storage_locations", :force => true do |t|
-    t.string    "room_nr",     :limit => 25, :default => "", :null => false
-    t.string    "freezer_nr",  :limit => 25
-    t.string    "owner_name",  :limit => 25
-    t.string    "owner_email", :limit => 50
-    t.string    "comments"
-    t.datetime  "created_at"
-    t.timestamp "updated_at",                                :null => false
-  end
-
-  create_table "storage_positions", :force => true do |t|
-    t.string    "row_nr",                 :limit => 2
-    t.string    "position_nr",            :limit => 3,   :default => "", :null => false
-    t.integer   "storage_container_id"
-    t.integer   "sampleinv_id"
-    t.string    "sampleinv_type",         :limit => 50
-    t.string    "sample_name_or_barcode", :limit => 25
-    t.string    "notes",                  :limit => 100
-    t.datetime  "created_at"
-    t.timestamp "updated_by"
-  end
-
-  create_table "supplies", :force => true do |t|
-    t.integer   "quantity",        :limit => 2
-    t.string    "brand",           :limit => 50
-    t.string    "amount_size",     :limit => 30
-    t.string    "description",     :limit => 100
-    t.string    "model",           :limit => 30
-    t.string    "serial_number",   :limit => 30
-    t.date      "expiration_date"
-    t.string    "room_number",     :limit => 10
-    t.string    "location",        :limit => 25
-    t.string    "notes",           :limit => 100
-    t.integer   "updated_by"
-    t.timestamp "updated_at"
-  end
-
-  create_table "target_pools", :force => true do |t|
-    t.string    "pool_name",  :limit => 20, :default => "", :null => false
-    t.string    "project",    :limit => 25, :default => "", :null => false
-    t.string    "enzymes",    :limit => 50
-    t.datetime  "created_at"
+    t.string    "device_name",      :limit => 25, :default => "", :null => false
+    t.string    "building_loc",     :limit => 25
+    t.string    "base_run_dir",     :limit => 50
+    t.date      "last_upd_of_runs"
+    t.integer   "updated_by",       :limit => 2
     t.timestamp "updated_at"
   end
 

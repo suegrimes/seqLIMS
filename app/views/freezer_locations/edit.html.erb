@@ -1,0 +1,11 @@
+<h1>Edit freezer location</h1>
+
+<% tagged_form_for(@freezer_location) do |f| %>
+  <%= f.error_messages %>
+
+  <%= render :partial => 'freezer_loc_form', :locals => {:f => f} %>
+    
+  <%= break_clear(f.submit "Update") -%>&nbsp;&nbsp;<%= link_to 'Back', freezer_locations_path %>
+<% end %>
+
+

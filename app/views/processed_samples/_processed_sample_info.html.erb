@@ -16,9 +16,9 @@
 				  ['Field', 'Conc', processed_sample.final_conc],
                   ['Field', 'a260/a280', processed_sample.final_a260_a280],
                   ['Field', 'RIN#', processed_sample.final_rin_nr],
-                  ['Field', 'Room', (processed_sample.storage_location ? processed_sample.storage_location.location_string : nil)],
-                  ['Field', 'Shelf', processed_sample.storage_shelf],
-                  ['Field', 'Box/Bin#', processed_sample.storage_boxbin]] %>
+                  ['Field', 'Room/Freezer', processed_sample.room_and_freezer],
+                  ['Field', 'Storage Container', processed_sample.container_and_position],
+                  ] %>
 				  
 <!-- Only include comments if non-blank -->
 <% info_flds.push(['Field', 'Comments', processed_sample.comments]) if !processed_sample.comments.blank? %>

@@ -1,5 +1,5 @@
-<span class="table_title">Dissected Samples
-  <% if source_sample.samples %> (<%= source_sample.samples.size %> samples) <% end %></span>
+<% if source_sample.samples && source_sample.samples.size > 0 %> 
+<span class="table_title">Dissected Samples (<%= source_sample.samples.size %> samples)</span>
   <table class="list">
   <tr>
     <th>Barcode</th>
@@ -9,8 +9,7 @@
     <th>Amount(Initial)</th>
     <th>Remaining?</th>
     <th>Room/Freezer</th>
-    <th>Shelf</th>
-    <th>Rack#/Bin</th>
+    <th>Container</th>
   </tr>
   <% for sample in source_sample.samples %>
     <tr>
@@ -20,9 +19,9 @@
       <td><%=h sample.container_type %></td>
       <td><%=h sample.sample_amt %></td>
       <td><%=h sample.sample_remaining%></td>
-      <td><% if sample.storage_location %><%=h sample.storage_location.location_string %><% end %></td>
-      <td><%=h sample.storage_shelf %></td>
-      <td><%=h sample.storage_boxbin %></td>
-	</tr>
+      <td><%=h sample.room_and_freezer %></td>
+      <td><%=h sample.container_and_position %></td>
+	</tr> 
   <% end %>
   </table>
+ <% end %>

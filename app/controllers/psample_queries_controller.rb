@@ -169,7 +169,7 @@ protected
   end
   
   def export_samples_setup
-    hdgs  = (%w{DownloadDt Patient_ID Barcode Type FromSample ProcessDt Amt(ug) Conc A260/280 Rem? Room_Freezer Shelf Box_Bin})
+    hdgs  = (%w{DownloadDt Patient_ID Barcode Type FromSample ProcessDt Amt(ug) Conc A260/280 Rem? Room_Freezer Container})
     
     flds  = [['sm', 'patient_id'],
              ['ps', 'barcode_key'],
@@ -180,15 +180,14 @@ protected
              ['ps', 'final_conc'],
              ['ps', 'final_a260_a280'], 
              ['ps', 'psample_remaining'],
-             ['lp', 'location_string'],
-             ['ps', 'storage_shelf'],
-             ['ps', 'storage_boxbin']]
+             ['pc', 'room_and_freezer'],
+             ['pc', 'container_and_position']]
              
     return hdgs, flds
   end
   
   def model_xref(psample)
-    return {:ps => psample, :sm => psample.sample, :lp => psample.storage_location}
+    return {:ps => psample, :sm => psample.sample, :pc => psample.sample_storage_container}
   end
     
 

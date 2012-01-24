@@ -9,7 +9,7 @@ class TaggedBuilder < ActionView::Helpers::FormBuilder
       if options[:wraptags] == 'none'
         super
       else
-        @template.content_tag(:th, label(field, options[:label]) +  @template.content_tag(:td, super, :colspan => options[:tdcolspan]))
+        @template.content_tag(:th, (label(field, options[:label]) + ':') +  @template.content_tag(:td, super, :colspan => options[:tdcolspan]))
       end
     end
   end

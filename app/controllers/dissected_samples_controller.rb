@@ -24,6 +24,7 @@ class DissectedSamplesController < ApplicationController
                            :amount_uom       => 'Weight (mg)',
                            :sample_date      => Date.today)
       @sample = Sample.new(sample_params)  
+      @sample.build_sample_storage_container
     else
       flash[:error] = 'Sample barcode not found, please try again'
       redirect_to :action => 'new_params'
@@ -84,6 +85,7 @@ protected
     @category_dropdowns = Category.populate_dropdowns([Cgroup::CGROUPS['Sample']])
     @tumor_normal       = category_filter(@category_dropdowns, 'tumor_normal')
     @amount_uom         = category_filter(@category_dropdowns, 'unit of measure') 
-    @storage_locations  = StorageLocation.list_all_by_room
+    @containers         = category_filter(@category_dropdowns, 'container')
+    @freezer_locations  = FreezerLocation.list_all_by_room
   end
 end

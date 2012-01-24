@@ -18,12 +18,11 @@
 	  <%=f.select(:sample_remaining, %w{Y N}, :label => 'Rem?')%>
 	</tr>
 	<tr>
-	  <%= render :partial => 'shared/storage_select', :locals => {:f => f} %>
-	  <%=f.text_field :storage_shelf, :label => 'Shelf', :size => 12 %>
-	  <%=f.text_field :storage_boxbin, :label => 'Rack#/Bin', :size => 12 %>
-	</tr>
-	<tr>
 	  <%=f.text_area :comments, :tdcolspan => 5, :cols => 80, :rows => 2 %>
 	</tr>
   </table>
 </fieldset>
+
+<% f.fields_for :sample_storage_container do |c| %>
+  <%= render :partial => 'shared/storage_container', :locals => {:f => c, :barcode => f.object.barcode_key} %>
+<% end %>

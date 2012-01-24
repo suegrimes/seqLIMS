@@ -3,7 +3,7 @@
 # Table name: patients
 #
 #  id                    :integer(4)      not null, primary key
-#  clinical_id_encrypted :binary(30)
+#  clinical_id_encrypted :binary(255)
 #  gender                :string(1)
 #  ethnicity             :string(35)
 #  race                  :string(70)

@@ -15,8 +15,7 @@
     <th>Amount</th>
     <th>Rem?</th>
     <th>Room/Freezer</th>
-    <th>Shelf</th>
-    <th>Rack#/Bin</th>
+    <th>Container</th>
 	<th>Extracted?</th> 
 	<th>Upd By</th>
 	<th></th>
@@ -46,9 +45,8 @@
         <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.container_type %></td>
         <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.sample_amt %></td>
         <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.sample_remaining%></td>
-        <td class=<%= "dotted_border_bottom" if nonblank_comments %>><% if sample.storage_location %><%=h sample.storage_location.location_string %><% end %></td>
-        <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.storage_shelf %></td>
-        <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.storage_boxbin %></td>
+        <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.room_and_freezer %></td>
+        <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.container_and_position %></td>
 		<td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.user.login if sample.user %></td>
 		<%= render :partial => 'sample_links', :locals => {:sample => sample,
                                                :sample_characteristic => sample.sample_characteristic} %>
@@ -56,7 +54,7 @@
       </tr>
 	  <% if nonblank_comments %>
 	  <tr>
-		<td colspan="12">Comments: <%=h sample.comments %></td>
+		<td colspan="11">Comments: <%=h sample.comments %></td>
 	  </tr>
 	  <% end %>
     <% end %>
