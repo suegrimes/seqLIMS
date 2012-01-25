@@ -29,10 +29,18 @@
 	  <%= render :partial => 'samples_form', :locals => {:sample => @new_sample_with_error} %>
   
   <% else %>
-    <div id="add_more">
-      <%= link_to_remote("Add another sample for this patient/collection date",
-                          :url => {:action => :add_new_sample, :id => @sample_characteristic.id, :from_sample_id => @last_sample_id},
-                          :method => :get) %>
+    <div id="more_to_add">
+      <%= link_to_function "Add another sample for this patient/collection date", div_toggle(:more_to_add, :add_more) %>
+    </div>
+	
+    <div id="add_more", style="display:none">  
+	  <% sample = @sample_characteristic.samples.build(@sample_params) %>
+	  <% sample.build_sample_storage_container %>
+	  
+	  <% f.fields_for :samples, sample do |s| %>
+         <%= render :partial => 'samples_form', :locals => {:s => s,
+                                                            :sample => sample} %>
+	  <% end %>
     </div>
 	
   <% end %> 

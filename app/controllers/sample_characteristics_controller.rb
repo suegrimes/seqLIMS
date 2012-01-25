@@ -45,9 +45,8 @@ class SampleCharacteristicsController < ApplicationController
        end 
        
        @sample_characteristic.samples.build
-       @sample_characteristic.samples.each do |sample|
-         sample.build_sample_storage_container
-       end
+       @sample_characteristic.samples[0].build_sample_storage_container
+ 
        params[:new_patient] = new_patient 
        render :action => 'new_sample'
        #render :action => 'debug'
@@ -61,6 +60,7 @@ class SampleCharacteristicsController < ApplicationController
   
    # POST /sample_characteristics/1
   def create 
+    
     @patient = Patient.find(params[:patient][:id])
     @patient.update_attributes(params[:patient])
     
@@ -121,6 +121,9 @@ class SampleCharacteristicsController < ApplicationController
   def edit
     @sample_characteristic = SampleCharacteristic.find(params[:id], :include => :samples,
                                                        :conditions => "samples.source_sample_id IS NULL")
+    if @sample_characteristic && @sample_characteristic.samples
+      @sample_params = build_params_from_obj(@sample_characteristic.samples[-1], Sample::FLDS_FOR_COPY)
+    end
   end
   
   # PUT /sample_characteristics/1
@@ -180,6 +183,8 @@ class SampleCharacteristicsController < ApplicationController
     else
       sample = @sample_characteristic.samples.build
     end
+    sample.build_sample_storage_container
+    
     render :update do |page|
       page.replace_html 'add_more', :partial => 'samples_form', :locals => {:sample => sample}
     end
