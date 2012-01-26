@@ -24,7 +24,7 @@
 class SampleCharacteristic < ActiveRecord::Base
   require 'ezcrypto'
   
-  has_many :samples
+  has_many :samples, :dependent => :destroy
   belongs_to :patient
   belongs_to :consent_protocol
   belongs_to :pathology
@@ -35,7 +35,7 @@ class SampleCharacteristic < ActiveRecord::Base
   validates_date :collection_date, :allow_blank => true
   validates_presence_of :consent_protocol_id, :clinic_or_location
   
-  after_save :save_sample
+  #after_save :save_sample
   
   def before_create
     self.gender    = self.patient.gender
@@ -79,28 +79,28 @@ class SampleCharacteristic < ActiveRecord::Base
            sample_characteristics.group_by {|samp_char| [samp_char.patient_id, samp_char.patient.mrn]}
   end
   
-  def new_sample_attributes=(sample_attributes)  
-    sample_attributes.each do |attributes|
-      attributes.merge!({:sample_date => collection_date})
-      samples.build(attributes)
-    end 
-  end
-  
-  def existing_sample_attributes=(sample_attributes)
-    samples.reject(&:new_record?).each do |sample|
-      attributes = sample_attributes[sample.id.to_s]
-      if attributes
-        sample.attributes = attributes
-      else
-        samples.delete(sample)
-      end
-    end
-  end
-  
-  def save_sample
-    samples.each do |sample|
-      sample.save(false)  
-    end
-  end
+#  def new_sample_attributes=(sample_attributes)  
+#    sample_attributes.each do |attributes|
+#      attributes.merge!({:sample_date => collection_date})
+#      samples.build(attributes)
+#    end 
+#  end
+#  
+#  def existing_sample_attributes=(sample_attributes)
+#    samples.reject(&:new_record?).each do |sample|
+#      attributes = sample_attributes[sample.id.to_s]
+#      if attributes
+#        sample.attributes = attributes
+#      else
+#        samples.delete(sample)
+#      end
+#    end
+#  end
+#  
+#  def save_sample
+#    samples.each do |sample|
+#      sample.save(false)  
+#    end
+#  end
 
 end

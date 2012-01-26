@@ -38,10 +38,18 @@ class FlowCell < ActiveRecord::Base
   
   DEFAULT_MACHINE_TYPE = 'GAIIx'
   NR_LANES = {:MiSeq => 1, :GAIIx => 8, :HiSeq => 8}
-  STATUS = %w{F R S Q N}
+  STATUS = %w{F R S Q N X}
   
   def sequenced?
     flowcell_status != 'F'
+  end
+  
+  def flowcell_qc
+    case flowcell_status
+      when 'N' then 'N/A'
+      when 'X' then 'Fail'
+      else ' '
+    end
   end
   
   def hiseq_run?

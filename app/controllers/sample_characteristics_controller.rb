@@ -71,7 +71,8 @@ class SampleCharacteristicsController < ApplicationController
       flash[:notice] = 'New clinical sample was successfully saved'
       
       # Sample Characteristic successfully saved => send emails
-      sample = new_sample_entered(@sample_characteristic.id, params[:sample_characteristic])
+      sample = @sample_characteristic.samples[0]
+      #sample = new_sample_entered(params[:id], params[:sample_characteristic])
       email  = send_email(sample, @patient.mrn, current_user) unless sample.nil? || EMAIL_CREATE[:samples] == 'NoEmail'
       if EMAIL_DELIVERY[:samples]  == 'Debug'
         render(:text => "<pre>" + email.encoded + "</pre>")
@@ -174,21 +175,21 @@ class SampleCharacteristicsController < ApplicationController
     redirect_to(patient_url)
   end
   
-  def add_new_sample
-    @sample_characteristic = SampleCharacteristic.find(params[:id])
-    @patient_id = @sample_characteristic.patient_id
-
-    if params[:from_sample_id]
-      sample = @sample_characteristic.samples.build(build_params_from_obj(Sample.find(params[:from_sample_id]), Sample::FLDS_FOR_COPY))
-    else
-      sample = @sample_characteristic.samples.build
-    end
-    sample.build_sample_storage_container
-    
-    render :update do |page|
-      page.replace_html 'add_more', :partial => 'samples_form', :locals => {:sample => sample}
-    end
-  end
+#  def add_new_sample
+#    @sample_characteristic = SampleCharacteristic.find(params[:id])
+#    @patient_id = @sample_characteristic.patient_id
+#
+#    if params[:from_sample_id]
+#      sample = @sample_characteristic.samples.build(build_params_from_obj(Sample.find(params[:from_sample_id]), Sample::FLDS_FOR_COPY))
+#    else
+#      sample = @sample_characteristic.samples.build
+#    end
+#    sample.build_sample_storage_container
+#    
+#    render :update do |page|
+#      page.replace_html 'add_more', :partial => 'samples_form', :locals => {:sample => sample}
+#    end
+#  end
 
 
 ## Protected and private methods ##
@@ -227,8 +228,8 @@ private
   end
   
   def new_sample_entered(sample_characteristic_id, params)
-    if params[:new_sample_attributes]
-      barcode_key = params[:new_sample_attributes][0][:barcode_key]
+    if params[:samples_attributes]
+      barcode_key = params[:samples_attributes]["0"][:barcode_key]
       if !barcode_key.nil? && !barcode_key.blank?
         sample = Sample.find_newly_added_sample(sample_characteristic_id, barcode_key)
       end
