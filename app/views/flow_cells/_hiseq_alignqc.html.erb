@@ -1,10 +1,11 @@
 <table class="list">
   <tr>
-  	<th colspan=3 class="no_border_bottom">&nbsp;</th>
-	<th colspan=3 style="text-align:center;" class="no_border_bottom"><%= "Reads".center(43, '-')%></th>
-	<th colspan=3 style="text-align:center;" class="no_border_bottom"><%= "Inserts".center(23, '-')%></th>
-	<th colspan=3 style="text-align:center;" class="no_border_bottom"><%= "Pairs".center(65, '-')%></th>
+  	<th colspan="3" class="no_border_bottom">&nbsp;</th>
+	<th colspan="3" style="text-align:center;" class="no_border_bottom"><%= "Reads".center(43, '-')%></th>
+	<th colspan="3" style="text-align:center;" class="no_border_bottom"><%= "Inserts".center(23, '-')%></th>
+	<th colspan="3" style="text-align:center;" class="no_border_bottom"><%= "Pairs".center(65, '-')%></th>
 	<th style="text-align:center;" class="no_border_bottom"><%= "Read1".center(15, '-')%></th>
+	<th>&nbsp;</th>
   </tr>
   <tr>
   	<th>Ln</th>
@@ -20,6 +21,7 @@
 	<th title="One read maps uniquely and the other has consistent position">Rescued</th>
 	<th title="Consistent Unique + Rescued Pairs">Total Consistent</th>
 	<th title="Mapped to a single position in genome" style="text-align:center">PF Unique</th>
+	<th>&nbsp;</th>
   </tr>
   <% for flow_lane in @flow_cell.flow_lanes %>
     <tr>

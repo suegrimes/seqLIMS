@@ -175,21 +175,21 @@ class SampleCharacteristicsController < ApplicationController
     redirect_to(patient_url)
   end
   
-#  def add_new_sample
-#    @sample_characteristic = SampleCharacteristic.find(params[:id])
-#    @patient_id = @sample_characteristic.patient_id
-#
-#    if params[:from_sample_id]
-#      sample = @sample_characteristic.samples.build(build_params_from_obj(Sample.find(params[:from_sample_id]), Sample::FLDS_FOR_COPY))
-#    else
-#      sample = @sample_characteristic.samples.build
-#    end
-#    sample.build_sample_storage_container
-#    
-#    render :update do |page|
-#      page.replace_html 'add_more', :partial => 'samples_form', :locals => {:sample => sample}
-#    end
-#  end
+  def add_new_sample
+    @sample_characteristic = SampleCharacteristic.find(params[:id])
+    @patient_id = @sample_characteristic.patient_id
+
+    if params[:from_sample_id]
+      sample = @sample_characteristic.samples.build(build_params_from_obj(Sample.find(params[:from_sample_id]), Sample::FLDS_FOR_COPY))
+    else
+      sample = @sample_characteristic.samples.build
+    end
+    sample.build_sample_storage_container
+    
+    render :update do |page|
+      page.replace_html 'add_more', :partial => 'samples_fieldsfor', :locals => {:f => params[:f], :sample => sample}
+    end
+  end
 
 
 ## Protected and private methods ##

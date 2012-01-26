@@ -1,0 +1,3 @@
+<% f.fields_for :samples, sample do |s| %>
+  <%= render :partial => 'samples_form', :locals => {:s => s, :sample => sample} %>
+<% end %>

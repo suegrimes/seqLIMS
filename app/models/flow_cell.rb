@@ -52,6 +52,10 @@ class FlowCell < ActiveRecord::Base
     end
   end
   
+  def hiseq_qc?
+    (machine_type == 'HiSeq' && sequencing_key.split('_')[1][0].chr != 'S')
+  end
+  
   def hiseq_run?
     (machine_type == 'HiSeq' && !hiseq_xref.blank? && hiseq_xref.split('_').size > 3)
   end
