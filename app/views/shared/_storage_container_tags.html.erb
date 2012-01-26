@@ -6,15 +6,15 @@
 	  <th><%=f.label(:container_type, 'Container Type:')%></th>
 	  <td><%=f.collection_select(:container_type, @containers, :c_value, :c_value, 
                                 {:include_blank => 'Select..'}) %></td>
-	  <th><%=f.label(:freezer_location_id, 'Room/Freezer:')%></th> 
-	  <td><%= f.collection_select(:freezer_location_id, @freezer_locations, :id, :room_and_freezer,
-                             {:include_blank => 'Select..'}) %></td>
-    </tr>
-	<tr>
-	  <th><%=f.label(:container_name, 'Container Name:')%></th>
-	  <td><%=f.text_field(:container_name, :size => 25) %></td>
+	  <th><%=f.label(:container_name, 'Name/#:')%></th>
+	  <td><%=f.text_field(:container_name, :size => 15) %></td>
 	  <th><%=f.label(:position_in_container, 'Position in Container:')%></th>
-      <td><%=f.text_field(:position_in_container, :size => 15)  %></td>	 	 
+      <td><%=f.text_field(:position_in_container, :size => 10)  %></td>	
+    </tr>
+	<tr>  
+	  <th><%=f.label(:freezer_location_id, 'Room/Freezer:')%></th> 
+	  <td colspan="3"><%= f.collection_select(:freezer_location_id, @freezer_locations, :id, :room_and_freezer,
+                                             {:include_blank => 'Select..'}) %></td> 	 
 	</tr>
   </table>
 </fieldset>

@@ -1,7 +1,6 @@
 <% removable ||= 'no' %>
-<div id="samples">
-  <% new_or_existing = sample.new_record? ? 'new' : 'existing' %>
- 
+
+<div id="samples"> 
   <%=s.hidden_field(:patient_id, :value => @patient_id) %>
   <%=s.error_messages%>
 
@@ -37,7 +36,7 @@
 	  <th>Amt Unit</th>
 	  <td><%=s.collection_select(:amount_uom, @amount_uom, :c_value, :c_value)%></td>
 	  
-	  <% if new_or_existing == 'new' %>
+	  <% if s.object.new_record? %>
 	  <th>Amount</th>
 	  <td><%=s.text_field :amount_initial, :size => 8 %></td>
 	  <% else %>

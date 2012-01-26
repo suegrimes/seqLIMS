@@ -151,7 +151,7 @@ class SampleCharacteristicsController < ApplicationController
       flash[:error] = 'Error - Clinical sample/characteristics not updated'
       dropdowns
       sample_dropdowns
-      render :action => 'show'
+      render :action => 'edit'
     end
     #render :action => 'debug'
   end

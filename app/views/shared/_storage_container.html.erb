@@ -4,13 +4,14 @@
   <%=f.hidden_field(:sample_name_or_barcode, :value => barcode) %>
 	<tr>
 	  <%=f.collection_select(:container_type, @containers, :c_value, :c_value, 
-                                {:include_blank => 'Select..'}, :label => 'Container Type:') %>
-	  <%= f.collection_select(:freezer_location_id, @freezer_locations, :id, :room_and_freezer,
-                             {:include_blank => 'Select..'}, :label => 'Room/Freezer:') %>
+                                {:include_blank => 'Select..'}, :label => 'Container Type') %>
+	  <%=f.text_field(:container_name, :size => 15, :label => 'Name/#') %></td>
+	  <%=f.text_field(:position_in_container, :size => 10, :label => 'Position in Container') %>	
     </tr>
-	<tr>  
-	  <%=f.text_field(:container_name, :size => 25, :label => 'Container Name:') %></td>
-	  <%=f.text_field(:position_in_container, :size => 15, :label => 'Position in Container:') %>	
+	<tr>
+      <%=f.collection_select(:freezer_location_id, @freezer_locations, :id, :room_and_freezer,
+                             {:include_blank => 'Select..'}, :tdcolspan => "3", :label => 'Room/Freezer') %> 
+	  
 	</tr>
   </table>
 </fieldset>
