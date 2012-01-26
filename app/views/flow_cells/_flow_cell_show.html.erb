@@ -8,12 +8,14 @@
 <!-- Standard fields to be displayed -->
 <% info_flds   = [['Field', 'Date', flow_cell.flowcell_date],              
                   ['Field', '# Reads(R1,Index,R2)', [flow_cell.nr_bases_read1, flow_cell.nr_bases_index, flow_cell.nr_bases_read2].join(',')],
+                  ['Field', 'Machine Type', flow_cell.machine_type],
+                  ['Field', 'Status Code', flow_cell.flowcell_status],
                   ['Field', 'Cluster Kit', flow_cell.cluster_kit],
                   ['Field', 'Sequencing Kit', flow_cell.sequencing_kit]] %>
 				  
 <!-- Only include comments if non-blank -->
 <% info_flds.push(['Field', 'Alt Run#', flow_cell.hiseq_xref], nil) if !flow_cell.hiseq_xref.blank? %>
-<% info_flds.push(['Field', 'Comments', flow_cell.notes]) if !flow_cell.notes.blank? %>
+<% info_flds.push(['Field', 'Comments', flow_cell.notes, {:colspan => 3}]) if !flow_cell.notes.blank? %>
 
 <!-- Links to be displayed with borders, in bottom row of info box -->
 <% info_links = [] %>

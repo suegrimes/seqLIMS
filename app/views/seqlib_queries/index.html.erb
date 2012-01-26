@@ -6,9 +6,11 @@
     <th>Library Name</th>
 	<th>Owner</th>
 	<th>Prep Date</th>
+	<th>M/S</th>
 	<th>Adapter</th>
 	<th colspan=2>Sample Conc</th>
 	<th>Project</th>
+	<th>Pool</th>
 	<th>Alignment Ref</th>
 	<th># Seq Lanes</th>
     <th colspan="4"></th>
@@ -20,12 +22,14 @@
     <td><%=h seq_lib.lib_name %></td>
 	<td><%=h seq_lib.owner_abbrev %></td>
 	<td><%=h seq_lib.preparation_date %></td>
+	<td style="text-align:center"><%=h seq_lib.library_type %></td>
 	<td><%=h seq_lib.runtype_adapter %></td>
-	<td><%=h sample_conc_string(seq_lib.sample_conc_ngul, 'ng/ul')%></td>
-    <td><%=h sample_conc_string(seq_lib.sample_conc_nm, 'nm')%></td>
-	<td><%=h seq_lib.target_pool %></td>
+	<td><%=h format_conc(seq_lib.sample_conc_ngul)%> ng/ul</td>
+    <td><%=h format_conc(seq_lib.sample_conc_nm)%> nM</td>
+	<td><%=h seq_lib.project %></td>
+	<td><%=h seq_lib.oligo_pool %></td>
 	<td><%=h seq_lib.alignment_ref %></td>
-	<td><%=h seq_lib.seq_lane_cnt%></td>
+	<td style="text-align:center"><%=h seq_lib.seq_lane_cnt%></td>
 	
 	<% if can? :edit, seq_lib %>
 	  <td><%= link_to 'Edit',   edit_seq_lib_path(seq_lib) %></td>

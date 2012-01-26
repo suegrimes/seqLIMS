@@ -1,0 +1,42 @@
+<h1>New Multiplex Sequencing Library</h1>
+
+<% form_for @seq_lib, :url => {:controller => 'mplex_libs', :action => :create} do |f| %>
+  <%= f.error_messages %>
+  <%= render :partial => 'lib_form', :locals => {:f => f} %> 
+  <%= break_clear %>
+
+<% @checked ||= false %>  
+<span class="notes"> Check boxes below, to include libraries in new multiplex library</span><br/>
+  <%= check_box_tag("checkall", '1', @checked, {:onclick => "checkUncheckAll(this);"}) %>
+  <span style="font-size:90%">Check/Uncheck All</span>&nbsp;&nbsp;&nbsp;
+  <%= f.submit 'Create Library' %><br/>
+  <br/>
+
+<div>&nbsp;</div>
+<%= error_messages_for :lib_samples, :object => @seq_lib.lib_samples %>
+
+<fieldset class="form">
+<legend>Libraries/Samples</legend>
+<table class="form-with-columns">
+  	<tr>
+  	  <td>&nbsp;</td>
+  	  <th>Lib Barcode</th>
+	  <th>Lib Name</th>
+  	  <th>Adapter</th>
+      <th>Tag/Seq</th>
+      <th>Sample Name</th>
+	  <th>Patient ID</th>
+      <th>Source DNA/RNA</th>
+	  <th>Oligo Pool</th>
+	  <th>Sample Notes</th>
+    </tr>
+
+    <% @lib_samples.each_with_index do |lib_sample, i| %>
+      <tr><%= render :partial => 'sample_form', :locals => {:seq_lib => @singleplex_libs[i],
+                                                            :lib_sample => lib_sample } %></tr>
+	<% end %>
+  </table>
+</fieldset>  
+<% end %>
+  
+<%= link_to 'Back', :back %>

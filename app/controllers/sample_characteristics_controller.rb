@@ -45,6 +45,8 @@ class SampleCharacteristicsController < ApplicationController
        end 
        
        @sample_characteristic.samples.build
+       @sample_characteristic.samples[0].build_sample_storage_container
+ 
        params[:new_patient] = new_patient 
        render :action => 'new_sample'
        #render :action => 'debug'
@@ -58,6 +60,7 @@ class SampleCharacteristicsController < ApplicationController
   
    # POST /sample_characteristics/1
   def create 
+    
     @patient = Patient.find(params[:patient][:id])
     @patient.update_attributes(params[:patient])
     
@@ -69,8 +72,8 @@ class SampleCharacteristicsController < ApplicationController
       
       # Sample Characteristic successfully saved => send emails
       sample = new_sample_entered(@sample_characteristic.id, params[:sample_characteristic])
-      email  = send_email(sample, @patient.mrn, current_user) if !sample.nil? && LimsMailer::MAIL_FLAG != 'Dev'
-      if LimsMailer::DELIVER_FLAG  == 'Debug'
+      email  = send_email(sample, @patient.mrn, current_user) unless sample.nil? || EMAIL_CREATE[:samples] == 'NoEmail'
+      if EMAIL_DELIVERY[:samples]  == 'Debug'
         render(:text => "<pre>" + email.encoded + "</pre>")
       else
         redirect_to :action => 'show', :id => @sample_characteristic.id, :added_sample_id => @sample_characteristic.samples[-1].id
@@ -118,6 +121,9 @@ class SampleCharacteristicsController < ApplicationController
   def edit
     @sample_characteristic = SampleCharacteristic.find(params[:id], :include => :samples,
                                                        :conditions => "samples.source_sample_id IS NULL")
+    if @sample_characteristic && @sample_characteristic.samples
+      @sample_params = build_params_from_obj(@sample_characteristic.samples[-1], Sample::FLDS_FOR_COPY)
+    end
   end
   
   # PUT /sample_characteristics/1
@@ -130,9 +136,12 @@ class SampleCharacteristicsController < ApplicationController
       # Sample Characteristic successfully saved; send emails if new sample was added
       sample = new_sample_entered(params[:id], params[:sample_characteristic])
       if !sample.nil?
-        email  = send_email(sample, @sample_characteristic.patient.mrn, current_user) if LimsMailer::MAIL_FLAG != 'Dev'
-        #render(:text => "<pre>" + email.encoded + "</pre>")
-        redirect_to :action => 'show', :id => @sample_characteristic.id, :added_sample_id => sample.id
+        email  = send_email(sample, @sample_characteristic.patient.mrn, current_user) unless EMAIL_CREATE[:samples] == 'NoEmail'
+        if EMAIL_DELIVERY[:samples] == 'Debug'
+          render(:text => "<pre>" + email.encoded + "</pre>")
+        else
+          redirect_to :action => 'show', :id => @sample_characteristic.id, :added_sample_id => sample.id
+        end
       else
         redirect_to(@sample_characteristic)
       end
@@ -174,6 +183,8 @@ class SampleCharacteristicsController < ApplicationController
     else
       sample = @sample_characteristic.samples.build
     end
+    sample.build_sample_storage_container
+    
     render :update do |page|
       page.replace_html 'add_more', :partial => 'samples_form', :locals => {:sample => sample}
     end
@@ -201,15 +212,16 @@ protected
     @sample_units       = category_filter(@category_dropdowns, 'sample unit')
     @vial_types         = category_filter(@category_dropdowns, 'vial type')
     @amount_uom         = category_filter(@category_dropdowns, 'unit of measure')
-    @storage_locations  = StorageLocation.list_all_by_room
+    @freezer_locations  = FreezerLocation.list_all_by_room
+    @containers         = category_filter(@category_dropdowns, 'container')
   end
   
 private
   def owner_email(consent_protocol)
-    case LimsMailer::MAIL_FLAG
-      when 'Dev', 'Test1'
+    case EMAIL_CREATE[:samples]
+      when 'NoEmail', 'Test'
         return nil
-      when 'Test2', 'Prod'
+      when 'Test1', 'Prod'
         return (consent_protocol && !consent_protocol.email_confirm_to.blank? ? consent_protocol.email_confirm_to : nil)
     end
   end
@@ -228,7 +240,7 @@ private
     consent_protocol = ConsentProtocol.find(sample.sample_characteristic.consent_protocol_id) 
     email = LimsMailer.create_new_sample(sample, mrn, user.login, owner_email(consent_protocol))
     email.set_content_type("text/html")
-    LimsMailer.deliver(email) unless LimsMailer::DELIVER_FLAG == 'Debug'
+    LimsMailer.deliver(email) unless EMAIL_DELIVERY[:samples] == 'Debug'
     return email
   end
   

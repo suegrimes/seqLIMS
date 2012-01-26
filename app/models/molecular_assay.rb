@@ -10,8 +10,10 @@
 #  preparation_date    :date
 #  volume              :integer(2)
 #  concentration       :decimal(8, 3)
+#  plate_number        :string(25)
+#  plate_coord         :string(4)
 #  notes               :string(255)
-#  updated_by          :string(50)
+#  updated_by          :integer(2)
 #  created_at          :datetime
 #  updated_at          :timestamp       not null
 #
@@ -82,4 +84,9 @@ class MolecularAssay < ActiveRecord::Base
     end
   end
   
+  def self.find_for_query(condition_array=nil)
+    self.find(:all, :include => :processed_sample,
+                    :order => "processed_samples.patient_id, processed_samples.barcode_key, molecular_assays.barcode_key",
+                    :conditions => condition_array)
+  end
 end

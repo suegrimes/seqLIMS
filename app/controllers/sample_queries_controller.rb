@@ -134,6 +134,7 @@ protected
     @source_tissue      = category_filter(@category_dropdowns, 'source tissue')
     @preservation       = category_filter(@category_dropdowns, 'tissue preservation')
     @tumor_normal       = category_filter(@category_dropdowns, 'tumor_normal')
+    @users              = User.find(:all)
   end
   
   def define_conditions(params)
@@ -154,6 +155,20 @@ protected
       end
     end
     
+    if !params[:sample_query][:barcode_to].blank?
+      barcode_from = params[:sample_query][:barcode_from].to_i
+      barcode_to   = params[:sample_query][:barcode_to].to_i
+      if barcode_from > 0 && barcode_to > 0
+        @where_select.push("(CAST(samples.barcode_key AS UNSIGNED) BETWEEN ? AND ?  OR " + 
+                           " CAST(samples.source_barcode_key AS UNSIGNED) BETWEEN ? AND ?)")
+        @where_values.push(barcode_from, barcode_to, barcode_from, barcode_to)
+      else
+        @where_select.push("(samples.barcode_key BETWEEN ? AND ? OR samples.source_barcode_key BETWEEN ? AND ?)")
+        @where_values.push(params[:sample_query][:barcode_from], params[:sample_query][:barcode_to],
+                           params[:sample_query][:barcode_from], params[:sample_query][:barcode_to])
+      end
+    end
+    
     db_fld = (params[:sample_query][:date_filter] == 'Dissection Date' ? 'samples.sample_date' : 'sample_characteristics.collection_date')
     @where_select, @where_values = sql_conditions_for_date_range(@where_select, @where_values, params[:sample_query], db_fld)
     
@@ -162,9 +177,10 @@ protected
   end
   
   def setup_sql_params(params)
-    sql_params = {}
+    sql_params = {} 
     
     # Standard case, just put sample_query attribute/value into sql_params hash
+    params[:sample_query][:barcode_key] = params[:sample_query][:barcode_from] if params[:sample_query][:barcode_to].blank?
     params[:sample_query].each do |attr, val|
       sql_params["#{attr}"] = val if !val.blank? && SampleQuery::ALL_FLDS.include?("#{attr}")
     end
@@ -238,7 +254,7 @@ protected
   def export_samples_setup(with_mrn='no')
     hdg1  =(with_mrn == 'yes'? ['Download_Dt', 'PatientID', 'MRN'] : ['Download_Dt', 'PatientID'])
     hdgs  = hdg1.concat(%w{Barcode SampleType SampleDate OR_Designation PathologyDX PathologyComments 
-                           Histopathology FromSample Remaining? Room_Freezer Shelf Box_Bin})
+                           Histopathology FromSample Remaining? Room_Freezer Container})
     
     flds1  = [['sm', 'patient_id'],
              ['pt', 'mrn'],
@@ -251,9 +267,8 @@ protected
              ['he', 'histopathology'], 
              ['sm', 'source_barcode_key'],
              ['sm', 'sample_remaining'],
-             ['ls', 'location_string'],
-             ['sm', 'storage_shelf'],
-             ['sm', 'storage_boxbin']]
+             ['ss', 'room_and_freezer'],
+             ['ss', 'container_and_position']]
              
     flds2 = [['sm', 'patient_id'],
              ['pt', 'mrn'],
@@ -266,9 +281,8 @@ protected
              ['ps', 'blank'], 
              ['sm', 'barcode_key'],
              ['ps', 'psample_remaining'],
-             ['lp', 'location_string'],
-             ['ps', 'storage_shelf'],
-             ['ps', 'storage_boxbin']]
+             ['pc', 'room_and_freezer'],
+             ['pc', 'container_and_position']]
              
     return hdgs, flds1, flds2
   end
@@ -279,8 +293,8 @@ protected
                    :sc => xsample.sample_characteristic,
                    :pr => xsample.sample_characteristic.pathology,
                    :he => xsample.histology,
-                   :ls => xsample.storage_location}
-    sample_xref.merge!({:ps => psample, :lp => psample.storage_location}) if psample
+                   :ss => xsample.sample_storage_container}
+    sample_xref.merge!({:ps => psample, :pc => psample.sample_storage_container}) if psample
     return sample_xref
   end
     

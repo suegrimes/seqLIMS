@@ -7,7 +7,7 @@
 #  protocol_abbrev  :string(25)
 #  protocol_version :string(10)
 #  protocol_type    :string(1)
-#  protocol_code    :string(1)
+#  protocol_code    :string(3)
 #  reference        :string(100)
 #  comments         :string(255)
 #  created_at       :datetime
@@ -15,10 +15,10 @@
 #
 
 class Protocol < ActiveRecord::Base
-  #PROTOCOL_TYPES = {'Dissection' => 'D', 'Extraction' => 'E', 'Molecular Assay' => 'M', 'Library Prep' => 'L',
-  #                 'Analysis' => 'A'}
   PROTOCOL_TYPES      = {'Extraction' => 'E', 'Library Prep' => 'L', 'Molecular Assay' => 'M'}
   PROTOCOL_TYPE_NAMES = PROTOCOL_TYPES.invert
+  
+  validates_presence_of :protocol_code, :if => Proc.new{|p| p.protocol_type == 'M'}, :message => 'must be supplied for molecular assays'
                     
   def self.find_for_protocol_type(protocol_type)
     protocol_array = protocol_type.to_a

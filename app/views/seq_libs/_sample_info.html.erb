@@ -1,0 +1,17 @@
+<% last_info_box ||= 'no' %>
+
+<!-- Standard fields to be displayed -->
+<% info_flds   = [['Field', 'Sample Name', lib_sample.sample_name],
+                  [(lib_sample.processed_sample ? 'Link' : 'Field'), 'Source DNA/RNA', lib_sample.source_DNA, ['processed_samples', 'show', lib_sample.processed_sample_id]],
+                  ['Field', 'Index Tag', lib_sample.index_tag],
+                  ['Field', 'Tag Seq', IndexTag.find_or_blank(lib_sample.runtype_adapter, lib_sample.index_tag)]
+                 ] %>
+				  
+<!-- Only include comments if non-blank -->
+<% info_flds.push(['Field', 'Comments', lib_sample.notes]) if !lib_sample.notes.blank? %>
+
+<%= render :partial => 'shared/info_box', :locals => {:info_legend     => 'Lib Sample',
+                                                      :info_flds       => info_flds,
+                                                      :info_links      => [],
+                                                      :last_info_box   => last_info_box} %>
+													  

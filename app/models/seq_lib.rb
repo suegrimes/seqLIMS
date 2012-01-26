@@ -5,14 +5,15 @@
 #  id                  :integer(4)      not null, primary key
 #  barcode_key         :string(20)
 #  lib_name            :string(50)      default(""), not null
-#  library_type        :string(50)
+#  library_type        :string(2)
 #  lib_status          :string(2)
 #  protocol_id         :integer(4)
 #  owner               :string(25)
 #  preparation_date    :date
 #  runtype_adapter     :string(25)
-#  target_pool         :string(50)
-#  enzyme_code         :string(50)
+#  project             :string(50)
+#  pool_id             :integer(3)
+#  oligo_pool          :string(8)
 #  alignment_ref_id    :integer(4)
 #  alignment_ref       :string(50)
 #  trim_bases          :integer(2)
@@ -26,7 +27,7 @@
 #  starting_amt_ng     :decimal(11, 3)
 #  pcr_size            :integer(2)
 #  dilution            :decimal(6, 3)
-#  updated_by          :string(50)
+#  updated_by          :integer(2)
 #  created_at          :datetime
 #  updated_at          :timestamp       not null
 #
@@ -35,6 +36,7 @@ class SeqLib < ActiveRecord::Base
   
   belongs_to :user, :foreign_key => :updated_by
   has_many :lib_samples, :dependent => :destroy
+  has_many :mlib_samples, :class_name => 'LibSample', :foreign_key => :splex_lib_id
   has_many :flow_lanes
   has_many :align_qc, :through => :flow_lanes
   has_many :attached_files, :as => :sampleproc
@@ -48,8 +50,10 @@ class SeqLib < ActiveRecord::Base
   validates_format_of :trim_bases, :with => /^\d+$/, :allow_blank => true, :message => "# bases to trim must be an integer"
   
   before_create :set_default_values
+  #after_update :upd_mplex_pool, :if => Proc.new { |lib| lib.oligo_pool_changed? }
   #after_update :save_samples
   
+  BARCODE_PREFIX = 'L'
   MULTIPLEX_SAMPLES = 16
   MILLUMINA_SAMPLES = 12
   SAMPLE_CONC = ['ng/ul', 'nM']
@@ -58,20 +62,21 @@ class SeqLib < ActiveRecord::Base
   def validate
     if self.new_record?
       if !barcode_key.nil?
-        errors.add(:barcode_key, "must start with 'L'") if barcode_key[0,1] != 'L'
+        errors.add(:barcode_key, "must start with '#{BARCODE_PREFIX}'") if barcode_key[0,1] != BARCODE_PREFIX
       end
       errors.add(:pcr_size,    "must be entered")     if pcr_size.blank?
-      errors.add(:sample_conc, "must be entered")     if sample_conc.blank?
-      errors.add(:sample_conc, "cannot be > 10nM")    if (!sample_conc.nil? && sample_conc_uom == 'nM' && sample_conc > 10) 
+      errors.add(:sample_conc, "must be entered")     if sample_conc.blank?  
     elsif !barcode_key.nil?
-      errors.add(:barcode_key, "must start with 'L'") if !['L','X'].include?(barcode_key[0,1])
+      errors.add(:barcode_key, "must start with '#{BARCODE_PREFIX}'") if ![BARCODE_PREFIX,'X'].include?(barcode_key[0,1])
     end
     
     if barcode_key.size > 0
       if barcode_key.size == 1 || barcode_key[1..-1].scan(/\D/).size > 0
-        errors.add(:barcode_key, "must be numeric after the 'L'") 
+        errors.add(:barcode_key, "must be numeric after the '#{BARCODE_PREFIX}'") 
       end
     end
+    
+    errors.add(:sample_conc, "cannot be > 10nM")    if (!sample_conc.nil? && sample_conc_uom == 'nM' && sample_conc > 10)    
   end
   
   def owner_abbrev
@@ -89,11 +94,15 @@ class SeqLib < ActiveRecord::Base
   end
   
   def lib_barcode
-    (dummy_barcode == true ? 'n/a' : barcode_key)
+    (dummy_barcode == true ? 'N/A' : barcode_key)
   end
   
   def multiplexed?
-    (runtype_adapter[0,1] == 'M')
+    (library_type == 'M')
+  end
+  
+  def control_lane?
+    (lib_status == 'C')
   end
   
   def control_lane_nr
@@ -101,7 +110,8 @@ class SeqLib < ActiveRecord::Base
   end
   
   def sample_conc_with_uom
-    [sample_conc, sample_conc_uom].join(' ')
+    conc = (sample_conc ? number_with_precision(sample_conc, :precision => 2) : '--')
+    return [conc, sample_conc_uom].join(' ')
   end
   
   def sample_conc_nm
@@ -142,8 +152,8 @@ class SeqLib < ActiveRecord::Base
                   :conditions => "flow_cells.flowcell_status <> 'F'")
   end
   
-  def self.unique_target_pools
-    self.find(:all, :select => 'DISTINCT target_pool', :order => 'target_pool')
+  def self.unique_projects
+    self.find(:all, :select => 'DISTINCT project', :order => 'project')
   end
   
   def self.getwith_attach(id)
@@ -157,28 +167,24 @@ class SeqLib < ActiveRecord::Base
     end
   end
   
-#  # As of Rails 2.3, can delete methods below and use nested attributes for lib_samples?
-#  def new_sample_attributes=(sample_attributes)
-#    sample_attributes.each do |attributes|
-#      lib_samples.build(attributes) unless attributes[:sample_name].blank?
-#    end
-#  end
-#  
-#  def existing_sample_attributes=(sample_attributes)
-#    lib_samples.reject(&:new_record?).each do |lib_sample|
-#      upd_attributes = sample_attributes[lib_sample.id.to_s]
-#      if upd_attributes
-#        lib_sample.attributes = upd_attributes
-#      else
-#        lib_samples.delete(lib_sample)
-#      end
-#    end
-#  end
-#  
-#  def save_samples
-#    lib_samples.each do |lib_sample|
-#      lib_sample.save(false)  
-#    end
-#  end
-#  
+  def self.upd_oligo_pool(seq_lib)
+    # Find all cases where supplied sequencing library is one of the 'samples' in a multiplex library
+    lib_samples = LibSample.find_all_by_splex_lib_id(seq_lib.id)
+    
+    # If any cases found, collect all the multiplex libraries and their associated 'samples'(=singleplex libs)
+    # Determine if all pools for associated samples are the same, if so, update multiplex pool accordingly
+    if !lib_samples.nil?
+      mplex_ids   = lib_samples.collect(&:seq_lib_id)
+      mplex_libs  = self.find_all_by_id(mplex_ids, :include => {:lib_samples => :splex_lib})
+      mplex_libs.each do |lib|
+        slib_pools = lib.lib_samples.collect{|lsamp| [lsamp.splex_lib.pool_id, lsamp.splex_lib.oligo_pool]}
+        if slib_pools.uniq.size > 1 
+          self.update(lib.id, :oligo_pool => 'Multiple')
+        else
+          self.update(lib.id, :pool_id => slib_pools[0][0], :oligo_pool => slib_pools[0][1])
+        end
+      end
+    end
+  end
+ 
 end

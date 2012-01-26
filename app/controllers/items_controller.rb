@@ -91,23 +91,24 @@ class ItemsController < ApplicationController
       @items.push(Item.new(params[:item_default].merge(this_item))) # merge in this direction so that company name is not overridden by default value
     end
     
+    #@email_create_orders = email_value(EMAIL_CREATE, 'orders', @items[0].deliver_site.downcase)
+    #@email_delivery_orders = email_value(EMAIL_DELIVERY, 'orders', @items[0].deliver_site.downcase)
+    #render :action => 'debug'
+    
     if @items.all?(&:valid?) 
       @items.each(&:save!)
       flash[:notice] = 'Items were successfully saved.'
       
-      # item successfully saved => send emails as indicated by OrderMailer::DELIVER_FLAG
-      case OrderMailer::DELIVER_FLAG
-        when 'None'
-          redirect_to :action => 'list_unordered_items'
-        when 'Debug'
-          email  = send_email(@items, current_user, 'Debug') 
-          render(:text => "<pre>" + email.encoded + "</pre>")
-        when 'Deliver'
-          email = send_email(@items, current_user, 'Deliver')
-          redirect_to :action => 'list_unordered_items'
-        else
-          redirect_to :action => 'list_unordered_items'
-        end
+      # item successfully saved => send emails as indicated by EMAIL_CREATE and EMAIL_DELIVERY flags
+      email_create_orders = email_value(EMAIL_CREATE, 'orders', @items[0].deliver_site)
+      email_delivery_orders = email_value(EMAIL_DELIVERY, 'orders', @items[0].deliver_site)
+      
+      email = send_email(@items, current_user, email_delivery_orders) unless email_create_orders == 'NoEmail'
+      if email_delivery_orders == 'Debug'
+        render(:text => "<pre>" + email.encoded + "</pre>")
+      else
+        redirect_to :action => 'list_unordered_items'
+      end
          
     else
       reload_defaults(params[:item_default])
@@ -177,10 +178,10 @@ class ItemsController < ApplicationController
   end
   
 protected
-  def send_email(items, user, deliver_flag)
+  def send_email(items, user, email_delivery)
     email = OrderMailer.create_new_items(items, user)
     email.set_content_type("text/html")
-    OrderMailer.deliver(email) if deliver_flag == 'Deliver'
+    OrderMailer.deliver(email) if email_delivery == 'Deliver'
     return email
   end
 

@@ -4,7 +4,7 @@ class SeqlibLanesController < ApplicationController
     authorize! :read, SeqLib
     @seq_lib = SeqLib.find_by_id(params[:id], :include => {:flow_lanes => [:flow_cell, :align_qc]},
                                  :conditions => "flow_cells.flowcell_status <> 'F'")
-    @lib_lanes_by_seq_type = @seq_lib.flow_lanes.group_by {|flow_lane| flow_lane.sequencer_type}
+    @lib_lanes_by_seq_type = @seq_lib.flow_lanes.group_by {|flow_lane| flow_lane.machine_type}
     #render :action => 'debug
   end
   

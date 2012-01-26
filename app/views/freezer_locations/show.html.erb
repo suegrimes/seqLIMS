@@ -1,0 +1,33 @@
+<h1>Freezer Location</h1>
+
+<table class="info">
+  	<tr>
+  	  <th>Room:</th>
+	  <td><%=h @freezer_location.room_nr %></td>
+  	</tr>
+	
+	<tr>
+  	  <th>Freezer:</th>
+	  <td><%=h @freezer_location.freezer_nr %></td>
+  	</tr>
+	
+	<tr>
+  	  <th>Owner name:</th>
+	  <td><%=h @freezer_location.owner_name %></td>
+  	</tr>
+	
+	<tr>
+  	  <th>Owner email:</th>
+	  <td><%=h @freezer_location.owner_email %></td>
+  	</tr>
+	
+	<tr>
+  	  <th>Comments:</th>
+	  <td><%=h @freezer_location.comments %></td>
+  	</tr>
+</table>
+
+<% if can? :edit, @freezer_location %>
+  <%= link_to 'Edit', edit_freezer_location_path(@freezer_location) %> |
+<% end %>
+<%= link_to 'Back', freezer_locations_path %>

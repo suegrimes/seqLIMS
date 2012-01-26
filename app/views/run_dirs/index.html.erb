@@ -9,26 +9,29 @@
     <th>Size (GB)</th>
 	<th>Date Copied</th>
 	<th>Date Verified</th>
+	<th>Date Deleted</th>
 	<th colspan=3></th>
   </tr>
 
   <% @run_dirs.sort.reverse.each do |run_number, run_dirs| %>
   <% run_dirs.each do |run_dir| %>
+  <% del_flag_yes = 1 if !run_dir.delete_flag.blank? %>
   <tr>
-    <td class="border_leftright_only"><%=h run_dir.flow_cell.sequencing_key %></td>
-	<td class="border_leftright_only"><%=h run_dir.device_name %></td>
-	<td class="border_leftright_only"><%=h run_dir.date_sized %></td>
-    <td class="border_leftright_only"><%=h run_dir.file_count %></td>
-    <td class="border_leftright_only"><%=h run_dir.total_size_gb %></td>
-	<td class="border_leftright_only"><%=h run_dir.date_copied %></td>
-	<td class="border_leftright_only"><%=h run_dir.date_verified %></td>
+    <td class="border_leftright_only <%= "strike" if del_flag_yes %>"><%=link_to run_dir.flow_cell.sequencing_key, run_dir.flow_cell %></td>
+	<td class="border_leftright_only <%= "strike" if del_flag_yes %>"><%=h run_dir.device_name %></td>
+	<td class="border_leftright_only <%= "strike" if del_flag_yes %>"><%=h run_dir.date_sized %></td>
+    <td class="border_leftright_only <%= "strike" if del_flag_yes %>"><%=h run_dir.file_count %></td>
+    <td class="border_leftright_only <%= "strike" if del_flag_yes %>"><%=h run_dir.total_size_gb %></td>
+	<td class="border_leftright_only <%= "strike" if del_flag_yes %>"><%=h run_dir.date_copied %></td>
+	<td class="border_leftright_only <%= "strike" if del_flag_yes %>"><%=h run_dir.date_verified %></td>
+	<td class="border_leftright_only"><%=h run_dir.date_deleted %></td>
 	<td class="border_leftright_only"><%= link_to 'New', new_run_dir_path(:flow_cell_id => run_dir.flow_cell_id) %></td>
     <td class="border_leftright_only"><%= link_to 'Edit', edit_run_dir_path(run_dir) %></td>
     <td class="border_leftright_only"><%= link_to 'Delete', run_dir, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
   <% end %>
-  <tr><td class="border_bottom_only" colspan="10"></td></tr>
-<% end %>
+  <tr><td class="border_bottom_only" colspan="11"></td></tr>
+  <% end %>
 </table>
 
 <%= link_to 'Add run location', dir_params_path %>

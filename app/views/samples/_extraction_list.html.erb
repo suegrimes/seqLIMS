@@ -11,8 +11,7 @@
     <th>RIN#</th>
     <th>Rem?</th>
     <th>Room/Freezer</th>
-    <th>Shelf</th>
-    <th>Box/Bin</th>
+    <th>Container</th>
   </tr>
   <% for processed_sample in sample.processed_samples %>
     <tr>
@@ -24,9 +23,8 @@
       <td><%=h number_with_precision(processed_sample.final_a260_a280, :precision => 3) %></td>
       <td><%=h number_with_precision(processed_sample.final_rin_nr,    :precision => 1) %></td>
       <td><%=h processed_sample.psample_remaining %></td>
-      <td><% if processed_sample.storage_location %><%=h processed_sample.storage_location.location_string %><% end %></td>
-      <td><%=h processed_sample.storage_shelf %></td>
-      <td><%=h processed_sample.storage_boxbin %></td>
+      <td><%=h processed_sample.room_and_freezer %></td>
+      <td><%=h processed_sample.container_and_position %></td>
 	</tr>
   <% end %>
   </table>

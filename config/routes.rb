@@ -13,7 +13,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :consent_protocols
   map.resources :protocols
   map.resources :categories
-  map.resources :storage_locations 
+  map.resources :freezer_locations 
   
   map.protocol_type 'protocol_type', :controller => 'protocols', :action => 'query_params'
   
@@ -84,25 +84,30 @@ ActionController::Routing::Routes.draw do |map|
                                                    :list_added => :get},
                                    :member => {:create_assays => :post}
   
+  map.resources :molassay_queries, :only => :index
+  map.mol_assay_query   'mol_assay_query',   :controller => 'molassay_queries',   :action => 'new_query'
+  
   # Routes for sequencing libraries
-  map.resources :seq_libs,     :collection => {:auto_complete_for_barcode_key => :get},
-                               :member => {:create_splex => :post,
-                                           :create_mplex => :post}
+  map.resources :seq_libs,     :collection => {:auto_complete_for_barcode_key => :get}
+  map.resources :mplex_libs,   :collection => {:auto_complete_for_barcode_key => :get}
+  map.resources :oligo_pools,  :only => :index
+                          
   map.resources :seqlib_lanes
   map.resources :seqlib_queries, :only => :index
   
-  map.new_lib_S   'new_lib_S',       :controller => 'seq_libs',    :action => 'new',   :multiplex => 'single'
-  map.new_lib_M   'new_lib_M',       :controller => 'seq_libs',    :action => 'new',   :multiplex => 'multi'
+  map.mplex_setup 'mplex_setup',     :controller => 'mplex_libs', :action => 'setup_params'
   map.lib_qc      'lib_qc',          :controller => 'seqlib_lanes', :action => 'export_libqc'
   map.lib_query   'lib_query',       :controller => 'seqlib_queries', :action => 'new_query'
   
   # Routes for flow cells/sequencing runs
-  map.resources :flow_cells,  :collection => {:auto_complete_for_sequencing_key => :get}
+  map.resources :flow_cells,  :collection => {:auto_complete_for_sequencing_key => :get},
+                              :member => {:upd_for_sequencing => :put}
   map.resources :analysis_qc
   map.resources :index_tags
   map.resources :alignment_refs
   map.resources :seq_machines, :collection => {:auto_complete_for_machine_desc => :get}
   map.resources :flowcell_queries, :only => :index
+  map.resources :align_qcs, :only => [:new, :create, :edit, :update]
   
   map.auto_complete ':controller/:action?:search', 
      :requirements => { :action => /auto_complete_for_\S+/ },
@@ -115,7 +120,8 @@ ActionController::Routing::Routes.draw do |map|
   # Routes for handling storage devices and sequencing run directories
   map.resources :storage_devices
   map.resources :run_dirs
-  map.dir_params 'dir_params',  :controller => 'run_dirs', :action => 'get_params'
+  map.del_run_dir    'del_run_dir',   :controller => 'run_dirs', :action => 'del_run_dir'
+  map.dir_params 'dir_params',:controller => 'run_dirs', :action => 'get_params'
   
   # Routes for handling file attachments
   map.resources :attached_files

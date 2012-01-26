@@ -13,7 +13,7 @@
 	<td><%= f.text_field(:mrn, :size => 10) %>&nbsp;&nbsp;<strong> -or- </strong></td>
   <% end %>
   	<th>Patient ID:</th><td><%= f.text_field(:patient_id, :size => 10) %></td>
-  	<th>Sample Barcode:</th><td><%= f.text_field(:barcode_key, :size => 12)%></td>
+  	<th>Sample Barcode:</th><td><%= f.text_field(:barcode_from, :size => 10)%> <b>to</b> <%=f.text_field(:barcode_to, :size => 10)%></td>
   </tr>
   
   <tr><td>&nbsp;</td></tr>
@@ -52,6 +52,7 @@
   	<th>Select Date Range:</th>
 	<td colspan="3"><%=f.calendar_date_select(:from_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15) %>
 	<strong>&nbsp;To:&nbsp;</strong><%=f.calendar_date_select(:to_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15) %></td>
+	<th>Last Upd By:</th><td><%=f.collection_select(:updated_by, @users, :id, :login, {:include_blank => 'Any'})%></td>
   </tr>
 </table>
 </fieldset>

@@ -5,14 +5,15 @@
 #  id                  :integer(4)      not null, primary key
 #  barcode_key         :string(20)
 #  lib_name            :string(50)      default(""), not null
-#  library_type        :string(50)
+#  library_type        :string(2)
 #  lib_status          :string(2)
 #  protocol_id         :integer(4)
 #  owner               :string(25)
 #  preparation_date    :date
 #  runtype_adapter     :string(25)
-#  target_pool         :string(50)
-#  enzyme_code         :string(50)
+#  project             :string(50)
+#  pool_id             :integer(3)
+#  oligo_pool          :string(8)
 #  alignment_ref_id    :integer(4)
 #  alignment_ref       :string(50)
 #  trim_bases          :integer(2)
@@ -26,7 +27,7 @@
 #  starting_amt_ng     :decimal(11, 3)
 #  pcr_size            :integer(2)
 #  dilution            :decimal(6, 3)
-#  updated_by          :string(50)
+#  updated_by          :integer(2)
 #  created_at          :datetime
 #  updated_at          :timestamp       not null
 #

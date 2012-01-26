@@ -5,11 +5,11 @@ class ApplicationController < ActionController::Base
   include AuthenticatedSystem
   include RoleRequirementSystem
   before_filter :login_required
-  #
+ 
   #Make current_user accessible from model (via User.current_user)
   before_filter :set_current_user
   before_filter :log_user_action
-  
+    
   rescue_from CanCan::AccessDenied do |exception|
     user_login = (current_user.nil? ? nil : current_user.login)
     flash[:error] = "Sorry #{user_login}, you are not authorized to access that page"
@@ -122,6 +122,20 @@ class ApplicationController < ActionController::Base
     return input_val
   end
   
+  def sql_conditions_for_range(where_select, where_values, from_val, to_val, db_fld)
+    if !from_val.blank? && !to_val.blank?
+      where_select.push "#{db_fld} BETWEEN ? AND ?"
+      where_values.push(from_val, to_val) 
+    elsif !from_val.blank? # To value is null or blank
+      where_select.push("#{db_fld} >= ?")
+      where_values.push(from_val)
+    elsif !to_val.blank? # From value is null or blank
+      where_select.push("(#{db_fld} IS NULL OR #{db_fld} <= ?)")
+      where_values.push(to_val)
+    end  
+    return where_select, where_values 
+  end
+  
   def sql_conditions_for_date_range(where_select, where_values, params, db_fld)
     if !params[:from_date].blank? && !params[:to_date].blank?
       where_select.push "#{db_fld} BETWEEN ? AND DATE_ADD(?, INTERVAL 1 DAY)"
@@ -134,6 +148,11 @@ class ApplicationController < ActionController::Base
       where_values.push(params[:to_date])
     end  
     return where_select, where_values 
+  end
+  
+  def email_value(email_hash, email_type, deliver_site)
+    site_and_type = [deliver_site.downcase, email_type].join('_')
+    return (email_hash[site_and_type.to_sym].nil? ? email_hash[email_type.to_sym] : email_hash[site_and_type.to_sym])
   end
   
 protected

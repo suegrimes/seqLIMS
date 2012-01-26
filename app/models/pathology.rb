@@ -15,7 +15,7 @@
 #  n_code                   :string(2)
 #  m_code                   :string(2)
 #  comments                 :string(255)
-#  updated_by               :string(10)
+#  updated_by               :integer(2)
 #  created_at               :datetime
 #  updated_at               :timestamp
 #

@@ -73,7 +73,7 @@ protected
   def assigned_contigs(assigned_barcodes)
     contigs = []
     start_contig = 0
-    end_contig = -2
+    end_contig = 0
     
     assigned_barcodes.each_with_index do |assigned, i|
       if assigned.start_barcode == end_contig + 1   # range continues from previous contig

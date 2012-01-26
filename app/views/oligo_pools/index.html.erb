@@ -1,0 +1,20 @@
+<h1>Listing Oligo Pools</h1>
+
+<table class="list">
+  <tr>
+    <th>Pool label</th>
+	<th>Pool name</th>
+    <th>Description</th>
+	<th>Source Conc</th>
+	<th>Notes</th>
+  </tr>
+
+<% for oligo_pool in @oligo_pools %>
+  <tr>
+  	<td><%=h oligo_pool.tube_label %></td>
+	<td><%=h oligo_pool.pool_name %></td>
+    <td><%=h oligo_pool.pool_description %></td>
+	<td><%=h oligo_pool.source_conc_um %></td>
+	<td><%=h oligo_pool.notes %></td>
+<% end %>
+</table>

@@ -12,8 +12,8 @@
   </tr>
   <tr><td align="center" class="grey">-OR-</td></tr>
   <tr>
-  	<th>Machine(s):</th>
-    <td><%= f.collection_select(:machine_name, @sequencers, :machine_name, :machine_name, {:include_blank => '(All)'}) %></td> 
+  	<th>Machine Type:</th>
+    <td><%= f.select(:machine_type, SeqMachine::MACHINE_TYPES, :include_blank => '(All)') %></td> 
   <tr>
   	<th>Run Dates:</th>
 	<td><%=f.calendar_date_select(:from_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15) %>

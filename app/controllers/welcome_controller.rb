@@ -1,6 +1,11 @@
 class WelcomeController < ApplicationController
   skip_before_filter :login_required
   skip_before_filter :log_user_action
+
+  if DEMO_APP
+    include SslRequirement 
+    ssl_required :user_login, :signup, :add_user
+  end
   
   def index
     if logged_in?
@@ -21,6 +26,7 @@ class WelcomeController < ApplicationController
       end
       render :action => 'index'
     else
+      @invalid_login_flag = 1;
       flash.now[:error] = "Invalid login - please try again"
       render :action => 'login'
     end

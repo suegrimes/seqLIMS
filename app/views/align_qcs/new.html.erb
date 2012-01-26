@@ -1,0 +1,8 @@
+<h1>Add QC for Sequencing Run</h1>
+
+<% form_tag :action => 'create' do %>
+<table class="form border">
+  <tr><td>Run#: <%=collection_select(:flow_cell, :id, @seq_runs, :id, :sequencing_key)%> </td></tr>
+</table>
+<%= submit_tag 'Submit' %>
+<% end %>

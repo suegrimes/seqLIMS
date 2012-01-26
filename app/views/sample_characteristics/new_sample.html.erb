@@ -17,11 +17,13 @@
 	  <%= break_clear %>
   
 	  <% for sample in @sample_characteristic.samples %>
-         <%= render :partial => 'samples_form', :locals => {:sample => sample,
+	    <% c.fields_for :samples, sample do |s| %>
+         <%= render :partial => 'samples_form', :locals => {:s => s,
+                                                            :sample => sample,
                                                             :removable => 'no'} %>
+		<% end %>
 	  <% end %>
 	  
-	  <!-- <p>If you have another physical sample with identical characteristics, click <%= add_sample_link(" here ")%>to add</p> -->
 	<% end %>
   
   <%= break_clear %>

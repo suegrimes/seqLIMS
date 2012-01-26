@@ -1,0 +1,35 @@
+<h1>Editing Multiplex Sequencing Library</h1>
+
+<% form_for @seq_lib, :url => {:controller => 'mplex_libs', :action => :update}  do |f| %>
+  <%= f.error_messages %>
+  <%= render :partial => 'lib_form', :locals => {:f => f} %> 
+  <%= break_clear %>
+
+<div>&nbsp;</div>
+<fieldset class="form">
+  <legend>Libraries/Samples</legend>
+  <table class="form-with-columns">
+  	<tr>
+  	  <th>Lib Barcode</th>
+	  <th>Lib Name</th>
+  	  <th>Adapter</th>
+      <th>Tag/Seq</th>
+	  <th>Pool</th>
+      <th>Sample Name</th>
+	  <th>Patient ID</th>
+      <th>Source DNA/RNA</th>
+	  <th>Sample Notes</th>
+    </tr>
+
+<% f.fields_for :lib_samples do |s| %>
+  <%= s.error_messages %>
+  <tr><%= render :partial => 'sample_edit', :locals => {:s => s} %></tr>
+  <% end %>
+  
+  </table>
+</fieldset>  
+
+<%= break_clear(f.submit "Update") %>
+<% end %>
+  
+<%= link_to 'Back', :back %>

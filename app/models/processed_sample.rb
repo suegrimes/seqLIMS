@@ -24,7 +24,7 @@
 #  storage_shelf       :string(10)
 #  storage_boxbin      :string(25)
 #  comments            :string(255)
-#  updated_by          :string(50)
+#  updated_by          :integer(2)
 #  created_at          :datetime
 #  updated_at          :timestamp       not null
 #
@@ -32,11 +32,13 @@
 class ProcessedSample < ActiveRecord::Base
   belongs_to :sample
   belongs_to :patient
-  belongs_to :storage_location
-  belongs_to :user, :foreign_key => :updated_by
+  belongs_to :user, :foreign_key => 'updated_by'
   has_many :molecular_assays
   has_many :lib_samples
   has_many :seq_libs, :through => :lib_samples
+  has_one :sample_storage_container, :as => :stored_sample, :dependent => :destroy
+  
+  accepts_nested_attributes_for :sample_storage_container
   
   validates_date :processing_date
   
@@ -63,23 +65,37 @@ class ProcessedSample < ActiveRecord::Base
     return echar
   end
   
+  def room_and_freezer
+    (sample_storage_container ? sample_storage_container.room_and_freezer : '')
+  end
+  
+  def container_and_position
+    (sample_storage_container ? sample_storage_container.container_and_position : '')
+  end
+  
   def self.barcode_search(search_string)
     self.find(:all, :conditions => ["barcode_key LIKE ?", search_string + '%'])
   end
   
-  def self.find_all_incl_sample
-    self.find(:all, :include => [:sample, :storage_location],
-                    :order => 'samples.patient_id, samples.barcode_key')
+  def self.find_all_incl_sample(condition_array=nil)
+    self.find(:all, :include => [:sample, :sample_storage_container],
+                    :order => 'samples.patient_id, samples.barcode_key',
+                    :conditions => condition_array)
+  end
+  
+  def self.find_one_incl_patient(condition_array=nil)
+    self.find(:first, :include => [{:sample => [:sample_characteristic, :patient]}, :sample_storage_container],
+                      :conditions => condition_array)
   end
   
   def self.find_for_query(condition_array=nil)
-    self.find(:all, :include => [{:sample => :sample_characteristic}, :storage_location, :user],
+    self.find(:all, :include => [{:sample => :sample_characteristic}, :sample_storage_container],
                     :order => "samples.patient_id, samples.barcode_key, processed_samples.barcode_key",
                     :conditions => condition_array)
   end
   
   def self.find_for_export(psample_ids)
-    self.find(:all, :include => [:sample, :storage_location],
+    self.find(:all, :include => [:sample, :sample_storage_container],
               :conditions => ["processed_samples.id IN (?)", psample_ids],
               :order => "samples.patient_id, samples.barcode_key, processed_samples.barcode_key")
   end

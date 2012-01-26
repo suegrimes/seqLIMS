@@ -18,7 +18,7 @@ class ProcessedSamplesController < ApplicationController
   def show
     @processed_sample = ProcessedSample.find(params[:id], 
                                        :include => [{:sample => {:sample_characteristic => :pathology}},
-                                                    {:lib_samples => :seq_lib}, :molecular_assays])
+                                                    {:lib_samples => :seq_lib}, :molecular_assays, :sample_storage_container])
   end
   
   def new_params
@@ -46,8 +46,8 @@ class ProcessedSamplesController < ApplicationController
                                               :protocol_id => 12,
                                               :vial => '2ml',
                                               :final_vol => 50,
-                                              :elution_buffer => 'TB',
-                                              :storage_location_id => 1)
+                                              :elution_buffer => 'TB')
+      @processed_sample.build_sample_storage_container(:freezer_location_id => 1)
       render :action => 'new'
       
     else  # clinical sample with one or more dissections, so show list to select from
@@ -58,8 +58,9 @@ class ProcessedSamplesController < ApplicationController
   end
 
   def edit_by_barcode
-    @processed_sample = ProcessedSample.find_by_barcode_key(params[:barcode_key])
+    @processed_sample = ProcessedSample.find_one_incl_patient(["processed_samples.barcode_key = ?", params[:barcode_key]])
     if @processed_sample
+      @processed_sample.build_sample_storage_container if !@processed_sample.sample_storage_container
       render :action => :edit
     else
       flash[:error] = 'No entry found for extraction barcode: ' + params[:barcode_key]
@@ -69,8 +70,10 @@ class ProcessedSamplesController < ApplicationController
   
   # GET /processed_samples/1/edit
   def edit
-    @processed_sample = ProcessedSample.find(params[:id], :include => {:sample => [:sample_characteristic, :patient]})
+    @processed_sample = ProcessedSample.find_one_incl_patient(["processed_samples.id = ?", params[:id]])
+    @processed_sample.build_sample_storage_container if !@processed_sample.sample_storage_container
     render :action => 'edit'
+    #render :action => 'debug'
   end
 
   # POST /processed_samples
@@ -137,7 +140,8 @@ protected
     @elution_buffer     = category_filter(@category_dropdowns, 'elution buffer')
     @vial_vol           = category_filter(@category_dropdowns, 'vial volume')
     @protocols          = Protocol.find_for_protocol_type('E')  #Extraction protocols
-    @storage_locations  = StorageLocation.find(:all)
+    @containers         = category_filter(@category_dropdowns, 'container')
+    @freezer_locations  = FreezerLocation.find(:all)
   end
 
  end

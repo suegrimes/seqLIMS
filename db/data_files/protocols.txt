@@ -1,0 +1,16 @@
+Selector Protocol		L	
+DNA Extraction		E	
+RNA Extraction		E	
+Protein Extraction		E	
+Whole Genome Shotgun		L	
+Exome Capture		L	
+Simplex PCR		L	
+Flow Cell Capture		L	
+Omega EZNA		E	
+mRNA Seq		L	
+[Other]	Other	L	
+Array - CGH		M	CGH
+Array - Gene Expression		M	EXP
+SNP Genotyping		M	SNP
+Affymetrix 6.0 SNP array	Affy SNP 6.0	M	SNP
+Nimblegen array CGH	Nimblegen CGH	M	CGH

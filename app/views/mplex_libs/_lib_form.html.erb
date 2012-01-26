@@ -1,0 +1,36 @@
+<fieldset class="form">
+<legend>Multiplex Library Details</legend>
+<table class="form" border="0">
+  <th>Barcode:</th><td><% if @seq_lib.new_record? || @seq_lib.dummy_barcode == false %><%= f.text_field :barcode_key, :size => 10 %>
+        <% else %>&nbsp;<% end %></td>
+  <th>Lib Name:</th><td><%= f.text_field(:lib_name, :size => 15) %></td>
+  <th>Adapter:</th><td><%= f.text_field(:runtype_adapter, :readonly => true, :size => 15, :style => "background-color:#ddd") %></td>  
+</tr>
+<tr>
+  <th>Prep Date:</th><td><%= f.calendar_date_select(:preparation_date, :size => 15) %></td>
+  <th>Owner:</th><td><%= f.select(:owner, @owners) %></td>
+  <th>Protocol:</th><td><%= f.collection_select(:protocol_id, @protocols, :id, :protocol_name,
+                             {:include_blank => 'Select Protocol'}) %></td> 						  	  		
+</tr>
+<tr>
+  <th>PCR Size:</th><td><%= f.text_field(:pcr_size, :size => 6) %></td>  
+  <th>Sample Conc:</th>
+  <td><%= f.text_field(:sample_conc, :size => 6, :value => format_conc(f.object.sample_conc, '')) %>&nbsp;ng/ul </td>
+  <th>Lib Conc(requested):</th>
+  <td><%= f.text_field(:lib_conc_requested, :size => 6, :value => format_conc(f.object.lib_conc_requested, '')) %>&nbsp;pM</td>  
+</tr>
+<tr> 
+  <th>Align Ref:</th><td><%= f.collection_select(:alignment_ref_id, @align_refs, :id, :alignment_key) %></td>
+  <th>Trim Bases:</th><td><%= f.text_field(:trim_bases, :size => 6) %></td> 
+  <th>Pool:</th><td><%= f.text_field(:oligo_pool, :readonly => true, :size => 10, :style => "background-color:#ddd") %></td>				 								 								   
+</tr>
+<tr>
+  <th>Notebook Ref:</th><td colspan="3"><%= f.text_field :notebook_ref %></td>
+  <th>Project:</th><td><%= f.collection_select(:project, @projects, :c_value, :c_value,
+                             {:include_blank => 'Select Project'}) %></td>	 
+</tr>
+<tr>
+  <th>Library Notes:</th><td colspan="5"><%= f.text_field :notes, :size => 80 %></td>
+</tr>
+</table> 
+</fieldset>
