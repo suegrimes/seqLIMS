@@ -22,13 +22,4 @@ class IndexTag < ActiveRecord::Base
     end   
   end
   
-  def self.adapter_sort
-    case runtype_adapter
-      when 'M_7BR1'        then 1
-      when 'M_PE_SS3rd'    then 2
-      when 'M_PE'          then 3
-      when 'M_PE_Illumina' then 4
-      else 9
-    end
-  end
 end

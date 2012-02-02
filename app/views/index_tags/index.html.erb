@@ -1,6 +1,3 @@
-<%= debug(@adapters)%>
-<%= debug(@max_tag) %>
-
 <h1>Multiplex Index Tags</h1>
 
 <table class="list">
@@ -9,7 +6,6 @@
   <th>Runtype Adapter</th>
   <th>Tag#</th>
   <th style="border-right: 1px solid #999; padding-right: 3px;">Sequence</th>
-  <!--th>&nbsp;</th-->
   <% end %>
 </tr>
 
@@ -17,15 +13,19 @@
 <tr> 
   <% itag = index_tags.shift %>
   <% @adapters.each_with_index do |adapter, i| %>
-    <% next if itag.runtype_adapter != adapter.runtype_adapter %>
+  
+    <% if adapter.runtype_adapter == itag.runtype_adapter %>
       <td><%=h itag.runtype_adapter %></td>
-	  <td><%=h itag.tag_nr %></td>
-	  <td style="border-right: 1px solid #B0AA91; padding-right: 3px;"><%=h itag.tag_sequence %></td>
-	<% itag = index_tags.shift %>
-	<% break if itag.nil? %>
+	  <td><%=h itag.tag_nr if itag.runtype_adapter == adapter.runtype_adapter %></td>
+	  <td style="border-right: 1px solid #B0AA91; padding-right: 3px;"><%=h itag.tag_sequence if itag.runtype_adapter == adapter.runtype_adapter %></td>
+	  <% itag = index_tags.shift%>
+	  
+	<% else %>
+	  <td colspan="3" style="border-right: 1px solid #B0AA91; padding-right: 3px;">&nbsp;</td>
+	 <% end %>
+	 <% break if itag.nil? %>
   <% end %>
 </tr>
 <% end %>
-
 
 </table>
