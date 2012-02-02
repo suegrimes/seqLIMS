@@ -190,6 +190,7 @@ protected
     @companies = list_companies_from_items(items_all)
     @requestors = items_all.collect(&:requester_name).sort.uniq
     @researchers = Researcher.populate_dropdown
+    @grant_nrs = Category.populate_dropdown_for_category('grants')
   end
   
   def reload_defaults(item_params)

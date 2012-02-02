@@ -52,6 +52,6 @@
   <tr>
 	<td><%=h @sample.amount_initial %></td>
 	<td><%=h @sample.amount_uom %></td>
-	<td><%=h @sample.storage_boxbin %></td>
+	<td><%=h @sample.sample_storage_container.container_and_position if @sample.sample_storage_container %></td>
   </tr>	
 </table> 

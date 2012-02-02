@@ -2,7 +2,7 @@
 
 <%= render :partial => 'flow_cell_show', :locals => {:flow_cell => @flow_cell} %>
 
-<% if @flow_cell.machine_type == 'HiSeq' %>
+<% if @flow_cell.hiseq_qc? %>
   <%= render :partial => 'hiseq_alignqc' %>
 <% else %>
   <%= render :partial => 'ga2_alignqc' %>

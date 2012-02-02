@@ -120,7 +120,8 @@ ActionController::Routing::Routes.draw do |map|
   # Routes for handling storage devices and sequencing run directories
   map.resources :storage_devices
   map.resources :run_dirs
-  map.dir_params 'dir_params',  :controller => 'run_dirs', :action => 'get_params'
+  map.del_run_dir    'del_run_dir',   :controller => 'run_dirs', :action => 'del_run_dir'
+  map.dir_params 'dir_params',:controller => 'run_dirs', :action => 'get_params'
   
   # Routes for handling file attachments
   map.resources :attached_files

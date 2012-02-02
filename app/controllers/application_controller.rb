@@ -5,11 +5,11 @@ class ApplicationController < ActionController::Base
   include AuthenticatedSystem
   include RoleRequirementSystem
   before_filter :login_required
-  #
+ 
   #Make current_user accessible from model (via User.current_user)
   before_filter :set_current_user
   before_filter :log_user_action
-  
+    
   rescue_from CanCan::AccessDenied do |exception|
     user_login = (current_user.nil? ? nil : current_user.login)
     flash[:error] = "Sorry #{user_login}, you are not authorized to access that page"

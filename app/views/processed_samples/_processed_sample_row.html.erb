@@ -25,6 +25,7 @@
 <td><%=h processed_sample.room_and_freezer %></td>
 <td><%=h processed_sample.container_and_position %></td>
 <td><%=h processed_sample.user.login if processed_sample.user %></td>
+
 <% if capture_ids == 'yes' %><%= hidden_field_tag("export_id[]", processed_sample.id)  %><% end %>
 
 <% if can? :edit, processed_sample %>

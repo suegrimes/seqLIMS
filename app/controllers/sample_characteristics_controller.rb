@@ -45,6 +45,8 @@ class SampleCharacteristicsController < ApplicationController
        end 
        
        @sample_characteristic.samples.build
+       @sample_characteristic.samples[0].build_sample_storage_container
+ 
        params[:new_patient] = new_patient 
        render :action => 'new_sample'
        #render :action => 'debug'
@@ -58,6 +60,7 @@ class SampleCharacteristicsController < ApplicationController
   
    # POST /sample_characteristics/1
   def create 
+    
     @patient = Patient.find(params[:patient][:id])
     @patient.update_attributes(params[:patient])
     
@@ -68,7 +71,8 @@ class SampleCharacteristicsController < ApplicationController
       flash[:notice] = 'New clinical sample was successfully saved'
       
       # Sample Characteristic successfully saved => send emails
-      sample = new_sample_entered(@sample_characteristic.id, params[:sample_characteristic])
+      sample = @sample_characteristic.samples[0]
+      #sample = new_sample_entered(params[:id], params[:sample_characteristic])
       email  = send_email(sample, @patient.mrn, current_user) unless sample.nil? || EMAIL_CREATE[:samples] == 'NoEmail'
       if EMAIL_DELIVERY[:samples]  == 'Debug'
         render(:text => "<pre>" + email.encoded + "</pre>")
@@ -118,6 +122,9 @@ class SampleCharacteristicsController < ApplicationController
   def edit
     @sample_characteristic = SampleCharacteristic.find(params[:id], :include => :samples,
                                                        :conditions => "samples.source_sample_id IS NULL")
+    if @sample_characteristic && @sample_characteristic.samples
+      @sample_params = build_params_from_obj(@sample_characteristic.samples[-1], Sample::FLDS_FOR_COPY)
+    end
   end
   
   # PUT /sample_characteristics/1
@@ -144,7 +151,7 @@ class SampleCharacteristicsController < ApplicationController
       flash[:error] = 'Error - Clinical sample/characteristics not updated'
       dropdowns
       sample_dropdowns
-      render :action => 'show'
+      render :action => 'edit'
     end
     #render :action => 'debug'
   end
@@ -177,8 +184,10 @@ class SampleCharacteristicsController < ApplicationController
     else
       sample = @sample_characteristic.samples.build
     end
+    sample.build_sample_storage_container
+    
     render :update do |page|
-      page.replace_html 'add_more', :partial => 'samples_form', :locals => {:sample => sample}
+      page.replace_html 'add_more', :partial => 'samples_fieldsfor', :locals => {:f => params[:f], :sample => sample}
     end
   end
 
@@ -205,6 +214,7 @@ protected
     @vial_types         = category_filter(@category_dropdowns, 'vial type')
     @amount_uom         = category_filter(@category_dropdowns, 'unit of measure')
     @freezer_locations  = FreezerLocation.list_all_by_room
+    @containers         = category_filter(@category_dropdowns, 'container')
   end
   
 private
@@ -218,8 +228,8 @@ private
   end
   
   def new_sample_entered(sample_characteristic_id, params)
-    if params[:new_sample_attributes]
-      barcode_key = params[:new_sample_attributes][0][:barcode_key]
+    if params[:samples_attributes]
+      barcode_key = params[:samples_attributes]["0"][:barcode_key]
       if !barcode_key.nil? && !barcode_key.blank?
         sample = Sample.find_newly_added_sample(sample_characteristic_id, barcode_key)
       end

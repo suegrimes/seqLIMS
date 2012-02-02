@@ -38,7 +38,7 @@
 	<% if flow_cell.flowcell_status == 'Q' %>
 	  <td><%= link_to 'QC',   :controller => 'flow_cells',  :action => 'show_qc', :id => flow_cell.id %></td>
     <% else %>
-	  <td class="grey"><%= (flow_cell.flowcell_status == 'N'? 'N/A' : ' ') %></td>
+	  <td class="grey"><%= flow_cell.flowcell_qc %></td>
 	<% end %>
   </tr>
   

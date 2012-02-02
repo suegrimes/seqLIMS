@@ -4,8 +4,7 @@
   <%= f.error_messages %>
 
   <%= render :partial => 'patient_info', :locals => {:sample_characteristic => @sample_characteristic,
-                                                     :patient => @sample_characteristic.patient } %> 
-  
+                                                     :patient => @sample_characteristic.patient } %>  
   <%= render :partial => 'clinical_form',    :locals => {:f => f} %>
   
   <%= break_clear %>
@@ -18,23 +17,15 @@
 	   <% if !sample.id.nil?%>
          <%= render :partial => 'samples/sample_row', :locals => {:sample => sample,
                                                                   :from_nccc => @sample_characteristic.from_nccc?} %>
-		 <% @last_sample_id = sample.id %>
-	   <% else %>
-	     <% @new_sample_with_error = sample %>
 	   <% end %>
     <% end %>	
   </table>
   
-  <% if @new_sample_with_error %>
-	  <%= render :partial => 'samples_form', :locals => {:sample => @new_sample_with_error} %>
+  <div id="add_more">
+    <%= link_to_remote("Add another sample for this patient/collection date",
+                       :url => {:action => :add_new_sample, :f => f, :id => @sample_characteristic.id, :from_sample_id => @last_sample_id},
+                       :method => :get) %>
+  </div> 
   
-  <% else %>
-    <div id="add_more">
-      <%= link_to_remote("Add another sample for this patient/collection date",
-                          :url => {:action => :add_new_sample, :id => @sample_characteristic.id, :from_sample_id => @last_sample_id},
-                          :method => :get) %>
-    </div>
-	
-  <% end %> 
   <%= break_clear(f.submit "Update") %>
 <% end %>

@@ -52,7 +52,7 @@
         <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.room_and_freezer %></td>
         <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.container_and_position %></td>
 		<td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.user.login if sample.user %>
-        
+
 		<% if can? :delete, sample %>
           <% if !@source_sample_ids.include?(sample.id) && sample.processed_samples.size == 0 %>
             <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%= link_to 'Delete', sample, :confirm => 'Are you sure?', :method => :delete %></td>

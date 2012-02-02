@@ -30,19 +30,32 @@
 
 <% if @new_sample_with_error %>
   <% form_for @sample_characteristic, :url => {:action => 'update'} do |f| %>
-    <%= render :partial => 'samples_form', :locals => {:sample => @new_sample_with_error} %>
+  
+	  <% f.fields_for :samples, @new_sample_with_error do |s| %>
+         <%= render :partial => 'samples_form', :locals => {:s => s,
+                                                            :sample => @new_sample_with_error} %>
+      <% end %>
+	  
     <%= break_clear(submit_tag "Submit") %>
   <% end %>
-
+  
 <% elsif @added_sample_id %>
   <div id="more_to_add">
     <%= link_to_function "Add another sample for this patient/collection date", div_toggle(:more_to_add, :add_more) %>
   </div>
 	
-  <div id="add_more", style="display:none">	
+  <div id="add_more", style="display:none">
   	<% form_for @sample_characteristic, :url => {:action => 'update'} do |f| %>
-	  <%= render :partial => 'samples_form', :locals => {:sample => @sample_characteristic.samples.build(@sample_params),
-                                                         :removable => 'no'} %>
+	  
+	  <% sample = @sample_characteristic.samples.build(@sample_params) %>
+	  <% sample.build_sample_storage_container %>
+	  
+	  <% f.fields_for :samples, sample do |s| %>
+         <%= render :partial => 'samples_form', :locals => {:s => s,
+                                                            :sample => sample,
+                                                            :removable => 'no'} %>
+	  <% end %>
+	 
 	  <%= break_clear(submit_tag "Submit") %>
 	<% end %>
   </div>
