@@ -36,7 +36,7 @@ class SeqlibQuery < NoTable
   def validate
     if !barcode_to.blank?
       errors.add(:barcode_from, "- must be entered if ending barcode entered") if barcode_from.blank?
-      errors.add(:barcode_to, "- cannot be less than beginning barcode") if barcode_to < barcode_from
+      errors.add(:barcode_to, "- cannot be less than beginning barcode") if barcode_to.to_i < barcode_from.to_i
     end
   end
 end

@@ -11,6 +11,10 @@
 #
 
 class IndexTag < ActiveRecord::Base
+  def self.mplex_adapters
+    self.find(:all, :select => "runtype_adapter", :group => "runtype_adapter").map(&:runtype_adapter)
+  end
+  
   def self.find_or_blank(runtype, tag_nr) 
     if tag_nr.nil?
       return nil

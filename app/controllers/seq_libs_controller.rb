@@ -119,6 +119,7 @@ class SeqLibsController < ApplicationController
     
     if @seq_lib.update_attributes(params[:seq_lib])
       SeqLib.upd_oligo_pool(@seq_lib) #if @seq_lib.oligo_pool_changed?
+      ## Need to update owning multiplex library if singleplex library adapater is changed (upd seq_lib, and lib_samples) ##
       FlowLane.upd_lib_lanes(@seq_lib)
       flash[:notice] = 'Sequencing library was successfully updated.'
       redirect_to(@seq_lib) 
