@@ -126,7 +126,10 @@ class MplexLibsController < ApplicationController
     params[:seq_lib].merge!(:alignment_ref => alignment_key)
      
     if @seq_lib.update_attributes(params[:seq_lib])
-      FlowLane.upd_lib_lanes(@seq_lib)
+      SeqLib.upd_mplex_fields(@seq_lib)
+      if @seq_lib.on_flow_lane?
+        FlowLane.upd_lib_lanes(@seq_lib)
+      end
       flash[:notice] = 'Multiplex library was successfully updated'
       redirect_to(@seq_lib) 
       

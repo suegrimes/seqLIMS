@@ -1,7 +1,7 @@
 <div id="lib_samples">
     <tr>
       <% if s.object.splex_lib %>
-	    <td><%= s.text_field(:splex_lib_barcode, :size => 10) %></td>
+	    <td><%= s.text_field(:singleplex_lib, :size => 10) %></td>
 	    <td><%=h s.object.splex_lib.lib_name %></td>
 	  <% else %>
 	    <td><%= s.text_field(:singleplex_lib, :size => 10) %></td>

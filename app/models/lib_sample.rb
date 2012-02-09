@@ -57,11 +57,11 @@ class LibSample < ActiveRecord::Base
   end
   
   def singleplex_lib=(lib_barcode)
-    self.splex_lib_barcode = lib_barcode
+    #self.splex_lib_barcode = lib_barcode
     self.splex_lib = nil if lib_barcode.blank?
     
     if !lib_barcode.blank?
-      slib = SeqLib.find(:first, :include => :lib_samples, :conditions => ["barcode_key = ?", lib_barcode]) 
+      slib = SeqLib.find(:first, :include => :lib_samples, :conditions => ["library_type = 'S' AND barcode_key = ?", lib_barcode]) 
       if slib && slib.lib_samples
         ssample = slib.lib_samples[0]
         self.splex_lib = slib
@@ -73,6 +73,25 @@ class LibSample < ActiveRecord::Base
         self.index_tag = ssample.index_tag
         self.enzyme_code = ssample.enzyme_code
       end
+    end
+  end
+  
+  def self.upd_mplex_sample_fields(seq_lib)
+    lib_samples = self.find_all_by_splex_lib_id(seq_lib.id)
+    if lib_samples
+      lsample_attrs = {:splex_lib_barcode => seq_lib.barcode_key,
+                       :runtype_adapter => seq_lib.runtype_adapter}
+      self.upd_multi_lib_samples(lib_samples, lsample_attrs)
+    end
+  end
+  
+  def self.upd_multi_lib_samples(lib_samples, attrs)
+    # Set up arrays of ids, and of attribute values, for SQL update
+    lib_sample_ids   = lib_samples.collect(&:id) if lib_samples
+    if lib_sample_ids
+      lib_sample_attrs = []
+      lib_sample_ids.each_with_index {|lib_sample_id, i| lib_sample_attrs[i] = attrs} 
+      self.update(lib_sample_ids, lib_sample_attrs)
     end
   end
 end

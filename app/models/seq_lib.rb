@@ -43,7 +43,8 @@ class SeqLib < ActiveRecord::Base
   
   accepts_nested_attributes_for :lib_samples
   
-  validates_presence_of :barcode_key, :lib_name, :owner, :runtype_adapter, :alignment_ref
+  
+
   validates_uniqueness_of :barcode_key, :message => 'is not unique'
   validates_date :preparation_date
   #validates_numericality_of :trim_bases, :allow_blank => true
@@ -97,8 +98,16 @@ class SeqLib < ActiveRecord::Base
     (dummy_barcode == true ? 'N/A' : barcode_key)
   end
   
-  def multiplexed?
+  def multiplex_lib?
     (library_type == 'M')
+  end
+  
+  def in_multiplex_lib?
+    !mlib_samples.nil?
+  end
+  
+  def on_flow_lane?
+    !flow_lanes.nil?
   end
   
   def control_lane?
@@ -167,23 +176,37 @@ class SeqLib < ActiveRecord::Base
     end
   end
   
-  def self.upd_oligo_pool(seq_lib)
+  def self.upd_mplex_splex(splex_lib)
     # Find all cases where supplied sequencing library is one of the 'samples' in a multiplex library
-    lib_samples = LibSample.find_all_by_splex_lib_id(seq_lib.id)
+    lib_samples = LibSample.find_all_by_splex_lib_id(splex_lib.id)
     
     # If any cases found, collect all the multiplex libraries and their associated 'samples'(=singleplex libs)
-    # Determine if all pools for associated samples are the same, if so, update multiplex pool accordingly
     if !lib_samples.nil?
       mplex_ids   = lib_samples.collect(&:seq_lib_id)
       mplex_libs  = self.find_all_by_id(mplex_ids, :include => {:lib_samples => :splex_lib})
+      
       mplex_libs.each do |lib|
-        slib_pools = lib.lib_samples.collect{|lsamp| [lsamp.splex_lib.pool_id, lsamp.splex_lib.oligo_pool]}
-        if slib_pools.uniq.size > 1 
-          self.update(lib.id, :oligo_pool => 'Multiple')
-        else
-          self.update(lib.id, :pool_id => slib_pools[0][0], :oligo_pool => slib_pools[0][1])
-        end
+        self.upd_mplex_fields(lib)
       end
+    end
+  end
+  
+  def self.upd_mplex_fields(mplex_lib)
+    # Determine if all pools for associated samples are the same, if so, update multiplex pool accordingly
+    # Determine if all adapters for associated samples are the same, if so, update adapter accordingly
+    slib_pools = mplex_lib.lib_samples.collect{|lsamp| [lsamp.splex_lib.pool_id, (lsamp.splex_lib.oligo_pool ? lsamp.splex_lib.oligo_pool : '')]}
+    slib_adapters = mplex_lib.lib_samples.collect{|lsamp| lsamp.splex_lib.runtype_adapter}
+        
+    if slib_pools.uniq.size > 1 
+      self.update(mplex_lib.id, :oligo_pool => 'Multiple')
+    else
+      self.update(mplex_lib.id, :pool_id => slib_pools[0][0], :oligo_pool => slib_pools[0][1])
+    end
+        
+    if slib_adapters.uniq.size > 1
+      self.update(mplex_lib.id, :runtype_adapter => 'Multiple')
+    else
+      self.update(mplex_lib.id, :runtype_adapter => slib_adapters[0])
     end
   end
  

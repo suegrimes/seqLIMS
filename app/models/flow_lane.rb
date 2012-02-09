@@ -59,9 +59,11 @@ class FlowLane < ActiveRecord::Base
   
   def self.upd_multi_lanes(flow_lanes, attrs)
     # Set up arrays of ids, and of attribute values, for SQL update
-    lane_ids   = flow_lanes.collect {|lane| lane.id} if flow_lanes
-    lane_attrs = []
-    lane_ids.each_with_index {|lane_id, i| lane_attrs[i] = attrs} if lane_ids
-    self.update(lane_ids, lane_attrs) if lane_ids    
+    lane_ids   = flow_lanes.collect(&:id) if flow_lanes
+    if lane_ids
+      lane_attrs = []
+      lane_ids.each_with_index {|lane_id, i| lane_attrs[i] = attrs}
+      self.update(lane_ids, lane_attrs)
+    end
   end
 end
