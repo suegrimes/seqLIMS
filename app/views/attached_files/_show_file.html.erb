@@ -1,3 +1,4 @@
+<% add_file_button ||= 'yes'%>
 <fieldset class="info">
 <legend><%= obj.class %>&nbsp;Attached Files</legend>
   <table class="info">
@@ -10,9 +11,11 @@
 	  </tr>
       <% end %>
   <% else %>
-      <tr><td>None</td></tr>
+      <tr><td style="width:95px">None</td></tr>
   <% end %>
-      <tr><td class="linkborder"><%= link_to_function "New Attachment", div_toggle(:newfile) %></td></tr>	
+  <% if add_file_button == 'yes' %>
+      <tr><td class="linkborder"><div id="add_new"><%= link_to_function "New Attachment", div_toggle(:newfile, :add_new) %></div></td></tr>
+  <% end %>	
   </table>
 </fieldset>
 <%=break_clear %>

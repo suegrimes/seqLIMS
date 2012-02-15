@@ -20,9 +20,10 @@ class AttachedFile < ActiveRecord::Base
   belongs_to :sampleproc, :polymorphic => true
   
   upload_column :document, :store_dir => proc{|inst,attr| File.join(FILES_ROOT, inst.sampleproc_type)},
-                           :filename  => proc{|record, file| "#{record.sampleproc_id}_#{file.basename}.#{file.extension}"}
-                         # :extensions => %w(txt csv) [List of valid extensions]
-  validates_integrity_of :document, :message => "invalid file type - executables cannot be uploaded" 
+                           :filename  => proc{|record, file| "#{record.sampleproc_id}_#{file.basename}.#{file.extension}"},
+                           :extensions => %w(txt csv doc docx xls xlsx jpg png gif tif ppt pptx) # List of valid extensions
+  #validates_integrity_of :document, :message => "invalid file type - executables cannot be uploaded"
+  validates_presence_of :document 
   
   def basename_with_ext
     # Return file basename, with extension (and with id prefix)

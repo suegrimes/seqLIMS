@@ -46,7 +46,7 @@ class AttachedFilesController < ApplicationController
       redirect_to :controller => params[:obj_klass].underscore.pluralize, :action => :show, :id => params[:obj_id]
       #redirect_to :action => :new, :rec_type => params[:obj_klass].underscore, :obj_id => params[:obj_id]
     else
-      flash.now[:error] = "Error saving attached file: #{@attached_file.basename_with_ext}"
+      flash.now[:error] = "Validation error - unable to save attached file"
       @obj = source_rec(params[:obj_klass].underscore, nil, params[:obj_id])
       render :action => :new
     end  

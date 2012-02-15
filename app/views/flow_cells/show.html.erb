@@ -2,6 +2,9 @@
 
 <%= render :partial => 'flow_cell_show', :locals => {:flow_cell => @flow_cell} %>
 
+<%= render :partial => 'attached_files/show_file', :locals => {:obj => @flow_cell} %>
+<% break_clear %>
+
 <table class="list">
   <tr>
   	<th>Lane</th>
