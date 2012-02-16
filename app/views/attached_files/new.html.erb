@@ -1,10 +1,13 @@
-<h1><%=h @obj.class.name %>:</h1>
+<% klass_name = name_of_klass(@obj) %>
+<h1><%=h klass_name %>:</h1>
 
-<% if @obj.class.name == 'Histology' %>
+<% if klass_name == 'Histology' %>
   <%= render :partial => 'histologies/histology_info', :locals => {:histology => @obj} %>
-<% elsif @obj.class.name == 'SeqLib' %>
+<% elsif klass_name == 'Extracted Sample' %>
+  <%= render :partial => 'processed_samples/processed_sample_info', :locals => {:processed_sample => @obj} %>
+<% elsif klass_name == 'Seq Lib' %>
   <%= render :partial => 'seq_libs/lib_show', :locals => {:seq_lib => @obj} %>
-<% elsif @obj.class.name == 'FlowCell' %>
+<% elsif klass_name == 'Seq Run' %>
   <%= render :partial => 'flow_cells/flow_cell_show', :locals => {:flow_cell => @obj} %>
 <% end %>
 

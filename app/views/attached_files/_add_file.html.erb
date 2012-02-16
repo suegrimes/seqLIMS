@@ -6,7 +6,7 @@
   <%= hidden_field_tag(:obj_id, obj.id)%>
 
 <fieldset class="form">
-<legend>New <%= obj.class.name.underscore.humanize.downcase %>&nbsp;attachment:</legend>
+<legend>New <%= name_of_klass(obj).downcase %>&nbsp;attachment:</legend>
   <table class="form">
 	<tr>
 	  <th>File name:</th>

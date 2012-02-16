@@ -1,6 +1,6 @@
 <% add_file_button ||= 'yes'%>
 <fieldset class="info">
-<legend><%= obj.class %>&nbsp;Attached Files</legend>
+<legend><%= name_of_klass(obj) %>&nbsp;Attached Files</legend>
   <table class="info">
   <% if obj.attached_files && !obj.attached_files.empty? %>
 	<% obj.attached_files.each do |att_file| %>

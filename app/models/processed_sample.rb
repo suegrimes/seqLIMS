@@ -37,6 +37,7 @@ class ProcessedSample < ActiveRecord::Base
   has_many :lib_samples
   has_many :seq_libs, :through => :lib_samples
   has_one :sample_storage_container, :as => :stored_sample, :dependent => :destroy
+  has_many :attached_files, :as => :sampleproc
   
   accepts_nested_attributes_for :sample_storage_container
   
@@ -75,6 +76,10 @@ class ProcessedSample < ActiveRecord::Base
   
   def self.barcode_search(search_string)
     self.find(:all, :conditions => ["barcode_key LIKE ?", search_string + '%'])
+  end
+  
+  def self.getwith_attach(id)
+    self.find(id, :include => :attached_files)
   end
   
   def self.find_all_incl_sample(condition_array=nil)

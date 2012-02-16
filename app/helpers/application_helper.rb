@@ -60,6 +60,14 @@ module ApplicationHelper
     # if user has admin role, or intersection of user_roles and valid_roles is not empty, user has access
     (user_roles.include?("admin") || (user_roles & valid_roles).size > 0 ? true : false)
   end
+  
+  def name_of_klass(obj)
+    case obj.class.name
+      when 'FlowCell' then 'Seq Run'
+      when 'ProcessedSample' then 'Extracted Sample'
+      else obj.class.name.split(/(?=[A-Z])/).join(' ')
+    end
+  end
 
 end
   

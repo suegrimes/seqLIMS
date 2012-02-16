@@ -43,8 +43,6 @@ class SeqLib < ActiveRecord::Base
   
   accepts_nested_attributes_for :lib_samples
   
-  
-
   validates_uniqueness_of :barcode_key, :message => 'is not unique'
   validates_date :preparation_date
   #validates_numericality_of :trim_bases, :allow_blank => true
