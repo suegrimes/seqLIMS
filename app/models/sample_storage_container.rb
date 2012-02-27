@@ -21,6 +21,10 @@ class SampleStorageContainer < ActiveRecord::Base
   belongs_to :freezer_location
   belongs_to :stored_sample, :polymorphic => true
   
+  def before_create
+    self.sample_name_or_barcode = self.stored_sample.barcode_key
+  end
+  
   def container_desc
     [container_type, container_name].join(': ')
   end
