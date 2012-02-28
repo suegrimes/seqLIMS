@@ -1,0 +1,15 @@
+<h1>Sample Storage Containers Query</h1>
+
+<% form_tag(:action => 'index') do  %>
+
+<fieldset class="form">
+<legend>Select parameters</legend>
+<table class="form">
+  <tr>
+  	<th>Container Type:</th><td><%= select_tag(:container_type, @container_types) %></td>
+  	<th>Container Name:</th><td><%= text_field_tag(:container_name)%></td>
+  </tr>
+</table>
+</fieldset>
+<%= break_clear(submit_tag "Submit") %>
+<%end%>
