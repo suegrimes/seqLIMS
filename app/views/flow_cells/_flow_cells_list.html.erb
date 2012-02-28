@@ -1,21 +1,16 @@
 <table class="list">
   <tr>
-    <th>Preparation date</th>
-	<th>Status</th>
 	<th>Sequencing Key</th>
-	<th>Sequencing Date</th>
 	<th># Bases: R1,Index,R2</th>
+	<th>Notes</th>
     <th colspan="5"></th>
   </tr>
 
   <% @flow_cells.each do |flow_cell| %>
   <tr>
-    <td><%=h flow_cell.flowcell_date %></td>
-	<td style="text-align:center;"><%=h flow_cell.flowcell_status %></td>
 	<td><%=h flow_cell.seq_run_key %></td>
-	<td><%=h flow_cell.sequencing_date %></td>
 	<td><%=h flow_cell.nr_bases_read1 %>, <%=h flow_cell.nr_bases_index %>, <%=h flow_cell.nr_bases_read2 %> </td>
-	
+	<td><%=h flow_cell.notes %></td>
 	<% show_desc = (flow_cell.flowcell_status == 'F' ? 'Show/Seq' : 'Show') %>
 	<td><%= link_to show_desc, flow_cell %></td>
 	
