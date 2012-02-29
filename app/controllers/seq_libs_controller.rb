@@ -152,7 +152,7 @@ class SeqLibsController < ApplicationController
   
 protected
   def dropdowns
-    @adapters     = Category.populate_dropdown_for_category('run_type')
+    @adapters     = IndexTag.mplex_adapters | IndexTag.splex_adapters
     @enzymes      = Category.populate_dropdown_for_category('enzyme')
     @align_refs   = AlignmentRef.populate_dropdown
     @oligo_pools  = Pool.populate_dropdown('lib')

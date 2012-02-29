@@ -175,7 +175,6 @@ protected
     @category_dropdowns = Category.populate_dropdowns([Cgroup::CGROUPS['Sequencing']])
     @cluster_kits       = category_filter(@category_dropdowns, 'cluster kit')
     @seq_kits           = category_filter(@category_dropdowns, 'sequencing kit')
-    @adapters           = category_filter(@category_dropdowns, 'run_type')
     @projects           = category_filter(@category_dropdowns, 'project')
     @oligo_pools        = Pool.populate_dropdown('flowcell')
     @enzymes            = category_filter(@category_dropdowns, 'enzyme')

@@ -4,7 +4,7 @@
 <tr>
   <th>Barcode</th><td><% if @seq_lib.dummy_barcode == false %><%= f.text_field :barcode_key, :size => 10 %><% else %><%=h @seq_lib.lib_barcode %><% end %></td>
   <th>Lib Name</th><td><%= f.text_field :lib_name, :size => 20 %></td>
-  <th>Adapter</th><td><%= f.collection_select(:runtype_adapter, @adapters, :c_value, :c_value) %></td>
+  <th>Adapter</th><td><%= f.select(:runtype_adapter, @adapters) %></td>
 </tr>
 <tr>
   <th>Prep Date</th><td><%= f.calendar_date_select(:preparation_date, :size => 15) %></td>
