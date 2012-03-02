@@ -77,16 +77,26 @@ class LibSample < ActiveRecord::Base
   end
   
   def self.upd_mplex_sample_fields(seq_lib)
-    lib_samples = self.find_all_by_splex_lib_id(seq_lib.id)
+    lsample_attrs = {}
+    
+    lib_samples = self.find_all_by_splex_lib_id(seq_lib.id)  # Find any multiplex libraries which include this single lib
     if lib_samples
-      lsample_attrs = {:splex_lib_barcode => seq_lib.barcode_key,
-                       :runtype_adapter => seq_lib.runtype_adapter}
+      # Set up those attributes that come from lib_samples table of singleplex lib
+      # Should always be one and only one lib_sample for a singleplex lib; but test for existence of lib_samples just in case
+      lsample_attrs = {:index_tag           => seq_lib.lib_samples[0].index_tag,
+                       :sample_name         => seq_lib.lib_samples[0].sample_name,
+                       :source_DNA          => seq_lib.lib_samples[0].source_DNA,
+                       :processed_sample_id => seq_lib.lib_samples[0].processed_sample_id} if seq_lib.lib_samples
+      # Set up those attributes that come from seq_libs table for singleplex lib
+      lsample_attrs.merge!(:splex_lib_barcode => seq_lib.barcode_key,
+                           :runtype_adapter   => seq_lib.runtype_adapter)
+      # Update attributes for all multiplex samples which reference this singleplex lib
       self.upd_multi_lib_samples(lib_samples, lsample_attrs)
     end
   end
   
   def self.upd_multi_lib_samples(lib_samples, attrs)
-    # Set up arrays of ids, and of attribute values, for SQL update
+    # Set up arrays of ids, and of attribute values, for SQL update of multiple lib_samples
     lib_sample_ids   = lib_samples.collect(&:id) if lib_samples
     if lib_sample_ids
       lib_sample_attrs = []
