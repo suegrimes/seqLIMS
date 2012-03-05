@@ -33,11 +33,23 @@ class SampleStorageContainer < ActiveRecord::Base
     [container_desc, position_in_container].join('/')
   end
   
+  def position_sort
+    if position_in_container =~ /\A[A-Z]\d+\Z/ 
+      sort1 = position_in_container[0,1]
+      sort2 = position_in_container[1..-1].to_i
+    else
+      sort1 = position_in_container
+      sort2 = 0
+    end
+    return [sort1, sort2] 
+  end
+  
   def room_and_freezer
     (freezer_location ? freezer_location.room_and_freezer : '')
   end
   
   def self.populate_dropdown
-    self.find(:all, :select => 'DISTINCT container_type', :order => 'container_type')
+    self.find(:all, :select => 'DISTINCT container_type', :order => 'container_type',
+                    :conditions => 'container_type > ""').map(&:container_type)
   end
 end

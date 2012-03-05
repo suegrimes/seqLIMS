@@ -1,4 +1,4 @@
-<h1>Listing Samples in Container: Rack 01</h1>
+<h1>Listing Samples in Container: <%=h @container_type %>&nbsp;<%=h @container_name %></h1>
 
 <table class="list">
   <tr>
@@ -6,17 +6,23 @@
     <th>Position</th>
 	<th>LIMS sample type</th>
     <th>LIMS id</th>
+	<th>Room/Freezer</th>
 	<th>Upd By</th>
 	<th></th>
   </tr>
 
   <% @sample_storage_containers.each do |sscontainer| %>
   <tr>
-  	<td><%= sscontainer.sample_name_or_barcode %></td>
-	<td><%= sscontainer.position_in_container %></td>
-	<td><%= sscontainer.stored_sample_type %></td>
-	<td><%= sscontainer.stored_sample_id %></td>
-	<td><%= sscontainer.updated_by %></td>
+  	<td>
+  	  <% if sscontainer.stored_sample %><%=link_to sscontainer.sample_name_or_barcode, sscontainer.stored_sample %>
+	  <% else %><%=h sscontainer.sample_name_or_barcode %>
+	  <% end %>
+	</td>
+	<td><%=h sscontainer.position_in_container %></td>
+	<td><%=h sscontainer.stored_sample_type %></td>
+	<td><%=h sscontainer.stored_sample_id %></td>
+	<td><%=h sscontainer.room_and_freezer %></td>
+	<td><%=h sscontainer.updated_by %></td>
   </tr>
   <% end %>
 </table>

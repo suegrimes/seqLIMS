@@ -7,9 +7,18 @@ class SampleStorageContainersController < ApplicationController
   end
   
   def index
-    @sample_storage_containers = SampleStorageContainer.find(:all, :order => "container_type, container_name, position_in_container",
-                                                             :conditions => ["container_type = ? AND container_name = ?", 'Rack', '01'])                                 
-    render :action => :index
+    @container_type = params[:container_type]
+    if param_blank?(params[:container_name])
+      flash[:error] = 'Please enter container name'
+      dropdowns
+      render :action => :new_query
+    else
+      @container_name = params[:container_name]
+      @ss_containers = SampleStorageContainer.find(:all, :order => "container_type, container_name, position_in_container",
+                                                       :conditions => ["container_type = ? AND container_name = ?", @container_type, @container_name])                                 
+      @sample_storage_containers = @ss_containers.sort_by {|sscontainer| [sscontainer.position_sort[0], sscontainer.position_sort[1]]}
+      render :action => :index
+    end
   end
   
 protected

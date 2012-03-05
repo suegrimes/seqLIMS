@@ -6,7 +6,7 @@
 <legend>Select parameters</legend>
 <table class="form">
   <tr>
-  	<th>Container Type:</th><td><%= select_tag(:container_type, @container_types) %></td>
+  	<th>Container Type:</th><td><%= select_tag(:container_type, options_for_select(@container_types)) %></td>
   	<th>Container Name:</th><td><%= text_field_tag(:container_name)%></td>
   </tr>
 </table>
