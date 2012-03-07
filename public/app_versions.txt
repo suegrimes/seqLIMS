@@ -1,3 +1,4 @@
+2.3	03/07/2012	Miscellaneous changes (see GitHub); add run_description and modify views for flow_cells
 2.2	01/20/2012	Miscellaneous changes (see GitHub); new table and logic for sample storage locations
 v2.1	10/25/2011	Redesign of multiplex library creation (mplex library from splex libraries)
 v2.03	06/13/2011	Misc cosmetic changes and minor bug fixes

@@ -2,7 +2,7 @@
   <tr>
 	<th>Sequencing Key</th>
 	<th># Bases: R1,Index,R2</th>
-	<th>Notes</th>
+	<th>Run Description/Notes</th>
     <th colspan="5"></th>
   </tr>
 
@@ -10,7 +10,14 @@
   <tr>
 	<td><%=h flow_cell.seq_run_key %></td>
 	<td><%=h flow_cell.nr_bases_read1 %>, <%=h flow_cell.nr_bases_index %>, <%=h flow_cell.nr_bases_read2 %> </td>
-	<td><%=h flow_cell.notes %></td>
+	<td>
+	  <% notes_brk = 'no'%>
+	  <% if !flow_cell.run_description.blank? %><%=h flow_cell.run_description %><% notes_brk='yes' %><% end %>
+	  <% if !flow_cell.notes.blank?%>
+	    <% if notes_brk == 'yes'%><br/><% end %>
+		<i><strong>Notes:</strong>&nbsp;&nbsp;<%=h flow_cell.notes %></i>
+	  <% end %>
+	</td>
 	<% show_desc = (flow_cell.flowcell_status == 'F' ? 'Show/Seq' : 'Show') %>
 	<td><%= link_to show_desc, flow_cell %></td>
 	
