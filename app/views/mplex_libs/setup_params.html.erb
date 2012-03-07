@@ -18,7 +18,7 @@
   </tr>
   <tr>
 	<th>Runtype Adapter:</th>
-	<td><%= collection_select(:seq_lib, :runtype_adapter, @adapters, :c_value, :c_value) %></td>
+	<td><%= select(:seq_lib, :runtype_adapter, @mplex_adapters) %></td>
   </tr>  
   <tr>
     <th>Exclude used libraries?</th>

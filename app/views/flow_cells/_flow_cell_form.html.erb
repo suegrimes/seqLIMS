@@ -1,7 +1,6 @@
 <fieldset class="form">
   <legend>Flowcell Parameters</legend>
   <table border="0" class="form">  		  
-  	</tr>
 	<tr>
 	  <th>Date:</th><td><%= f.calendar_date_select(:flowcell_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15) %></td>
 	  <% if f.object.new_record? %>
@@ -16,7 +15,6 @@
 		<th>Partial Flowcell?
 	    <%=h @partial_flowcell %><%= hidden_field_tag :partial_flowcell, @partial_flowcell %></th>
 	  <% end %>
-	  </td>
     </tr>
 	<tr>
 	  <th>Number of Bases:</th>
@@ -38,8 +36,12 @@
 	</tr>
     <% end %>
 	<tr>
+	  <th style="text-align:right;text-decoration:none;"><%=f.label(:run_description, 'Run Description:')%></th>
+	  <td colspan="4"><%=f.text_field(:run_description, :size => 60)%></td>
+	</tr>
+	<tr>
 	  <th style="text-align:right;text-decoration:none;"><%=f.label(:notes, 'Notes:') %></th>
-	  <td colspan=4><%= f.text_field(:notes, :size => 60) %></td>
+	  <td colspan="4"><%= f.text_field(:notes, :size => 60) %></td>
 	</tr>
   </table>
   </fieldset>

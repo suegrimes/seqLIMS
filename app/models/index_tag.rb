@@ -11,8 +11,13 @@
 #
 
 class IndexTag < ActiveRecord::Base
+  def self.splex_adapters
+    return ["S_SR", "S_PE"]
+  end
+  
   def self.mplex_adapters
-    self.find(:all, :select => "runtype_adapter", :group => "runtype_adapter").map(&:runtype_adapter)
+    adapters = self.find(:all, :select => "runtype_adapter", :group => 'runtype_adapter').map(&:runtype_adapter)
+    return adapters.unshift("M_SR")
   end
   
   def self.find_or_blank(runtype, tag_nr) 

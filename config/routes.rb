@@ -14,6 +14,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :protocols
   map.resources :categories
   map.resources :freezer_locations 
+  map.resources :sample_storage_containers
   
   map.protocol_type 'protocol_type', :controller => 'protocols', :action => 'query_params'
   

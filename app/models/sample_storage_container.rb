@@ -36,4 +36,8 @@ class SampleStorageContainer < ActiveRecord::Base
   def room_and_freezer
     (freezer_location ? freezer_location.room_and_freezer : '')
   end
+  
+  def self.populate_dropdown
+    self.find(:all, :select => 'DISTINCT container_type', :order => 'container_type')
+  end
 end

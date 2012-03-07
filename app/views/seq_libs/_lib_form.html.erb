@@ -8,7 +8,7 @@
                            {:include_blank => 'Select Protocol'}) %></td>
 </tr>
 <tr> 
-  <th>Adapter:</th><td><%= collection_select(:lib_default, :runtype_adapter, @adapters, :c_value, :c_value) %></td> 
+  <th>Adapter:</th><td><%= select(:lib_default, :runtype_adapter, @adapters) %></td> 
   <th>Oligo Pool:</th><td><%= collection_select(:lib_default, :pool_id, @oligo_pools, :id, :pool_string,
                            {:include_blank => 'Select Pool'}) %></td>
   <th>Enzyme:</th><td><%= collection_select(:sample_default, :enzyme_code, @enzymes, :c_value, :c_value, 
