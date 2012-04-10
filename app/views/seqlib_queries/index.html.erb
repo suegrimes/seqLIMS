@@ -3,6 +3,7 @@
 <table class="list">
   <tr>
   	<th>Lib Barcode</th>
+	<th>Patient ID</th>
     <th>Library Name</th>
 	<th>Owner</th>
 	<th>Prep Date</th>
@@ -19,6 +20,13 @@
 <% for seq_lib in @seq_libs %>
   <tr>
   	<td><%= link_to seq_lib.lib_barcode, seq_lib %>
+	<td>
+	  <% patient_ids = [] %>
+	  <% seq_lib.lib_samples.each do |lib_sample| %>
+	    <% patient_ids.push(lib_sample.processed_sample.patient_id) if lib_sample.processed_sample && !lib_sample.processed_sample.patient_id.nil? %>
+	  <% end %>
+	  <%=h patient_ids.uniq.join(', ') if patient_ids.size > 0 %>
+	</td>
     <td><%=h seq_lib.lib_name %></td>
 	<td><%=h seq_lib.owner_abbrev %></td>
 	<td><%=h seq_lib.preparation_date %></td>
