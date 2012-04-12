@@ -68,6 +68,11 @@ class FlowCell < ActiveRecord::Base
   def id_name
   (sequenced? ? "Run #: #{sequencing_key}" : "Flow Cell: #{id.to_s}")
   end
+
+  def alt_run_or_descr
+    alt_run = (hiseq_xref.blank? ? '' : ['Alt Run#:', hiseq_xref].join)
+    return (run_description.blank? ? alt_run : run_description)
+  end
   
   def self.find_sequencing_runs(condition_array=[])
     self.sequenced.find(:all, :order => 'flow_cells.seq_run_nr DESC',
