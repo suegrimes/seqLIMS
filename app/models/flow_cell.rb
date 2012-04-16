@@ -53,10 +53,13 @@ class FlowCell < ActiveRecord::Base
   end
   
   def hiseq_qc?
-    (machine_type == 'HiSeq' && sequencing_key.split('_')[1][0].chr != 'S')
+    # This method is used to determine whether to display 'Synder' center QC fields, or 'SGTC'
+    # If sequencing machine starts with 'S' or run# > 118, assume QC done at SGTC
+    (machine_type == 'HiSeq' && (sequencing_key.split('_')[1][0].chr != 'S' || seq_run_nr > 118))
   end
   
   def hiseq_run?
+    # This method is used to determine whether to display hiseq flowcell along with sequencing key
     (machine_type == 'HiSeq' && !hiseq_xref.blank? && hiseq_xref.split('_').size > 3)
   end
   
