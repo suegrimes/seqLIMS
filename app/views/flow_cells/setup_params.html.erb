@@ -5,6 +5,13 @@
 	<legend>Sequencing Library Parameters</legend>
 <table class="form">
   <tr>
+  	<th>Library Barcode:</th>
+	<td><strong>L</strong><%= text_field_tag(:barcode_from, '', {:size => 10})%></td>
+	<th>To:</th>
+	<td><strong>L</strong><%= text_field_tag(:barcode_to, '', {:size => 10})%></td>
+  </tr> 
+  <tr><td>&nbsp;</td></tr>
+  <tr>
     <th>Owner(s):</th>
     <td><%= select(:seq_lib, :owner, @owners,
                   {:include_blank => '(All)'}, {:size => 3, :multiple => :multiple}) %> </td> 

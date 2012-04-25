@@ -264,6 +264,14 @@ protected
       @where_values.push(params[:seq_lib][:owner])
     end
     
+    if !param_blank?(params[:barcode_from]) || !param_blank?(params[:barcode_to])
+      @where_select.push("seq_libs.barcode_key LIKE 'L%'")
+      barcode_from = (param_blank?(params[:barcode_from]) ? nil : params[:barcode_from].to_i)
+      barcode_to   = (param_blank?(params[:barcode_to])? nil : params[:barcode_to].to_i)
+      @where_select, @where_values = sql_conditions_for_range(@where_select, @where_values, barcode_from, barcode_to,
+                                                              "CAST(SUBSTRING(seq_libs.barcode_key,2) AS UNSIGNED)")
+    end
+    
     if params[:excl_used] && params[:excl_used] == 'Y'
       @where_select.push("seq_libs.lib_status <> 'F'")
     end
