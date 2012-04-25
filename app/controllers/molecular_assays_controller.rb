@@ -7,14 +7,14 @@ class MolecularAssaysController < ApplicationController
   # GET /molecular_assays
   def index
     authorize! :read, MolecularAssay
-    @molecular_assays = MolecularAssay.find(:all, :include => {:processed_sample => :sample},          
+    @molecular_assays = MolecularAssay.find(:all, :include => [:protocol, {:processed_sample => :sample}],          
                                             :order => 'samples.patient_id, molecular_assays.barcode_key')
     render :action => 'index'
   end
   
   def list_added
     authorize! :read, MolecularAssay
-    @molecular_assays = MolecularAssay.find_all_by_id(params[:assay_id].to_a, :include => {:processed_sample => :sample},
+    @molecular_assays = MolecularAssay.find_all_by_id(params[:assay_id].to_a, :include => [:protocol, {:processed_sample => :sample}],
                                                         :order => 'molecular_assays.barcode_key')
     render :action => 'list_added'
   end
