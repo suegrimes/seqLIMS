@@ -42,10 +42,10 @@ class DissectedSamplesController < ApplicationController
     
     if @sample.update_attributes(params[:sample])
       @source_sample.update_attributes(:sample_remaining => params[:source_sample][:sample_remaining]) if params[:source_sample]
-      flash[:notice] = 'Sample was successfully updated'
+      flash[:notice] = 'Dissected sample was successfully updated'
       redirect_to(@sample)
     else
-      flash[:error] = 'Error updating sample'
+      flash[:error] = 'Error updating dissected sample'
       redirect_to :action => 'edit'
     end
   end

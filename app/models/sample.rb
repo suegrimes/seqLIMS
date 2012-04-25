@@ -31,6 +31,8 @@
 #
 
 class Sample < ActiveRecord::Base
+  include LimsCommon
+  
   belongs_to :patient
   belongs_to :sample_characteristic
   belongs_to :source_sample, :class_name => 'Sample', :foreign_key => 'source_sample_id'
@@ -42,8 +44,6 @@ class Sample < ActiveRecord::Base
   
   accepts_nested_attributes_for :sample_storage_container
   
-  #before_validation :check_sample_date
-  
   validates_presence_of :barcode_key
   validates_uniqueness_of :barcode_key, :message => 'is not unique'
 
@@ -52,6 +52,8 @@ class Sample < ActiveRecord::Base
   
   #validates_format_of :barcode_key, :with => /^([^\.])*$/, :message => "invalid - cannot use '.'"  # only use this validation if source_sample_id is null
   
+  #before_validation :check_sample_date
+
   # Set date parameters for use in date_select lists.
   # Start year will be 2001, end year will be current year
   START_YEAR = 2000
@@ -72,7 +74,21 @@ class Sample < ActiveRecord::Base
   def before_create
     self.amount_rem = self.amount_initial
   end
- 
+  
+  after_update :upd_dissections
+  
+  # After save, look for any dissections from the source sample updated, and update those as well
+  def upd_dissections
+    source_sample_id = self.id 
+    dissected_samples = Sample.find_all_by_source_sample_id(source_sample_id)
+    if !dissected_samples.nil?
+      sample_params = build_params_from_obj(self, SOURCE_FLDS_FOR_COPY)
+      dissected_samples.each do |dsample|
+        dsample.update_attributes(sample_params)
+      end
+    end
+  end
+  
   def barcode_sort
     (source_barcode_key.blank? ? barcode_key : source_barcode_key )
   end

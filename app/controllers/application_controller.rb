@@ -4,6 +4,7 @@
 class ApplicationController < ActionController::Base
   include AuthenticatedSystem
   include RoleRequirementSystem
+  include LimsCommon
   before_filter :login_required
  
   #Make current_user accessible from model (via User.current_user)
@@ -51,14 +52,6 @@ class ApplicationController < ActionController::Base
     else
       return barcode_split[-1][0,1] # first character of last substring after splitting by '.'
     end
-  end
-  
-  def build_params_from_obj(obj, flds)
-    params_hash = {}
-    flds.each do |fld|
-      params_hash.merge!(fld.to_sym => obj.send(fld))
-    end
-    return params_hash
   end
   
   def param_blank?(val)
