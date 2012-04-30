@@ -32,16 +32,17 @@
 	</tr>
 	<% if !f.object.new_record? && (can? :new, AlignmentRef) %>
 	<tr>
-	  <th><%=f.label(:hiseq_xref, 'Alt Run#:') %></th><td colspan="2"><%= f.text_field(:hiseq_xref, :size => 30)%></td>   
-	</tr>
+	  <th><%=f.label(:hiseq_xref, 'Alt Run#:') %></th><td colspan="2"><%= f.text_field(:hiseq_xref, :size => 30)%></td> 
+	</tr>  
     <% end %>
 	<tr>
 	  <th style="text-align:right;text-decoration:none;"><%=f.label(:run_description, 'Run Description:')%></th>
-	  <td colspan="4"><%=f.text_field(:run_description, :size => 60)%></td>
+	  <td colspan="5"><%=f.text_field(:run_description, :size => 60)%></td>
+	  <th rowspan="2"><%=f.label(:archive_flag, "Data for <br>Publication?") %></th><td><%= f.select(:archive_flag, options_for_select(%w{Y N}, :selected => 'N')) %></td>	
 	</tr>
 	<tr>
 	  <th style="text-align:right;text-decoration:none;"><%=f.label(:notes, 'Notes:') %></th>
-	  <td colspan="4"><%= f.text_field(:notes, :size => 60) %></td>
+	  <td colspan="5"><%= f.text_field(:notes, :size => 60) %></td>
 	</tr>
   </table>
   </fieldset>
