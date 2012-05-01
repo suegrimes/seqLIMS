@@ -1,0 +1,24 @@
+<h1>New publication</h1>
+
+<% tagged_form_for(@publication) do |f| %>
+  <%= f.error_messages %>
+
+  <%= render :partial => 'publication_form', :locals => {:f => f} %>
+  
+  
+  <% if @flow_cell.nil? %>
+  <div id='lane_entry'> 
+  <span><b>Associated Sequencing Runs:</b>&nbsp;<%= text_field_tag(:run_numbers, '', :size => 5)-%></span>
+  <%= submit_to_remote 'Sequencing', 'Select Lanes',
+      :url => {:action => 'populate_lanes'},
+      :update => 'lane_entry' -%>
+  </div>
+  
+  <% else %>
+    <%= render :partial => 'publication_runs', :locals => {:flow_cell => flow_cell} %>
+  <% end %>
+  
+  <%= break_clear %>
+  <%= f.submit "Create" -%>&nbsp;&nbsp;<%= link_to 'List All', publications_path %>
+<% end %>
+

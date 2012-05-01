@@ -1,0 +1,21 @@
+<h1>Listing Publications</h1>
+<table class="list">
+  <tr>
+    <th>Publication Name</th>
+	<th>Article Title</th>
+	<th>Date Published</th>
+	<th colspan="2">&nbsp;</th>
+  </tr>
+
+  <% @publications.each do |publication| %>
+  <tr>
+    <td><%=h publication.publication_name %></td>
+	<td><%=h publication.title_full %></td>
+	<td><%=h publication.date_published %></td>
+    <td><%= link_to 'Edit', edit_publication_path(publication) %></td>
+    <td><%= link_to 'Delete', publication, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'New publication', new_publication_path %>

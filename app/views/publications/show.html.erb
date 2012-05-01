@@ -1,0 +1,21 @@
+<h1>View Publications</h1>
+
+<!-- Standard fields to be displayed -->
+<% info_flds   = [['Field', 'Publication', @publication.publication_name],
+                  ['Field', 'Article Title', @publication.title_full], 
+                  ['Field', 'Title (Abbrev)', @publication.title_abbrev],
+                  ['Field', 'Date Published', @publication.date_published] %>
+
+<!-- Links to be displayed with borders, in bottom row of info box -->
+<% info_links = [] %>
+<% info_links << ['Show', 'show'] if (can? :read, @publication) %>
+<% info_links << ['Edit', 'edit'] if (can? :edit, @publication) %>
+<% info_links << ['Delete', 'destroy'] if (can? :delete, @publication) %>
+
+<%= render :partial => 'shared/info_box', :locals => {:info_legend     => 'Publication Details',
+                                                      :info_flds       => info_flds,
+                                                      :info_links      => info_links,
+                                                      :link_id         => @publication.id,
+                                                      :link_controller => 'publications',
+                                                      :last_info_box   => 'yes'} %>
+													  

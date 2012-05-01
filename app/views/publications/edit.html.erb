@@ -1,0 +1,12 @@
+<h1>Editing publication</h1>
+
+<% tagged_form_for(@publication) do |f| %>
+  <%= f.error_messages %>
+
+  <%= render :partial => 'publication_form', :locals => {:f => f} %>
+  
+  <%= break_clear %>
+  <%= f.submit "Update" -%>&nbsp;&nbsp;<%= link_to 'List All', publication_path %>
+<% end %>
+
+

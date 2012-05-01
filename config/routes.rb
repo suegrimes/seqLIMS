@@ -10,6 +10,7 @@ ActionController::Routing::Routes.draw do |map|
   map.reset     'reset/:reset_code',          :controller => 'users',     :action => 'reset'
   
   map.resources :researchers
+  map.resources :publications
   map.resources :consent_protocols
   map.resources :protocols
   map.resources :categories

@@ -9,6 +9,7 @@ class RunDirsController < ApplicationController
   end
   
   # GET /run_dirs/1
+  # Not used.  Show action is handled by new method (shows existing directories, and provides link to add new)
   def show
     @run_dir = RunDir.find(params[:id])
     render :action => :show
@@ -18,6 +19,7 @@ class RunDirsController < ApplicationController
     render :action => :get_params
   end
   
+  # Show existing directories for sequencing run, and provide ability to add new directory
   def new
     @flow_cell, rc = find_flow_cell_using_params(params)
     
