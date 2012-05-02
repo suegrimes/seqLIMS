@@ -27,10 +27,15 @@ class FlowLane < ActiveRecord::Base
   belongs_to :flow_cell
   belongs_to :seq_lib
   has_one    :align_qc
+  has_and_belongs_to_many :publications, :join_table => :publication_lanes
   
   validates_numericality_of :lane_nr, :only_integer => true
   validates_inclusion_of :lane_nr, :in => 1..8,
                          :message => "must be integer between 1 and 8"
+  
+  def for_publication?
+    (self.publications.size > 0 ? 'Y' : '')
+  end
   
   def self.upd_seq_key(flow_cell)
     cell_attrs = {:sequencing_key => flow_cell.sequencing_key,

@@ -3,6 +3,7 @@
 <table class="list">
   <tr>
     <th>Sequencing Run</th>
+	<th>Pub?</th>
 	<th>Device Name</th>
 	<th>Date Sized</th>
     <th># Files</th>
@@ -18,6 +19,7 @@
   <% del_flag_yes = 1 if !run_dir.delete_flag.blank? %>
   <tr>
     <td class="border_leftright_only <%= "strike" if del_flag_yes %>"><%=link_to run_dir.flow_cell.sequencing_key, run_dir.flow_cell %></td>
+	<td class="border_leftright_only" style="text-align:center"><%= run_dir.flow_cell.for_publication? %></td>
 	<td class="border_leftright_only <%= "strike" if del_flag_yes %>"><%=h run_dir.device_name %></td>
 	<td class="border_leftright_only <%= "strike" if del_flag_yes %>"><%=h run_dir.date_sized %></td>
     <td class="border_leftright_only <%= "strike" if del_flag_yes %>"><%=h run_dir.file_count %></td>

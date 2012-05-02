@@ -2,7 +2,7 @@ class RunDirsController < ApplicationController
   before_filter :dropdowns, :only => [:new, :edit]
  
   def index
-    run_dirs  = RunDir.find(:all, :include => :flow_cell,
+    run_dirs  = RunDir.find(:all, :include => {:flow_cell => {:flow_lanes => :publications}},
                             :order => "flow_cells.seq_run_nr, run_dirs.delete_flag, run_dirs.device_name")
     @run_dirs = run_dirs.group_by {|run_dir| run_dir.flow_cell.seq_run_nr}
     render :action => :index

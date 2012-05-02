@@ -11,7 +11,8 @@
                   ['Field', 'Machine Type', flow_cell.machine_type],
                   ['Field', 'Status Code', flow_cell.flowcell_status],
                   ['Field', 'Cluster Kit', flow_cell.cluster_kit],
-                  ['Field', 'Sequencing Kit', flow_cell.sequencing_kit]] %>
+                  ['Field', 'Sequencing Kit', flow_cell.sequencing_kit],
+                  ['Field', 'For Publication?', flow_cell.for_publication?], nil]%>
 				  
 <!-- Only include comments if non-blank -->
 <% info_flds.push(['Field', 'Alt Run#', flow_cell.hiseq_xref], nil) if !flow_cell.hiseq_xref.blank? %>
