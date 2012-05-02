@@ -4,9 +4,19 @@
   <%= f.error_messages %>
 
   <%= render :partial => 'publication_form', :locals => {:f => f} %>
-  
   <%= break_clear %>
-  <%= f.submit "Update" -%>&nbsp;&nbsp;<%= link_to 'List All', publication_path %>
+  
+  <%= render :partial => 'publication_lanes', :locals => {:f => f, :flow_lanes => @publication.flow_lanes} %>
+  <%= break_clear %>
+  
+  <div id='lane_entry'> 
+  <span><b>Add lanes from run number:</b>&nbsp;<%= text_field_tag(:run_numbers, '', :size => 5)-%></span>
+  <span class="linkbutton"><%= link_to_remote('Select Lanes', :update => 'lane_entry',
+                     :with => "Form.Element.serialize('run_numbers')", 
+                     :url => {:action => 'populate_lanes'}, :method => 'post') -%></span>
+  </div> 
+  <br/>
+  <%= f.submit "Update" -%>&nbsp;&nbsp;<%= link_to 'List All Publications', publication_path %>
 <% end %>
 
 

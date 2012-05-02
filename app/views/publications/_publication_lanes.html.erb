@@ -1,0 +1,14 @@
+<fieldset class="form">
+<legend>Publication Run/Lanes</legend>
+<table class="form">
+  <% flow_lanes.each do |flow_lane| %>
+  <tr>
+  	<td><%= check_box(:publication, :flow_lane_ids, {:checked => true, :name => 'publication[flow_lane_ids][]', :wraptags => 'none'}, flow_lane.id, nil) %></td>
+  	<td><%=h flow_lane.sequencing_key %></td>
+	<td><%=h flow_lane.lane_nr %></td>
+	<td><%=h flow_lane.lib_barcode %></td>
+	<td><%=h flow_lane.lib_name %></td>
+  </tr>
+  <% end %>
+</table>
+</fieldset>

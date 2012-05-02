@@ -10,7 +10,6 @@ class PublicationsController < ApplicationController
   # render new.rhtml
   def new
     @publication = Publication.new
-    @flow_lanes = FlowLane.find(:all)
     @researchers = Researcher.find(:all)
   end
 
@@ -23,6 +22,10 @@ class PublicationsController < ApplicationController
       redirect_to publications_url
     else
       flash.now[:notice] = "Error saving this publication - please try again"
+      @researchers = Researcher.find(:all)
+      @checked_lane_ids = params[:publication][:flow_lane_ids].collect{|str| str.to_i} if params[:publication][:flow_lane_ids]
+      flow_lanes = FlowLane.find_all_by_id(@checked_lane_ids) if @checked_lane_ids
+      @flow_cells = FlowCell.find_all_by_id(flow_lanes.map(&:flow_cell_id).uniq) if flow_lanes
       render :action => 'new'
     end
   end
@@ -30,7 +33,6 @@ class PublicationsController < ApplicationController
   # render edit.html
   def edit 
     @publication = Publication.find(params[:id])
-    @flow_lanes = FlowLane.find(:all)
     @researchers = Researcher.find(:all)
   end
   
@@ -38,7 +40,8 @@ class PublicationsController < ApplicationController
     @publication = Publication.find(params[:id])
     authorize! :update, @publication
     
-    params[:publication][:flow_cell_ids] ||= [] 
+    params[:publication][:flow_lane_ids] ||= []
+    params[:publication][:flow_lane_ids].reject!{|id| id.blank? || id == '0'}
     @publication.flow_lanes = FlowLane.find(params[:publication][:flow_lane_ids])
     
     params[:publication][:researcher_ids] ||= []
@@ -49,11 +52,9 @@ class PublicationsController < ApplicationController
       redirect_to publications_url
     else
       flash.now[:error] = "Error updating publication"
-      @flow_lanes = FlowLane.find(:all)
       @researchers = Researcher.find(:all)
       render :action => 'edit'
-    end
-     
+    end    
   end
   
   # DELETE /publications/1
@@ -66,13 +67,14 @@ class PublicationsController < ApplicationController
   
   def populate_lanes
     if params[:run_numbers]
-      @flow_cell = FlowCell.find_by_seq_run_nr(params[:run_numbers], :include => :flow_lanes) 
+      @flow_cells = FlowCell.find_all_by_seq_run_nr(params[:run_numbers], :include => :flow_lanes,
+                                                :order => "flow_cells.seq_run_nr, flow_lanes.lane_nr") 
     end
     
-    if @flow_cell.nil?
-      render :nothing => true
+    if @flow_cells.nil?
+      render :text => "Unable to find run_number: #{params[:run_numbers]}"
     else
-      render :partial => 'publication_runs', :locals => {:flow_cell => @flow_cell}
+      render :partial => 'publication_runs', :locals => {:flow_cells => @flow_cells}
     end
   end
 end
