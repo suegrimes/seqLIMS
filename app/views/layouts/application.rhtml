@@ -196,20 +196,25 @@
      <em>Logged in as: <%= current_user.login %></em>
   </div>
   <ul class="opened">
-    <li> <a href="#">Query</a> 
+    <li> <a href="#">Query:</a> 
       <ul>
        <li><%= link_to 'Source/Dissections', unprocessed_query_path %></li>
        <li><%= link_to 'Extracted Samples',  processed_query_path %></li>
 	   <li><%= link_to 'Molecular Assays',   mol_assay_query_path %></li>
        <li><%= link_to 'Seq Libraries',      lib_query_path  %></li>
-       <li><%= link_to 'Sequencing Runs',    seq_run_query_path %></li>
+       <li><%= link_to 'Sequencing Runs',    seq_run_query_path %></li>	   
       </ul>
     </li>
         
-    <li> <a href="#">System Tables</a>  
+    <li> <a href="#">View/Manage:</a>  
       <ul>
-      	<li><%= link_to 'Freezer Locations', freezer_locations_path %></li>
-        <li><%= link_to 'Protocols', protocol_type_path %></li>
+      	<% if user_has_access?(user_roles, ["clin_admin", "lab_admin"]) %> 
+		<li><%= link_to 'Drop-Down Lists', categories_path %></li>
+		<% end %>     
+		
+      	<li><%= link_to 'Publications',       publications_path %></li>
+		<li><%= link_to 'Protocols',          protocol_type_path %></li>
+      	<li><%= link_to 'Freezer Locations',  freezer_locations_path %></li>   
 		
 		<% if user_has_access?(user_roles, ["researcher", "lab_admin", "alignment"])%>
  		<li><%= link_to 'Multiplex Tags', index_tags_path %></li>
@@ -223,11 +228,7 @@
 		<% if user_has_access?(user_roles, ["researcher", "lab_admin", "alignment"])%>
 		<li><%= link_to 'Seq Machines', seq_machines_path %></li>
 		<li><%= link_to 'Disks/Directories', storage_devices_path %></li>
-		<% end %>		
-		
-		<% if user_has_access?(user_roles, ["clin_admin", "lab_admin"]) %> 
-		<li><%= link_to 'Drop-Down Lists', categories_path %></li>
-		<% end %>                
+		<% end %>		           
       </ul>
     </li>			
   </ul>  <!-- /opened -->

@@ -1,6 +1,10 @@
 class PublicationsController < ApplicationController
   ## cancan
   #load_and_authorize_resource
+  
+  def show
+    @publication = Publication.find(params[:id])
+  end
 
   # render index.rhtml
   def index
@@ -19,7 +23,7 @@ class PublicationsController < ApplicationController
     if @publication.errors.empty?
       @publication.save
       flash[:notice] = "Publication successfully saved"
-      redirect_to publications_url
+      redirect_to @publication
     else
       flash.now[:notice] = "Error saving this publication - please try again"
       @researchers = Researcher.find(:all)

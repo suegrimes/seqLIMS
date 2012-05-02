@@ -4,7 +4,7 @@
     <th>Publication Name</th>
 	<th>Article Title</th>
 	<th>Date Published</th>
-	<th colspan="2">&nbsp;</th>
+	<th colspan="3">&nbsp;</th>
   </tr>
 
   <% @publications.each do |publication| %>
@@ -12,6 +12,7 @@
     <td><%=h publication.publication_name %></td>
 	<td><%=h publication.title_full %></td>
 	<td><%=h publication.date_published %></td>
+	<td><%= link_to 'Show', publication %></td>
     <td><%= link_to 'Edit', edit_publication_path(publication) %></td>
     <td><%= link_to 'Delete', publication, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
