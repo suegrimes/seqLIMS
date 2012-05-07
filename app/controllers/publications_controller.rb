@@ -53,7 +53,7 @@ class PublicationsController < ApplicationController
     
     if @publication.update_attributes(params[:publication])
       flash[:notice] = "Publication has been updated"
-      redirect_to publications_url
+      redirect_to @publication
     else
       flash.now[:error] = "Error updating publication"
       @researchers = Researcher.find(:all)
@@ -82,4 +82,3 @@ class PublicationsController < ApplicationController
     end
   end
 end
-
