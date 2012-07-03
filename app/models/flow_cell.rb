@@ -78,7 +78,7 @@ class FlowCell < ActiveRecord::Base
   end
   
   def self.find_sequencing_runs(condition_array=[])
-    self.sequenced.find(:all, :order => 'flow_cells.seq_run_nr DESC',
+    self.sequenced.find(:all, :order => 'flow_cells.sequencing_key DESC',
                         :conditions => condition_array)
   end
   
