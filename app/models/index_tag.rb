@@ -11,6 +11,10 @@
 #
 
 class IndexTag < ActiveRecord::Base
+  def tag_ctr
+    (runtype_adapter == 'M_HLA192' ? tag_nr - 100 : tag_nr)
+  end
+  
   def self.splex_adapters
     return ["S_SR", "S_PE"]
   end
