@@ -39,6 +39,7 @@ class FlowCell < ActiveRecord::Base
   DEFAULT_MACHINE_TYPE = 'GAIIx'
   NR_LANES = {:MiSeq => 1, :GAIIx => 8, :HiSeq => 8}
   STATUS = %w{F R S Q N X}
+  RUN_NR_TYPES = %w{LIMS Illumina}
   
   def sequenced?
     flowcell_status != 'F'
@@ -73,7 +74,7 @@ class FlowCell < ActiveRecord::Base
   end
 
   def alt_run_or_descr
-    alt_run = (hiseq_xref.blank? ? '' : ['Alt Run#:', hiseq_xref].join)
+    alt_run = (hiseq_xref.blank? ? '' : ['Alt Run#: ', hiseq_xref].join)
     return (run_description.blank? ? alt_run : run_description)
   end
   

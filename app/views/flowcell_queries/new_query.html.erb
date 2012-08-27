@@ -7,8 +7,10 @@
 <legend>Select parameters</legend>
 <table class="form">
   <tr>
-  	<th>Run#</th>
-	<td><%=f.text_field(:run_nr, :size => 6)%></td>
+  	<th>Run Nr:</th>
+	<td><%=f.text_field(:run_nr, :size => 6)%>
+  	<strong>&nbsp;Run Nr Type:&nbsp;&nbsp;</strong>
+	<%= f.select(:run_nr_type, FlowCell::RUN_NR_TYPES) %></td>
   </tr>
   <tr><td align="center" class="grey">-OR-</td></tr>
   <tr>

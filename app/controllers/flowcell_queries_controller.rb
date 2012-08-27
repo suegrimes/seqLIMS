@@ -38,7 +38,13 @@ protected
     @where_values = []
     
     if !params[:flowcell_query][:run_nr].blank?
-      sql_where_clause = ["flow_cells.seq_run_nr = ?", params[:flowcell_query][:run_nr].to_i]
+      run_nr_i = params[:flowcell_query][:run_nr].to_i
+      if params[:flowcell_query][:run_nr_type] == 'LIMS'
+        sql_where_clause = ["flow_cells.seq_run_nr = ?", run_nr_i]
+      else
+        run_nr_string = run_nr_i.to_s.rjust(4,"0")
+        sql_where_clause = ["flow_cells.hiseq_xref LIKE ?", "%_#{run_nr_string}_%"]
+      end
       
     else
       if !param_blank?(params[:flowcell_query][:machine_type])

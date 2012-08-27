@@ -2,6 +2,7 @@
 #
 # Table name: flowcell_queries
 #
+#  run_nr_type  :string
 #  run_nr       :string
 #  machine_type :string
 #  from_date    :date
@@ -15,6 +16,7 @@ class FlowcellQuery < NoTable
     end
   end
   
+  column :run_nr_type, :string
   column :run_nr,    :string
   column :machine_type, :string
   column :from_date, :date
