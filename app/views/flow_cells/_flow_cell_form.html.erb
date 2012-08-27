@@ -30,11 +30,9 @@
 	  <th><%=f.label(:cluster_kit, 'Cluster Kit:') %> <%= f.collection_select(:cluster_kit, @cluster_kits, :c_value, :c_value)%></th>
       <th><%=f.label(:sequencing_kit, 'Sequencing Kit:') %> <%= f.collection_select(:sequencing_kit, @seq_kits, :c_value, :c_value)%></th>	    	  
 	</tr>
-	<% if !f.object.new_record? && (can? :new, AlignmentRef) %>
 	<tr>
-	  <th><%=f.label(:hiseq_xref, 'Alt Run#:') %></th><td colspan="2"><%= f.text_field(:hiseq_xref, :size => 30)%></td> 
-	</tr>  
-    <% end %>
+	  <th><%=f.label(:hiseq_xref, 'Alt Run#:') %></th><td colspan="2"><%= f.text_field(:hiseq_xref, :size => 30)%></td>   
+	</tr>
 	<tr>
 	  <th style="text-align:right;text-decoration:none;"><%=f.label(:run_description, 'Run Description:')%></th>
 	  <td colspan="5"><%=f.text_field(:run_description, :size => 60)%></td>

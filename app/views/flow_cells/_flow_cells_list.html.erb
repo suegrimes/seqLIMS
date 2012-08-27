@@ -14,7 +14,10 @@
 	<td><%=h flow_cell.nr_bases_read1 %>, <%=h flow_cell.nr_bases_index %>, <%=h flow_cell.nr_bases_read2 %> </td>
 	<td>
 	  <% notes_brk = 'no'%>
-	  <% if !flow_cell.alt_run_or_descr.blank? %><%=h flow_cell.alt_run_or_descr %><% notes_brk='yes' %><% end %>
+	  <% if !flow_cell.run_description.blank? %><%=h flow_cell.run_description %><% notes_brk = 'yes' %><% end %>
+	  <% if !flow_cell.hiseq_xref.blank? %>
+	    <% if notes_brk == 'yes' %><br/><% end %>
+	    <i><strong>Alt Run#:</strong><%=h flow_cell.hiseq_xref %></i><% notes_brk='yes' %><% end %>
 	  <% if !flow_cell.notes.blank?%>
 	    <% if notes_brk == 'yes'%><br/><% end %>
 		<i><strong>Notes:</strong>&nbsp;&nbsp;<%=h flow_cell.notes %></i>
