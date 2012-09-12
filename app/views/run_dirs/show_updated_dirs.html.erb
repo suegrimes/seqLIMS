@@ -11,11 +11,11 @@
 	<th>Date Deleted</th>
   </tr>
 
-  <% @run_dirs.sort.reverse.each do |run_number, run_dirs| %>
+  <% @run_dirs.sort.reverse.each do |sequencing_key, run_dirs| %>
   <% run_dirs.each do |run_dir| %>
   <% del_flag_yes = 1 if !run_dir.delete_flag.blank? %>
   <tr>
-    <td class="border_leftright_only <%= "strike" if del_flag_yes %>"><%=link_to run_dir.flow_cell.sequencing_key, run_dir.flow_cell %></td>
+    <td class="border_leftright_only <%= "strike" if del_flag_yes %>"><%=link_to sequencing_key, run_dir.flow_cell %></td>
 	<td class="border_leftright_only <%= "strike" if del_flag_yes %>"><%=h run_dir.date_sized %></td>
     <td class="border_leftright_only <%= "strike" if del_flag_yes %>"><%=h run_dir.file_count %></td>
     <td class="border_leftright_only <%= "strike" if del_flag_yes %>"><%=h run_dir.total_size_gb %></td>
