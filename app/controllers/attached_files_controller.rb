@@ -14,6 +14,9 @@ class AttachedFilesController < ApplicationController
     if params[:rec_type]
       @obj = source_rec(params[:rec_type], nil, params[:obj_id])
       
+   elsif params[:sample] && !param_blank?(params[:sample][:barcode_key])
+      @obj = source_rec('sample', params[:sample][:barcode_key])
+      
     elsif params[:histology] && !param_blank?(params[:histology][:he_barcode_key])
       @obj = source_rec('histology', params[:histology][:he_barcode_key])
     
@@ -86,7 +89,9 @@ protected
   
   def get_obj_with_id(rec_type, obj_id)
     obj = case rec_type
+          when 'sample' then Sample.getwith_attach(obj_id)
           when 'histology' then Histology.getwith_attach(obj_id)
+          when 'pathology' then Pathology.getwith_attach(obj_id)
           when 'processed_sample' then ProcessedSample.getwith_attach(obj_id)
           when 'seq_lib'   then SeqLib.getwith_attach(obj_id)
           when 'flow_cell' then FlowCell.getwith_attach(obj_id)
@@ -97,6 +102,8 @@ protected
   
   def get_obj_with_key(rec_type, rec_key)
     case rec_type
+      when 'sample'
+        obj = Sample.find_by_barcode_key(rec_key, :include => :attached_files)
       when 'histology'
         obj = Histology.find_by_he_barcode_key(rec_key, :include => :attached_files)
       when 'seq_lib'

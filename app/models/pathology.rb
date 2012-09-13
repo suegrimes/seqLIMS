@@ -24,6 +24,7 @@ class Pathology < ActiveRecord::Base
   
   belongs_to :patient
   has_many :sample_characteristics, :dependent => :nullify
+  has_many :attached_files, :as => :sampleproc
   
   validates_date :pathology_date, :allow_blank => true
   
@@ -32,6 +33,10 @@ class Pathology < ActiveRecord::Base
     nval = (n_code.nil? ? ' ' : n_code)
     mval = (m_code.nil? ? ' ' : m_code)
     return ['T', tval, 'N', nval, 'M', mval].join
+  end
+  
+   def self.getwith_attach(id)
+    self.find(id, :include => :attached_files)
   end
   
 end

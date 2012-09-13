@@ -41,6 +41,7 @@ class Sample < ActiveRecord::Base
   has_one    :histology, :dependent => :destroy
   has_many :processed_samples
   has_one :sample_storage_container, :as => :stored_sample, :dependent => :destroy
+  has_many :attached_files, :as => :sampleproc
   
   accepts_nested_attributes_for :sample_storage_container
   
@@ -145,6 +146,10 @@ class Sample < ActiveRecord::Base
     self.find(:first, :include => [:sample_characteristic, :patient, :sample_storage_container],
               :conditions => ["samples.sample_characteristic_id = ? AND samples.barcode_key = ?",
                                sample_characteristic_id, barcode_key])
+  end
+  
+  def self.getwith_attach(id)
+    self.find(id, :include => :attached_files)
   end
   
   def self.find_and_group_by_source(condition_array)

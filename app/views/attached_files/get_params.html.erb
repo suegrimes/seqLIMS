@@ -4,6 +4,14 @@
   <b>Attachment For:</b>
   <table class="form">
   	<tr>
+	  <th>Sample Barcode: </th>
+	  <td><%= text_field_with_auto_complete(:sample, :barcode_key, {:size => 10},
+              {:url => {:controller => :samples, :action => :auto_complete_for_barcode_key},
+               :param_name => :search, :min_chars => 4, :method => :get}) %>
+	  </td>
+	</tr>
+	
+	<tr>
 	  <th>H&E Barcode: </th>
 	  <td><%= text_field_with_auto_complete(:histology, :he_barcode_key, {:size => 10},
               {:url => {:controller => :histologies, :action => :auto_complete_for_barcode_key},
