@@ -8,7 +8,7 @@
 <% tagged_form_for @sample, :url => {:controller => 'dissected_samples', :action => :update} do |f| %>
   <%= f.error_messages %>
   
-  <%= render :partial => 'dsample_form', :locals => {:f => f } %> 
+  <%= render :partial => 'dsample_form', :locals => {:f => f, :dissect => @sample} %> 
   <%= break_clear(f.submit "Save") %>
 <% end %>
 

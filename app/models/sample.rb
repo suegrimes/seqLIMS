@@ -68,12 +68,26 @@ class Sample < ActiveRecord::Base
   #end
   
   def before_save
-    self.patient_id  = self.sample_characteristic.patient_id
-    self.sample_date = self.sample_characteristic.collection_date if self.source_sample_id.nil?
+    if self.source_sample_id.nil?
+      self.sample_date = self.sample_characteristic.collection_date
+      self.patient_id = self.sample_characteristic.patient_id
+      self.sample_characteristic_id = self.sample_characteristic.id
+    else
+      self.patient_id = self.source_sample.patient_id
+      self.sample_characteristic_id = self.source_sample.sample_characteristic_id
+    end
   end
   
   def before_create
     self.amount_rem = self.amount_initial
+    # If new dissected sample, update appropriate fields with source sample info
+    if !self.source_sample_id.nil?
+      self.tumor_normal = self.source_sample.tumor_normal
+      self.sample_type  = self.source_sample.sample_type
+      self.sample_tissue = self.source_sample.sample_tissue
+      self.left_right = self.source_sample.left_right
+      self.tissue_preservation = self.source_sample.tissue_preservation
+    end
   end
   
   after_update :upd_dissections

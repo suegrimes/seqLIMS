@@ -34,7 +34,7 @@
     <% samples.each do |sample| %>
       <% nonblank_comments = have_comments?(sample) %>
       <tr>
-      	<td class=<%= "dotted_border_bottom" if nonblank_comments %>><%= link_to sample.barcode_key, edit_sample_path(sample)%></td>
+      	<td class=<%= "dotted_border_bottom" if nonblank_comments %>><%= link_to sample.barcode_key, (sample.source_sample_id.nil? ? edit_sample_path(sample.id) : edit_dissected_sample_path(sample.id) ) %></td>
         <% if sample.clinical_sample == 'yes' %>
 		<td class=<%= "dotted_border_bottom" if nonblank_comments %>> Clinical </td>
         <% else %>
