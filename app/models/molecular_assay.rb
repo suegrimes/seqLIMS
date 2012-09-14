@@ -84,6 +84,10 @@ class MolecularAssay < ActiveRecord::Base
     end
   end
   
+  def self.getwith_attach(id)
+    self.find(id, :include => :attached_files)
+  end
+  
   def self.find_for_query(condition_array=nil)
     self.find(:all, :include => [:protocol, {:processed_sample => :sample}],
                     :order => "processed_samples.patient_id, processed_samples.barcode_key, molecular_assays.barcode_key",

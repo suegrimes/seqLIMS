@@ -53,7 +53,7 @@ ActionController::Routing::Routes.draw do |map|
   map.clinical_list       'clinical_list',       :controller => 'sample_characteristics', :action => 'list_selected'
   
   # Routes for physical source samples
-  map.resources :samples
+  map.resources :samples, :collection => {:auto_complete_for_barcode_key => :get}
   map.resources :sample_queries, :only => :index
   map.resources :histologies,    :collection => {:auto_complete_for_barcode_key => :get}
   

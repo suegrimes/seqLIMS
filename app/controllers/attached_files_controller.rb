@@ -14,7 +14,7 @@ class AttachedFilesController < ApplicationController
     if params[:rec_type]
       @obj = source_rec(params[:rec_type], nil, params[:obj_id])
       
-   elsif params[:sample] && !param_blank?(params[:sample][:barcode_key])
+    elsif params[:sample] && !param_blank?(params[:sample][:barcode_key])
       @obj = source_rec('sample', params[:sample][:barcode_key])
       
     elsif params[:histology] && !param_blank?(params[:histology][:he_barcode_key])
@@ -22,6 +22,9 @@ class AttachedFilesController < ApplicationController
     
     elsif params[:processed_sample] && !param_blank?(params[:processed_sample][:barcode_key])
       @obj = source_rec('processed_sample', params[:processed_sample][:barcode_key])
+      
+    elsif params[:molecular_assay] && !param_blank?(params[:molecular_assay][:barcode_key])
+      @obj = source_rec('molecular_assay', params[:molecular_assay][:barcode_key])
     
     elsif params[:seq_lib] && !param_blank?(params[:seq_lib][:barcode_key])
       @obj = source_rec('seq_lib', params[:seq_lib][:barcode_key])
@@ -93,6 +96,7 @@ protected
           when 'histology' then Histology.getwith_attach(obj_id)
           when 'pathology' then Pathology.getwith_attach(obj_id)
           when 'processed_sample' then ProcessedSample.getwith_attach(obj_id)
+          when 'molecular_assay' then MolecularAssay.getwith_attach(obj_id)
           when 'seq_lib'   then SeqLib.getwith_attach(obj_id)
           when 'flow_cell' then FlowCell.getwith_attach(obj_id)
           else nil
@@ -106,6 +110,10 @@ protected
         obj = Sample.find_by_barcode_key(rec_key, :include => :attached_files)
       when 'histology'
         obj = Histology.find_by_he_barcode_key(rec_key, :include => :attached_files)
+      when 'processed_sample'
+        obj = ProcessedSample.find_by_barcode_key(rec_key, :include => :attached_files)
+      when 'molecular_assay'
+        obj = MolecularAssay.find_by_barcode_key(rec_key, :include => :attached_files)
       when 'seq_lib'
         obj = SeqLib.find_by_barcode_key(rec_key, :include => :attached_files)
       when 'flow_cell'
