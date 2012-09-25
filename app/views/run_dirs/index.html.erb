@@ -14,7 +14,7 @@
 	<th colspan=3></th>
   </tr>
 
-  <% @run_dirs.sort.reverse.each do |run_number, run_dirs| %>
+  <% @run_dirs.sort.reverse.each do |sequencing_key, run_dirs| %>
   <% run_dirs.each do |run_dir| %>
   <% del_flag_yes = 1 if !run_dir.delete_flag.blank? %>
   <tr>

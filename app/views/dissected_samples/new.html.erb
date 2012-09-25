@@ -10,9 +10,7 @@
   <%= f.error_messages %>
   
   <%= render :partial => 'dsample_form', :locals => {:f => f, 
-                                                     :sample_characteristic => @sample_characteristic,
-                                                     :source_sample => @source_sample,
-                                                     :sample => @sample } %> 
+                                                     :dissect => @source_sample} %> 
   <%= break_clear(f.submit "Save") %>
 <% end %>
 

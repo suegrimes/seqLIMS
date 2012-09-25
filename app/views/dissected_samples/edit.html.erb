@@ -2,13 +2,19 @@
 
 <%= render :partial => 'sample_characteristics/clinical_summary', :locals => {:sample_characteristic => @sample.sample_characteristic,
                                                                               :patient => @sample.patient } %>
+
+<% if @source_sample.sample_characteristic.pathology || @source_sample.histology %>
+  <%= render :partial => 'pathologies/pathology_summary', :locals => {:pathology => @source_sample.sample_characteristic.pathology, 
+                                                                      :histology => @source_sample.histology,
+                                                                      :click_to_link => 'show'} %>
+<% end %>
 																			  
 <%= render :partial => 'samples/sample_info', :locals => {:sample => @source_sample } %>
 
 <% tagged_form_for @sample, :url => {:controller => 'dissected_samples', :action => :update} do |f| %>
   <%= f.error_messages %>
   
-  <%= render :partial => 'dsample_form', :locals => {:f => f } %> 
+  <%= render :partial => 'dsample_form', :locals => {:f => f, :dissect => @sample} %> 
   <%= break_clear(f.submit "Save") %>
 <% end %>
 

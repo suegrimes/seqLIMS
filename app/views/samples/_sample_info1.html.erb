@@ -7,7 +7,7 @@
 <% click_to_link = 'none' if (click_to_link == 'show' && (cannot? :read, sample))%>
 
 <!-- Standard fields to be displayed -->
-<% info_flds   = [[(click_to_link == 'none'? 'Field' : 'Link'), 'Barcode', sample.barcode_key, ['samples', click_to_link, sample.id]], 
+<% info_flds   = [[(click_to_link == 'none'? 'Field' : 'Link'), 'Barcode', sample.barcode_key, ['dissected_samples', click_to_link, sample.id]], 
                   ['Field', 'Collected/Created On', sample.sample_date],
                   ['Field', 'Sample Type', [sample.sample_tissue, sample.sample_type].join('/')],
                   ['Field', 'Container Type', sample.container_type],
@@ -27,6 +27,6 @@
 <%= render :partial => 'shared/info_box', :locals => {:info_legend     => [source, 'Sample Details'].join(' '),
                                                       :info_flds       => info_flds,
                                                       :info_links      => info_links,
-                                                      :link_controller => 'samples',
+                                                      :link_controller => 'dissected_samples',
                                                       :link_id         => sample.id,
                                                       :last_info_box   => last_info_box} %>

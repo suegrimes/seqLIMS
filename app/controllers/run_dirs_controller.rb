@@ -3,8 +3,8 @@ class RunDirsController < ApplicationController
  
   def index
     run_dirs  = RunDir.find(:all, :include => {:flow_cell => {:flow_lanes => :publications}},
-                            :order => "flow_cells.seq_run_nr, run_dirs.delete_flag, run_dirs.device_name")
-    @run_dirs = run_dirs.group_by {|run_dir| run_dir.flow_cell.seq_run_nr}
+                            :order => "flow_cells.sequencing_key, run_dirs.delete_flag, run_dirs.device_name")
+    @run_dirs = run_dirs.group_by {|run_dir| run_dir.flow_cell.sequencing_key}
     render :action => :index
   end
   
@@ -83,7 +83,8 @@ class RunDirsController < ApplicationController
       
     if params[:storage_devices]
       #@run_dirs = RunDir.find(:all, :include => :flow_cell, :conditions => ["run_dirs.delete_flag IS NULL AND run_dirs.storage_device_id = ?", params[:storage_devices][:id]]) 
-      @run_dirs = RunDir.find(:all, :include => :flow_cell, :conditions => ["run_dirs.storage_device_id = ?", params[:storage_devices][:id]]) 
+      @run_dirs = RunDir.find(:all, :include => :flow_cell, :conditions => ["run_dirs.storage_device_id = ?", params[:storage_devices][:id]],
+                              :order => "flow_cells.sequencing_key DESC") 
       @dev_name = StorageDevice.find_by_id(params[:storage_devices][:id]).device_name
       unless !@run_dirs.blank? 
         flash.now[:error] = "Error - Run directories not available for #{ @dev_name }"
@@ -108,8 +109,8 @@ class RunDirsController < ApplicationController
     end
     
     run_dirs  = RunDir.find(:all, :include => :flow_cell, :conditions => ["run_dirs.device_name = ?", params[:device_name]], 
-      :order => "flow_cells.seq_run_nr, run_dirs.delete_flag, run_dirs.device_name")
-    @run_dirs = run_dirs.group_by {|run_dir| run_dir.flow_cell.seq_run_nr}
+      :order => "flow_cells.sequencing_key, run_dirs.delete_flag, run_dirs.device_name")
+    @run_dirs = run_dirs.group_by {|run_dir| run_dir.flow_cell.sequencing_key}
     @device_name = params[:device_name] 
     render :action => :show_updated_dirs
     #render :action => 'debug'

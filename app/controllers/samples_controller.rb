@@ -72,6 +72,11 @@ class SamplesController < ApplicationController
     redirect_to :controller => :sample_queries, :action => 'list_samples_for_patient', :patient_id => patient_id
   end
   
+  def auto_complete_for_barcode_key
+    @samples = Sample.find(:all, :conditions => ["barcode_key LIKE ?", params[:search] + '%'])
+    render :inline => "<%= auto_complete_result(@samples, 'barcode_key') %>"
+  end
+  
   def testing
     @source_sample = Sample.find(params[:id]) 
     @new_barcode = Sample.next_dissection_barcode(@source_sample.id, @source_sample.barcode_key)

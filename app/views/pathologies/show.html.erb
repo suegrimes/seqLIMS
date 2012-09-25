@@ -10,3 +10,6 @@
 <%= render :partial => 'clinical_dtls', :locals => {:sample_characteristics => @pathology.sample_characteristics,
                                                     :click_to_link => 'none'} %>
 													
+<%= render :partial => 'attached_files/show_file', :locals => {:obj => @pathology} %>
+
+													

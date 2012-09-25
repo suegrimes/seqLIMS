@@ -1,16 +1,28 @@
 <fieldset class="form">
 <legend>Dissected Sample Info</legend>
 
-  <%=f.hidden_field(:sample_characteristic_id) %>
-  <%=f.hidden_field(:patient_id)%>
   <%=f.hidden_field(:source_sample_id)%>
-  <%=f.hidden_field(:source_barcode_key)%>
   <%=f.hidden_field(:barcode_key)%>
+  <% tissue = (dissect.sample_tissue.nil? ? '[Unknown]' : dissect.sample_tissue) %>
+  <% sample_site = [tissue, dissect.left_right].join(' - ') %>
   
   <table class="form">
 	<tr>
 	  <th>Barcode</th><td><%=h f.object.barcode_key %></td>	  
       <%=f.calendar_date_select(:sample_date, :valid_date_check => "date <= (new Date()).stripTime()", :label => 'Date Created', :size => 15) %>
+	  <%=f.collection_select(:tumor_normal, @tumor_normal, :c_value, :c_value, :label => 'Tumor/Normal') %>
+	</tr>
+	<tr>
+	  <th>Sample Site - L/R:</th>
+      <td><%=h sample_site %></td>
+      <th>Sample Type:</th>
+	  <td><%=h dissect.sample_type %></td>
+      <th>Preservation:</th>
+	  <td><%=h dissect.tissue_preservation %></td>	  
+	</tr>  
+	<tr>
+	  <%=f.collection_select(:sample_container, @sample_units, :c_value, :c_value, :label => 'Container')%>
+	  <%=f.collection_select(:vial_type, @vial_types, :c_value, :c_value, {:include_blank => true}, :label => 'Vial Type')%>
 	</tr>
 	<tr>
 	  <%=f.collection_select(:amount_uom, @amount_uom, :c_value, :c_value, :label => 'Amt Unit')%>

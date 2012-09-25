@@ -13,16 +13,14 @@ class DissectedSamplesController < ApplicationController
       @source_sample = Sample.find(params[:source_sample_id], :include => :histology)
     else
       @source_sample = Sample.find_by_barcode_key(params[:barcode_key], :include => :histology)
-    end
+    end 
     
     if !@source_sample.nil?
       prepare_for_render_new(@source_sample.id)
-      sample_params = build_params_from_obj(@source_sample, Sample::SOURCE_FLDS_FOR_DISSECT)
-      sample_params.merge!(:barcode_key      => @sample_barcode,
-                           :source_sample_id => @source_sample.id,
-                           :source_barcode_key => @source_sample.barcode_key,
-                           :amount_uom       => 'Weight (mg)',
-                           :sample_date      => Date.today)
+      sample_params = {:barcode_key      => @sample_barcode,
+                       :source_sample_id => @source_sample.id,
+                       :amount_uom       => 'Weight (mg)',
+                       :sample_date      => Date.today}
       @sample = Sample.new(sample_params)  
       @sample.build_sample_storage_container
     else
@@ -85,6 +83,8 @@ protected
     @category_dropdowns = Category.populate_dropdowns([Cgroup::CGROUPS['Sample']])
     @tumor_normal       = category_filter(@category_dropdowns, 'tumor_normal')
     @amount_uom         = category_filter(@category_dropdowns, 'unit of measure') 
+    @sample_units       = category_filter(@category_dropdowns, 'sample unit')
+    @vial_types         = category_filter(@category_dropdowns, 'vial type')
     @containers         = category_filter(@category_dropdowns, 'container')
     @freezer_locations  = FreezerLocation.list_all_by_room
   end
