@@ -92,7 +92,7 @@ ActionController::Routing::Routes.draw do |map|
   # Routes for sequencing libraries
   map.resources :seq_libs,     :collection => {:auto_complete_for_barcode_key => :get}
   map.resources :mplex_libs,   :collection => {:auto_complete_for_barcode_key => :get}
-  map.resources :oligo_pools,  :only => :index
+  map.resources :oligo_pools,  :only => [:index, :show]
                           
   map.resources :seqlib_lanes
   map.resources :seqlib_queries, :only => :index

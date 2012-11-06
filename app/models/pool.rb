@@ -20,7 +20,22 @@
 #
 
 class Pool < InventoryDB
+  has_and_belongs_to_many :primers
+  validates_presence_of :primer_name
+  validates_uniqueness_of :primer_name
+  
   USING_POOLS = (self.find(:first).total_oligos == 0 && self.find(:all).size == 1 ? nil : 'yes')
+  
+  HUMAN_ATTRIBUTE_NAMES = {
+    :pool_name => [POOL_TYPE, ' Pool'].join,
+    :gene_code => 'Gene'
+  }
+
+  class << self
+    def human_attribute_name attribute_name
+      HUMAN_ATTRIBUTE_NAMES[attribute_name.to_sym] || super
+    end
+  end
  
   def pool_string
     return [tube_label, pool_name].join('/')

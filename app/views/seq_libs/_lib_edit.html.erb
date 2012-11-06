@@ -3,12 +3,12 @@
 <table class="form">
 <tr>
   <th>Barcode</th><td><% if @seq_lib.dummy_barcode == false %><%= f.text_field :barcode_key, :size => 10 %><% else %><%=h @seq_lib.lib_barcode %><% end %></td>
-  <th>Lib Name</th><td><%= f.text_field :lib_name, :size => 20 %></td>
+  <th>Lib Name</th><td><%= f.text_field :lib_name, :size => 25 %></td>
   <th>Adapter</th><td><%= f.select(:runtype_adapter, @adapters) %></td>
 </tr>
 <tr>
   <th>Prep Date</th><td><%= f.calendar_date_select(:preparation_date, :size => 15) %></td>
-  <th>Owner</th<td><%= f.select(:owner, @owners, :include_blank => "Select..") %></td>
+  <th>Owner</th><td><%= f.select(:owner, @owners, :include_blank => "Select..") %></td>
   <th>Protocol</th><td><%= f.collection_select(:protocol_id, @protocols, :id, :protocol_name,
                              {:include_blank => 'Select Protocol'}) %></td>
 </tr>
@@ -26,8 +26,8 @@
 </tr>
 <tr> 
   <th>Notebook Ref</th><td><%= f.text_field :notebook_ref %></td>
-  <th>Oligo Pool</th><td><%= f.collection_select(:pool_id, @oligo_pools, :id, :pool_string,
-                             {:include_blank => 'Select Project'}) %></td>
+  <th><%=h Pool.human_attribute_name(:pool_name)%>:</th><td><%= f.collection_select(:pool_id, @oligo_pools, :id, :pool_string,
+                             {:include_blank => 'Select Pool'}) %></td>
   <th>Project</th><td><%= f.text_field :project %></td>
 </tr> 
 <tr>

@@ -18,7 +18,7 @@
     <th>Library Conc</th>
     <th>Align Ref</th>
     <th>Trim Bases</th>
-    <th>Oligo Pool</th>
+    <th><%=h Pool.human_attribute_name(:pool_name)%></th>
     <th>Enzyme</th>
 </tr>
  <%= hidden_field_tag(:nr_libs, @new_lib.size) %>

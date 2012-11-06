@@ -18,7 +18,7 @@
     <% f.fields_for :lib_samples do |s| %>
       <tr>
       	<td><%= s.text_field(:index_tag, :size => 4)%></td>
-		<td><%= s.text_field(:sample_name, :size => 20)%></td>
+		<td><%= s.text_field(:sample_name, :size => 25)%></td>
 	    <td width="30"><%= s.text_field_with_auto_complete(:source_sample_name, {:size => 15},
               {:url => {:controller => :processed_samples, :action => :auto_complete_for_barcode_key},
                :param_name => :search, :min_chars => 3, :method => :get})%></td>

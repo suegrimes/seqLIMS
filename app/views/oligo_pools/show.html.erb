@@ -1,0 +1,16 @@
+<h1>Primer Pool: <%=h @oligo_pool.pool_name %></h1>
+
+<table class="list">
+  <tr>
+    <th>Gene Code</th>
+	<th>Primer Name</th>
+	<th>Primer Sequence</th>
+  </tr>
+
+<% for primer in @oligo_pool.primers %>
+  <tr>
+	<td><%=h primer.gene_code %></td>
+    <td><%=h primer.primer_name %></td>
+	<td><%=h primer.primer_sequence %></td>
+<% end %>
+</table>
