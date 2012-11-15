@@ -38,6 +38,14 @@ class Pool < InventoryDB
   end
  
   def pool_string
+    if tube_label[0,2] == 'PP' 
+      return pool_string_dtl
+    else
+      return tube_label
+    end
+  end
+  
+  def pool_string_dtl
     return [tube_label, pool_name].join('/')
   end
   
@@ -52,8 +60,12 @@ class Pool < InventoryDB
   end
   
   def self.populate_dropdown(lib_or_flowcell='lib')
-    like_or_not = (lib_or_flowcell == 'lib' ? 'NOT LIKE' : 'LIKE')
-    return self.find(:all, :order => "tube_label", :conditions => "tube_label #{like_or_not} 'OS%'")
+    if lib_or_flowcell == 'lib'
+      sql_condition = "LEFT(tube_label,2) != 'OS'"
+    else
+      sql_condition = "LEFT(tube_label,2) IN ('OS', 'PP')"
+    end
+    return self.find(:all, :order => "tube_label", :conditions => sql_condition)
   end
 
 end

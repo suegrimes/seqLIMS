@@ -22,7 +22,7 @@
 <tr> 
   <th>Align Ref:</th><td><%= f.collection_select(:alignment_ref_id, @align_refs, :id, :alignment_key) %></td>
   <th>Trim Bases:</th><td><%= f.text_field(:trim_bases, :size => 6) %></td> 
-  <th>Pool:</th><td><%= f.text_field(:oligo_pool, :readonly => true, :size => 10, :style => "background-color:#ddd") %></td>				 								 								   
+  <th><%=h Pool.human_attribute_name(:pool_name)%>:</th><td><%= f.text_field(:oligo_pool, :readonly => true, :size => 10, :style => "background-color:#ddd") %></td>				 								 								   
 </tr>
 <tr>
   <th>Notebook Ref:</th><td colspan="3"><%= f.text_field :notebook_ref %></td>

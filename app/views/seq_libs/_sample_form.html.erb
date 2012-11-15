@@ -42,7 +42,7 @@
     <td><%= f.text_field(:lib_conc_requested, :size => 6)%>pM</td>
     <td><%= f.collection_select(:alignment_ref_id, @align_refs, :id, :alignment_key) %></td>
     <td><%= f.text_field(:trim_bases, :size => 6) %></td>
-    <td><%= f.collection_select(:pool_id, @oligo_pools, :id, :tube_label, {:include_blank => 'Select Pool'}) %></td>
+    <td><%= f.collection_select(:pool_id, @oligo_pools, :id, :pool_string, {:include_blank => 'Select Pool'}) %></td>
     <td><%= s.text_field(:enzyme_code, :size => 6) %></td>
 </tr>
 <tr>

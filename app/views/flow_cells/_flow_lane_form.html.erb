@@ -7,7 +7,7 @@
 	
 	<% if Pool::USING_POOLS %>
 	  <% if flow_lane.seq_lib.oligo_pool.blank? && !flow_lane.seq_lib.control_lane? %>		
-	  <td><%=n.collection_select(:pool_id, @oligo_pools, :id, :tube_label, {:include_blank => 'Select..'}) %></td>
+	  <td><%=n.collection_select(:pool_id, @oligo_pools, :id, :pool_string, {:include_blank => 'Select..'}) %></td>
 	  <% else %>
 	  <%= n.hidden_field(:pool_id, :value => seq_lib.pool_id) %>
 	  <td class="ltgrey"><%=n.text_field(:oligo_pool, {:value => seq_lib.oligo_pool, :size => 10, :readonly => true, :style => "background-color:#ddd"}) %>  

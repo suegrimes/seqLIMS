@@ -26,7 +26,7 @@
 </tr>
 <tr> 
   <th>Notebook Ref</th><td><%= f.text_field :notebook_ref %></td>
-  <th><%=h Pool.human_attribute_name(:pool_name)%>:</th><td><%= f.collection_select(:pool_id, @oligo_pools, :id, :pool_string,
+  <th><%=h Pool.human_attribute_name(:pool_name)%>:</th><td><%= f.collection_select(:pool_id, @oligo_pools, :id, :pool_string_dtl,
                              {:include_blank => 'Select Pool'}) %></td>
   <th>Project</th><td><%= f.text_field :project %></td>
 </tr> 
