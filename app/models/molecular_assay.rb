@@ -38,11 +38,17 @@ class MolecularAssay < ActiveRecord::Base
     end
   end
   
-  def validate
-    if self.processed_sample
+  def after_validation
+    if self.processed_sample && !self.vol_from_source.nil?
       errors.add(:volume, "- insufficent source volume/concentration") if self.vol_from_source > self.processed_sample.final_vol 
     end
   end
+  
+  #def validate
+  #  if self.processed_sample && !self.vol_from_source.nil?
+   #   errors.add(:volume, "- insufficent source volume/concentration") if self.vol_from_source > self.processed_sample.final_vol 
+  #  end
+  #end
    
   def source_sample_name
     return (self.processed_sample ? self.processed_sample.barcode_key : nil)
@@ -53,8 +59,10 @@ class MolecularAssay < ActiveRecord::Base
   end
   
   def vol_from_source
-    if !self.processed_sample || self.processed_sample.final_conc.nil?
+    if !self.processed_sample 
       return nil
+    elsif self.processed_sample.final_conc.nil?
+      return 0
     else
       return (volume * concentration)/self.processed_sample.final_conc
     end
