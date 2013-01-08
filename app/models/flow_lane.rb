@@ -37,6 +37,10 @@ class FlowLane < ActiveRecord::Base
     (self.publications.size > 0 ? 'Y' : '')
   end
   
+  def publication_ids
+    self.publications.collect{|publication| publication.id}.uniq
+  end
+  
   def self.upd_seq_key(flow_cell)
     cell_attrs = {:sequencing_key => flow_cell.sequencing_key,
                   :machine_type   => flow_cell.machine_type}

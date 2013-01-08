@@ -25,7 +25,7 @@
   <% @publication.researchers.each do |researcher| %>
   <tr>
     <td><%=h researcher.researcher_name %></td>
-	<td><%=h researcher.user.email %></td>
+	<td><%=h (researcher.user ? researcher.user.email : '') %></td>
   </tr>
   <% end %>
 </table>
@@ -47,6 +47,5 @@
   <% end %>
 </table>
 
-<%= 'List All Publications', publications_path %>
-
+<%= link_to 'List All Publications', publications_path %>
 													  

@@ -36,7 +36,6 @@
 	<tr>
 	  <th style="text-align:right;text-decoration:none;"><%=f.label(:run_description, 'Run Description:')%></th>
 	  <td colspan="5"><%=f.text_field(:run_description, :size => 60)%></td>
-	  <th rowspan="2"><%=f.label(:archive_flag, "Data for <br>Publication?") %></th><td><%= f.select(:archive_flag, options_for_select(%w{Y N}, :selected => 'N')) %></td>	
 	</tr>
 	<tr>
 	  <th style="text-align:right;text-decoration:none;"><%=f.label(:notes, 'Notes:') %></th>

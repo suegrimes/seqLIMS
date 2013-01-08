@@ -3,18 +3,18 @@ class PublicationsController < ApplicationController
   #load_and_authorize_resource
   
   def show
-    @publication = Publication.find(params[:id])
+    @publication = Publication.find(params[:id], :include => :flow_lanes, :order => "flow_lanes.sequencing_key, flow_lanes.lane_nr")
   end
 
   # render index.rhtml
   def index
-    @publications = Publication.find(:all)
+    @publications = Publication.find(:all, :order => "publications.date_published DESC")
   end
 
   # render new.rhtml
   def new
     @publication = Publication.new
-    @researchers = Researcher.find(:all)
+    dropdowns
   end
 
   def create
@@ -37,7 +37,7 @@ class PublicationsController < ApplicationController
   # render edit.html
   def edit 
     @publication = Publication.find(params[:id])
-    @researchers = Researcher.find(:all)
+    dropdowns
   end
   
   def update
@@ -80,5 +80,9 @@ class PublicationsController < ApplicationController
     else
       render :partial => 'publication_runs', :locals => {:flow_cells => @flow_cells}
     end
+  end
+  
+  def dropdowns
+    @researchers = Researcher.find(:all, :order => "researchers.active_inactive, researchers.researcher_name")
   end
 end

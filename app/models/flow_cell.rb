@@ -46,6 +46,10 @@ class FlowCell < ActiveRecord::Base
     return publication_flags.max
   end
   
+  def publication_ids
+    self.flow_lanes.collect{|flow_lane| flow_lane.publication_ids}.flatten.uniq
+  end
+  
   def sequenced?
     flowcell_status != 'F'
   end
