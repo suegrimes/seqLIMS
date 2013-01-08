@@ -2,13 +2,14 @@ class RunDirsController < ApplicationController
   before_filter :dropdowns, :only => [:new, :edit]
  
   def index
-    run_dirs  = RunDir.find(:all, :include => :flow_cell,
+    run_dirs  = RunDir.find(:all, :include => {:flow_cell => {:flow_lanes => :publications}},
                             :order => "flow_cells.sequencing_key, run_dirs.delete_flag, run_dirs.device_name")
     @run_dirs = run_dirs.group_by {|run_dir| run_dir.flow_cell.sequencing_key}
     render :action => :index
   end
   
   # GET /run_dirs/1
+  # Not used.  Show action is handled by new method (shows existing directories, and provides link to add new)
   def show
     @run_dir = RunDir.find(params[:id])
     render :action => :show
@@ -18,6 +19,7 @@ class RunDirsController < ApplicationController
     render :action => :get_params
   end
   
+  # Show existing directories for sequencing run, and provide ability to add new directory
   def new
     @flow_cell, rc = find_flow_cell_using_params(params)
     

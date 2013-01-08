@@ -1,0 +1,28 @@
+<h1>Sequencing Run - Publications</h1>
+
+<%= render :partial => 'flow_cell_show', :locals => {:flow_cell => @flow_cell} %>
+
+<% if @flow_cell.for_publication? %>
+  <table class="list">
+  <tr>
+	<th>Journal</th>
+	<th>Publication Title</th>
+	<th>Lane</th>
+	<th>Lib Barcode</th>
+	<th>Lib Name</th>
+  </tr>
+
+  <% @publications.each do |publication| %>
+  <% publication.flow_lanes.each do |flow_lane| %>
+  <tr>
+  	<td><%=h publication.publication_name %></td>
+	<td><%=h publication.title_abbrev%></td>
+	<td><%=h flow_lane.lane_nr %></td>
+	<td><%=h flow_lane.lib_barcode %></td>
+	<td><%=h flow_lane.lib_name %></td>
+  </tr>
+  <% end %>
+  <% end %>
+  </table>
+  	
+<% end %>

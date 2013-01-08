@@ -30,7 +30,7 @@ class Researcher < ActiveRecord::Base
   end
 
   def self.find_and_group_by_active_inactive
-    researchers = self.find(:all, :order => :active_inactive)
+    researchers = self.find(:all, :order => "researchers.active_inactive, researchers.researcher_name")
     return researchers.group_by {|researcher| researcher.active_inactive}
   end
 

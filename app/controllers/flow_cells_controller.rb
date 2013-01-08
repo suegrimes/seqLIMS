@@ -34,6 +34,12 @@ class FlowCellsController < ApplicationController
                                :order => 'flow_lanes.lane_nr')
   end
   
+  def show_publications
+    @flow_cell    = FlowCell.find(params[:id])
+    @publications = Publication.find(:all, :include => :flow_lanes, :order => 'publications.date_published DESC, flow_lanes.lane_nr',
+                                     :conditions => ["flow_lanes.flow_cell_id = ?", params[:id]])
+  end
+  
   def new
     @flow_cell       = FlowCell.new(:flowcell_date => Date.today)
     

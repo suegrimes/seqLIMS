@@ -603,6 +603,8 @@ fieldset.form legend {
 .sagegreen {color: #e8ead0;}
 .ltsage {color: #f1f2e3;}
 
+.greyfill {background-color: #ddd;}
+
 .lft {float:left;}
 .rgt{float:right;}
 
@@ -638,6 +640,19 @@ fieldset.form legend {
     padding: 0 4px;
     line-height: 1.3em;
     width: 3em;
+}
+
+.linkbutton {
+	border: 1px solid #888;
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	text-align: center;
+	padding: 0 4px;
+	line-height: 1.3em;
+	width: 3em;
+	background-color: #dedacb;
+	color: #999;
 }
 
 .wrap-line {

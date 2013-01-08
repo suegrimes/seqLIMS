@@ -1,6 +1,7 @@
 <table class="list">
   <tr>
 	<th>Sequencing Key</th>
+	<th>Pub?</th>
 	<th># Bases: R1,Index,R2</th>
 	<th>Run Description/Notes</th>
     <th colspan="5"></th>
@@ -9,6 +10,7 @@
   <% @flow_cells.each do |flow_cell| %>
   <tr>
 	<td><%=h flow_cell.seq_run_key %></td>
+	<td style="text-align:center"><%= link_to flow_cell.for_publication?, :action => 'show_publications', :id => flow_cell.id %></td>
 	<td><%=h flow_cell.nr_bases_read1 %>, <%=h flow_cell.nr_bases_index %>, <%=h flow_cell.nr_bases_read2 %> </td>
 	<td>
 	  <% notes_brk = 'no'%>

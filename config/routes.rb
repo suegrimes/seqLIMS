@@ -10,6 +10,7 @@ ActionController::Routing::Routes.draw do |map|
   map.reset     'reset/:reset_code',          :controller => 'users',     :action => 'reset'
   
   map.resources :researchers
+  map.resources :publications
   map.resources :consent_protocols
   map.resources :protocols
   map.resources :categories
@@ -104,6 +105,7 @@ ActionController::Routing::Routes.draw do |map|
   # Routes for flow cells/sequencing runs
   map.resources :flow_cells,  :collection => {:auto_complete_for_sequencing_key => :get},
                               :member => {:upd_for_sequencing => :put}
+  map.view_pubs 'view_pubs', :controller => 'flow_cells', :action => 'show_publications'
   map.resources :analysis_qc
   map.resources :index_tags
   map.resources :alignment_refs

@@ -60,7 +60,7 @@ class Sample < ActiveRecord::Base
   START_YEAR = 2000
   END_YEAR   = Time.now.strftime('%Y').to_i
   FLDS_FOR_COPY = (%w{sample_type sample_tissue left_right tissue_preservation sample_container vial_type amount_uom})
-  SOURCE_FLDS_FOR_COPY = (%w{sample_characteristic_id patient_id tumor_normal sample_type sample_tissue left_right tissue_preservation})
+  SOURCE_FLDS_FOR_DISSECT = (%w{sample_characteristic_id patient_id tumor_normal sample_type sample_tissue left_right tissue_preservation})
  
   #def check_sample_date
     #sample date cannot be blank for new record, or for existing record if a sample date currently exists for that record
@@ -97,7 +97,8 @@ class Sample < ActiveRecord::Base
     source_sample_id = self.id 
     dissected_samples = Sample.find_all_by_source_sample_id(source_sample_id)
     if !dissected_samples.nil?
-      sample_params = build_params_from_obj(self, SOURCE_FLDS_FOR_COPY)
+      source_flds_for_upd = SOURCE_FLDS_FOR_DISSECT.delete_if {|sfld| sfld == 'tumor_normal' && !self.tumor_normal.nil?}
+      sample_params = build_params_from_obj(self, source_flds_for_upd)
       dissected_samples.each do |dsample|
         dsample.update_attributes(sample_params)
       end

@@ -1,0 +1,51 @@
+<h1>View Publication</h1>
+
+<!-- Standard fields to be displayed -->
+<% info_flds   = [['Field', 'Publication', @publication.publication_name],
+                  ['Field', 'Article Title', @publication.title_full], 
+                  ['Field', 'Title (Abbrev)', @publication.title_abbrev],
+                  ['Field', 'Date Published', @publication.date_published]] %>
+
+<!-- Links to be displayed with borders, in bottom row of info box -->
+<% info_links = [] %>
+<% info_links << ['Edit', 'edit'] if (can? :edit, @publication) %>
+<% info_links << ['Delete', 'destroy'] if (can? :delete, @publication) %>
+
+<%= render :partial => 'shared/info_box', :locals => {:info_legend     => 'Publication Details',
+                                                      :info_flds       => info_flds,
+                                                      :info_links      => info_links,
+                                                      :link_id         => @publication.id,
+                                                      :link_controller => 'publications',
+                                                      :last_info_box   => 'yes'} %>
+<table class="list">
+  <tr>
+    <th>Author Name</th>
+    <th>Email address</th>
+  </tr>												  
+  <% @publication.researchers.each do |researcher| %>
+  <tr>
+    <td><%=h researcher.researcher_name %></td>
+	<td><%=h (researcher.user ? researcher.user.email : '') %></td>
+  </tr>
+  <% end %>
+</table>
+
+<table class="list">
+  <tr>
+  	<th>Sequencing Run</th>
+	<th>Lane</th>
+	<th>Lib Barcode</th>
+	<th>Lib Name</th>
+  </tr>
+  <% @publication.flow_lanes.each do |flow_lane| %>
+  <tr>
+  	<td><%=h flow_lane.sequencing_key %></td>
+	<td><%=h flow_lane.lane_nr %></td>
+	<td><%=h flow_lane.lib_barcode %></td>
+	<td><%=h flow_lane.lib_name %></td>
+  </tr>
+  <% end %>
+</table>
+
+<%= link_to 'List All Publications', publications_path %>
+													  

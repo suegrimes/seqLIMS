@@ -1,0 +1,23 @@
+<h1>New publication</h1>
+
+<% tagged_form_for(@publication) do |f| %>
+  <%= f.error_messages %>
+
+  <%= render :partial => 'publication_form', :locals => {:f => f} %>
+  
+  <% if @flow_cells.nil? %>
+  <div id='lane_entry'> 
+  <span><b>Associate lanes from run number:</b>&nbsp;<%= text_field_tag(:run_numbers, '', :size => 5)-%></span>
+  <span class="linkbutton"><%= link_to_remote('Select Lanes', :update => 'lane_entry',
+                     :with => "Form.Element.serialize('run_numbers')", 
+                     :url => {:action => 'populate_lanes'}, :method => 'post') -%></span>
+  </div>
+  
+  <% else %>
+    <%= render :partial => 'publication_runs', :locals => {:flow_cells => @flow_cells} %>
+  <% end %>
+  
+  <%= break_clear %>
+  <%= f.submit "Create" -%>&nbsp;&nbsp;<%= link_to 'List All Publications', publications_path %>
+<% end %>
+

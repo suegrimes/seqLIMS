@@ -8,6 +8,7 @@
 <table class="list">
   <tr>
   	<th>Lane</th>
+	<th>Pub?</th>
 	<th>Lib Barcode</th>
   	<th>Lib Name</th>
 	<th>Runtype/Adapter</th>
@@ -20,6 +21,7 @@
     <% lane_notes = !flow_lane.notes.blank? %>
     <tr>
 	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.lane_nr %></td>
+	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.for_publication? %></td>
 	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%= link_to flow_lane.lib_barcode, flow_lane.seq_lib %></td>
       <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.seq_lib.lib_name %></td>
 	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.runtype_adapter %></td>
@@ -30,8 +32,8 @@
     </tr>
 	<% if lane_notes %>  
 	<tr>
-	  <td></td>
-      <td colspan="8" style="border-top:0; text-align:center;">            
+	  <td colspan="2"></td>
+      <td colspan="7" style="border-top:0; text-align:center;">            
         <div style="padding: 0 10px; margin-bottom: 4px; width:95%; border: 1px solid #e5e5e5; text-align:left;">Notes:&nbsp;<%=h flow_lane.notes %></div>
       </td>
     </tr>

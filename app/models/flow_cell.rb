@@ -41,6 +41,15 @@ class FlowCell < ActiveRecord::Base
   STATUS = %w{F R S Q N X}
   RUN_NR_TYPES = %w{LIMS Illumina}
   
+  def for_publication?
+    publication_flags = self.flow_lanes.collect{|flow_lane| flow_lane.for_publication?}
+    return publication_flags.max
+  end
+  
+  def publication_ids
+    self.flow_lanes.collect{|flow_lane| flow_lane.publication_ids}.flatten.uniq
+  end
+  
   def sequenced?
     flowcell_status != 'F'
   end
@@ -79,12 +88,12 @@ class FlowCell < ActiveRecord::Base
   end
   
   def self.find_sequencing_runs(condition_array=[])
-    self.sequenced.find(:all, :order => 'flow_cells.sequencing_key DESC',
+    self.sequenced.find(:all, :include => {:flow_lanes => :publications}, :order => 'flow_cells.seq_run_nr DESC',
                         :conditions => condition_array)
   end
   
   def self.find_flowcells_for_sequencing
-    self.unsequenced.find(:all, :order => 'flow_cells.flowcell_date DESC')
+    self.unsequenced.find(:all, :include => {:flow_lanes => :publications}, :order => 'flow_cells.flowcell_date DESC')
   end
   
   def self.getwith_attach(id)
@@ -92,7 +101,7 @@ class FlowCell < ActiveRecord::Base
   end
   
   def self.find_flowcell_incl_rundirs(condition_array=nil)
-    self.find(:first, :include => :run_dirs,
+    self.find(:first, :include => [:run_dirs, {:flow_lanes => :publications}],
                       :order => "flow_cells.seq_run_nr, run_dirs.device_name",
                       :conditions => condition_array)
   end
