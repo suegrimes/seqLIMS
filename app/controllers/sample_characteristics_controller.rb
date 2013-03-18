@@ -171,8 +171,9 @@ class SampleCharacteristicsController < ApplicationController
 #   DELETE /patients/1
   def destroy
     @sample_characteristic = SampleCharacteristic.find(params[:id])
+    patient_id = @sample_characteristic.patient_id
     @sample_characteristic.destroy  
-    redirect_to(patient_url)
+    redirect_to patient_url(patient_id)
   end
   
   def add_new_sample

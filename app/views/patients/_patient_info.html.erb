@@ -19,6 +19,7 @@
 <!-- Links to be displayed with borders, in bottom row of info box -->
 <% info_links = [] %>
 <% info_links = [['Edit', 'edit']] if (can? :edit, patient) %>
+<% info_links.push(['Delete', 'destroy']) if (can? :delete, patient && patient.sample_characteristics.size == 0) %>
 
 <%= render :partial => 'shared/info_box', :locals => {:info_legend     => 'Patient Info',
                                                       :info_flds       => info_flds,

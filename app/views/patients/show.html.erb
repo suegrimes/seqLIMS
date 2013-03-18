@@ -5,14 +5,14 @@
 
 <table class="list">
 <tr>
-<th colspan="6">Samples Collected:</th>	
+<th colspan="7">Samples Collected:</th>	
 </tr>
 <tr>
   <th>Collect Date</th>
   <th>Clinic</th>
   <th>Protocol</th>
   <th># Samples</th>
-  <th colspan="2"></th>
+  <th colspan="3"></th>
 </tr> 
 
 <% for sample_characteristic in @patient.sample_characteristics %>
@@ -27,6 +27,11 @@
     <% if can? :edit, SampleCharacteristic %>
       <td><%= link_to 'Edit', edit_sample_characteristic_path(sample_characteristic) %>
     <% end %>
+	<% if can? :delete, sample_characteristic && sample_characteristic.samples.count == 0 %>
+	  <td><%= link_to 'Delete', sample_characteristic, :confirm => 'Are you sure?', :method => :delete %></td>
+	<% elsif can? :delete, sample_characteristic %>
+	  <td class="ltgrey"> Delete </td>
+  <% end %>
   </tr>											   
 <% end %>
 </table>
