@@ -1,12 +1,12 @@
-environment_file = "#{RAILS_ROOT}/public/system/environment.txt"
-email_file       = "#{RAILS_ROOT}/public/system/emails.txt"
-ezkeys_file      = "#{RAILS_ROOT}/public/system/ez_keys.txt"
-version_file     = "#{RAILS_ROOT}/public/app_versions.txt"
+environment_file = "#{Rails.root}/app/assets/system/environment.txt"
+email_file       = "#{Rails.root}/app/assets/system/emails.txt"
+ezkeys_file      = "#{Rails.root}/app/assets/system/ez_keys.txt"
+version_file     = "#{Rails.root}/app/assets/system/app_versions.txt"
 
-require 'fastercsv'
+require 'CSV'
 
 if FileTest.file?(environment_file)
-  env_array = FasterCSV.read(environment_file, {:col_sep => "\t"})
+  env_array = CSV.read(environment_file, {:col_sep => "\t"})
   APP_TYPE = env_array[0][0][0..3].upcase
   SITE_URL = env_array[0][1] 
   APP_TAGLINE = ((env_array.size > 1 && env_array[1][0] = 'Tagline')? env_array[1][1] : '')
@@ -34,7 +34,7 @@ EMAIL_TO = {}
 EMAIL_DELIVERY = {}
 
 if FileTest.file?(email_file)
-  FasterCSV.foreach(email_file, {:col_sep => "\t"}) do |erow|
+  CSV.foreach(email_file, {:col_sep => "\t"}) do |erow|
     case
     when erow[0] == 'Send_From'
       EMAIL_FROM = erow[1]

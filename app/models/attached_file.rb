@@ -14,8 +14,8 @@
 #
 
 class AttachedFile < ActiveRecord::Base  
-  FILES_ROOT = (SITE_URL.include?('stanford.edu') ? File.join(RAILS_ROOT, "..", "..", "shared", "attached_files") :
-                                                    File.join(RAILS_ROOT, "..", "LIMSFiles", "AttachedFile"))
+  FILES_ROOT = (SITE_URL.include?('stanford.edu') ? File.join(Rails.root, "..", "..", "shared", "attached_files") :
+                                                    File.join(Rails.root, "..", "LIMSFiles", "AttachedFile"))
   
   belongs_to :sampleproc, :polymorphic => true
   

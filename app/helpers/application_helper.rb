@@ -1,4 +1,3 @@
-# Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   
   def div_toggle(div, div1=nil)
@@ -68,6 +67,5 @@ module ApplicationHelper
       else obj.class.name.split(/(?=[A-Z])/).join(' ')
     end
   end
-
-end
   
+end
