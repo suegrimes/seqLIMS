@@ -33,8 +33,8 @@ class FlowCell < ActiveRecord::Base
   validates_presence_of :machine_type, :nr_bases_read1
   validates_date :flowcell_date, :sequencing_date, :allow_blank => true
   
-  named_scope :sequenced,   :conditions => "flowcell_status <> 'F'"
-  named_scope :unsequenced, :conditions => "flowcell_status = 'F'"
+  scope :sequenced,   :conditions => "flowcell_status <> 'F'"
+  scope :unsequenced, :conditions => "flowcell_status = 'F'"
   
   DEFAULT_MACHINE_TYPE = 'GAIIx'
   NR_LANES = {:MiSeq => 1, :GAIIx => 8, :HiSeq => 8}

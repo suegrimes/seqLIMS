@@ -14,7 +14,7 @@
 class Researcher < ActiveRecord::Base
   belongs_to :user
   
-  named_scope :active, :conditions => {:active_inactive => 'A'}
+  scope :active, :conditions => {:active_inactive => 'A'}
 
   def self.populate_dropdown(active_flag='active_only', add_existing = [])
     if active_flag == 'active_only'
