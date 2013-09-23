@@ -33,6 +33,8 @@
 class Sample < ActiveRecord::Base
   include LimsCommon
   
+  attr_accessible :barcode_key, :source_sample_id, :amount_uom, :sample_date
+  
   belongs_to :patient
   belongs_to :sample_characteristic
   belongs_to :source_sample, :class_name => 'Sample', :foreign_key => 'source_sample_id'
