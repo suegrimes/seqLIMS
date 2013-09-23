@@ -17,7 +17,7 @@ class SeqMachine < ActiveRecord::Base
   has_many :machine_incidents, :dependent => :destroy
   accepts_nested_attributes_for :machine_incidents, :reject_if => lambda { |a| a[:incident_description].blank? }, :allow_destroy => true
   
-  named_scope :sequencers, :conditions => ['machine_name <> ?', 'Run_Number' ]
+  scope :sequencers, :conditions => ['machine_name <> ?', 'Run_Number' ]
   
   #MACHINE_TYPES = %w{GAIIx HiSeq MiSeq}
   MACHINE_TYPES = self.sequencers.find(:all, :select => "DISTINCT(machine_type)", :order => :machine_type).map(&:machine_type) 
