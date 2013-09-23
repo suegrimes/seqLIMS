@@ -12,6 +12,9 @@
 
 
 class UserLogin < ActiveRecord::Base
+  
+  attr_accessible :ip_address, :user_id, :user_login, :login_timestamp
+  
   def self.add_entry(login_out, current_user, ip_address)
     user_id = (current_user.nil? ? nil : current_user.id)
     

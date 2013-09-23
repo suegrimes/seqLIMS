@@ -18,7 +18,7 @@ protected
     email_create_orders = email_value(EMAIL_CREATE, 'orders', deliver_site)
     email_to_orders = email_value(EMAIL_TO, 'orders', deliver_site)
     
-    email_to = ((email_create_orders == 'Production' && RAILS_ENV == 'production') ? email_to_orders : EMAIL_TO[:admin])
+    email_to = ((email_create_orders == 'Production' && Rails.env == 'production') ? email_to_orders : EMAIL_TO[:admin])
     return email_to.split(/, /)
     
     #user_email = (user.nil? ? nil : user.email)

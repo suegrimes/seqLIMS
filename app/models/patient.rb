@@ -48,7 +48,7 @@ class Patient < ActiveRecord::Base
   def self.loadrecs(file_path)
     rec_cnt = 0
     
-    FasterCSV.foreach(file_path, {:headers => :first_row, :col_sep => "\t"}) do |row|
+    CSV.foreach(file_path, {:headers => :first_row, :col_sep => "\t"}) do |row|
       @patient = self.find_by_id(row[2].to_i)
       if row[1] == 'na'
         @patient.update_attributes(:mrn => row[0]) if row[1] == 'na'

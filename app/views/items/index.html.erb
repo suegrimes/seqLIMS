@@ -8,7 +8,7 @@
 <% end %>
 <% end %>
 
-<% form_tag(:action => 'create', :controller => 'orders') do %>
+<%= form_tag(:action => 'create', :controller => 'orders') do %>
  <div id="place_order", style="display:none">	
 	<% fields_for Order.new(:date_ordered => Date.today) do |f|%>
       <%= render :partial => 'orders/order_form', :locals => {:f => f, :have_company_list => 'yes'} %>

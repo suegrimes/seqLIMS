@@ -43,7 +43,7 @@ class PatientsController < ApplicationController
   end
   
   def loadtodb
-    @file_path = "#{RAILS_ROOT}/public/files/clin_precs_2.txt"
+    @file_path = "#{Rails.root}/public/files/clin_precs_2.txt"
     
     if FileTest.file?(@file_path)
       recs_loaded = Patient.loadrecs(@file_path)

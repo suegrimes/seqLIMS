@@ -13,6 +13,9 @@
 
 
 class UserLog < ActiveRecord::Base
+  
+  attr_accessible :ip_address, :user_id, :user_login, :login_timestamp, :controller_name, :action_name, :log_timestamp
+  
   # LOG_LEVEL = 'login':  Log only login/logout activity (user_logins table)
   # LOG_LEVEL = 'all'  :  Log access to all controllers/methods (user_logs table)
   # LOG_LEVEL = 'none' :  No logging

@@ -35,7 +35,7 @@ protected
   def export_libqc_csv(seq_lib)    
     hdgs, flds = export_libqc_setup
     
-    csv_string = FasterCSV.generate(:col_sep => "\t") do |csv|
+    csv_string = CSV.generate(:col_sep => "\t") do |csv|
       csv << hdgs
       
       seq_lib.flow_lanes.each do |flow_lane|

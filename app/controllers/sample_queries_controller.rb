@@ -214,7 +214,7 @@ protected
   def export_samples_csv(samples, with_mrn='no')    
     hdgs, flds1, flds2 = export_samples_setup(with_mrn)
     
-    csv_string = FasterCSV.generate(:col_sep => "\t") do |csv|
+    csv_string = CSV.generate(:col_sep => "\t") do |csv|
       csv << hdgs
    
       samples.each do |sample|

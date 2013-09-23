@@ -1,0 +1,45 @@
+body {
+    font-family: serif;
+    font-size:0.8em;	
+}
+
+a:after { content:' [' attr(href) '] '}
+
+#header {
+	display: none;
+}
+
+table {
+	/*width: 100%;*/
+    border-collapse:collapse;
+}
+
+th {
+    white-space: nowrap;
+    text-align: left;
+}
+
+th, td {
+	padding: .5em;
+}
+
+td {
+	vertical-align: top;
+}
+
+.sf-menu {
+	display: none;
+}
+
+#leftsidebar {
+	display: none;
+}
+
+.no-print {
+	display: none;
+}
+
+#footer {
+	   display: none;
+}
+

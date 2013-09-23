@@ -1,176 +1,239 @@
-ActionController::Routing::Routes.draw do |map|
-  map.connect '', :controller => "welcome", :action => "index" 
-  map.signup  '/signup', :controller => 'welcome',   :action => 'signup' 
-  map.login  '/login',  :controller => 'welcome', :action => 'login'
-  map.logout '/logout', :controller => 'welcome', :action => 'logout'
+SeqLIMS::Application.routes.draw do
   
-  # User tables, and other administrative tables
-  map.resources :users
-  map.forgot    '/forgot',                    :controller => 'users',     :action => 'forgot'  
-  map.reset     'reset/:reset_code',          :controller => 'users',     :action => 'reset'
+  match '' => 'welcome#index'
+  match '/signup' => 'welcome#signup', :as => :signup
+  match '/login' => 'welcome#login', :as => :login
+  match '/user_login' => 'welcome#user_login'
+  match '/logout' => 'welcome#logout', :as => :logout
   
-  map.resources :researchers
-  map.resources :publications
-  map.resources :consent_protocols
-  map.resources :protocols
-  map.resources :categories
-  map.resources :freezer_locations 
-  map.resources :sample_storage_containers, :only => :index
-  map.sstorage_query 'sstorage_query', :controller => 'sample_storage_containers', :action => :new_query
+  resources :users
+  match '/forgot' => 'users#forgot', :as => :forgot
+  match 'reset/:reset_code' => 'users#reset', :as => :reset
   
-  map.protocol_type 'protocol_type', :controller => 'protocols', :action => 'query_params'
+  resources :researchers
+  resources :publications
+  resources :consent_protocols
+  resources :protocols
+  resources :categories
+  resources :freezer_locations
+  resources :sample_storage_containers, :only => :index
+  match 'sstorage_query' => 'sample_storage_containers#new_query', :as => :sstorage_query
+  
+  match 'protocol_type' => 'protocols#query_params', :as => :protocol_type
   
   # Routes for ordering chemicals & supplies
-  map.resources :orders
-  map.resources :items,  :collection => {:auto_complete_for_item_description => :get,
-                                         :auto_complete_for_company_name     => :get,
-                                         :auto_complete_for_catalog_nr       => :get}
-  
-  map.view_items 'view_items',       :controller => 'items',  :action => 'new_query'
-  map.list_items 'list_items',       :controller => 'items',  :action => 'list_selected'
-  map.notordered 'unordered_items',  :controller => 'items',  :action => 'list_unordered_items'
-  map.edit_order_items 'edit_items', :controller => 'orders', :action => 'edit_order_items'
-  map.view_orders 'view_orders',     :controller => 'orders', :action => 'new_query'
+  resources :orders
+  resources :items do
+    collection do
+      get :auto_complete_for_item_description
+      get :auto_complete_for_company_name
+      get :auto_complete_for_catalog_nr
+    end  
+  end
+
+  match 'view_items' => 'items#new_query', :as => :view_items
+  match 'list_items' => 'items#list_selected', :as => :list_items
+  match 'unordered_items' => 'items#list_unordered_items', :as => :notordered
+  match 'edit_items' => 'orders#edit_order_items', :as => :edit_order_items
+  match 'view_orders' => 'orders#new_query', :as => :view_orders
   
   # Routes for patients
-  map.resources :patients
-  map.modify_patient  'modify_patient',  :controller => 'patients', :action => 'edit_params'
-  map.encrypt_patient 'encrypt_patient', :controller => 'patients', :action => 'loadtodb'
+  resources :patients
+  match 'modify_patient' => 'patients#edit_params', :as => :modify_patient
+  match 'encrypt_patient' => 'patients#loadtodb', :as => :encrypt_patient
   
   # Routes for reserved barcodes
-  map.resources :assigned_barcodes
-  map.check_available_barcodes 'check_barcodes/available', :controller => 'assigned_barcodes', :action => 'check_barcodes', :rtype => 'available'
-  map.list_assigned_barcodes   'check_barcodes/assigned',  :controller => 'assigned_barcodes', :action => 'check_barcodes', :rtype => 'assigned'
+  resources :assigned_barcodes
+  match 'check_barcodes/available' => 'assigned_barcodes#check_barcodes', :as => :check_available_barcodes, :rtype => 'available'
+  match 'check_barcodes/assigned' => 'assigned_barcodes#check_barcodes', :as => :list_assigned_barcodes, :rtype => 'assigned'
   
   # Routes for clinical samples/sample characteristics
-  map.resources :sample_characteristics, :member => {:add_new_sample => :get}
-  map.resources :pathologies
+  resources :sample_characteristics do
+    member do
+      get :add_new_sample
+    end 
+  end
+  resources :pathologies
   
-  map.add_pt_sample       'patient_sample',      :controller => 'sample_characteristics', :action => 'new_sample'
-  map.modify_sample       'modify_sample',       :controller => 'sample_characteristics', :action => 'edit_params'
-  map.new_path_rpt        'new_pathology',       :controller => 'pathologies',            :action => 'new_params'
+  match 'patient_sample' => 'sample_characteristics#new_sample', :as => :add_pt_sample
+  match 'modify_sample' => 'sample_characteristics#edit_params', :as => :modify_sample
+  match 'new_pathology' => 'pathologies#new_params', :as => :new_path_rpt
   
-  map.clinical_query      'clinical_query',      :controller => 'sample_characteristics', :action => 'query_params'
-  map.clinical_list       'clinical_list',       :controller => 'sample_characteristics', :action => 'list_selected'
+  match 'clinical_query' => 'sample_characteristics#query_params', :as => :clinical_query
+  match 'clinical_list' => 'sample_characteristics#list_selected', :as => :clinical_list
   
   # Routes for physical source samples
-  map.resources :samples, :collection => {:auto_complete_for_barcode_key => :get}
-  map.resources :sample_queries, :only => :index
-  map.resources :histologies,    :collection => {:auto_complete_for_barcode_key => :get}
-  
-  map.upd_sample          'upd_sample',          :controller => 'samples',                :action => 'edit_params'
-  map.edit_samples        'edit_samples',        :controller => 'samples',                :action => 'edit_by_barcode'
-  map.new_he_slide        'new_he_slide',        :controller => 'histologies',            :action => 'new_params'
-  map.edit_he_slide       'edit_he_slide',       :controller => 'histologies',            :action => 'edit_by_barcode'
-  
-  map.unprocessed_query 'unprocessed_query',   :controller => 'sample_queries', :action => 'new_query'
-  map.samples_list      'samples_for_patient', :controller => 'sample_queries', :action => 'list_samples_for_patient'
-  map.samples_list1     'samples_from_source', :controller => 'sample_queries', :action => 'list_samples_for_characteristic'
+  resources :samples do
+    collection do
+      get :auto_complete_for_barcode_key
+    end
+  end
+
+  resources :sample_queries, :only => :index
+  resources :histologies do
+    collection do
+      get :auto_complete_for_barcode_key
+    end
+  end
+
+  match 'upd_sample' => 'samples#edit_params', :as => :upd_sample
+  match 'edit_samples' => 'samples#edit_by_barcode', :as => :edit_samples
+  match 'new_he_slide' => 'histologies#new_params', :as => :new_he_slide
+  match 'edit_he_slide' => 'histologies#edit_by_barcode', :as => :edit_he_slide
+  match 'unprocessed_query' => 'sample_queries#new_query', :as => :unprocessed_query
+  match 'samples_for_patient' => 'sample_queries#list_samples_for_patient', :as => :samples_list
+  match 'samples_from_source' => 'sample_queries#list_samples_for_characteristic', :as => :samples_list1
   
   # Routes for dissected samples
-  map.resources :dissected_samples
-  map.new_dissection 'new_dissection', :controller => 'dissected_samples', :action => 'new_params'
+  resources :dissected_samples
+  match 'new_dissection' => 'dissected_samples#new_params', :as => :new_dissection
+  match 'new' => 'dissected_samples#new'
   
   # Routes for extracted samples
-  map.resources :processed_samples,  :collection => {:auto_complete_for_barcode_key => :get}
-  map.resources :psample_queries,    :only => :index
+  resources :processed_samples do
+    collection do
+      get :auto_complete_for_barcode_key
+    end
+  end
+  resources :psample_queries, :only => :index
   
-  map.new_extraction    'new_extraction',    :controller => 'processed_samples', :action => 'new_params'
-  map.edit_psamples     'edit_psamples',     :controller => 'processed_samples', :action => 'edit_by_barcode'
   
-  map.samples_processed 'samples_processed', :controller => 'processed_samples', :action => 'show_by_sample'
-  map.processed_query   'processed_query',   :controller => 'psample_queries',   :action => 'new_query'
+  match 'new_extraction' => 'processed_samples#new_params', :as => :new_extraction
+  match 'edit_psamples' => 'processed_samples#edit_by_barcode', :as => :edit_psamples
+  match 'samples_processed' => 'processed_samples#show_by_sample', :as => :samples_processed
+  match 'processed_query' => 'psample_queries#new_query', :as => :processed_query
   
   # Routes for molecular assays
-  map.resources :molecular_assays, :collection => {:auto_complete_for_extraction_barcode => :get,
-                                                   :auto_complete_for_barcode_key => :get,
-                                                   :list_added => :get},
-                                   :member => {:create_assays => :post}
-  
-  map.resources :molassay_queries, :only => :index
-  map.mol_assay_query   'mol_assay_query',   :controller => 'molassay_queries',   :action => 'new_query'
+  resources :molecular_assays do
+    collection do
+      get :auto_complete_for_extraction_barcode
+      get :list_added
+      get :auto_complete_for_barcode_key
+    end
+    member do
+      post :create_assays
+    end 
+  end
+
+  resources :molassay_queries, :only => :index
+  match 'mol_assay_query' => 'molassay_queries#new_query', :as => :mol_assay_query
   
   # Routes for sequencing libraries
-  map.resources :seq_libs,     :collection => {:auto_complete_for_barcode_key => :get}
-  map.resources :mplex_libs,   :collection => {:auto_complete_for_barcode_key => :get}
-  map.resources :oligo_pools,  :only => [:index, :show]
-                          
-  map.resources :seqlib_lanes
-  map.resources :seqlib_queries, :only => :index
+  resources :seq_libs do
+    collection do
+      get :auto_complete_for_barcode_key
+    end  
+  end
+
+  resources :mplex_libs do
+    collection do
+      get :auto_complete_for_barcode_key
+    end
+  end
+
+  resources :oligo_pools, :only => [:index, :show]
   
-  map.mplex_setup 'mplex_setup',     :controller => 'mplex_libs', :action => 'setup_params'
-  map.lib_qc      'lib_qc',          :controller => 'seqlib_lanes', :action => 'export_libqc'
-  map.lib_query   'lib_query',       :controller => 'seqlib_queries', :action => 'new_query'
+  resources :seqlib_lanes
+  resources :seqlib_queries, :only => :index
+  
+  match 'mplex_setup' => 'mplex_libs#setup_params', :as => :mplex_setup
+  match 'lib_qc' => 'seqlib_lanes#export_libqc', :as => :lib_qc
+  match 'lib_query' => 'seqlib_queries#new_query', :as => :lib_query
   
   # Routes for flow cells/sequencing runs
-  map.resources :flow_cells,  :collection => {:auto_complete_for_sequencing_key => :get},
-                              :member => {:upd_for_sequencing => :put}
-  map.view_pubs 'view_pubs', :controller => 'flow_cells', :action => 'show_publications'
-  map.resources :analysis_qc
-  map.resources :index_tags
-  map.resources :alignment_refs
-  map.resources :seq_machines, :collection => {:auto_complete_for_machine_desc => :get}
-  map.resources :flowcell_queries, :only => :index
-  map.resources :align_qcs, :only => [:new, :create, :edit, :update]
+  resources :flow_cells do
+    collection do
+      get :auto_complete_for_sequencing_key
+    end
+    member do
+      put :upd_for_sequencing
+    end 
+  end
+
+  match 'view_pubs' => 'flow_cells#show_publications', :as => :view_pubs
+  resources :analysis_qc
+  resources :index_tags
+  resources :alignment_refs
+  resources :seq_machines do
+    collection do
+      get :auto_complete_for_machine_desc
+    end 
+  end
+
+  resources :flowcell_queries, :only => :index
+  resources :align_qcs, :only => [:new, :create, :edit, :update]
   
-  map.auto_complete ':controller/:action?:search', 
-     :requirements => { :action => /auto_complete_for_\S+/ },
-     :conditions => { :method => :get }
-  
-  map.flow_cell_setup 'flow_cell_setup', :controller => 'flow_cells', :action => 'setup_params'
-  map.flow_cell_qc    'seq_run_qc',      :controller => 'flow_cells', :action => 'show_qc'
-  map.seq_run_query   'seq_run_query',   :controller => 'flowcell_queries', :action => 'new_query'
+  match ':controller/:action?:search' => '#index', :as => :auto_complete, :via => :get, :constraints => { :action => /auto_complete_for_\S+/ }
+
+  match 'flow_cell_setup' => 'flow_cells#setup_params', :as => :flow_cell_setup
+  match 'seq_run_qc' => 'flow_cells#show_qc', :as => :flow_cell_qc
+  match 'seq_run_query' => 'flowcell_queries#new_query', :as => :seq_run_query
   
   # Routes for handling storage devices and sequencing run directories
-  map.resources :storage_devices
-  map.resources :run_dirs
-  map.del_run_dir    'del_run_dir',   :controller => 'run_dirs', :action => 'del_run_dir'
-  map.dir_params 'dir_params',:controller => 'run_dirs', :action => 'get_params'
+  resources :storage_devices
+  resources :run_dirs
+  match 'del_run_dir' => 'run_dirs#del_run_dir', :as => :del_run_dir
+  match 'dir_params' => 'run_dirs#get_params', :as => :dir_params
   
   # Routes for handling file attachments
-  map.resources :attached_files
-  map.attach_params 'attach_params',   :controller => 'attached_files', :action => 'get_params'
-  map.display_file 'display_file/:id', :controller => 'attached_files', :action => 'show'
+  resources :attached_files
+  match 'attach_params' => 'attached_files#get_params', :as => :attach_params
+  match 'display_file/:id' => 'attached_files#show', :as => :display_file
   
-  # The priority is based upon order of creation: first created -> highest priority.
+  # The priority is based upon order of creation:
+  # first created -> highest priority.
 
   # Sample of regular route:
-  #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'
+  #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
 
   # Sample of named route:
-  #   map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
+  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
   # This route can be invoked with purchase_url(:id => product.id)
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
-  #   map.resources :products
+  #   resources :products
 
   # Sample resource route with options:
-  #   map.resources :products, :member => { :short => :get, :toggle => :post }, :collection => { :sold => :get }
+  #   resources :products do
+  #     member do
+  #       get 'short'
+  #       post 'toggle'
+  #     end
+  #
+  #     collection do
+  #       get 'sold'
+  #     end
+  #   end
 
   # Sample resource route with sub-resources:
-  #   map.resources :products, :has_many => [ :comments, :sales ], :has_one => :seller
-  
+  #   resources :products do
+  #     resources :comments, :sales
+  #     resource :seller
+  #   end
+
   # Sample resource route with more complex sub-resources
-  #   map.resources :products do |products|
-  #     products.resources :comments
-  #     products.resources :sales, :collection => { :recent => :get }
+  #   resources :products do
+  #     resources :comments
+  #     resources :sales do
+  #       get 'recent', :on => :collection
+  #     end
   #   end
 
   # Sample resource route within a namespace:
-  #   map.namespace :admin do |admin|
-  #     # Directs /admin/products/* to Admin::ProductsController (app/controllers/admin/products_controller.rb)
-  #     admin.resources :products
+  #   namespace :admin do
+  #     # Directs /admin/products/* to Admin::ProductsController
+  #     # (app/controllers/admin/products_controller.rb)
+  #     resources :products
   #   end
 
-  # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
-  # map.root :controller => "welcome"
+  # You can have the root of your site routed with "root"
+  # just remember to delete public/index.html.
+  # root :to => 'welcome#index'
 
   # See how all your routes lay out with "rake routes"
 
-  # Install the default routes as the lowest priority.
-  # Note: These default routes make all actions in every controller accessible via GET requests. You should
-  # consider removing the them or commenting them out if you're using named routes and resources.
-  map.connect ':controller/:action/:id'
-  map.connect ':controller/:action/:id.:format'
+  # This is a legacy wild controller route that's not recommended for RESTful applications.
+  # Note: This route will make all actions in every controller accessible via GET requests.
+  # match ':controller(/:action(/:id))(.:format)'
 end

@@ -16,7 +16,7 @@ class LimsMailer < ActionMailer::Base
   
 protected
   def email_list(emails)
-    email_to = ((EMAIL_CREATE[:samples] == 'Production' && RAILS_ENV == 'production') ? EMAIL_TO[:samples] : EMAIL_TO[:admin])
+    email_to = ((EMAIL_CREATE[:samples] == 'Production' && Rails.env == 'production') ? EMAIL_TO[:samples] : EMAIL_TO[:admin])
     return (emails.nil? ? email_to.split(/, /) : email_to.split(/, /) | emails.split(/, /))
   end
   

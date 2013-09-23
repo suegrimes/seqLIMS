@@ -1,0 +1,13 @@
+/* form fieldset styles */
+
+fieldset {
+	position: relative;
+	display: inline;
+	margin-top: 8px;
+}
+
+legend {
+	position: absolute;
+    top: -.75em;
+    left: .75em;
+}
