@@ -33,7 +33,7 @@
 class Sample < ActiveRecord::Base
   include LimsCommon
   
-  attr_accessible :barcode_key, :source_sample_id, :amount_uom, :sample_date
+  attr_accessible :barcode_key, :source_sample_id, :amount_uom, :sample_date, :tumor_normal, :sample_container, :vial_type, :amount_initial, :sample_remaining, :comments, :amount_rem
   
   belongs_to :patient
   belongs_to :sample_characteristic
@@ -176,10 +176,11 @@ class Sample < ActiveRecord::Base
   end
   
   def self.find_with_conditions(condition_array)
-    self.find(:all, :include => [:patient, [:sample_characteristic => :pathology], :source_sample, :histology, :sample_storage_container, :processed_samples],
-                                 :conditions => condition_array,
-                                 :order => 'samples.patient_id,
-                                 (if(samples.source_barcode_key IS NOT NULL, samples.source_barcode_key, samples.barcode_key)), samples.barcode_key')                                
+    #self.find(:all, :include => [:patient, [:sample_characteristic => :pathology], :source_sample, :histology, :sample_storage_container, :processed_samples],
+    #                             :conditions => condition_array,
+    #                             :order => 'samples.patient_id,
+    #                             (if(samples.source_barcode_key IS NOT NULL, samples.source_barcode_key, samples.barcode_key)), samples.barcode_key') 
+    self.includes([:patient, [:sample_characteristic => :pathology], :source_sample, :histology, :sample_storage_container, :processed_samples]).where(condition_array).order('samples.patient_id')                           
   end
   
   def self.find_and_group_for_patient(patient_id, id_type=nil)
