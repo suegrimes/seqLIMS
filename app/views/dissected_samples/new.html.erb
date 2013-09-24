@@ -7,7 +7,10 @@
                                                           :source => 'Source' } %>
 
 <% tagged_form_for @sample, :url => {:controller => 'dissected_samples', :action => :create} do |f| %>
-  <%= f.error_messages %>
+  <% @sample.errors.full_messages.each do |msg| %>
+    <p><%= msg %></p>
+<% end %>
+
   
   <%= render :partial => 'dsample_form', :locals => {:f => f, 
                                                      :dissect => @source_sample} %> 
