@@ -33,7 +33,8 @@ class Pool < InventoryDB
 
   class << self
     def human_attribute_name attribute_name
-      HUMAN_ATTRIBUTE_NAMES[attribute_name.to_sym] || super
+      #HUMAN_ATTRIBUTE_NAMES[attribute_name.to_sym] || super
+      HUMAN_ATTRIBUTE_NAMES[attribute_name.to_sym] || super(name, *args)
     end
   end
  

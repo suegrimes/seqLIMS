@@ -19,7 +19,7 @@ module ViewMapper
     end
 
     def manifest
-      m = super.edit do |action|
+      m = super(name, *args).edit do |action|
         action unless is_child_model_action?(action)
       end
       add_child_models_manifest(m)

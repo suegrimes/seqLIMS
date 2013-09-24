@@ -11,7 +11,7 @@ class AuthenticatedGenerator < Rails::Generator::NamedBase
   alias_method  :controller_table_name, :controller_plural_name
 
   def initialize(runtime_args, runtime_options = {})
-    super
+    super(name, *args)
 
     # Take controller name from the next argument.  Default to the pluralized model name.
     @controller_name = args.shift

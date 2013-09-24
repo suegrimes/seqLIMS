@@ -7,9 +7,11 @@ class TaggedBuilder < ActionView::Helpers::FormBuilder
     define_method(method_name) do |field, *args|
       options = args.last.is_a?(Hash) ? args.pop : {}
       if options[:wraptags] == 'none'
-        super
+        #super
+        super(name, *args)
       else
-        @template.content_tag(:th, (label(field, options[:label]) + ':') +  @template.content_tag(:td, super, :colspan => options[:tdcolspan]))
+        #@template.content_tag(:th, (label(field, options[:label]) + ':') +  @template.content_tag(:td, super, :colspan => options[:tdcolspan]))
+        @template.content_tag(:th, (label(field, options[:label]) + ':') +  @template.content_tag(:td, super(name, *args), :colspan => options[:tdcolspan]))
       end
     end
   end

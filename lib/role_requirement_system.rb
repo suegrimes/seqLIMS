@@ -114,7 +114,7 @@ module RoleRequirementSystem
         render :nothing => true, :status => 401
         return false
       else
-        super
+        super(name, *args)
       end
     end
     
