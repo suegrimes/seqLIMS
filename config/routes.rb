@@ -99,6 +99,7 @@ SeqLIMS::Application.routes.draw do
   
   
   match 'new_extraction' => 'processed_samples#new_params', :as => :new_extraction
+  match 'new' => 'processed_samples#new'
   match 'edit_psamples' => 'processed_samples#edit_by_barcode', :as => :edit_psamples
   match 'samples_processed' => 'processed_samples#show_by_sample', :as => :samples_processed
   match 'processed_query' => 'psample_queries#new_query', :as => :processed_query
