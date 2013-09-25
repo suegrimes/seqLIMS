@@ -8,13 +8,13 @@
   
   <%= render :partial => '/patients/patient_form', :locals => {:f => f, :patient => @patient,
                                                                :patient_id => @patient.id} %>
-  <%= break_clear %>
+  <%=raw break_clear %>
   
     <% fields_for @sample_characteristic do |c| %>
 	  <%= c.error_messages %>
 	  
       <%= render :partial => 'clinical_form',   :locals => {:f => c} %>
-	  <%= break_clear %>
+	  <%=raw break_clear %>
   
 	  <% for sample in @sample_characteristic.samples %>
 	    <% c.fields_for :samples, sample do |s| %>
@@ -26,6 +26,6 @@
 	  
 	<% end %>
   
-  <%= break_clear %>
+  <%=raw break_clear %>
   <%= f.submit "Save" -%>&nbsp;&nbsp;<%= link_to 'Back', :back %>
   <% end %>

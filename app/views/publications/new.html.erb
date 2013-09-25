@@ -17,7 +17,7 @@
     <%= render :partial => 'publication_runs', :locals => {:flow_cells => @flow_cells} %>
   <% end %>
   
-  <%= break_clear %>
+  <%=raw break_clear %>
   <%= f.submit "Create" -%>&nbsp;&nbsp;<%= link_to 'List All Publications', publications_path %>
 <% end %>
 

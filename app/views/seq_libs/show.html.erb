@@ -1,7 +1,7 @@
 <h1>Sequencing Library</h1>
 
 <%= render :partial => 'lib_show', :locals => {:seq_lib => @seq_lib} %>
-<%= break_clear %>
+<%=raw break_clear %>
 
 <% if @seq_lib.lib_samples.size > 0 %>
   <%= render :partial => 'sample_show', :locals => {:lib_type => @seq_lib.library_type,

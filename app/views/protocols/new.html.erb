@@ -5,7 +5,7 @@
 
   <%= render :partial => 'protocol_form', :locals => {:f => f} %>
 
-  <%= break_clear (f.submit "Create") %>
+  <%=raw break_clear (f.submit "Create") %>
 <% end %>
 
 <%= link_to 'List All', protocols_path %>

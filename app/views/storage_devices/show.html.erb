@@ -23,7 +23,7 @@
 	</tr>
   </table>
 </fieldset>
-<%= break_clear %>
+<%=raw break_clear %>
 
 <% if can? :edit, @storage_device %><%= link_to 'Edit', edit_storage_device_path(@storage_device) %> | <% end %>
 <%= link_to 'List All', storage_devices_path %>

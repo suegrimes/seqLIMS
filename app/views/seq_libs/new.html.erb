@@ -3,7 +3,7 @@
 <%= form_tag(:action => :create) do %>
   
   <%= render :partial => 'lib_form' %>
-  <%= break_clear %>
+  <%=raw break_clear %>
 
   <% if @lib_with_error %><%= error_messages_for :seq_lib, :object => @lib_with_error %><% end %>
   

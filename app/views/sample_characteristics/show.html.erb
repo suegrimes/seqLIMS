@@ -36,7 +36,7 @@
                                                             :sample => @new_sample_with_error} %>
       <% end %>
 	  
-    <%= break_clear(submit_tag "Submit") %>
+    <%=raw break_clear(submit_tag "Submit") %>
   <% end %>
   
 <% elsif @added_sample_id %>
@@ -56,7 +56,7 @@
                                                             :removable => 'no'} %>
 	  <% end %>
 	 
-	  <%= break_clear(submit_tag "Submit") %>
+	  <%=raw break_clear(submit_tag "Submit") %>
 	<% end %>
   </div>
 <% end %>

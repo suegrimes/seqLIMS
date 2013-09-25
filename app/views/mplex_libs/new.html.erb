@@ -3,7 +3,7 @@
 <% form_for @seq_lib, :url => {:controller => 'mplex_libs', :action => :create} do |f| %>
   <%= f.error_messages %>
   <%= render :partial => 'lib_form', :locals => {:f => f} %> 
-  <%= break_clear %>
+  <%=raw break_clear %>
 
 <% @checked ||= false %>  
 <span class="notes"> Check boxes below, to include libraries in new multiplex library</span><br/>
