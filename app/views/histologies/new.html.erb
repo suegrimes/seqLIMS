@@ -16,6 +16,6 @@
 <%= render :partial => 'histology_form', :locals => {:f => f} %>
 <%=f.hidden_field(:sample_id)%>
 
-<%= break_clear(submit_tag "Submit") %>
+<%=raw break_clear(submit_tag "Submit") %>
 <% end %>
 

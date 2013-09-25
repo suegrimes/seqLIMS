@@ -5,6 +5,6 @@
 
   <%= render :partial => 'storage_device_form', :locals => {:f => f} %>
   
-  <%= break_clear %>
+  <%=raw break_clear %>
   <%= f.submit "Update" -%>&nbsp;&nbsp;<%= link_to 'List All', storage_devices_path %>
 <% end %>

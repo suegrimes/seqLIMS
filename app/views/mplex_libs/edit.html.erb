@@ -3,7 +3,7 @@
 <% form_for @seq_lib, :url => {:controller => 'mplex_libs', :action => :update}  do |f| %>
   <%= f.error_messages %>
   <%= render :partial => 'lib_form', :locals => {:f => f} %> 
-  <%= break_clear %>
+  <%=raw break_clear %>
 
 <div>&nbsp;</div>
 <fieldset class="form">
@@ -29,7 +29,7 @@
   </table>
 </fieldset>  
 
-<%= break_clear(f.submit "Update") %>
+<%=raw break_clear(f.submit "Update") %>
 <% end %>
   
 <%= link_to 'Back', :back %>

@@ -5,7 +5,7 @@
 
   <%= render :partial => 'consent_protocol', :locals => {:f => f} %>
     
-  <%= break_clear(f.submit "Update") %>
+  <%=raw break_clear(f.submit "Update") %>
 <% end %>
 
 <%= link_to 'List All', consent_protocols_path %>

@@ -7,7 +7,7 @@
                                                      :patient => @sample_characteristic.patient } %>  
   <%= render :partial => 'clinical_form',    :locals => {:f => f} %>
   
-  <%= break_clear %>
+  <%=raw break_clear %>
   
   <span class="table_title">Physical Sample(s):</span>
   <table class="list">
@@ -27,5 +27,5 @@
                        :method => :get) %>
   </div> 
   
-  <%= break_clear(f.submit "Update") %>
+  <%=raw break_clear(f.submit "Update") %>
 <% end %>

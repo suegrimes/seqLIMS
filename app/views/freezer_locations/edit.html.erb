@@ -5,7 +5,7 @@
 
   <%= render :partial => 'freezer_loc_form', :locals => {:f => f} %>
     
-  <%= break_clear(f.submit "Update") -%>&nbsp;&nbsp;<%= link_to 'Back', freezer_locations_path %>
+  <%=raw break_clear(f.submit "Update") -%>&nbsp;&nbsp;<%= link_to 'Back', freezer_locations_path %>
 <% end %>
 
 

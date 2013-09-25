@@ -4,10 +4,10 @@
   <%= f.error_messages %>
 
   <%= render :partial => 'publication_form', :locals => {:f => f} %>
-  <%= break_clear %>
+  <%=raw break_clear %>
   
   <%= render :partial => 'publication_lanes', :locals => {:f => f, :flow_lanes => @publication.flow_lanes} %>
-  <%= break_clear %>
+  <%=raw break_clear %>
   
   <div id='lane_entry'> 
   <span><b>Add lanes from run number:</b>&nbsp;<%= text_field_tag(:run_numbers, '', :size => 5)-%></span>

@@ -5,7 +5,7 @@
 
   <%= render :partial => 'assigned_barcode', :locals => {:f => f} %>
     
-  <%= break_clear(f.submit "Update") %>
+  <%=raw break_clear(f.submit "Update") %>
 <% end %>
 
 <%= link_to 'List All', assigned_barcodes_path %>

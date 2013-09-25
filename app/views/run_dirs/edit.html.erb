@@ -7,7 +7,7 @@
   
   <%= render :partial => 'run_dir_form', :locals => {:f => f, :flow_cell => @run_dir.flow_cell} %>
   
-  <%= break_clear(f.submit "Save") %>
+  <%=raw break_clear(f.submit "Save") %>
 <% end %>
 
 
