@@ -15,7 +15,7 @@
 //= require jquery_ujs
 //= require superfish
 //= require_directory ./calendar_date_select
-
+//= require rails
 
 function add_fields(link, association, content) {  
 var new_id = new Date().getTime();  
@@ -62,3 +62,18 @@ var load_del_date = function(id) {
         }
 	});
 };
+
+function showHideDiv(elementId1, elementId2) {
+  if (document.getElementById) {
+    var element1 = document.getElementById(elementId1); //div with link to form
+    var element2 = document.getElementById(elementId2); //div with form
+    if (element2.style.visibility == 'hidden') {
+      element2.style.visibility = 'visible';
+      element1.style.visibility = 'hidden';
+
+    } else if (element2.style.visibility == 'visible') {
+      element2.style.visibility = 'hidden';
+
+    }
+  }
+}
