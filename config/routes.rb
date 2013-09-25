@@ -115,6 +115,9 @@ SeqLIMS::Application.routes.draw do
       post :create_assays
     end 
   end
+  match 'new_molecular_assay' => 'molecular_assays#new', :as => :new_molecular_assay
+  match 'create_molecular_assays' => 'molecular_assays#create_assays', :as => :create_molecular_assays
+  match 'populate_assays' => 'molecular_assays#populate_assays'
 
   resources :molassay_queries, :only => :index
   match 'mol_assay_query' => 'molassay_queries#new_query', :as => :mol_assay_query
