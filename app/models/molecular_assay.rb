@@ -19,6 +19,9 @@
 #
 
 class MolecularAssay < ActiveRecord::Base
+  
+  attr_accessible :owner, :preparation_date, :protocol_id, :notes
+  
   belongs_to :protocol
   belongs_to :processed_sample
   has_many :attached_files, :as => :sampleproc
