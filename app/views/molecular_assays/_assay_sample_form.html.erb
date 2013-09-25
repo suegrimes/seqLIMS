@@ -22,7 +22,7 @@
   </tr>
   
   <% @new_assay.each_with_index do |assay, i| %>
-    <% fields_for 'molecular_assay_' + i.to_s, assay do |f| %> 
+    <%= fields_for 'molecular_assay_' + i.to_s, assay do |f| %> 
   <tr>
     <td><em>Sample: <%= i+1 %></em></td>
     <td><%= f.text_field_with_auto_complete :source_sample_name, {:size => 12},
@@ -50,7 +50,7 @@
 </fieldset>
 </div>
 
-<%= break_clear(submit_tag "Save assays") %>
+<%=raw break_clear(submit_tag "Save assays") %>
 <div id="default_vol" style="display:none"></div>
 <!-- f.text_field(:volume, :size => 8, :onchange => "$('default_vol').update($F(this));") --> 
 <!-- observe_field("molecular_assay_0_volume", :on => :onchange, :update => "default_vol",
