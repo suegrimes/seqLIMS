@@ -179,8 +179,8 @@ class Sample < ActiveRecord::Base
     #self.find(:all, :include => [:patient, [:sample_characteristic => :pathology], :source_sample, :histology, :sample_storage_container, :processed_samples],
     #                             :conditions => condition_array,
     #                             :order => 'samples.patient_id,
-    #                             (if(samples.source_barcode_key IS NOT NULL, samples.source_barcode_key, samples.barcode_key)), samples.barcode_key') 
-    self.includes([:patient, [:sample_characteristic => :pathology], :source_sample, :histology, :sample_storage_container, :processed_samples]).where(condition_array).order('samples.patient_id')                           
+    #                             (if(samples.source_barcode_key IS NOT NULL, samples.source_barcode_key, samples.barcode_key)), samples.barcode_key')
+    self.includes(:patient, {sample_characteristic: :pathology}, :source_sample, :histology, :sample_storage_container, :processed_samples).where(condition_array).order('samples.patient_id')                                
   end
   
   def self.find_and_group_for_patient(patient_id, id_type=nil)
