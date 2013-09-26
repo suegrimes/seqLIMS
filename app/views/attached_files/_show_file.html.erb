@@ -14,11 +14,11 @@
       <tr><td style="width:95px">None</td></tr>
   <% end %>
   <% if add_file_button == 'yes' %>
-      <tr><td class="linkborder"><div id="add_new"><%= link_to_function "New Attachment", div_toggle(:newfile, :add_new) %></div></td></tr>
+      <tr><td class="linkborder"><div id="add_new"><%= link_to "New Attachment", '', :onclick => "showHideDiv('add_new','newfile'); return false;" %></div></td></tr>
   <% end %>	
   </table>
 </fieldset>
-<%=break_clear %>
-<div id="newfile", style="display:none">
+<%=raw break_clear %>
+<div id="newfile" style="visibility:hidden">
   <%= render :partial => '/attached_files/add_file', :locals => {:obj => obj} %>
 </div>
