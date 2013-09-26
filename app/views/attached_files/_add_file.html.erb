@@ -1,7 +1,5 @@
-<% form_for(:attached_file, @attached_file,
-            :url => {:controller => 'attached_files', :action=> 'create'},
-            :html => {:multipart => true}) do |f| -%>  
-  <%= error_messages_for :attached_file %>
+<%= form_for :attached_file, url: attach_file_path(@attached_file), html: { :multipart => true } do |f| -%> 
+  
   <%= hidden_field_tag(:obj_klass, obj.class.name)%>
   <%= hidden_field_tag(:obj_id, obj.id)%>
 
