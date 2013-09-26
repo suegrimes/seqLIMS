@@ -183,6 +183,7 @@ SeqLIMS::Application.routes.draw do
   resources :attached_files
   match 'attach_params' => 'attached_files#get_params', :as => :attach_params
   match 'display_file/:id' => 'attached_files#show', :as => :display_file
+  match 'attach_file' => 'attached_files#create'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
