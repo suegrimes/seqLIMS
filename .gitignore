@@ -14,8 +14,11 @@
 /log/*.log
 /tmp
 
-# from R2.3.8 version
+# Ignore system config assets (R3+: /assets/system; R2.3.8: /public/system)
+/assets/system/*
 /public/system/*
+
+# from R2.3.8 version
 /config/*.yml
 /lib/mysql.rb
 
