@@ -83,6 +83,7 @@ SeqLIMS::Application.routes.draw do
   match 'unprocessed_query' => 'sample_queries#new_query', :as => :unprocessed_query
   match 'samples_for_patient' => 'sample_queries#list_samples_for_patient', :as => :samples_list
   match 'samples_from_source' => 'sample_queries#list_samples_for_characteristic', :as => :samples_list1
+  match 'export_samples' => 'sample_queries#export_samples', :as => :export_samples
   
   # Routes for dissected samples
   resources :dissected_samples
