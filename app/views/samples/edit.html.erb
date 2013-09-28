@@ -17,12 +17,9 @@
   <%= render :partial => 'histologies/histology_info', :locals => {:histology => @sample.source_sample.histology} %>
 <% end %>
 									 
-<%= form_for(@sample) do |f|%>
-  <% @sample.errors.full_messages.each do |msg| %>
-    <p><%= msg %></p>
-  <% end %>
-  
-						   
+<%= tagged_form_for(@sample) do |f|%>
+    <%= render '/shared/errors', model: @sample %>
+
     <%= render :partial => 'sample_form', :locals => {:f => f}%>
  
   <%=raw break_clear(f.submit "Update") %>

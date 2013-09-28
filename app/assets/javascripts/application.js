@@ -13,8 +13,8 @@
 //= require prototype
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require superfish
-//= require_directory ./calendar_date_select
 //= require rails
 
 function add_fields(link, association, content) {  

@@ -33,7 +33,7 @@
 class Sample < ActiveRecord::Base
   include LimsCommon
   
-  attr_accessible :barcode_key, :source_sample_id, :amount_uom, :sample_date, :tumor_normal, :sample_container, :vial_type, :amount_initial, :sample_remaining, :comments, :amount_rem
+  #attr_accessible :barcode_key, :source_sample_id, :amount_uom, :sample_date, :tumor_normal, :sample_container, :vial_type, :amount_initial, :sample_remaining, :comments, :amount_rem
   
   belongs_to :patient
   belongs_to :sample_characteristic

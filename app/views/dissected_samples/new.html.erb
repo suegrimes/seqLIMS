@@ -6,7 +6,7 @@
 <%= render :partial => 'samples/sample_info', :locals => {:sample => @source_sample,
                                                           :source => 'Source' } %>
 
-<%= form_for @sample, :url => {:controller => 'dissected_samples', :action => :create} do |f| %>
+<%= tagged_form_for @sample, :url => {:controller => 'dissected_samples', :action => :create} do |f| %>
   <% @sample.errors.full_messages.each do |msg| %>
     <p><%= msg %></p>
   <% end %>

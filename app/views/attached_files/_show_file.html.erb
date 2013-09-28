@@ -7,7 +7,7 @@
 	  <tr>
         <td style="min-width:95px"><%=link_to att_file.basename_with_ext, att_file %></td>
 		<td><%=h att_file.notes %></td>
-	    <td class="linkborder"><%=link_to 'Delete', att_file, :confirm => 'Are you sure?', :method => :delete %></td>
+        <td class="linkborder"><%=link_to 'Delete', att_file, :confirm => 'Are you sure?', :method => :delete %></td>
 	  </tr>
       <% end %>
   <% else %>

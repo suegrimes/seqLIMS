@@ -7,7 +7,6 @@ gem 'rails', '3.2.13'
 
 gem 'mysql2'
 
-
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -22,8 +21,11 @@ end
 
 #gem 'jquery-rails'
 gem 'jquery-rails', '2.0.2'
+gem 'jquery_datepicker'
 
 gem 'validates_timeliness', '~> 3.0'
+
+gem 'carrierwave', '~> 0.9'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -44,4 +46,7 @@ gem 'validates_timeliness', '~> 3.0'
 gem "ezcrypto"
 #gem "ar-extensions"
 gem "cancan", '~> 1.6.4'
-gem 'calendar_date_select', :git => 'http://github.com/paneq/calendar_date_select.git'
+#gem 'calendar_date_select', :git => 'http://github.com/paneq/calendar_date_select.git'
+#gem 'calendar_date_select', :git => 'git://github.com/paneq/calendar_date_select.git'
+#gem 'calendar_date_select', :git => 'https://github.com/timcharper/calendar_date_select.git'
+

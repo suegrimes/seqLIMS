@@ -1,7 +1,7 @@
 <h1>New sample for patient: <%=h @patient.id %>/<%=h @patient.mrn %> </h1>
 
 <% form_for :patient, :url => {:action => 'create'} do |f| %>
-  <%= f.error_messages %>
+  <%= render '/shared/errors', model: @patient %>
   
   <%=f.hidden_field(:id) %>
   <%=hidden_field_tag(:mrn_nr, params[:mrn_nr]) %>
@@ -11,7 +11,7 @@
   <%=raw break_clear %>
   
     <% fields_for @sample_characteristic do |c| %>
-	  <%= c.error_messages %>
+        <%= render '/shared/errors', model: @sample_characteristic %>
 	  
       <%= render :partial => 'clinical_form',   :locals => {:f => c} %>
 	  <%=raw break_clear %>

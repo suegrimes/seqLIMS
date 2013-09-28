@@ -8,7 +8,7 @@
   <table class="form">
 	<tr>
 	  <th>File name:</th>
-	  <td><%= f.upload_column_field :document, :size=>30%> </td>
+	  <td><%= f.file_field :document, :size=>30%>  <%= f.hidden_field :document_cache%></td>
 	</tr>
 	<tr>
 	  <th>Notes:</th>

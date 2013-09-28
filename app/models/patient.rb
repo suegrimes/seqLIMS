@@ -63,7 +63,7 @@ class Patient < ActiveRecord::Base
 ## NEED TO make this protected or private?  If so, cannot call any of these methods from 
 ## sample_characteristics controller?
   def self.find_id_using_mrn(mrn)
-    mrn_ids = self.find(:all).map {|p| [p.mrn, p.id]}
+    mrn_ids = self.all.map {|p| [p.mrn, p.id]}
     
     patient_nums = mrn_ids.assoc(mrn) if !mrn_ids.empty?
     patient_id   = patient_nums[1]    if patient_nums
