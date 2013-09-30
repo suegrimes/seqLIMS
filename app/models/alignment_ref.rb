@@ -15,11 +15,11 @@ class AlignmentRef < ActiveRecord::Base
   DEFAULT_REF = 'HWG_37.1'
   
   def self.default_id
-    self.find_by_alignment_key(DEFAULT_REF).id
+    self.where(:alignment_key => DEFAULT_REF).pluck(:id).first
   end
   
   def self.find_and_sort_all
-    self.find(:all, :order => :alignment_key)
+    self.order("alignment_key").all
   end
   
   def self.populate_dropdown

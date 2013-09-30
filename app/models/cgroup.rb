@@ -8,17 +8,6 @@
 #  created_at :datetime
 #  updated_at :timestamp
 #
-
-# == Schema Information
-#
-# Table name: cgroups
-#
-#  id         :integer(4)      not null, primary key
-#  group_name :string(25)      default(""), not null
-#  sort_order :integer(2)
-#  created_at :datetime
-#  updated_at :timestamp
-#
 #
 class Cgroup < ActiveRecord::Base
   has_many :categories

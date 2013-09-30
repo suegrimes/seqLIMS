@@ -93,17 +93,17 @@ class FlowCell < ActiveRecord::Base
   end
   
   def self.find_flowcells_for_sequencing
-    self.unsequenced.find(:all, :include => {:flow_lanes => :publications}, :order => 'flow_cells.flowcell_date DESC')
+    self.unsequenced.includes(:flow_lanes => :publications).order("flow_cells.flowcell_date DESC").all
+    #self.unsequenced.find(:all, :include => {:flow_lanes => :publications}, :order => 'flow_cells.flowcell_date DESC')
   end
   
   def self.getwith_attach(id)
-    self.find(id, :include => :attached_files)
+    self.includes(:attached_files).where(:id => id)
+    #self.find(id, :include => :attached_files)
   end
   
   def self.find_flowcell_incl_rundirs(condition_array=nil)
-    self.find(:first, :include => [:run_dirs, {:flow_lanes => :publications}],
-                      :order => "flow_cells.seq_run_nr, run_dirs.device_name",
-                      :conditions => condition_array)
+    self.includes(:run_dirs, {:flow_lanes => :publications}).where(*condition_array).order("flow_cells.seq_run_nr, run_dirs.device_name").first
   end
   
   def set_flowcell_status(flowcell_status='F')
