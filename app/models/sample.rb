@@ -69,18 +69,11 @@ class Sample < ActiveRecord::Base
     #self.errors.add(:sample_date, "cannot be blank") if self.new_record? || !sample_date.blank?
   #end
   
-  def before_save
-    if self.source_sample_id.nil?
-      self.sample_date = self.sample_characteristic.collection_date
-      self.patient_id = self.sample_characteristic.patient_id
-      self.sample_characteristic_id = self.sample_characteristic.id
-    else
-      self.patient_id = self.source_sample.patient_id
-      self.sample_characteristic_id = self.source_sample.sample_characteristic_id
-    end
-  end
-  
-  def before_create
+  before_create :upd_from_source_sample
+  before_save :upd_parent_ids
+  after_update :upd_dissections
+
+  def upd_from_source_sample
     self.amount_rem = self.amount_initial
     # If new dissected sample, update appropriate fields with source sample info
     if !self.source_sample_id.nil?
@@ -91,9 +84,18 @@ class Sample < ActiveRecord::Base
       self.tissue_preservation = self.source_sample.tissue_preservation
     end
   end
-  
-  after_update :upd_dissections
-  
+
+  def upd_parent_ids
+    if self.source_sample_id.nil?
+      self.sample_date = self.sample_characteristic.collection_date
+      self.patient_id = self.sample_characteristic.patient_id
+      self.sample_characteristic_id = self.sample_characteristic.id
+    else
+      self.patient_id = self.source_sample.patient_id
+      self.sample_characteristic_id = self.source_sample.sample_characteristic_id
+    end
+  end
+
   # After save, look for any dissections from the source sample updated, and update those as well
   def upd_dissections
     source_sample_id = self.id 
@@ -171,8 +173,8 @@ class Sample < ActiveRecord::Base
   
   def self.find_and_group_by_source(condition_array)
     samples = self.find_with_conditions(condition_array)
-    return [samples.select{|sample| sample.source_sample_id == nil}.size, samples.size],
-           samples.group_by {|sample| [sample.patient_id, sample.patient.mrn]}
+    return [samples.count(:conditions => "source_sample_id IS NULL"), samples.count],
+            samples.group_by {|sample| [sample.patient_id, sample.patient.mrn]}
   end
   
   def self.find_with_conditions(condition_array)
@@ -180,7 +182,7 @@ class Sample < ActiveRecord::Base
     #                             :conditions => condition_array,
     #                             :order => 'samples.patient_id,
     #                             (if(samples.source_barcode_key IS NOT NULL, samples.source_barcode_key, samples.barcode_key)), samples.barcode_key')
-    self.includes(:patient, {sample_characteristic: :pathology}, :source_sample, :histology, :sample_storage_container, :processed_samples).where(condition_array).order('samples.patient_id')                                
+    self.includes(:patient, {:sample_characteristic => :pathology}, :source_sample, :histology, :sample_storage_container, :processed_samples).where(*condition_array).order('samples.patient_id')
   end
   
   def self.find_and_group_for_patient(patient_id, id_type=nil)

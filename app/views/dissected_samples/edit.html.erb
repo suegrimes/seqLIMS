@@ -11,10 +11,8 @@
 																			  
 <%= render :partial => 'samples/sample_info', :locals => {:sample => @source_sample } %>
 
-<%= form_for @sample, :url => {:controller => 'dissected_samples', :action => :update} do |f| %>
-  <% @sample.errors.full_messages.each do |msg| %>
-    <p><%= msg %></p>
-  <% end %>
+<%= tagged_form_for @sample, :url => {:controller => 'dissected_samples', :action => :update} do |f| %>
+    <%= render '/shared/errors', model: @sample %>
   
   <%= render :partial => 'dsample_form', :locals => {:f => f, :dissect => @sample} %> 
   <%=raw break_clear(f.submit "Save") %>
