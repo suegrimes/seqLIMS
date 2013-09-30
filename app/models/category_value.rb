@@ -14,7 +14,7 @@ class CategoryValue < ActiveRecord::Base
   belongs_to :category
   
   def self.populate_dropdown_for_id(category_id)
-    self.find_all_by_category_id(category_id, :order => :c_position)
+    self.where(:category_id => category_id).order(:c_position).all
   end
   
 end

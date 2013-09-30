@@ -13,6 +13,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+/.idea
 
 # Ignore system config assets (R3+: /assets/system; R2.3.8: /public/system)
 /assets/system/*
