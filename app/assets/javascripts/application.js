@@ -78,7 +78,4 @@ function showHideDiv(elementId1, elementId2) {
   }
 }
 
-$(function() {
-  $('#datepicker').datepicker();
-});
 
