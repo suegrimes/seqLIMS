@@ -153,7 +153,7 @@ class FlowCell < ActiveRecord::Base
   
   def save_lanes
     flow_lanes.each do |flow_lane|
-      flow_lane.save(false) unless flow_lane.lane_nr.nil? || flow_lane.lane_nr.blank?
+      flow_lane.save(:validate=>false) unless flow_lane.lane_nr.nil? || flow_lane.lane_nr.blank?
     end
   end
   
