@@ -99,7 +99,7 @@ class SampleCharacteristic < ActiveRecord::Base
 #  
 #  def save_sample
 #    samples.each do |sample|
-#      sample.save(false)  
+#      sample.save(:validate=>false)  
 #    end
 #  end
 
