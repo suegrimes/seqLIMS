@@ -107,19 +107,19 @@ class User < ActiveRecord::Base
   def remember_me_until(time)
     self.remember_token_expires_at = time
     self.remember_token            = encrypt("#{email}--#{remember_token_expires_at}")
-    save(false)
+    save(:validate=>false)
   end
 
   def forget_me
     self.remember_token_expires_at = nil
     self.remember_token            = nil
-    save(false)
+    save(:validate=>false)
   end
   
   def create_reset_code
     @reset = true
     self.reset_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
-    save(false)
+    save(:validate=>false)
   end
   
   def recently_reset?
@@ -128,7 +128,7 @@ class User < ActiveRecord::Base
   
   def delete_reset_code
     self.reset_code = nil
-    save(false)
+    save(:validate=>false)
   end
   
   protected
