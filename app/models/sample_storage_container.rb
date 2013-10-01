@@ -14,7 +14,8 @@
 #  row_nr                 :string(2)
 #  position_nr            :string(3)       default("")
 #  notes                  :string(100)
-#  updated_by             :timestamp
+#  updated_by             :integer(2)
+#  updated_at             :timestamp
 #
 
 class SampleStorageContainer < ActiveRecord::Base
