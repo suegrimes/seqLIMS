@@ -88,7 +88,7 @@ SeqLIMS::Application.routes.draw do
   # Routes for dissected samples
   resources :dissected_samples
   match 'new_dissection' => 'dissected_samples#new_params', :as => :new_dissection
-  match 'new' => 'dissected_samples#new'
+  match 'new_dissection_sample' => 'dissected_samples#new'
   
   # Routes for extracted samples
   resources :processed_samples do
@@ -100,7 +100,7 @@ SeqLIMS::Application.routes.draw do
   
   
   match 'new_extraction' => 'processed_samples#new_params', :as => :new_extraction
-  match 'new' => 'processed_samples#new'
+  match 'new_extraction_sample' => 'processed_samples#new'
   match 'edit_psamples' => 'processed_samples#edit_by_barcode', :as => :edit_psamples
   match 'samples_processed' => 'processed_samples#show_by_sample', :as => :samples_processed
   match 'processed_query' => 'psample_queries#new_query', :as => :processed_query
