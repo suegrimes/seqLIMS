@@ -14,8 +14,7 @@
 	  </tr>
 	  <tr>
         <th>Order Date:</th>
-		<td><%= f.calendar_date_select(:date_ordered, :valid_date_check => "date <= (new Date()).stripTime()",
-                                                      :year_range => [1.years.ago, 0.years.ago], :size => 15)%>
+        <td><%=f.datepicker 'date_ordered', dateFormat: "yy-mm-dd", maxDate: Time.current.to_date, changeMonth: true, changeYear: true, yearRange: "-1", size: 15 %></td>
 		<th>Chemicals?</th>
 		<td><%= f.select(:incl_chemicals, %w{Y N}, {:include_blank => true}) %></td>
 	  </tr>

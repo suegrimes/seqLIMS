@@ -1,6 +1,6 @@
 <h1><%= @type_of_sample.camelize %> Samples Query</h1>
 
-<%= form_for(@sample_query, :action => 'index') do |f| %>
+<%= form_for @sample_query, :url => {:action => "index"}, :html => {:method => :get} do |f| %>
 <%= hidden_field_tag(:stype, @type_of_sample)%>
 
 <%= render '/shared/errors', model: @sample_query, header_message: "Error(s) in query parameters" %>

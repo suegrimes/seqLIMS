@@ -50,6 +50,6 @@ class SampleStorageContainer < ActiveRecord::Base
   end
   
   def self.populate_dropdown
-    self.select(:container_type).distinct.where('container_type > ""').order(:container_type).pluck(:container_type)
+    self.where('container_type > ""').order(:container_type).uniq.pluck(:container_type)
   end
 end

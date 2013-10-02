@@ -176,7 +176,7 @@ class Sample < ActiveRecord::Base
   
   def self.find_and_group_by_source(condition_array)
     samples = self.find_with_conditions(condition_array)
-    return [samples.where("source_sample_id IS NULL").count, samples.count],
+    return [samples.where("samples.source_sample_id IS NULL").count, samples.count],
             samples.group_by {|sample| [sample.patient_id, sample.patient.mrn]}
   end
   
@@ -217,13 +217,6 @@ class Sample < ActiveRecord::Base
     #samples = self.find(:all, :group => :source_sample_id, :conditions => "source_sample_id IS NOT NULL")
     samples = self.where("source_sample_id IS NOT NULL").group(:source_sample_id)
     return samples.collect(&:source_sample_id)
-  end
-  
-  # Delete this method after changes once controller changed to use 'find_and_group_for_sample'
-  def self.find_from_source_sample(source_sample_id)
-    return self.find(:all, :include => [:sample_characteristic, :processed_samples],
-                        :conditions => ['samples.id = ? OR samples.source_sample_id = ?', source_sample_id, source_sample_id])
-                   #    :order => '(if(source_barcode_key IS NOT NULL, source_barcode_key, samples.barcode_key)), source_barcode_key)')
   end
   
   def self.count_samples_in_range(rstart, rend)

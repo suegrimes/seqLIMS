@@ -22,7 +22,14 @@ SeqLIMS::Application.routes.draw do
   match 'protocol_type' => 'protocols#query_params', :as => :protocol_type
   
   # Routes for ordering chemicals & supplies
-  resources :orders
+  resources :orders do
+    member do
+      get :edit_order_items
+    end
+    collection do
+      get :new_query, :as => :view_orders
+    end
+  end
   resources :items do
     collection do
       get :auto_complete_for_item_description
@@ -70,6 +77,8 @@ SeqLIMS::Application.routes.draw do
   end
 
   resources :sample_queries, :only => :index
+  #match 'sample_query' => 'sample_queries#index', :as => :sample_query
+
   resources :histologies do
     collection do
       get :auto_complete_for_barcode_key
