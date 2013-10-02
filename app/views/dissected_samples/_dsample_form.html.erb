@@ -9,7 +9,7 @@
   <table class="form">
 	<tr>
 	  <th>Barcode</th><td><%=h f.object.barcode_key %></td>
-      <th>Date Created</th><td><%= f.datepicker 'sample_date', dateFormat: "yy-mm-dd", maxDate: Time.current.to_date, changeMonth: true, changeYear: true, yearRange: "-10", size: 15 %></td>
+      <%=f.datepicker 'sample_date', dateFormat: "yy-mm-dd", maxDate: Time.current.to_date, changeMonth: true, changeYear: true, yearRange: "-10", size: 15, label: "Date Created" %>
 	  <%=f.collection_select(:tumor_normal, @tumor_normal, :c_value, :c_value, :label => 'Tumor/Normal') %>
 	</tr>
 	<tr>
