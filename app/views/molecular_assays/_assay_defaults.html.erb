@@ -3,7 +3,7 @@
 <table class="form" border="0">
 <tr>
   <th>Owner:</th><td><%= select_tag("assay_default[owner]", options_for_select(@owners, @requester))%></td> 
-  <th>Date:</th><td><%= calendar_date_select_tag("assay_default[preparation_date]", Date.today, :size => 15) %></td>  
+  <th>Date:</th><td><%= datepicker_input("assay_default", "preparation_date", dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true, size: 15) %></td>  
 </tr>
 <tr>
   <th>Protocol:</th><td><%= collection_select(:assay_default, :protocol_id, @protocols, :id, :protocol_name,

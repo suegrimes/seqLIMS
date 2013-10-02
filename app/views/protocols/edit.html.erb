@@ -1,7 +1,7 @@
 <h1>Editing protocol</h1>
 
-<% tagged_form_for(@protocol) do |f| %>
-  <%= f.error_messages %>
+<%= tagged_form_for(@protocol) do |f| %>
+  <%= render '/shared/errors', model: @protocol %>
 
   <%= render :partial => 'protocol_form', :locals => {:f => f}%>
   
