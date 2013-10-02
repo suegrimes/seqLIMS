@@ -18,9 +18,10 @@ class Researcher < ActiveRecord::Base
 
   def self.populate_dropdown(active_flag='active_only', add_existing = [])
     if active_flag == 'active_only'
-      researchers = self.active.find(:all, :order => :researcher_name).collect(&:researcher_name)
+      researchers = self.active.order(:researcher_name).all.pluck(:researcher_name)
     else
-      researchers = self.find(:all, :order => "active_inactive, researcher_name").collect(&:researcher_name)
+      #researchers = self.find(:all, :order => "active_inactive, researcher_name").collect(&:researcher_name)
+      researchers = self.order("active_inactive, researcher_name").all.pluck(:researcher_name)
     end
     if add_existing.nil?
       return researchers
@@ -30,7 +31,8 @@ class Researcher < ActiveRecord::Base
   end
 
   def self.find_and_group_by_active_inactive
-    researchers = self.find(:all, :order => "researchers.active_inactive, researchers.researcher_name")
+    researchers = self.order("researchers.active_inactive, researchers.researcher_name").all
+    #researchers = self.find(:all, :order => "researchers.active_inactive, researchers.researcher_name")
     return researchers.group_by {|researcher| researcher.active_inactive}
   end
 

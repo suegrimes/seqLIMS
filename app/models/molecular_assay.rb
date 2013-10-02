@@ -55,7 +55,8 @@ class MolecularAssay < ActiveRecord::Base
   end
   
   def source_sample_name=(barcode)
-    self.processed_sample = ProcessedSample.find(:first, :conditions => ["barcode_key = ?", barcode]) if !barcode.blank?
+    #self.processed_sample = ProcessedSample.find(:first, :conditions => ["barcode_key = ?", barcode]) if !barcode.blank?
+    self.processed_sample = ProcessedSample.where("barcode_key = ?", barcode).first if !barcode.blank?
   end
   
   def vol_from_source
@@ -84,7 +85,8 @@ class MolecularAssay < ActiveRecord::Base
   
   def self.next_assay_barcode(source_id, source_barcode, protocol_char)
     barcode_mask = [source_barcode, '.', protocol_char, '%'].join
-    barcode_max  = self.maximum(:barcode_key, :conditions => ["processed_sample_id = ? AND barcode_key LIKE ?", source_id.to_i, barcode_mask])
+    #barcode_max  = self.maximum(:barcode_key, :conditions => ["processed_sample_id = ? AND barcode_key LIKE ?", source_id.to_i, barcode_mask])
+    barcode_max = self.where("processed_sample_id = ? AND barcode_key LIKE ?", source_id.to_i, barcode_mask).maximum(:barcode_key)
     if barcode_max
       return barcode_max.succ  # Existing assay, so increment last 1-2 characters of max barcode string (eg. 3->4, or 09->10)
     else

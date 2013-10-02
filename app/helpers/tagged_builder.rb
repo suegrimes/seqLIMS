@@ -1,6 +1,6 @@
 class TaggedBuilder < ActionView::Helpers::FormBuilder
   HELPERS = field_helpers +
-            %w(date_select calendar_date_select collection_select select check_box) -
+            %w(date_select calendar_date_select datepicker collection_select select check_box) -
             %w(hidden_field label fields_for)
   
   def self.created_tagged_field(method_name)

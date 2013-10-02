@@ -21,10 +21,10 @@ class Protocol < ActiveRecord::Base
   validates_presence_of :protocol_code, :if => Proc.new{|p| p.protocol_type == 'M'}, :message => 'must be supplied for molecular assays'
                     
   def self.find_for_protocol_type(protocol_type)
-    #protocol_array = protocol_type.to_a
-    protocol_array = [protocol_type]
-    self.find(:all, :conditions => ['protocol_type IN (?)', protocol_array],
-                    :order      => 'protocol_name')
+    protocol_array = [*protocol_type]
+    self.where('protocol_type IN (?)', protocol_array).order(:protocol_name).all
+    #self.find(:all, :conditions => ['protocol_type IN (?)', protocol_array],
+    #                :order      => 'protocol_name')
   end
   
   def name_ver
