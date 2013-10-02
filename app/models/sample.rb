@@ -153,7 +153,8 @@ class Sample < ActiveRecord::Base
   end
   
   def self.next_dissection_barcode(source_sample_id, source_barcode)
-    barcode_max = self.maximum(:barcode_key, :conditions => ["source_sample_id = ? AND barcode_key LIKE ?", source_sample_id.to_i, source_barcode + '%'])
+    barcode_max = self.where("source_sample_id = ? AND barcode_key LIKE ?", source_sample_id.to_i, source_barcode + '%').maximum(:barcode_key)
+    #barcode_max = self.maximum(:barcode_key, :conditions => ["source_sample_id = ? AND barcode_key LIKE ?", source_sample_id.to_i, source_barcode + '%'])
     if barcode_max
       return barcode_max.succ   # Increment last character of string (eg A->B)
     else
@@ -162,9 +163,11 @@ class Sample < ActiveRecord::Base
   end
   
   def self.find_newly_added_sample(sample_characteristic_id, barcode_key)
-    self.find(:first, :include => [:sample_characteristic, :patient, :sample_storage_container],
-              :conditions => ["samples.sample_characteristic_id = ? AND samples.barcode_key = ?",
-                               sample_characteristic_id, barcode_key])
+    condition_array = ["samples.sample_characteristic_id = ? AND samples.barcode_key = ?", sample_characteristic_id, barcode_key]
+    self.includes(:sample_characteristic, :patient, :sample_storage_container).where(*condition_array).first
+    #self.find(:first, :include => [:sample_characteristic, :patient, :sample_storage_container],
+    #          :conditions => ["samples.sample_characteristic_id = ? AND samples.barcode_key = ?",
+    #                           sample_characteristic_id, barcode_key])
   end
   
   def self.getwith_attach(id)
@@ -173,7 +176,7 @@ class Sample < ActiveRecord::Base
   
   def self.find_and_group_by_source(condition_array)
     samples = self.find_with_conditions(condition_array)
-    return [samples.count(:conditions => "source_sample_id IS NULL"), samples.count],
+    return [samples.where("source_sample_id IS NULL").count, samples.count],
             samples.group_by {|sample| [sample.patient_id, sample.patient.mrn]}
   end
   
@@ -182,7 +185,8 @@ class Sample < ActiveRecord::Base
     #                             :conditions => condition_array,
     #                             :order => 'samples.patient_id,
     #                             (if(samples.source_barcode_key IS NOT NULL, samples.source_barcode_key, samples.barcode_key)), samples.barcode_key')
-    self.includes(:patient, {:sample_characteristic => :pathology}, :source_sample, :histology, :sample_storage_container, :processed_samples).where(*condition_array).order('samples.patient_id')
+    self.includes(:patient, {:sample_characteristic => :pathology}, :source_sample, :histology, :sample_storage_container, :processed_samples)
+        .where(*condition_array).order('samples.patient_id')
   end
   
   def self.find_and_group_for_patient(patient_id, id_type=nil)
@@ -198,9 +202,11 @@ class Sample < ActiveRecord::Base
   end
   
   def self.find_for_export(sample_ids)
-    self.find(:all, :include => [:patient, [:sample_characteristic => :pathology], :histology, :sample_storage_container, :processed_samples],
-              :conditions => ["samples.id IN (?)", sample_ids],
-              :order => "samples.patient_id, samples.barcode_key")
+    self.includes(:patient, [:sample_characteristic => :pathology], :histology, :sample_storage_container, :processed_samples)
+        .where("samples.id IN (?)", sample_ids).order("samples.patient_id, samples.barcode_key").all
+    #self.find(:all, :include => [:patient, [:sample_characteristic => :pathology], :histology, :sample_storage_container, :processed_samples],
+    #          :conditions => ["samples.id IN (?)", sample_ids],
+    #          :order => "samples.patient_id, samples.barcode_key")
   end
   
   def self.find_sample(sample_id)
@@ -208,7 +214,8 @@ class Sample < ActiveRecord::Base
   end
   
   def self.find_all_source_for_dissected
-    samples = self.find(:all, :group => :source_sample_id, :conditions => "source_sample_id IS NOT NULL")
+    #samples = self.find(:all, :group => :source_sample_id, :conditions => "source_sample_id IS NOT NULL")
+    samples = self.where("source_sample_id IS NOT NULL").group(:source_sample_id)
     return samples.collect(&:source_sample_id)
   end
   
