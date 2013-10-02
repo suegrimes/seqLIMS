@@ -49,7 +49,7 @@ class LibSample < ActiveRecord::Base
   
   def source_sample_name=(barcode)
     self.source_DNA = barcode
-    self.processed_sample = ProcessedSample.find(:first, :conditions => ["barcode_key = ?", barcode]) if !barcode.blank?
+    self.processed_sample = ProcessedSample.where("barcode_key = ?", barcode).first if !barcode.blank?
   end
   
   def singleplex_lib
@@ -61,7 +61,8 @@ class LibSample < ActiveRecord::Base
     self.splex_lib = nil if lib_barcode.blank?
     
     if !lib_barcode.blank?
-      slib = SeqLib.find(:first, :include => :lib_samples, :conditions => ["library_type = 'S' AND barcode_key = ?", lib_barcode]) 
+      #slib = SeqLib.find(:first, :include => :lib_samples, :conditions => ["library_type = 'S' AND barcode_key = ?", lib_barcode])
+      slib = SeqLib.includes(:lib_samples).where("library_type = 'S' AND barcode_key = ?", lib_barcode).first
       if slib && slib.lib_samples
         ssample = slib.lib_samples[0]
         self.splex_lib = slib

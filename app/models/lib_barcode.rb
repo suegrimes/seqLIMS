@@ -12,6 +12,6 @@
 #
 
 class LibBarcode < ActiveRecord::Base
-  BARCODE_MIN = self.find(:first, :order => 'barcode_min ASC')
-  BARCODE_MAX = self.find(:first, :order => 'barcode_max DESC') 
+  BARCODE_MIN = self.order("barcode_min ASC").first
+  BARCODE_MAX = self.order("barcode_max DESC").first
 end

@@ -32,7 +32,10 @@ class MolecularAssay < ActiveRecord::Base
   validates_date :preparation_date
   validates_associated :processed_sample, :message => "- source DNA/RNA must be selected from auto-fill list"
   
-  def before_validation
+  before_validation :derive_barcode
+  after_validation :check_concentration
+
+  def derive_barcode
     # Need to add the following logic here?:
     # - case where source sample is not in the processed sample table? (is this going to be allowable?)
     protocol_code = (self.protocol ? self.protocol.protocol_code : '?')
@@ -41,18 +44,12 @@ class MolecularAssay < ActiveRecord::Base
     end
   end
   
-  def after_validation
+  def check_concentration
     if self.processed_sample && !self.vol_from_source.nil?
       errors.add(:volume, "- insufficent source volume/concentration") if self.vol_from_source > self.processed_sample.final_vol 
     end
   end
-  
-  #def validate
-  #  if self.processed_sample && !self.vol_from_source.nil?
-   #   errors.add(:volume, "- insufficent source volume/concentration") if self.vol_from_source > self.processed_sample.final_vol 
-  #  end
-  #end
-   
+
   def source_sample_name
     return (self.processed_sample ? self.processed_sample.barcode_key : nil)
   end
@@ -100,8 +97,9 @@ class MolecularAssay < ActiveRecord::Base
   end
   
   def self.find_for_query(condition_array=nil)
-    self.find(:all, :include => [:protocol, {:processed_sample => :sample}],
-                    :order => "processed_samples.patient_id, processed_samples.barcode_key, molecular_assays.barcode_key",
-                    :conditions => condition_array)
+    self.includes(:protocol, {:processed_sample => :sample}).where(*condition_array).order("processed_samples.patient_id, processed_samples.barcode_key, molecular_assays.barcode_key").all
+    #self.find(:all, :include => [:protocol, {:processed_sample => :sample}],
+    #                :order => "processed_samples.patient_id, processed_samples.barcode_key, molecular_assays.barcode_key",
+    #                :conditions => condition_array)
   end
 end

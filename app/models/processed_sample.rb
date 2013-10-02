@@ -42,8 +42,9 @@ class ProcessedSample < ActiveRecord::Base
   accepts_nested_attributes_for :sample_storage_container
   
   validates_date :processing_date
+  before_create :derive_barcode
   
-  def before_create
+  def derive_barcode
     self.barcode_key = ProcessedSample.next_extraction_barcode(self.sample_id, self.sample.barcode_key, self.extr_type_char)
   end
   
@@ -75,7 +76,8 @@ class ProcessedSample < ActiveRecord::Base
   end
   
   def self.barcode_search(search_string)
-    self.find(:all, :conditions => ["barcode_key LIKE ?", search_string + '%'])
+    #self.find(:all, :conditions => ["barcode_key LIKE ?", search_string + '%'])
+    self.where("barcode_key LIKE ?", search_string + '%').all
   end
   
   def self.getwith_attach(id)
@@ -83,31 +85,38 @@ class ProcessedSample < ActiveRecord::Base
   end
   
   def self.find_all_incl_sample(condition_array=nil)
-    self.find(:all, :include => [:sample, :sample_storage_container],
-                    :order => 'samples.patient_id, samples.barcode_key',
-                    :conditions => condition_array)
+    #self.find(:all, :include => [:sample, :sample_storage_container],
+    #                :order => 'samples.patient_id, samples.barcode_key',
+    #                :conditions => condition_array)
+    self.includes(:sample, :sample_storage_container).where(*condition_array).order('samples.patient_id, samples.barcode_key')
   end
   
   def self.find_one_incl_patient(condition_array=nil)
-    self.find(:first, :include => [{:sample => [:sample_characteristic, :patient]}, :sample_storage_container],
-                      :conditions => condition_array)
+    #self.find(:first, :include => [{:sample => [:sample_characteristic, :patient]}, :sample_storage_container],
+    #                  :conditions => condition_array)
+    self.includes({:sample => [:sample_characteristic, :patient]}, :sample_storage_container).where(*condition_array).first
   end
   
   def self.find_for_query(condition_array=nil)
-    self.find(:all, :include => [{:sample => :sample_characteristic}, :sample_storage_container],
-                    :order => "samples.patient_id, samples.barcode_key, processed_samples.barcode_key",
-                    :conditions => condition_array)
+    #self.find(:all, :include => [{:sample => :sample_characteristic}, :sample_storage_container],
+    #                :order => "samples.patient_id, samples.barcode_key, processed_samples.barcode_key",
+    #                :conditions => condition_array)
+    self.includes({:sample => :sample_characteristic}, :sample_storage_container).where(*condition_array)
+        .order("samples.patient_id, samples.barcode_key, processed_samples.barcode_key").all
   end
   
   def self.find_for_export(psample_ids)
-    self.find(:all, :include => [:sample, :sample_storage_container],
-              :conditions => ["processed_samples.id IN (?)", psample_ids],
-              :order => "samples.patient_id, samples.barcode_key, processed_samples.barcode_key")
+    #self.find(:all, :include => [:sample, :sample_storage_container],
+    #          :conditions => ["processed_samples.id IN (?)", psample_ids],
+    #          :order => "samples.patient_id, samples.barcode_key, processed_samples.barcode_key")
+    self.includes(:sample, :sample_storage_container).where("processed_samples.id IN (?)", psample_ids)
+        .order("samples.patient_id, samples.barcode_key, processed_samples.barcode_key").all
   end
   
   def self.next_extraction_barcode(source_id, source_barcode, extraction_char)
     barcode_mask = [source_barcode, '.', extraction_char, '%'].join
-    barcode_max  = self.maximum(:barcode_key, :conditions => ["sample_id = ? AND barcode_key LIKE ?", source_id.to_i, barcode_mask])
+    #barcode_max  = self.maximum(:barcode_key, :conditions => ["sample_id = ? AND barcode_key LIKE ?", source_id.to_i, barcode_mask])
+    barcode_max  = self.where("sample_id = ? AND barcode_key LIKE ?", source_id.to_i, barcode_mask).maximum(:barcode_key)
     if barcode_max
       return barcode_max.succ  # Existing extraction, so increment last 1-2 characters of max barcode string (eg. 3->4, or 09->10)
     else

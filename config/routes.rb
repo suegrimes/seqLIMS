@@ -97,8 +97,7 @@ SeqLIMS::Application.routes.draw do
     end
   end
   resources :psample_queries, :only => :index
-  
-  
+
   match 'new_extraction' => 'processed_samples#new_params', :as => :new_extraction
   match 'new' => 'processed_samples#new'
   match 'edit_psamples' => 'processed_samples#edit_by_barcode', :as => :edit_psamples

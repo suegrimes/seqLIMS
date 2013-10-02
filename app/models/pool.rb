@@ -66,7 +66,8 @@ class Pool < InventoryDB
     else
       sql_condition = "LEFT(tube_label,2) IN ('OS', 'PP')"
     end
-    return self.find(:all, :order => "tube_label", :conditions => sql_condition)
+    #return self.find(:all, :order => "tube_label", :conditions => sql_condition)
+    return self.order(:tube_label).where(sql_condition).all
   end
 
 end
