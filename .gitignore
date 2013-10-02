@@ -1,5 +1,6 @@
 log
 tmp
+.idea/*
 db/*.sqlite3
 public/system/*
 config/*.yml
