@@ -1,7 +1,7 @@
 <h1>New Flow Cell</h1>
 
-<% form_for(@flow_cell) do |f| %>
-  <%= f.error_messages %>
+<%= form_for(@flow_cell) do |f| %>
+  <%= render '/shared/errors', model: @flow_cell %>
   <%= render :partial => 'flow_cell_form', :locals => {:f => f} %>
   
 <%=raw break_clear('<div class="notes">Note: to assign a sequencing library to multiple lanes, separate the lane numbers with commas (eg. 1,2)</div>') %>
