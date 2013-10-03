@@ -1,7 +1,8 @@
 <h1>Sequencing Run Query</h1>
 
-<% form_for(@flowcell_query, :action => :index) do |f| %>
-<%= f.error_messages(:header_message => "Error(s) in query parameters") %>
+<%= form_for(flowcell_queries_path, method: :get) do |f| %>
+<!--%= f.error_messages(:header_message => "Error(s) in query parameters") %-->
+<%= render '/shared/errors', model: @flowcell_query %>
 
 <fieldset class="form">
 <legend>Select parameters</legend>
@@ -16,10 +17,13 @@
   <tr>
   	<th>Machine Type:</th>
     <td><%= f.select(:machine_type, SeqMachine::MACHINE_TYPES, :include_blank => '(All)') %></td> 
-  <tr>
-  	<th>Run Dates:</th>
-	<td><%=f.calendar_date_select(:from_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15) %>
-	<strong>&nbsp;To:&nbsp;</strong><%=f.calendar_date_select(:to_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15) %></td>
+  <tr>  	
+    <td colspan="2">
+      <strong>Run Dates:&nbsp;</strong>
+      <%=f.datepicker :from_date, dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true, size: 15 %>
+      <strong>&nbsp;&nbsp;To:&nbsp;</strong>
+	  <%=f.datepicker :to_date, dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true, size: 15 %>
+	</td> 
   </tr>	
 </table>
 </fieldset>
