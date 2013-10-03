@@ -6,8 +6,8 @@ class FlowCellsController < ApplicationController
   before_filter :seq_dropdowns, :only => :show
   
   def setup_params
-   @from_date = (Date.today - 3.months).beginning_of_month
-   @to_date   =  Date.today
+   @from_date_range = (Date.today - 3.months).beginning_of_month
+   @to_date_range   =  Date.today
    @seq_lib   = SeqLib.new(:owner => (current_user.researcher ? current_user.researcher.researcher_name : nil))
   end
   
