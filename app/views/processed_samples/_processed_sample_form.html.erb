@@ -36,8 +36,7 @@
   <table class="form">
 	<tr>
 	  <%=f.collection_select(:extraction_type, @extraction_type, :c_value, :c_value, :label => 'Type')%>
-	  <%=f.calendar_date_select(:processing_date, :year_range => [Sample::START_YEAR, 0.years.from_now],
-                                :valid_date_check => "date <= (new Date()).stripTime()", :label => 'Processing Date', :size => 15) %>
+      <%=f.datepicker 'processing_date', dateFormat: "yy-mm-dd", maxDate: Time.current.to_date, changeMonth: true, changeYear: true, yearRange: "#{Sample::START_YEAR}", size: 15, label: "Processing Date" %>
 	  <%=f.collection_select(:protocol_id, @protocols, :id, :protocol_name,
                             {:include_blank => 'Select protocol'}, :label => 'Protocol')%>
 	</tr>

@@ -24,10 +24,12 @@
   <tr><td>&nbsp;</td></tr>
   <tr>
   	<th>Prepared from:</th>
-	<td><%=calendar_date_select_tag(:from_date, @from_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%></td>
+	<td><!--%=calendar_date_select_tag(:from_date, @from_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%-->
+		<%= datepicker_input('', '', dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true, size: 15) %>
+	</td>
 	<td>&nbsp;&nbsp;</td>
   	<th>To:</th>
-	<td><%=calendar_date_select_tag(:to_date, @to_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%></td>
+	<td><!--%=calendar_date_select_tag(:to_date, @to_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%--></td>
   </tr>	
 </table>
 </fieldset>

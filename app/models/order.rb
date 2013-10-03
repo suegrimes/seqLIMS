@@ -55,7 +55,7 @@ class Order < ActiveRecord::Base
   
   def save_items
     items.each do |item|
-      item.save(false)
+      item.save(:validate=>false)
     end
   end
   

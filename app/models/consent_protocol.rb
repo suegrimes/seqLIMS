@@ -22,6 +22,6 @@ class ConsentProtocol < ActiveRecord::Base
   end
   
   def self.populate_dropdown
-    self.find(:all, :order => 'CAST(consent_nr AS UNSIGNED)')
+    self.order("CAST(consent_nr AS UNSIGNED)").all
   end
 end

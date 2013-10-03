@@ -24,8 +24,9 @@ class Pool < InventoryDB
   validates_presence_of :primer_name
   validates_uniqueness_of :primer_name
   
-  USING_POOLS = (self.find(:first).total_oligos == 0 && self.find(:all).size == 1 ? nil : 'yes')
-  
+  #USING_POOLS = (self.find(:first).total_oligos == 0 && self.find(:all).size == 1 ? nil : 'yes')
+  USING_POOLS = (self.first.total_oligos == 0 && self.all.size == 1 ? nil : 'yes')
+
   HUMAN_ATTRIBUTE_NAMES = {
     :pool_name => [POOL_TYPE, ' Pool'].join,
     :gene_code => 'Gene'
@@ -66,7 +67,8 @@ class Pool < InventoryDB
     else
       sql_condition = "LEFT(tube_label,2) IN ('OS', 'PP')"
     end
-    return self.find(:all, :order => "tube_label", :conditions => sql_condition)
+    #return self.find(:all, :order => "tube_label", :conditions => sql_condition)
+    return self.order(:tube_label).where(sql_condition).all
   end
 
 end

@@ -14,7 +14,6 @@
 #
 
 class AttachedFile < ActiveRecord::Base
-  attr_accessible :document, :document_temp, :document_cache, :notes
     
   #FILES_ROOT = (SITE_URL.include?('stanford.edu') ? File.join(Rails.root, "..", "..", "shared", "attached_files") :
   #                                                 File.join(Rails.root, "..", "LIMSFiles", "AttachedFile"))

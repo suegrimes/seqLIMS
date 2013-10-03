@@ -20,7 +20,8 @@ class AssignedBarcode < ActiveRecord::Base
   validate_on_create :check_range
   
   def self.count_overlapping_range(rstart, rend)
-    return self.count(:conditions => ["start_barcode <= ? AND end_barcode >= ?", rend, rstart])
+    return self.where("start_barcode <= ? AND end_barcode >= ?", rend, rstart).count
+    #return self.count(:conditions => ["start_barcode <= ? AND end_barcode >= ?", rend, rstart])
   end
   
 protected

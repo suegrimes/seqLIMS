@@ -2,7 +2,7 @@
   <legend>Flowcell Parameters</legend>
   <table border="0" class="form">  		  
 	<tr>
-	  <th>Date:</th><td><%= f.calendar_date_select(:flowcell_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15) %></td>
+	  <%=f.datepicker 'flowcell_date', dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true, size: 15, label: "Date:" %>
 	  <% if f.object.new_record? %>
 		<th><%=f.label :machine_type, 'Machine Type:' %>
 		<%= f.select(:machine_type, options_for_select(SeqMachine::MACHINE_TYPES, :selected => f.object.machine_type), :include_blank => 'Select..') %></th>

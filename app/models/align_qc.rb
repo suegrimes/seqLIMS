@@ -52,7 +52,9 @@ class AlignQc < ActiveRecord::Base
   validates_numericality_of :clusters_raw, :clusters_pf, :cycle1_intensity_pf, :nr_NM, :nr_QC, :nr_RX, :nr_U0, :nr_U1, :nr_U2, :nr_UM,
                             :only_integer => true, :allow_blank => true, :message => 'must be an integer'
   
-  def before_update
+  before_update :calc_pct_align
+
+  def calc_pct_align
     if flow_lane.flow_cell.machine_type == 'MiSeq' && !nr_uniques.nil? && nr_uniques > 0 
       self.pct_error_rate_pf = total_errors * 100 / (nr_uniques * flow_lane.flow_cell.nr_bases_read1.to_i) 
       self.pct_align_pf      = nr_uniques * 100 / (nr_uniques + nr_nonuniques)

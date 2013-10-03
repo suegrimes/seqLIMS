@@ -29,7 +29,9 @@ class RunDir < ActiveRecord::Base
   validates_uniqueness_of :storage_device_id, :scope => :flow_cell_id, :message => 'already exists for this sequencing run'
   validates_date :date_sized, :date_copied, :date_verified, :allow_blank => true
   
-  def before_save
+  before_save :derive_field_vals
+
+  def derive_field_vals
     self.device_name    = self.storage_device.device_name
     self.sequencing_key = self.flow_cell.sequencing_key 
   end

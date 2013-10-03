@@ -27,6 +27,7 @@ class FreezerLocation < ActiveRecord::Base
   end
   
   def self.list_all_by_room
-    self.find(:all, :order => 'freezer_locations.room_nr, freezer_locations.freezer_nr')
+    self.order(:room_nr, :freezer_nr).all
+    #self.find(:all, :order => 'freezer_locations.room_nr, freezer_locations.freezer_nr')
   end
 end

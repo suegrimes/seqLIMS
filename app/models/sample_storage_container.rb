@@ -14,7 +14,8 @@
 #  row_nr                 :string(2)
 #  position_nr            :string(3)       default("")
 #  notes                  :string(100)
-#  updated_by             :timestamp
+#  updated_by             :integer(2)
+#  updated_at             :timestamp
 #
 
 class SampleStorageContainer < ActiveRecord::Base
@@ -49,7 +50,6 @@ class SampleStorageContainer < ActiveRecord::Base
   end
   
   def self.populate_dropdown
-    self.find(:all, :select => 'DISTINCT container_type', :order => 'container_type',
-                    :conditions => 'container_type > ""').map(&:container_type)
+    self.where('container_type > ""').order(:container_type).uniq.pluck(:container_type)
   end
 end
