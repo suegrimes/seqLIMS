@@ -1,6 +1,6 @@
 <h1>Sequencing Run Query</h1>
 
-<%= form_for(flowcell_queries_path, method: :get) do |f| %>
+<%= form_for(@flowcell_query, method: :get) do |f| %>
 <!--%= f.error_messages(:header_message => "Error(s) in query parameters") %-->
 <%= render '/shared/errors', model: @flowcell_query %>
 
@@ -13,16 +13,16 @@
   	<strong>&nbsp;Run Nr Type:&nbsp;&nbsp;</strong>
 	<%= f.select(:run_nr_type, FlowCell::RUN_NR_TYPES) %></td>
   </tr>
-  <tr><td align="center" class="grey">-OR-</td></tr>
+  <tr><td align="center" class="grey" colspan="2">-OR-</td></tr>
   <tr>
   	<th>Machine Type:</th>
-    <td><%= f.select(:machine_type, SeqMachine::MACHINE_TYPES, :include_blank => '(All)') %></td> 
+    <td><%= f.select(:machine_type, SeqMachine::MACHINE_TYPES, :include_blank => '(All)') %></td>
+  </tr> 
   <tr>  	
-    <td colspan="2">
-      <strong>Run Dates:&nbsp;</strong>
-      <%=f.datepicker :from_date, dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true, size: 15 %>
-      <strong>&nbsp;&nbsp;To:&nbsp;</strong>
-	  <%=f.datepicker :to_date, dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true, size: 15 %>
+    <th>Run Dates:&nbsp;</th>
+    <td><%=f.datepicker :from_date, dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true, size: 15 %>
+    <strong>&nbsp;&nbsp;To:&nbsp;</strong>
+	<%=f.datepicker :to_date, dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true, size: 15 %>
 	</td> 
   </tr>	
 </table>
