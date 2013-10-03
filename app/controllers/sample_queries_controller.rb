@@ -134,7 +134,7 @@ protected
     @source_tissue      = category_filter(@category_dropdowns, 'source tissue')
     @preservation       = category_filter(@category_dropdowns, 'tissue preservation')
     @tumor_normal       = category_filter(@category_dropdowns, 'tumor_normal')
-    @users              = User.find(:all)
+    @users              = User.all
   end
   
   def define_conditions(params)

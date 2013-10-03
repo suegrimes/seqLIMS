@@ -9,7 +9,7 @@
   <tr>
   	<%= f.collection_select(:protocol_id, @protocols, :id, :protocol_name, {:include_blank => 'Select Protocol'}) %>
 	<%= f.select(:owner, @owners)%>
-    <%= f.calendar_date_select(:preparation_date, :size => 15, :label => 'Prep Date') %> 
+    <%= f.datepicker 'preparation_date', dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true, size: 15, :label => 'Prep Date' %>
   </tr>
   <tr>
   	<%= f.text_field_with_auto_complete(:source_sample_name, {:size => 12, :label => 'Source DNA/RNA'},

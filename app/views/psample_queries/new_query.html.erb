@@ -2,7 +2,7 @@
 
 <%= form_for(@psample_query, :action => 'index') do |f| %>
   <!--%= f.error_messages(:header_message => "Error(s) in query parameters") %-->
-  <%= render '/shared/errors', model: @processed_sample, header_message: 'Error(s) in query parameters' %>
+  <%= render '/shared/errors', model: @psample_query, header_message: 'Error(s) in query parameters' %>
 
 <fieldset class="form">
 <legend>Select parameters</legend>

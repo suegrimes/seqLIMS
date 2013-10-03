@@ -21,8 +21,8 @@
 
   <tr>
   	<th>Assay Date Range:</th>
-	<td><%= f.calendar_date_select(:from_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%>
-	<strong>&nbsp;To:&nbsp;</strong><%= f.calendar_date_select(:to_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%></td>
+	<td><%= f.datepicker 'from_date', dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true, size: 15 %>%>
+	<strong>&nbsp;To:&nbsp;</strong><%= f.datepicker 'to_date', dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true, yearRange: '-1', size: 15 %></td>
   </tr>
 </table>
 </fieldset>

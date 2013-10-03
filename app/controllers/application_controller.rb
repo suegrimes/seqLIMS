@@ -56,9 +56,9 @@ class ApplicationController < ActionController::Base
     if val.nil?
       val_blank = true
     elsif val.is_a? Array
-      val_blank = (val.size == 1 && val[0].blank? ? true : false )
+      #val_blank = (val.size == 1 && val[0].blank? ? true : false )
       # Hack due to change in Rails 3 which passes hidden value for collection_select/multiple and causes duplicate blank entry in array
-      val_blank = (val.size == 2 && val[0].blank? && val[1].blank? ? true : false)
+      val_blank = (val.size == 1 && val[0].blank? ) || (val.size == 2 && val[0].blank? && val[1].blank?)
     else
        val_blank = val.blank?
     end

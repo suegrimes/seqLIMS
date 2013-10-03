@@ -1,0 +1,17 @@
+<% error_cnt = 0 %>
+<% collection.each { |model| error_cnt += model.errors.size } %>
+
+<% if error_cnt > 0 %>
+    <div id="error_explanation">
+      <h2><%= pluralize(error_cnt, "error") %> were encountered - unable to save this form </h2>
+      <p>There were problems with the following fields:</p>
+
+      <% collection.each do |model| %>
+        <ul>
+          <% model.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+<% end %>

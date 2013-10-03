@@ -3,10 +3,13 @@ class MplexLibsController < ApplicationController
   
   before_filter :dropdowns, :only => [:new, :edit]
   before_filter :setup_dropdowns, :only => :setup_params
+
+  DateRange = Struct.new(:from_date, :to_date)
   
   def setup_params
    @from_date = (Date.today - 3.months).beginning_of_month
    @to_date   =  Date.today
+   @date_range = DateRange.new(@from_date, @to_date)
    @seq_lib   = SeqLib.new(:owner => (current_user.researcher ? current_user.researcher.researcher_name : nil),
                            :runtype_adapter => 'M_PE')
   end
@@ -41,7 +44,7 @@ class MplexLibsController < ApplicationController
     end     
     @checked = false
     render :action => 'new'
- #    render :action => 'debug'
+    #render :action => 'debug'
   end
   
   # GET /mplex_libs/1/edit
