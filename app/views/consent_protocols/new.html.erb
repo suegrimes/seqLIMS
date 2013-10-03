@@ -1,6 +1,6 @@
 <h1>New consent protocol</h1>
 
-<% tagged_form_for @consent_protocol, :action => 'create' do |f| %>
+<%= tagged_form_for @consent_protocol, :action => 'create' do |f| %>
     <%= render '/shared/errors', model: @consent_protocol %>
   
   <%= render :partial => 'consent_protocol', :locals => {:f => f} %>

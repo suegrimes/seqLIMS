@@ -1,7 +1,7 @@
 <h1>Editing Sequencing Library: <%=h @seq_lib.lib_name %></h1>
 
-<% form_for(@seq_lib) do |f| %>
-  <%= f.error_messages %>
+<%= form_for(@seq_lib) do |f| %>
+  <%= render '/shared/errors', model: @seq_lib %>
   
   <%= render :partial => 'seq_libs/lib_edit', :locals => {:f => f}%> 
     

@@ -1,7 +1,8 @@
 <h1>New Multiplex Sequencing Library</h1>
 
-<% form_for @seq_lib, :url => {:controller => 'mplex_libs', :action => :create} do |f| %>
-  <%= f.error_messages %>
+<%= form_for @seq_lib, :url => {:controller => 'mplex_libs', :action => :create} do |f| %>
+  <%= render '/shared/errors', model: @seq_lib%>
+
   <%= render :partial => 'lib_form', :locals => {:f => f} %> 
   <%=raw break_clear %>
 

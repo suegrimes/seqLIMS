@@ -1,6 +1,6 @@
 <h1>Update assigned barcode ranges</h1>
 
-<% tagged_form_for(@assigned_barcode) do |f| %>
+<%= tagged_form_for(@assigned_barcode) do |f| %>
   <%= render '/shared/errors.html.erb', model: @assigned_barcode %>
 
   <%= render :partial => 'assigned_barcode', :locals => {:f => f} %>

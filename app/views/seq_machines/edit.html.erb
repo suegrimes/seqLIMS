@@ -1,7 +1,7 @@
 <h1>Update Sequencing Machine</h1>
 
-<% tagged_form_for(@seq_machine) do |f| %>
-  <%= f.error_messages %>
+<%= tagged_form_for(@seq_machine) do |f| %>
+  <%= render '/shared/errors', model: @seq_machine %>
 
   <%= render :partial => 'seq_machine_form', :locals => {:f => f} %>
   

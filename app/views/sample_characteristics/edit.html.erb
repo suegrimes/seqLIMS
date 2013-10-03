@@ -1,7 +1,7 @@
 <h1>Editing Sample Acquisition details for Patient: <%= @sample_characteristic.patient_id %>, Collection Date: <%= @sample_characteristic.collection_date %></h1>
 
-<% form_for @sample_characteristic do |f| %>
-  <%= f.error_messages %>
+<%= form_for @sample_characteristic do |f| %>
+  <%= render '/shared/errors', model: @sample_characteristic %>
 
   <%= render :partial => 'patient_info', :locals => {:sample_characteristic => @sample_characteristic,
                                                      :patient => @sample_characteristic.patient } %>  

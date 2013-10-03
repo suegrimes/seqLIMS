@@ -11,8 +11,8 @@
   <th>Price:</th>   
   <% @items.each_with_index do |itm, i| %>
   <% fields_for 'items_' + i.to_s, itm do |f| %>
-    
-    <%= f.error_messages %>
+
+    <%= render '/shared/errors', model: itm %>
     
     <!-- f.hidden_field(:requester_name)-->
     <!-- f.hidden_field(:deliver_site) -->

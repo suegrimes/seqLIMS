@@ -68,7 +68,8 @@ class User < ActiveRecord::Base
       condition_array = ["users.login = ?", user.login]
     end
     
-    self.find(:all, :include => :roles, :conditions => condition_array)
+    self.include(:roles).where(*condition_array).all
+    #self.find(:all, :include => :roles, :conditions => condition_array)
   end
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.

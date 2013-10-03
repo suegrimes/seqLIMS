@@ -2,7 +2,7 @@
 
 <div id="samples"> 
   <%=s.hidden_field(:patient_id, :value => @patient_id) %>
-  <%=s.error_messages%>
+  <%= render '/shared/errors', model: s.object %>
 
 <fieldset class="form">
 <legend>Physical Sample</legend> 

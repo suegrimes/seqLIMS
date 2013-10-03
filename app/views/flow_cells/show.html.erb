@@ -48,7 +48,7 @@
   </div>
 	
   <div id="run_params", style="display:none">
-    <% form_for(@flow_cell, :url => {:action => :upd_for_sequencing}) do |f|%>
+    <%= form_for(@flow_cell, :url => {:action => :upd_for_sequencing}) do |f|%>
 	  <%= f.hidden_field(:id, :value => @flow_cell.id)%>
 	  
       <table class="list">
