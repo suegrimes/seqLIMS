@@ -1,6 +1,7 @@
 <h1>Sample Extraction</h1>
 
 <%= tagged_form_for(@processed_sample) do |f| %>
+
   <%= render '/shared/errors', model: @processed_sample %>
   
   <%= f.hidden_field :sample_id,  :value => @sample.id %>

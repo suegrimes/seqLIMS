@@ -32,7 +32,10 @@ class MolecularAssay < ActiveRecord::Base
   validates_date :preparation_date
   validates_associated :processed_sample, :message => "- source DNA/RNA must be selected from auto-fill list"
   
-  def before_validation
+  before_validation :derive_barcode
+  after_validation :check_concentration
+
+  def derive_barcode
     # Need to add the following logic here?:
     # - case where source sample is not in the processed sample table? (is this going to be allowable?)
     protocol_code = (self.protocol ? self.protocol.protocol_code : '?')
@@ -41,24 +44,19 @@ class MolecularAssay < ActiveRecord::Base
     end
   end
   
-  def after_validation
+  def check_concentration
     if self.processed_sample && !self.vol_from_source.nil?
       errors.add(:volume, "- insufficent source volume/concentration") if self.vol_from_source > self.processed_sample.final_vol 
     end
   end
-  
-  #def validate
-  #  if self.processed_sample && !self.vol_from_source.nil?
-   #   errors.add(:volume, "- insufficent source volume/concentration") if self.vol_from_source > self.processed_sample.final_vol 
-  #  end
-  #end
-   
+
   def source_sample_name
     return (self.processed_sample ? self.processed_sample.barcode_key : nil)
   end
   
   def source_sample_name=(barcode)
-    self.processed_sample = ProcessedSample.find(:first, :conditions => ["barcode_key = ?", barcode]) if !barcode.blank?
+    #self.processed_sample = ProcessedSample.find(:first, :conditions => ["barcode_key = ?", barcode]) if !barcode.blank?
+    self.processed_sample = ProcessedSample.where("barcode_key = ?", barcode).first if !barcode.blank?
   end
   
   def vol_from_source
@@ -87,7 +85,8 @@ class MolecularAssay < ActiveRecord::Base
   
   def self.next_assay_barcode(source_id, source_barcode, protocol_char)
     barcode_mask = [source_barcode, '.', protocol_char, '%'].join
-    barcode_max  = self.maximum(:barcode_key, :conditions => ["processed_sample_id = ? AND barcode_key LIKE ?", source_id.to_i, barcode_mask])
+    #barcode_max  = self.maximum(:barcode_key, :conditions => ["processed_sample_id = ? AND barcode_key LIKE ?", source_id.to_i, barcode_mask])
+    barcode_max = self.where("processed_sample_id = ? AND barcode_key LIKE ?", source_id.to_i, barcode_mask).maximum(:barcode_key)
     if barcode_max
       return barcode_max.succ  # Existing assay, so increment last 1-2 characters of max barcode string (eg. 3->4, or 09->10)
     else
@@ -100,8 +99,9 @@ class MolecularAssay < ActiveRecord::Base
   end
   
   def self.find_for_query(condition_array=nil)
-    self.find(:all, :include => [:protocol, {:processed_sample => :sample}],
-                    :order => "processed_samples.patient_id, processed_samples.barcode_key, molecular_assays.barcode_key",
-                    :conditions => condition_array)
+    self.includes(:protocol, {:processed_sample => :sample}).where(*condition_array).order("processed_samples.patient_id, processed_samples.barcode_key, molecular_assays.barcode_key").all
+    #self.find(:all, :include => [:protocol, {:processed_sample => :sample}],
+    #                :order => "processed_samples.patient_id, processed_samples.barcode_key, molecular_assays.barcode_key",
+    #                :conditions => condition_array)
   end
 end

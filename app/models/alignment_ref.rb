@@ -28,6 +28,6 @@ class AlignmentRef < ActiveRecord::Base
   
   def self.get_align_key(id=nil)
     return nil if id.nil?
-    self.find(id).alignment_key 
+    self.find(id).alignment_key
   end
 end
