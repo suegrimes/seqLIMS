@@ -1,7 +1,7 @@
 <fieldset class="form">
 <legend>Assigned Barcode Ranges</legend>
 <table class="form">
-  <tr><th>Date Assigned</th><td><%= f.datepicker 'assign_date', size: 15, dateFormat: "yy-mm-dd", maxDate: Time.current.to_date, changeMonth: true, changeYear: true, yearRange: "-2"%></td></tr>                                                           
+  <tr><%= f.datepicker 'assign_date', size: 15, dateFormat: "yy-mm-dd", maxDate: Time.current.to_date, changeMonth: true, changeYear: true, yearRange: "-2"%></tr>
   <tr><%=f.text_field :group_name %><%=f.text_field :owner_name %></tr>
   <tr><%=f.text_field :sample_type %></tr>
   <tr><%=f.text_field :start_barcode, :size => 10 %><%=f.text_field :end_barcode, :size => 10 %></tr>

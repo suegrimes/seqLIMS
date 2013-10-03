@@ -24,10 +24,10 @@
   <tr><td>&nbsp;</td></tr>
   <tr>
   	<th>Prepared from:</th>
-	<td><%= datepicker_input(:date_range, :from_date, dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true, minDate: "#{@from_date_range}", maxDate: "#{@to_date_range}", size: 15) %></td>
+	<td><%= datepicker_input(:date_range, :from_date, dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true, defaultDate: "#{@from_date}", maxDate: "0", size: 15) %></td>
 	<td>&nbsp;&nbsp;</td>
   	<th>To:</th>
-	<td><%= datepicker_input(:date_range, :to_date, dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true, minDate: "#{@from_date_range}", maxDate: "#{@to_date_range}", size: 15) %></td>
+	<td><%= datepicker_input(:date_range, :to_date, dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true, defaultDate: "0", maxDate: "0", size: 15) %></td>
   </tr>	
 </table>
 </fieldset>
