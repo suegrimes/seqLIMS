@@ -32,7 +32,7 @@
 	  <th>Sample Notes</th>
     </tr>
 
-    <%= @lib_samples.each_with_index do |lib_sample, i| %>
+    <% @lib_samples.each_with_index do |lib_sample, i| %>
       <%= render 'sample_form', seq_lib: @singleplex_libs[i], lib_sample: lib_sample %>
 	<% end %>
   </table>
