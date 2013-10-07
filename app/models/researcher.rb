@@ -21,7 +21,7 @@ class Researcher < ActiveRecord::Base
       researchers = self.active.order(:researcher_name).pluck(:researcher_name)
     else
       #researchers = self.find(:all, :order => "active_inactive, researcher_name").collect(&:researcher_name)
-      researchers = self.order("active_inactive, researcher_name").all.pluck(:researcher_name)
+      researchers = self.order("active_inactive, researcher_name").pluck(:researcher_name)
     end
     if add_existing.nil?
       return researchers

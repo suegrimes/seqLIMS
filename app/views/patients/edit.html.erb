@@ -1,6 +1,6 @@
 <h1>Editing patient</h1>
 
-<% form_for(@patient) do |f| %>
+<%= form_for(@patient) do |f| %>
   <%= render '/shared/errors', model: @patient %>
 
   <%= render :partial => 'patient_form',      :locals => {:f => f, :patient_id => @patient.id} %>

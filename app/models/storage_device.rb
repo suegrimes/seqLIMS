@@ -15,6 +15,7 @@ class StorageDevice < ActiveRecord::Base
   has_many :run_dirs
   
   def self.populate_dropdown
-    storage_devices = self.find(:all, :order => :device_name)
+    storage_devices = self.order(:device_name).all
+    #storage_devices = self.find(:all, :order => :device_name)
   end
 end

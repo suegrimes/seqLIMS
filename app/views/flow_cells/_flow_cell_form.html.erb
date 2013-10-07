@@ -2,7 +2,8 @@
   <legend>Flowcell Parameters</legend>
   <table border="0" class="form">  		  
 	<tr>
-	  <%=f.datepicker 'flowcell_date', dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true, size: 15, label: "Date:" %>
+      <th><%=f.label :flowcell_date, 'Date:' %></th>
+	  <td><%=f.datepicker 'flowcell_date', dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true, size: 15 %></td>
 	  <% if f.object.new_record? %>
 		<th><%=f.label :machine_type, 'Machine Type:' %>
 		<%= f.select(:machine_type, options_for_select(SeqMachine::MACHINE_TYPES, :selected => f.object.machine_type), :include_blank => 'Select..') %></th>

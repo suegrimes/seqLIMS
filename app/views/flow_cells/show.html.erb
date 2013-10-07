@@ -48,7 +48,7 @@
   </div>
 	
   <div id="run_params", style="display:none">
-    <% form_for(@flow_cell, :url => {:action => :upd_for_sequencing}) do |f|%>
+    <%= form_for(@flow_cell, :url => {:action => :upd_for_sequencing}) do |f|%>
 	  <%= f.hidden_field(:id, :value => @flow_cell.id)%>
 	  
       <table class="list">
@@ -58,8 +58,7 @@
       </tr>
       <tr>
       	<% @flow_cell[:sequencing_date] ||= Date.today %>
-        <td><%= f.calendar_date_select(:sequencing_date, :year_range => [1.years.ago, 0.years.from_now],
-                                       :valid_date_check => "date <= (new Date()).stripTime()", :size => 15 )%>
+        <td><%= f.datepicker 'sequencing_date', dateFormat: "yy-mm-dd", maxDate:'0', changeMonth: true, changeYear: true, yearRange: "-1", size: 15 %></td>
         <td><%= select_tag('seq_machine[id]', grouped_options_for_select(@sequencers_by_bldg, 1)) %></td>
       </tr>
       </table>

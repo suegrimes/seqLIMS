@@ -26,9 +26,10 @@ class UserLogin < ActiveRecord::Base
     
     # Upd most recent login, with logout time
     if login_out == 'logout'
-      user_login = UserLogin.find(:first,
-                                  :conditions => ["user_id = ? AND ip_address = ?", user_id, ip_address],
-                                  :order => "login_timestamp DESC")
+      user_login = self.where("user_id = ? AND ip_address = ?", user_id, ip_address).order("login_timestamp DESC").first
+      #user_login = UserLogin.find(:first,
+      #                            :conditions => ["user_id = ? AND ip_address = ?", user_id, ip_address],
+       #                           :order => "login_timestamp DESC")
       if user_login
         user_login.update_attributes(:logout_timestamp => Time.now)
       else

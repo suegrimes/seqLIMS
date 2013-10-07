@@ -63,12 +63,11 @@ class User < ActiveRecord::Base
   # Admin can see all users
   def self.find_all_with_authorization(user=current_user)
     if user.has_role?("admin") && !DEMO_APP
-      condition_array = []
+      users = self.includes(:roles).all
     else
-      condition_array = ["users.login = ?", user.login]
+      users = self.includes(:roles).where("users.login = ?", user.login).all
     end
-    
-    self.find(:all, :include => :roles, :conditions => condition_array)
+    return users
   end
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.

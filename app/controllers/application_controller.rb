@@ -56,7 +56,9 @@ class ApplicationController < ActionController::Base
     if val.nil?
       val_blank = true
     elsif val.is_a? Array
-      val_blank = (val.length == 1 && val[0].blank? ? true : false )
+      #val_blank = (val.size == 1 && val[0].blank? ? true : false )
+      # Hack due to change in Rails 3 which passes hidden value for collection_select/multiple and causes duplicate blank entry in array
+      val_blank = (val.size == 1 && val[0].blank? ) || (val.size == 2 && val[0].blank? && val[1].blank?)
     else
        val_blank = val.blank?
     end
@@ -128,15 +130,15 @@ class ApplicationController < ActionController::Base
   end
   
   def sql_conditions_for_date_range(where_select, where_values, params, db_fld)
-    if !params[:date_range][:from_date].blank? && !params[:date_range][:to_date].blank?
+    if !params[:from_date].blank? && !params[:to_date].blank?
       where_select.push "#{db_fld} BETWEEN ? AND DATE_ADD(?, INTERVAL 1 DAY)"
-      where_values.push(params[:date_range][:from_date], params[:date_range][:to_date]) 
-    elsif !params[:date_range][:from_date].blank? # To Date is null or blank
+      where_values.push(params[:from_date], params[:to_date])
+    elsif !params[:from_date].blank? # To Date is null or blank
       where_select.push("#{db_fld} >= ?")
-      where_values.push(params[:date_range][:from_date])
-    elsif !params[:date_range][:to_date].blank? # From Date is null or blank
+      where_values.push(params[:from_date])
+    elsif !params[:to_date].blank? # From Date is null or blank
       where_select.push("(#{db_fld} IS NULL OR #{db_fld} <= DATE_ADD(?, INTERVAL 1 DAY))")
-      where_values.push(params[:date_range][:to_date])
+      where_values.push(params[:to_date])
     end  
     return where_select, where_values 
   end

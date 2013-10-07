@@ -1,7 +1,7 @@
 <h1>Editing order</h1>
 
-<% form_for(@order) do |f| %>
-  <%= f.error_messages %>
+<%= form_for(@order) do |f| %>
+  <%= render '/shared/errors', model: @order %>
 
   <%= render :partial => 'orders/order_form', :locals => {:f => f} %>
   <%=raw break_clear %>

@@ -2,8 +2,8 @@
 <p class="notes">Note: Changes to lane number are limited to switching lanes - cannot add or delete sequencing libraries/lane
    once flow cell has been created. </p>
 
-<% form_for(@flow_cell) do |f| %>
-  <%= f.error_messages %>
+<%= form_for(@flow_cell) do |f| %>
+  <%= render '/shared/errors', model: @flow_cell %>
   
   <%= render :partial => 'flow_cell_form', :locals => {:f => f}%> 
   <%= hidden_field_tag(:lane_count, @flow_cell.flow_lanes.size)%>

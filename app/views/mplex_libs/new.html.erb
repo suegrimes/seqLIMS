@@ -1,7 +1,8 @@
 <h1>New Multiplex Sequencing Library</h1>
 
-<% form_for @seq_lib, :url => {:controller => 'mplex_libs', :action => :create} do |f| %>
-  <%= f.error_messages %>
+<%= form_for @seq_lib, :url => {:controller => 'mplex_libs', :action => :create} do |f| %>
+  <%= render '/shared/errors', model: @seq_lib %>
+
   <%= render :partial => 'lib_form', :locals => {:f => f} %> 
   <%=raw break_clear %>
 
@@ -13,7 +14,7 @@
   <br/>
 
 <div>&nbsp;</div>
-<%= error_messages_for :lib_samples, :object => @seq_lib.lib_samples %>
+<%= render '/shared/collected_errors', collection: @lib_samples %>
 
 <fieldset class="form">
 <legend>Libraries/Samples</legend>
@@ -31,9 +32,8 @@
 	  <th>Sample Notes</th>
     </tr>
 
-    <% @lib_samples.each_with_index do |lib_sample, i| %>
-      <tr><%= render :partial => 'sample_form', :locals => {:seq_lib => @singleplex_libs[i],
-                                                            :lib_sample => lib_sample } %></tr>
+    <%= @lib_samples.each_with_index do |lib_sample, i| %>
+      <%= render 'sample_form', seq_lib: @singleplex_libs[i], lib_sample: lib_sample %>
 	<% end %>
   </table>
 </fieldset>  

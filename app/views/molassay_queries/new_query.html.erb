@@ -1,7 +1,8 @@
 <h1>Molecular Assays Query</h1>
 
-<% form_for(@molassay_query, :action => 'index') do |f| %>
-<%= f.error_messages(:header_message => "Error(s) in query parameters") %>
+<%= form_for(@molassay_query, :action => 'index') do |f| %>
+<%= render '/shared/errors', model: @molassay_query, header_message: 'Error(s) in query parameters' %>
+<!--%= f.error_messages(:header_message => "Error(s) in query parameters") %-->
 
 <fieldset class="form">
 <legend>Select parameters</legend>
@@ -20,8 +21,8 @@
 
   <tr>
   	<th>Assay Date Range:</th>
-	<td><%= f.calendar_date_select(:from_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%>
-	<strong>&nbsp;To:&nbsp;</strong><%= f.calendar_date_select(:to_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%></td>
+	<td><%= f.datepicker 'from_date', dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true, size: 15 %>%>
+	<strong>&nbsp;To:&nbsp;</strong><%= f.datepicker 'to_date', dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true, yearRange: '-1', size: 15 %></td>
   </tr>
 </table>
 </fieldset>

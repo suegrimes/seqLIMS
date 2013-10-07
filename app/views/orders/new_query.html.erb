@@ -1,7 +1,8 @@
 <h1>Orders Query</h1>
 
-<% form_for(@item_query, :url => {:controller => 'orders', :action=> 'list_selected'}) do |f| %>
-<%= f.error_messages(:header_message => "Error(s) in query parameters") %>
+<%= form_for(@item_query, :url => {:controller => 'orders', :action=> 'list_selected'}) do |f| %>
+<!--%= f.error_messages(:header_message => "Error(s) in query parameters") %-->
+  <%= render '/shared/errors', model: @item_query, header_message: 'Error(s) in query parameters' %>
 
 <fieldset class="form">
 <legend>Select Parameters</legend>

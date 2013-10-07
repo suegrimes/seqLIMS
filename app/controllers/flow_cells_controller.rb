@@ -4,11 +4,14 @@ class FlowCellsController < ApplicationController
   before_filter :dropdowns, :only => [:new, :edit]
   before_filter :setup_dropdowns, :only => :setup_params
   before_filter :seq_dropdowns, :only => :show
+
+  DateRange = Struct.new(:from_date, :to_date)
   
   def setup_params
-   @from_date_range = (Date.today - 3.months).beginning_of_month
-   @to_date_range   =  Date.today
-   @seq_lib   = SeqLib.new(:owner => (current_user.researcher ? current_user.researcher.researcher_name : nil))
+    @from_date = (Date.today - 3.months).beginning_of_month
+    @to_date   =  Date.today
+    @date_range = DateRange.new(@from_date, @to_date)
+    @seq_lib   = SeqLib.new(:owner => (current_user.researcher ? current_user.researcher.researcher_name : nil))
   end
   
   # GET /flow_cells
@@ -283,7 +286,7 @@ protected
     end
       
     date_fld = 'seq_libs.preparation_date'
-    @where_select, @where_values = sql_conditions_for_date_range(@where_select, @where_values, params, date_fld)
+    @where_select, @where_values = sql_conditions_for_date_range(@where_select, @where_values, params[:date_range], date_fld)
     
     # Include control libraries, irrespective of other parameters entered
     if @where_select.length > 0

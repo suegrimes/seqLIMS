@@ -1,7 +1,7 @@
 <h1>Editing category</h1>
 
-<% form_for(@category) do |cform| %>
-  <%= cform.error_messages %>
+<%= form_for(@category) do |cform| %>
+  <%= render '/shared/errors', model: @category %>
   
   <fieldset class="form">
   <legend>Category: <%=h @category.category %></legend>

@@ -1,7 +1,7 @@
 <h1>Editing Multiplex Sequencing Library</h1>
 
-<% form_for @seq_lib, :url => {:controller => 'mplex_libs', :action => :update}  do |f| %>
-  <%= f.error_messages %>
+<%= form_for @seq_lib, :url => {:controller => 'mplex_libs', :action => :update}  do |f| %>
+  <%= render '/shared/errors', model: @seq_lib %>
   <%= render :partial => 'lib_form', :locals => {:f => f} %> 
   <%=raw break_clear %>
 
@@ -21,8 +21,8 @@
 	  <th>Sample Notes</th>
     </tr>
 
-<% f.fields_for :lib_samples do |s| %>
-  <%= s.error_messages %>
+<%= f.fields_for :lib_samples do |s| %>
+  <%= render '/shared/errors', model: s.object %>
   <tr><%= render :partial => 'sample_edit', :locals => {:s => s} %></tr>
   <% end %>
   

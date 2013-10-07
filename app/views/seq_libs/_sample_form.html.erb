@@ -25,7 +25,7 @@
  <% @new_lib.each_with_index do |lib, i| %>
     <% fields_for 'seq_lib_' + i.to_s, lib do |f| %> 
       <% fields_for 'lib_sample_' + i.to_s, @lib_samples[i] do |s| %>
-        <%= s.error_messages %>
+        <%= render '/shared/errors', model: s.object %>
         <%= f.hidden_field(:owner) %>
         <%= f.hidden_field(:preparation_date) %>
         <%= f.hidden_field(:protocol_id) %>

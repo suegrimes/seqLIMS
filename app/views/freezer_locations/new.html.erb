@@ -1,7 +1,7 @@
 <h1>New freezer location</h1>
 
-<% tagged_form_for @freezer_location, :action => 'create' do |f| %>
-  <%= f.error_messages %>
+<%= tagged_form_for @freezer_location, :action => 'create' do |f| %>
+  <%= render '/shared/errors', model: @freezer_location %>
   
   <%= render :partial => 'freezer_loc_form', :locals => {:f => f} %>
   

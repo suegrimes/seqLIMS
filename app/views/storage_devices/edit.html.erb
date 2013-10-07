@@ -1,7 +1,7 @@
 <h1>Edit storage device</h1>
 
-<% tagged_form_for(@storage_device) do |f| %>
-  <%= f.error_messages %>
+<%= tagged_form_for(@storage_device) do |f| %>
+  <%= render '/shared/errors', model: @storage_device %>
 
   <%= render :partial => 'storage_device_form', :locals => {:f => f} %>
   
