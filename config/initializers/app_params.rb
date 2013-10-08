@@ -3,6 +3,7 @@ email_file       = "#{Rails.root}/app/assets/system/emails.txt"
 ezkeys_file      = "#{Rails.root}/app/assets/system/ez_keys.txt"
 version_file     = "#{Rails.root}/app/assets/system/app_versions.txt"
 
+require 'active_record_extension'
 require 'CSV'
 
 if FileTest.file?(environment_file)

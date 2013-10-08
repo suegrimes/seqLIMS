@@ -28,7 +28,8 @@ gem 'validates_timeliness', '~> 3.0'
 
 gem 'carrierwave', '~> 0.9'
 
-gem 'rails3-jquery-autocomplete', git: 'https://github.com/francisd/rails3-jquery-autocomplete'
+#gem 'rails3-jquery-autocomplete', git: 'https://github.com/francisd/rails3-jquery-autocomplete'
+gem 'rails3-jquery-autocomplete', '~> 1.0.11'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
