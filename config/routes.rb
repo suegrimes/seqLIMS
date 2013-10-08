@@ -32,9 +32,10 @@ SeqLIMS::Application.routes.draw do
   end
   resources :items do
     collection do
-      get :auto_complete_for_item_description
-      get :auto_complete_for_company_name
-      get :auto_complete_for_catalog_nr
+      get :autocomplete_item_company_name
+      get :autocomplete_item_description
+      get :autocomplete_item_company_name
+      get :autocomplete_item_catalog_nr
     end  
   end
 
@@ -119,6 +120,7 @@ SeqLIMS::Application.routes.draw do
       get :auto_complete_for_extraction_barcode
       get :list_added
       get :auto_complete_for_barcode_key
+      get :autocomplete_molecular_assay_source_sample_name
     end
     member do
       post :create_assays
