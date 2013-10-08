@@ -74,7 +74,7 @@ class HistologiesController < ApplicationController
   end
 
   def show
-    @histology = Histology.find(params[:id], :include => {:sample => [{:sample_characteristic => :pathology}, :patient]})
+    @histology = Histology.find(params[:id]).includes(:sample => [{:sample_characteristic => :pathology}, :patient])
     render :action => :show
   end
 
@@ -90,7 +90,7 @@ class HistologiesController < ApplicationController
   end
 
   def auto_complete_for_barcode_key
-    @histologies = Histology.find(:all, :conditions => ["he_barcode_key LIKE ?", params[:search] + '%'])
+    @histologies = Histology.where('he_barcode_key LIKE ?', params[:search]+'%').all
     render :inline => "<%= auto_complete_result(@histologies, 'he_barcode_key') %>"
   end
 

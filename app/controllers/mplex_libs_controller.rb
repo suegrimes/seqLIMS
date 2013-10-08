@@ -24,9 +24,8 @@ class MplexLibsController < ApplicationController
     
     # Get sequencing libraries based on parameters entered
     @condition_array = define_lib_conditions(params)
-    @singleplex_libs = SeqLib.find(:all, :include => [:mlib_samples, {:lib_samples => :processed_sample}],
-                                   :conditions => @condition_array,
-                                   :order => 'barcode_key, lib_name')
+    @singleplex_libs = SeqLib.includes(:mlib_samples, {:lib_samples => :processed_sample}).where(*@condition_array)
+                             .order('barcode_key, lib_name').all
     if params[:excl_used] && params[:excl_used] == 'Y'
       @singleplex_libs.reject!{|s_lib| !s_lib.mlib_samples.empty?} #Exclude if already included in a multiplex library
     end
@@ -49,7 +48,7 @@ class MplexLibsController < ApplicationController
   
   # GET /mplex_libs/1/edit
   def edit
-    @seq_lib = SeqLib.find(params[:id], :include => :lib_samples)
+    @seq_lib = SeqLib.find(params[:id]).includes(:lib_samples)
   end
 
   # POST /mplex_libs
@@ -63,8 +62,8 @@ class MplexLibsController < ApplicationController
     slib_params.delete_if{|sparam| sparam[0] == 0}
     slib_ids_checked = slib_params.collect{|sparam| sparam[0]}
     slib_ids_all = params[:lib_id].to_a
-      
-    splex_libs = SeqLib.find(:all, :include => :lib_samples, :conditions => ['seq_libs.id IN (?)', slib_ids_checked])  
+
+    splex_libs = SeqLib.includes(:lib_samples).where('seq_libs.id in (?)', slib_ids_checked).all
     error_found = false
     slib_tags = splex_libs.collect{|slib| slib.lib_samples[0].index_tag } 
     slib_pools = splex_libs.collect{|slib| [slib.pool_id, slib.oligo_pool]}
@@ -102,10 +101,9 @@ class MplexLibsController < ApplicationController
       error_found = true
     end
      
-    if error_found    
-      @singleplex_libs = SeqLib.find(:all, :include => {:lib_samples => :processed_sample},
-                                     :conditions => ['seq_libs.id IN (?)', slib_ids_all],
-                                     :order => 'barcode_key, lib_name')      
+    if error_found
+      @singleplex_libs = SeqLib.includes(:lib_samples => :processed_sample).where('seq_libs.id IN (?)', slib_ids_all)
+                               .order('barcode_key, lib_name')
       @lib_samples = []
       @singleplex_libs.each_with_index do |slib, i|
         @lib_samples[i] = LibSample.new(slib.lib_samples[0].attributes)
