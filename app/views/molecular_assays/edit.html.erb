@@ -12,9 +12,11 @@
     <%= f.datepicker 'preparation_date', dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true, size: 15, :label => 'Prep Date' %>
   </tr>
   <tr>
-  	<%= f.text_field_with_auto_complete(:source_sample_name, {:size => 12, :label => 'Source DNA/RNA'},
+  	<!--%= f.text_field_with_auto_complete(:source_sample_name, {:size => 12, :label => 'Source DNA/RNA'},
               {:url => {:controller => :molecular_assays, :action => :auto_complete_for_extraction_barcode},
-               :param_name => :search, :min_chars => 2, :method => :get}) %> 
+               :param_name => :search, :min_chars => 2, :method => :get}) %-->
+    <th>Source DNA/RNA:</th>
+    <td><%= f.autocomplete_field :source_sample_name, autocomplete_molecular_assay_source_sample_name_molecular_assays_path, size: '12' %></td>
     <%= f.text_field(:volume, :size => 8)%>
     <%= f.text_field(:concentration, :size => 8)%>	
   </tr>
@@ -28,5 +30,5 @@
   </table>
 </fieldset> 
 
-<%=break_clear(f.submit 'Update') %>        
+<%=raw break_clear(f.submit 'Update') %>        
 <% end %>

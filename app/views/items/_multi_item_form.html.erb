@@ -19,25 +19,28 @@
     <!-- f.hidden_field(:grant_nr) -->
 <tr>
   <th style="text-decoration: none;">Item <%= i+1 %></th>     
-  <td><%= f.text_field_with_auto_complete :catalog_nr, {:size => 8},
+  <td><!--%= f.text_field_with_auto_complete :catalog_nr, {:size => 8},
               {:url => {:controller => :items, :action => :auto_complete_for_catalog_nr},
                :param_name => :search, :min_chars => 3, :method => :get,
                
                :after_update_element => "function(element,value){" + 
                  remote_function(:url => { :action => :update_fields, :i => i},
-                                 :with => "'catalog_nr=' + element.value") + "}"} %>
+                                 :with => "'catalog_nr=' + element.value") + "}"} %-->
+    <%= f.autocomplete_field :catalog_nr, autocomplete_item_catalog_nr_items_path, size: '8' %>                               
   </td>   
-  <td><%=f.text_field_with_auto_complete(:company_name, {},
+  <td><!--%=f.text_field_with_auto_complete(:company_name, {},
              {:url => {:controller => :items, :action => :auto_complete_for_company_name},
-              :param_name => :search, :min_chars => 3, :method => :get})%></td>       
+              :param_name => :search, :min_chars => 3, :method => :get})%-->
+      <%= f.autocomplete_field :company_name, autocomplete_item_company_name_items_path %></td>       
   <td><%=f.select(:chemical_flag, %w{Y N}, {:include_blank => true}) %></td>      
-  <td><%= f.text_field_with_auto_complete :item_description, {:size => 45},
+  <td><!--%= f.text_field_with_auto_complete :item_description, {:size => 45},
               {:url => {:controller => :items, :action => :auto_complete_for_item_description},
                :param_name => :search, :min_chars => 3, :method => :get,
                
                :after_update_element => "function(element,value){" + 
                  remote_function(:url => { :action => :update_fields, :i => i},
-                                 :with => "'item_description=' + element.value") + "}"} %>
+                                 :with => "'item_description=' + element.value") + "}"} %-->
+      <%= f.autocomplete_field :item_description, autocomplete_item_item_description_items_path, size: '45' %>
   </td>   
   <td><%=f.text_field(:item_quantity, :size => 8) %></td>     
   <td><%=f.text_field(:item_size, :size => 8) %></td>             

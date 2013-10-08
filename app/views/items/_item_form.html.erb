@@ -19,9 +19,10 @@
 	</tr>
 	<tr>
 	  <th>Company:</th>
-	  <td><%=f.text_field_with_auto_complete(:company_name, {},
+	  <td><!--%=f.text_field_with_auto_complete(:company_name, {},
              {:url => {:controller => :items, :action => :auto_complete_for_company_name},
-              :param_name => :search, :min_chars => 3, :method => :get})%></td>
+              :param_name => :search, :min_chars => 3, :method => :get})%-->
+          <%=f.autocomplete_field :company_name, autocomplete_item_company_name_items_path %></td>
 	  <th>Chemical?</th>
 	  <td><%=f.select(:chemical_flag, %w{Y N}, {:include_blank => true}) %></td>
 	</tr>
