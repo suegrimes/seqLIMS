@@ -13,10 +13,10 @@
   </tr>
   <tr>
 	<th>Entered From:</th>
-	<td><%= f.calendar_date_select(:from_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%></td>
+	<td><%= f.datepicker 'from_date', size: 15, dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true %></td>
 	<td>&nbsp;&nbsp;</td>
   	<th>To:</th>
-	<td><%= f.calendar_date_select(:to_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%></td>
+	<td><%= f.datepicker 'to_date', size: 15, dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true %></td>
   </tr>
 </table>
 </fieldset>

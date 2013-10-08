@@ -22,7 +22,9 @@
     	load_del_date('<%= dir.id %>');         
     </script>	
     
-    <td><%= calendar_date_select_tag("run_dir[#{dir.id}][date_deleted]", '', :id => "run_dir_#{dir.id}_date_deleted", :size => 10) %></td>
+
+    <td><%= datepicker_input("rundir[#{dir.id}]", 'date_deleted', dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true, size: 10, id: "run_dir_#{dir.id}_date_deleted") %></td>
+      <!--%= calendar_date_select_tag("run_dir[#{dir.id}][date_deleted]", '', :id => "run_dir_#{dir.id}_date_deleted", :size => 10) %--></td>
     <td><%= dir.date_deleted %></td>    
   	<td><%= link_to dir.flow_cell.sequencing_key, dir.flow_cell %></td>
 	<td><%= dir.date_sized %></td>

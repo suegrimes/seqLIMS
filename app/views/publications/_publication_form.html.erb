@@ -4,8 +4,8 @@
   <tr><%= f.text_field :title_abbrev %></tr>
   <tr><%= f.text_field :title_full, :size => 80 %></tr>
   <tr><%= f.text_field :publication_name, :size => 80 %></tr>
-  <tr><%= f.calendar_date_select(:date_published, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)  %></tr>
-  <tr><%=f.text_field :comments, :size => 80 %></tr>
+  <tr><%= f.datepicker 'date_published', dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true, size: 15 %></tr>
+  <tr><%= f.text_field :comments, :size => 80 %></tr>
 </table>
 </fieldset>
 <%=raw break_clear %>

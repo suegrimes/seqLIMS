@@ -113,6 +113,7 @@ SeqLIMS::Application.routes.draw do
   match 'edit_psamples' => 'processed_samples#edit_by_barcode', :as => :edit_psamples
   match 'samples_processed' => 'processed_samples#show_by_sample', :as => :samples_processed
   match 'processed_query' => 'psample_queries#new_query', :as => :processed_query
+  match 'export_psamples' => 'psample_queries#export_samples', :as => :export_psamples
   
   # Routes for molecular assays
   resources :molecular_assays do
@@ -161,11 +162,12 @@ SeqLIMS::Application.routes.draw do
       get :auto_complete_for_sequencing_key
     end
     member do
+      get :show_publications
       put :upd_for_sequencing
     end 
   end
 
-  match 'view_pubs' => 'flow_cells#show_publications', :as => :view_pubs
+  #match 'view_pubs' => 'flow_cells#show_publications', :as => :view_pubs
   resources :analysis_qc
   resources :index_tags
   resources :alignment_refs

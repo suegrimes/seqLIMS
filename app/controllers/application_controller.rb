@@ -28,7 +28,8 @@ class ApplicationController < ActionController::Base
   # Uncomment this to filter the contents of submitted sensitive data parameters
   # from your application log (in this case, all fields with names like "password"). 
   #filter_parameter_logging :password, :mrn
-  
+  DateRange = Struct.new(:from_date, :to_date)
+
   def category_filter(categories, cat_name, output='collection')
     category_selected = categories.select{|cm| cm.category == cat_name}
     if output == 'string'

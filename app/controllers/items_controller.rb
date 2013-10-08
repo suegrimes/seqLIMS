@@ -221,9 +221,7 @@ protected
         @where_values.push(sql_value(val))
       end
     end
-    
-    
-    
+
     date_fld = 'items.created_at'
     @where_select, @where_values = sql_conditions_for_date_range(@where_select, @where_values, params[:item_query], date_fld)
     

@@ -1,6 +1,6 @@
 <h1>Molecular Assays Query</h1>
 
-<%= form_for(@molassay_query, :action => 'index') do |f| %>
+<%= form_for @molassay_query, :action => 'index', :method => :get do |f| %>
 <%= render '/shared/errors', model: @molassay_query, header_message: 'Error(s) in query parameters' %>
 <!--%= f.error_messages(:header_message => "Error(s) in query parameters") %-->
 
