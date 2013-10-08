@@ -2,6 +2,11 @@ class ItemsController < ApplicationController
   before_filter :dropdowns, :only => [:new_query, :new, :edit]
   protect_from_forgery :except => :populate_items
   
+  autocomplete :item, :company_name
+  autocomplete :item, :catalog_nr
+  autocomplete :item, :company_name
+  autocomplete :item, :item_description
+  
   def new_query
     @item_query = ItemQuery.new(:from_date => (Date.today - 1.month).beginning_of_month,
                                 :to_date   =>  Date.today)
