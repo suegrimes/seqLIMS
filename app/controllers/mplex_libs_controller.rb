@@ -48,7 +48,7 @@ class MplexLibsController < ApplicationController
   
   # GET /mplex_libs/1/edit
   def edit
-    @seq_lib = SeqLib.find(params[:id]).includes(:lib_samples)
+    @seq_lib = SeqLib.includes(:lib_samples).find(params[:id])
   end
 
   # POST /mplex_libs

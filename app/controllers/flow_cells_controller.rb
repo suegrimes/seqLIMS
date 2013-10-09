@@ -28,11 +28,11 @@ class FlowCellsController < ApplicationController
   
   # GET /flow_cells/1
   def show
-    @flow_cell = FlowCell.find(params[:id]).includes(:flow_lanes => :seq_lib).order('flow_lanes.lane_nr')
+    @flow_cell = FlowCell.includes(:flow_lanes => :seq_lib).order('flow_lanes.lane_nr').find(params[:id])
   end
  
   def show_qc
-    @flow_cell = FlowCell.find(params[:id]).includes(:flow_lanes).order('flow_lanes.lane_nr')
+    @flow_cell = FlowCell.includes(:flow_lanes).order('flow_lanes.lane_nr').find(params[:id])
   end
   
   def show_publications
@@ -66,7 +66,7 @@ class FlowCellsController < ApplicationController
   
   # GET /flow_cells/1/edit
   def edit
-    @flow_cell = FlowCell.find(params[:id]).includes(:flow_lanes => :seq_lib).order('flow_lanes.lane_nr')
+    @flow_cell = FlowCell.includes(:flow_lanes => :seq_lib).order('flow_lanes.lane_nr').find(params[:id])
     @partial_flowcell = (@flow_cell.flow_lanes.size < FlowCell::NR_LANES[@flow_cell.machine_type.to_sym] ? 'Y' : 'N')
   end
 
@@ -202,7 +202,7 @@ protected
     
     params[:flow_lane].each do |lane|
       @flow_lanes.push(FlowLane.new(lane))
-      @seq_libs.push(SeqLib.find_by_id(lane[:seq_lib_id]))
+      @seq_libs.push(SeqLib.find(lane[:seq_lib_id]))
     end
   end
   

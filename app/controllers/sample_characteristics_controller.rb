@@ -120,7 +120,7 @@ class SampleCharacteristicsController < ApplicationController
   
   # GET /sample_characteristics/1/edit
   def edit
-    @sample_characteristic = SampleCharacteristic.find(params[:id]).includes(:samples).where('samples.source_sample_id IS NULL')
+    @sample_characteristic = SampleCharacteristic.includes(:samples).where('samples.source_sample_id IS NULL').find(params[:id])
     if @sample_characteristic && @sample_characteristic.samples
       @sample_params = build_params_from_obj(@sample_characteristic.samples[-1], Sample::FLDS_FOR_COPY)
     end
@@ -159,7 +159,7 @@ class SampleCharacteristicsController < ApplicationController
   def show
     params[:added_sample_id] ||= 0
     @addnew_link = 'no'
-    @sample_characteristic = SampleCharacteristic.find(params[:id]).includes(:consent_protocol, :samples)
+    @sample_characteristic = SampleCharacteristic.includes(:consent_protocol, :samples).find(params[:id])
     if params[:added_sample_id].to_i > 0
       @added_sample_id = params[:added_sample_id]
       @sample_params = build_params_from_obj(Sample.find(@added_sample_id), Sample::FLDS_FOR_COPY)
