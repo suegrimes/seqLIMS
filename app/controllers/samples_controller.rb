@@ -8,13 +8,13 @@ class SamplesController < ApplicationController
   #########################################################################################
   def show
     @sample_is_new = (params[:new_sample] ||= false)
-    @sample = Sample.find(params[:id]).includes({:sample_characteristic => :pathology}, :patient, :histology, :sample_storage_container)
+    @sample = Sample.includes({:sample_characteristic => :pathology}, :patient, :histology, :sample_storage_container).find(params[:id])
   end
   
   # GET /samples/1/edit
   def edit
     @sample_is_new = (params[:new_sample] ||= false)
-    @sample = Sample.find(params[:id]).includes(:sample_characteristic, :patient)
+    @sample = Sample.includes(:sample_characteristic, :patient).find(params[:id])
     @sample.build_sample_storage_container if @sample.sample_storage_container.nil?
   end
   

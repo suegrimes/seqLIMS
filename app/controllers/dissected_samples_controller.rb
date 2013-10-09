@@ -10,9 +10,9 @@ class DissectedSamplesController < ApplicationController
     authorize! :create, Sample
     
     if params[:source_sample_id]
-      @source_sample = Sample.find(params[:source_sample_id]).includes(:histology)
+      @source_sample = Sample.includes(:histology).find(params[:source_sample_id])
     else
-      @source_sample = Sample.find_by_barcode_key(params[:barcode_key]).includes(:histology)
+      @source_sample = Sample.includes(:histology).where('barcode_key = ?',params[:barcode_key]).first
     end 
     
     if !@source_sample.nil?
@@ -31,7 +31,7 @@ class DissectedSamplesController < ApplicationController
   
   def edit
     @sample = Sample.find(params[:id])
-    @source_sample = Sample.find(@sample.source_sample_id).includes(:sample_characteristic)
+    @source_sample = Sample.includes(:sample_characteristic).find(@sample.source_sample_id)
   end
   
   def update
@@ -69,8 +69,8 @@ class DissectedSamplesController < ApplicationController
 protected
   def prepare_for_render_new(source_sample_id)
     # Find source sample, and sample characteristic associated with new (dissected) sample
-    @source_sample    = Sample.find_by_id(source_sample_id)
-    @sample_characteristic = SampleCharacteristic.find_by_id(@source_sample.sample_characteristic_id)
+    @source_sample    = Sample.find(source_sample_id)
+    @sample_characteristic = SampleCharacteristic.find(@source_sample.sample_characteristic_id)
     
     # Determine next increment number for barcode suffix
     @sample_barcode = Sample.next_dissection_barcode(source_sample_id, @source_sample.barcode_key)

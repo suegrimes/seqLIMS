@@ -68,7 +68,7 @@ class PathologiesController < ApplicationController
   end
 
   def edit
-    @pathology = Pathology.find(params[:id]).includes(:sample_characteristics => :samples).where('samples.source_sample_id IS NULL')
+    @pathology = Pathology.includes(:sample_characteristics => :samples).where('samples.source_sample_id IS NULL').find(params[:id])
   end
 
   def update
@@ -83,14 +83,14 @@ class PathologiesController < ApplicationController
   end
 
   def show
-    @pathology = Pathology.find(params[:id]).includes(:sample_characteristics => :samples).where('samples.source_sample_id IS NULL')
+    @pathology = Pathology.includes(:sample_characteristics => :samples).where('samples.source_sample_id IS NULL').find(params[:id])
   end
 
   def index
     if params[:patient_id]
       @patient_id             = params[:patient_id]
-      @pathologies            = Pathology.find_all_by_patient_id(params[:patient_id]).includes(:sample_characteristics => :samples).where('samples.source_sample_id IS NULL')
-      @sample_characteristics = SampleCharacteristic.find_all_by_patient_id(params[:patient_id]).includes(:samples).where('samples.source_sample_id IS NULL AND pathology_id IS NULL')
+      @pathologies            = Pathology.includes(:sample_characteristics => :samples).where('samples.source_sample_id IS NULL').find_all_by_patient_id(params[:patient_id])
+      @sample_characteristics = SampleCharacteristic.includes(:samples).where('samples.source_sample_id IS NULL AND pathology_id IS NULL').find_all_by_patient_id(params[:patient_id])
     else
       @pathologies = Pathology.includes(:sample_characteristics => :samples).where('samples.source_sample_id IS NULL')
     end

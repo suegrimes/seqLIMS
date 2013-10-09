@@ -14,7 +14,7 @@ class HistologiesController < ApplicationController
       render :action => 'new_params'
       
     else
-      @sample = Sample.find_by_barcode_key(params[:barcode_key], :include => {:sample_characteristic => :pathology} )
+      @sample = Sample.includes(:sample_characteristic => :pathology).where('barcode_key = ?', params[:barcode_key]).first
       if @sample && @sample.histology.nil?
         # Determine next increment number for barcode suffix (only use this if allowing >1 H&E slide per sample)
         #he_barcode = Histology.next_he_barcode(@sample.id, @sample.barcode_key)
@@ -74,7 +74,7 @@ class HistologiesController < ApplicationController
   end
 
   def show
-    @histology = Histology.find(params[:id]).includes(:sample => [{:sample_characteristic => :pathology}, :patient])
+    @histology = Histology.includes(:sample => [{:sample_characteristic => :pathology}, :patient]).find(params[:id])
     render :action => :show
   end
 
@@ -105,7 +105,7 @@ protected
   
   def prepare_for_render_new(sample_id)
     dropdowns
-    @sample = Sample.find_by_id(sample_id, :include => {:sample_characteristic => :pathology} )
+    @sample = Sample.includes(:sample_characteristic => :pathology).find(sample_id)
   end
-  
+
 end
