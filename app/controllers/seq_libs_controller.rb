@@ -21,7 +21,7 @@ class SeqLibsController < ApplicationController
   
   # GET /seq_libs/1
   def show
-    @seq_lib = SeqLib.find(params[:id]).includes({:lib_samples => :splex_lib}, :attached_files)
+    @seq_lib = SeqLib.includes({:lib_samples => :splex_lib}, :attached_files).find(params[:id])
     @protocol = Protocol.find(@seq_lib.protocol_id) if @seq_lib.protocol_id
     authorize! :read, @seq_lib
   end
@@ -36,7 +36,7 @@ class SeqLibsController < ApplicationController
 
   # GET /seq_libs/1/edit
   def edit
-    @seq_lib = SeqLib.find(params[:id]).includes(:lib_samples)
+    @seq_lib = SeqLib.includes(:lib_samples).find(params[:id])
     authorize! :edit, @seq_lib
     # ToDo:  Add existing owner to drop-down list if he/she is inactive
     

@@ -42,7 +42,7 @@ class RunDirsController < ApplicationController
       
     else
       flash.now[:error] = "Error saving run directory entry"
-      @flow_cell = FlowCell.find(@run_dir.flow_cell_id).includes(:run_dirs)
+      @flow_cell = FlowCell.includes(:run_dirs).find(@run_dir.flow_cell_id)
       dropdowns
       render :action => :new
     end  
@@ -83,7 +83,7 @@ class RunDirsController < ApplicationController
     if params[:storage_devices]
       #@run_dirs = RunDir.includes(:flow_cell).where('run_dirs.delete_flag IS NULL AND run_dirs.storage_device_id = ?', params[:storage_devices][:id]).all
       @run_dirs = RunDir.includes(:flow_cell).where('run_dirs.storage_device_id = ?', params[:storage_devices][:id]).order('flow_cells.sequencing_key DESC').all
-      @dev_name = StorageDevice.find_by_id(params[:storage_devices][:id]).device_name
+      @dev_name = StorageDevice.find(params[:storage_devices][:id]).device_name
       unless !@run_dirs.blank? 
         flash.now[:error] = "Error - Run directories not available for #{ @dev_name }"
       end

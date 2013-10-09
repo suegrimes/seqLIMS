@@ -32,12 +32,12 @@ class OrdersController < ApplicationController
 
   # GET /orders/1
   def show
-    @order = Order.find(params[:id]).includes(:items)
+    @order = Order.includes(:items).find(params[:id])
   end
 
   # GET /orders/1/edit
   def edit
-    @order = Order.find(params[:id]).includes(:items)
+    @order = Order.includes(:items).find(params[:id])
   end
   
   def edit_order_items

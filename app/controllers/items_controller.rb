@@ -191,7 +191,7 @@ protected
   end
 
   def dropdowns
-    items_all  = Item.find(:all)
+    items_all  = Item.all
     @companies = list_companies_from_items(items_all)
     @requestors = items_all.collect(&:requester_name).sort.uniq
     @researchers = Researcher.populate_dropdown

@@ -16,8 +16,9 @@ class ProcessedSamplesController < ApplicationController
   
   # GET /processed_samples/1
   def show
-    @processed_sample = ProcessedSample.find(params[:id]).includes({:sample => {:sample_characteristic => :pathology}},
-                                                    {:lib_samples => :seq_lib}, :molecular_assays, :sample_storage_container)
+    @processed_sample = ProcessedSample.includes({:sample => {:sample_characteristic => :pathology}},
+                                     {:lib_samples => :seq_lib}, :molecular_assays, :sample_storage_container)
+                                    .find(params[:id])
   end
   
   def new_params
@@ -28,9 +29,9 @@ class ProcessedSamplesController < ApplicationController
   def new
     # Find sample from which processed sample will be extracted
     if params[:source_id]
-      @sample = Sample.find(params[:source_id]).includes(:sample_characteristic)
+      @sample = Sample.includes(:sample_characteristic).find(params[:source_id])
     else
-      @sample = Sample.find_by_barcode_key(params[:barcode_key]).includes(:sample_characteristic)
+      @sample = Sample.includes(:sample_characteristic).where('barcode_key = ?', params[:barcode_key]).first
     end
     
     if @sample.nil?

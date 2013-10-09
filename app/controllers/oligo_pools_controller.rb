@@ -6,7 +6,7 @@ class OligoPoolsController < ApplicationController
   end
   
   def show
-    @oligo_pool = Pool.find(params[:id]).includes(:primers).order('primers.gene_code, primers.primer_name')
+    @oligo_pool = Pool.includes(:primers).order('primers.gene_code, primers.primer_name').find(params[:id])
   end
 
 end

@@ -3,7 +3,7 @@ class PublicationsController < ApplicationController
   #load_and_authorize_resource
   
   def show
-    @publication = Publication.find(params[:id]).includes(:flow_lanes).order('flow_lanes.sequencing_key, flow_lanes.lane_nr')
+    @publication = Publication.includes(:flow_lanes).order('flow_lanes.sequencing_key, flow_lanes.lane_nr').find(params[:id])
   end
 
   # render index.rhtml

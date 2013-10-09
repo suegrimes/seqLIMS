@@ -10,7 +10,7 @@ class PatientsController < ApplicationController
 
   # GET /patients/1
   def show
-    @patient = Patient.find(params[:id]).includes(:sample_characteristics => :samples)
+    @patient = Patient.includes(:sample_characteristics => :samples).find(params[:id])
   end
 
   def edit_params

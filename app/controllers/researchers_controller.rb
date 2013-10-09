@@ -17,7 +17,7 @@ class ResearchersController < ApplicationController
   # GET /researchers/1
   # GET /researchers/1.xml
   def show
-    @researcher = Researcher.find(params[:id]).includes(:user)
+    @researcher = Researcher.includes(:user).find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -38,7 +38,7 @@ class ResearchersController < ApplicationController
 
   # GET /researchers/1/edit
   def edit
-    @researcher = Researcher.find(params[:id]).includes(:user)
+    @researcher = Researcher.includes(:user).find(params[:id])
   end
 
   # POST /researchers

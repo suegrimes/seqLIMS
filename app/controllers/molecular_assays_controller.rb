@@ -24,7 +24,7 @@ class MolecularAssaysController < ApplicationController
   
   # GET /molecular_assays/1
   def show
-    @molecular_assay = MolecularAssay.find(params[:id]).includes(:processed_sample, :protocol)
+    @molecular_assay = MolecularAssay.includes(:processed_sample, :protocol).find(params[:id])
     authorize! :read, @molecular_assay
   end
   
@@ -36,7 +36,7 @@ class MolecularAssaysController < ApplicationController
 
   # GET /molecular_assays/1/edit
   def edit
-    @molecular_assay = MolecularAssay.find(params[:id]).includes(:processed_sample)
+    @molecular_assay = MolecularAssay.includes(:processed_sample).find(params[:id])
     authorize! :edit, @molecular_assay
     
     # Add existing owner to owner/researcher drop-down list (for case where current owner is inactive)

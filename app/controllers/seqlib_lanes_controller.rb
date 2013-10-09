@@ -2,10 +2,9 @@ class SeqlibLanesController < ApplicationController
   
   def show
     authorize! :read, SeqLib
-    @seq_lib = SeqLib.find_by_id(params[:id], :include => {:flow_lanes => [:flow_cell, :align_qc]},
-                                 :conditions => "flow_cells.flowcell_status <> 'F'")
+    @seq_lib = SeqLib.includes(:flow_lanes => [:flow_cell, :align_qc]).where("flow_cells.flowcell_status <> 'F'").find(params[:id])
     @lib_lanes_by_seq_type = @seq_lib.flow_lanes.group_by {|flow_lane| flow_lane.machine_type}
-    #render :action => 'debug
+    #render :action => 'debug'
   end
   
   def export_libqc
