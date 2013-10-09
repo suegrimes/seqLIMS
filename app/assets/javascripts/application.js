@@ -15,7 +15,6 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require superfish
-//= require rails
 
 function add_fields(link, association, content) {  
 var new_id = new Date().getTime();  
