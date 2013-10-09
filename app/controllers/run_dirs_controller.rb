@@ -2,8 +2,7 @@ class RunDirsController < ApplicationController
   before_filter :dropdowns, :only => [:new, :edit]
  
   def index
-    run_dirs  = RunDir.find(:all, :include => {:flow_cell => {:flow_lanes => :publications}},
-                            :order => "flow_cells.sequencing_key, run_dirs.delete_flag, run_dirs.device_name")
+    run_dirs  = RunDir.includes({:flow_cell => {:flow_lanes => :publications}}).order('flow_cells.sequencing_key, run_dirs.delete_flag, run_dirs.device_name')
     @run_dirs = run_dirs.group_by {|run_dir| run_dir.flow_cell.sequencing_key}
     render :action => :index
   end
@@ -43,7 +42,7 @@ class RunDirsController < ApplicationController
       
     else
       flash.now[:error] = "Error saving run directory entry"
-      @flow_cell = FlowCell.find(@run_dir.flow_cell_id, :include => :run_dirs)
+      @flow_cell = FlowCell.find(@run_dir.flow_cell_id).includes(:run_dirs)
       dropdowns
       render :action => :new
     end  
@@ -82,9 +81,8 @@ class RunDirsController < ApplicationController
     @storage_devices = StorageDevice.populate_dropdown
       
     if params[:storage_devices]
-      #@run_dirs = RunDir.find(:all, :include => :flow_cell, :conditions => ["run_dirs.delete_flag IS NULL AND run_dirs.storage_device_id = ?", params[:storage_devices][:id]]) 
-      @run_dirs = RunDir.find(:all, :include => :flow_cell, :conditions => ["run_dirs.storage_device_id = ?", params[:storage_devices][:id]],
-                              :order => "flow_cells.sequencing_key DESC") 
+      #@run_dirs = RunDir.includes(:flow_cell).where('run_dirs.delete_flag IS NULL AND run_dirs.storage_device_id = ?', params[:storage_devices][:id]).all
+      @run_dirs = RunDir.includes(:flow_cell).where('run_dirs.storage_device_id = ?', params[:storage_devices][:id]).order('flow_cells.sequencing_key DESC').all
       @dev_name = StorageDevice.find_by_id(params[:storage_devices][:id]).device_name
       unless !@run_dirs.blank? 
         flash.now[:error] = "Error - Run directories not available for #{ @dev_name }"
@@ -107,9 +105,9 @@ class RunDirsController < ApplicationController
         redirect_to(:action => :del_run_dir)
       end
     end
-    
-    run_dirs  = RunDir.find(:all, :include => :flow_cell, :conditions => ["run_dirs.device_name = ?", params[:device_name]], 
-      :order => "flow_cells.sequencing_key, run_dirs.delete_flag, run_dirs.device_name")
+
+    run_dirs = RunDir.includes(:flow_cell).where('run_dirs.device_name = ?', params[:device_name])
+                     .order('flow_cells.sequencing_key, run_dirs.delete_flag, run_dirs.device_name').all
     @run_dirs = run_dirs.group_by {|run_dir| run_dir.flow_cell.sequencing_key}
     @device_name = params[:device_name] 
     render :action => :show_updated_dirs

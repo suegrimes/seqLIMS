@@ -10,9 +10,9 @@ class DissectedSamplesController < ApplicationController
     authorize! :create, Sample
     
     if params[:source_sample_id]
-      @source_sample = Sample.find(params[:source_sample_id], :include => :histology)
+      @source_sample = Sample.find(params[:source_sample_id]).includes(:histology)
     else
-      @source_sample = Sample.find_by_barcode_key(params[:barcode_key], :include => :histology)
+      @source_sample = Sample.find_by_barcode_key(params[:barcode_key]).includes(:histology)
     end 
     
     if !@source_sample.nil?
@@ -31,7 +31,7 @@ class DissectedSamplesController < ApplicationController
   
   def edit
     @sample = Sample.find(params[:id])
-    @source_sample = Sample.find(@sample.source_sample_id, :include => :sample_characteristic)
+    @source_sample = Sample.find(@sample.source_sample_id).includes(:sample_characteristic)
   end
   
   def update

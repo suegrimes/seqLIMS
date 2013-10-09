@@ -16,9 +16,8 @@ class ProcessedSamplesController < ApplicationController
   
   # GET /processed_samples/1
   def show
-    @processed_sample = ProcessedSample.find(params[:id], 
-                                       :include => [{:sample => {:sample_characteristic => :pathology}},
-                                                    {:lib_samples => :seq_lib}, :molecular_assays, :sample_storage_container])
+    @processed_sample = ProcessedSample.find(params[:id]).includes({:sample => {:sample_characteristic => :pathology}},
+                                                    {:lib_samples => :seq_lib}, :molecular_assays, :sample_storage_container)
   end
   
   def new_params
@@ -29,9 +28,9 @@ class ProcessedSamplesController < ApplicationController
   def new
     # Find sample from which processed sample will be extracted
     if params[:source_id]
-      @sample = Sample.find(params[:source_id], :include => :sample_characteristic)
+      @sample = Sample.find(params[:source_id]).includes(:sample_characteristic)
     else
-      @sample = Sample.find_by_barcode_key(params[:barcode_key], :include => :sample_characteristic)
+      @sample = Sample.find_by_barcode_key(params[:barcode_key]).includes(:sample_characteristic)
     end
     
     if @sample.nil?
@@ -39,8 +38,8 @@ class ProcessedSamplesController < ApplicationController
       render :action => 'new_params'
     
     #  proceed to new extraction screen if dissected sample barcode entered, or clinical sample has no dissections
-    elsif @sample.clinical_sample == 'no' || Sample.find(:first, :conditions => ["samples.source_sample_id = ?", @sample.id]).nil?
-    
+    elsif @sample.clinical_sample == 'no' || Sample.where('samples.source_sample_id = ?', @sample.id).first.nil?
+
       # Populate date and default volume for new processed sample
       @processed_sample = ProcessedSample.new(:processing_date => Date.today,
                                               :protocol_id => 12,
@@ -51,8 +50,7 @@ class ProcessedSamplesController < ApplicationController
       render :action => 'new'
       
     else  # clinical sample with one or more dissections, so show list to select from
-      @samples = Sample.find(:all, :conditions => ["samples.id = ? OR samples.source_sample_id = ?", @sample.id, @sample.id],
-                                   :order => "samples.barcode_key")
+      @samples = Sample.where('samples.id = ? OR samples.source_sample_id = ?', @sample.id, @sample.id).order('samples.barcode_key').all
       render :action => 'new_list'
     end
   end
@@ -141,7 +139,7 @@ protected
     @vial_vol           = category_filter(@category_dropdowns, 'vial volume')
     @protocols          = Protocol.find_for_protocol_type('E')  #Extraction protocols
     @containers         = category_filter(@category_dropdowns, 'container')
-    @freezer_locations  = FreezerLocation.find(:all)
+    @freezer_locations  = FreezerLocation.all
   end
 
  end

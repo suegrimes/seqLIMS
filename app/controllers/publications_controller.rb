@@ -3,12 +3,12 @@ class PublicationsController < ApplicationController
   #load_and_authorize_resource
   
   def show
-    @publication = Publication.find(params[:id], :include => :flow_lanes, :order => "flow_lanes.sequencing_key, flow_lanes.lane_nr")
+    @publication = Publication.find(params[:id]).includes(:flow_lanes).order('flow_lanes.sequencing_key, flow_lanes.lane_nr')
   end
 
   # render index.rhtml
   def index
-    @publications = Publication.find(:all, :order => "publications.date_published DESC")
+    @publications = Publication.order('publications.date_published DESC').all
   end
 
   # render new.rhtml
@@ -26,7 +26,7 @@ class PublicationsController < ApplicationController
       redirect_to @publication
     else
       flash.now[:notice] = "Error saving this publication - please try again"
-      @researchers = Researcher.find(:all)
+      @researchers = Researcher.all
       @checked_lane_ids = params[:publication][:flow_lane_ids].collect{|str| str.to_i} if params[:publication][:flow_lane_ids]
       flow_lanes = FlowLane.find_all_by_id(@checked_lane_ids) if @checked_lane_ids
       @flow_cells = FlowCell.find_all_by_id(flow_lanes.map(&:flow_cell_id).uniq) if flow_lanes
@@ -56,7 +56,7 @@ class PublicationsController < ApplicationController
       redirect_to @publication
     else
       flash.now[:error] = "Error updating publication"
-      @researchers = Researcher.find(:all)
+      @researchers = Researcher.all
       render :action => 'edit'
     end    
   end
@@ -83,6 +83,6 @@ class PublicationsController < ApplicationController
   end
   
   def dropdowns
-    @researchers = Researcher.find(:all, :order => "researchers.active_inactive, researchers.researcher_name")
+    @researchers = Researcher.order('researchers.active_inactive, researchers.researcher_name').all
   end
 end

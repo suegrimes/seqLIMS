@@ -28,19 +28,17 @@ class FlowCellsController < ApplicationController
   
   # GET /flow_cells/1
   def show
-    @flow_cell = FlowCell.find(params[:id], :include => {:flow_lanes => :seq_lib},
-                               :order => 'flow_lanes.lane_nr')
+    @flow_cell = FlowCell.find(params[:id]).includes(:flow_lanes => :seq_lib).order('flow_lanes.lane_nr')
   end
  
   def show_qc
-    @flow_cell = FlowCell.find(params[:id], :include => :flow_lanes,
-                               :order => 'flow_lanes.lane_nr')
+    @flow_cell = FlowCell.find(params[:id]).includes(:flow_lanes).order('flow_lanes.lane_nr')
   end
   
   def show_publications
     @flow_cell    = FlowCell.find(params[:id])
-    @publications = Publication.find(:all, :include => :flow_lanes, :order => 'publications.date_published DESC, flow_lanes.lane_nr',
-                                     :conditions => ["flow_lanes.flow_cell_id = ?", params[:id]])
+    @publications = Publication.includes(:flow_lanes).where('flow_lanes.flow_cell_id = ?', params[:id])
+                               .order('publications.date_published DESC, flow_lanes.lane_nr').all
   end
   
   def new
@@ -48,8 +46,7 @@ class FlowCellsController < ApplicationController
     
     # Get sequencing libraries based on parameters entered
     @condition_array = define_lib_conditions(params)
-    @seq_libs        = SeqLib.find(:all, :include => :mlib_samples, :conditions => @condition_array,
-                                   :order => 'lib_status, lib_name')
+    @seq_libs        = SeqLib.includes(:mlib_samples).where(*@condition_array).order('lib_status, lib_name')
                                    
     # Exclude sequencing libraries which have been included in one or more multiplex libraries
     if params[:excl_used] && params[:excl_used] == 'Y'  
@@ -69,8 +66,7 @@ class FlowCellsController < ApplicationController
   
   # GET /flow_cells/1/edit
   def edit
-    @flow_cell = FlowCell.find(params[:id], :include => {:flow_lanes => :seq_lib}, 
-                               :order => 'flow_lanes.lane_nr')
+    @flow_cell = FlowCell.find(params[:id]).includes(:flow_lanes => :seq_lib).order('flow_lanes.lane_nr')
     @partial_flowcell = (@flow_cell.flow_lanes.size < FlowCell::NR_LANES[@flow_cell.machine_type.to_sym] ? 'Y' : 'N')
   end
 
@@ -175,7 +171,7 @@ class FlowCellsController < ApplicationController
   end
   
   def auto_complete_for_sequencing_key
-    @flow_cells = FlowCell.sequenced.find(:all, :conditions => ["sequencing_key LIKE ?", params[:search] + '%'])
+    @flow_cells = FlowCell.sequenced.where('sequencing_key LIKE ?', params[:search] + '%').all
     render :inline => "<%= auto_complete_result(@flow_cells, 'sequencing_key') %>"
   end
   

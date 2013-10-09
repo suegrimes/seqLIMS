@@ -11,8 +11,7 @@ class OrdersController < ApplicationController
     
     if @item_query.valid?
       condition_array = define_conditions(params)
-      @orders = Order.find(:all, :include => :items, :order => "date_ordered DESC",
-                           :conditions => condition_array)
+      @orders = Order.includes(:items).where(*condition_array).order('date_ordered DESC')
       render :action => :index
       
     else
@@ -23,7 +22,7 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.xml
   def index
-    @orders = Order.find(:all, :include => :items, :order => "date_ordered DESC")
+    @orders = Order.includes(:items).order('date_ordered DESC').all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -33,16 +32,16 @@ class OrdersController < ApplicationController
 
   # GET /orders/1
   def show
-    @order = Order.find(params[:id], :include => :items)
+    @order = Order.find(params[:id]).includes(:items)
   end
 
   # GET /orders/1/edit
   def edit
-    @order = Order.find(params[:id], :include => :items)
+    @order = Order.find(params[:id]).includes(:items)
   end
   
   def edit_order_items
-    @order = Order.find(params[:id], :include => :items)
+    @order = Order.find(params[:id]).includes(:items)
   end
 
   # POST /orders

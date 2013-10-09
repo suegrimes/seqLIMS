@@ -5,14 +5,12 @@ class PatientsController < ApplicationController
   
   # GET /patients
   def index
-    @patients = Patient.find(:all, 
-                             :include => :samples,
-                             :select => "id, gender, race, ethnicity, clinical_id_encrypted")
+    @patients = Patient.select('id, gender, race, ethnicity, clinical_id_encrypted').includes(:samples).all
   end
 
   # GET /patients/1
   def show
-    @patient = Patient.find(params[:id], :include => {:sample_characteristics => :samples} )
+    @patient = Patient.find(params[:id]).includes(:sample_characteristics => :samples)
   end
 
   def edit_params
@@ -82,7 +80,7 @@ protected
   end
   
   def check_for_existing_mrn(mrn)
-    patients   = Patient.find(:all).map {|patient| [patient.mrn, patient.id]}
+    patients   = Patient.all.map {|patient| [patient.mrn, patient.id]}
     patient_id = patients.assoc(mrn)
     return patient_id[1]
   end

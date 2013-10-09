@@ -8,13 +8,13 @@ class SamplesController < ApplicationController
   #########################################################################################
   def show
     @sample_is_new = (params[:new_sample] ||= false)
-    @sample = Sample.find(params[:id], :include => [{:sample_characteristic => :pathology}, :patient, :histology, :sample_storage_container] )
+    @sample = Sample.find(params[:id]).includes({:sample_characteristic => :pathology}, :patient, :histology, :sample_storage_container)
   end
   
   # GET /samples/1/edit
   def edit
     @sample_is_new = (params[:new_sample] ||= false)
-    @sample = Sample.find(params[:id], :include => [:sample_characteristic, :patient])
+    @sample = Sample.find(params[:id]).includes(:sample_characteristic, :patient)
     @sample.build_sample_storage_container if @sample.sample_storage_container.nil?
   end
   
@@ -73,7 +73,7 @@ class SamplesController < ApplicationController
   end
   
   def auto_complete_for_barcode_key
-    @samples = Sample.find(:all, :conditions => ["barcode_key LIKE ?", params[:search] + '%'])
+    @samples = Sample.where('barcode_key LIKE ?', params[:search]+'%').all
     render :inline => "<%= auto_complete_result(@samples, 'barcode_key') %>"
   end
   

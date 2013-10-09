@@ -9,21 +9,22 @@ class MolecularAssaysController < ApplicationController
   # GET /molecular_assays
   def index
     authorize! :read, MolecularAssay
-    @molecular_assays = MolecularAssay.find(:all, :include => [:protocol, {:processed_sample => :sample}],          
-                                            :order => 'samples.patient_id, molecular_assays.barcode_key')
+    @molecular_assays = MolecularAssay.includes(:protocol, {:processed_sample => :sample})
+                                      .order('samples.patient_id, molecular_assays.barcode_key').all
+
     render :action => 'index'
   end
   
   def list_added
     authorize! :read, MolecularAssay
-    @molecular_assays = MolecularAssay.find_all_by_id(params[:assay_id].to_a, :include => [:protocol, {:processed_sample => :sample}],
-                                                        :order => 'molecular_assays.barcode_key')
+    @molecular_assays = MolecularAssay.find_all_by_id(params[:assay_id].to_a).includes(:protocol, {:processed_sample => :sample})
+                                                        .order('molecular_assays.barcode_key')
     render :action => 'list_added'
   end
   
   # GET /molecular_assays/1
   def show
-    @molecular_assay = MolecularAssay.find(params[:id], :include => [:processed_sample, :protocol])
+    @molecular_assay = MolecularAssay.find(params[:id]).includes(:processed_sample, :protocol)
     authorize! :read, @molecular_assay
   end
   
@@ -35,7 +36,7 @@ class MolecularAssaysController < ApplicationController
 
   # GET /molecular_assays/1/edit
   def edit
-    @molecular_assay = MolecularAssay.find(params[:id], :include => :processed_sample)
+    @molecular_assay = MolecularAssay.find(params[:id]).includes(:processed_sample)
     authorize! :edit, @molecular_assay
     
     # Add existing owner to owner/researcher drop-down list (for case where current owner is inactive)
@@ -118,7 +119,7 @@ class MolecularAssaysController < ApplicationController
   end
   
   def auto_complete_for_barcode_key
-    @molecular_assays = MolecularAssay.find(:all, :conditions => ["barcode_key LIKE ?", params[:search] + '%'])
+    @molecular_assays = MolecularAssay.where('barcode_key LIKE ?', params[:search]+'%').all
     render :inline => "<%= auto_complete_result(@molecular_assays, 'barcode_key') %>"
   end
   

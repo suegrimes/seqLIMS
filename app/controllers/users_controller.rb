@@ -34,7 +34,7 @@ class UsersController < ApplicationController
     
     if @user.errors.empty?
       default_role = Role.find_by_name(Role::DEFAULT_ROLE) if Role::DEFAULT_ROLE
-      @user.roles << Role.find(:all, :conditions => ["id = ?", default_role.id]) if default_role
+      @user.roles << Role.where('id = ?', default_role.id).all if default_role
       @user.save
       self.current_user = @user
       
@@ -50,7 +50,7 @@ class UsersController < ApplicationController
   def edit 
     @user = User.find(params[:id])
     @user = current_user if (cannot? :edit, @user)
-    @roles = Role.find(:all)
+    @roles = Role.all
   end
   
   def update

@@ -14,14 +14,14 @@ class SeqLibsController < ApplicationController
     if params[:lib_id]
       @seq_libs = SeqLib.find_all_by_id(params[:lib_id].to_a, :order => 'seq_libs.preparation_date DESC')
     else
-      @seq_libs = SeqLib.find(:all, :order => 'seq_libs.preparation_date DESC')
+      @seq_libs = SeqLib.order('seq_libs.preparation_date DESC').all
     end
     render :action => 'index'
   end
   
   # GET /seq_libs/1
   def show
-    @seq_lib = SeqLib.find(params[:id], :include => [{:lib_samples => :splex_lib}, :attached_files])
+    @seq_lib = SeqLib.find(params[:id]).includes({:lib_samples => :splex_lib}, :attached_files)
     @protocol = Protocol.find(@seq_lib.protocol_id) if @seq_lib.protocol_id
     authorize! :read, @seq_lib
   end
@@ -36,7 +36,7 @@ class SeqLibsController < ApplicationController
 
   # GET /seq_libs/1/edit
   def edit
-    @seq_lib = SeqLib.find(params[:id], :include => :lib_samples)
+    @seq_lib = SeqLib.find(params[:id]).includes(:lib_samples)
     authorize! :edit, @seq_lib
     # ToDo:  Add existing owner to drop-down list if he/she is inactive
     
@@ -146,7 +146,7 @@ class SeqLibsController < ApplicationController
   end
   
   def auto_complete_for_barcode_key
-    @seq_libs = SeqLib.find(:all, :conditions => ["barcode_key LIKE ?", params[:search] + '%'])
+    @seq_libs = SeqLib.where('barcode_key LIKE ?', params[:search]+'%').all
     render :inline => "<%= auto_complete_result(@seq_libs, 'barcode_key') %>"
   end
   

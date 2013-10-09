@@ -17,7 +17,7 @@ class ResearchersController < ApplicationController
   # GET /researchers/1
   # GET /researchers/1.xml
   def show
-    @researcher = Researcher.find(params[:id], :include => :user)
+    @researcher = Researcher.find(params[:id]).includes(:user)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -38,7 +38,7 @@ class ResearchersController < ApplicationController
 
   # GET /researchers/1/edit
   def edit
-    @researcher = Researcher.find(params[:id], :include => :user)
+    @researcher = Researcher.find(params[:id]).includes(:user)
   end
 
   # POST /researchers
@@ -89,6 +89,6 @@ class ResearchersController < ApplicationController
   
 protected
   def dropdowns
-    @users = User.find(:all)
+    @users = User.all
   end
 end
