@@ -51,7 +51,12 @@ class MolecularAssaysController < ApplicationController
       @new_assay[i]    = MolecularAssay.new(params[:assay_default])
       @processed_sample[i] = @new_assay[i].processed_sample
     end
-    render :partial => 'assay_sample_form'
+
+    #render :partial => 'temp_debug'
+    respond_to do |format|
+      format.js
+    end
+    #render :partial => 'assay_sample_form', :locals => {:new_assay => @new_assay, :processed_sample => @processed_sample}
     #render :action => :debug
   end
 
@@ -153,19 +158,13 @@ class MolecularAssaysController < ApplicationController
 #  end
   
   def update_fields
-    params[:i] ||= 0
+    @i = params[:i] ||= 0
     if params[:source_sample_name]
       @processed_sample = ProcessedSample.find_by_barcode_key(params[:source_sample_name])
     end
-    
-    if @processed_sample.nil?
-      render :nothing => true
-    else
-      render :update do |page|
-        i = params[:i]
-        page.replace_html "psample_vol_#{i}", @processed_sample.final_vol
-        page.replace_html "psample_conc_#{i}", @processed_sample.final_conc
-      end
+
+    respond_to do |format|
+      format.js
     end
   end
   
