@@ -7,16 +7,17 @@
   <%= stylesheet_link_tag "application", :media => "all" %>
   <%= stylesheet_link_tag "print", :media => "print" %>
   <%= stylesheet_link_tag "http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" %>
-  <!--[if IE]><%= stylesheet_link_tag 'ie-fixes' %><![endif]--> 
+  <%= stylesheet_link_tag 'jquery-ui-1.10.3.custom.css' %>
+  <!--[if IE]><%= stylesheet_link_tag 'ie-fixes' %><![endif]-->   
   <%= javascript_include_tag "application" %>
   
   <script type="text/javascript">
-    jQuery.noConflict();
-  </script>
+    var $ = jQuery.noConflict();
+  </script>  
   <script type="text/javascript">
   // initialise Superfish 
-  jQuery(document).ready(function() { 
-    jQuery('ul.sf-menu').superfish({ 
+  $(document).ready(function() { 
+    $('ul.sf-menu').superfish({ 
       delay:       1000,                            // one second delay on mouseout 
       animation:   {opacity:'show',height:'show'},  // fade-in and slide-down animation 
       speed:       'fast'                          // faster animation speed
