@@ -2,7 +2,6 @@ class ItemsController < ApplicationController
   before_filter :dropdowns, :only => [:new_query, :new, :edit]
   protect_from_forgery :except => :populate_items
   
-  autocomplete :item, :company_name
   autocomplete :item, :catalog_nr
   autocomplete :item, :company_name
   autocomplete :item, :item_description
