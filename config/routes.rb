@@ -30,12 +30,13 @@ SeqLIMS::Application.routes.draw do
       get :new_query, :as => :view_orders
     end
   end
+  
+  get 'items/autocomplete_item_company_name'
   resources :items do
-    collection do
-      get :autocomplete_item_company_name
-      get :autocomplete_item_description
-      get :autocomplete_item_company_name
-      get :autocomplete_item_catalog_nr
+    collection do 
+      #get :autocomplete_item_description
+      #get :autocomplete_item_company_name
+      #get :autocomplete_item_catalog_nr
     end  
   end
 
