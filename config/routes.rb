@@ -117,12 +117,11 @@ SeqLIMS::Application.routes.draw do
   match 'export_psamples' => 'psample_queries#export_samples', :as => :export_psamples
   
   # Routes for molecular assays
+  get 'molecular_assays/autocomplete_molecular_assay_source_sample_name'
   resources :molecular_assays do
     collection do
-      get :auto_complete_for_extraction_barcode
       get :list_added
-      get :auto_complete_for_barcode_key
-      get :autocomplete_molecular_assay_source_sample_name
+      #get :autocomplete_molecular_assay_source_sample_name
     end
     member do
       post :create_assays
@@ -131,6 +130,7 @@ SeqLIMS::Application.routes.draw do
   match 'new_molecular_assay' => 'molecular_assays#new', :as => :new_molecular_assay
   match 'create_molecular_assays' => 'molecular_assays#create_assays', :as => :create_molecular_assays
   match 'populate_assays' => 'molecular_assays#populate_assays'
+  #match 'populate_assays/:nr_assays' => 'molecular_assays#populate_assays', :as => :populate_assays
 
   resources :molassay_queries, :only => :index
   match 'mol_assay_query' => 'molassay_queries#new_query', :as => :mol_assay_query
