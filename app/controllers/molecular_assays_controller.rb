@@ -138,7 +138,9 @@ class MolecularAssaysController < ApplicationController
         @processed_samples.reject! {|psample| psample.barcode_key[-3,1] != molecule_type} if ['D','R'].include?(molecule_type)
       end
     end
-    render :inline => "<%= auto_complete_result(@processed_samples, 'barcode_key') %>"
+    #render :inline => "<%= auto_complete_result(@processed_samples, 'barcode_key') %>"
+    list =@processed_samples.map {|ps| Hash[ id: ps.id, label: ps.barcode_key, name: ps.barcode_key]}
+    render json: list
   end
   
 #  def populate_vol
