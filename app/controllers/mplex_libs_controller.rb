@@ -4,8 +4,6 @@ class MplexLibsController < ApplicationController
   before_filter :dropdowns, :only => [:new, :edit]
   before_filter :setup_dropdowns, :only => :setup_params
 
-  DateRange = Struct.new(:from_date, :to_date)
-  
   def setup_params
    @from_date = (Date.today - 3.months).beginning_of_month
    @to_date   =  Date.today

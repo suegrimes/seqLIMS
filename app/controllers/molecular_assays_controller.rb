@@ -5,6 +5,8 @@ class MolecularAssaysController < ApplicationController
   before_filter :query_dropdowns, :only => :query_params
   
   autocomplete :molecular_assay, :source_sample_name
+
+  AssayDefault = Struct.new(:owner, :preparation_date, :protocol_id, :notes)
   
   # GET /molecular_assays
   def index
@@ -17,8 +19,8 @@ class MolecularAssaysController < ApplicationController
   
   def list_added
     authorize! :read, MolecularAssay
-    @molecular_assays = MolecularAssay.find_all_by_id(params[:assay_id].to_a).includes(:protocol, {:processed_sample => :sample})
-                                                        .order('molecular_assays.barcode_key')
+    @molecular_assays = MolecularAssay.includes(:protocol, {:processed_sample => :sample}).order('molecular_assays.barcode_key')
+                                      .where('molecular_assays.id in (?)', params[:assay_id]).all
     render :action => 'list_added'
   end
   
@@ -32,7 +34,9 @@ class MolecularAssaysController < ApplicationController
   def new
     authorize! :create, MolecularAssay
     @requester = (current_user.researcher ? current_user.researcher.researcher_name : nil)
+    @preparation_date = (Date.today - 9.months).beginning_of_month
     @default_nr_assays = 4
+    @assay_default = AssayDefault.new(@requester, @preparation_date, params[:protocol_id], params[:notes] )
   end
 
   # GET /molecular_assays/1/edit
@@ -139,7 +143,7 @@ class MolecularAssaysController < ApplicationController
       end
     end
     #render :inline => "<%= auto_complete_result(@processed_samples, 'barcode_key') %>"
-    list =@processed_samples.map {|ps| Hash[ id: ps.id, label: ps.barcode_key, name: ps.barcode_key]}
+    list = @processed_samples.map {|ps| Hash[ id: ps.id, label: ps.barcode_key, name: ps.barcode_key]}
     render json: list
   end
   
@@ -166,9 +170,22 @@ class MolecularAssaysController < ApplicationController
       @processed_sample = ProcessedSample.find_by_barcode_key(params[:source_sample_name])
     end
 
+    # For debugging:
+    #@processed_sample = ProcessedSample.find_by_barcode_key('6441A.D01')
+
     respond_to do |format|
       format.js
     end
+
+    #if @processed_sample.nil?
+    #  render :nothing => true
+    #else
+    #  render :update do |page|
+    #    i = params[:i]
+    #    page.replace_html "psample_vol_#{i}", @processed_sample.final_vol
+    #    page.replace_html "psample_conc_#{i}", @processed_sample.final_conc
+    #  end
+    #end
   end
   
 protected
@@ -196,7 +213,7 @@ protected
       return nil
       
     else
-      molecular_assay = MolecularAssay.new(assay_param.merge!(assay_defaults))
+      molecular_assay = MolecularAssay.new(assay_defaults.merge!(assay_param))
       return molecular_assay
     end   
   end
