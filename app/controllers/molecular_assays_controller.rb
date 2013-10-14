@@ -139,7 +139,7 @@ class MolecularAssaysController < ApplicationController
       end
     end
     #render :inline => "<%= auto_complete_result(@processed_samples, 'barcode_key') %>"
-    list =@processed_samples.map {|ps| Hash[ id: ps.id, label: ps.barcode_key, name: ps.barcode_key]}
+    list = @processed_samples.map {|ps| Hash[ id: ps.id, label: ps.barcode_key, name: ps.barcode_key]}
     render json: list
   end
   
