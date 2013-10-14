@@ -25,10 +25,9 @@
     <%= fields_for 'molecular_assay_' + i.to_s, assay do |f| %> 
   <tr>
     <td><em>Sample: <%= i+1 %></em></td>
-    <td><%= f.text_field :source_sample_name, {:size => 12} %>
-								 
-	<td><%= f.text_field(:volume, :size => 8, :onchange => "$('default_vol').update($F(this)*$F('molecular_assay_#{i}_concentration')/$('psample_conc_#{i}').innerHTML)") %></td>							  
-	<td><%= f.text_field(:concentration, :size => 8, :onchange => "$('default_vol').update($F(this)*$F('molecular_assay_#{i}_volume')/$('psample_conc_#{i}').innerHTML)") %></td>
+    <td><%= f.autocomplete_field :source_sample_name, molecular_assays_autocomplete_molecular_assay_source_sample_name_path, {:size => 12} %></td>
+	<td><%= f.text_field(:volume, :size => 8, :onchange => "$('default_vol').update(this.val()*$('molecular_assay_#{i}_concentration').val()/$('psample_conc_#{i}').val()") %></td>
+	<td><%= f.text_field(:concentration, :size => 8, :onchange => "$('default_vol').update(this.val()*$('molecular_assay_#{i}_volume').val()/$('psample_conc_#{i}').val()") %></td>
 	
 	<td class="number-pad-right" id=<%="psample_vol_" + i.to_s%>><%=h (processed_sample[i]? processed_sample[i].final_vol : ' ')%></td>
     <td class="number-pad-right" id=<%="psample_conc_" + i.to_s%>><%=h (processed_sample[i]? processed_sample[i].final_conc : ' ')%></td>
@@ -36,7 +35,7 @@
 	<td><%= f.text_field :plate_coord, :size => 4 %></td>
 	<td><%= f.text_field(:notes, :size => 30)%></td> 
   </tr>
-  <tr><td colspan="7"></td></tr>
+  <tr><td colspan="7"><%= @xyz %></td></tr>
   <% end %>
 <% end %>
 </table>
@@ -44,7 +43,7 @@
 </div>
 
 <%=raw break_clear(submit_tag "Save assays") %>
-<div id="default_vol" style="display:none"></div>
+<div id="default_vol"></div>
 <!-- f.text_field(:volume, :size => 8, :onchange => "$('default_vol').update($F(this));") --> 
 <!-- observe_field("molecular_assay_0_volume", :on => :onchange, :update => "default_vol",
                                               :url => {:action => :populate_vol}, :with => "'vol='+escape(value)") -->

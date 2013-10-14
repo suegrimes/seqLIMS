@@ -32,6 +32,7 @@ class MolecularAssaysController < ApplicationController
   def new
     authorize! :create, MolecularAssay
     @requester = (current_user.researcher ? current_user.researcher.researcher_name : nil)
+    @default_nr_assays = 4
   end
 
   # GET /molecular_assays/1/edit
@@ -45,7 +46,7 @@ class MolecularAssaysController < ApplicationController
   # Used to populate rows of molecular assays/samples to be entered 
   def populate_assays
     @new_assay = []; @processed_sample = [];
-    params[:nr_assays] ||= 4  
+    params[:nr_assays] ||= 4
     
     0.upto(params[:nr_assays].to_i - 1) do |i|
       @new_assay[i]    = MolecularAssay.new(params[:assay_default])
@@ -128,16 +129,18 @@ class MolecularAssaysController < ApplicationController
     render :inline => "<%= auto_complete_result(@molecular_assays, 'barcode_key') %>"
   end
   
-  def auto_complete_for_extraction_barcode
-    @processed_samples = ProcessedSample.barcode_search(params[:search])
-    if !params[:assay][:protocol_id].blank?
+  def autocomplete_molecular_assay_source_sample_name
+    @processed_samples = ProcessedSample.barcode_search(params[:term])
+    if params[:assay] && !params[:assay][:protocol_id].blank?
       protocol = Protocol.find(params[:assay][:protocol_id])
       if protocol
         molecule_type = protocol.molecule_type
         @processed_samples.reject! {|psample| psample.barcode_key[-3,1] != molecule_type} if ['D','R'].include?(molecule_type)
       end
     end
-    render :inline => "<%= auto_complete_result(@processed_samples, 'barcode_key') %>"
+    #render :inline => "<%= auto_complete_result(@processed_samples, 'barcode_key') %>"
+    list =@processed_samples.map {|ps| Hash[ id: ps.id, label: ps.barcode_key, name: ps.barcode_key]}
+    render json: list
   end
   
 #  def populate_vol
