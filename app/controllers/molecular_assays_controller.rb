@@ -4,7 +4,7 @@ class MolecularAssaysController < ApplicationController
   before_filter :dropdowns, :only => [:new, :edit, :populate_assays]
   before_filter :query_dropdowns, :only => :query_params
   
-  autocomplete :molecular_assay, :source_sample_name
+  autocomplete :molecular_assay, :source_sample_name, :extra_data => [:final_vol, :final_conc]
 
   AssayDefault = Struct.new(:owner, :preparation_date, :protocol_id, :notes)
   
@@ -143,7 +143,7 @@ class MolecularAssaysController < ApplicationController
       end
     end
     #render :inline => "<%= auto_complete_result(@processed_samples, 'barcode_key') %>"
-    list = @processed_samples.map {|ps| Hash[ id: ps.id, label: ps.barcode_key, name: ps.barcode_key]}
+    list = @processed_samples.map {|ps| Hash[ id: ps.id, label: ps.barcode_key, name: ps.barcode_key, final_vol: ps.final_vol, final_conc: ps.final_conc]}
     render json: list
   end
   
