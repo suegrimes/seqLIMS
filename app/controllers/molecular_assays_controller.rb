@@ -166,6 +166,7 @@ class MolecularAssaysController < ApplicationController
       @processed_sample = ProcessedSample.find_by_barcode_key(params[:source_sample_name])
     end
 
+    # call the update_fields.js.erb in view molecular_assays folder
     respond_to do |format|
       format.js
     end
