@@ -25,7 +25,20 @@
     <%= fields_for 'molecular_assay_' + i.to_s, assay do |f| %> 
   <tr>
     <td><em>Sample: <%= i+1 %></em></td>
-    <td><%= f.autocomplete_field :source_sample_name, molecular_assays_autocomplete_molecular_assay_source_sample_name_path, {:size => 12} %></td>
+    <td><%= f.autocomplete_field :source_sample_name, molecular_assays_autocomplete_molecular_assay_source_sample_name_path, :data => { 
+    	                                                                                                                       :remote => true, 
+    	                                                                                                                       :url => url_for(
+    	                                                                                                                         controller: "molecular_assays", 
+    	                                                                                                                         action: "update_fields",    	                                                                                                                        
+    	                                                                                                                         i: i,
+    	                                                                                                                         source_sample_name: '13031.D01'                                                                                                                  
+    	                                                                                                                       ) 
+    	                                                                                                                      } %></td>
+    
+    <!--:after_update_element => "function(element,value){" +
+remote_function(:url => { :action => :update_fields, :i => i},
+                                 :with => "'source_sample_name=' + element.value") + "}"} %-->  
+    
 	<td><%= f.text_field(:volume, :size => 8, :onchange => "$('default_vol').update(this.val()*$('molecular_assay_#{i}_concentration').val()/$('psample_conc_#{i}').val()") %></td>
 	<td><%= f.text_field(:concentration, :size => 8, :onchange => "$('default_vol').update(this.val()*$('molecular_assay_#{i}_volume').val()/$('psample_conc_#{i}').val()") %></td>
 	
@@ -47,4 +60,6 @@
 <!-- f.text_field(:volume, :size => 8, :onchange => "$('default_vol').update($F(this));") --> 
 <!-- observe_field("molecular_assay_0_volume", :on => :onchange, :update => "default_vol",
                                               :url => {:action => :populate_vol}, :with => "'vol='+escape(value)") -->
-<!-- '&assay[search]=' + jQuery('#molecular_assay_#{i}_source_sample_name').val()",-->    
+<!-- '&assay[search]=' + jQuery('#molecular_assay_#{i}_source_sample_name').val()",--> 
+
+ 
