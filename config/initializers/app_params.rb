@@ -4,7 +4,7 @@ ezkeys_file      = "#{Rails.root}/app/assets/system/ez_keys.txt"
 version_file     = "#{Rails.root}/app/assets/system/app_versions.txt"
 
 require 'active_record_extension'
-require 'CSV'
+require 'csv'
 
 if FileTest.file?(environment_file)
   env_array = CSV.read(environment_file, {:col_sep => "\t"})
