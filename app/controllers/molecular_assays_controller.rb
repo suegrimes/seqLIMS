@@ -4,7 +4,7 @@ class MolecularAssaysController < ApplicationController
   before_filter :dropdowns, :only => [:new, :edit, :populate_assays]
   before_filter :query_dropdowns, :only => :query_params
   
-  autocomplete :molecular_assay, :source_sample_name, :extra_data => [:final_vol, :final_conc]
+  autocomplete :molecular_assay, :source_sample_name
 
   AssayDefault = Struct.new(:owner, :preparation_date, :protocol_id, :notes)
   
