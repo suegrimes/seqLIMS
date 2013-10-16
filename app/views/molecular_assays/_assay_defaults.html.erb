@@ -2,7 +2,7 @@
 <legend class="form">Assay Details</legend>
 <table class="form" border="0">
 <tr>
-  <th>Owner:</th><td><%= select_tag("assay_default[owner]", options_for_select(@owners, @requester))%></td> 
+  <th>Owner:</th><td><%= select_tag("assay_default[owner]", options_for_select(@owners, :selected => @requester))%></td>
   <th>Date:</th><td><%= datepicker_input("assay_default", "preparation_date", dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true, size: 15) %></td>  
 </tr>
 <tr>

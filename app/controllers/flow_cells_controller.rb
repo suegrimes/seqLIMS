@@ -4,8 +4,6 @@ class FlowCellsController < ApplicationController
   before_filter :dropdowns, :only => [:new, :edit]
   before_filter :setup_dropdowns, :only => :setup_params
   before_filter :seq_dropdowns, :only => :show
-
-  #DateRange = Struct.new(:from_date, :to_date)
   
   def setup_params
     @from_date = (Date.today - 3.months).beginning_of_month
