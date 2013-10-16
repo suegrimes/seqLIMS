@@ -25,15 +25,17 @@
     <%= fields_for 'molecular_assay_' + i.to_s, assay do |f| %> 
   <tr>
     <td><em>Sample: <%= i+1 %></em></td>
-    <td><%= f.autocomplete_field :source_sample_name, molecular_assays_autocomplete_molecular_assay_source_sample_name_path, :data => { 
+    <td><%= f.autocomplete_field :source_sample_name, molecular_assays_autocomplete_molecular_assay_source_sample_name_path, :size => 12,
+                                 :update_elements => {:final_vol => '#psample_vol_' + i.to_s, :final_conc => '#psample_conc_' + i.to_s } %>
+    	<!--%= f.autocomplete_field :source_sample_name, molecular_assays_autocomplete_molecular_assay_source_sample_name_path, :data => { 
     	                                                                                                                       :remote => true, 
     	                                                                                                                       :url => url_for(
     	                                                                                                                         controller: "molecular_assays", 
     	                                                                                                                         action: "update_fields",    	                                                                                                                        
     	                                                                                                                         i: i,
-    	                                                                                                                         source_sample_name: '13031.D01'                                                                                                                  
+    	                                                                                                                         source_sample_name: "15027.D01"    	                                                                                                                                                                                                                              
     	                                                                                                                       ) 
-    	                                                                                                                      } %></td>
+    	                                                                                                                      } %--></td>
     
     <!--:after_update_element => "function(element,value){" +
 remote_function(:url => { :action => :update_fields, :i => i},
