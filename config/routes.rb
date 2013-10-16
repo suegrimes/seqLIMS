@@ -117,7 +117,6 @@ SeqLIMS::Application.routes.draw do
   match 'export_psamples' => 'psample_queries#export_samples', :as => :export_psamples
   
   # Routes for molecular assays
-  get 'molecular_assays/update_fields'
   get 'molecular_assays/autocomplete_molecular_assay_source_sample_name'
   resources :molecular_assays do
     collection do
