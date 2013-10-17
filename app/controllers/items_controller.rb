@@ -72,8 +72,11 @@ class ItemsController < ApplicationController
     0.upto(params[:nr_items].to_i - 1) do |i|
       @items[i] = Item.new(params[:item_default])
     end    
-    
-    render :partial => 'multi_item_form'
+
+    respond_to do |format|
+      format.js
+    end
+
   end
 
   # GET /items/1/edit
@@ -144,19 +147,23 @@ class ItemsController < ApplicationController
     redirect_to :action => 'new_query'
   end
   
-  def auto_complete_for_catalog_nr
-    @items = Item.find_all_unique(["catalog_nr LIKE ?", params[:search] + '%'])
-    render :inline => "<%= auto_complete_result(@items, 'catalog_nr') %>"
+  def autocomplete_item_catalog_nr
+    @items = Item.find_all_unique(["catalog_nr LIKE ?", params[:term] + '%'])
+    list = @items.map {|i| Hash[ id: i.id, label: i.catalog_nr, name: i.catalog_nr]}
+    render json: list
   end
   
-  def auto_complete_for_item_description
-    @items = Item.find_all_unique(["item_description LIKE ?", params[:search] + '%'])
-    render :inline => "<%= auto_complete_result(@items, 'item_description') %>"
+  def autocomplete_item_item_description
+    @items = Item.find_all_unique(["item_description LIKE ?", params[:term] + '%'])
+    list = @items.map {|i| Hash[ id: i.id, label: i.item_description, name: i.item_description]}
+    render json: list
   end
   
-  def auto_complete_for_company_name
-    @items = Item.find_all_unique(["company_name LIKE ?", params[:search] + '%'])
-    render :inline => "<%= auto_complete_result(@items, 'company_name') %>"
+  def autocomplete_item_company_name
+    @items = Item.find_all_unique(["company_name LIKE ?", params[:term] + '%'])
+    @items = @items.uniq { |h| h[:company_name] }
+    list = @items.map {|i| Hash[ id: i.id, label: i.company_name, name: i.company_name]}
+    render json: list
   end
   
   def update_fields
