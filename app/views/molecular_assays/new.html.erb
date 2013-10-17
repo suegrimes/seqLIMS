@@ -13,7 +13,7 @@
   <% if @new_assay.nil?%>   
     <div id='assays'>	
     <b>Number of samples for this assay:</b>&nbsp;<%= text_field_tag(:nr_assays, @default_nr_assays, :size => 5)-%>
-    <%= link_to 'Add Assays', populate_assays_path, {:onclick => "this.href +='?nr_assays='+$('#nr_assays').val(); return true;", :remote => true} %>
+    <%= link_to 'Add Assays', populate_assays_path, {:onclick => "this.href += '?nr_assays='+$('#nr_assays').val(); return true;", :remote => true} %>
     </div>      
   <% else %>
     <%= render :partial => 'assay_sample_form' %>
