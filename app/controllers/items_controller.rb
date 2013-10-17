@@ -149,13 +149,13 @@ class ItemsController < ApplicationController
   
   def autocomplete_item_catalog_nr
     @items = Item.find_all_unique(["catalog_nr LIKE ?", params[:term] + '%'])
-    list = @items.map {|i| Hash[ id: i.id, label: i.catalog_nr, name: i.catalog_nr]}
+    list = @items.map {|i| Hash[ id: i.id, label: i.catalog_nr, name: i.catalog_nr, company_name: i.company_name, desc: i.item_description, price: i.item_price ]}
     render json: list
   end
   
   def autocomplete_item_item_description
     @items = Item.find_all_unique(["item_description LIKE ?", params[:term] + '%'])
-    list = @items.map {|i| Hash[ id: i.id, label: i.item_description, name: i.item_description]}
+    list = @items.map {|i| Hash[ id: i.id, label: i.item_description, name: i.item_description, cat_nr: i.catalog_nr, company_name: i.company_name, price: i.item_price]}
     render json: list
   end
   
