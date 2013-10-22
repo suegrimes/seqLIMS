@@ -46,10 +46,8 @@
     <td><%= s.text_field(:enzyme_code, :size => 6) %></td>
 </tr>
 <tr>
-  <th style="text-align:right; text-decoration: none;"><em>Source DNA/RNA:</em></th>
-  <td><!--%= s.text_field_with_auto_complete :source_sample_name, {:size => 15},
-              {:url => {:controller => :processed_samples, :action => :auto_complete_for_barcode_key},
-               :param_name => :search, :min_chars => 2, :method => :get} %--></td>
+  <th style="text-align:right; text-decoration: none;"><em>Source DNA/RNA:</em></th>  
+  <td><%=s.autocomplete_field :source_sample_name, processed_samples_autocomplete_processed_sample_barcode_search_path, size: 15 %></td>
   <th style="text-align:right; text-decoration: none;"><em>Notebook Ref:</em></th>
   <td colspan="2"><%= f.text_field(:notebook_ref, :size => 30)%></td>  
   <th style="text-align:right; text-decoration: none;"><em>Notes:</em></th>
