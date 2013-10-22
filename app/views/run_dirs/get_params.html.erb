@@ -1,6 +1,6 @@
 <h1>Manage Run Directories:</h1>
 
-<%= form_tag :action => 'new' do %>
+<%= form_tag new_run_dir_path do %>
   <b>Run Directory for:</b>
   <table class="form border">
   	<tr>
@@ -10,9 +10,10 @@
 	<tr><td align="center" class="grey">-OR-</td></tr>
 	<tr>
 	  <th>Sequencing Run Key:</th>
-	  <td><%= text_field_with_auto_complete(:flow_cell, :sequencing_key, {:size => 20},
+	  <td><%=autocomplete_field_tag 'flow_cell_sequencing_key', '', flow_cells_autocomplete_flow_cells_sequencing_key_path, name: 'flow_cell[sequencing_key]' %>
+	  	<!--%= text_field_with_auto_complete(:flow_cell, :sequencing_key, {:size => 20},
               {:url => {:controller => :flow_cells, :action => :auto_complete_for_sequencing_key},
-               :param_name => :search, :min_chars => 5, :method => :get}) %>
+               :param_name => :search, :min_chars => 5, :method => :get}) %-->
 	  </td>
 	</tr>
   </table>
