@@ -105,9 +105,10 @@ SeqLIMS::Application.routes.draw do
   match 'add_dissection' => 'dissected_samples#new'
   
   # Routes for extracted samples
+  get 'processed_samples/autocomplete_processed_sample_barcode_search' 
   resources :processed_samples do
     collection do
-      get :auto_complete_for_barcode_key
+      #get :auto_complete_for_barcode_key
     end
   end
   resources :psample_queries, :only => :index
@@ -141,9 +142,10 @@ SeqLIMS::Application.routes.draw do
   # Routes for sequencing libraries
   resources :seq_libs do
     collection do
-      get :auto_complete_for_barcode_key
+      #get :auto_complete_for_barcode_key
     end  
   end
+  match 'populate_libs' => 'seq_libs#populate_libs'
 
   resources :mplex_libs do
     collection do
