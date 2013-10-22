@@ -1,4 +1,4 @@
-<h1>New Sequencing Library - Singleplex </h1>
+<h1>New Sequencing Library - Singleplex</h1>
 
 <%= form_tag(:action => :create) do %>
   
@@ -10,11 +10,13 @@
   <% if @lib_samples.nil?%>
     <div id='splex_libs'>	
     <b>Populate how many libraries with these defaults?</b>&nbsp;<%= text_field_tag(:nr_libs, '', :size => 5)-%>
-    <%= submit_to_remote 'Singleplex', 'Add Libraries',
+    <%= link_to 'Add Libraries', populate_libs_path, {:onclick => "this.href += '?nr_libs='+$('#nr_libs').val() + '&source_DNA='+$('#sample_default_source_DNA').val() + '&enzyme_code='+$('#sample_default_enzyme_code').val(); return true;", remote: true} %>
+    <!--%= button_to 'Add Libraries', populate_libs_path, remote: true %-->
+    <!--%= submit_to_remote 'Singleplex', 'Add Libraries',
     :url => {:action => 'populate_libs', :method => :get},
-    :update => 'splex_libs' -%>
+    :update => 'splex_libs' -%-->
     </div>      
   <% else %>
-    <%= render :partial => 'sample_form' %>
+    <!--%= render :partial => 'sample_form' %-->
   <% end %>
 <% end %>
