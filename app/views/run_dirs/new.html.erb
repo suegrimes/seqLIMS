@@ -6,16 +6,16 @@
 
 <div id="addnew">
   <% if can? :new, RunDir %>
-    <p><%= link_to_function "Add new run directory", div_toggle(:addnew, :newdir) %> |
+    <p><!--%= link_to_function "Add new run directory", div_toggle(:addnew, :newdir) %--> 
+       <%= link_to "Add new run directory", '', :onclick => "showHideDiv('addnew','newdir'); return false;" %> |
 	   <%= link_to "List All", run_dirs_path %></p>
   <% end %>
 </div>
 
 <div id="newdir", style="display:none">
 <b>New run directory:</b>
-<%= tagged_form_for(:run_dir, @run_dir,
-            :url => {:controller => 'run_dirs', :action=> 'create'}) do |f| -%>  
-  <%= error_messages_for :run_dir %>
+<%= tagged_form_for @run_dir, :url => {:controller => 'run_dirs', :action=> 'create'} do |f| %> 
+  <%= render '/shared/errors', model: @run_dir %>
   
   <%= render :partial => 'run_dir_form', :locals => {:f => f, :flow_cell => @flow_cell} %>
   
