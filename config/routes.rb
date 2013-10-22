@@ -163,6 +163,7 @@ SeqLIMS::Application.routes.draw do
   match 'lib_query' => 'seqlib_queries#new_query', :as => :lib_query
   
   # Routes for flow cells/sequencing runs
+  get 'flow_cells/autocomplete_flow_cells_sequencing_key'
   resources :flow_cells do
     collection do
       get :auto_complete_for_sequencing_key
@@ -196,6 +197,7 @@ SeqLIMS::Application.routes.draw do
   resources :storage_devices
   resources :run_dirs
   match 'del_run_dir' => 'run_dirs#del_run_dir', :as => :del_run_dir
+  match 'new_run_dir' => 'run_dirs#new', :as => :new_run_dir
   match 'dir_params' => 'run_dirs#get_params', :as => :dir_params
   
   # Routes for handling file attachments
