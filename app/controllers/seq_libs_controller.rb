@@ -63,9 +63,7 @@ class SeqLibsController < ApplicationController
     #render :partial => 'sample_form'
     #render :action => :debug
     
-    respond_to do |format|
-      format.js
-    end
+    respond_to {|format| format.js}
   end
 
   def create
@@ -93,6 +91,7 @@ class SeqLibsController < ApplicationController
       flash[:error] = 'No sequencing library(ies) created - no non-blank library names found'
       @lib_with_error = nil
       reload_lib_defaults(params, params[:nr_libs])
+      #respond_to {|format| format.js}
       render :action => 'new'
       #render :action => 'debug'
     else
@@ -106,6 +105,7 @@ class SeqLibsController < ApplicationController
       flash.now[:error] = 'Error creating sequencing library -please enter all required fields'
       @lib_with_error = @new_lib[@lib_index]
       reload_lib_defaults(params, params[:nr_libs])
+      #respond_to {|format| format.js :action => 'new'}
       render :action => 'new'
       #render :action => 'debug'
   end
@@ -169,9 +169,11 @@ protected
   
   def reload_lib_defaults(params, nr_libs)
     dropdowns
-    @lib_default = SeqLib.new(params[:lib_default])
-    @sample_default = LibSample.new(params[:sample_default])
-    @requester = params[:lib_default][:owner]
+    #@lib_default = SeqLib.new(params[:lib_default])
+    #@sample_default = LibSample.new(params[:sample_default])
+    #@requester = params[:lib_default][:owner]
+    @requester = (current_user.researcher ? current_user.researcher.researcher_name : nil)
+    @lib_default = SeqLib.new(:alignment_ref_id => AlignmentRef.default_id)
    
     @new_lib = []     if !@new_lib
     @lib_samples = [] if !@lib_samples

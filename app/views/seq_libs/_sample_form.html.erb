@@ -1,5 +1,5 @@
 <div id='libs_form'>
-<%= submit_tag "Save libraries" %>&nbsp;&nbsp;&nbsp;
+<%= submit_tag 'Save libraries' %>&nbsp;&nbsp;&nbsp;
 <!--%= submit_to_remote 'Singleplex', 'Refesh from Defaults',
       :url => {:action => 'populate_libs', :nr_libs => @new_lib.size},
       :update => 'libs_form' %-->
@@ -23,8 +23,8 @@
 </tr>
  <%= hidden_field_tag(:nr_libs, @new_lib.size) %>
  <% @new_lib.each_with_index do |lib, i| %>
-    <% fields_for 'seq_lib_' + i.to_s, lib do |f| %> 
-      <% fields_for 'lib_sample_' + i.to_s, @lib_samples[i] do |s| %>
+    <%= fields_for 'seq_lib_' + i.to_s, lib do |f| %>
+      <%= fields_for 'lib_sample_' + i.to_s, @lib_samples[i] do |s| %>
         <%= render '/shared/errors', model: s.object %>
         <%= f.hidden_field(:owner) %>
         <%= f.hidden_field(:preparation_date) %>

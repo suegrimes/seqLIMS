@@ -145,7 +145,7 @@ SeqLIMS::Application.routes.draw do
       #get :auto_complete_for_barcode_key
     end  
   end
-  match 'populate_libs' => 'seq_libs#populate_libs'
+  post 'populate_libs' => 'seq_libs#populate_libs'
 
   resources :mplex_libs do
     collection do
