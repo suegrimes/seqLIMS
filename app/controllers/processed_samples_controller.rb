@@ -3,6 +3,8 @@ class ProcessedSamplesController < ApplicationController
   
   before_filter :dropdowns, :only => [:new, :edit, :edit_by_barcode]
   
+  autocomplete :processed_sample, :barcode_search
+    
   # GET /processed_samples
   def index
     @processed_samples = ProcessedSample.find_all_incl_sample
@@ -125,9 +127,12 @@ class ProcessedSamplesController < ApplicationController
     render :action => 'debug'
   end
   
-  def auto_complete_for_barcode_key
-    @processed_samples = ProcessedSample.barcode_search(params[:search])
-    render :inline => "<%= auto_complete_result(@processed_samples, 'barcode_key') %>"
+  #def auto_complete_for_barcode_key
+  def autocomplete_processed_sample_barcode_search
+    @processed_samples = ProcessedSample.barcode_search(params[:term])
+    #render :inline => "<%= auto_complete_result(@processed_samples, 'barcode_key') %>"
+    list = @processed_samples.map {|ps| Hash[ id: ps.id, label: ps.barcode_key, name: ps.barcode_key]}
+    render json: list
   end
 
 protected
