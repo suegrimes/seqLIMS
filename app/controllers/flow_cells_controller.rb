@@ -5,6 +5,8 @@ class FlowCellsController < ApplicationController
   before_filter :setup_dropdowns, :only => :setup_params
   before_filter :seq_dropdowns, :only => :show
   
+  autocomplete :flow_cells, :sequencing_key
+  
   def setup_params
     @from_date = (Date.today - 3.months).beginning_of_month
     @to_date   =  Date.today
@@ -168,9 +170,12 @@ class FlowCellsController < ApplicationController
     redirect_to flow_cells_url(:rpt_type => 'seq') 
   end
   
-  def auto_complete_for_sequencing_key
-    @flow_cells = FlowCell.sequenced.where('sequencing_key LIKE ?', params[:search] + '%').all
-    render :inline => "<%= auto_complete_result(@flow_cells, 'sequencing_key') %>"
+  #def auto_complete_for_sequencing_key
+  def autocomplete_flow_cells_sequencing_key
+    @flow_cells = FlowCell.sequenced.where('sequencing_key LIKE ?', params[:term] + '%').all
+    #render :inline => "<%= auto_complete_result(@flow_cells, 'sequencing_key') %>"
+    list = @flow_cells.map {|fc| Hash[ id: fc.id, label: fc.sequencing_key, name: fc.sequencing_key]}
+    render json: list
   end
   
 protected
