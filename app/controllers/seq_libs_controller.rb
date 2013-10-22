@@ -55,11 +55,17 @@ class SeqLibsController < ApplicationController
     
     0.upto(params[:nr_libs].to_i - 1) do |i|
       @new_lib[i]    = SeqLib.new(params[:lib_default])
-      @lib_samples[i] = LibSample.new(:source_DNA => params[:sample_default][:source_DNA],
-                                      :enzyme_code => array_to_string(params[:sample_default][:enzyme_code]))
+      #@lib_samples[i] = LibSample.new(:source_DNA => params[:sample_default][:source_DNA],
+                                      #:enzyme_code => array_to_string(params[:sample_default][:enzyme_code]))
+      @lib_samples[i] = LibSample.new(:source_DNA => params[:source_DNA],
+                                      :enzyme_code => params[:enzyme_code])                                      
     end
-    render :partial => 'sample_form'
+    #render :partial => 'sample_form'
     #render :action => :debug
+    
+    respond_to do |format|
+      format.js
+    end
   end
 
   def create
