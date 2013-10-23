@@ -4,7 +4,6 @@
 
 <%= render :partial => 'attached_files/show_file', :locals => {:obj => @flow_cell} %>
 <% break_clear %>
-
 <table class="list">
   <tr>
   	<th>Lane</th>
@@ -43,11 +42,11 @@
   
   <div id="sequencing">
     <% if @flow_cell.flowcell_status == 'F' %>
-      <%= link_to_function "Submit for Sequencing", div_toggle(:run_params, :sequencing) %>
+      <%= link_to "Submit for Sequencing", '', :onclick => "showHideDiv('sequencing','run_params'); return false;" %>
 	<% end %>
   </div>
 	
-  <div id="run_params", style="display:none">
+  <div id="run_params" style="display:none">
     <%= form_for(@flow_cell, :url => {:action => :upd_for_sequencing}) do |f|%>
 	  <%= f.hidden_field(:id, :value => @flow_cell.id)%>
 	  
