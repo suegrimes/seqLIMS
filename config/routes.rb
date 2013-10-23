@@ -32,6 +32,7 @@ SeqLIMS::Application.routes.draw do
   end
   match 'edit_items' => 'orders#edit_order_items', :as => :edit_order_items
   match 'view_orders' => 'orders#new_query', :as => :view_orders
+  match 'list_selected' => 'orders#list_selected', :as => :list_selected
   
   get 'items/autocomplete_item_company_name'
   get 'items/autocomplete_item_item_description'
