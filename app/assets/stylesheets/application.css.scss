@@ -13,3 +13,21 @@
  *= require mendelims_styles
  *= require lims-superfish
  */
+
+
+.ui-widget-header {
+    background: none !important;
+    border: 1px solid #888 !important;
+    background-color: #888 !important;
+}
+
+.ui-datepicker .ui-datepicker-title select {
+    font-size: 0.9em !important;
+}
+
+.ui-datepicker {
+    width: 15em !important;
+}
+
+.ui-widget {font-size: .9em !important;}
+
