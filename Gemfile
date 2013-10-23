@@ -21,7 +21,6 @@ end
 
 #gem 'jquery-rails'
 gem 'jquery-rails', '2.0.2'
-
 gem 'jquery_datepicker'
 
 gem 'validates_timeliness', '~> 3.0'

@@ -1,16 +1,16 @@
+<% @nr_libs ||= ' ' %>
+
 <h1>New Sequencing Library - Singleplex</h1>
 
-<%= form_tag url_for(:action => :populate_libs), :remote => true do %>
+<%= form_tag url_for(:action => :populate_libs), {id: 'default_libs', remote: true} do %>
   
   <%= render :partial => 'lib_form' %>
   <%=raw break_clear %>
   
-  <b>Populate how many libraries with these defaults?</b>&nbsp;<%= text_field_tag(:nr_libs, '', :size => 5)-%>
-    <!--%= link_to 'Add Libraries', populate_libs_path, {:onclick => "this.href += '?nr_libs='+$('#nr_libs').val(); return true;", remote: true} %-->
-    <%= submit_tag 'Add Libraries' %>
-    <!--%= submit_to_remote 'Singleplex', 'Add Libraries',
-    :url => {:action => 'populate_libs', :method => :get},
-    :update => 'splex_libs' -%-->
+  <div id='add_libs'>
+    <b>Populate how many libraries with these defaults?</b>&nbsp;<%= text_field_tag(:nr_libs, @nr_libs, :size => 5)-%>
+  </div>
+    <span id='lib_button'><%= submit_tag 'Add Libraries' %></span>
 <% end %>
 
 <%= form_tag url_for(:action => :create) do %>
