@@ -41,10 +41,10 @@
   
 <% elsif @added_sample_id %>
   <div id="more_to_add">
-    <%= link_to_function "Add another sample for this patient/collection date", div_toggle(:more_to_add, :add_more) %>
+    <%= link_to "Add another sample for this patient/collection date", '', :onclick => "showHideDiv('more_to_add','add_more'); return false;" %>
   </div>
 	
-  <div id="add_more", style="display:none">
+  <div id="add_more" style="display:none">
   	<%= form_for @sample_characteristic, :url => {:action => 'update'} do |f| %>
 	  
 	  <% sample = @sample_characteristic.samples.build(@sample_params) %>
