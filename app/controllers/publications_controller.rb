@@ -71,15 +71,12 @@ class PublicationsController < ApplicationController
   
   def populate_lanes
     if params[:run_numbers]
-      @flow_cells = FlowCell.find_all_by_seq_run_nr(params[:run_numbers], :include => :flow_lanes,
+      @runnr_list = params[:run_numbers].split(',')
+      @flow_cells = FlowCell.find_all_by_seq_run_nr(@runnr_list, :include => :flow_lanes,
                                                 :order => "flow_cells.seq_run_nr, flow_lanes.lane_nr") 
     end
-    
-    if @flow_cells.nil?
-      render :text => "Unable to find run_number: #{params[:run_numbers]}"
-    else
-      render :partial => 'publication_runs', :locals => {:flow_cells => @flow_cells}
-    end
+
+    respond_to {|format| format.js }
   end
   
   def dropdowns
