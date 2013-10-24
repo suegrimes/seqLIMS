@@ -2,16 +2,18 @@ class OrderMailer < ActionMailer::Base
   # EMAIL_CREATE[:orders] = 'Production'  #Create normal production emails
   # EMAIL_CREATE[:orders] = 'Test'        #Create emails but send to admin account
   # EMAIL_CREATE[:orders] = 'NoEmail'     #Do not create any emails
-  
+
+  default from: 'sgrimes@stanford.edu', #EMAIL_FROM,
+          content_type: 'text/html'
+
   def new_items(items, user)
-    subject    'LIMSMailer - New item(s) ordered'
-    recipients email_list(items[0].deliver_site)
-    from       EMAIL_FROM
-    sent_on    Time.now
-    body       :items => items,
-               :user => user
+    @items = items
+    @user = user
+
+    mail(:subject => 'LIMSMailer - New item(s) ordered',
+         :to => email_list(items[0].deliver_site))
   end
-  
+
 protected
   def email_list(deliver_site)
     #Use orders email fields specific to delivery site if they exist, otherwise use generic 'orders' email fields

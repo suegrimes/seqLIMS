@@ -110,10 +110,11 @@ class ItemsController < ApplicationController
       email_create_orders = email_value(EMAIL_CREATE, 'orders', @items[0].deliver_site)
       email_delivery_orders = email_value(EMAIL_DELIVERY, 'orders', @items[0].deliver_site)
       
-      email = send_email(@items, current_user, email_delivery_orders) unless email_create_orders == 'NoEmail'
+      email = OrderMailer.new_items(@items, current_user) unless email_create_orders == 'NoEmail'
       if email_delivery_orders == 'Debug'
         render(:text => "<pre>" + email.encoded + "</pre>")
       else
+        email.deliver if email_delivery_orders == 'Deliver'
         redirect_to :action => 'list_unordered_items'
       end
          
@@ -189,13 +190,6 @@ class ItemsController < ApplicationController
   end
   
 protected
-  def send_email(items, user, email_delivery)
-    email = OrderMailer.create_new_items(items, user)
-    email.set_content_type("text/html")
-    OrderMailer.deliver(email) if email_delivery == 'Deliver'
-    return email
-  end
-
   def dropdowns
     items_all  = Item.all
     @companies = list_companies_from_items(items_all)
