@@ -1,3 +1,6 @@
+<% @nr_libs = @new_lib.size %>
+$j('#add_libs').hide()
 $j('#splex_libs').html("<%= escape_javascript(render :partial => 'sample_form').html_safe %>");
+$j('#lib_button').value("Refresh from Defaults")
 
 

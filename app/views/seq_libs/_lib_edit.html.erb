@@ -7,7 +7,7 @@
   <th>Adapter</th><td><%= f.select(:runtype_adapter, @adapters) %></td>
 </tr>
 <tr>
-  <th>Prep Date</th><td><%= f.datepicker 'from_date', dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true, size: 15 %></td>
+  <th>Prep Date</th><td><%= f.datepicker 'preparation_date', dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true, size: 15 %></td>
   <th>Owner</th><td><%= f.select(:owner, @owners, :include_blank => "Select..") %></td>
   <th>Protocol</th><td><%= f.collection_select(:protocol_id, @protocols, :id, :protocol_name,
                              {:include_blank => 'Select Protocol'}) %></td>

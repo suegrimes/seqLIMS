@@ -3,6 +3,8 @@
 <table class="form" border="0">
 <tr>
   <th>Prep Date:</th><td><%= datepicker_input('lib_default', 'preparation_date', dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true, size: 15) %></td>
+  <%= javascript_tag "$('#default_libs').submit(function() { if (!$('#lib_default_preparation_date').val()) { $(this).addClass('error'); $('#errorwarn').text('Date is required'); return false; }});" %>
+
   <th>Owner:</th><td><%= select_tag("lib_default[owner]", options_for_select(@owners, @requester))%></td> 
   <th>Protocol:</th><td><%= collection_select(:lib_default, :protocol_id, @protocols, :id, :protocol_name,
                            {:include_blank => 'Select Protocol'}) %></td>
@@ -16,9 +18,6 @@
 </tr>
 <tr> 
   <th>Source DNA/RNA:</th><td><%= autocomplete_field_tag 'sample_default_source_DNA', '', processed_samples_autocomplete_processed_sample_barcode_search_path, name: 'sample_default[source_DNA]' %>
-  	<!--%= text_field_with_auto_complete :sample_default, :source_DNA, {:size => 12},
-              {:url => {:controller => :processed_samples, :action => :auto_complete_for_barcode_key},
-               :param_name => :search, :min_chars => 2, :method => :get} %--></td>
   <th>Quantitation:</th><td><%= collection_select(:lib_default, :quantitation_method, @quantitation, :c_value, :c_value, {:include_blank => 'Select Method'}) %></td>
   <th>Size(Final PCR)</th><td><%= text_field(:lib_default, :pcr_size, :size => 12)%></td>	
 </tr>
@@ -37,3 +36,4 @@
 </tr>
 </table>
 </fieldset>
+<div id="errorwarn"></div>

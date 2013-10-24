@@ -12,6 +12,7 @@ SeqLIMS::Application.routes.draw do
   
   resources :researchers
   resources :publications
+  get 'pub_lanes' => 'publications#populate_lanes'
   resources :consent_protocols
   resources :protocols
   resources :categories

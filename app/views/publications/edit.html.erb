@@ -11,12 +11,9 @@
   
   <div id='lane_entry'> 
   <span><b>Add lanes from run number:</b>&nbsp;<%= text_field_tag(:run_numbers, '', :size => 5)-%></span>
-  <span class="linkbutton"><%= link_to_remote('Select Lanes', :update => 'lane_entry',
-                     :with => "Form.Element.serialize('run_numbers')", 
-                     :url => {:action => 'populate_lanes'}, :method => 'post') -%></span>
-  </div> 
-  <br/>
+  <span class="linkbutton"><%= link_to 'Select Lanes', pub_lanes_path, {:onclick => "this.href += '?run_numbers='+$('#run_numbers').val(); return true;", :remote => true} %></span>
+  </div>
+  <div id="run_error"></div>
+  <%=raw break_clear %>
   <%= f.submit "Update" -%>
 <% end %>
-
-

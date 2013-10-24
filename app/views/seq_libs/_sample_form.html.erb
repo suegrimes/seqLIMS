@@ -38,7 +38,7 @@
     <td><%= s.text_field(:index_tag, :size => 4) %></td>       
     <td><%= f.collection_select(:quantitation_method, @quantitation, :c_value, :c_value,
                                                             {:include_blank => 'Select Method'}) %></td>
-    <td><%= f.text_field(:pcr_size, :size => 6) %></td> 
+    <td><%= f.text_field(:pcr_size, :size => 6) %></td>
     <td><%= f.text_field(:lib_conc_requested, :size => 6)%>pM</td>
     <td><%= f.collection_select(:alignment_ref_id, @align_refs, :id, :alignment_key) %></td>
     <td><%= f.text_field(:trim_bases, :size => 6) %></td>
@@ -47,7 +47,7 @@
 </tr>
 <tr>
   <th style="text-align:right; text-decoration: none;"><em>Source DNA/RNA:</em></th>  
-  <td><%=s.autocomplete_field :source_sample_name, processed_samples_autocomplete_processed_sample_barcode_search_path, size: 15 %></td>
+  <td><%=s.autocomplete_field :source_sample_name, processed_samples_autocomplete_processed_sample_barcode_search_path, {size: 15, value: @lib_samples[i][:source_DNA]} %></td>
   <th style="text-align:right; text-decoration: none;"><em>Notebook Ref:</em></th>
   <td colspan="2"><%= f.text_field(:notebook_ref, :size => 30)%></td>  
   <th style="text-align:right; text-decoration: none;"><em>Notes:</em></th>
