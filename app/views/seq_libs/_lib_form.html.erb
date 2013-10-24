@@ -1,9 +1,17 @@
+<div id="errorwarn"></div>
 <fieldset class="form">
 <legend class="form">Library defaults</legend>
 <table class="form" border="0">
 <tr>
   <th>Prep Date:</th><td><%= datepicker_input('lib_default', 'preparation_date', dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true, size: 15) %></td>
-  <%= javascript_tag "$('#default_libs').submit(function() { if (!$('#lib_default_preparation_date').val()) { $(this).addClass('error'); $('#errorwarn').text('Date is required'); return false; }});" %>
+  <%= javascript_tag "$('#default_libs').submit(function() { 
+                        if (!$('#lib_default_preparation_date').val()) { 
+                          $(this).addClass('error'); $('#errorwarn').text('Date is required'); return false; 
+                        }
+                        if ($('#lib_default_preparation_date').val()) { 
+                          $(this).addClass('error'); $('#errorwarn').hide(); return true; 
+                        }                         
+                      });" %>
 
   <th>Owner:</th><td><%= select_tag("lib_default[owner]", options_for_select(@owners, @requester))%></td> 
   <th>Protocol:</th><td><%= collection_select(:lib_default, :protocol_id, @protocols, :id, :protocol_name,
@@ -36,4 +44,4 @@
 </tr>
 </table>
 </fieldset>
-<div id="errorwarn"></div>
+
