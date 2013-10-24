@@ -10,7 +10,7 @@
   <div id='add_libs'>
     <b>Populate how many libraries with these defaults?</b>&nbsp;<%= text_field_tag(:nr_libs, @nr_libs, :size => 5)-%>
   </div>
-    <span id='lib_button'><%= submit_tag 'Add Libraries' %></span>
+  <div id="add_libs_button"><%= submit_tag 'Add Libraries', id: 'lib_button' %></div>
 <% end %>
 
 <%= form_tag url_for(:action => :create) do %>
