@@ -50,7 +50,7 @@
 	  <% sample = @sample_characteristic.samples.build(@sample_params) %>
 	  <% sample.build_sample_storage_container %>
 	  
-	  <% f.fields_for :samples, sample do |s| %>
+	  <%= f.fields_for :samples, sample do |s| %>
          <%= render :partial => 'samples_form', :locals => {:s => s,
                                                             :sample => sample,
                                                             :removable => 'no'} %>

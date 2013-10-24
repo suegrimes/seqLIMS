@@ -71,8 +71,8 @@ class PublicationsController < ApplicationController
   
   def populate_lanes
     if params[:run_numbers]
-      @runnr_list = params[:run_numbers].split(',')
-      @flow_cells = FlowCell.find_all_by_seq_run_nr(@runnr_list, :include => :flow_lanes,
+      @runnr_list = params[:run_numbers]
+      @flow_cells = FlowCell.find_all_by_seq_run_nr(@runnr_list.split(','), :include => :flow_lanes,
                                                 :order => "flow_cells.seq_run_nr, flow_lanes.lane_nr") 
     end
 
