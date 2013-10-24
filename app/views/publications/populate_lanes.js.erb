@@ -1,6 +1,7 @@
 <% if @flow_cells.empty? %>
 $j('#run_error').html("Run number(s): <%= @runnr_list %> not found");
 <% else %>
+$j('#run_error').html("");
 $j('#lane_entry').html("<%= escape_javascript(render :partial => 'publication_runs', :locals => {:flow_cells => @flow_cells}).html_safe %>");
 <% end %>
 
