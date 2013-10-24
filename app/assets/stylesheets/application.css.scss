@@ -14,6 +14,11 @@
  *= require lims-superfish
  */
 
+#errorwarn {
+  padding:0 0 4px 4px; 
+  font-weight: bold; 
+  color:red;  
+}
 
 .ui-widget-header {
     background: none !important;
