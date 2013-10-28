@@ -10,14 +10,14 @@
                                                                :patient_id => @patient.id} %>
   <%=raw break_clear %>
   
-    <% fields_for @sample_characteristic do |c| %>
+    <%= fields_for @sample_characteristic do |c| %>
         <%= render '/shared/errors', model: @sample_characteristic %>
 	  
       <%= render :partial => 'clinical_form',   :locals => {:f => c} %>
 	  <%=raw break_clear %>
   
-	  <% for sample in @sample_characteristic.samples %>
-	    <% c.fields_for :samples, sample do |s| %>
+	  <%= for sample in @sample_characteristic.samples %>
+	    <%= c.fields_for :samples, sample do |s| %>
          <%= render :partial => 'samples_form', :locals => {:s => s,
                                                             :sample => sample,
                                                             :removable => 'no'} %>

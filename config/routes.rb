@@ -63,9 +63,8 @@ SeqLIMS::Application.routes.draw do
   
   # Routes for clinical samples/sample characteristics
   resources :sample_characteristics do
-    member do
-      get :add_new_sample
-    end 
+    get 'add_new_sample', on: :member
+    post 'new_sample', on: :collection
   end
   resources :pathologies
   
