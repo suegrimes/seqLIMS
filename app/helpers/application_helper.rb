@@ -1,12 +1,5 @@
 module ApplicationHelper
   
-  def div_toggle(div, div1=nil)
-    update_page do |page|
-      page[div].toggle
-      page[div1].toggle if div1
-    end
-  end
-  
   def break_clear(content=nil)
     out = '<br />'
     out << '<table class="break_clear" width="100%"><tr><td>'
