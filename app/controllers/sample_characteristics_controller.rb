@@ -137,9 +137,11 @@ class SampleCharacteristicsController < ApplicationController
       sample = new_sample_entered(params[:id], params[:sample_characteristic])
       if !sample.nil?
         email  = send_email(sample, @sample_characteristic.patient.mrn, current_user) unless EMAIL_CREATE[:samples] == 'NoEmail'
+
         if EMAIL_DELIVERY[:samples] == 'Debug'
           render(:text => "<pre>" + email.encoded + "</pre>")
         else
+          email.deliver
           redirect_to :action => 'show', :id => @sample_characteristic.id, :added_sample_id => sample.id
         end
       else
@@ -239,9 +241,7 @@ private
 
   def send_email(sample, mrn, user)
     consent_protocol = ConsentProtocol.find(sample.sample_characteristic.consent_protocol_id) 
-    email = LimsMailer.create_new_sample(sample, mrn, user.login, owner_email(consent_protocol))
-    email.set_content_type("text/html")
-    LimsMailer.deliver(email) unless EMAIL_DELIVERY[:samples] == 'Debug'
+    email = LimsMailer.new_sample(sample, mrn, user.login, owner_email(consent_protocol))
     return email
   end
   

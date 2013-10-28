@@ -20,12 +20,21 @@
 	   <% end %>
     <% end %>	
   </table>
+
+<div id="more_to_add">
+  <%= link_to "Add another sample for this patient/collection date", '', :onclick => "showHideDiv('more_to_add','add_more'); return false;" %>
+</div>
+
+<div id="add_more" style="display:none">
+   <% sample = @sample_characteristic.samples.build(@sample_params) %>
+   <% sample.build_sample_storage_container %>
+
+   <%= f.fields_for :samples, sample do |s| %>
+     <%= render :partial => 'samples_form', :locals => {:s => s,
+                                                        :sample => sample,
+                                                        :removable => 'no'} %>
+   <% end %>
+</div>
   
-  <div id="add_more">
-    <%= link_to_remote("Add another sample for this patient/collection date",
-                       :url => {:action => :add_new_sample, :f => f, :id => @sample_characteristic.id, :from_sample_id => @last_sample_id},
-                       :method => :get) %>
-  </div> 
-  
-  <%=raw break_clear(f.submit "Update") %>
+<%=raw break_clear(f.submit "Update") %>
 <% end %>
