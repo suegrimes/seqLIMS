@@ -88,35 +88,35 @@ class ProcessedSample < ActiveRecord::Base
     #self.find(:all, :include => [:sample, :sample_storage_container],
     #                :order => 'samples.patient_id, samples.barcode_key',
     #                :conditions => condition_array)
-    self.includes(:sample, :sample_storage_container).where(*condition_array).order('samples.patient_id, samples.barcode_key')
+    self.includes(:sample, :sample_storage_container).where(sql_where(condition_array)).order('samples.patient_id, samples.barcode_key')
   end
   
   def self.find_one_incl_patient(condition_array=nil)
     #self.find(:first, :include => [{:sample => [:sample_characteristic, :patient]}, :sample_storage_container],
     #                  :conditions => condition_array)
-    self.includes({:sample => [:sample_characteristic, :patient]}, :sample_storage_container).where(*condition_array).first
+    self.includes({:sample => [:sample_characteristic, :patient]}, :sample_storage_container).where(sql_where(condition_array)).first
   end
   
   def self.find_for_query(condition_array=nil)
     #self.find(:all, :include => [{:sample => :sample_characteristic}, :sample_storage_container],
     #                :order => "samples.patient_id, samples.barcode_key, processed_samples.barcode_key",
     #                :conditions => condition_array)
-    self.includes({:sample => :sample_characteristic}, :sample_storage_container).where(*condition_array)
-        .order("samples.patient_id, samples.barcode_key, processed_samples.barcode_key").all
+    self.includes({:sample => :sample_characteristic}, :sample_storage_container).where(sql_where(condition_array))
+        .order('samples.patient_id, samples.barcode_key, processed_samples.barcode_key').all
   end
   
   def self.find_for_export(psample_ids)
     #self.find(:all, :include => [:sample, :sample_storage_container],
     #          :conditions => ["processed_samples.id IN (?)", psample_ids],
     #          :order => "samples.patient_id, samples.barcode_key, processed_samples.barcode_key")
-    self.includes(:sample, :sample_storage_container).where("processed_samples.id IN (?)", psample_ids)
-        .order("samples.patient_id, samples.barcode_key, processed_samples.barcode_key").all
+    self.includes(:sample, :sample_storage_container).where('processed_samples.id IN (?)', psample_ids)
+        .order('samples.patient_id, samples.barcode_key, processed_samples.barcode_key').all
   end
   
   def self.next_extraction_barcode(source_id, source_barcode, extraction_char)
     barcode_mask = [source_barcode, '.', extraction_char, '%'].join
     #barcode_max  = self.maximum(:barcode_key, :conditions => ["sample_id = ? AND barcode_key LIKE ?", source_id.to_i, barcode_mask])
-    barcode_max  = self.where("sample_id = ? AND barcode_key LIKE ?", source_id.to_i, barcode_mask).maximum(:barcode_key)
+    barcode_max  = self.where('sample_id = ? AND barcode_key LIKE ?', source_id.to_i, barcode_mask).maximum(:barcode_key)
     if barcode_max
       return barcode_max.succ  # Existing extraction, so increment last 1-2 characters of max barcode string (eg. 3->4, or 09->10)
     else

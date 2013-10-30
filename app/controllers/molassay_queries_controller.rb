@@ -12,7 +12,7 @@ class MolassayQueriesController < ApplicationController
      
     if @molassay_query.valid?
       condition_array = define_conditions(params)
-      @molecular_assays = MolecularAssay.find_for_query(condition_array)                                       
+      @molecular_assays = MolecularAssay.find_for_query(sql_where(condition_array))
       render :action => :index
     else
       dropdowns

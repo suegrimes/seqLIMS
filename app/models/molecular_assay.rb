@@ -99,7 +99,8 @@ class MolecularAssay < ActiveRecord::Base
   end
   
   def self.find_for_query(condition_array=nil)
-    self.includes(:protocol, {:processed_sample => :sample}).where(*condition_array).order("processed_samples.patient_id, processed_samples.barcode_key, molecular_assays.barcode_key").all
+    self.includes(:protocol, {:processed_sample => :sample}).where(sql_where(condition_array))
+        .order('processed_samples.patient_id, processed_samples.barcode_key, molecular_assays.barcode_key').all
     #self.find(:all, :include => [:protocol, {:processed_sample => :sample}],
     #                :order => "processed_samples.patient_id, processed_samples.barcode_key, molecular_assays.barcode_key",
     #                :conditions => condition_array)

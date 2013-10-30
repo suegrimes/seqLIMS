@@ -56,7 +56,7 @@ class SampleCharacteristic < ActiveRecord::Base
   end
   
   def self.find_with_samples(patient_id=nil)
-    condition_array = (patient_id.nil? ? [] : ['sample_characteristics.patient_id = ?', patient_id])
+    condition_array = (patient_id.nil? ? nil : ['sample_characteristics.patient_id = ?', patient_id])
     self.includes(:samples).where(*condition_array).order('sample_characteristics.patient_id, samples.barcode_key')
     #self.find(:all, :include => :samples,
     #                :order   => 'sample_characteristics.patient_id, samples.barcode_key',
@@ -67,7 +67,7 @@ class SampleCharacteristic < ActiveRecord::Base
     #sample_characteristics = self.find(:all, :include => [:patient, :samples],
     #                :order   => 'sample_characteristics.patient_id, sample_characteristics.collection_date DESC',
     #               :conditions => condition_array)
-    sample_characteristics = self.includes(:patient, :samples).where(*condition_array)
+    sample_characteristics = self.includes(:patient, :samples).where(sql_where(condition_array))
                                  .order('sample_characteristics.patient_id, sample_characteristics.collection_date DESC')
     return sample_characteristics.size, 
            sample_characteristics.group_by {|samp_char| [samp_char.patient_id, samp_char.patient.mrn]}
