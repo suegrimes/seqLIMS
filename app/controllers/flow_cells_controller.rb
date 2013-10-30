@@ -46,7 +46,7 @@ class FlowCellsController < ApplicationController
     
     # Get sequencing libraries based on parameters entered
     @condition_array = define_lib_conditions(params)
-    @seq_libs        = SeqLib.includes(:mlib_samples).where(*@condition_array).order('lib_status, lib_name')
+    @seq_libs        = SeqLib.includes(:mlib_samples).where(sql_where(@condition_array)).order('lib_status, lib_name')
                                    
     # Exclude sequencing libraries which have been included in one or more multiplex libraries
     if params[:excl_used] && params[:excl_used] == 'Y'  

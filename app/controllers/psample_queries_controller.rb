@@ -12,7 +12,7 @@ class PsampleQueriesController < ApplicationController
      
     if @psample_query.valid?
       condition_array = define_conditions(params)
-      @processed_samples = ProcessedSample.find_for_query(condition_array)                                       
+      @processed_samples = ProcessedSample.find_for_query(sql_where(condition_array))
       render :action => :index
     else
       dropdowns

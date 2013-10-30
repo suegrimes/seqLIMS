@@ -18,7 +18,7 @@ class SeqlibQueriesController < ApplicationController
     if @seqlib_query.valid?
     
       @condition_array = define_conditions(params)
-      @seq_libs        = SeqLib.find_for_query(@condition_array)
+      @seq_libs        = SeqLib.find_for_query(sql_where(@condition_array))
       # Use sort instead of sort_by, so that preparation_date can be sorted in descending order
       #@seq_libs = @seq_libs.sort_by { |a| [a.preparation_date, a.lib_name] }
       @seq_libs.sort! { |a,b| dt_sort       = b.preparation_date <=> a.preparation_date

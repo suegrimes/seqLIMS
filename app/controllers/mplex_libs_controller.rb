@@ -22,7 +22,7 @@ class MplexLibsController < ApplicationController
     
     # Get sequencing libraries based on parameters entered
     @condition_array = define_lib_conditions(params)
-    @singleplex_libs = SeqLib.includes(:mlib_samples, {:lib_samples => :processed_sample}).where(*@condition_array)
+    @singleplex_libs = SeqLib.includes(:mlib_samples, {:lib_samples => :processed_sample}).where(sql_where(@condition_array))
                              .order('barcode_key, lib_name').all
     if params[:excl_used] && params[:excl_used] == 'Y'
       @singleplex_libs.reject!{|s_lib| !s_lib.mlib_samples.empty?} #Exclude if already included in a multiplex library
