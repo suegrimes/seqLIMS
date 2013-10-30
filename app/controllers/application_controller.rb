@@ -111,7 +111,10 @@ class ApplicationController < ActionController::Base
   
   def sql_value(input_val)
     if input_val.is_a?(String) && input_val[0,4] == 'LIKE'
-      input_val = ['%',input_val[5..-1],'%'].join 
+      input_val = ['%',input_val[5..-1],'%'].join
+    # Hack to deal with Rails 3.2 'error', adding additional blank value to array when multi-item select uses 'Include Blank' value
+    elsif input_val.is_a?(Array) && input_val.size > 1
+      input_val.shift if input_val[0].blank?
     end
     return input_val
   end
