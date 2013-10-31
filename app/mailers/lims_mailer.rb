@@ -4,7 +4,7 @@ class LimsMailer < ActionMailer::Base
   # EMAIL_CREATE[:samples] = 'Test1' #Create emails to send to admin account, plus email addressses associated with consent protocol
   # EMAIL_CREATE[:samples] = 'None'  #Do not create any emails
 
-  default from: 'sgrimes@stanford.edu', #EMAIL_FROM,
+  default from: EMAIL_FROM,
           content_type: 'text/html'
   
   def new_sample(sample, mrn, upd_by, emails=nil)

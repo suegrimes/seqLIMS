@@ -3,7 +3,7 @@ class OrderMailer < ActionMailer::Base
   # EMAIL_CREATE[:orders] = 'Test'        #Create emails but send to admin account
   # EMAIL_CREATE[:orders] = 'NoEmail'     #Do not create any emails
 
-  default from: 'sgrimes@stanford.edu', #EMAIL_FROM,
+  default from: EMAIL_FROM,
           content_type: 'text/html'
 
   def new_items(items, user)

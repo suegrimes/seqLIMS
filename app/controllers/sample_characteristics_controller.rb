@@ -141,7 +141,7 @@ class SampleCharacteristicsController < ApplicationController
         if EMAIL_DELIVERY[:samples] == 'Debug'
           render(:text => "<pre>" + email.encoded + "</pre>")
         else
-          email.deliver
+          email.deliver!
           redirect_to :action => 'show', :id => @sample_characteristic.id, :added_sample_id => sample.id
         end
       else
