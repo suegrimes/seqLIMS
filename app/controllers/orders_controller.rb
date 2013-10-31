@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
     
     if @item_query.valid?
       condition_array = define_conditions(params)
-      @orders = Order.includes(:items).where(*condition_array).order('date_ordered DESC')
+      @orders = Order.includes(:items).where(sql_where(condition_array)).order('date_ordered DESC')
       render :action => :index
       
     else

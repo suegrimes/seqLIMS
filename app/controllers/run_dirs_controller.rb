@@ -131,7 +131,7 @@ protected
       rc = -1
     end
     
-    flow_cell = FlowCell.find_flowcell_incl_rundirs(@condition_array) if rc == 0
+    flow_cell = FlowCell.find_flowcell_incl_rundirs(sql_where(@condition_array)) if rc == 0
     return flow_cell, rc 
   end
   

@@ -111,7 +111,10 @@ class ApplicationController < ActionController::Base
   
   def sql_value(input_val)
     if input_val.is_a?(String) && input_val[0,4] == 'LIKE'
-      input_val = ['%',input_val[5..-1],'%'].join 
+      input_val = ['%',input_val[5..-1],'%'].join
+    # Hack to deal with Rails 3.2 'error', adding additional blank value to array when multi-item select uses 'Include Blank' value
+    elsif input_val.is_a?(Array) && input_val.size > 1
+      input_val.shift if input_val[0].blank?
     end
     return input_val
   end
@@ -142,6 +145,15 @@ class ApplicationController < ActionController::Base
       where_values.push(params[:to_date])
     end  
     return where_select, where_values 
+  end
+
+  def sql_where(condition_array)
+    # Handle change from Rails 2.3 to Rails 3.2 to turn conditions into individual parameters vs array
+    if condition_array.empty?
+      return nil
+    else
+      return *condition_array
+    end
   end
   
   def email_value(email_hash, email_type, deliver_site)

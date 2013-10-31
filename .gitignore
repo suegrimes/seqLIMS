@@ -16,9 +16,10 @@
 .idea/*
 
 # Ignore initializers/config for mail and session setup
-/initializers/secret_token.rb
-/initializers/session_store.rb
-/initializers/setup_mail.rb
+/config/initializers/secret_token.rb
+/config/initializers/session_store.rb
+/config/initializers/setup_mail.rb
+/config/initializers/quiet_assets.rb
 
 # Ignore system config assets (R3+: /assets/system; R2.3.8: /public/system)
 /assets/system/*
