@@ -16,7 +16,7 @@
       <%= render :partial => 'clinical_form',   :locals => {:f => c} %>
 	  <%=raw break_clear %>
   
-	  <%= for sample in @sample_characteristic.samples %>
+	  <% for sample in @sample_characteristic.samples %>
 	    <%= c.fields_for :samples, sample do |s| %>
          <%= render :partial => 'samples_form', :locals => {:s => s,
                                                             :sample => sample,
