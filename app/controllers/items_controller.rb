@@ -16,7 +16,7 @@ class ItemsController < ApplicationController
     
     if @item_query.valid?
       condition_array = define_conditions(params)
-      items_all = Item.find_all_by_date(condition_array)
+      items_all = Item.find_all_by_date(*condition_array)
       items_notordered = items_all.reject{|item| item.ordered?}
      
       # Eliminate items from array, based on order status if specified

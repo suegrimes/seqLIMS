@@ -149,7 +149,7 @@ class SeqLib < ActiveRecord::Base
                     "COUNT(align_qc.id) AS 'qc_lane_cnt'")
         .joins('LEFT JOIN flow_lanes ON flow_lanes.seq_lib_id = seq_libs.id
               LEFT JOIN align_qc ON align_qc.flow_lane_id = flow_lanes.id
-              LEFT JOIN flow_cells ON flow_lanes.flow_cell_id = flow_cells.id').where(*condition_array).group('seq_libs.id')
+              LEFT JOIN flow_cells ON flow_lanes.flow_cell_id = flow_cells.id').where(sql_where(condition_array)).group('seq_libs.id')
     #self.find(:all, :select => "seq_libs.*, COUNT(DISTINCT(flow_cells.id)) AS 'seq_run_cnt', COUNT(flow_lanes.id) AS 'seq_lane_cnt', " +
     #                           "COUNT(align_qc.id) AS 'qc_lane_cnt'",
     #                :joins => "LEFT JOIN flow_lanes ON flow_lanes.seq_lib_id = seq_libs.id

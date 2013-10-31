@@ -163,7 +163,7 @@ class Sample < ActiveRecord::Base
   end
   
   def self.find_newly_added_sample(sample_characteristic_id, barcode_key)
-    condition_array = ["samples.sample_characteristic_id = ? AND samples.barcode_key = ?", sample_characteristic_id, barcode_key]
+    condition_array = ['samples.sample_characteristic_id = ? AND samples.barcode_key = ?', sample_characteristic_id, barcode_key]
     self.includes(:sample_characteristic, :patient, :sample_storage_container).where(*condition_array).first
     #self.find(:first, :include => [:sample_characteristic, :patient, :sample_storage_container],
     #          :conditions => ["samples.sample_characteristic_id = ? AND samples.barcode_key = ?",
@@ -173,34 +173,37 @@ class Sample < ActiveRecord::Base
   def self.getwith_attach(id)
     self.find(id, :include => :attached_files)
   end
-  
+
+  def self.find_and_group_for_patient(patient_id, id_type=nil)
+    self.find_and_group_by_source(['samples.patient_id = ?', patient_id])
+  end
+
+  def self.find_and_group_for_clinical(sample_characteristic_id)
+    self.find_and_group_by_source(['samples.sample_characteristic_id = ?', sample_characteristic_id])
+  end
+
+  def self.find_and_group_for_sample(source_sample_id)
+    self.find_and_group_by_source(['samples.id = ? OR samples.source_sample_id = ?', source_sample_id, source_sample_id])
+  end
+
   def self.find_and_group_by_source(condition_array)
     samples = self.find_with_conditions(condition_array)
-    return [samples.where("samples.source_sample_id IS NULL").count, samples.count],
+    return [samples.where('samples.source_sample_id IS NULL').count, samples.count],
             samples.group_by {|sample| [sample.patient_id, sample.patient.mrn]}
   end
   
   def self.find_with_conditions(condition_array)
+    # This is not eager-loading the associations, so slows down the view by doing a query for each sample & association
+    # Might have to replace .includes with .joins for efficiency
+
     #self.find(:all, :include => [:patient, [:sample_characteristic => :pathology], :source_sample, :histology, :sample_storage_container, :processed_samples],
     #                             :conditions => condition_array,
     #                             :order => 'samples.patient_id,
     #                             (if(samples.source_barcode_key IS NOT NULL, samples.source_barcode_key, samples.barcode_key)), samples.barcode_key')
-    self.includes(:patient, {:sample_characteristic => :pathology}, :source_sample, :histology, :sample_storage_container, :processed_samples)
-        .where(*condition_array).order('samples.patient_id')
+    self.includes(:patient, {:sample_characteristic => :pathology}, :source_sample, :histology, :sample_storage_container, :processed_samples, :user)
+        .where(sql_where(condition_array)).order('samples.patient_id')
   end
-  
-  def self.find_and_group_for_patient(patient_id, id_type=nil)
-    self.find_and_group_by_source(['samples.patient_id = ?', patient_id])
-  end
-  
-  def self.find_and_group_for_clinical(sample_characteristic_id)
-    self.find_and_group_by_source(['samples.sample_characteristic_id = ?', sample_characteristic_id])
-  end
-  
-  def self.find_and_group_for_sample(source_sample_id)
-    self.find_and_group_by_source(['samples.id = ? OR samples.source_sample_id = ?', source_sample_id, source_sample_id])
-  end
-  
+
   def self.find_for_export(sample_ids)
     self.includes(:patient, [:sample_characteristic => :pathology], :histology, :sample_storage_container, :processed_samples)
         .where("samples.id IN (?)", sample_ids).order("samples.patient_id, samples.barcode_key").all

@@ -15,7 +15,7 @@ class SampleQueriesController < ApplicationController
     
     if @sample_query.valid?
       @condition_array = define_conditions(params)
-      @nr_samples, @samples_by_patient = Sample.find_and_group_by_source(@condition_array)
+      @nr_samples, @samples_by_patient = Sample.find_and_group_by_source(sql_where(@condition_array))
       @source_sample_ids = Sample.find_all_source_for_dissected
       
       @type_of_sample = (params[:stype] ||= 'Source and Dissected')

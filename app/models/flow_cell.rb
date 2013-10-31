@@ -87,9 +87,10 @@ class FlowCell < ActiveRecord::Base
     return (run_description.blank? ? alt_run : run_description)
   end
   
-  def self.find_sequencing_runs(condition_array=[])
-    self.sequenced.find(:all, :include => {:flow_lanes => :publications}, :order => 'flow_cells.seq_run_nr DESC',
-                        :conditions => condition_array)
+  def self.find_sequencing_runs(condition_array=nil)
+    self.sequenced.includes(:flow_lanes => :publications).where(sql_where(condition_array)).order('flow_cells.seq_run_nr DESC').all
+    #self.sequenced.find(:all, :include => {:flow_lanes => :publications}, :order => 'flow_cells.seq_run_nr DESC',
+    #                    :conditions => condition_array)
   end
   
   def self.find_flowcells_for_sequencing
@@ -103,7 +104,7 @@ class FlowCell < ActiveRecord::Base
   end
   
   def self.find_flowcell_incl_rundirs(condition_array=nil)
-    self.includes(:run_dirs, {:flow_lanes => :publications}).where(*condition_array).order("flow_cells.seq_run_nr, run_dirs.device_name").first
+    self.includes(:run_dirs, {:flow_lanes => :publications}).where(sql_where(condition_array)).order('flow_cells.seq_run_nr, run_dirs.device_name').first
   end
   
   def set_flowcell_status(flowcell_status='F')
