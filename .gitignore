@@ -18,7 +18,7 @@
 # Ignore initializers/config for mail and session setup
 /config/initializers/secret_token.rb
 /config/initializers/session_store.rb
-/config/initializers/setup_mail.rb
+/config/initializers/setup_mailer.rb
 /config/initializers/quiet_assets.rb
 
 # Ignore system config assets (R3+: app/assets/system; R2.3.8: /public/system)
