@@ -85,8 +85,9 @@ class SeqLibsController < ApplicationController
     end
     
     if libs_created == 0  # All lib_names were blank
-      flash[:error] = 'No sequencing library(ies) created - no non-blank library names found'
+      flash[:error] = 'No sequencing library(ies) created - at least one library name required'
       @lib_with_error = nil
+      @hide_defaults = true
       reload_lib_defaults(params, params[:nr_libs])
       render :action => 'new'
 
@@ -97,8 +98,9 @@ class SeqLibsController < ApplicationController
     
     # Validation error(s)
     rescue ActiveRecord::ActiveRecordError
-      flash.now[:error] = 'Error creating sequencing library -please enter all required fields'
+      flash.now[:error] = 'Error creating sequencing library - please enter all required fields'
       @lib_with_error = @new_lib[@lib_index]
+      @hide_defaults = true
       reload_lib_defaults(params, params[:nr_libs])
       render :action => 'new'
   end
