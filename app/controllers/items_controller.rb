@@ -114,7 +114,7 @@ class ItemsController < ApplicationController
       if email_delivery_orders == 'Debug'
         render(:text => "<pre>" + email.encoded + "</pre>")
       else
-        email.deliver if email_delivery_orders == 'Deliver'
+        email.deliver! if email_delivery_orders == 'Deliver'
         redirect_to :action => 'list_unordered_items'
       end
          

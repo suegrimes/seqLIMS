@@ -63,19 +63,6 @@ module SeqLIMS
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
     
-    # Mailer code from Rails 2.3.8 version
-    # Configure action mailer
-    config.action_mailer.smtp_settings = {
-             :address => 'smtp.stanford.edu',
-             :port    => 25,
-             :domain  => 'stanford.edu',
-             :tls     => true,
-             :enable_starttls_auto => true,
-#             :authentication => :login,
-#             :user_name => 'sgrimes',
-#             :password  => '[mypswd]'
-    }
-    
     # Date/Time formating for CalendarDateSelect
     #CalendarDateSelect.format = :iso_date
     
