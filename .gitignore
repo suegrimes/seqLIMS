@@ -21,6 +21,8 @@
 /config/initializers/setup_mailer.rb
 /config/initializers/quiet_assets.rb
 
+/config/deploy.rb
+
 # Ignore system config assets (R3+: app/assets/system; R2.3.8: /public/system)
 /app/assets/system/*
 /public/system/*
