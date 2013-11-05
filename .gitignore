@@ -29,3 +29,5 @@
 /config/*.yml
 /lib/mysql.rb
 
+.rvmrc
+
