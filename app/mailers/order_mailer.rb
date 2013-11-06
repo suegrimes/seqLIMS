@@ -3,14 +3,14 @@ class OrderMailer < ActionMailer::Base
   # EMAIL_CREATE[:orders] = 'Test'        #Create emails but send to admin account
   # EMAIL_CREATE[:orders] = 'NoEmail'     #Do not create any emails
 
-  default from: EMAIL_FROM,
-          content_type: 'text/html'
+  default content_type: 'text/html'
 
   def new_items(items, user)
     @items = items
     @user = user
 
     mail(:subject => 'LIMSMailer - New item(s) ordered',
+         :from => EMAIL_FROM,
          :to => email_list(items[0].deliver_site))
   end
 
