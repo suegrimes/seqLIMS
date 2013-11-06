@@ -59,13 +59,13 @@ class Item < ActiveRecord::Base
     return (item_quantity.to_i > 0 ? item_quantity.to_i * item_price : nil)
   end
   
-  def self.find_all_unique(condition_array=nil)
+  def self.find_all_unique(condition_array=[])
     self.where(sql_where(condition_array)).group('item_description, catalog_nr').all
     #self.find(:all, :group => "item_description, catalog_nr",
     #               :conditions => condition_array)
   end
   
-  def self.find_all_by_date(condition_array=nil)
+  def self.find_all_by_date(condition_array=[])
     self.includes(:order).where(sql_where(condition_array)).order('DATE(items.created_at) DESC, orders.po_number').all
     #self.find(:all, :include => :order,
     #                :order => 'DATE(items.created_at) DESC, orders.po_number',

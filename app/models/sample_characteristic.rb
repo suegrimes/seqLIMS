@@ -63,7 +63,7 @@ class SampleCharacteristic < ActiveRecord::Base
     #                :conditions => condition_array)
   end
 
-  def self.find_and_group_with_conditions(condition_array=nil)
+  def self.find_and_group_with_conditions(condition_array=[])
     #sample_characteristics = self.find(:all, :include => [:patient, :samples],
     #                :order   => 'sample_characteristics.patient_id, sample_characteristics.collection_date DESC',
     #               :conditions => condition_array)
