@@ -149,7 +149,7 @@ class ApplicationController < ActionController::Base
 
   def sql_where(condition_array)
     # Handle change from Rails 2.3 to Rails 3.2 to turn conditions into individual parameters vs array
-    if condition_array.empty?
+    if condition_array.nil? || condition_array.empty?
       return nil
     else
       return *condition_array
