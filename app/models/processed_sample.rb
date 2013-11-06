@@ -84,20 +84,20 @@ class ProcessedSample < ActiveRecord::Base
     self.find(id, :include => :attached_files)
   end
   
-  def self.find_all_incl_sample(condition_array=nil)
+  def self.find_all_incl_sample(condition_array=[])
     #self.find(:all, :include => [:sample, :sample_storage_container],
     #                :order => 'samples.patient_id, samples.barcode_key',
     #                :conditions => condition_array)
     self.includes(:sample, :sample_storage_container).where(sql_where(condition_array)).order('samples.patient_id, samples.barcode_key')
   end
   
-  def self.find_one_incl_patient(condition_array=nil)
+  def self.find_one_incl_patient(condition_array=[])
     #self.find(:first, :include => [{:sample => [:sample_characteristic, :patient]}, :sample_storage_container],
     #                  :conditions => condition_array)
     self.includes({:sample => [:sample_characteristic, :patient]}, :sample_storage_container).where(sql_where(condition_array)).first
   end
   
-  def self.find_for_query(condition_array=nil)
+  def self.find_for_query(condition_array=[])
     #self.find(:all, :include => [{:sample => :sample_characteristic}, :sample_storage_container],
     #                :order => "samples.patient_id, samples.barcode_key, processed_samples.barcode_key",
     #                :conditions => condition_array)
