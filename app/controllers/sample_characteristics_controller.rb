@@ -97,7 +97,7 @@ class SampleCharacteristicsController < ApplicationController
         render :action => 'edit_params'
         
       else
-        @nr_samples, @clin_samples_by_patient = SampleCharacteristic.find_and_group_with_conditions(*condition_array)
+        @nr_samples, @clin_samples_by_patient = SampleCharacteristic.find_and_group_with_conditions(condition_array)
         if @nr_samples > 1
           render :action => 'list_for_edit'
           
