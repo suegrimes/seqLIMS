@@ -5,15 +5,18 @@
   
   <fieldset class="form">
   <legend>Category details</legend>
-  <div>
-    <%= cform.label :category %>:&nbsp;<%= cform.text_field :category %><br />
-    <%= cform.label :category_description, 'Description' %>:&nbsp;<%= cform.text_field :category_description %>
-  </div>
-  <br />
-  
-  <div id="category">
-    <%= render :partial => 'cat_values', :locals => {:cform => cform} %>
-  </div>
+  <table>
+    <tr>
+      <th><%=cform.label :category %></th>
+      <td><%=cform.text_field :category %></td>
+    </tr>
+    <tr>
+      <th><%=cform.label :category_description, 'Description' %></th>
+      <td><%= cform.text_field :category_description %></td>
+    </tr>
+  </table>
+
+  <%= render :partial => 'cat_values', :locals => {:cform => cform} %>
   <br />
   </fieldset>
   
