@@ -16,10 +16,10 @@ module ActiveRecordExtension
   #   if array is populated                                                                     #
   ###############################################################################################
     def sql_where(condition_array)
-      if condition_array.size > 0
-        return *condition_array
-      else
+      if condition_array.nil? || condition_array.empty?
         return nil
+      else
+        return *condition_array
       end
     end
   end
