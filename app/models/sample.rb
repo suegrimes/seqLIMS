@@ -171,7 +171,7 @@ class Sample < ActiveRecord::Base
   end
   
   def self.getwith_attach(id)
-    self.find(id, :include => :attached_files)
+    self.find(id).includes(:attached_files)
   end
 
   def self.find_and_group_for_patient(patient_id, id_type=nil)
