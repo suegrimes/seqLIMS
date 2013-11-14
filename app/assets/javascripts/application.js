@@ -15,6 +15,7 @@
 //= require jquery-ui
 //= require autocomplete-rails
 //= require superfish
+//= require jquery_nested_form
 
 function add_fields(link, association, content) {  
 var new_id = new Date().getTime();  
