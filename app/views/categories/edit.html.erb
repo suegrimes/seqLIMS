@@ -1,6 +1,6 @@
 <h1>Editing category</h1>
 
-<%= form_for(@category) do |cform| %>
+<%= nested_form_for(@category) do |cform| %>
   <%= render '/shared/errors', model: @category %>
   
   <fieldset class="form">
@@ -12,7 +12,7 @@
     <%= render :partial => 'cat_values', :locals => {:category_values => @category.category_values,
                                                      :cform => cform} %>
   </div>  
-  <div id="add_val"><%= add_value_link("Add Value", cform) %></div>
+
   </fieldset>
   
   <%=raw break_clear(cform.submit "Update" )%>
