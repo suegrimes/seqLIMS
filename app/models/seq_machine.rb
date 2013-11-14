@@ -20,19 +20,18 @@ class SeqMachine < ActiveRecord::Base
   scope :sequencers, :conditions => ['machine_name <> ?', 'Run_Number' ]
   
   #MACHINE_TYPES = %w{GAIIx HiSeq MiSeq}
-  MACHINE_TYPES = self.sequencers.find(:all, :select => "DISTINCT(machine_type)", :order => :machine_type).map(&:machine_type) 
+  MACHINE_TYPES = self.sequencers.select('DISTINCT(machine_type)').group(:machine_type).all.map(&:machine_type)
   
   def machine_name_and_type
-    return [machine_name, '(', machine_type, ')']
+    return [machine_name, '(', machine_type, ')'].join
   end
   
   def self.populate_dropdown
-    return self.sequencers.find(:all, :order => 'bldg_location, machine_name')
+    return self.sequencers.order('bldg_location, machine_name').all
   end
   
   def self.populate_dropdown_grouped
-    sequencers_by_bldg = self.sequencers.find(:all, :select => 'id, bldg_location, machine_name',
-                                                    :order  => 'bldg_location, machine_name').group_by(&:bldg_location)
+    sequencers_by_bldg = self.sequencers.select('id, bldg_location, machine_name').order('bldg_location, machine_name').all.group_by(&:bldg_location)
     return sequencers_by_bldg.collect {|bldg, attrs| [bldg, attrs.collect{|attr| [attr.machine_name, attr.id]}]}
   end
   
@@ -43,12 +42,11 @@ class SeqMachine < ActiveRecord::Base
   end
   
   def self.find_all_with_incidents
-    self.sequencers.find(:all, :include => :machine_incidents,
-                               :order => "seq_machines.bldg_location, seq_machines.machine_name, machine_incidents.incident_date DESC")
+    self.sequencers.includes(:machine_incidents).order('seq_machines.bldg_location, seq_machines.machine_name, machine_incidents.incident_date DESC').all
   end
   
   def self.find_with_incidents(id)
-    self.find(id, :include => :machine_incidents, :order => 'machine_incidents.incident_date DESC')
+    self.find(id).includes(:machine_incidents).order('machine_incidents.incident_date DESC')
   end
   
 end
