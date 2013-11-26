@@ -1,7 +1,14 @@
-<div class="fields">
-<span>
-  <%= f.datepicker 'incident_date', dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true, size: 15 %> &nbsp;&nbsp;
-  <%= f.text_field  :incident_description, :label => 'Description' %>
-  <%= link_to_remove_fields("Remove", f) %>
-</span><br />  
-</div>   
+<table id="incidents">
+  <tr>
+    <th style="text-align:left">Incident Date</th>
+    <th style="text-align:left">Description</th>
+  </tr>
+  <%= f.fields_for :machine_incidents, :wrapper => false do |x| %>
+      <tr class="fields">
+        <td><%= x.datepicker 'incident_date', dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true, size: 15 %></td>
+        <td><%= x.text_field  :incident_description %></td>
+        <td><%= x.link_to_remove "Remove" %></td>
+      </tr>
+  <% end %>
+</table>
+<p><%= f.link_to_add "Add Incident", :machine_incidents, :data => { :target => "#incidents" } %></p>

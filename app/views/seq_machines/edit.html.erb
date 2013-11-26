@@ -1,16 +1,16 @@
 <h1>Update Sequencing Machine</h1>
 
-<%= tagged_form_for(@seq_machine) do |f| %>
+<fieldset class="form">
+<legend>Seq Machine</legend>
+
+<%= nested_form_for(@seq_machine) do |f| %>
   <%= render '/shared/errors', model: @seq_machine %>
 
   <%= render :partial => 'seq_machine_form', :locals => {:f => f} %>
   
-  <b>Machine Incident Log</b>
-  <p><%= link_to_add_fields "Add Incident", f, :machine_incidents %></p>
-  
-  <% f.fields_for :machine_incidents do |m| %>  
-   <%= render :partial => 'machine_incident_fields', :locals => {:f => m, :default_date => 'no'} %>
-  <% end %> 
-      
-  <%= f.submit "Update" %>
+  <br/><h3>Machine Incident Log:</h3>
+  <%= render :partial => 'machine_incident_fields', :locals => {:f => f, :default_date => 'no'} %>
+
+</fieldset>
+<%= f.submit "Update" %>
 <% end %>

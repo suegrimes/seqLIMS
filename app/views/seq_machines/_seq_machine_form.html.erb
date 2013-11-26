@@ -1,13 +1,25 @@
-<fieldset class="form">
-<legend>Seq Machine</legend>
 <table class="form">
-  	<tr><%= f.text_field :machine_name, :label => 'Machine Code' %></tr>
-    <tr><%= f.text_field :machine_desc, :label => 'Description'  %></tr>
-	<tr><%= f.select(:machine_type, %w{GAIIx HiSeq MiSeq}) %></tr>
-	<tr><%= f.select(:bldg_location, %w{SGTC Snyder Core Other}, :label => 'Building') %></tr>
+  	<tr>
+      <th><%= f.label :machine_name, 'Machine Code' %></th>
+      <td><%= f.text_field :machine_name %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :machine_desc, 'Description' %></th>
+      <td><%= f.text_field :machine_desc, :label => 'Description'  %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :machine_type %></th>
+      <td><%= f.select(:machine_type, %w{GAIIx HiSeq MiSeq}) %></td>
+    </tr>
+	<tr>
+      <th><%= f.label :bldg_location, 'Building' %></th>
+      <td><%= f.select(:bldg_location, %w{SGTC Snyder Core Other}) %></td>
+	</tr>
+
 	<% if @seq_machine.machine_name == 'Run_Number' %>
-	  <tr><%= f.text_field :last_seq_num, :label => 'Last run number' %></tr>
+      <tr>
+        <th><%= f.label :last_seq_num, 'Last run number' %></th>
+        <td><%= f.text_field :last_seq_num, :label => 'Last run number' %></td>
+      </tr>
 	<% end %>		
   </table>
-</fieldset>
-<%=raw break_clear %>
