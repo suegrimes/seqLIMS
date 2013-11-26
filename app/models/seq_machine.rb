@@ -42,11 +42,11 @@ class SeqMachine < ActiveRecord::Base
   end
   
   def self.find_all_with_incidents
-    self.sequencers.includes(:machine_incidents).order('seq_machines.bldg_location, seq_machines.machine_name, machine_incidents.incident_date DESC').all
+    self.includes(:machine_incidents).sequencers.order('seq_machines.bldg_location, seq_machines.machine_name, machine_incidents.incident_date DESC').all
   end
   
   def self.find_with_incidents(id)
-    self.find(id).includes(:machine_incidents).order('machine_incidents.incident_date DESC')
+    self.includes(:machine_incidents).find(id)
   end
   
 end
