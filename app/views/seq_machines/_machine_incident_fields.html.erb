@@ -6,7 +6,7 @@
   <%= f.fields_for :machine_incidents, :wrapper => false do |x| %>
       <tr class="fields">
         <td><%= x.datepicker 'incident_date', dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true, size: 15 %></td>
-        <td><%= x.text_field  :incident_description %></td>
+        <td><%= x.text_field  :incident_description, :size => 60 %></td>
         <td><%= x.link_to_remove "Remove" %></td>
       </tr>
   <% end %>

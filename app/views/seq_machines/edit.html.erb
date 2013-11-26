@@ -12,5 +12,5 @@
   <%= render :partial => 'machine_incident_fields', :locals => {:f => f, :default_date => 'no'} %>
 
 </fieldset>
-<%= f.submit "Update" %>
+<%=raw break_clear(f.submit "Update")%>
 <% end %>
