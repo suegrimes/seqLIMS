@@ -65,8 +65,16 @@
         </table> 
       </td>
       <td valign="top" width="180" class="rgt-header-bg-graphic">
-      	<div class="version"><% if APP_VERSION %>Version: <%= APP_VERSION %><% end %><br /><span class="grey"><%=h env_descr %></span>
-      	<br>debug:<br>Rails Env - <%= Rails.env %><br>Rails Ver - <%= Rails.version %><br>Ruby - <%= RUBY_VERSION %><br>Date - <%= Time.current.to_date %>
+      	<div class="version"><% if APP_VERSION %>Version: <%= APP_VERSION %><% end %><br /><span class="grey"><%=h env_descr %></span><br>
+          <% if Rails.env != 'production' %>
+            <span class="grey">
+              <%=h Rails.env %><br /> 
+              git branch: <%= GIT_BRANCH %><br>
+              Rails Env - <%= Rails.env %><br>
+              Rails Ver - <%= Rails.version %><br>
+              Ruby - <%= RUBY_VERSION %>
+            </span>
+          <% end %>
       </td>
     </tr>
     <tr>
