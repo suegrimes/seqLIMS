@@ -19,16 +19,16 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-#gem 'jquery-rails'
-gem 'jquery-rails', '2.0.2'
+#gem 'jquery-rails', '2.0.2'
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'jquery_datepicker'
+#gem 'rails3-jquery-autocomplete', git: 'https://github.com/francisd/rails3-jquery-autocomplete'
+gem 'rails3-jquery-autocomplete', '~> 1.0.11'
 
 gem 'validates_timeliness', '~> 3.0'
 gem 'carrierwave', '~> 0.9'
 gem 'blame'
-
-#gem 'rails3-jquery-autocomplete', git: 'https://github.com/francisd/rails3-jquery-autocomplete'
-gem 'rails3-jquery-autocomplete', '~> 1.0.11'
 
 # Helpers for nested forms
 gem 'nested_form'

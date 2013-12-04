@@ -6,9 +6,10 @@
   <meta name="keywords" content="<%= META_TAGS[:keywords] %>" />
   <%= stylesheet_link_tag "application", :media => "all" %>
   <%= stylesheet_link_tag "print", :media => "print" %>
-  <%= stylesheet_link_tag "http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" %>
+  <!--%= stylesheet_link_tag "http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" %-->
   <!--[if IE]><%= stylesheet_link_tag 'ie-fixes' %><![endif]-->   
   <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "http://code.jquery.com/jquery-migrate-1.0.0.js" %>
   
   <script type="text/javascript">
     var $ = jQuery.noConflict();
@@ -65,8 +66,14 @@
         </table> 
       </td>
       <td valign="top" width="180" class="rgt-header-bg-graphic">
-      	<div class="version"><% if APP_VERSION %>Version: <%= APP_VERSION %><% end %><br /><span class="grey"><%=h env_descr %></span>
-      	<br>debug:<br>Rails Env - <%= Rails.env %><br>Rails Ver - <%= Rails.version %><br>Ruby - <%= RUBY_VERSION %><br>Date - <%= Time.current.to_date %>
+      	<div class="version"><% if APP_VERSION %>Version: <%= APP_VERSION %><% end %><br /><span class="grey"><%=h env_descr %></span><br>
+          <% if Rails.env != 'production' %>
+            <span class="grey">
+              git branch: <%= GIT_BRANCH %><br>
+              Rails Ver: <%= Rails.version %><br>
+              Ruby Ver: <%= RUBY_VERSION %>
+            </span>
+          <% end %>
       </td>
     </tr>
     <tr>

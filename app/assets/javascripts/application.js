@@ -12,7 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui
+//= require jquery.ui.autocomplete
+//= require jquery.ui.datepicker
 //= require autocomplete-rails
 //= require superfish
 //= require jquery_nested_form
