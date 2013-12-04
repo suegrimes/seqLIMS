@@ -2,15 +2,15 @@
 #
 # Table name: assigned_barcodes
 #
-#  id            :integer(4)      not null, primary key
+#  id            :integer          not null, primary key
 #  assign_date   :date
 #  group_name    :string(30)
 #  owner_name    :string(25)
 #  sample_type   :string(25)
-#  start_barcode :integer(3)      not null
-#  end_barcode   :integer(3)      not null
+#  start_barcode :integer          not null
+#  end_barcode   :integer          not null
 #  created_at    :datetime
-#  updated_by    :integer(4)
+#  updated_by    :integer
 #
 
 class AssignedBarcode < ActiveRecord::Base

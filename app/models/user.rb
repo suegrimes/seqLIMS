@@ -2,7 +2,7 @@
 #
 # Table name: users
 #
-#  id                        :integer(4)      not null, primary key
+#  id                        :integer          not null, primary key
 #  login                     :string(25)
 #  email                     :string(255)
 #  crypted_password          :string(40)

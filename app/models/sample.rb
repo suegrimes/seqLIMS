@@ -2,12 +2,12 @@
 #
 # Table name: samples
 #
-#  id                       :integer(4)      not null, primary key
-#  patient_id               :integer(4)
-#  sample_characteristic_id :integer(4)
-#  source_sample_id         :integer(4)
+#  id                       :integer          not null, primary key
+#  patient_id               :integer
+#  sample_characteristic_id :integer
+#  source_sample_id         :integer
 #  source_barcode_key       :string(20)
-#  barcode_key              :string(20)      default(""), not null
+#  barcode_key              :string(20)       default(""), not null
 #  alt_identifier           :string(20)
 #  sample_date              :date
 #  sample_type              :string(50)
@@ -17,17 +17,17 @@
 #  tumor_normal             :string(25)
 #  sample_container         :string(20)
 #  vial_type                :string(30)
-#  amount_initial           :decimal(10, 3)  default(0.0)
-#  amount_rem               :decimal(10, 3)  default(0.0)
+#  amount_initial           :decimal(10, 3)   default(0.0)
+#  amount_rem               :decimal(10, 3)   default(0.0)
 #  amount_uom               :string(20)
 #  sample_remaining         :string(2)
-#  storage_location_id      :integer(4)
+#  storage_location_id      :integer
 #  storage_shelf            :string(10)
 #  storage_boxbin           :string(25)
-#  comments                 :string(255)
-#  updated_by               :integer(2)
+#  comments                 :string(1024)
+#  updated_by               :integer
 #  created_at               :datetime
-#  updated_at               :timestamp       not null
+#  updated_at               :timestamp        not null
 #
 
 class Sample < ActiveRecord::Base

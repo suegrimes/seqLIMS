@@ -2,10 +2,10 @@
 #
 # Table name: processed_samples
 #
-#  id                  :integer(4)      not null, primary key
-#  sample_id           :integer(4)
-#  patient_id          :integer(4)
-#  protocol_id         :integer(4)
+#  id                  :integer          not null, primary key
+#  sample_id           :integer
+#  patient_id          :integer
+#  protocol_id         :integer
 #  extraction_type     :string(25)
 #  processing_date     :date
 #  input_uom           :string(25)
@@ -20,13 +20,13 @@
 #  final_a260_a280     :decimal(11, 3)
 #  final_rin_nr        :decimal(4, 1)
 #  psample_remaining   :string(2)
-#  storage_location_id :integer(4)
+#  storage_location_id :integer
 #  storage_shelf       :string(10)
 #  storage_boxbin      :string(25)
 #  comments            :string(255)
-#  updated_by          :integer(2)
+#  updated_by          :integer
 #  created_at          :datetime
-#  updated_at          :timestamp       not null
+#  updated_at          :timestamp        not null
 #
 
 class ProcessedSample < ActiveRecord::Base

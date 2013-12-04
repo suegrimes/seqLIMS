@@ -25,6 +25,7 @@ gem 'jquery_datepicker'
 
 gem 'validates_timeliness', '~> 3.0'
 gem 'carrierwave', '~> 0.9'
+gem 'blame'
 
 #gem 'rails3-jquery-autocomplete', git: 'https://github.com/francisd/rails3-jquery-autocomplete'
 gem 'rails3-jquery-autocomplete', '~> 1.0.11'

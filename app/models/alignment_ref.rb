@@ -2,11 +2,11 @@
 #
 # Table name: alignment_refs
 #
-#  id             :integer(4)      not null, primary key
-#  alignment_key  :string(20)      default(""), not null
+#  id             :integer          not null, primary key
+#  alignment_key  :string(20)       default(""), not null
 #  interface_name :string(25)
 #  genome_build   :string(50)
-#  created_by     :integer(4)
+#  created_by     :integer
 #  created_at     :datetime
 #  updated_at     :timestamp
 #

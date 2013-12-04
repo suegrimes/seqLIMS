@@ -2,9 +2,9 @@
 #
 # Table name: categories
 #
-#  id                   :integer(4)      not null, primary key
-#  cgroup_id            :integer(4)
-#  category             :string(50)      default(""), not null
+#  id                   :integer          not null, primary key
+#  cgroup_id            :integer
+#  category             :string(50)       default(""), not null
 #  category_description :string(255)
 #  archive_flag         :string(1)
 #  created_at           :datetime
