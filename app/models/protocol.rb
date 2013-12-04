@@ -2,7 +2,7 @@
 #
 # Table name: protocols
 #
-#  id               :integer(4)      not null, primary key
+#  id               :integer          not null, primary key
 #  protocol_name    :string(50)
 #  protocol_abbrev  :string(25)
 #  protocol_version :string(10)
@@ -11,7 +11,7 @@
 #  reference        :string(100)
 #  comments         :string(255)
 #  created_at       :datetime
-#  updated_at       :timestamp       not null
+#  updated_at       :timestamp        not null
 #
 
 class Protocol < ActiveRecord::Base

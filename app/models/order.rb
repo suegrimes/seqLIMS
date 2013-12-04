@@ -2,7 +2,7 @@
 #
 # Table name: orders
 #
-#  id             :integer(4)      not null, primary key
+#  id             :integer          not null, primary key
 #  company_name   :string(50)
 #  order_quote    :string(100)
 #  date_ordered   :date
@@ -14,7 +14,7 @@
 #  notes          :string(255)
 #  created_at     :datetime
 #  updated_at     :timestamp
-#  updated_by     :integer(2)
+#  updated_by     :integer
 #
 
 class Order < ActiveRecord::Base

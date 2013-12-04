@@ -2,10 +2,10 @@
 #
 # Table name: user_logins
 #
-#  id               :integer(4)      not null, primary key
-#  ip_address       :string(20)      default(""), not null
-#  user_id          :integer(2)
-#  user_login       :string(25)      default(""), not null
+#  id               :integer          not null, primary key
+#  ip_address       :string(20)       default(""), not null
+#  user_id          :integer
+#  user_login       :string(25)       default(""), not null
 #  login_timestamp  :datetime
 #  logout_timestamp :datetime
 #

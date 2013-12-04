@@ -2,14 +2,14 @@
 #
 # Table name: attached_files
 #
-#  id                    :integer(4)      not null, primary key
-#  sampleproc_id         :integer(4)      not null
-#  sampleproc_type       :string(50)      default(""), not null
+#  id                    :integer          not null, primary key
+#  sampleproc_id         :integer          not null
+#  sampleproc_type       :string(50)       default(""), not null
 #  document              :string(255)
 #  document_content_type :string(40)
 #  document_file_size    :string(25)
 #  notes                 :string(255)
-#  updated_by            :integer(4)
+#  updated_by            :integer
 #  created_at            :datetime
 #
 

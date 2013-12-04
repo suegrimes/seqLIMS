@@ -2,9 +2,9 @@
 #
 # Table name: index_tags
 #
-#  id              :integer(4)      not null, primary key
+#  id              :integer          not null, primary key
 #  runtype_adapter :string(25)
-#  tag_nr          :integer(2)
+#  tag_nr          :integer
 #  tag_sequence    :string(12)
 #  created_at      :datetime
 #  updated_at      :timestamp
