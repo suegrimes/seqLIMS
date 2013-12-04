@@ -1,12 +1,12 @@
 .frontpages {
-    background: url(/assets/samples01-bg.gif);
+    background: url(../assets/samples01-bg.gif);
 	background-repeat: repeat;
 	height: 400px;
     margin-left: 10px;
 }
 
 .rgt-header-bg-graphic {
-    background: url(/assets/twisted_sequence.gif);
+    background: url(../assets/twisted_sequence.gif);
     background-repeat: no-repeat; 
     background-position:bottom;
 }
