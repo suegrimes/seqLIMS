@@ -3,6 +3,7 @@ tmp
 .idea/*
 db/*.sqlite3
 public/system/*
+app/assets/system/*
 config/*.yml
 lib/mysql.rb
 public/javascripts/all.js
