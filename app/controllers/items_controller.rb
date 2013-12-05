@@ -69,7 +69,11 @@ class ItemsController < ApplicationController
       @items[i] = Item.new(params[:item_default])
     end    
     
-    render :partial => 'multi_item_form'
+    if @items.empty?
+      render :text => 'Error: Number of different items that you wish to order must be a positive integer', :status => 400
+    else
+      render :partial => 'multi_item_form', :status => 200
+    end
   end
 
   # GET /items/1/edit
