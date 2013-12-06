@@ -19,11 +19,15 @@
   </table>
 </fieldset>
 <%=raw break_clear %>
-  
+ 
+<div id="item_error" style="display:none; color:red"></div>
+
   <% if @items.nil? %>
   <div id='item_entry'> 
   <span><b>Number of different items to order:</b>&nbsp;<%= text_field_tag(:nr_items, '', :size => 5)-%></span>
-  <%= link_to 'Add Items', populate_items_path, {:onclick => "this.href += '?nr_items='+$('#nr_items').val(); return true;", :remote => true} %>
+  <!--%= link_to 'Add Items', populate_items_path, {:onclick => "this.href += '?nr_items='+$('#nr_items').val(); return true;", :remote => true} %-->
+  <%= link_to 'Add Items', '#', id: 'add_items', :'data-show_err' => 'item_error' %>
+
   <!--%= submit_to_remote 'MultiItem', 'Add Items',
       :url => {:action => 'populate_items'},
       :update => 'item_entry' -%-->

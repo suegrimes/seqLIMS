@@ -79,4 +79,22 @@ function showHideDiv(elementId1, elementId2) {
   }
 }
 
+$j(function () {
+  $j('#add_items').click(function () {
+    var show_err = $('#add_items').data('show_err')
+    var items = $('#nr_items').val();
+    if ($j.isNumeric(items)) {
+      alert('is numeric')
+      $j("#" + show_err).fadeOut(); //.hide()
+      //do the href thing
+      //render the items form
+    } else {
+      alert('not numeric')
+      $j("#" + show_err).show().text('Quantity of Items required');
+    }
+    //return false;
+    console.log(items)
+   })
+});
+
 
