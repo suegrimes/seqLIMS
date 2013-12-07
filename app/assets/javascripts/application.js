@@ -83,12 +83,19 @@ $j(function () {
   $('#add_items').click(function () {
     var show_err_id = $('#add_items').data('show_err_id')
     var items = $('#nr_items').val();
+    if (!window.location.origin)
+     window.location.origin = window.location.protocol+"//"+window.location.host;
+    var curr_location = window.location.origin
+    if (curr_location.match(/reve/)) {
+      curr_location += '/seqLIMS/'
+    }
     if ($.isNumeric(items)) {
       $("#" + show_err_id).fadeOut(); //.hide()
-      $.get('/populate_items?nr_items='+items, null, null, null);
+      $.get(curr_location + '/populate_items?nr_items='+items, null, null, null);
     } else {
       $("#" + show_err_id).show().text('Quantity of Items required');
     }
+    //console.log(curr_location)
   })
 });
 
