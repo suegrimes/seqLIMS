@@ -87,7 +87,7 @@ $j(function () {
      window.location.origin = window.location.protocol+"//"+window.location.host;
     var curr_location = window.location.origin
     if (curr_location.match(/reve/)) {
-      curr_location += '/seqLIMS/'
+      curr_location += '/seqLIMS'
     }
     if ($.isNumeric(items)) {
       $("#" + show_err_id).fadeOut(); //.hide()
