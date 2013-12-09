@@ -16,7 +16,7 @@
               {:url => {:controller => :molecular_assays, :action => :auto_complete_for_extraction_barcode},
                :param_name => :search, :min_chars => 2, :method => :get}) %-->
     <th>Source DNA/RNA:</th>
-    <td><%= f.autocomplete_field :source_sample_name, autocomplete_molecular_assay_source_sample_name_molecular_assays_path, size: '12' %></td>
+    <td><%= f.autocomplete_field :source_sample_name, molecular_assays_autocomplete_molecular_assay_source_sample_name_path, size: '12' %></td>
     <%= f.text_field(:volume, :size => 8)%>
     <%= f.text_field(:concentration, :size => 8)%>	
   </tr>
