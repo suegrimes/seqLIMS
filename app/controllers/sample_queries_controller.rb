@@ -276,7 +276,7 @@ protected
              ['ps', 'barcode_key'],
              ['ps', 'extraction_type'],
              ['ps', 'processing_date'],
-             ['ps', 'blank'],
+             ['cs', 'consent_name'],
              ['sm', 'tumor_normal'],
              ['ps', 'blank'],
              ['ps', 'blank'], 
