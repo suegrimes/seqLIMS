@@ -169,9 +169,10 @@ protected
   end
   
   def export_samples_setup
-    hdgs  = (%w{DownloadDt Patient_ID Barcode Type FromSample ProcessDt Amt(ug) Conc A260/280 Rem? Room_Freezer Container})
+    hdgs  = (%w{DownloadDt Patient_ID Consent_Protocol Barcode Type FromSample ProcessDt Amt(ug) Conc A260/280 Rem? Room_Freezer Container})
     
     flds  = [['sm', 'patient_id'],
+             ['cs', 'consent_name'],
              ['ps', 'barcode_key'],
              ['ps', 'extraction_type'],
              ['sm', 'barcode_key'],
@@ -187,7 +188,7 @@ protected
   end
   
   def model_xref(psample)
-    return {:ps => psample, :sm => psample.sample, :pc => psample.sample_storage_container}
+    return {:ps => psample, :sm => psample.sample, :cs => psample.sample.sample_characteristic.consent_protocol, :pc => psample.sample_storage_container}
   end
     
 

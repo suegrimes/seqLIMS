@@ -109,7 +109,7 @@ class ProcessedSample < ActiveRecord::Base
     #self.find(:all, :include => [:sample, :sample_storage_container],
     #          :conditions => ["processed_samples.id IN (?)", psample_ids],
     #          :order => "samples.patient_id, samples.barcode_key, processed_samples.barcode_key")
-    self.includes(:sample, :sample_storage_container).where('processed_samples.id IN (?)', psample_ids)
+    self.includes([:sample => [:sample_characteristic => :consent_protocol]], :sample_storage_container).where('processed_samples.id IN (?)', psample_ids)
         .order('samples.patient_id, samples.barcode_key, processed_samples.barcode_key').all
   end
   
