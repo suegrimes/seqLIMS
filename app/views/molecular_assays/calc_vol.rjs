@@ -1,3 +1,0 @@
-@idx ||= 0
-vol = params[:assay_vol]
-page.replace_html :default_vol, vol

@@ -24,7 +24,10 @@ class MolecularAssay < ActiveRecord::Base
   
   belongs_to :protocol
   belongs_to :processed_sample
+  has_many :assay_genes
   has_many :attached_files, :as => :sampleproc
+
+  accepts_nested_attributes_for :assay_genes
   
   validates_presence_of :owner, :protocol_id, :volume, :concentration
   validates_presence_of :source_sample_name, :message => "must be in LIMS - please select from auto-fill list"
