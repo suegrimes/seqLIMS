@@ -2,19 +2,19 @@
 #
 # Table name: pools
 #
-#  id                  :integer(4)      not null, primary key
-#  pool_name           :string(35)      default(""), not null
-#  tube_label          :string(15)      default(""), not null
+#  id                  :integer          not null, primary key
+#  pool_name           :string(35)       not null
+#  tube_label          :string(15)       not null
 #  pool_description    :string(80)
 #  from_pools          :string(100)
 #  from_plates         :string(100)
-#  total_oligos        :integer(4)      default(0), not null
-#  cherrypick_oligos   :integer(4)      default(0), not null
+#  total_oligos        :integer          default(0), not null
+#  cherrypick_oligos   :integer          default(0), not null
 #  enzyme_code         :string(50)
 #  source_conc_um      :decimal(8, 3)
 #  pool_volume         :decimal(8, 3)
-#  project_id          :integer(2)
-#  storage_location_id :integer(2)
+#  project_id          :integer
+#  storage_location_id :integer
 #  notes               :string(255)
 #  updated_at          :timestamp
 #

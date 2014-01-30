@@ -2,10 +2,10 @@
 #
 # Table name: researchers
 #
-#  id                  :integer(4)      not null, primary key
-#  user_id             :integer(4)
-#  researcher_name     :string(50)      default(""), not null
-#  researcher_initials :string(3)       default(""), not null
+#  id                  :integer          not null, primary key
+#  user_id             :integer
+#  researcher_name     :string(50)       default(""), not null
+#  researcher_initials :string(3)        default(""), not null
 #  company             :string(50)
 #  phone_number        :string(20)
 #  active_inactive     :string(1)

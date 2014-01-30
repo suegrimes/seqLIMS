@@ -2,18 +2,18 @@
 #
 # Table name: lib_samples
 #
-#  id                  :integer(4)      not null, primary key
-#  seq_lib_id          :integer(4)
-#  splex_lib_id        :integer(4)
+#  id                  :integer          not null, primary key
+#  seq_lib_id          :integer
+#  splex_lib_id        :integer
 #  splex_lib_barcode   :string(20)
-#  processed_sample_id :integer(4)
+#  processed_sample_id :integer
 #  sample_name         :string(50)
 #  source_DNA          :string(50)
 #  runtype_adapter     :string(50)
-#  index_tag           :integer(2)
+#  index_tag           :integer
 #  enzyme_code         :string(50)
 #  notes               :string(255)
-#  updated_by          :integer(4)
+#  updated_by          :integer
 #  created_at          :datetime
 #  updated_at          :timestamp
 #

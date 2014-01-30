@@ -2,12 +2,12 @@
 #
 # Table name: seq_machines
 #
-#  id            :integer(4)      not null, primary key
-#  machine_name  :string(20)      default(""), not null
+#  id            :integer          not null, primary key
+#  machine_name  :string(20)       default(""), not null
 #  bldg_location :string(12)
 #  machine_type  :string(20)
 #  machine_desc  :string(50)
-#  last_seq_num  :integer(2)
+#  last_seq_num  :integer
 #  notes         :string(255)
 #  created_at    :datetime
 #  updated_at    :timestamp

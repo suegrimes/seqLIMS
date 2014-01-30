@@ -1,3 +1,9 @@
+# == Schema Information
+#
+# Table name: no_tables
+#
+#
+
 class NoTable < ActiveRecord::Base
 def self.columns()
   @columns ||= []

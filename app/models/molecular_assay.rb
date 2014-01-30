@@ -2,20 +2,20 @@
 #
 # Table name: molecular_assays
 #
-#  id                  :integer(4)      not null, primary key
-#  barcode_key         :string(20)      default(""), not null
-#  processed_sample_id :integer(4)
-#  protocol_id         :integer(4)
+#  id                  :integer          not null, primary key
+#  barcode_key         :string(20)       default(""), not null
+#  processed_sample_id :integer
+#  protocol_id         :integer
 #  owner               :string(25)
 #  preparation_date    :date
-#  volume              :integer(2)
+#  volume              :integer
 #  concentration       :decimal(8, 3)
 #  plate_number        :string(25)
 #  plate_coord         :string(4)
 #  notes               :string(255)
-#  updated_by          :integer(2)
+#  updated_by          :integer
 #  created_at          :datetime
-#  updated_at          :timestamp       not null
+#  updated_at          :timestamp        not null
 #
 
 class MolecularAssay < ActiveRecord::Base
