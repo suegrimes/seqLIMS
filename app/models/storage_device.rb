@@ -2,12 +2,12 @@
 #
 # Table name: storage_devices
 #
-#  id               :integer(4)      not null, primary key
-#  device_name      :string(25)      default(""), not null
+#  id               :integer          not null, primary key
+#  device_name      :string(25)       default(""), not null
 #  building_loc     :string(25)
 #  base_run_dir     :string(50)
 #  last_upd_of_runs :date
-#  updated_by       :integer(2)
+#  updated_by       :integer
 #  updated_at       :timestamp
 #
 

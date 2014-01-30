@@ -2,21 +2,21 @@
 #
 # Table name: sample_characteristics
 #
-#  id                  :integer(4)      not null, primary key
-#  patient_id          :integer(4)
+#  id                  :integer          not null, primary key
+#  patient_id          :integer
 #  collection_date     :date
 #  clinic_or_location  :string(100)
-#  consent_protocol_id :integer(4)
+#  consent_protocol_id :integer
 #  consent_nr          :string(15)
 #  gender              :string(1)
 #  ethnicity           :string(35)
 #  race                :string(70)
 #  nccc_tumor_id       :string(20)
 #  nccc_pathno         :string(20)
-#  pathology_id        :integer(4)
+#  pathology_id        :integer
 #  pathology           :string(50)
 #  comments            :string(255)
-#  updated_by          :integer(2)
+#  updated_by          :integer
 #  created_at          :datetime
 #  updated_at          :datetime
 #
