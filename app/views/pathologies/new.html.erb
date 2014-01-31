@@ -2,7 +2,7 @@
 
 <%= render :partial => 'patients/patient_info',  :locals => {:patient => @sample_characteristics[0].patient} %>
   
-<% tagged_form_for :pathology, @pathology,
+<%= tagged_form_for :pathology, @pathology,
                    :url => {:action => 'create'} do |f| %>
 						
 <%= render :partial => 'pathology_form', :locals => {:f => f} %>

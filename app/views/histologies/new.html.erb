@@ -10,12 +10,12 @@
 
 <%= render :partial => 'samples/sample_info', :locals => {:sample => @sample} %>
 
-<% form_for(@histology, :url => {:action => 'create'}) do |f| %>
-<%=f.error_messages %>
+<%= form_for(@histology, :url => {:action => 'create'}) do |f| %>
+<%= render '/shared/errors', model: @histology %>
 						
 <%= render :partial => 'histology_form', :locals => {:f => f} %>
 <%=f.hidden_field(:sample_id)%>
 
-<%= break_clear(submit_tag "Submit") %>
+<%=raw break_clear(submit_tag "Submit") %>
 <% end %>
 

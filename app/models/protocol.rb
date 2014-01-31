@@ -2,7 +2,7 @@
 #
 # Table name: protocols
 #
-#  id               :integer(4)      not null, primary key
+#  id               :integer          not null, primary key
 #  protocol_name    :string(50)
 #  protocol_abbrev  :string(25)
 #  protocol_version :string(10)
@@ -11,7 +11,7 @@
 #  reference        :string(100)
 #  comments         :string(255)
 #  created_at       :datetime
-#  updated_at       :timestamp       not null
+#  updated_at       :timestamp        not null
 #
 
 class Protocol < ActiveRecord::Base
@@ -21,9 +21,10 @@ class Protocol < ActiveRecord::Base
   validates_presence_of :protocol_code, :if => Proc.new{|p| p.protocol_type == 'M'}, :message => 'must be supplied for molecular assays'
                     
   def self.find_for_protocol_type(protocol_type)
-    protocol_array = protocol_type.to_a
-    self.find(:all, :conditions => ['protocol_type IN (?)', protocol_array],
-                    :order      => 'protocol_name')
+    protocol_array = [*protocol_type]
+    self.where('protocol_type IN (?)', protocol_array).order(:protocol_name).all
+    #self.find(:all, :conditions => ['protocol_type IN (?)', protocol_array],
+    #                :order      => 'protocol_name')
   end
   
   def name_ver

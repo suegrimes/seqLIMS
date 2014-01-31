@@ -1,7 +1,7 @@
 <h1>Sequencing Library Query</h1>
 
-<% form_for(@seqlib_query, :action=> 'index') do |f| %>
-<%= f.error_messages(:header_message => "Error(s) in query parameters") %>
+<%= form_for(@seqlib_query, :action=> 'index', :method => :get) do |f| %>
+<%= render '/shared/errors', model: @seqlib_query, header_message: 'Error(s) in query parameters' %>
 
 <fieldset class="form">
 <legend>Select parameters</legend>
@@ -22,13 +22,13 @@
     <td><%= f.select(:owner, @owners, {:include_blank => '(All)'},{:size => 3, :multiple => :multiple}) %></td>
     <th>Project(s):</th>
     <td><%= f.collection_select(:project, @projects, :project, :project,
-                               {:include_blank => '(All)'}, {:size => 3, :multiple => :multiple}) %> </td> 
+                               {:include_blank => '(All)'}, {:size => 3, :multiple => :multiple}) %> </td>
   </tr>
   <tr><td>&nbsp;</td></tr>
   <tr>
    	<th>Prepared from:</th>
-	<td colspan="3"><%= f.calendar_date_select(:from_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%>
-	<strong>&nbsp;To:&nbsp;</strong><%= f.calendar_date_select(:to_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%></td>
+	<td colspan="3"><%= f.datepicker 'from_date', dateFormat: 'yy-mm-dd', maxDate: '0', changeMonth: true, changeYear: true, size: 15 %>
+	<strong>&nbsp;To:&nbsp;</strong><%= f.datepicker 'to_date', dateFormat: 'yy-mm-dd', maxDate: '0', changeMonth: true, changeYear: true, size: 15 %></td>
   </tr>	  
   <tr>
     <th colspan="2" style="text-align:left">Exclude used libraries?&nbsp;<%= check_box_tag(:excl_used, 'Y', false)%></th>
@@ -36,5 +36,5 @@
 </table>
 </fieldset>
 <br />
-<%= break_clear(submit_tag "Submit") %>
+<%=raw break_clear(submit_tag "Submit") %>
 <%end%>

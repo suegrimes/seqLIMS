@@ -1,8 +1,9 @@
 <h1><%= @type_of_sample.camelize %> Samples Query</h1>
 
-<% form_for(@sample_query, :action => 'index') do |f| %>
+<%= form_for @sample_query, :url => {:action => "index"}, :html => {:method => :get} do |f| %>
 <%= hidden_field_tag(:stype, @type_of_sample)%>
-<%= f.error_messages(:header_message => "Error(s) in query parameters") %>
+
+<%= render '/shared/errors', model: @sample_query, header_message: "Error(s) in query parameters" %>
 
 <fieldset class="form">
 <legend>Select parameters</legend>
@@ -50,11 +51,11 @@
   </tr>
   <tr>
   	<th>Select Date Range:</th>
-	<td colspan="3"><%=f.calendar_date_select(:from_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15) %>
-	<strong>&nbsp;To:&nbsp;</strong><%=f.calendar_date_select(:to_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15) %></td>
+    <td colspan="3"><%=f.datepicker 'from_date', dateFormat: "yy-mm-dd", maxDate: Time.current.to_date, changeMonth: true, changeYear: true, size: 15 %>
+	<strong>&nbsp;To:&nbsp;</strong><%=f.datepicker 'to_date', dateFormat: "yy-mm-dd", maxDate: Time.current.to_date, changeMonth: true, changeYear: true, size: 15 %></td>
 	<th>Last Upd By:</th><td><%=f.collection_select(:updated_by, @users, :id, :login, {:include_blank => 'Any'})%></td>
   </tr>
 </table>
 </fieldset>
-<%= break_clear(submit_tag "Submit") %>
+<%=raw break_clear(submit_tag "Submit") %>
 <%end%>

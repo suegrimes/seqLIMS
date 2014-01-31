@@ -2,13 +2,13 @@
 #
 # Table name: consent_protocols
 #
-#  id               :integer(4)      not null, primary key
+#  id               :integer          not null, primary key
 #  consent_nr       :string(8)
 #  consent_name     :string(100)
 #  consent_abbrev   :string(50)
 #  email_confirm_to :string(255)
 #  created_at       :datetime
-#  updated_at       :timestamp       not null
+#  updated_at       :timestamp        not null
 #
 
 class ConsentProtocol < ActiveRecord::Base
@@ -22,6 +22,6 @@ class ConsentProtocol < ActiveRecord::Base
   end
   
   def self.populate_dropdown
-    self.find(:all, :order => 'CAST(consent_nr AS UNSIGNED)')
+    self.order("CAST(consent_nr AS UNSIGNED)").all
   end
 end

@@ -2,14 +2,14 @@
 #
 # Table name: freezer_locations
 #
-#  id          :integer(4)      not null, primary key
-#  room_nr     :string(25)      default(""), not null
+#  id          :integer          not null, primary key
+#  room_nr     :string(25)       default(""), not null
 #  freezer_nr  :string(25)
 #  owner_name  :string(25)
 #  owner_email :string(50)
 #  comments    :string(255)
 #  created_at  :datetime
-#  updated_at  :timestamp       not null
+#  updated_at  :timestamp        not null
 #
 
 class FreezerLocation < ActiveRecord::Base
@@ -27,6 +27,7 @@ class FreezerLocation < ActiveRecord::Base
   end
   
   def self.list_all_by_room
-    self.find(:all, :order => 'freezer_locations.room_nr, freezer_locations.freezer_nr')
+    self.order(:room_nr, :freezer_nr).all
+    #self.find(:all, :order => 'freezer_locations.room_nr, freezer_locations.freezer_nr')
   end
 end

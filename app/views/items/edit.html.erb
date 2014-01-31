@@ -1,10 +1,10 @@
 <h1>Editing item</h1>
 
-<% form_for(@item) do |f| %>
-  <%= f.error_messages %>
+<%= form_for(@item) do |f| %>
+  <%= render '/shared/errors', model: @item %>
   
   <%= render :partial => 'item_form', :locals => {:f => f} %>
   
-  <%= break_clear(f.submit "Update") %>
+  <%=raw break_clear(f.submit "Update") %>
 
 <% end %>

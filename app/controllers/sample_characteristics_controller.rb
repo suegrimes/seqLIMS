@@ -120,8 +120,7 @@ class SampleCharacteristicsController < ApplicationController
   
   # GET /sample_characteristics/1/edit
   def edit
-    @sample_characteristic = SampleCharacteristic.find(params[:id], :include => :samples,
-                                                       :conditions => "samples.source_sample_id IS NULL")
+    @sample_characteristic = SampleCharacteristic.includes(:samples).where('samples.source_sample_id IS NULL').find(params[:id])
     if @sample_characteristic && @sample_characteristic.samples
       @sample_params = build_params_from_obj(@sample_characteristic.samples[-1], Sample::FLDS_FOR_COPY)
     end
@@ -138,9 +137,11 @@ class SampleCharacteristicsController < ApplicationController
       sample = new_sample_entered(params[:id], params[:sample_characteristic])
       if !sample.nil?
         email  = send_email(sample, @sample_characteristic.patient.mrn, current_user) unless EMAIL_CREATE[:samples] == 'NoEmail'
+
         if EMAIL_DELIVERY[:samples] == 'Debug'
           render(:text => "<pre>" + email.encoded + "</pre>")
         else
+          email.deliver!
           redirect_to :action => 'show', :id => @sample_characteristic.id, :added_sample_id => sample.id
         end
       else
@@ -160,7 +161,7 @@ class SampleCharacteristicsController < ApplicationController
   def show
     params[:added_sample_id] ||= 0
     @addnew_link = 'no'
-    @sample_characteristic = SampleCharacteristic.find(params[:id], :include => [:consent_protocol, :samples])
+    @sample_characteristic = SampleCharacteristic.includes(:consent_protocol, :samples).find(params[:id])
     if params[:added_sample_id].to_i > 0
       @added_sample_id = params[:added_sample_id]
       @sample_params = build_params_from_obj(Sample.find(@added_sample_id), Sample::FLDS_FOR_COPY)
@@ -240,9 +241,7 @@ private
 
   def send_email(sample, mrn, user)
     consent_protocol = ConsentProtocol.find(sample.sample_characteristic.consent_protocol_id) 
-    email = LimsMailer.create_new_sample(sample, mrn, user.login, owner_email(consent_protocol))
-    email.set_content_type("text/html")
-    LimsMailer.deliver(email) unless EMAIL_DELIVERY[:samples] == 'Debug'
+    email = LimsMailer.new_sample(sample, mrn, user.login, owner_email(consent_protocol))
     return email
   end
   

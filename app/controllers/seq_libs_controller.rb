@@ -3,25 +3,21 @@ class SeqLibsController < ApplicationController
   
   before_filter :dropdowns, :only => [:new, :edit, :populate_libs]
   before_filter :query_dropdowns, :only => :query_params
-  
-  # Added to avoid Invalid Authenticity token errors when calling these methods to refresh form
-  # (Probably can fix this by specifying method => get when calling these methods)
-  #skip_before_filter :verify_authenticity_token, :only => [:populate_libs]
- 
+
   # GET /seq_libs
   def index
     authorize! :read, SeqLib
     if params[:lib_id]
       @seq_libs = SeqLib.find_all_by_id(params[:lib_id].to_a, :order => 'seq_libs.preparation_date DESC')
     else
-      @seq_libs = SeqLib.find(:all, :order => 'seq_libs.preparation_date DESC')
+      @seq_libs = SeqLib.order('seq_libs.preparation_date DESC').all
     end
     render :action => 'index'
   end
   
   # GET /seq_libs/1
   def show
-    @seq_lib = SeqLib.find(params[:id], :include => [{:lib_samples => :splex_lib}, :attached_files])
+    @seq_lib = SeqLib.includes({:lib_samples => :splex_lib}, :attached_files).find(params[:id])
     @protocol = Protocol.find(@seq_lib.protocol_id) if @seq_lib.protocol_id
     authorize! :read, @seq_lib
   end
@@ -36,7 +32,7 @@ class SeqLibsController < ApplicationController
 
   # GET /seq_libs/1/edit
   def edit
-    @seq_lib = SeqLib.find(params[:id], :include => :lib_samples)
+    @seq_lib = SeqLib.includes(:lib_samples).find(params[:id])
     authorize! :edit, @seq_lib
     # ToDo:  Add existing owner to drop-down list if he/she is inactive
     
@@ -52,14 +48,19 @@ class SeqLibsController < ApplicationController
     @new_lib = []
     @lib_samples = []
     params[:nr_libs] ||= 4
-    
+
+    @lib_default = SeqLib.new(params[:lib_default])
+    @sample_default = LibSample.new(:source_DNA => params[:sample_default][:source_DNA],
+                                    :enzyme_code => array_to_string(params[:sample_default][:enzyme_code]))
+    @requester = params[:lib_default][:owner]
+
     0.upto(params[:nr_libs].to_i - 1) do |i|
       @new_lib[i]    = SeqLib.new(params[:lib_default])
       @lib_samples[i] = LibSample.new(:source_DNA => params[:sample_default][:source_DNA],
                                       :enzyme_code => array_to_string(params[:sample_default][:enzyme_code]))
     end
-    render :partial => 'sample_form'
-    #render :action => :debug
+
+    respond_to {|format| format.js}
   end
 
   def create
@@ -84,24 +85,24 @@ class SeqLibsController < ApplicationController
     end
     
     if libs_created == 0  # All lib_names were blank
-      flash[:error] = 'No sequencing library(ies) created - no non-blank library names found'
+      flash[:error] = 'No sequencing library(ies) created - at least one library name required'
       @lib_with_error = nil
+      @hide_defaults = true
       reload_lib_defaults(params, params[:nr_libs])
       render :action => 'new'
-      #render :action => 'debug'
+
     else
       flash[:notice] = libs_created.to_s + ' sequencing library(ies) successfully created'
       redirect_to :action => 'index', :lib_id => @lib_id
-      #render :action => :debug
     end
     
     # Validation error(s)
     rescue ActiveRecord::ActiveRecordError
-      flash.now[:error] = 'Error creating sequencing library -please enter all required fields'
+      flash.now[:error] = 'Error creating sequencing library - please enter all required fields'
       @lib_with_error = @new_lib[@lib_index]
+      @hide_defaults = true
       reload_lib_defaults(params, params[:nr_libs])
       render :action => 'new'
-      #render :action => 'debug'
   end
   
   # PUT /seq_libs/1
@@ -146,7 +147,7 @@ class SeqLibsController < ApplicationController
   end
   
   def auto_complete_for_barcode_key
-    @seq_libs = SeqLib.find(:all, :conditions => ["barcode_key LIKE ?", params[:search] + '%'])
+    @seq_libs = SeqLib.where('barcode_key LIKE ?', params[:search]+'%').all
     render :inline => "<%= auto_complete_result(@seq_libs, 'barcode_key') %>"
   end
   
@@ -163,9 +164,9 @@ protected
   
   def reload_lib_defaults(params, nr_libs)
     dropdowns
-    @lib_default = SeqLib.new(params[:lib_default])
-    @sample_default = LibSample.new(params[:sample_default])
-    @requester = params[:lib_default][:owner]
+    @requester = (current_user.researcher ? current_user.researcher.researcher_name : nil)
+    @lib_default = SeqLib.new(:alignment_ref_id => AlignmentRef.default_id)
+    @add_with_defaults = 'Refresh from defaults'
    
     @new_lib = []     if !@new_lib
     @lib_samples = [] if !@lib_samples
@@ -174,6 +175,7 @@ protected
       @new_lib[i] ||= SeqLib.new(params['seq_lib_' + i.to_s])
       @lib_samples[i] = LibSample.new(params['lib_sample_' + i.to_s])
     end
+    @nr_libs = nr_libs
   end
   
   def build_simplex_lib(lib_param, sample_param)

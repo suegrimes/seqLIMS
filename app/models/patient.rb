@@ -2,8 +2,8 @@
 #
 # Table name: patients
 #
-#  id                    :integer(4)      not null, primary key
-#  clinical_id_encrypted :binary(255)
+#  id                    :integer          not null, primary key
+#  clinical_id_encrypted :binary(30)
 #  gender                :string(1)
 #  ethnicity             :string(35)
 #  race                  :string(70)
@@ -48,7 +48,7 @@ class Patient < ActiveRecord::Base
   def self.loadrecs(file_path)
     rec_cnt = 0
     
-    FasterCSV.foreach(file_path, {:headers => :first_row, :col_sep => "\t"}) do |row|
+    CSV.foreach(file_path, {:headers => :first_row, :col_sep => "\t"}) do |row|
       @patient = self.find_by_id(row[2].to_i)
       if row[1] == 'na'
         @patient.update_attributes(:mrn => row[0]) if row[1] == 'na'
@@ -63,7 +63,7 @@ class Patient < ActiveRecord::Base
 ## NEED TO make this protected or private?  If so, cannot call any of these methods from 
 ## sample_characteristics controller?
   def self.find_id_using_mrn(mrn)
-    mrn_ids = self.find(:all).map {|p| [p.mrn, p.id]}
+    mrn_ids = self.all.map {|p| [p.mrn, p.id]}
     
     patient_nums = mrn_ids.assoc(mrn) if !mrn_ids.empty?
     patient_id   = patient_nums[1]    if patient_nums
