@@ -1,12 +1,4 @@
-# Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
-  
-  def div_toggle(div, div1=nil)
-    update_page do |page|
-      page[div].toggle
-      page[div1].toggle if div1
-    end
-  end
   
   def break_clear(content=nil)
     out = '<br />'
@@ -68,6 +60,5 @@ module ApplicationHelper
       else obj.class.name.split(/(?=[A-Z])/).join(' ')
     end
   end
-
-end
   
+end

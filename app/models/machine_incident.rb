@@ -2,11 +2,11 @@
 #
 # Table name: machine_incidents
 #
-#  id                   :integer(4)      not null, primary key
-#  seq_machine_id       :integer(4)
-#  incident_date        :date            not null
-#  incident_description :string(255)     default(""), not null
-#  updated_by           :integer(4)
+#  id                   :integer          not null, primary key
+#  seq_machine_id       :integer
+#  incident_date        :date             not null
+#  incident_description :string(255)      default(""), not null
+#  updated_by           :integer
 #  created_at           :datetime
 #  updated_at           :timestamp
 #

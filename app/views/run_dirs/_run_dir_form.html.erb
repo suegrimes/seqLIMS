@@ -6,14 +6,10 @@
 	<tr><%=f.text_field(:rdir_name, :label => 'Dir Name') %></tr>
 	<tr><%=f.text_field(:total_size_gb, :size => 8, :label => 'Dir Size (GB)') %></tr>
 	<tr><%=f.text_field(:file_count, :size => 8, :label => '# Files') %></tr>
-	<tr><%=f.calendar_date_select(:date_sized, :valid_date_check => "date <= (new Date()).stripTime()",
-                                               :year_range => [1.years.ago, 0.years.ago], :size => 15) %></tr>
-	<tr><%=f.calendar_date_select(:date_copied,:valid_date_check => "date <= (new Date()).stripTime()",
-                                                 :year_range => [1.years.ago, 0.years.ago], :size => 15) %></tr>
-	<tr><%=f.calendar_date_select(:date_verified, :valid_date_check => "date <= (new Date()).stripTime()",
-                                                 :year_range => [1.years.ago, 0.years.ago], :size => 15) %></tr>
-	<tr><%=f.calendar_date_select(:date_deleted, :valid_date_check => "date <= (new Date()).stripTime()",
-                                                 :year_range => [1.years.ago, 0.years.ago], :size => 15) %></tr>
+	<tr><%=f.datepicker 'date_sized', dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true, yearRange: '-1', size: 15 %></tr>
+	<tr><%=f.datepicker 'date_copied', dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true, yearRange: '-1', size: 15 %></tr>
+	<tr><%=f.datepicker 'date_verified', dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true, yearRange: '-1', size: 15 %></tr>
+	<tr><%=f.datepicker 'date_deleted', dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true, yearRange: '-1', size: 15 %></tr>
 	<tr><%=f.text_area(:notes, :tdcolspan => 2, :cols => 50, :rows => 2) %></tr> 
   </table>
 </fieldset>

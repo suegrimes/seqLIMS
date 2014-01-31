@@ -1,6 +1,6 @@
 <h1>Prepare Multiplex Library</h1>
 
-<% form_tag :action=> 'new'  do %>
+<%= form_tag new_mplex_lib_path, method: :get  do %>
 <fieldset class="form">
 <legend>Singleplex Sequencing Library Parameters</legend>
 <table class="form">
@@ -28,13 +28,13 @@
   <tr><td>&nbsp;</td></tr>
   <tr>
   	<th>Prepared from:</th>
-	<td><%=calendar_date_select_tag(:from_date, @from_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%></td>
+    <td><%= datepicker_input('date_range', 'from_date', dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true, size: 15) %></td>
   	<th>To:</th>
-	<td><%=calendar_date_select_tag(:to_date, @to_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)%></td>
+	<td><%= datepicker_input('date_range', 'to_date', dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true, size: 15) %></td>
   </tr>	
 </table>
 </fieldset>
-<%= break_clear(submit_tag "Submit")%>
+<%=raw break_clear(submit_tag "Submit")%>
 <%end%>
 
 

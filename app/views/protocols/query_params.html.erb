@@ -1,11 +1,11 @@
 <h1>Specify Protocol Type to Review/Edit</h1>
 
-<% form_tag do %>
+<%= form_tag do %>
 <table class="form border" style="margin-bottom: 0;">
   <tr>
 	<th>Protocol Type:</th>
 	<td><%= select_tag(:protocol_type, options_for_select(@protocol_types)) %></td>
   </tr>
 </table>
-<%= break_clear(submit_tag "Show") %>
+<%=raw break_clear(submit_tag "Show") %>
 <%end%>

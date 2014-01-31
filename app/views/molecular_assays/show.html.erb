@@ -17,9 +17,9 @@
                                                           :source => 'Source'} %>
 
 <%= render :partial => 'processed_samples/processed_sample_info', :locals => {:processed_sample => processed_sample} %>
-<%= break_clear %>
+<%=raw break_clear %>
 <% end %>
 
 <%= render :partial => 'assay_show', :locals => {:molecular_assay => @molecular_assay} %>
 <%= render :partial => 'attached_files/show_file', :locals => {:obj => @molecular_assay} %>
-<%= break_clear %>
+<%=raw break_clear %>

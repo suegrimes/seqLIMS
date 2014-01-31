@@ -2,7 +2,7 @@
 #
 # Table name: flow_cells
 #
-#  id              :integer(4)      not null, primary key
+#  id              :integer          not null, primary key
 #  flowcell_date   :date
 #  nr_bases_read1  :string(4)
 #  nr_bases_index  :string(2)
@@ -11,14 +11,15 @@
 #  sequencing_kit  :string(10)
 #  flowcell_status :string(2)
 #  sequencing_key  :string(50)
+#  run_description :string(80)
 #  sequencing_date :date
-#  seq_machine_id  :integer(4)
-#  seq_run_nr      :integer(2)
+#  seq_machine_id  :integer
+#  seq_run_nr      :integer
 #  machine_type    :string(10)
 #  hiseq_xref      :string(50)
 #  notes           :string(255)
 #  created_at      :datetime
-#  updated_at      :timestamp       not null
+#  updated_at      :timestamp        not null
 #
 
 class FlowCell < ActiveRecord::Base
@@ -33,8 +34,8 @@ class FlowCell < ActiveRecord::Base
   validates_presence_of :machine_type, :nr_bases_read1
   validates_date :flowcell_date, :sequencing_date, :allow_blank => true
   
-  named_scope :sequenced,   :conditions => "flowcell_status <> 'F'"
-  named_scope :unsequenced, :conditions => "flowcell_status = 'F'"
+  scope :sequenced,   :conditions => "flowcell_status <> 'F'"
+  scope :unsequenced, :conditions => "flowcell_status = 'F'"
   
   DEFAULT_MACHINE_TYPE = 'GAIIx'
   NR_LANES = {:MiSeq => 1, :GAIIx => 8, :HiSeq => 8}
@@ -88,22 +89,23 @@ class FlowCell < ActiveRecord::Base
   end
   
   def self.find_sequencing_runs(condition_array=[])
-    self.sequenced.find(:all, :include => {:flow_lanes => :publications}, :order => 'flow_cells.seq_run_nr DESC',
-                        :conditions => condition_array)
+    self.sequenced.includes(:flow_lanes => :publications).where(sql_where(condition_array)).order('flow_cells.seq_run_nr DESC').all
+    #self.sequenced.find(:all, :include => {:flow_lanes => :publications}, :order => 'flow_cells.seq_run_nr DESC',
+    #                    :conditions => condition_array)
   end
   
   def self.find_flowcells_for_sequencing
-    self.unsequenced.find(:all, :include => {:flow_lanes => :publications}, :order => 'flow_cells.flowcell_date DESC')
+    self.unsequenced.includes(:flow_lanes => :publications).order("flow_cells.flowcell_date DESC").all
+    #self.unsequenced.find(:all, :include => {:flow_lanes => :publications}, :order => 'flow_cells.flowcell_date DESC')
   end
   
   def self.getwith_attach(id)
-    self.find(id, :include => :attached_files)
+    self.includes(:attached_files).where(:id => id)
+    #self.find(id, :include => :attached_files)
   end
   
-  def self.find_flowcell_incl_rundirs(condition_array=nil)
-    self.find(:first, :include => [:run_dirs, {:flow_lanes => :publications}],
-                      :order => "flow_cells.seq_run_nr, run_dirs.device_name",
-                      :conditions => condition_array)
+  def self.find_flowcell_incl_rundirs(condition_array=[])
+    self.includes(:run_dirs, {:flow_lanes => :publications}).where(sql_where(condition_array)).order('flow_cells.seq_run_nr, run_dirs.device_name').first
   end
   
   def set_flowcell_status(flowcell_status='F')
@@ -153,7 +155,7 @@ class FlowCell < ActiveRecord::Base
   
   def save_lanes
     flow_lanes.each do |flow_lane|
-      flow_lane.save(false) unless flow_lane.lane_nr.nil? || flow_lane.lane_nr.blank?
+      flow_lane.save(:validate=>false) unless flow_lane.lane_nr.nil? || flow_lane.lane_nr.blank?
     end
   end
   

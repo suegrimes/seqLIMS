@@ -3,7 +3,7 @@ class AttachedFilesController < ApplicationController
   # GET /attached_files/1
   def show
     @attached_file = AttachedFile.find(params[:id])
-    headers["Content-Type"] = @attached_file.document.content_type.to_s
+    headers["Content-Type"] = @attached_file.document.file.content_type.to_s
     send_file(@attached_file.doc_fullpath) 
   end
  
@@ -64,16 +64,16 @@ class AttachedFilesController < ApplicationController
   
   def destroy
     @attached_file = AttachedFile.find(params[:id])
-    @file_name = @attached_file.basename_with_ext
-    @file_path = @attached_file.doc_fullpath
+    #@file_name = @attached_file.basename_with_ext
+    #@file_path = @attached_file.doc_fullpath
     
     # delete file from file system
-    File.delete(@file_path) if FileTest.exist?(@file_path)
+    #File.delete(@file_path) if FileTest.exist?(@file_path)
     
     # delete file entry from SQL uploads table
     rec_type = @attached_file.sampleproc_type.underscore
     obj_id   = @attached_file.sampleproc_id
-    @attached_file.destroy
+    @attached_file.destroy   # Also removes file from file system via 'remove_document' callback
     #redirect_to :action => 'new', :rec_type => rec_type, :obj_id => obj_id
     redirect_to :controller => rec_type.pluralize, :action => :show, :id => obj_id
   end

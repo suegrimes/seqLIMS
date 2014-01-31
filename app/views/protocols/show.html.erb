@@ -22,4 +22,4 @@
                                                       :link_controller => 'protocols',
                                                       :last_info_box   => 'no'} %>
 
-<%= break_clear(link_to 'List All', protocols_path(:type => @protocol.protocol_type)) %>
+<%=raw break_clear(link_to 'List All', protocols_path(:type => @protocol.protocol_type)) %>

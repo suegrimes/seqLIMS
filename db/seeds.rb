@@ -1,4 +1,12 @@
-data_file_path = File.join(RAILS_ROOT, 'db', 'data_files')
+# This file should contain all the record creation needed to seed the database with its default values.
+# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
+#
+# Examples:
+#
+#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
+#   Mayor.create(name: 'Emanuel', city: cities.first)
+
+data_file_path = File.join(Rails.root, 'db', 'data_files')
 
 ##########################################################################################
 ### Populate user and roles tables                                                     ###
@@ -159,3 +167,4 @@ Pool.connection.execute("TRUNCATE TABLE pools")
 Pool.create!(:pool_name  => 'ProjectOrPool',
              :tube_label => 'XX0001',
              :pool_description => 'Test project/pool')
+

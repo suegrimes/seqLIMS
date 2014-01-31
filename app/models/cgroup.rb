@@ -2,9 +2,9 @@
 #
 # Table name: cgroups
 #
-#  id         :integer(4)      not null, primary key
-#  group_name :string(25)      default(""), not null
-#  sort_order :integer(2)
+#  id         :integer          not null, primary key
+#  group_name :string(25)       default(""), not null
+#  sort_order :integer
 #  created_at :datetime
 #  updated_at :timestamp
 #

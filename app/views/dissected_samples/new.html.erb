@@ -6,11 +6,12 @@
 <%= render :partial => 'samples/sample_info', :locals => {:sample => @source_sample,
                                                           :source => 'Source' } %>
 
-<% tagged_form_for @sample, :url => {:controller => 'dissected_samples', :action => :create} do |f| %>
-  <%= f.error_messages %>
+<%= tagged_form_for @sample, :url => {:controller => 'dissected_samples', :action => :create} do |f| %>
+  <% @sample.errors.full_messages.each do |msg| %>
+    <p><%= msg %></p>
+  <% end %>
   
-  <%= render :partial => 'dsample_form', :locals => {:f => f, 
-                                                     :dissect => @source_sample} %> 
-  <%= break_clear(f.submit "Save") %>
+  <%= render :partial => 'dsample_form', :locals => {:f => f, :dissect => @source_sample} %> 
+  <%=raw break_clear(f.submit "Save") %>
 <% end %>
 
