@@ -86,7 +86,7 @@ $j(function () {
     if (!window.location.origin)
      window.location.origin = window.location.protocol+"//"+window.location.host;
     var curr_location = window.location.origin
-    if (curr_location.match(/reve/)) {
+    if (curr_location.match(/reve|sgtc-svr108/)) {
       curr_location += '/seqLIMS'
     }
     if ($.isNumeric(items)) {
