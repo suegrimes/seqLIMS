@@ -1,7 +1,5 @@
-# Filters added to this controller apply to all controllers in the application.
-# Likewise, all the methods added will be available for all controllers.
-
 class ApplicationController < ActionController::Base
+  protect_from_forgery
   include AuthenticatedSystem
   include RoleRequirementSystem
   include LimsCommon
@@ -17,8 +15,8 @@ class ApplicationController < ActionController::Base
     redirect_to ''
   end
   # 
-  require 'fastercsv'
-  require 'calendar_date_select'
+  require 'csv'
+  #require 'calendar_date_select'
 
   helper :all # include all helpers, all the time
   #
@@ -29,8 +27,9 @@ class ApplicationController < ActionController::Base
   # See ActionController::Base for details 
   # Uncomment this to filter the contents of submitted sensitive data parameters
   # from your application log (in this case, all fields with names like "password"). 
-  filter_parameter_logging :password, :mrn
-  
+  #filter_parameter_logging :password, :mrn
+  DateRange = Struct.new(:from_date, :to_date)
+
   def category_filter(categories, cat_name, output='collection')
     category_selected = categories.select{|cm| cm.category == cat_name}
     if output == 'string'
@@ -58,7 +57,9 @@ class ApplicationController < ActionController::Base
     if val.nil?
       val_blank = true
     elsif val.is_a? Array
-      val_blank = (val.length == 1 && val[0].blank? ? true : false )
+      #val_blank = (val.size == 1 && val[0].blank? ? true : false )
+      # Hack due to change in Rails 3 which passes hidden value for collection_select/multiple and causes duplicate blank entry in array
+      val_blank = (val.size == 1 && val[0].blank? ) || (val.size == 2 && val[0].blank? && val[1].blank?)
     else
        val_blank = val.blank?
     end
@@ -110,7 +111,10 @@ class ApplicationController < ActionController::Base
   
   def sql_value(input_val)
     if input_val.is_a?(String) && input_val[0,4] == 'LIKE'
-      input_val = ['%',input_val[5..-1],'%'].join 
+      input_val = ['%',input_val[5..-1],'%'].join
+    # Hack to deal with Rails 3.2 'error', adding additional blank value to array when multi-item select uses 'Include Blank' value
+    elsif input_val.is_a?(Array) && input_val.size > 1
+      input_val.shift if input_val[0].blank?
     end
     return input_val
   end
@@ -132,7 +136,7 @@ class ApplicationController < ActionController::Base
   def sql_conditions_for_date_range(where_select, where_values, params, db_fld)
     if !params[:from_date].blank? && !params[:to_date].blank?
       where_select.push "#{db_fld} BETWEEN ? AND DATE_ADD(?, INTERVAL 1 DAY)"
-      where_values.push(params[:from_date], params[:to_date]) 
+      where_values.push(params[:from_date], params[:to_date])
     elsif !params[:from_date].blank? # To Date is null or blank
       where_select.push("#{db_fld} >= ?")
       where_values.push(params[:from_date])
@@ -141,6 +145,15 @@ class ApplicationController < ActionController::Base
       where_values.push(params[:to_date])
     end  
     return where_select, where_values 
+  end
+
+  def sql_where(condition_array)
+    # Handle change from Rails 2.3 to Rails 3.2 to turn conditions into individual parameters vs array
+    if condition_array.nil? || condition_array.empty?
+      return nil
+    else
+      return *condition_array
+    end
   end
   
   def email_value(email_hash, email_type, deliver_site)
@@ -162,5 +175,4 @@ protected
                   " IP: " + request.remote_ip + " Date/Time: " + Time.now.strftime("%Y-%m-%d %H:%M:%S"))
     UserLog.add_entry(self, User.current_user, request.remote_ip)
   end
-  
 end

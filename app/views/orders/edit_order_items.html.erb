@@ -1,7 +1,7 @@
 <h1>Editing status of order items</h1>
 
-<% form_for @order, :url => {:action => :update, :item_upd => 'Y'}  do |f| %>
-  <%= f.error_messages %>
+<%= form_for @order, :url => {:action => :update, :item_upd => 'Y'}  do |f| %>
+  <%= render '/shared/errors', model: @order %>
 
   <%= render :partial => 'orders/order_form', :locals => {:f => f} %>
   
@@ -12,5 +12,5 @@
 	<% end %>
 	</fieldset>
 	
-  <%= break_clear(f.submit "Update") %>
+  <%=raw break_clear(f.submit "Update") %>
 <% end %>

@@ -33,6 +33,6 @@
 </table>
 </fieldset>
 
-<% f.fields_for :sample_storage_container do |c| %>
+<%= f.fields_for :sample_storage_container do |c| %>
   <%= render :partial => 'shared/storage_container', :locals => {:f => c, :barcode => f.object.barcode_key} %>
 <% end %>

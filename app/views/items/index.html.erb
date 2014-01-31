@@ -3,17 +3,17 @@
 <% if can? :new, Order %>
 <% if @items_to_order && @items_to_order > 0 %>
   <div id="order">
-    <p><%= link_to_function "Place order for items checked below", div_toggle(:place_order, :order) %></p>
+    <p><%= link_to "Place order for items checked below", '', :onclick => "showHideDiv('order','place_order'); return false;" %></p>
   </div>
 <% end %>
 <% end %>
 
-<% form_tag(:action => 'create', :controller => 'orders') do %>
- <div id="place_order", style="display:none">	
-	<% fields_for Order.new(:date_ordered => Date.today) do |f|%>
+<%= form_tag(:action => 'create', :controller => 'orders') do %>
+ <div id="place_order" style="display:none">	
+	<%= fields_for Order.new(:date_ordered => Date.today) do |f|%>
       <%= render :partial => 'orders/order_form', :locals => {:f => f, :have_company_list => 'yes'} %>
 	<% end %> 
-  <%= break_clear(submit_tag("Submit"))%><br />
+  <%=raw break_clear(submit_tag("Submit"))%><br />
  </div>
  
 <table class="list">

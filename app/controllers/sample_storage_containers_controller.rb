@@ -14,8 +14,8 @@ class SampleStorageContainersController < ApplicationController
       render :action => :new_query
     else
       @container_name = params[:container_name]
-      @ss_containers = SampleStorageContainer.find(:all, :order => "container_type, container_name, position_in_container",
-                                                       :conditions => ["container_type = ? AND container_name = ?", @container_type, @container_name])                                 
+      @ss_containers = SampleStorageContainer.where('container_type = ? AND container_name = ?', @container_type, @container_name)
+                                             .order('container_type, container_name, position_in_container').all
       @sample_storage_containers = @ss_containers.sort_by {|sscontainer| [sscontainer.position_sort[0], sscontainer.position_sort[1]]}
       render :action => :index
     end

@@ -12,8 +12,7 @@
 	<th>Barcodes</th>
   </tr>
   
-<% form_for :pathology, @pathology,
-                        :url => {:action => 'create'} do |f| %>
+<%= form_for @pathology, :url => {:action => 'create'} do |f| %>
 						
 <% for sample_characteristic in @sample_characteristics %>
   <% barcodes = sample_characteristic.samples.collect(&:barcode_key)%>

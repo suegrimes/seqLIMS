@@ -2,8 +2,8 @@
 #
 # Table name: pathologies
 #
-#  id                       :integer(4)      not null, primary key
-#  patient_id               :integer(4)      not null
+#  id                       :integer          not null, primary key
+#  patient_id               :integer          not null
 #  collection_date          :date
 #  pathology_date           :date
 #  pathologist              :string(50)
@@ -15,7 +15,7 @@
 #  n_code                   :string(2)
 #  m_code                   :string(2)
 #  comments                 :string(255)
-#  updated_by               :integer(2)
+#  updated_by               :integer
 #  created_at               :datetime
 #  updated_at               :timestamp
 #

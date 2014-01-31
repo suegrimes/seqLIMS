@@ -5,10 +5,13 @@ class FlowCellsController < ApplicationController
   before_filter :setup_dropdowns, :only => :setup_params
   before_filter :seq_dropdowns, :only => :show
   
+  autocomplete :flow_cells, :sequencing_key
+  
   def setup_params
-   @from_date = (Date.today - 3.months).beginning_of_month
-   @to_date   =  Date.today
-   @seq_lib   = SeqLib.new(:owner => (current_user.researcher ? current_user.researcher.researcher_name : nil))
+    @from_date = (Date.today - 3.months).beginning_of_month
+    @to_date   =  Date.today
+    @date_range = DateRange.new(@from_date, @to_date)
+    @seq_lib   = SeqLib.new(:owner => (current_user.researcher ? current_user.researcher.researcher_name : nil))
   end
   
   # GET /flow_cells
@@ -25,19 +28,17 @@ class FlowCellsController < ApplicationController
   
   # GET /flow_cells/1
   def show
-    @flow_cell = FlowCell.find(params[:id], :include => {:flow_lanes => :seq_lib},
-                               :order => 'flow_lanes.lane_nr')
+    @flow_cell = FlowCell.includes(:flow_lanes => :seq_lib).order('flow_lanes.lane_nr').find(params[:id])
   end
  
   def show_qc
-    @flow_cell = FlowCell.find(params[:id], :include => :flow_lanes,
-                               :order => 'flow_lanes.lane_nr')
+    @flow_cell = FlowCell.includes(:flow_lanes).order('flow_lanes.lane_nr').find(params[:id])
   end
   
   def show_publications
     @flow_cell    = FlowCell.find(params[:id])
-    @publications = Publication.find(:all, :include => :flow_lanes, :order => 'publications.date_published DESC, flow_lanes.lane_nr',
-                                     :conditions => ["flow_lanes.flow_cell_id = ?", params[:id]])
+    @publications = Publication.includes(:flow_lanes).where('flow_lanes.flow_cell_id = ?', params[:id])
+                               .order('publications.date_published DESC, flow_lanes.lane_nr').all
   end
   
   def new
@@ -45,8 +46,7 @@ class FlowCellsController < ApplicationController
     
     # Get sequencing libraries based on parameters entered
     @condition_array = define_lib_conditions(params)
-    @seq_libs        = SeqLib.find(:all, :include => :mlib_samples, :conditions => @condition_array,
-                                   :order => 'lib_status, lib_name')
+    @seq_libs        = SeqLib.includes(:mlib_samples).where(sql_where(@condition_array)).order('lib_status, lib_name')
                                    
     # Exclude sequencing libraries which have been included in one or more multiplex libraries
     if params[:excl_used] && params[:excl_used] == 'Y'  
@@ -66,8 +66,7 @@ class FlowCellsController < ApplicationController
   
   # GET /flow_cells/1/edit
   def edit
-    @flow_cell = FlowCell.find(params[:id], :include => {:flow_lanes => :seq_lib}, 
-                               :order => 'flow_lanes.lane_nr')
+    @flow_cell = FlowCell.includes(:flow_lanes => :seq_lib).order('flow_lanes.lane_nr').find(params[:id])
     @partial_flowcell = (@flow_cell.flow_lanes.size < FlowCell::NR_LANES[@flow_cell.machine_type.to_sym] ? 'Y' : 'N')
   end
 
@@ -171,9 +170,12 @@ class FlowCellsController < ApplicationController
     redirect_to flow_cells_url(:rpt_type => 'seq') 
   end
   
-  def auto_complete_for_sequencing_key
-    @flow_cells = FlowCell.sequenced.find(:all, :conditions => ["sequencing_key LIKE ?", params[:search] + '%'])
-    render :inline => "<%= auto_complete_result(@flow_cells, 'sequencing_key') %>"
+  #def auto_complete_for_sequencing_key
+  def autocomplete_flow_cells_sequencing_key
+    @flow_cells = FlowCell.sequenced.where('sequencing_key LIKE ?', params[:term] + '%').all
+    #render :inline => "<%= auto_complete_result(@flow_cells, 'sequencing_key') %>"
+    list = @flow_cells.map {|fc| Hash[ id: fc.id, label: fc.sequencing_key, name: fc.sequencing_key]}
+    render json: list
   end
   
 protected
@@ -203,7 +205,7 @@ protected
     
     params[:flow_lane].each do |lane|
       @flow_lanes.push(FlowLane.new(lane))
-      @seq_libs.push(SeqLib.find_by_id(lane[:seq_lib_id]))
+      @seq_libs.push(SeqLib.find(lane[:seq_lib_id]))
     end
   end
   
@@ -283,7 +285,7 @@ protected
     end
       
     date_fld = 'seq_libs.preparation_date'
-    @where_select, @where_values = sql_conditions_for_date_range(@where_select, @where_values, params, date_fld)
+    @where_select, @where_values = sql_conditions_for_date_range(@where_select, @where_values, params[:date_range], date_fld)
     
     # Include control libraries, irrespective of other parameters entered
     if @where_select.length > 0

@@ -2,7 +2,7 @@
 
 <p>&nbsp;</p>
 
-<% form_tag(:action => :del_run_dir) do %>
+<%= form_tag(:action => :del_run_dir) do %>
   <%= collection_select(:storage_devices, :id, @storage_devices, :id, :device_name, 
       {:include_blank => 'Select Device'}) %>
   <%= submit_tag "Go" %>
@@ -11,7 +11,7 @@
 <p></p>
 
 <% if !@run_dirs.blank? %>
-  <% form_tag :action => :update_multi_flagged do %>
+  <%= form_tag :action => :update_multi_flagged do %>
     <%= render :partial => 'del_run_dir_form' %>
     <%= submit_tag 'Flag For Delete' %>
   <% end %>  

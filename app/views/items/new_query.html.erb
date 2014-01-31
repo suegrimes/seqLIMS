@@ -1,7 +1,7 @@
 <h1>View Order Items</h1>
 
-<% tagged_form_for(@item_query, :url => {:controller => 'items', :action => 'list_selected'}) do |f| %>
-<%= f.error_messages(:header_message => "Error(s) in query parameters") %>
+<%= tagged_form_for(@item_query, :url => {:controller => 'items', :action => 'list_selected'}) do |f| %>
+<%= render '/shared/errors', model: @item_query, header_message: "Error(s) in query parameters" %>
 
 <fieldset class="form">
 <legend>Specify parameters</legend>
@@ -13,13 +13,13 @@
   <tr>
   	<th>Entered From:</th>
 	<td>
-	  <%= f.calendar_date_select(:from_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15, :wraptags => 'none')%>
+      <%=f.datepicker 'from_date', dateFormat: "yy-mm-dd", maxDate: Time.current.to_date, changeMonth: true, changeYear: true, size: 15, wraptags: 'none' %>
 	  &nbsp;&nbsp;<strong>To:</strong>&nbsp;&nbsp;
-  	  <%= f.calendar_date_select(:to_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15, :wraptags => 'none' )%>
+      <%=f.datepicker 'to_date', dateFormat: "yy-mm-dd", maxDate: Time.current.to_date, changeMonth: true, changeYear: true, size: 15, wraptags: 'none' %>
 	</td>
   </tr>
 </table>
 </fieldset>
 
-<%= break_clear(f.submit "Submit") %>
+<%=raw break_clear(f.submit "Submit") %>
 <%end%>

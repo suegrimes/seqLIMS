@@ -4,14 +4,14 @@
   <tr><%= f.text_field :title_abbrev %></tr>
   <tr><%= f.text_field :title_full, :size => 80 %></tr>
   <tr><%= f.text_field :publication_name, :size => 80 %></tr>
-  <tr><%= f.calendar_date_select(:date_published, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15)  %></tr>
-  <tr><%=f.text_field :comments, :size => 80 %></tr>
+  <tr><%= f.datepicker 'date_published', dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true, size: 15 %></tr>
+  <tr><%= f.text_field :comments, :size => 80 %></tr>
 </table>
 </fieldset>
-<%= break_clear %>
+<%=raw break_clear %>
 
 <fieldset class="form">
-<legend>Ji Lab Authors </legend>
+<legend>Lab Authors </legend>
 <table class="form">
   <tr>
 	<%= f.collection_select(:researcher_ids, @researchers, :id, :researcher_name, {:include_blank => 'Select ..'},
@@ -19,4 +19,4 @@
   </tr>
 </table>
 </fieldset>
-<%= break_clear %>
+<%=raw break_clear %>
