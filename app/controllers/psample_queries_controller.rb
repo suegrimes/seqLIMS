@@ -12,7 +12,7 @@ class PsampleQueriesController < ApplicationController
      
     if @psample_query.valid?
       condition_array = define_conditions(params)
-      @processed_samples = ProcessedSample.find_for_query(condition_array)                                       
+      @processed_samples = ProcessedSample.find_for_query(sql_where(condition_array))
       render :action => :index
     else
       dropdowns
@@ -51,7 +51,7 @@ protected
     @preservation       = category_filter(@category_dropdowns, 'tissue preservation')
     @tumor_normal       = category_filter(@category_dropdowns, 'tumor_normal')
     @extraction_type    = category_filter(@category_dropdowns, 'extraction type')
-    @users              = User.find(:all)
+    @users              = User.all
   end
   
   def define_conditions(params)
@@ -147,7 +147,7 @@ protected
   def export_samples_csv(processed_samples)    
     hdgs, flds = export_samples_setup
     
-    csv_string = FasterCSV.generate(:col_sep => "\t") do |csv|
+    csv_string = CSV.generate(:col_sep => "\t") do |csv|
       csv << hdgs
    
       processed_samples.each do |processed_sample|
@@ -169,9 +169,10 @@ protected
   end
   
   def export_samples_setup
-    hdgs  = (%w{DownloadDt Patient_ID Barcode Type FromSample ProcessDt Amt(ug) Conc A260/280 Rem? Room_Freezer Container})
+    hdgs  = (%w{DownloadDt Patient_ID Consent_Protocol Barcode Type FromSample ProcessDt Amt(ug) Conc A260/280 Rem? Room_Freezer Container})
     
     flds  = [['sm', 'patient_id'],
+             ['cs', 'consent_name'],
              ['ps', 'barcode_key'],
              ['ps', 'extraction_type'],
              ['sm', 'barcode_key'],
@@ -187,7 +188,7 @@ protected
   end
   
   def model_xref(psample)
-    return {:ps => psample, :sm => psample.sample, :pc => psample.sample_storage_container}
+    return {:ps => psample, :sm => psample.sample, :cs => psample.sample.sample_characteristic.consent_protocol, :pc => psample.sample_storage_container}
   end
     
 

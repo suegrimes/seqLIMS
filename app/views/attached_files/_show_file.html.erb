@@ -7,18 +7,18 @@
 	  <tr>
         <td style="min-width:95px"><%=link_to att_file.basename_with_ext, att_file %></td>
 		<td><%=h att_file.notes %></td>
-	    <td class="linkborder"><%=link_to 'Delete', att_file, :confirm => 'Are you sure?', :method => :delete %></td>
+        <td class="linkborder"><%=link_to 'Delete', att_file, :confirm => 'Are you sure?', :method => :delete %></td>
 	  </tr>
       <% end %>
   <% else %>
       <tr><td style="width:95px">None</td></tr>
   <% end %>
   <% if add_file_button == 'yes' %>
-      <tr><td class="linkborder"><div id="add_new"><%= link_to_function "New Attachment", div_toggle(:newfile, :add_new) %></div></td></tr>
+      <tr><td class="linkborder"><div id="add_new"><%= link_to "New Attachment", '', :onclick => "showHideDiv('add_new','newfile'); return false;" %></div></td></tr>
   <% end %>	
   </table>
 </fieldset>
-<%=break_clear %>
-<div id="newfile", style="display:none">
+<%=raw break_clear %>
+<div id="newfile" style="display:none">
   <%= render :partial => '/attached_files/add_file', :locals => {:obj => obj} %>
 </div>

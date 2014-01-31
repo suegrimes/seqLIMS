@@ -4,24 +4,29 @@ class MolecularAssaysController < ApplicationController
   before_filter :dropdowns, :only => [:new, :edit, :populate_assays]
   before_filter :query_dropdowns, :only => :query_params
   
+  autocomplete :molecular_assay, :source_sample_name
+
+  AssayDefault = Struct.new(:owner, :preparation_date, :protocol_id, :notes)
+  
   # GET /molecular_assays
   def index
     authorize! :read, MolecularAssay
-    @molecular_assays = MolecularAssay.find(:all, :include => [:protocol, {:processed_sample => :sample}],          
-                                            :order => 'samples.patient_id, molecular_assays.barcode_key')
+    @molecular_assays = MolecularAssay.includes(:protocol, {:processed_sample => :sample})
+                                      .order('samples.patient_id, molecular_assays.barcode_key').all
+
     render :action => 'index'
   end
   
   def list_added
     authorize! :read, MolecularAssay
-    @molecular_assays = MolecularAssay.find_all_by_id(params[:assay_id].to_a, :include => [:protocol, {:processed_sample => :sample}],
-                                                        :order => 'molecular_assays.barcode_key')
+    @molecular_assays = MolecularAssay.includes(:protocol, {:processed_sample => :sample}).order('molecular_assays.barcode_key')
+                                      .where('molecular_assays.id in (?)', params[:assay_id]).all
     render :action => 'list_added'
   end
   
   # GET /molecular_assays/1
   def show
-    @molecular_assay = MolecularAssay.find(params[:id], :include => [:processed_sample, :protocol])
+    @molecular_assay = MolecularAssay.includes(:processed_sample, :protocol).find(params[:id])
     authorize! :read, @molecular_assay
   end
   
@@ -29,11 +34,14 @@ class MolecularAssaysController < ApplicationController
   def new
     authorize! :create, MolecularAssay
     @requester = (current_user.researcher ? current_user.researcher.researcher_name : nil)
+    @preparation_date = (Date.today - 9.months).beginning_of_month
+    @default_nr_assays = 4
+    @assay_default = AssayDefault.new(@requester, @preparation_date, params[:protocol_id], params[:notes] )
   end
 
   # GET /molecular_assays/1/edit
   def edit
-    @molecular_assay = MolecularAssay.find(params[:id], :include => :processed_sample)
+    @molecular_assay = MolecularAssay.includes(:processed_sample).find(params[:id])
     authorize! :edit, @molecular_assay
     
     # Add existing owner to owner/researcher drop-down list (for case where current owner is inactive)
@@ -42,13 +50,18 @@ class MolecularAssaysController < ApplicationController
   # Used to populate rows of molecular assays/samples to be entered 
   def populate_assays
     @new_assay = []; @processed_sample = [];
-    params[:nr_assays] ||= 4  
+    params[:nr_assays] ||= 4
     
     0.upto(params[:nr_assays].to_i - 1) do |i|
       @new_assay[i]    = MolecularAssay.new(params[:assay_default])
       @processed_sample[i] = @new_assay[i].processed_sample
     end
-    render :partial => 'assay_sample_form'
+
+    #render :partial => 'temp_debug'
+    respond_to do |format|
+      format.js
+    end
+    #render :partial => 'assay_sample_form', :locals => {:new_assay => @new_assay, :processed_sample => @processed_sample}
     #render :action => :debug
   end
 
@@ -116,20 +129,22 @@ class MolecularAssaysController < ApplicationController
   end
   
   def auto_complete_for_barcode_key
-    @molecular_assays = MolecularAssay.find(:all, :conditions => ["barcode_key LIKE ?", params[:search] + '%'])
+    @molecular_assays = MolecularAssay.where('barcode_key LIKE ?', params[:search]+'%').all
     render :inline => "<%= auto_complete_result(@molecular_assays, 'barcode_key') %>"
   end
   
-  def auto_complete_for_extraction_barcode
-    @processed_samples = ProcessedSample.barcode_search(params[:search])
-    if !params[:assay][:protocol_id].blank?
+  def autocomplete_molecular_assay_source_sample_name
+    @processed_samples = ProcessedSample.barcode_search(params[:term])
+    if params[:assay] && !params[:assay][:protocol_id].blank?
       protocol = Protocol.find(params[:assay][:protocol_id])
       if protocol
         molecule_type = protocol.molecule_type
         @processed_samples.reject! {|psample| psample.barcode_key[-3,1] != molecule_type} if ['D','R'].include?(molecule_type)
       end
     end
-    render :inline => "<%= auto_complete_result(@processed_samples, 'barcode_key') %>"
+    #render :inline => "<%= auto_complete_result(@processed_samples, 'barcode_key') %>"
+    list = @processed_samples.map {|ps| Hash[ id: ps.id, label: ps.barcode_key, name: ps.barcode_key, final_vol: ps.final_vol, final_conc: ps.final_conc]}
+    render json: list
   end
   
 #  def populate_vol
@@ -150,20 +165,27 @@ class MolecularAssaysController < ApplicationController
 #  end
   
   def update_fields
-    params[:i] ||= 0
+    @i = params[:i] ||= 0
     if params[:source_sample_name]
       @processed_sample = ProcessedSample.find_by_barcode_key(params[:source_sample_name])
     end
-    
-    if @processed_sample.nil?
-      render :nothing => true
-    else
-      render :update do |page|
-        i = params[:i]
-        page.replace_html "psample_vol_#{i}", @processed_sample.final_vol
-        page.replace_html "psample_conc_#{i}", @processed_sample.final_conc
-      end
+
+    # For debugging:
+    #@processed_sample = ProcessedSample.find_by_barcode_key('6441A.D01')
+
+    respond_to do |format|
+      format.js
     end
+
+    #if @processed_sample.nil?
+    #  render :nothing => true
+    #else
+    #  render :update do |page|
+    #    i = params[:i]
+    #    page.replace_html "psample_vol_#{i}", @processed_sample.final_vol
+    #    page.replace_html "psample_conc_#{i}", @processed_sample.final_conc
+    #  end
+    #end
   end
   
 protected
@@ -191,7 +213,7 @@ protected
       return nil
       
     else
-      molecular_assay = MolecularAssay.new(assay_param.merge!(assay_defaults))
+      molecular_assay = MolecularAssay.new(assay_defaults.merge!(assay_param))
       return molecular_assay
     end   
   end

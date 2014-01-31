@@ -2,21 +2,21 @@
 #
 # Table name: seq_libs
 #
-#  id                  :integer(4)      not null, primary key
+#  id                  :integer          not null, primary key
 #  barcode_key         :string(20)
-#  lib_name            :string(50)      default(""), not null
+#  lib_name            :string(50)       default(""), not null
 #  library_type        :string(2)
 #  lib_status          :string(2)
-#  protocol_id         :integer(4)
+#  protocol_id         :integer
 #  owner               :string(25)
 #  preparation_date    :date
 #  runtype_adapter     :string(25)
 #  project             :string(50)
-#  pool_id             :integer(3)
+#  pool_id             :integer
 #  oligo_pool          :string(8)
-#  alignment_ref_id    :integer(4)
+#  alignment_ref_id    :integer
 #  alignment_ref       :string(50)
-#  trim_bases          :integer(2)
+#  trim_bases          :integer
 #  sample_conc         :decimal(15, 9)
 #  sample_conc_uom     :string(10)
 #  lib_conc_requested  :decimal(15, 9)
@@ -25,11 +25,11 @@
 #  notes               :string(255)
 #  quantitation_method :string(20)
 #  starting_amt_ng     :decimal(11, 3)
-#  pcr_size            :integer(2)
+#  pcr_size            :integer
 #  dilution            :decimal(6, 3)
-#  updated_by          :integer(2)
+#  updated_by          :integer
 #  created_at          :datetime
-#  updated_at          :timestamp       not null
+#  updated_at          :timestamp        not null
 #
 
 class SeqLib < ActiveRecord::Base
@@ -124,7 +124,7 @@ class SeqLib < ActiveRecord::Base
   def sample_conc_nm
     if sample_conc_uom == 'nM'
       return sample_conc
-    elsif pcr_size.nil?  # pcr_size was not always a required field; if not entered cannot convert ng/ul to nM
+    elsif pcr_size.nil? || sample_conc.nil?  # pcr_size was not always a required field; if not entered cannot convert ng/ul to nM
       return nil          
     elsif sample_conc_uom == 'ng/ul'         #convert from ng/ul to nM
       return (sample_conc  / (pcr_size * BASE_GRAMS_PER_MOL) * 1000000)
@@ -145,26 +145,33 @@ class SeqLib < ActiveRecord::Base
   end
   
   def self.find_for_query(condition_array)
-    self.find(:all, :select => "seq_libs.*, COUNT(DISTINCT(flow_cells.id)) AS 'seq_run_cnt', COUNT(flow_lanes.id) AS 'seq_lane_cnt', " +
-                               "COUNT(align_qc.id) AS 'qc_lane_cnt'",
-                    :joins => "LEFT JOIN flow_lanes ON flow_lanes.seq_lib_id = seq_libs.id 
-                               LEFT JOIN align_qc ON align_qc.flow_lane_id = flow_lanes.id
-                               LEFT JOIN flow_cells ON flow_lanes.flow_cell_id = flow_cells.id",
-                    :group => "seq_libs.id",
-                    :conditions => condition_array)
+    self.select("seq_libs.*, COUNT(DISTINCT(flow_cells.id)) AS 'seq_run_cnt', COUNT(flow_lanes.id) AS 'seq_lane_cnt', " +
+                    "COUNT(align_qc.id) AS 'qc_lane_cnt'")
+        .joins('LEFT JOIN flow_lanes ON flow_lanes.seq_lib_id = seq_libs.id
+              LEFT JOIN align_qc ON align_qc.flow_lane_id = flow_lanes.id
+              LEFT JOIN flow_cells ON flow_lanes.flow_cell_id = flow_cells.id').where(sql_where(condition_array)).group('seq_libs.id')
+    #self.find(:all, :select => "seq_libs.*, COUNT(DISTINCT(flow_cells.id)) AS 'seq_run_cnt', COUNT(flow_lanes.id) AS 'seq_lane_cnt', " +
+    #                           "COUNT(align_qc.id) AS 'qc_lane_cnt'",
+    #                :joins => "LEFT JOIN flow_lanes ON flow_lanes.seq_lib_id = seq_libs.id
+     #                          LEFT JOIN align_qc ON align_qc.flow_lane_id = flow_lanes.id
+     #                          LEFT JOIN flow_cells ON flow_lanes.flow_cell_id = flow_cells.id",
+    #                :group => "seq_libs.id",
+     #               :conditions => condition_array)
   end
   
   def self.find_for_export(id)
-    self.find(id, :include => {:flow_lanes => [:flow_cell, :align_qc]},
-                  :conditions => "flow_cells.flowcell_status <> 'F'")
+    self.find(id).includes(:flow_lanes => [:flow_cell, :align_qc]).where("flow_cells.flowcell_status <> 'F'")
+    #self.find(id, :include => {:flow_lanes => [:flow_cell, :align_qc]},
+    #              :conditions => "flow_cells.flowcell_status <> 'F'")
   end
   
   def self.unique_projects
-    self.find(:all, :select => 'DISTINCT project', :order => 'project')
+    self.select(:project).order(:project).uniq
+    #self.find(:all, :select => 'DISTINCT project', :order => 'project')
   end
   
   def self.getwith_attach(id)
-    self.find(id, :include => :attached_files)
+    self.find(id).includes(:attached_files)
   end
   
   def self.upd_lib_status(flow_cell, lib_status)
@@ -180,8 +187,8 @@ class SeqLib < ActiveRecord::Base
     
     # If any cases found, collect all the multiplex libraries and their associated 'samples'(=singleplex libs)
     if !lib_samples.nil?
-      mplex_ids   = lib_samples.collect(&:seq_lib_id)
-      mplex_libs  = self.find_all_by_id(mplex_ids, :include => {:lib_samples => :splex_lib})
+      mplex_ids  = lib_samples.collect(&:seq_lib_id)
+      mplex_libs = self.find_all_by_id(mplex_ids, :include => {:lib_samples => :splex_lib})
       
       mplex_libs.each do |lib|
         self.upd_mplex_fields(lib)

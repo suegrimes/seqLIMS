@@ -15,7 +15,7 @@ class SampleQueriesController < ApplicationController
     
     if @sample_query.valid?
       @condition_array = define_conditions(params)
-      @nr_samples, @samples_by_patient = Sample.find_and_group_by_source(@condition_array)
+      @nr_samples, @samples_by_patient = Sample.find_and_group_by_source(sql_where(@condition_array))
       @source_sample_ids = Sample.find_all_source_for_dissected
       
       @type_of_sample = (params[:stype] ||= 'Source and Dissected')
@@ -134,7 +134,7 @@ protected
     @source_tissue      = category_filter(@category_dropdowns, 'source tissue')
     @preservation       = category_filter(@category_dropdowns, 'tissue preservation')
     @tumor_normal       = category_filter(@category_dropdowns, 'tumor_normal')
-    @users              = User.find(:all)
+    @users              = User.all
   end
   
   def define_conditions(params)
@@ -214,7 +214,7 @@ protected
   def export_samples_csv(samples, with_mrn='no')    
     hdgs, flds1, flds2 = export_samples_setup(with_mrn)
     
-    csv_string = FasterCSV.generate(:col_sep => "\t") do |csv|
+    csv_string = CSV.generate(:col_sep => "\t") do |csv|
       csv << hdgs
    
       samples.each do |sample|
@@ -253,7 +253,7 @@ protected
   
   def export_samples_setup(with_mrn='no')
     hdg1  =(with_mrn == 'yes'? ['Download_Dt', 'PatientID', 'MRN'] : ['Download_Dt', 'PatientID'])
-    hdgs  = hdg1.concat(%w{Barcode SampleType SampleDate OR_Designation PathologyDX PathologyComments 
+    hdgs  = hdg1.concat(%w{Barcode SampleType SampleDate Protocol OR_Designation PathologyDX PathologyComments
                            Histopathology FromSample Remaining? Room_Freezer Container})
     
     flds1  = [['sm', 'patient_id'],
@@ -261,6 +261,7 @@ protected
              ['sm', 'barcode_key'],
              ['sm', 'sample_category'],
              ['sm', 'sample_date'],
+             ['cs', 'consent_name'],
              ['sm', 'tumor_normal'],
              ['pr', 'pathology_classification'],
              ['pr', 'comments'],
@@ -275,6 +276,7 @@ protected
              ['ps', 'barcode_key'],
              ['ps', 'extraction_type'],
              ['ps', 'processing_date'],
+             ['cs', 'consent_name'],
              ['sm', 'tumor_normal'],
              ['ps', 'blank'],
              ['ps', 'blank'], 
@@ -291,6 +293,7 @@ protected
     sample_xref = {:pt => xsample.patient,
                    :sm => xsample,
                    :sc => xsample.sample_characteristic,
+                   :cs => xsample.sample_characteristic.consent_protocol,
                    :pr => xsample.sample_characteristic.pathology,
                    :he => xsample.histology,
                    :ss => xsample.sample_storage_container}

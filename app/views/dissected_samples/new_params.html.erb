@@ -1,6 +1,7 @@
 <h1>Specify Source Sample for Dissection</h1>
 
-<% form_tag :action=> 'new'  do %>
+<%= form_tag add_dissection_path  do %>
+
 <table class="form border">
   <tr>
   	<th>Barcode:</th><td><%= text_field_tag(:barcode_key)%></td>

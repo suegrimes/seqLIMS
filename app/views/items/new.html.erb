@@ -1,6 +1,6 @@
 <h1>New item</h1>
 
-<% form_tag :action => 'create' do %>
+<%= form_tag :action => 'create' do %>
 <fieldset class="form">
 <legend>Order Details</legend>
   <table class="form">
@@ -18,16 +18,16 @@
   	</tr>
   </table>
 </fieldset>
-<%= break_clear %>
-  
+<%=raw break_clear %>
+ 
+<div id="item_error" style="display:none; color:red"></div>
+
   <% if @items.nil? %>
   <div id='item_entry'> 
-  <span><b>Number of different items to order:</b>&nbsp;<%= text_field_tag(:nr_items, '', :size => 5)-%></span>
-  <%= submit_to_remote 'MultiItem', 'Add Items',
-      :url => {:action => 'populate_items'},
-      :update => 'item_entry' -%>
+  <span><b>Quantity of items to order:</b>&nbsp;<%= text_field_tag(:nr_items, '', :size => 5)-%></span>
+  <%= link_to 'Add Items', '', id: 'add_items', :'data-show_err_id' => 'item_error', :remote => true %>
   </div>
-  
+
   <% else %>
     <%= render :partial => 'multi_item_form'%>
   <% end %>

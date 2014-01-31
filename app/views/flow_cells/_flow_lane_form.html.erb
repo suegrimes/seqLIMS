@@ -1,6 +1,6 @@
 <div class="flow_lane">
   <% prefix = "flow_lane[]" %>
-  <% fields_for prefix, flow_lane do |n| %>
+  <%= fields_for prefix, flow_lane do |n| %>
 	
     <td><%= n.text_field(:lane_nr, :size => 4) %></td>
 	<td><%= n.text_field(:lib_conc, :size => 4) %>pM</td>

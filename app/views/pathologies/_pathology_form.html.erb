@@ -2,7 +2,7 @@
 <legend>Diagnosis/Pathology</legend>
 <table class="form">
   <tr>
-  	<%=f.calendar_date_select(:pathology_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15, :label => 'Path Rpt Date') %>
+    <%=f.datepicker 'pathology_date', dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true, size: 15, label: 'Path Rpt Date' %>
   </tr>
   <tr>
 	<%=f.collection_select(:general_pathology, @hpathology, :c_value, :c_value, {:include_blank => 'Select ..'}, :label => 'Pathology')%>
@@ -14,7 +14,7 @@
 	<td colspan="2">
 	<strong>T&nbsp;&nbsp;</strong><%=f.collection_select(:t_code, @tumor_T, :c_value, :c_value, {:include_blank => 'Select..'}, :wraptags => 'none')%>&nbsp;&nbsp;
 	<strong>N&nbsp;&nbsp;</strong><%=f.collection_select(:n_code, @tumor_N, :c_value, :c_value, {:include_blank => 'Select..'}, :wraptags => 'none')%>&nbsp;&nbsp;
-	<strong>M&nbsp;&nbsp;<%=f.collection_select(:m_code, @tumor_M, :c_value, :c_value, {:include_blank => 'Select..'}, :wraptags => 'none')%>&nbsp;&nbsp;
+	<strong>M&nbsp;&nbsp;</strong><%=f.collection_select(:m_code, @tumor_M, :c_value, :c_value, {:include_blank => 'Select..'}, :wraptags => 'none')%>&nbsp;&nbsp;
 	</td>
 	<%=f.collection_select(:tumor_stage, @tumor_stage, :c_value, :c_value, {:include_blank => 'Select..'}, :label => 'Stage')%>
   </tr>
@@ -25,5 +25,5 @@
   
 </table>
 </fieldset>
-<%= break_clear %>
+<%=raw break_clear %>
 

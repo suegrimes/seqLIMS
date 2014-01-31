@@ -1,7 +1,7 @@
 <h1>New order</h1>
 
-<% form_for(@order) do |f| %>
-  <%= f.error_messages %>
+<%= form_for(@order) do |f| %>
+  <%= render '/shared/errors', model: @order %>
 
   <p>
     <%= f.label :order_date %><br />

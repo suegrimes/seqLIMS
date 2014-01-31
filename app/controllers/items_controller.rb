@@ -2,6 +2,10 @@ class ItemsController < ApplicationController
   before_filter :dropdowns, :only => [:new_query, :new, :edit]
   protect_from_forgery :except => :populate_items
   
+  autocomplete :item, :catalog_nr
+  autocomplete :item, :company_name
+  autocomplete :item, :item_description
+  
   def new_query
     @item_query = ItemQuery.new(:from_date => (Date.today - 1.month).beginning_of_month,
                                 :to_date   =>  Date.today)
@@ -60,16 +64,19 @@ class ItemsController < ApplicationController
     requester = (current_user.researcher ? current_user.researcher.researcher_name : nil)
     @item_default = Item.new(:requester_name => requester)
   end
-  
+
   def populate_items
     @items = []
     params[:nr_items] ||= 3
     
     0.upto(params[:nr_items].to_i - 1) do |i|
       @items[i] = Item.new(params[:item_default])
-    end    
-    
-    render :partial => 'multi_item_form'
+    end
+
+    respond_to do |format|
+      format.js
+    end
+
   end
 
   # GET /items/1/edit
@@ -103,10 +110,11 @@ class ItemsController < ApplicationController
       email_create_orders = email_value(EMAIL_CREATE, 'orders', @items[0].deliver_site)
       email_delivery_orders = email_value(EMAIL_DELIVERY, 'orders', @items[0].deliver_site)
       
-      email = send_email(@items, current_user, email_delivery_orders) unless email_create_orders == 'NoEmail'
+      email = OrderMailer.new_items(@items, current_user) unless email_create_orders == 'NoEmail'
       if email_delivery_orders == 'Debug'
         render(:text => "<pre>" + email.encoded + "</pre>")
       else
+        email.deliver! if email_delivery_orders == 'Deliver'
         redirect_to :action => 'list_unordered_items'
       end
          
@@ -140,19 +148,23 @@ class ItemsController < ApplicationController
     redirect_to :action => 'new_query'
   end
   
-  def auto_complete_for_catalog_nr
-    @items = Item.find_all_unique(["catalog_nr LIKE ?", params[:search] + '%'])
-    render :inline => "<%= auto_complete_result(@items, 'catalog_nr') %>"
+  def autocomplete_item_catalog_nr
+    @items = Item.find_all_unique(["catalog_nr LIKE ?", params[:term] + '%'])
+    list = @items.map {|i| Hash[ id: i.id, label: i.catalog_nr, name: i.catalog_nr, company_name: i.company_name, desc: i.item_description, price: i.item_price ]}
+    render json: list
   end
   
-  def auto_complete_for_item_description
-    @items = Item.find_all_unique(["item_description LIKE ?", params[:search] + '%'])
-    render :inline => "<%= auto_complete_result(@items, 'item_description') %>"
+  def autocomplete_item_item_description
+    @items = Item.find_all_unique(["item_description LIKE ?", params[:term] + '%'])
+    list = @items.map {|i| Hash[ id: i.id, label: i.item_description, name: i.item_description, cat_nr: i.catalog_nr, company_name: i.company_name, price: i.item_price]}
+    render json: list
   end
   
-  def auto_complete_for_company_name
-    @items = Item.find_all_unique(["company_name LIKE ?", params[:search] + '%'])
-    render :inline => "<%= auto_complete_result(@items, 'company_name') %>"
+  def autocomplete_item_company_name
+    @items = Item.find_all_unique(["company_name LIKE ?", params[:term] + '%'])
+    @items = @items.uniq { |h| h[:company_name] }
+    list = @items.map {|i| Hash[ id: i.id, label: i.company_name, name: i.company_name]}
+    render json: list
   end
   
   def update_fields
@@ -178,15 +190,8 @@ class ItemsController < ApplicationController
   end
   
 protected
-  def send_email(items, user, email_delivery)
-    email = OrderMailer.create_new_items(items, user)
-    email.set_content_type("text/html")
-    OrderMailer.deliver(email) if email_delivery == 'Deliver'
-    return email
-  end
-
   def dropdowns
-    items_all  = Item.find(:all)
+    items_all  = Item.all
     @companies = list_companies_from_items(items_all)
     @requestors = items_all.collect(&:requester_name).sort.uniq
     @researchers = Researcher.populate_dropdown
@@ -216,9 +221,7 @@ protected
         @where_values.push(sql_value(val))
       end
     end
-    
-    
-    
+
     date_fld = 'items.created_at'
     @where_select, @where_values = sql_conditions_for_date_range(@where_select, @where_values, params[:item_query], date_fld)
     

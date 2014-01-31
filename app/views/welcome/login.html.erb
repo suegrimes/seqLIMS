@@ -1,0 +1,32 @@
+<%= form_tag user_login_path do -%>
+<br />
+<br />
+<table>
+  <tr>
+  	<th>Login:</th>
+	<td><%= text_field_tag :login %></td>
+  </tr>
+  <tr>
+  	<th>Password:</th>
+	<td><%= password_field_tag :password%></td>
+	<td><%= link_to 'Forgot password?', forgot_path %></td>
+  </tr>
+  <!-- Uncomment this if you want this functionality
+  <tr>
+    <th>Remember me?</th>
+	<td><%= check_box_tag :remember_me %></td>
+  </tr>
+  -->
+  <tr>
+  	<td>&nbsp;</td>
+  </tr>
+  <tr>
+  	<td><%= submit_tag 'Log in' -%></td>
+  </tr>
+</table>
+<% end -%>
+
+<p class="notes"> OR <%= button_to 'Sign up', :controller => :welcome, :action => :signup -%> 
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>

@@ -9,7 +9,7 @@ class AlignQcsController < ApplicationController
   # POST /align_qcs
   def create
     alignqc_added = 0
-    @flow_cell = FlowCell.find(params[:flow_cell][:id], :include => {:flow_lanes => :align_qc})
+    @flow_cell = FlowCell.includes(:flow_lanes => :align_qc).find(params[:flow_cell][:id])
     
     flow_cell_align_qc = @flow_cell.flow_lanes.collect{|flow_lane| flow_lane.align_qc}
     flow_cell_align_qc.reject!{|qc| qc.nil?}
