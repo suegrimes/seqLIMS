@@ -64,28 +64,19 @@ class ItemsController < ApplicationController
     requester = (current_user.researcher ? current_user.researcher.researcher_name : nil)
     @item_default = Item.new(:requester_name => requester)
   end
-  
+
   def populate_items
     @items = []
     params[:nr_items] ||= 3
     
     0.upto(params[:nr_items].to_i - 1) do |i|
       @items[i] = Item.new(params[:item_default])
-    end    
-<<<<<<< HEAD
-    
-    if @items.empty?
-      render :text => 'Error: Number of different items that you wish to order must be a positive integer', :status => 400
-    else
-      render :partial => 'multi_item_form', :status => 200
     end
-=======
 
     respond_to do |format|
       format.js
     end
 
->>>>>>> refs/remotes/origin/r3_upgrade
   end
 
   # GET /items/1/edit
