@@ -10,8 +10,7 @@ class AssignedBarcodesController < ApplicationController
   def check_barcodes
     @range_start = params[:start]
     @range_end   = params[:end]
-    @samples = Sample.includes(:sample_characteristic => :consent_protocol).where('source_sample_id IS NULL AND CAST(barcode_key AS UNSIGNED) BETWEEN ? AND ?', params[:start], params[:end])
-                     .order('CAST(barcode_key AS UNSIGNED').all
+    @samples = Sample.find_in_barcode_range(@range_start, @range_end)
 
     if params[:rtype] == 'available'
       render :action => 'check_available'
