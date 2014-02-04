@@ -1,6 +1,6 @@
 <h1>Sample Storage Containers Query</h1>
 
-<% form_tag(:action => 'index') do  %>
+<%= form_tag(:action => 'index') do  %>
 
 <fieldset class="form">
 <legend>Select parameters</legend>
@@ -11,5 +11,5 @@
   </tr>
 </table>
 </fieldset>
-<%= break_clear(submit_tag "Submit") %>
+<%=raw break_clear(submit_tag "Submit") %>
 <%end%>

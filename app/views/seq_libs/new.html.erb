@@ -1,20 +1,24 @@
-<h1>New Sequencing Library - Singleplex </h1>
+<% @nr_libs ||= ' ' %>
 
-<% form_tag(:action => :create) do %>
+<h1>New Sequencing Library - Singleplex</h1>
+
+<% unless @hide_defaults %>
+<%= form_tag url_for(:action => :populate_libs), {id: 'default_libs', remote: true} do %>
   
   <%= render :partial => 'lib_form' %>
-  <%= break_clear %>
-
-  <% if @lib_with_error %><%= error_messages_for :seq_lib, :object => @lib_with_error %><% end %>
+  <%=raw break_clear %>
   
-  <% if @lib_samples.nil?%>
-    <div id='splex_libs'>	
-    <b>Populate how many libraries with these defaults?</b>&nbsp;<%= text_field_tag(:nr_libs, '', :size => 5)-%>
-    <%= submit_to_remote 'Singleplex', 'Add Libraries',
-    :url => {:action => 'populate_libs', :method => :get},
-    :update => 'splex_libs' -%>
-    </div>      
-  <% else %>
-    <%= render :partial => 'sample_form' %>
-  <% end %>
+  <div id='add_libs'>
+    <b>Populate how many libraries with these defaults?</b>&nbsp;<%= text_field_tag(:nr_libs, @nr_libs, :size => 5)-%>
+  </div>
+  <div id="add_libs_button"><%= submit_tag 'Add Libraries', id: 'lib_button' %></div>
+<% end %>
+<% end %>
+
+<%= form_tag url_for(:action => :create) do %>
+  <% if @lib_with_error %><%= render '/shared/errors', model: @lib_with_error %><% end %>
+
+  <div id='splex_libs'>
+    <% if @new_lib %><%= render 'sample_form', model: @new_lib %><% end %>
+  </div>
 <% end %>

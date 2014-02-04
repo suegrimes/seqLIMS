@@ -2,8 +2,8 @@
 
 <%= render :partial => 'patients/patient_info',  :locals => {:patient => @pathology.patient} %>
 
-<% tagged_form_for(@pathology) do |f| %>
-  <%= f.error_messages %>
+<%= tagged_form_for(@pathology) do |f| %>
+  <%= render '/shared/errors', model: @pathology %>
 
   <%= render :partial => 'pathology_form', :locals => {:f => f} %>
   

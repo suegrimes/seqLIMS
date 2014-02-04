@@ -1,8 +1,8 @@
 <div id='libs_form'>
-<%= submit_tag "Save libraries" %>&nbsp;&nbsp;&nbsp;
-<%= submit_to_remote 'Singleplex', 'Refesh from Defaults',
+<%= submit_tag 'Save libraries' %>&nbsp;&nbsp;&nbsp;
+<!--%= submit_to_remote 'Singleplex', 'Refesh from Defaults',
       :url => {:action => 'populate_libs', :nr_libs => @new_lib.size},
-      :update => 'libs_form' %>
+      :update => 'libs_form' %-->
 <div>&nbsp;</div>
 <fieldset class="form">
 <legend>Libraries</legend>
@@ -23,9 +23,9 @@
 </tr>
  <%= hidden_field_tag(:nr_libs, @new_lib.size) %>
  <% @new_lib.each_with_index do |lib, i| %>
-    <% fields_for 'seq_lib_' + i.to_s, lib do |f| %> 
-      <% fields_for 'lib_sample_' + i.to_s, @lib_samples[i] do |s| %>
-        <%= s.error_messages %>
+    <%= fields_for 'seq_lib_' + i.to_s, lib do |f| %>
+      <%= fields_for 'lib_sample_' + i.to_s, @lib_samples[i] do |s| %>
+        <%= render '/shared/errors', model: s.object %>
         <%= f.hidden_field(:owner) %>
         <%= f.hidden_field(:preparation_date) %>
         <%= f.hidden_field(:protocol_id) %>
@@ -38,7 +38,7 @@
     <td><%= s.text_field(:index_tag, :size => 4) %></td>       
     <td><%= f.collection_select(:quantitation_method, @quantitation, :c_value, :c_value,
                                                             {:include_blank => 'Select Method'}) %></td>
-    <td><%= f.text_field(:pcr_size, :size => 6) %></td> 
+    <td><%= f.text_field(:pcr_size, :size => 6) %></td>
     <td><%= f.text_field(:lib_conc_requested, :size => 6)%>pM</td>
     <td><%= f.collection_select(:alignment_ref_id, @align_refs, :id, :alignment_key) %></td>
     <td><%= f.text_field(:trim_bases, :size => 6) %></td>
@@ -46,10 +46,8 @@
     <td><%= s.text_field(:enzyme_code, :size => 6) %></td>
 </tr>
 <tr>
-  <th style="text-align:right; text-decoration: none;"><em>Source DNA/RNA:</em></th>
-  <td><%= s.text_field_with_auto_complete :source_sample_name, {:size => 15},
-              {:url => {:controller => :processed_samples, :action => :auto_complete_for_barcode_key},
-               :param_name => :search, :min_chars => 2, :method => :get} %></td>
+  <th style="text-align:right; text-decoration: none;"><em>Source DNA/RNA:</em></th>  
+  <td><%=s.autocomplete_field :source_sample_name, processed_samples_autocomplete_processed_sample_barcode_search_path, {size: 15, value: @lib_samples[i][:source_DNA]} %></td>
   <th style="text-align:right; text-decoration: none;"><em>Notebook Ref:</em></th>
   <td colspan="2"><%= f.text_field(:notebook_ref, :size => 30)%></td>  
   <th style="text-align:right; text-decoration: none;"><em>Notes:</em></th>

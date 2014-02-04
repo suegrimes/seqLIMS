@@ -12,8 +12,8 @@
   </tr>
 </table>
 
-<% form_for @align_qc, :action => :update do |f| %>
-<%= f.error_messages %>
+<%= form_for @align_qc, :action => :update do |f| %>
+<%= render '/shared/errors', model: @align_qc %>
 <fieldset class="form">
 <legend>Sequencing Summary</legend>
 <table class="form-with-columns">
@@ -82,5 +82,5 @@
   </tr>	
 </table>
 </fieldset>
-<%= break_clear(f.submit('Update'))%>
+<%=raw break_clear(f.submit('Update'))%>
 <% end %>

@@ -2,7 +2,7 @@ class AssignedBarcodesController < ApplicationController
  
   # GET /assigned_barcodes
   def index
-    @assigned_barcodes = AssignedBarcode.find(:all, :order => "start_barcode")
+    @assigned_barcodes = AssignedBarcode.order(:start_barcode).all
     @assigned_ranges = assigned_contigs(@assigned_barcodes)
     @free_ranges     = free_contigs(@assigned_ranges)
   end
@@ -10,10 +10,8 @@ class AssignedBarcodesController < ApplicationController
   def check_barcodes
     @range_start = params[:start]
     @range_end   = params[:end]
-    @samples = Sample.find(:all, :include => {:sample_characteristic => :consent_protocol},
-                           :conditions => ["source_sample_id IS NULL AND CAST(barcode_key AS UNSIGNED) BETWEEN ? AND ?", params[:start], params[:end]],
-                           :order => "CAST(barcode_key AS UNSIGNED)")
-                           
+    @samples = Sample.find_in_barcode_range(@range_start, @range_end)
+
     if params[:rtype] == 'available'
       render :action => 'check_available'
     else

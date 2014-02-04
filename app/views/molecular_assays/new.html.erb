@@ -1,9 +1,9 @@
 <h1>New Molecular Assay </h1>
 
-<% form_tag(:action => :create_assays) do %>
+<%= form_tag(create_molecular_assays_path) do %>
   
   <%= render :partial => 'assay_defaults' %>
-  <%= break_clear %>
+  <%=raw break_clear %>
 
   <% if @assay_with_error %>
     <%= error_messages_for :molecular_assay, :object => @assay_with_error, 
@@ -12,10 +12,8 @@
   
   <% if @new_assay.nil?%>   
     <div id='assays'>	
-    <b>Number of samples for this assay:</b>&nbsp;<%= text_field_tag(:nr_assays, '', :size => 5)-%>
-    <%= submit_to_remote 'MolAssay', 'Add Samples',
-    :url => {:action => 'populate_assays'},
-    :update => 'assays' -%>
+    <b>Number of samples for this assay:</b>&nbsp;<%= text_field_tag(:nr_assays, @default_nr_assays, :size => 5)-%>
+    <%= link_to 'Add Assays', populate_assays_path, {:onclick => "this.href += '?nr_assays='+$('#nr_assays').val(); return true;", :remote => true} %>
     </div>      
   <% else %>
     <%= render :partial => 'assay_sample_form' %>

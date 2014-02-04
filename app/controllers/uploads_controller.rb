@@ -3,8 +3,8 @@ class UploadsController < ApplicationController
   # GET /uploads
   def index
     @file_content ||= (params[:file_content] ||= 'seq_result')
-    @uploads = Upload.find(:all, :order => "created_at DESC",
-                           :conditions => ["file_content = ?", @file_content]) 
+    @uploads = Upload.where('file_content = ?', @file_content).order('created_at DESC').all
+
     if @uploads.nil?
       flash[:notice] = 'No existing uploaded files, please upload a new file'
       render :action => 'new'

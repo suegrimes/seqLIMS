@@ -3,12 +3,12 @@ class PublicationsController < ApplicationController
   #load_and_authorize_resource
   
   def show
-    @publication = Publication.find(params[:id], :include => :flow_lanes, :order => "flow_lanes.sequencing_key, flow_lanes.lane_nr")
+    @publication = Publication.includes(:flow_lanes).order('flow_lanes.sequencing_key, flow_lanes.lane_nr').find(params[:id])
   end
 
   # render index.rhtml
   def index
-    @publications = Publication.find(:all, :order => "publications.date_published DESC")
+    @publications = Publication.order('publications.date_published DESC').all
   end
 
   # render new.rhtml
@@ -26,7 +26,7 @@ class PublicationsController < ApplicationController
       redirect_to @publication
     else
       flash.now[:notice] = "Error saving this publication - please try again"
-      @researchers = Researcher.find(:all)
+      @researchers = Researcher.all
       @checked_lane_ids = params[:publication][:flow_lane_ids].collect{|str| str.to_i} if params[:publication][:flow_lane_ids]
       flow_lanes = FlowLane.find_all_by_id(@checked_lane_ids) if @checked_lane_ids
       @flow_cells = FlowCell.find_all_by_id(flow_lanes.map(&:flow_cell_id).uniq) if flow_lanes
@@ -56,7 +56,7 @@ class PublicationsController < ApplicationController
       redirect_to @publication
     else
       flash.now[:error] = "Error updating publication"
-      @researchers = Researcher.find(:all)
+      @researchers = Researcher.all
       render :action => 'edit'
     end    
   end
@@ -71,18 +71,15 @@ class PublicationsController < ApplicationController
   
   def populate_lanes
     if params[:run_numbers]
-      @flow_cells = FlowCell.find_all_by_seq_run_nr(params[:run_numbers], :include => :flow_lanes,
+      @runnr_list = params[:run_numbers]
+      @flow_cells = FlowCell.find_all_by_seq_run_nr(@runnr_list.split(','), :include => :flow_lanes,
                                                 :order => "flow_cells.seq_run_nr, flow_lanes.lane_nr") 
     end
-    
-    if @flow_cells.nil?
-      render :text => "Unable to find run_number: #{params[:run_numbers]}"
-    else
-      render :partial => 'publication_runs', :locals => {:flow_cells => @flow_cells}
-    end
+
+    respond_to {|format| format.js }
   end
   
   def dropdowns
-    @researchers = Researcher.find(:all, :order => "researchers.active_inactive, researchers.researcher_name")
+    @researchers = Researcher.order('researchers.active_inactive, researchers.researcher_name').all
   end
 end

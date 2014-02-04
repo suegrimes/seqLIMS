@@ -1,7 +1,5 @@
-<% form_for(:attached_file, @attached_file,
-            :url => {:controller => 'attached_files', :action=> 'create'},
-            :html => {:multipart => true}) do |f| -%>  
-  <%= error_messages_for :attached_file %>
+<%= form_for :attached_file, url: attach_file_path(@attached_file), html: { :multipart => true } do |f| -%> 
+  
   <%= hidden_field_tag(:obj_klass, obj.class.name)%>
   <%= hidden_field_tag(:obj_id, obj.id)%>
 
@@ -10,7 +8,7 @@
   <table class="form">
 	<tr>
 	  <th>File name:</th>
-	  <td><%= f.upload_column_field :document, :size=>30%> </td>
+	  <td><%= f.file_field :document, :size=>30%>  <%= f.hidden_field :document_cache%></td>
 	</tr>
 	<tr>
 	  <th>Notes:</th>
@@ -18,5 +16,5 @@
 	</tr>
   </table>
 </fieldset>
-<%= break_clear(f.submit("Upload File"))%>
+<%=raw break_clear(f.submit("Upload File"))%>
 <% end %>

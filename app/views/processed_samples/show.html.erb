@@ -15,7 +15,7 @@
 
 <%= render :partial => 'processed_sample_info', :locals => {:processed_sample => @processed_sample} %>
 <%= render :partial => 'attached_files/show_file', :locals => {:obj => @processed_sample} %>
-<%= break_clear %>
+<%=raw break_clear %>
 
 <span class="table_title">Sequencing Libraries
   <% if @processed_sample.seq_libs %> (<%= @processed_sample.seq_libs.size %> libraries) <% end %></span>
@@ -51,7 +51,7 @@
   <% end %>
 </table>
 <% else %>
-<%= break_clear %>
+<%=raw break_clear %>
 <% end %>
 
 <span class="table_title">Molecular Assays 
@@ -78,5 +78,5 @@
   <% end %>
 </table>
 <% else %>
-<%= break_clear %>
+<%=raw break_clear %>
 <% end %>

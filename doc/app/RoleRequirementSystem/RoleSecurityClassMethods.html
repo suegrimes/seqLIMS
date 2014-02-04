@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>module RoleRequirementSystem::RoleSecurityClassMethods - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body id="top" class="module">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/role_requirement_system.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-require_role">#require_role</a>
+    
+    <li><a href="#method-i-reset_role_requirements-21">#reset_role_requirements!</a>
+    
+    <li><a href="#method-i-user_authorized_for-3F">#user_authorized_for?</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../doc/README_FOR_APP.html">README_FOR_APP</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../ValidatesTimeliness.html">ValidatesTimeliness</a>
+  
+    <li><a href="../ValidatesTimeliness/ActionView.html">ValidatesTimeliness::ActionView</a>
+  
+    <li><a href="../ValidatesTimeliness/ActionView/InstanceTag.html">ValidatesTimeliness::ActionView::InstanceTag</a>
+  
+    <li><a href="../ValidatesTimeliness/ActiveRecord.html">ValidatesTimeliness::ActiveRecord</a>
+  
+    <li><a href="../ValidatesTimeliness/ActiveRecord/AttributeMethods.html">ValidatesTimeliness::ActiveRecord::AttributeMethods</a>
+  
+    <li><a href="../ValidatesTimeliness/ActiveRecord/AttributeMethods/ClassMethods.html">ValidatesTimeliness::ActiveRecord::AttributeMethods::ClassMethods</a>
+  
+    <li><a href="../ValidatesTimeliness/ActiveRecord/MultiparameterAttributes.html">ValidatesTimeliness::ActiveRecord::MultiparameterAttributes</a>
+  
+    <li><a href="../ValidatesTimeliness/Formats.html">ValidatesTimeliness::Formats</a>
+  
+    <li><a href="../ValidatesTimeliness/Parser.html">ValidatesTimeliness::Parser</a>
+  
+    <li><a href="../ValidatesTimeliness/ValidationMethods.html">ValidatesTimeliness::ValidationMethods</a>
+  
+    <li><a href="../ValidatesTimeliness/ValidationMethods/ClassMethods.html">ValidatesTimeliness::ValidationMethods::ClassMethods</a>
+  
+    <li><a href="../ValidatesTimeliness/Validator.html">ValidatesTimeliness::Validator</a>
+  
+    <li><a href="../Spec.html">Spec</a>
+  
+    <li><a href="../Spec/Rails.html">Spec::Rails</a>
+  
+    <li><a href="../Spec/Rails/Matchers.html">Spec::Rails::Matchers</a>
+  
+    <li><a href="../Spec/Rails/Matchers/ValidateTimeliness.html">Spec::Rails::Matchers::ValidateTimeliness</a>
+  
+    <li><a href="../Blame.html">Blame</a>
+  
+    <li><a href="../Blame/Userstamp.html">Blame::Userstamp</a>
+  
+    <li><a href="../Blame/UserstampMigrationHelper.html">Blame::UserstampMigrationHelper</a>
+  
+    <li><a href="../Rails.html">Rails</a>
+  
+    <li><a href="../Rails/Generator.html">Rails::Generator</a>
+  
+    <li><a href="../Rails/Generator/NamedBase.html">Rails::Generator::NamedBase</a>
+  
+    <li><a href="../RoleRequirementSystem.html">RoleRequirementSystem</a>
+  
+    <li><a href="../RoleRequirementSystem/RoleSecurityClassMethods.html">RoleRequirementSystem::RoleSecurityClassMethods</a>
+  
+    <li><a href="../RoleRequirementSystem/RoleSecurityInstanceMethods.html">RoleRequirementSystem::RoleSecurityInstanceMethods</a>
+  
+    <li><a href="../Test.html">Test</a>
+  
+    <li><a href="../Test/Unit.html">Test::Unit</a>
+  
+    <li><a href="../Test/Unit/TestCase.html">Test::Unit::TestCase</a>
+  
+    <li><a href="../TimeTravel.html">TimeTravel</a>
+  
+    <li><a href="../TimeTravel/TimeExtensions.html">TimeTravel::TimeExtensions</a>
+  
+    <li><a href="../TimeTravel/TimeExtensions/ClassMethods.html">TimeTravel::TimeExtensions::ClassMethods</a>
+  
+    <li><a href="../ActiveRecordExtension.html">ActiveRecordExtension</a>
+  
+    <li><a href="../ActiveRecordExtension/ClassMethods.html">ActiveRecordExtension::ClassMethods</a>
+  
+    <li><a href="../AutoComplete.html">AutoComplete</a>
+  
+    <li><a href="../AutoComplete/ClassMethods.html">AutoComplete::ClassMethods</a>
+  
+    <li><a href="../OverrideBlameTest.html">OverrideBlameTest</a>
+  
+    <li><a href="../OverrideBlameTest/Sprocket.html">OverrideBlameTest::Sprocket</a>
+  
+    <li><a href="../SslRequirement.html">SslRequirement</a>
+  
+    <li><a href="../SslRequirement/ClassMethods.html">SslRequirement::ClassMethods</a>
+  
+    <li><a href="../ViewMapper.html">ViewMapper</a>
+  
+    <li><a href="../ViewMapper/HasManyAutoCompleteView.html">ViewMapper::HasManyAutoCompleteView</a>
+  
+    <li><a href="../Ability.html">Ability</a>
+  
+    <li><a href="../AlignQc.html">AlignQc</a>
+  
+    <li><a href="../AlignQcsController.html">AlignQcsController</a>
+  
+    <li><a href="../AlignmentRef.html">AlignmentRef</a>
+  
+    <li><a href="../AlignmentRefsController.html">AlignmentRefsController</a>
+  
+    <li><a href="../AnnotateModels.html">AnnotateModels</a>
+  
+    <li><a href="../ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="../ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="../AssignedBarcode.html">AssignedBarcode</a>
+  
+    <li><a href="../AssignedBarcodesController.html">AssignedBarcodesController</a>
+  
+    <li><a href="../AttachedFile.html">AttachedFile</a>
+  
+    <li><a href="../AttachedFilesController.html">AttachedFilesController</a>
+  
+    <li><a href="../AttachmentUploader.html">AttachmentUploader</a>
+  
+    <li><a href="../AuthenticatedGenerator.html">AuthenticatedGenerator</a>
+  
+    <li><a href="../AuthenticatedMailerGenerator.html">AuthenticatedMailerGenerator</a>
+  
+    <li><a href="../AuthenticatedSystem.html">AuthenticatedSystem</a>
+  
+    <li><a href="../AuthenticatedTestHelper.html">AuthenticatedTestHelper</a>
+  
+    <li><a href="../AutoCompleteFormBuilderHelper.html">AutoCompleteFormBuilderHelper</a>
+  
+    <li><a href="../AutoCompleteFormBuilderHelperTest.html">AutoCompleteFormBuilderHelperTest</a>
+  
+    <li><a href="../AutoCompleteMacrosHelper.html">AutoCompleteMacrosHelper</a>
+  
+    <li><a href="../AutoCompleteNestedAttributesTest.html">AutoCompleteNestedAttributesTest</a>
+  
+    <li><a href="../AutoCompleteTest.html">AutoCompleteTest</a>
+  
+    <li><a href="../BaseLoginProxy.html">BaseLoginProxy</a>
+  
+    <li><a href="../BlameTest.html">BlameTest</a>
+  
+    <li><a href="../BuilderHelper.html">BuilderHelper</a>
+  
+    <li><a href="../CategoriesController.html">CategoriesController</a>
+  
+    <li><a href="../CategoriesHelper.html">CategoriesHelper</a>
+  
+    <li><a href="../Category.html">Category</a>
+  
+    <li><a href="../CategoryValue.html">CategoryValue</a>
+  
+    <li><a href="../Cgroup.html">Cgroup</a>
+  
+    <li><a href="../ConsentProtocol.html">ConsentProtocol</a>
+  
+    <li><a href="../ConsentProtocolsController.html">ConsentProtocolsController</a>
+  
+    <li><a href="../CreateParents.html">CreateParents</a>
+  
+    <li><a href="../CustomMessages.html">CustomMessages</a>
+  
+    <li><a href="../DissectedSamplesController.html">DissectedSamplesController</a>
+  
+    <li><a href="../FlowCell.html">FlowCell</a>
+  
+    <li><a href="../FlowCellsController.html">FlowCellsController</a>
+  
+    <li><a href="../FlowLane.html">FlowLane</a>
+  
+    <li><a href="../FlowcellQueriesController.html">FlowcellQueriesController</a>
+  
+    <li><a href="../FlowcellQuery.html">FlowcellQuery</a>
+  
+    <li><a href="../FreezerLocation.html">FreezerLocation</a>
+  
+    <li><a href="../FreezerLocationsController.html">FreezerLocationsController</a>
+  
+    <li><a href="../HasManyAutoCompleteViewTest.html">HasManyAutoCompleteViewTest</a>
+  
+    <li><a href="../HistologiesController.html">HistologiesController</a>
+  
+    <li><a href="../HistologiesHelper.html">HistologiesHelper</a>
+  
+    <li><a href="../Histology.html">Histology</a>
+  
+    <li><a href="../HttpLoginProxy.html">HttpLoginProxy</a>
+  
+    <li><a href="../IndexTag.html">IndexTag</a>
+  
+    <li><a href="../IndexTagsController.html">IndexTagsController</a>
+  
+    <li><a href="../InventoryDB.html">InventoryDB</a>
+  
+    <li><a href="../Item.html">Item</a>
+  
+    <li><a href="../ItemQuery.html">ItemQuery</a>
+  
+    <li><a href="../ItemsController.html">ItemsController</a>
+  
+    <li><a href="../LibBarcode.html">LibBarcode</a>
+  
+    <li><a href="../LibSample.html">LibSample</a>
+  
+    <li><a href="../LimsCommon.html">LimsCommon</a>
+  
+    <li><a href="../LimsMailer.html">LimsMailer</a>
+  
+    <li><a href="../MachineIncident.html">MachineIncident</a>
+  
+    <li><a href="../MolassayQueriesController.html">MolassayQueriesController</a>
+  
+    <li><a href="../MolassayQuery.html">MolassayQuery</a>
+  
+    <li><a href="../MolecularAssay.html">MolecularAssay</a>
+  
+    <li><a href="../MolecularAssaysController.html">MolecularAssaysController</a>
+  
+    <li><a href="../MolecularAssaysHelper.html">MolecularAssaysHelper</a>
+  
+    <li><a href="../Monkey.html">Monkey</a>
+  
+    <li><a href="../MplexLibsController.html">MplexLibsController</a>
+  
+    <li><a href="../NoTable.html">NoTable</a>
+  
+    <li><a href="../NoValidation.html">NoValidation</a>
+  
+    <li><a href="../Object.html">Object</a>
+  
+    <li><a href="../OligoPoolsController.html">OligoPoolsController</a>
+  
+    <li><a href="../Order.html">Order</a>
+  
+    <li><a href="../OrderMailer.html">OrderMailer</a>
+  
+    <li><a href="../OrdersController.html">OrdersController</a>
+  
+    <li><a href="../Parent.html">Parent</a>
+  
+    <li><a href="../PartialBlameTest.html">PartialBlameTest</a>
+  
+    <li><a href="../PathologiesController.html">PathologiesController</a>
+  
+    <li><a href="../Pathology.html">Pathology</a>
+  
+    <li><a href="../Patient.html">Patient</a>
+  
+    <li><a href="../PatientsController.html">PatientsController</a>
+  
+    <li><a href="../Person.html">Person</a>
+  
+    <li><a href="../Pool.html">Pool</a>
+  
+    <li><a href="../Primer.html">Primer</a>
+  
+    <li><a href="../ProcessedSample.html">ProcessedSample</a>
+  
+    <li><a href="../ProcessedSamplesController.html">ProcessedSamplesController</a>
+  
+    <li><a href="../Protocol.html">Protocol</a>
+  
+    <li><a href="../ProtocolsController.html">ProtocolsController</a>
+  
+    <li><a href="../PsampleQueriesController.html">PsampleQueriesController</a>
+  
+    <li><a href="../PsampleQuery.html">PsampleQuery</a>
+  
+    <li><a href="../Publication.html">Publication</a>
+  
+    <li><a href="../PublicationsController.html">PublicationsController</a>
+  
+    <li><a href="../Researcher.html">Researcher</a>
+  
+    <li><a href="../ResearchersController.html">ResearchersController</a>
+  
+    <li><a href="../Role.html">Role</a>
+  
+    <li><a href="../RoleRequirementTestHelper.html">RoleRequirementTestHelper</a>
+  
+    <li><a href="../RunDir.html">RunDir</a>
+  
+    <li><a href="../RunDirsController.html">RunDirsController</a>
+  
+    <li><a href="../Sample.html">Sample</a>
+  
+    <li><a href="../SampleCharacteristic.html">SampleCharacteristic</a>
+  
+    <li><a href="../SampleCharacteristicsController.html">SampleCharacteristicsController</a>
+  
+    <li><a href="../SampleQueriesController.html">SampleQueriesController</a>
+  
+    <li><a href="../SampleQueriesHelper.html">SampleQueriesHelper</a>
+  
+    <li><a href="../SampleQuery.html">SampleQuery</a>
+  
+    <li><a href="../SampleStorageContainer.html">SampleStorageContainer</a>
+  
+    <li><a href="../SampleStorageContainersController.html">SampleStorageContainersController</a>
+  
+    <li><a href="../SamplesController.html">SamplesController</a>
+  
+    <li><a href="../SeqLib.html">SeqLib</a>
+  
+    <li><a href="../SeqLibsController.html">SeqLibsController</a>
+  
+    <li><a href="../SeqLibsHelper.html">SeqLibsHelper</a>
+  
+    <li><a href="../SeqMachine.html">SeqMachine</a>
+  
+    <li><a href="../SeqMachinesController.html">SeqMachinesController</a>
+  
+    <li><a href="../SeqlibLanesController.html">SeqlibLanesController</a>
+  
+    <li><a href="../SeqlibQueriesController.html">SeqlibQueriesController</a>
+  
+    <li><a href="../SeqlibQuery.html">SeqlibQuery</a>
+  
+    <li><a href="../Sprocket.html">Sprocket</a>
+  
+    <li><a href="../SslRequirementController.html">SslRequirementController</a>
+  
+    <li><a href="../SslRequirementTest.html">SslRequirementTest</a>
+  
+    <li><a href="../StorageDevice.html">StorageDevice</a>
+  
+    <li><a href="../StorageDevicesController.html">StorageDevicesController</a>
+  
+    <li><a href="../TaggedBuilder.html">TaggedBuilder</a>
+  
+    <li><a href="../TestiesController.html">TestiesController</a>
+  
+    <li><a href="../UploadsController.html">UploadsController</a>
+  
+    <li><a href="../User.html">User</a>
+  
+    <li><a href="../UserLog.html">UserLog</a>
+  
+    <li><a href="../UserLogin.html">UserLogin</a>
+  
+    <li><a href="../UserNotifier.html">UserNotifier</a>
+  
+    <li><a href="../UserObserver.html">UserObserver</a>
+  
+    <li><a href="../UsersController.html">UsersController</a>
+  
+    <li><a href="../WelcomeController.html">WelcomeController</a>
+  
+    <li><a href="../Widget.html">Widget</a>
+  
+    <li><a href="../WithValidation.html">WithValidation</a>
+  
+    <li><a href="../XmlLoginProxy.html">XmlLoginProxy</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="module">module RoleRequirementSystem::RoleSecurityClassMethods</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-require_role" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">require_role</span><span
+            class="method-args">(roles, options = {})</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Add this to the top of your controller to require a role in order to access
+it. Example Usage:</p>
+
+<pre class="ruby"><span class="ruby-identifier">require_role</span> <span class="ruby-string">&quot;contractor&quot;</span>
+<span class="ruby-identifier">require_role</span> <span class="ruby-string">&quot;admin&quot;</span>, :<span class="ruby-identifier">only</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">destroy</span> <span class="ruby-comment"># don't allow contractors to destroy</span>
+<span class="ruby-identifier">require_role</span> <span class="ruby-string">&quot;admin&quot;</span>, :<span class="ruby-identifier">only</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">update</span>, :<span class="ruby-keyword">unless</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;current_user.authorized_for_listing?(params[:id]) &quot;</span>
+</pre>
+
+<p>Valid options</p>
+
+<pre class="ruby">* :<span class="ruby-identifier">only</span> <span class="ruby-operator">-</span> <span class="ruby-constant">Only</span> <span class="ruby-identifier">require</span> <span class="ruby-identifier">the</span> <span class="ruby-identifier">role</span> <span class="ruby-keyword">for</span> <span class="ruby-identifier">the</span> <span class="ruby-identifier">given</span> <span class="ruby-identifier">actions</span>
+* :<span class="ruby-identifier">except</span> <span class="ruby-operator">-</span> <span class="ruby-constant">Require</span> <span class="ruby-identifier">the</span> <span class="ruby-identifier">role</span> <span class="ruby-keyword">for</span> <span class="ruby-identifier">everything</span> <span class="ruby-identifier">but</span> 
+* :<span class="ruby-keyword">if</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">a</span> <span class="ruby-constant">Proc</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">a</span> <span class="ruby-identifier">string</span> <span class="ruby-identifier">to</span> <span class="ruby-identifier">evaluate</span>.  <span class="ruby-constant">If</span> <span class="ruby-identifier">it</span> <span class="ruby-identifier">evaluates</span> <span class="ruby-identifier">to</span> <span class="ruby-keyword">true</span>, <span class="ruby-identifier">the</span> <span class="ruby-identifier">role</span> <span class="ruby-identifier">is</span> <span class="ruby-identifier">required</span>.
+* :<span class="ruby-keyword">unless</span> <span class="ruby-operator">-</span> <span class="ruby-constant">The</span> <span class="ruby-identifier">inverse</span> <span class="ruby-identifier">of</span> :<span class="ruby-keyword">if</span>
+</pre>
+          
+
+          
+          <div class="method-source-code" id="require_role-source">
+            <pre><span class="ruby-comment"># File lib/role_requirement_system.rb, line 37</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">require_role</span>(<span class="ruby-identifier">roles</span>, <span class="ruby-identifier">options</span> = {})
+  <span class="ruby-identifier">options</span>.<span class="ruby-identifier">assert_valid_keys</span>(<span class="ruby-value">:if</span>, <span class="ruby-value">:unless</span>,
+    <span class="ruby-value">:for</span>, <span class="ruby-value">:only</span>, 
+    <span class="ruby-value">:for_all_except</span>, <span class="ruby-value">:except</span>
+  )
+  
+  <span class="ruby-comment"># only declare that before filter once</span>
+  <span class="ruby-keyword">unless</span> (<span class="ruby-ivar">@before_filter_declared</span><span class="ruby-operator">||=</span><span class="ruby-keyword">false</span>)
+    <span class="ruby-ivar">@before_filter_declared</span>=<span class="ruby-keyword">true</span>
+    <span class="ruby-identifier">before_filter</span> <span class="ruby-value">:check_roles</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-comment"># convert to an array if it isn't already</span>
+  <span class="ruby-identifier">roles</span> = [<span class="ruby-identifier">roles</span>] <span class="ruby-keyword">unless</span> <span class="ruby-constant">Array</span><span class="ruby-operator">===</span><span class="ruby-identifier">roles</span>
+  
+  <span class="ruby-identifier">options</span>[<span class="ruby-value">:only</span>] <span class="ruby-operator">||=</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:for</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:for</span>]
+  <span class="ruby-identifier">options</span>[<span class="ruby-value">:except</span>] <span class="ruby-operator">||=</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:for_all_except</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:for_all_except</span>]
+  
+  <span class="ruby-comment"># convert any actions into symbols</span>
+  <span class="ruby-keyword">for</span> <span class="ruby-identifier">key</span> <span class="ruby-keyword">in</span> [<span class="ruby-value">:only</span>, <span class="ruby-value">:except</span>]
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">key</span>)
+      <span class="ruby-identifier">options</span>[<span class="ruby-identifier">key</span>] = [<span class="ruby-identifier">options</span>[<span class="ruby-identifier">key</span>]] <span class="ruby-keyword">unless</span> <span class="ruby-constant">Array</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">key</span>]
+      <span class="ruby-identifier">options</span>[<span class="ruby-identifier">key</span>] = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">key</span>].<span class="ruby-identifier">compact</span>.<span class="ruby-identifier">collect</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">v</span>.<span class="ruby-identifier">to_sym</span>}
+    <span class="ruby-keyword">end</span> 
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">role_requirements</span><span class="ruby-operator">||=</span>[]
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">role_requirements</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-value">:roles</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">roles</span>, <span class="ruby-value">:options</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span> }
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- require_role-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- require_role-method -->
+
+    
+      <div id="method-i-reset_role_requirements-21" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">reset_role_requirements!</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="reset_role_requirements-21-source">
+            <pre><span class="ruby-comment"># File lib/role_requirement_system.rb, line 19</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">reset_role_requirements!</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">role_requirements</span>.<span class="ruby-identifier">clear</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- reset_role_requirements-21-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- reset_role_requirements-21-method -->
+
+    
+      <div id="method-i-user_authorized_for-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">user_authorized_for?</span><span
+            class="method-args">(user, params = {}, binding = self.binding)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>This is the core of RoleRequirement.  Here is where it discerns if a user
+can access a controller or not./</p>
+          
+
+          
+          <div class="method-source-code" id="user_authorized_for-3F-source">
+            <pre><span class="ruby-comment"># File lib/role_requirement_system.rb, line 68</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">user_authorized_for?</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">params</span> = {}, <span class="ruby-identifier">binding</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">binding</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">Array</span><span class="ruby-operator">===</span><span class="ruby-keyword">self</span>.<span class="ruby-identifier">role_requirements</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">role_requirements</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span> <span class="ruby-identifier">role_requirement</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">roles</span> = <span class="ruby-identifier">role_requirement</span>[<span class="ruby-value">:roles</span>]
+    <span class="ruby-identifier">options</span> = <span class="ruby-identifier">role_requirement</span>[<span class="ruby-value">:options</span>]
+    <span class="ruby-comment"># do the options match the params?</span>
+    
+    <span class="ruby-comment"># check the action</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-value">:only</span>)
+      <span class="ruby-keyword">next</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:only</span>].<span class="ruby-identifier">include?</span>( (<span class="ruby-identifier">params</span>[<span class="ruby-value">:action</span>]<span class="ruby-operator">||</span><span class="ruby-string">&quot;index&quot;</span>).<span class="ruby-identifier">to_sym</span> )
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-value">:except</span>)
+      <span class="ruby-keyword">next</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:except</span>].<span class="ruby-identifier">include?</span>( (<span class="ruby-identifier">params</span>[<span class="ruby-value">:action</span>]<span class="ruby-operator">||</span><span class="ruby-string">&quot;index&quot;</span>).<span class="ruby-identifier">to_sym</span>)
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-value">:if</span>)
+      <span class="ruby-comment"># execute the proc.  if the procedure returns false, we don't need to authenticate these roles</span>
+      <span class="ruby-keyword">next</span> <span class="ruby-keyword">unless</span> ( <span class="ruby-constant">String</span><span class="ruby-operator">===</span><span class="ruby-identifier">options</span>[<span class="ruby-value">:if</span>] <span class="ruby-operator">?</span> <span class="ruby-identifier">eval</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:if</span>], <span class="ruby-identifier">binding</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:if</span>].<span class="ruby-identifier">call</span>(<span class="ruby-identifier">params</span>) )
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-value">:unless</span>)
+      <span class="ruby-comment"># execute the proc.  if the procedure returns true, we don't need to authenticate these roles</span>
+      <span class="ruby-keyword">next</span> <span class="ruby-keyword">if</span> ( <span class="ruby-constant">String</span><span class="ruby-operator">===</span><span class="ruby-identifier">options</span>[<span class="ruby-value">:unless</span>] <span class="ruby-operator">?</span> <span class="ruby-identifier">eval</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:unless</span>], <span class="ruby-identifier">binding</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:unless</span>].<span class="ruby-identifier">call</span>(<span class="ruby-identifier">params</span>) )
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-comment"># check to see if they have one of the required roles</span>
+    <span class="ruby-identifier">passed</span> = <span class="ruby-keyword">false</span>
+    <span class="ruby-identifier">roles</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">role</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">passed</span> = <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">has_role?</span>(<span class="ruby-identifier">role</span>)
+    } <span class="ruby-keyword">unless</span> (<span class="ruby-identifier">user</span><span class="ruby-operator">==</span><span class="ruby-value">:false</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">user</span><span class="ruby-operator">==</span><span class="ruby-keyword">false</span>)
+    
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">passed</span>
+  }
+  
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- user_authorized_for-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- user_authorized_for-3F-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

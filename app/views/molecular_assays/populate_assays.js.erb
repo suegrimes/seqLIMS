@@ -1,0 +1,1 @@
+$j('#assays').html("<%= escape_javascript(render :partial => 'assay_sample_form', :locals => {:new_assay => @new_assay, :processed_sample => @processed_sample}).html_safe %>");
