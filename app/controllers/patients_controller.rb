@@ -70,7 +70,7 @@ class PatientsController < ApplicationController
     @patient = Patient.find(params[:id])
     @patient.destroy
     flash[:notice] = "Patient #{params[:id]} was successfully deleted"
-    redirect_to "/"
+    redirect_to root_url
   end
 
 protected  

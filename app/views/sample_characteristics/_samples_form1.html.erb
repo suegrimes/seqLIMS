@@ -1,0 +1,5 @@
+<%= fields_for :sample, @sample do |s| %>
+    <%= render :partial => 'samples_form', :locals => {:s => s, :sample => @sample} %>
+<% end %>
+
+<!--%= @sample.inspect %>-->
