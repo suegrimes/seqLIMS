@@ -21,20 +21,19 @@
     <% end %>	
   </table>
 
-<div id="more_to_add">
-  <%= link_to "Add another sample for this patient/collection date", '', :onclick => "showHideDiv('more_to_add','add_more'); return false;" %>
-</div>
+    <%= link_to 'Add another sample for this patient/collection date', add_another_sample_sample_characteristic_path(@sample_characteristic.id),
+              :id => "add_more", :remote => true, :"data-method" => 'post' %>
+    <%= javascript_tag do %>
+        $('#add_more').bind("ajax:complete", function(event, data){
+        $('#load_more').html(data.responseText); // insert content
+        });
+    <% end %>
 
-<div id="add_more" style="display:none">
-   <% sample = @sample_characteristic.samples.build(@sample_params) %>
-   <% sample.build_sample_storage_container %>
-
-   <%= f.fields_for :samples, sample do |s| %>
-     <%= render :partial => 'samples_form', :locals => {:s => s,
-                                                        :sample => sample,
-                                                        :removable => 'no'} %>
-   <% end %>
-</div>
+    <div id='load_more'>
+      <% if @sample_with_error %>
+        <%= render :partial => 'samples_form1', :locals => {:sample => @sample_with_error} %>
+      <% end %>
+    </div>
   
 <%=raw break_clear(f.submit "Update") %>
 <% end %>
