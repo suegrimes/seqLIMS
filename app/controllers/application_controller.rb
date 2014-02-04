@@ -8,7 +8,9 @@ class ApplicationController < ActionController::Base
   #Make current_user accessible from model (via User.current_user)
   before_filter :set_current_user
   before_filter :log_user_action
-    
+
+  cache_sweeper :user_stamper
+
   rescue_from CanCan::AccessDenied do |exception|
     user_login = (current_user.nil? ? nil : current_user.login)
     flash[:error] = "Sorry #{user_login}, you are not authorized to access that page"
