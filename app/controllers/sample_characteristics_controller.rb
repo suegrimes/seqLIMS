@@ -77,6 +77,7 @@ class SampleCharacteristicsController < ApplicationController
       if EMAIL_DELIVERY[:samples]  == 'Debug'
         render(:text => "<pre>" + email.encoded + "</pre>")
       else
+        email.deliver! if EMAIL_DELIVERY[:samples] != 'None'
         redirect_to :action => 'show', :id => @sample_characteristic.id, :added_sample_id => @sample_characteristic.samples[-1].id
       end
       
@@ -84,6 +85,7 @@ class SampleCharacteristicsController < ApplicationController
     else
       dropdowns
       sample_dropdowns
+      flash[:error] = 'Error - Clinical sample/characteristics not saved'
       render :action => 'new_sample' 
     end
   end
@@ -154,7 +156,6 @@ class SampleCharacteristicsController < ApplicationController
         save_successful = true
         flash[:notice] = 'New sample successfully added'
       else
-        flash[:notice] = 'New sample save failed'
         @sample_with_error = @sample
         save_successful = false
       end
@@ -167,15 +168,15 @@ class SampleCharacteristicsController < ApplicationController
       if EMAIL_DELIVERY[:samples] == 'Debug'
         render(:text => "<pre>" + email.encoded + "</pre>")
       else
-        email.deliver!
-        redirect_to :action => 'show', :id => @sample_characteristic.id, :added_sample_id => sample.id
+        email.deliver!  if EMAIL_DELIVERY[:samples] != 'None'
+        redirect_to :action => 'show', :id => @sample_characteristic.id, :added_sample_id => @sample.id
       end
 
     elsif save_successful
       redirect_to(@sample_characteristic)
       
     else
-      #flash[:notice] = ''
+      flash[:notice] = ''
       flash[:error] = 'Error - Clinical sample/characteristics not updated'
       dropdowns
       sample_dropdowns

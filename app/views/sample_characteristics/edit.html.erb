@@ -21,10 +21,13 @@
     <% end %>	
   </table>
 
+    <div id="sample_link">
     <%= link_to 'Add another sample for this patient/collection date', add_another_sample_sample_characteristic_path(@sample_characteristic.id),
               :id => "add_more", :remote => true, :"data-method" => 'post' %>
+    </div>
     <%= javascript_tag do %>
         $('#add_more').bind("ajax:complete", function(event, data){
+        $('#sample_link').toggle();
         $('#load_more').html(data.responseText); // insert content
         });
     <% end %>
