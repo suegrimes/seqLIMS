@@ -121,34 +121,61 @@ class SampleCharacteristicsController < ApplicationController
   # GET /sample_characteristics/1/edit
   def edit
     @sample_characteristic = SampleCharacteristic.includes(:samples).where('samples.source_sample_id IS NULL').find(params[:id])
-    if @sample_characteristic && @sample_characteristic.samples
-      @sample_params = build_params_from_obj(@sample_characteristic.samples[-1], Sample::FLDS_FOR_COPY)
+  end
+
+  def add_another_sample
+    sample_characteristic = SampleCharacteristic.find(params[:id])
+    if sample_characteristic && sample_characteristic.samples #This should always be true
+      @sample_params = build_params_from_obj(sample_characteristic.samples[-1], Sample::FLDS_FOR_COPY)
     end
+    @sample = Sample.new(@sample_params)
+    @sample.build_sample_storage_container
+    sample_dropdowns
+    render :partial => 'samples_form1', :locals => {:sample => @sample}
   end
   
   # PUT /sample_characteristics/1
   def update 
     @sample_characteristic = SampleCharacteristic.find(params[:id])
-    
-    if @sample_characteristic.update_attributes(params[:sample_characteristic])
-      flash[:notice] = 'Clinical sample characteristics successfully updated'
-      
-      # Sample Characteristic successfully saved; send emails if new sample was added
-      sample = new_sample_entered(params[:id], params[:sample_characteristic])
-      if !sample.nil?
-        email  = send_email(sample, @sample_characteristic.patient.mrn, current_user) unless EMAIL_CREATE[:samples] == 'NoEmail'
+    if params[:sample]
+      params[:sample].merge!(:sample_characteristic_id  => @sample_characteristic.id)
+      @sample = Sample.new(params[:sample])
+    end
 
-        if EMAIL_DELIVERY[:samples] == 'Debug'
-          render(:text => "<pre>" + email.encoded + "</pre>")
-        else
-          email.deliver!
-          redirect_to :action => 'show', :id => @sample_characteristic.id, :added_sample_id => sample.id
-        end
+    # Update sample characteristics and add new sample if new sample entered
+    save_successful = false
+    if @sample_characteristic.update_attributes(params[:sample_characteristic])
+      save_successful = true
+      flash[:notice] = 'Clinical sample characteristics successfully updated'
+    end
+
+    if params[:sample]
+      if @sample.save
+        save_successful = true
+        flash[:notice] = 'New sample successfully added'
       else
-        redirect_to(@sample_characteristic)
+        flash[:notice] = 'New sample save failed'
+        @sample_with_error = @sample
+        save_successful = false
       end
+    end
+
+    # Send emails if new sample was successfully added
+    if params[:sample] && save_successful
+      email  = send_email(@sample, @sample_characteristic.patient.mrn, current_user) unless EMAIL_CREATE[:samples] == 'NoEmail'
+
+      if EMAIL_DELIVERY[:samples] == 'Debug'
+        render(:text => "<pre>" + email.encoded + "</pre>")
+      else
+        email.deliver!
+        redirect_to :action => 'show', :id => @sample_characteristic.id, :added_sample_id => sample.id
+      end
+
+    elsif save_successful
+      redirect_to(@sample_characteristic)
       
     else
+      #flash[:notice] = ''
       flash[:error] = 'Error - Clinical sample/characteristics not updated'
       dropdowns
       sample_dropdowns
@@ -177,6 +204,7 @@ class SampleCharacteristicsController < ApplicationController
     redirect_to patient_url(patient_id)
   end
   
+  # The add_new_sample method is probably obsolete
   def add_new_sample
     @sample_characteristic = SampleCharacteristic.find(params[:id])
     @patient_id = @sample_characteristic.patient_id
@@ -229,15 +257,15 @@ private
     end
   end
   
-  def new_sample_entered(sample_characteristic_id, params)
-    if params[:samples_attributes]
-      barcode_key = params[:samples_attributes]["0"][:barcode_key]
-      if !barcode_key.nil? && !barcode_key.blank?
-        sample = Sample.find_newly_added_sample(sample_characteristic_id, barcode_key)
-      end
-    end
-    return sample
-  end
+  #def new_sample_entered(sample_characteristic_id, params)
+  #  if params[:samples_attributes]
+  #    barcode_key = params[:samples_attributes]["0"][:barcode_key]
+  #    if !barcode_key.nil? && !barcode_key.blank?
+  #      sample = Sample.find_newly_added_sample(sample_characteristic_id, barcode_key)
+  #    end
+  #  end
+  #  return sample
+  #end
 
   def send_email(sample, mrn, user)
     consent_protocol = ConsentProtocol.find(sample.sample_characteristic.consent_protocol_id) 
