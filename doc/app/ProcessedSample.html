@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>class ProcessedSample - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>app/models/processed_sample.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">ActiveRecord::Base
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-barcode_search">::barcode_search</a>
+    
+    <li><a href="#method-c-find_all_incl_sample">::find_all_incl_sample</a>
+    
+    <li><a href="#method-c-find_for_export">::find_for_export</a>
+    
+    <li><a href="#method-c-find_for_query">::find_for_query</a>
+    
+    <li><a href="#method-c-find_one_incl_patient">::find_one_incl_patient</a>
+    
+    <li><a href="#method-c-getwith_attach">::getwith_attach</a>
+    
+    <li><a href="#method-c-next_extraction_barcode">::next_extraction_barcode</a>
+    
+    <li><a href="#method-i-container_and_position">#container_and_position</a>
+    
+    <li><a href="#method-i-derive_barcode">#derive_barcode</a>
+    
+    <li><a href="#method-i-extr_type_char">#extr_type_char</a>
+    
+    <li><a href="#method-i-final_amt_ug">#final_amt_ug</a>
+    
+    <li><a href="#method-i-initial_amt_ug">#initial_amt_ug</a>
+    
+    <li><a href="#method-i-room_and_freezer">#room_and_freezer</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./doc/README_FOR_APP.html">README_FOR_APP</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./ValidatesTimeliness.html">ValidatesTimeliness</a>
+  
+    <li><a href="./ValidatesTimeliness/ActionView.html">ValidatesTimeliness::ActionView</a>
+  
+    <li><a href="./ValidatesTimeliness/ActionView/InstanceTag.html">ValidatesTimeliness::ActionView::InstanceTag</a>
+  
+    <li><a href="./ValidatesTimeliness/ActiveRecord.html">ValidatesTimeliness::ActiveRecord</a>
+  
+    <li><a href="./ValidatesTimeliness/ActiveRecord/AttributeMethods.html">ValidatesTimeliness::ActiveRecord::AttributeMethods</a>
+  
+    <li><a href="./ValidatesTimeliness/ActiveRecord/AttributeMethods/ClassMethods.html">ValidatesTimeliness::ActiveRecord::AttributeMethods::ClassMethods</a>
+  
+    <li><a href="./ValidatesTimeliness/ActiveRecord/MultiparameterAttributes.html">ValidatesTimeliness::ActiveRecord::MultiparameterAttributes</a>
+  
+    <li><a href="./ValidatesTimeliness/Formats.html">ValidatesTimeliness::Formats</a>
+  
+    <li><a href="./ValidatesTimeliness/Parser.html">ValidatesTimeliness::Parser</a>
+  
+    <li><a href="./ValidatesTimeliness/ValidationMethods.html">ValidatesTimeliness::ValidationMethods</a>
+  
+    <li><a href="./ValidatesTimeliness/ValidationMethods/ClassMethods.html">ValidatesTimeliness::ValidationMethods::ClassMethods</a>
+  
+    <li><a href="./ValidatesTimeliness/Validator.html">ValidatesTimeliness::Validator</a>
+  
+    <li><a href="./Spec.html">Spec</a>
+  
+    <li><a href="./Spec/Rails.html">Spec::Rails</a>
+  
+    <li><a href="./Spec/Rails/Matchers.html">Spec::Rails::Matchers</a>
+  
+    <li><a href="./Spec/Rails/Matchers/ValidateTimeliness.html">Spec::Rails::Matchers::ValidateTimeliness</a>
+  
+    <li><a href="./Blame.html">Blame</a>
+  
+    <li><a href="./Blame/Userstamp.html">Blame::Userstamp</a>
+  
+    <li><a href="./Blame/UserstampMigrationHelper.html">Blame::UserstampMigrationHelper</a>
+  
+    <li><a href="./Rails.html">Rails</a>
+  
+    <li><a href="./Rails/Generator.html">Rails::Generator</a>
+  
+    <li><a href="./Rails/Generator/NamedBase.html">Rails::Generator::NamedBase</a>
+  
+    <li><a href="./RoleRequirementSystem.html">RoleRequirementSystem</a>
+  
+    <li><a href="./RoleRequirementSystem/RoleSecurityClassMethods.html">RoleRequirementSystem::RoleSecurityClassMethods</a>
+  
+    <li><a href="./RoleRequirementSystem/RoleSecurityInstanceMethods.html">RoleRequirementSystem::RoleSecurityInstanceMethods</a>
+  
+    <li><a href="./Test.html">Test</a>
+  
+    <li><a href="./Test/Unit.html">Test::Unit</a>
+  
+    <li><a href="./Test/Unit/TestCase.html">Test::Unit::TestCase</a>
+  
+    <li><a href="./TimeTravel.html">TimeTravel</a>
+  
+    <li><a href="./TimeTravel/TimeExtensions.html">TimeTravel::TimeExtensions</a>
+  
+    <li><a href="./TimeTravel/TimeExtensions/ClassMethods.html">TimeTravel::TimeExtensions::ClassMethods</a>
+  
+    <li><a href="./ActiveRecordExtension.html">ActiveRecordExtension</a>
+  
+    <li><a href="./ActiveRecordExtension/ClassMethods.html">ActiveRecordExtension::ClassMethods</a>
+  
+    <li><a href="./AutoComplete.html">AutoComplete</a>
+  
+    <li><a href="./AutoComplete/ClassMethods.html">AutoComplete::ClassMethods</a>
+  
+    <li><a href="./OverrideBlameTest.html">OverrideBlameTest</a>
+  
+    <li><a href="./OverrideBlameTest/Sprocket.html">OverrideBlameTest::Sprocket</a>
+  
+    <li><a href="./SslRequirement.html">SslRequirement</a>
+  
+    <li><a href="./SslRequirement/ClassMethods.html">SslRequirement::ClassMethods</a>
+  
+    <li><a href="./ViewMapper.html">ViewMapper</a>
+  
+    <li><a href="./ViewMapper/HasManyAutoCompleteView.html">ViewMapper::HasManyAutoCompleteView</a>
+  
+    <li><a href="./Ability.html">Ability</a>
+  
+    <li><a href="./AlignQc.html">AlignQc</a>
+  
+    <li><a href="./AlignQcsController.html">AlignQcsController</a>
+  
+    <li><a href="./AlignmentRef.html">AlignmentRef</a>
+  
+    <li><a href="./AlignmentRefsController.html">AlignmentRefsController</a>
+  
+    <li><a href="./AnnotateModels.html">AnnotateModels</a>
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./AssignedBarcode.html">AssignedBarcode</a>
+  
+    <li><a href="./AssignedBarcodesController.html">AssignedBarcodesController</a>
+  
+    <li><a href="./AttachedFile.html">AttachedFile</a>
+  
+    <li><a href="./AttachedFilesController.html">AttachedFilesController</a>
+  
+    <li><a href="./AttachmentUploader.html">AttachmentUploader</a>
+  
+    <li><a href="./AuthenticatedGenerator.html">AuthenticatedGenerator</a>
+  
+    <li><a href="./AuthenticatedMailerGenerator.html">AuthenticatedMailerGenerator</a>
+  
+    <li><a href="./AuthenticatedSystem.html">AuthenticatedSystem</a>
+  
+    <li><a href="./AuthenticatedTestHelper.html">AuthenticatedTestHelper</a>
+  
+    <li><a href="./AutoCompleteFormBuilderHelper.html">AutoCompleteFormBuilderHelper</a>
+  
+    <li><a href="./AutoCompleteFormBuilderHelperTest.html">AutoCompleteFormBuilderHelperTest</a>
+  
+    <li><a href="./AutoCompleteMacrosHelper.html">AutoCompleteMacrosHelper</a>
+  
+    <li><a href="./AutoCompleteNestedAttributesTest.html">AutoCompleteNestedAttributesTest</a>
+  
+    <li><a href="./AutoCompleteTest.html">AutoCompleteTest</a>
+  
+    <li><a href="./BaseLoginProxy.html">BaseLoginProxy</a>
+  
+    <li><a href="./BlameTest.html">BlameTest</a>
+  
+    <li><a href="./BuilderHelper.html">BuilderHelper</a>
+  
+    <li><a href="./CategoriesController.html">CategoriesController</a>
+  
+    <li><a href="./CategoriesHelper.html">CategoriesHelper</a>
+  
+    <li><a href="./Category.html">Category</a>
+  
+    <li><a href="./CategoryValue.html">CategoryValue</a>
+  
+    <li><a href="./Cgroup.html">Cgroup</a>
+  
+    <li><a href="./ConsentProtocol.html">ConsentProtocol</a>
+  
+    <li><a href="./ConsentProtocolsController.html">ConsentProtocolsController</a>
+  
+    <li><a href="./CreateParents.html">CreateParents</a>
+  
+    <li><a href="./CustomMessages.html">CustomMessages</a>
+  
+    <li><a href="./DissectedSamplesController.html">DissectedSamplesController</a>
+  
+    <li><a href="./FlowCell.html">FlowCell</a>
+  
+    <li><a href="./FlowCellsController.html">FlowCellsController</a>
+  
+    <li><a href="./FlowLane.html">FlowLane</a>
+  
+    <li><a href="./FlowcellQueriesController.html">FlowcellQueriesController</a>
+  
+    <li><a href="./FlowcellQuery.html">FlowcellQuery</a>
+  
+    <li><a href="./FreezerLocation.html">FreezerLocation</a>
+  
+    <li><a href="./FreezerLocationsController.html">FreezerLocationsController</a>
+  
+    <li><a href="./HasManyAutoCompleteViewTest.html">HasManyAutoCompleteViewTest</a>
+  
+    <li><a href="./HistologiesController.html">HistologiesController</a>
+  
+    <li><a href="./HistologiesHelper.html">HistologiesHelper</a>
+  
+    <li><a href="./Histology.html">Histology</a>
+  
+    <li><a href="./HttpLoginProxy.html">HttpLoginProxy</a>
+  
+    <li><a href="./IndexTag.html">IndexTag</a>
+  
+    <li><a href="./IndexTagsController.html">IndexTagsController</a>
+  
+    <li><a href="./InventoryDB.html">InventoryDB</a>
+  
+    <li><a href="./Item.html">Item</a>
+  
+    <li><a href="./ItemQuery.html">ItemQuery</a>
+  
+    <li><a href="./ItemsController.html">ItemsController</a>
+  
+    <li><a href="./LibBarcode.html">LibBarcode</a>
+  
+    <li><a href="./LibSample.html">LibSample</a>
+  
+    <li><a href="./LimsCommon.html">LimsCommon</a>
+  
+    <li><a href="./LimsMailer.html">LimsMailer</a>
+  
+    <li><a href="./MachineIncident.html">MachineIncident</a>
+  
+    <li><a href="./MolassayQueriesController.html">MolassayQueriesController</a>
+  
+    <li><a href="./MolassayQuery.html">MolassayQuery</a>
+  
+    <li><a href="./MolecularAssay.html">MolecularAssay</a>
+  
+    <li><a href="./MolecularAssaysController.html">MolecularAssaysController</a>
+  
+    <li><a href="./MolecularAssaysHelper.html">MolecularAssaysHelper</a>
+  
+    <li><a href="./Monkey.html">Monkey</a>
+  
+    <li><a href="./MplexLibsController.html">MplexLibsController</a>
+  
+    <li><a href="./NoTable.html">NoTable</a>
+  
+    <li><a href="./NoValidation.html">NoValidation</a>
+  
+    <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./OligoPoolsController.html">OligoPoolsController</a>
+  
+    <li><a href="./Order.html">Order</a>
+  
+    <li><a href="./OrderMailer.html">OrderMailer</a>
+  
+    <li><a href="./OrdersController.html">OrdersController</a>
+  
+    <li><a href="./Parent.html">Parent</a>
+  
+    <li><a href="./PartialBlameTest.html">PartialBlameTest</a>
+  
+    <li><a href="./PathologiesController.html">PathologiesController</a>
+  
+    <li><a href="./Pathology.html">Pathology</a>
+  
+    <li><a href="./Patient.html">Patient</a>
+  
+    <li><a href="./PatientsController.html">PatientsController</a>
+  
+    <li><a href="./Person.html">Person</a>
+  
+    <li><a href="./Pool.html">Pool</a>
+  
+    <li><a href="./Primer.html">Primer</a>
+  
+    <li><a href="./ProcessedSample.html">ProcessedSample</a>
+  
+    <li><a href="./ProcessedSamplesController.html">ProcessedSamplesController</a>
+  
+    <li><a href="./Protocol.html">Protocol</a>
+  
+    <li><a href="./ProtocolsController.html">ProtocolsController</a>
+  
+    <li><a href="./PsampleQueriesController.html">PsampleQueriesController</a>
+  
+    <li><a href="./PsampleQuery.html">PsampleQuery</a>
+  
+    <li><a href="./Publication.html">Publication</a>
+  
+    <li><a href="./PublicationsController.html">PublicationsController</a>
+  
+    <li><a href="./Researcher.html">Researcher</a>
+  
+    <li><a href="./ResearchersController.html">ResearchersController</a>
+  
+    <li><a href="./Role.html">Role</a>
+  
+    <li><a href="./RoleRequirementTestHelper.html">RoleRequirementTestHelper</a>
+  
+    <li><a href="./RunDir.html">RunDir</a>
+  
+    <li><a href="./RunDirsController.html">RunDirsController</a>
+  
+    <li><a href="./Sample.html">Sample</a>
+  
+    <li><a href="./SampleCharacteristic.html">SampleCharacteristic</a>
+  
+    <li><a href="./SampleCharacteristicsController.html">SampleCharacteristicsController</a>
+  
+    <li><a href="./SampleQueriesController.html">SampleQueriesController</a>
+  
+    <li><a href="./SampleQueriesHelper.html">SampleQueriesHelper</a>
+  
+    <li><a href="./SampleQuery.html">SampleQuery</a>
+  
+    <li><a href="./SampleStorageContainer.html">SampleStorageContainer</a>
+  
+    <li><a href="./SampleStorageContainersController.html">SampleStorageContainersController</a>
+  
+    <li><a href="./SamplesController.html">SamplesController</a>
+  
+    <li><a href="./SeqLib.html">SeqLib</a>
+  
+    <li><a href="./SeqLibsController.html">SeqLibsController</a>
+  
+    <li><a href="./SeqLibsHelper.html">SeqLibsHelper</a>
+  
+    <li><a href="./SeqMachine.html">SeqMachine</a>
+  
+    <li><a href="./SeqMachinesController.html">SeqMachinesController</a>
+  
+    <li><a href="./SeqlibLanesController.html">SeqlibLanesController</a>
+  
+    <li><a href="./SeqlibQueriesController.html">SeqlibQueriesController</a>
+  
+    <li><a href="./SeqlibQuery.html">SeqlibQuery</a>
+  
+    <li><a href="./Sprocket.html">Sprocket</a>
+  
+    <li><a href="./SslRequirementController.html">SslRequirementController</a>
+  
+    <li><a href="./SslRequirementTest.html">SslRequirementTest</a>
+  
+    <li><a href="./StorageDevice.html">StorageDevice</a>
+  
+    <li><a href="./StorageDevicesController.html">StorageDevicesController</a>
+  
+    <li><a href="./TaggedBuilder.html">TaggedBuilder</a>
+  
+    <li><a href="./TestiesController.html">TestiesController</a>
+  
+    <li><a href="./UploadsController.html">UploadsController</a>
+  
+    <li><a href="./User.html">User</a>
+  
+    <li><a href="./UserLog.html">UserLog</a>
+  
+    <li><a href="./UserLogin.html">UserLogin</a>
+  
+    <li><a href="./UserNotifier.html">UserNotifier</a>
+  
+    <li><a href="./UserObserver.html">UserObserver</a>
+  
+    <li><a href="./UsersController.html">UsersController</a>
+  
+    <li><a href="./WelcomeController.html">WelcomeController</a>
+  
+    <li><a href="./Widget.html">Widget</a>
+  
+    <li><a href="./WithValidation.html">WithValidation</a>
+  
+    <li><a href="./XmlLoginProxy.html">XmlLoginProxy</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class ProcessedSample</h1>
+
+  <div id="description" class="description">
+    
+<h2 id="label-Schema+Information">Schema Information</h2>
+
+<p>Table name: processed_samples</p>
+
+<pre>id                  :integer(4)      not null, primary key
+sample_id           :integer(4)
+patient_id          :integer(4)
+protocol_id         :integer(4)
+extraction_type     :string(25)
+processing_date     :date
+input_uom           :string(25)
+input_amount        :decimal(11, 3)
+barcode_key         :string(25)
+old_barcode         :string(25)
+support             :string(25)
+elution_buffer      :string(25)
+vial                :string(10)
+final_vol           :decimal(11, 3)
+final_conc          :decimal(11, 3)
+final_a260_a280     :decimal(11, 3)
+final_rin_nr        :decimal(4, 1)
+psample_remaining   :string(2)
+storage_location_id :integer(4)
+storage_shelf       :string(10)
+storage_boxbin      :string(25)
+comments            :string(255)
+updated_by          :integer(2)
+created_at          :datetime
+updated_at          :timestamp       not null</pre>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-barcode_search" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">barcode_search</span><span
+            class="method-args">(search_string)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="barcode_search-source">
+            <pre><span class="ruby-comment"># File app/models/processed_sample.rb, line 78</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">barcode_search</span>(<span class="ruby-identifier">search_string</span>)
+  <span class="ruby-comment">#self.find(:all, :conditions =&gt; [&quot;barcode_key LIKE ?&quot;, search_string + '%'])</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">where</span>(<span class="ruby-string">&quot;barcode_key LIKE ?&quot;</span>, <span class="ruby-identifier">search_string</span> <span class="ruby-operator">+</span> <span class="ruby-string">'%'</span>).<span class="ruby-identifier">all</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- barcode_search-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- barcode_search-method -->
+
+    
+      <div id="method-c-find_all_incl_sample" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">find_all_incl_sample</span><span
+            class="method-args">(condition_array=[])</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="find_all_incl_sample-source">
+            <pre><span class="ruby-comment"># File app/models/processed_sample.rb, line 87</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find_all_incl_sample</span>(<span class="ruby-identifier">condition_array</span>=[])
+  <span class="ruby-comment">#self.find(:all, :include =&gt; [:sample, :sample_storage_container],</span>
+  <span class="ruby-comment">#                :order =&gt; 'samples.patient_id, samples.barcode_key',</span>
+  <span class="ruby-comment">#                :conditions =&gt; condition_array)</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">includes</span>(<span class="ruby-value">:sample</span>, <span class="ruby-value">:sample_storage_container</span>).<span class="ruby-identifier">where</span>(<span class="ruby-identifier">sql_where</span>(<span class="ruby-identifier">condition_array</span>)).<span class="ruby-identifier">order</span>(<span class="ruby-string">'samples.patient_id, samples.barcode_key'</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- find_all_incl_sample-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- find_all_incl_sample-method -->
+
+    
+      <div id="method-c-find_for_export" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">find_for_export</span><span
+            class="method-args">(psample_ids)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="find_for_export-source">
+            <pre><span class="ruby-comment"># File app/models/processed_sample.rb, line 108</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find_for_export</span>(<span class="ruby-identifier">psample_ids</span>)
+  <span class="ruby-comment">#self.find(:all, :include =&gt; [:sample, :sample_storage_container],</span>
+  <span class="ruby-comment">#          :conditions =&gt; [&quot;processed_samples.id IN (?)&quot;, psample_ids],</span>
+  <span class="ruby-comment">#          :order =&gt; &quot;samples.patient_id, samples.barcode_key, processed_samples.barcode_key&quot;)</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">includes</span>(<span class="ruby-value">:sample</span>, <span class="ruby-value">:sample_storage_container</span>).<span class="ruby-identifier">where</span>(<span class="ruby-string">'processed_samples.id IN (?)'</span>, <span class="ruby-identifier">psample_ids</span>)
+      .<span class="ruby-identifier">order</span>(<span class="ruby-string">'samples.patient_id, samples.barcode_key, processed_samples.barcode_key'</span>).<span class="ruby-identifier">all</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- find_for_export-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- find_for_export-method -->
+
+    
+      <div id="method-c-find_for_query" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">find_for_query</span><span
+            class="method-args">(condition_array=[])</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="find_for_query-source">
+            <pre><span class="ruby-comment"># File app/models/processed_sample.rb, line 100</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find_for_query</span>(<span class="ruby-identifier">condition_array</span>=[])
+  <span class="ruby-comment">#self.find(:all, :include =&gt; [{:sample =&gt; :sample_characteristic}, :sample_storage_container],</span>
+  <span class="ruby-comment">#                :order =&gt; &quot;samples.patient_id, samples.barcode_key, processed_samples.barcode_key&quot;,</span>
+  <span class="ruby-comment">#                :conditions =&gt; condition_array)</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">includes</span>({<span class="ruby-value">:sample</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:sample_characteristic</span>}, <span class="ruby-value">:sample_storage_container</span>).<span class="ruby-identifier">where</span>(<span class="ruby-identifier">sql_where</span>(<span class="ruby-identifier">condition_array</span>))
+      .<span class="ruby-identifier">order</span>(<span class="ruby-string">'samples.patient_id, samples.barcode_key, processed_samples.barcode_key'</span>).<span class="ruby-identifier">all</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- find_for_query-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- find_for_query-method -->
+
+    
+      <div id="method-c-find_one_incl_patient" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">find_one_incl_patient</span><span
+            class="method-args">(condition_array=[])</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="find_one_incl_patient-source">
+            <pre><span class="ruby-comment"># File app/models/processed_sample.rb, line 94</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find_one_incl_patient</span>(<span class="ruby-identifier">condition_array</span>=[])
+  <span class="ruby-comment">#self.find(:first, :include =&gt; [{:sample =&gt; [:sample_characteristic, :patient]}, :sample_storage_container],</span>
+  <span class="ruby-comment">#                  :conditions =&gt; condition_array)</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">includes</span>({<span class="ruby-value">:sample</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value">:sample_characteristic</span>, <span class="ruby-value">:patient</span>]}, <span class="ruby-value">:sample_storage_container</span>).<span class="ruby-identifier">where</span>(<span class="ruby-identifier">sql_where</span>(<span class="ruby-identifier">condition_array</span>)).<span class="ruby-identifier">first</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- find_one_incl_patient-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- find_one_incl_patient-method -->
+
+    
+      <div id="method-c-getwith_attach" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">getwith_attach</span><span
+            class="method-args">(id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="getwith_attach-source">
+            <pre><span class="ruby-comment"># File app/models/processed_sample.rb, line 83</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">getwith_attach</span>(<span class="ruby-identifier">id</span>)
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">id</span>, <span class="ruby-value">:include</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:attached_files</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- getwith_attach-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- getwith_attach-method -->
+
+    
+      <div id="method-c-next_extraction_barcode" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">next_extraction_barcode</span><span
+            class="method-args">(source_id, source_barcode, extraction_char)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="next_extraction_barcode-source">
+            <pre><span class="ruby-comment"># File app/models/processed_sample.rb, line 116</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">next_extraction_barcode</span>(<span class="ruby-identifier">source_id</span>, <span class="ruby-identifier">source_barcode</span>, <span class="ruby-identifier">extraction_char</span>)
+  <span class="ruby-identifier">barcode_mask</span> = [<span class="ruby-identifier">source_barcode</span>, <span class="ruby-string">'.'</span>, <span class="ruby-identifier">extraction_char</span>, <span class="ruby-string">'%'</span>].<span class="ruby-identifier">join</span>
+  <span class="ruby-comment">#barcode_max  = self.maximum(:barcode_key, :conditions =&gt; [&quot;sample_id = ? AND barcode_key LIKE ?&quot;, source_id.to_i, barcode_mask])</span>
+  <span class="ruby-identifier">barcode_max</span>  = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">where</span>(<span class="ruby-string">'sample_id = ? AND barcode_key LIKE ?'</span>, <span class="ruby-identifier">source_id</span>.<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">barcode_mask</span>).<span class="ruby-identifier">maximum</span>(<span class="ruby-value">:barcode_key</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">barcode_max</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">barcode_max</span>.<span class="ruby-identifier">succ</span>  <span class="ruby-comment"># Existing extraction, so increment last 1-2 characters of max barcode string (eg. 3-&gt;4, or 09-&gt;10)</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">return</span> [<span class="ruby-identifier">source_barcode</span>, <span class="ruby-string">'.'</span>, <span class="ruby-identifier">extraction_char</span>, <span class="ruby-string">'01'</span>].<span class="ruby-identifier">join</span> <span class="ruby-comment"># No existing extractions of this type, so add '01' suffix.  (eg. D01 if DNA extraction)</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- next_extraction_barcode-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- next_extraction_barcode-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-container_and_position" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">container_and_position</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="container_and_position-source">
+            <pre><span class="ruby-comment"># File app/models/processed_sample.rb, line 74</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">container_and_position</span>
+  (<span class="ruby-identifier">sample_storage_container</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">sample_storage_container</span>.<span class="ruby-identifier">container_and_position</span> <span class="ruby-operator">:</span> <span class="ruby-string">''</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- container_and_position-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- container_and_position-method -->
+
+    
+      <div id="method-i-derive_barcode" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">derive_barcode</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="derive_barcode-source">
+            <pre><span class="ruby-comment"># File app/models/processed_sample.rb, line 47</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">derive_barcode</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">barcode_key</span> = <span class="ruby-constant">ProcessedSample</span>.<span class="ruby-identifier">next_extraction_barcode</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">sample_id</span>, <span class="ruby-keyword">self</span>.<span class="ruby-identifier">sample</span>.<span class="ruby-identifier">barcode_key</span>, <span class="ruby-keyword">self</span>.<span class="ruby-identifier">extr_type_char</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- derive_barcode-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- derive_barcode-method -->
+
+    
+      <div id="method-i-extr_type_char" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">extr_type_char</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="extr_type_char-source">
+            <pre><span class="ruby-comment"># File app/models/processed_sample.rb, line 59</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">extr_type_char</span>
+  <span class="ruby-identifier">echar</span> = <span class="ruby-keyword">case</span> <span class="ruby-identifier">extraction_type</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-regexp">/(.*)DNA(.*)/</span>     <span class="ruby-keyword">then</span> <span class="ruby-string">'D'</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-regexp">/(.*)RNA(.*)/</span>     <span class="ruby-keyword">then</span> <span class="ruby-string">'R'</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-regexp">/(.*)Nucleic(.*)/</span> <span class="ruby-keyword">then</span> <span class="ruby-string">'N'</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-regexp">/(.*)Protein(.*)/</span> <span class="ruby-keyword">then</span> <span class="ruby-string">'P'</span>
+    <span class="ruby-keyword">else</span> <span class="ruby-string">'?'</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">echar</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- extr_type_char-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- extr_type_char-method -->
+
+    
+      <div id="method-i-final_amt_ug" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">final_amt_ug</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="final_amt_ug-source">
+            <pre><span class="ruby-comment"># File app/models/processed_sample.rb, line 55</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">final_amt_ug</span>
+  (<span class="ruby-identifier">final_vol</span> * <span class="ruby-identifier">final_conc</span> <span class="ruby-operator">/</span> <span class="ruby-value">1000</span>) <span class="ruby-keyword">if</span> (<span class="ruby-operator">!</span><span class="ruby-identifier">final_vol</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">final_conc</span>.<span class="ruby-identifier">nil?</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- final_amt_ug-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- final_amt_ug-method -->
+
+    
+      <div id="method-i-initial_amt_ug" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">initial_amt_ug</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="initial_amt_ug-source">
+            <pre><span class="ruby-comment"># File app/models/processed_sample.rb, line 51</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initial_amt_ug</span>
+  (<span class="ruby-identifier">initial_vol</span> * <span class="ruby-identifier">initial_conc</span> <span class="ruby-operator">/</span> <span class="ruby-value">1000</span>) <span class="ruby-keyword">if</span> (<span class="ruby-operator">!</span><span class="ruby-identifier">initial_vol</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">initial_conc</span>.<span class="ruby-identifier">nil?</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- initial_amt_ug-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- initial_amt_ug-method -->
+
+    
+      <div id="method-i-room_and_freezer" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">room_and_freezer</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="room_and_freezer-source">
+            <pre><span class="ruby-comment"># File app/models/processed_sample.rb, line 70</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">room_and_freezer</span>
+  (<span class="ruby-identifier">sample_storage_container</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">sample_storage_container</span>.<span class="ruby-identifier">room_and_freezer</span> <span class="ruby-operator">:</span> <span class="ruby-string">''</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- room_and_freezer-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- room_and_freezer-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

@@ -1,11 +1,11 @@
 <h1>Update consent protocol</h1>
 
-<% tagged_form_for(@consent_protocol) do |f| %>
-  <%= f.error_messages %>
+<%= tagged_form_for(@consent_protocol) do |f| %>
+    <%= render '/shared/errors', model: @consent_protocol %>
 
   <%= render :partial => 'consent_protocol', :locals => {:f => f} %>
     
-  <%= break_clear(f.submit "Update") %>
+  <%=raw break_clear(f.submit "Update") %>
 <% end %>
 
 <%= link_to 'List All', consent_protocols_path %>

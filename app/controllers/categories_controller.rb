@@ -8,8 +8,7 @@ class CategoriesController < ApplicationController
 
   # GET /categories/1
   def show
-    @category = Category.find(params[:id], :include => :category_values, 
-                                           :order => 'category_values.c_position')
+    @category = Category.includes(:category_values).order('category_values.c_position').find(params[:id])
   end
 
   # GET /categories/new
@@ -20,8 +19,7 @@ class CategoriesController < ApplicationController
 
   # GET /categories/1/edit
   def edit
-    @category = Category.find(params[:id], :include => :category_values,
-                                           :order => 'category_values.c_position')
+    @category = Category.includes(:category_values).order('category_values.c_position').find(params[:id])
   end
 
   # POST /categories

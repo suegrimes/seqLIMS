@@ -1,7 +1,14 @@
-<% cform.fields_for :category_values do |vform| %>
-  <div class="cvalue">
-    Sort position: <%= vform.text_field(:c_position, :size => 3) %>
-    Value: <%= vform.text_field(:c_value, :size => 30) %>
-	<%= remove_this_line("cvalue") %>
-  </div>
-<% end %>
+<table id="cvalues">
+<tr>
+  <th>Position</th>
+  <th style="text-align:left">Value</th>
+</tr>
+  <%= cform.fields_for :category_values, :wrapper => false do |vform| %>
+      <tr class="fields">
+        <td><%= vform.text_field :c_position, :size => 3 %></td>
+        <td><%= vform.text_field :c_value, :size => 30 %></td>
+        <td><%= vform.link_to_remove "Remove" %></td>
+      </tr>
+  <% end %>
+</table>
+<p><%= cform.link_to_add "Add Value", :category_values, :data => { :target => "#cvalues" } %></p>

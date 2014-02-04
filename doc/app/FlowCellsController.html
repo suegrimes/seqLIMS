@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>class FlowCellsController - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>app/controllers/flow_cells_controller.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="ApplicationController.html">ApplicationController</a>
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-attrs_for_sequencing">#attrs_for_sequencing</a>
+    
+    <li><a href="#method-i-autocomplete_flow_cells_sequencing_key">#autocomplete_flow_cells_sequencing_key</a>
+    
+    <li><a href="#method-i-create">#create</a>
+    
+    <li><a href="#method-i-define_lib_conditions">#define_lib_conditions</a>
+    
+    <li><a href="#method-i-destroy">#destroy</a>
+    
+    <li><a href="#method-i-dropdowns">#dropdowns</a>
+    
+    <li><a href="#method-i-edit">#edit</a>
+    
+    <li><a href="#method-i-format_seq_key">#format_seq_key</a>
+    
+    <li><a href="#method-i-index">#index</a>
+    
+    <li><a href="#method-i-new">#new</a>
+    
+    <li><a href="#method-i-non_blank_lane_nrs">#non_blank_lane_nrs</a>
+    
+    <li><a href="#method-i-non_blank_lanes">#non_blank_lanes</a>
+    
+    <li><a href="#method-i-prepare_for_render_new">#prepare_for_render_new</a>
+    
+    <li><a href="#method-i-seq_dropdowns">#seq_dropdowns</a>
+    
+    <li><a href="#method-i-setup_dropdowns">#setup_dropdowns</a>
+    
+    <li><a href="#method-i-setup_params">#setup_params</a>
+    
+    <li><a href="#method-i-show">#show</a>
+    
+    <li><a href="#method-i-show_publications">#show_publications</a>
+    
+    <li><a href="#method-i-show_qc">#show_qc</a>
+    
+    <li><a href="#method-i-upd_for_sequencing">#upd_for_sequencing</a>
+    
+    <li><a href="#method-i-update">#update</a>
+    
+    <li><a href="#method-i-validate_lane_nrs">#validate_lane_nrs</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./doc/README_FOR_APP.html">README_FOR_APP</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./ValidatesTimeliness.html">ValidatesTimeliness</a>
+  
+    <li><a href="./ValidatesTimeliness/ActionView.html">ValidatesTimeliness::ActionView</a>
+  
+    <li><a href="./ValidatesTimeliness/ActionView/InstanceTag.html">ValidatesTimeliness::ActionView::InstanceTag</a>
+  
+    <li><a href="./ValidatesTimeliness/ActiveRecord.html">ValidatesTimeliness::ActiveRecord</a>
+  
+    <li><a href="./ValidatesTimeliness/ActiveRecord/AttributeMethods.html">ValidatesTimeliness::ActiveRecord::AttributeMethods</a>
+  
+    <li><a href="./ValidatesTimeliness/ActiveRecord/AttributeMethods/ClassMethods.html">ValidatesTimeliness::ActiveRecord::AttributeMethods::ClassMethods</a>
+  
+    <li><a href="./ValidatesTimeliness/ActiveRecord/MultiparameterAttributes.html">ValidatesTimeliness::ActiveRecord::MultiparameterAttributes</a>
+  
+    <li><a href="./ValidatesTimeliness/Formats.html">ValidatesTimeliness::Formats</a>
+  
+    <li><a href="./ValidatesTimeliness/Parser.html">ValidatesTimeliness::Parser</a>
+  
+    <li><a href="./ValidatesTimeliness/ValidationMethods.html">ValidatesTimeliness::ValidationMethods</a>
+  
+    <li><a href="./ValidatesTimeliness/ValidationMethods/ClassMethods.html">ValidatesTimeliness::ValidationMethods::ClassMethods</a>
+  
+    <li><a href="./ValidatesTimeliness/Validator.html">ValidatesTimeliness::Validator</a>
+  
+    <li><a href="./Spec.html">Spec</a>
+  
+    <li><a href="./Spec/Rails.html">Spec::Rails</a>
+  
+    <li><a href="./Spec/Rails/Matchers.html">Spec::Rails::Matchers</a>
+  
+    <li><a href="./Spec/Rails/Matchers/ValidateTimeliness.html">Spec::Rails::Matchers::ValidateTimeliness</a>
+  
+    <li><a href="./Blame.html">Blame</a>
+  
+    <li><a href="./Blame/Userstamp.html">Blame::Userstamp</a>
+  
+    <li><a href="./Blame/UserstampMigrationHelper.html">Blame::UserstampMigrationHelper</a>
+  
+    <li><a href="./Rails.html">Rails</a>
+  
+    <li><a href="./Rails/Generator.html">Rails::Generator</a>
+  
+    <li><a href="./Rails/Generator/NamedBase.html">Rails::Generator::NamedBase</a>
+  
+    <li><a href="./RoleRequirementSystem.html">RoleRequirementSystem</a>
+  
+    <li><a href="./RoleRequirementSystem/RoleSecurityClassMethods.html">RoleRequirementSystem::RoleSecurityClassMethods</a>
+  
+    <li><a href="./RoleRequirementSystem/RoleSecurityInstanceMethods.html">RoleRequirementSystem::RoleSecurityInstanceMethods</a>
+  
+    <li><a href="./Test.html">Test</a>
+  
+    <li><a href="./Test/Unit.html">Test::Unit</a>
+  
+    <li><a href="./Test/Unit/TestCase.html">Test::Unit::TestCase</a>
+  
+    <li><a href="./TimeTravel.html">TimeTravel</a>
+  
+    <li><a href="./TimeTravel/TimeExtensions.html">TimeTravel::TimeExtensions</a>
+  
+    <li><a href="./TimeTravel/TimeExtensions/ClassMethods.html">TimeTravel::TimeExtensions::ClassMethods</a>
+  
+    <li><a href="./ActiveRecordExtension.html">ActiveRecordExtension</a>
+  
+    <li><a href="./ActiveRecordExtension/ClassMethods.html">ActiveRecordExtension::ClassMethods</a>
+  
+    <li><a href="./AutoComplete.html">AutoComplete</a>
+  
+    <li><a href="./AutoComplete/ClassMethods.html">AutoComplete::ClassMethods</a>
+  
+    <li><a href="./OverrideBlameTest.html">OverrideBlameTest</a>
+  
+    <li><a href="./OverrideBlameTest/Sprocket.html">OverrideBlameTest::Sprocket</a>
+  
+    <li><a href="./SslRequirement.html">SslRequirement</a>
+  
+    <li><a href="./SslRequirement/ClassMethods.html">SslRequirement::ClassMethods</a>
+  
+    <li><a href="./ViewMapper.html">ViewMapper</a>
+  
+    <li><a href="./ViewMapper/HasManyAutoCompleteView.html">ViewMapper::HasManyAutoCompleteView</a>
+  
+    <li><a href="./Ability.html">Ability</a>
+  
+    <li><a href="./AlignQc.html">AlignQc</a>
+  
+    <li><a href="./AlignQcsController.html">AlignQcsController</a>
+  
+    <li><a href="./AlignmentRef.html">AlignmentRef</a>
+  
+    <li><a href="./AlignmentRefsController.html">AlignmentRefsController</a>
+  
+    <li><a href="./AnnotateModels.html">AnnotateModels</a>
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./AssignedBarcode.html">AssignedBarcode</a>
+  
+    <li><a href="./AssignedBarcodesController.html">AssignedBarcodesController</a>
+  
+    <li><a href="./AttachedFile.html">AttachedFile</a>
+  
+    <li><a href="./AttachedFilesController.html">AttachedFilesController</a>
+  
+    <li><a href="./AttachmentUploader.html">AttachmentUploader</a>
+  
+    <li><a href="./AuthenticatedGenerator.html">AuthenticatedGenerator</a>
+  
+    <li><a href="./AuthenticatedMailerGenerator.html">AuthenticatedMailerGenerator</a>
+  
+    <li><a href="./AuthenticatedSystem.html">AuthenticatedSystem</a>
+  
+    <li><a href="./AuthenticatedTestHelper.html">AuthenticatedTestHelper</a>
+  
+    <li><a href="./AutoCompleteFormBuilderHelper.html">AutoCompleteFormBuilderHelper</a>
+  
+    <li><a href="./AutoCompleteFormBuilderHelperTest.html">AutoCompleteFormBuilderHelperTest</a>
+  
+    <li><a href="./AutoCompleteMacrosHelper.html">AutoCompleteMacrosHelper</a>
+  
+    <li><a href="./AutoCompleteNestedAttributesTest.html">AutoCompleteNestedAttributesTest</a>
+  
+    <li><a href="./AutoCompleteTest.html">AutoCompleteTest</a>
+  
+    <li><a href="./BaseLoginProxy.html">BaseLoginProxy</a>
+  
+    <li><a href="./BlameTest.html">BlameTest</a>
+  
+    <li><a href="./BuilderHelper.html">BuilderHelper</a>
+  
+    <li><a href="./CategoriesController.html">CategoriesController</a>
+  
+    <li><a href="./CategoriesHelper.html">CategoriesHelper</a>
+  
+    <li><a href="./Category.html">Category</a>
+  
+    <li><a href="./CategoryValue.html">CategoryValue</a>
+  
+    <li><a href="./Cgroup.html">Cgroup</a>
+  
+    <li><a href="./ConsentProtocol.html">ConsentProtocol</a>
+  
+    <li><a href="./ConsentProtocolsController.html">ConsentProtocolsController</a>
+  
+    <li><a href="./CreateParents.html">CreateParents</a>
+  
+    <li><a href="./CustomMessages.html">CustomMessages</a>
+  
+    <li><a href="./DissectedSamplesController.html">DissectedSamplesController</a>
+  
+    <li><a href="./FlowCell.html">FlowCell</a>
+  
+    <li><a href="./FlowCellsController.html">FlowCellsController</a>
+  
+    <li><a href="./FlowLane.html">FlowLane</a>
+  
+    <li><a href="./FlowcellQueriesController.html">FlowcellQueriesController</a>
+  
+    <li><a href="./FlowcellQuery.html">FlowcellQuery</a>
+  
+    <li><a href="./FreezerLocation.html">FreezerLocation</a>
+  
+    <li><a href="./FreezerLocationsController.html">FreezerLocationsController</a>
+  
+    <li><a href="./HasManyAutoCompleteViewTest.html">HasManyAutoCompleteViewTest</a>
+  
+    <li><a href="./HistologiesController.html">HistologiesController</a>
+  
+    <li><a href="./HistologiesHelper.html">HistologiesHelper</a>
+  
+    <li><a href="./Histology.html">Histology</a>
+  
+    <li><a href="./HttpLoginProxy.html">HttpLoginProxy</a>
+  
+    <li><a href="./IndexTag.html">IndexTag</a>
+  
+    <li><a href="./IndexTagsController.html">IndexTagsController</a>
+  
+    <li><a href="./InventoryDB.html">InventoryDB</a>
+  
+    <li><a href="./Item.html">Item</a>
+  
+    <li><a href="./ItemQuery.html">ItemQuery</a>
+  
+    <li><a href="./ItemsController.html">ItemsController</a>
+  
+    <li><a href="./LibBarcode.html">LibBarcode</a>
+  
+    <li><a href="./LibSample.html">LibSample</a>
+  
+    <li><a href="./LimsCommon.html">LimsCommon</a>
+  
+    <li><a href="./LimsMailer.html">LimsMailer</a>
+  
+    <li><a href="./MachineIncident.html">MachineIncident</a>
+  
+    <li><a href="./MolassayQueriesController.html">MolassayQueriesController</a>
+  
+    <li><a href="./MolassayQuery.html">MolassayQuery</a>
+  
+    <li><a href="./MolecularAssay.html">MolecularAssay</a>
+  
+    <li><a href="./MolecularAssaysController.html">MolecularAssaysController</a>
+  
+    <li><a href="./MolecularAssaysHelper.html">MolecularAssaysHelper</a>
+  
+    <li><a href="./Monkey.html">Monkey</a>
+  
+    <li><a href="./MplexLibsController.html">MplexLibsController</a>
+  
+    <li><a href="./NoTable.html">NoTable</a>
+  
+    <li><a href="./NoValidation.html">NoValidation</a>
+  
+    <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./OligoPoolsController.html">OligoPoolsController</a>
+  
+    <li><a href="./Order.html">Order</a>
+  
+    <li><a href="./OrderMailer.html">OrderMailer</a>
+  
+    <li><a href="./OrdersController.html">OrdersController</a>
+  
+    <li><a href="./Parent.html">Parent</a>
+  
+    <li><a href="./PartialBlameTest.html">PartialBlameTest</a>
+  
+    <li><a href="./PathologiesController.html">PathologiesController</a>
+  
+    <li><a href="./Pathology.html">Pathology</a>
+  
+    <li><a href="./Patient.html">Patient</a>
+  
+    <li><a href="./PatientsController.html">PatientsController</a>
+  
+    <li><a href="./Person.html">Person</a>
+  
+    <li><a href="./Pool.html">Pool</a>
+  
+    <li><a href="./Primer.html">Primer</a>
+  
+    <li><a href="./ProcessedSample.html">ProcessedSample</a>
+  
+    <li><a href="./ProcessedSamplesController.html">ProcessedSamplesController</a>
+  
+    <li><a href="./Protocol.html">Protocol</a>
+  
+    <li><a href="./ProtocolsController.html">ProtocolsController</a>
+  
+    <li><a href="./PsampleQueriesController.html">PsampleQueriesController</a>
+  
+    <li><a href="./PsampleQuery.html">PsampleQuery</a>
+  
+    <li><a href="./Publication.html">Publication</a>
+  
+    <li><a href="./PublicationsController.html">PublicationsController</a>
+  
+    <li><a href="./Researcher.html">Researcher</a>
+  
+    <li><a href="./ResearchersController.html">ResearchersController</a>
+  
+    <li><a href="./Role.html">Role</a>
+  
+    <li><a href="./RoleRequirementTestHelper.html">RoleRequirementTestHelper</a>
+  
+    <li><a href="./RunDir.html">RunDir</a>
+  
+    <li><a href="./RunDirsController.html">RunDirsController</a>
+  
+    <li><a href="./Sample.html">Sample</a>
+  
+    <li><a href="./SampleCharacteristic.html">SampleCharacteristic</a>
+  
+    <li><a href="./SampleCharacteristicsController.html">SampleCharacteristicsController</a>
+  
+    <li><a href="./SampleQueriesController.html">SampleQueriesController</a>
+  
+    <li><a href="./SampleQueriesHelper.html">SampleQueriesHelper</a>
+  
+    <li><a href="./SampleQuery.html">SampleQuery</a>
+  
+    <li><a href="./SampleStorageContainer.html">SampleStorageContainer</a>
+  
+    <li><a href="./SampleStorageContainersController.html">SampleStorageContainersController</a>
+  
+    <li><a href="./SamplesController.html">SamplesController</a>
+  
+    <li><a href="./SeqLib.html">SeqLib</a>
+  
+    <li><a href="./SeqLibsController.html">SeqLibsController</a>
+  
+    <li><a href="./SeqLibsHelper.html">SeqLibsHelper</a>
+  
+    <li><a href="./SeqMachine.html">SeqMachine</a>
+  
+    <li><a href="./SeqMachinesController.html">SeqMachinesController</a>
+  
+    <li><a href="./SeqlibLanesController.html">SeqlibLanesController</a>
+  
+    <li><a href="./SeqlibQueriesController.html">SeqlibQueriesController</a>
+  
+    <li><a href="./SeqlibQuery.html">SeqlibQuery</a>
+  
+    <li><a href="./Sprocket.html">Sprocket</a>
+  
+    <li><a href="./SslRequirementController.html">SslRequirementController</a>
+  
+    <li><a href="./SslRequirementTest.html">SslRequirementTest</a>
+  
+    <li><a href="./StorageDevice.html">StorageDevice</a>
+  
+    <li><a href="./StorageDevicesController.html">StorageDevicesController</a>
+  
+    <li><a href="./TaggedBuilder.html">TaggedBuilder</a>
+  
+    <li><a href="./TestiesController.html">TestiesController</a>
+  
+    <li><a href="./UploadsController.html">UploadsController</a>
+  
+    <li><a href="./User.html">User</a>
+  
+    <li><a href="./UserLog.html">UserLog</a>
+  
+    <li><a href="./UserLogin.html">UserLogin</a>
+  
+    <li><a href="./UserNotifier.html">UserNotifier</a>
+  
+    <li><a href="./UserObserver.html">UserObserver</a>
+  
+    <li><a href="./UsersController.html">UsersController</a>
+  
+    <li><a href="./WelcomeController.html">WelcomeController</a>
+  
+    <li><a href="./Widget.html">Widget</a>
+  
+    <li><a href="./WithValidation.html">WithValidation</a>
+  
+    <li><a href="./XmlLoginProxy.html">XmlLoginProxy</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class FlowCellsController</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-autocomplete_flow_cells_sequencing_key" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">autocomplete_flow_cells_sequencing_key</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>def auto_complete_for_sequencing_key</p>
+          
+
+          
+          <div class="method-source-code" id="autocomplete_flow_cells_sequencing_key-source">
+            <pre><span class="ruby-comment"># File app/controllers/flow_cells_controller.rb, line 174</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">autocomplete_flow_cells_sequencing_key</span>
+  <span class="ruby-ivar">@flow_cells</span> = <span class="ruby-constant">FlowCell</span>.<span class="ruby-identifier">sequenced</span>.<span class="ruby-identifier">where</span>(<span class="ruby-string">'sequencing_key LIKE ?'</span>, <span class="ruby-identifier">params</span>[<span class="ruby-value">:term</span>] <span class="ruby-operator">+</span> <span class="ruby-string">'%'</span>).<span class="ruby-identifier">all</span>
+  <span class="ruby-comment">#render :inline =&gt; &quot;&lt;%= auto_complete_result(@flow_cells, 'sequencing_key') %&gt;&quot;</span>
+  <span class="ruby-identifier">list</span> = <span class="ruby-ivar">@flow_cells</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">fc</span><span class="ruby-operator">|</span> <span class="ruby-constant">Hash</span>[ <span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">fc</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">label</span><span class="ruby-operator">:</span> <span class="ruby-identifier">fc</span>.<span class="ruby-identifier">sequencing_key</span>, <span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">fc</span>.<span class="ruby-identifier">sequencing_key</span>]}
+  <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-identifier">list</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- autocomplete_flow_cells_sequencing_key-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- autocomplete_flow_cells_sequencing_key-method -->
+
+    
+      <div id="method-i-create" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>POST /flow_cells</p>
+          
+
+          
+          <div class="method-source-code" id="create-source">
+            <pre><span class="ruby-comment"># File app/controllers/flow_cells_controller.rb, line 74</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span> 
+  <span class="ruby-identifier">params</span>[<span class="ruby-value">:flow_cell</span>].<span class="ruby-identifier">merge!</span>(<span class="ruby-value">:flowcell_status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'F'</span>)
+  
+  <span class="ruby-comment"># Builds flow_lanes for all lanes (even blank lane#s).  Need to include blank</span>
+  <span class="ruby-comment"># lanes so that all sequencing libraries show with appropriate lanes (or blank)</span>
+  <span class="ruby-comment"># when error condition is encountered</span>
+  <span class="ruby-ivar">@flow_cell</span>  = <span class="ruby-constant">FlowCell</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:flow_cell</span>]) 
+  <span class="ruby-identifier">lane_params</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:flow_lane</span>]
+  
+  <span class="ruby-identifier">lane_nrs</span> = <span class="ruby-identifier">non_blank_lane_nrs</span>(<span class="ruby-identifier">non_blank_lanes</span>(<span class="ruby-identifier">lane_params</span>))  <span class="ruby-comment"># Array of lane#s which are non-blank</span>
+  <span class="ruby-identifier">machine_type</span> = (<span class="ruby-identifier">param_blank?</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:flow_cell</span>][<span class="ruby-value">:machine_type</span>]) <span class="ruby-operator">?</span> <span class="ruby-constant">FlowCell</span><span class="ruby-operator">::</span><span class="ruby-constant">DEFAULT_MACHINE_TYPE</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:flow_cell</span>][<span class="ruby-value">:machine_type</span>])
+  <span class="ruby-identifier">max_lane_nr</span> = <span class="ruby-constant">FlowCell</span><span class="ruby-operator">::</span><span class="ruby-constant">NR_LANES</span>[<span class="ruby-identifier">machine_type</span>.<span class="ruby-identifier">to_sym</span>]
+  <span class="ruby-identifier">lanes_required</span>  = (<span class="ruby-identifier">params</span>[<span class="ruby-value">:partial_flowcell</span>] <span class="ruby-operator">==</span> <span class="ruby-string">'Y'</span><span class="ruby-operator">?</span> <span class="ruby-identifier">lane_nrs</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">max_lane_nr</span>)
+       
+  <span class="ruby-comment"># Validation check to ensure lanes 1-8 entered, and no duplicate lanes</span>
+  <span class="ruby-identifier">lane_errors</span> = <span class="ruby-identifier">validate_lane_nrs</span>(<span class="ruby-identifier">lane_params</span>, <span class="ruby-string">'create'</span>, <span class="ruby-identifier">lanes_required</span>, <span class="ruby-identifier">max_lane_nr</span>)
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">lane_errors</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-node">&quot;ERROR - #{lane_errors[1]}&quot;</span>
+    <span class="ruby-identifier">prepare_for_render_new</span>(<span class="ruby-identifier">params</span>)
+    <span class="ruby-identifier">render</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'new'</span>
+         
+  <span class="ruby-keyword">elsif</span> <span class="ruby-ivar">@flow_cell</span>.<span class="ruby-identifier">valid?</span>
+    <span class="ruby-ivar">@flow_cell</span>.<span class="ruby-identifier">build_flow_lanes</span>(<span class="ruby-identifier">lane_params</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@flow_cell</span>.<span class="ruby-identifier">save</span>
+      <span class="ruby-constant">SeqLib</span>.<span class="ruby-identifier">upd_lib_status</span>(<span class="ruby-ivar">@flow_cell</span>, <span class="ruby-string">'F'</span>) <span class="ruby-comment">#Update seq_lib status for all libs on this flowcell</span>
+      <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-string">'Flow cell was successfully created'</span>
+      <span class="ruby-identifier">redirect_to</span>(<span class="ruby-ivar">@flow_cell</span>)
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">'ERROR - Unable to create flow cell'</span>  <span class="ruby-comment">#Shouldn't get here (all errors should be trapped prior to this)</span>
+      <span class="ruby-identifier">prepare_for_render_new</span>(<span class="ruby-identifier">params</span>)
+      <span class="ruby-identifier">render</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'new'</span>
+    <span class="ruby-keyword">end</span>
+   
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">'ERROR - Flow cell validation failed, check required fields'</span>
+    <span class="ruby-identifier">prepare_for_render_new</span>(<span class="ruby-identifier">params</span>)
+    <span class="ruby-identifier">render</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'new'</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- create-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- create-method -->
+
+    
+      <div id="method-i-destroy" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">destroy</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>DELETE /flow_cells/1</p>
+          
+
+          
+          <div class="method-source-code" id="destroy-source">
+            <pre><span class="ruby-comment"># File app/controllers/flow_cells_controller.rb, line 165</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
+  <span class="ruby-comment"># to delete flow_cell, need to first delete associated lib_samples</span>
+  <span class="ruby-comment"># make this an admin only function in production</span>
+  <span class="ruby-ivar">@flow_cell</span> = <span class="ruby-constant">FlowCell</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-ivar">@flow_cell</span>.<span class="ruby-identifier">destroy</span>
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">flow_cells_url</span>(<span class="ruby-value">:rpt_type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'seq'</span>) 
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- destroy-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- destroy-method -->
+
+    
+      <div id="method-i-edit" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">edit</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>GET /flow_cells/1/edit</p>
+          
+
+          
+          <div class="method-source-code" id="edit-source">
+            <pre><span class="ruby-comment"># File app/controllers/flow_cells_controller.rb, line 68</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
+  <span class="ruby-ivar">@flow_cell</span> = <span class="ruby-constant">FlowCell</span>.<span class="ruby-identifier">includes</span>(<span class="ruby-value">:flow_lanes</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:seq_lib</span>).<span class="ruby-identifier">order</span>(<span class="ruby-string">'flow_lanes.lane_nr'</span>).<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-ivar">@partial_flowcell</span> = (<span class="ruby-ivar">@flow_cell</span>.<span class="ruby-identifier">flow_lanes</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&lt;</span> <span class="ruby-constant">FlowCell</span><span class="ruby-operator">::</span><span class="ruby-constant">NR_LANES</span>[<span class="ruby-ivar">@flow_cell</span>.<span class="ruby-identifier">machine_type</span>.<span class="ruby-identifier">to_sym</span>] <span class="ruby-operator">?</span> <span class="ruby-string">'Y'</span> <span class="ruby-operator">:</span> <span class="ruby-string">'N'</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- edit-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- edit-method -->
+
+    
+      <div id="method-i-index" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">index</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>GET /flow_cells</p>
+          
+
+          
+          <div class="method-source-code" id="index-source">
+            <pre><span class="ruby-comment"># File app/controllers/flow_cells_controller.rb, line 18</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
+  <span class="ruby-identifier">params</span>[<span class="ruby-value">:rpt_type</span>] <span class="ruby-operator">||=</span> <span class="ruby-string">'list'</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:rpt_type</span>] <span class="ruby-operator">==</span> <span class="ruby-string">'seq'</span>
+    <span class="ruby-ivar">@hdr</span> = <span class="ruby-string">'Flow Cells for Sequencing'</span>
+    <span class="ruby-ivar">@flow_cells</span> = <span class="ruby-constant">FlowCell</span>.<span class="ruby-identifier">find_flowcells_for_sequencing</span> 
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-ivar">@hdr</span> = <span class="ruby-string">'Sequencing Runs'</span>
+    <span class="ruby-ivar">@flow_cells</span> = <span class="ruby-constant">FlowCell</span>.<span class="ruby-identifier">find_sequencing_runs</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- index-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- index-method -->
+
+    
+      <div id="method-i-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File app/controllers/flow_cells_controller.rb, line 44</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
+  <span class="ruby-ivar">@flow_cell</span>       = <span class="ruby-constant">FlowCell</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:flowcell_date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Date</span>.<span class="ruby-identifier">today</span>)
+  
+  <span class="ruby-comment"># Get sequencing libraries based on parameters entered</span>
+  <span class="ruby-ivar">@condition_array</span> = <span class="ruby-identifier">define_lib_conditions</span>(<span class="ruby-identifier">params</span>)
+  <span class="ruby-ivar">@seq_libs</span>        = <span class="ruby-constant">SeqLib</span>.<span class="ruby-identifier">includes</span>(<span class="ruby-value">:mlib_samples</span>).<span class="ruby-identifier">where</span>(<span class="ruby-identifier">sql_where</span>(<span class="ruby-ivar">@condition_array</span>)).<span class="ruby-identifier">order</span>(<span class="ruby-string">'lib_status, lib_name'</span>)
+                                 
+  <span class="ruby-comment"># Exclude sequencing libraries which have been included in one or more multiplex libraries</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:excl_used</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:excl_used</span>] <span class="ruby-operator">==</span> <span class="ruby-string">'Y'</span>  
+    <span class="ruby-ivar">@seq_libs</span>.<span class="ruby-identifier">reject!</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">seq_lib</span><span class="ruby-operator">|</span> <span class="ruby-operator">!</span><span class="ruby-identifier">seq_lib</span>.<span class="ruby-identifier">mlib_samples</span>.<span class="ruby-identifier">empty?</span>}
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-comment"># Populate flow lanes for each sequencing library</span>
+  <span class="ruby-ivar">@flow_lanes</span> = []
+  <span class="ruby-ivar">@seq_libs</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">lib</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+    <span class="ruby-ivar">@flow_lanes</span>[<span class="ruby-identifier">i</span>] = <span class="ruby-constant">FlowLane</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:lane_nr</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">lib</span>.<span class="ruby-identifier">control_lane_nr</span>,
+                                  <span class="ruby-value">:lib_conc</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">lib</span>.<span class="ruby-identifier">lib_conc_requested</span>,
+                                  <span class="ruby-value">:seq_lib_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">lib</span>.<span class="ruby-identifier">id</span>)
+  <span class="ruby-keyword">end</span>     
+  
+  <span class="ruby-identifier">render</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'new'</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new-method -->
+
+    
+      <div id="method-i-setup_params" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">setup_params</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="setup_params-source">
+            <pre><span class="ruby-comment"># File app/controllers/flow_cells_controller.rb, line 10</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">setup_params</span>
+  <span class="ruby-ivar">@from_date</span> = (<span class="ruby-constant">Date</span>.<span class="ruby-identifier">today</span> <span class="ruby-operator">-</span> <span class="ruby-value">3</span>.<span class="ruby-identifier">months</span>).<span class="ruby-identifier">beginning_of_month</span>
+  <span class="ruby-ivar">@to_date</span>   =  <span class="ruby-constant">Date</span>.<span class="ruby-identifier">today</span>
+  <span class="ruby-ivar">@date_range</span> = <span class="ruby-constant">DateRange</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@from_date</span>, <span class="ruby-ivar">@to_date</span>)
+  <span class="ruby-ivar">@seq_lib</span>   = <span class="ruby-constant">SeqLib</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:owner</span> =<span class="ruby-operator">&gt;</span> (<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">researcher</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">researcher</span>.<span class="ruby-identifier">researcher_name</span> <span class="ruby-operator">:</span> <span class="ruby-keyword">nil</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- setup_params-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- setup_params-method -->
+
+    
+      <div id="method-i-show" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">show</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>GET /flow_cells/1</p>
+          
+
+          
+          <div class="method-source-code" id="show-source">
+            <pre><span class="ruby-comment"># File app/controllers/flow_cells_controller.rb, line 30</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
+  <span class="ruby-ivar">@flow_cell</span> = <span class="ruby-constant">FlowCell</span>.<span class="ruby-identifier">includes</span>(<span class="ruby-value">:flow_lanes</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:seq_lib</span>).<span class="ruby-identifier">order</span>(<span class="ruby-string">'flow_lanes.lane_nr'</span>).<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- show-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- show-method -->
+
+    
+      <div id="method-i-show_publications" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">show_publications</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="show_publications-source">
+            <pre><span class="ruby-comment"># File app/controllers/flow_cells_controller.rb, line 38</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">show_publications</span>
+  <span class="ruby-ivar">@flow_cell</span>    = <span class="ruby-constant">FlowCell</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-ivar">@publications</span> = <span class="ruby-constant">Publication</span>.<span class="ruby-identifier">includes</span>(<span class="ruby-value">:flow_lanes</span>).<span class="ruby-identifier">where</span>(<span class="ruby-string">'flow_lanes.flow_cell_id = ?'</span>, <span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+                             .<span class="ruby-identifier">order</span>(<span class="ruby-string">'publications.date_published DESC, flow_lanes.lane_nr'</span>).<span class="ruby-identifier">all</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- show_publications-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- show_publications-method -->
+
+    
+      <div id="method-i-show_qc" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">show_qc</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="show_qc-source">
+            <pre><span class="ruby-comment"># File app/controllers/flow_cells_controller.rb, line 34</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">show_qc</span>
+  <span class="ruby-ivar">@flow_cell</span> = <span class="ruby-constant">FlowCell</span>.<span class="ruby-identifier">includes</span>(<span class="ruby-value">:flow_lanes</span>).<span class="ruby-identifier">order</span>(<span class="ruby-string">'flow_lanes.lane_nr'</span>).<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- show_qc-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- show_qc-method -->
+
+    
+      <div id="method-i-upd_for_sequencing" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">upd_for_sequencing</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="upd_for_sequencing-source">
+            <pre><span class="ruby-comment"># File app/controllers/flow_cells_controller.rb, line 145</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">upd_for_sequencing</span>
+  <span class="ruby-ivar">@flow_cell</span> = <span class="ruby-constant">FlowCell</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-identifier">fc_attrs</span> = <span class="ruby-identifier">attrs_for_sequencing</span>(<span class="ruby-identifier">params</span>)
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">fc_attrs</span>[<span class="ruby-value">:machine_type</span>] <span class="ruby-operator">!=</span> <span class="ruby-ivar">@flow_cell</span>.<span class="ruby-identifier">machine_type</span>  <span class="ruby-comment"># Sequencing machine selected is not same type as specified on flow cell</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">&quot;ERROR - Sequencing machine selected is not same type as flow cell&quot;</span>
+    <span class="ruby-identifier">redirect_to</span>(<span class="ruby-ivar">@flow_cell</span>)
+    
+  <span class="ruby-keyword">elsif</span> <span class="ruby-ivar">@flow_cell</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">fc_attrs</span>)
+    <span class="ruby-constant">FlowLane</span>.<span class="ruby-identifier">upd_seq_key</span>(<span class="ruby-ivar">@flow_cell</span>)
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-string">'Flow cell was successfully queued for sequencing'</span>
+    <span class="ruby-identifier">redirect_to</span>(<span class="ruby-ivar">@flow_cell</span>) 
+    
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">'ERROR - Unable to update flow cell'</span>
+    <span class="ruby-identifier">redirect_to</span>(<span class="ruby-ivar">@flow_cell</span>)
+  <span class="ruby-keyword">end</span> 
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- upd_for_sequencing-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- upd_for_sequencing-method -->
+
+    
+      <div id="method-i-update" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">update</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>PUT /flow_cells/1</p>
+          
+
+          
+          <div class="method-source-code" id="update-source">
+            <pre><span class="ruby-comment"># File app/controllers/flow_cells_controller.rb, line 116</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
+  <span class="ruby-ivar">@flow_cell</span> = <span class="ruby-constant">FlowCell</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-identifier">fc_attrs</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:flow_cell</span>]
+  <span class="ruby-identifier">machine_type</span> = <span class="ruby-ivar">@flow_cell</span>.<span class="ruby-identifier">machine_type</span>
+  <span class="ruby-identifier">max_lane_nr</span> = <span class="ruby-constant">FlowCell</span><span class="ruby-operator">::</span><span class="ruby-constant">NR_LANES</span>[<span class="ruby-identifier">machine_type</span>.<span class="ruby-identifier">to_sym</span>]
+  <span class="ruby-identifier">lanes_required</span>  = (<span class="ruby-identifier">params</span>[<span class="ruby-value">:partial_flowcell</span>] <span class="ruby-operator">==</span> <span class="ruby-string">'Y'</span><span class="ruby-operator">?</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:lane_count</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">max_lane_nr</span>)
+  
+  <span class="ruby-comment"># Create copy of params, since need to delete blank lanes during validation, but want all lanes available for render :new, if error</span>
+  <span class="ruby-identifier">lane_params</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:flow_cell</span>][<span class="ruby-value">:existing_lane_attributes</span>]  
+  <span class="ruby-identifier">lane_errors</span> = <span class="ruby-identifier">validate_lane_nrs</span>(<span class="ruby-identifier">lane_params</span>, <span class="ruby-string">'update'</span>, <span class="ruby-identifier">lanes_required</span>, <span class="ruby-identifier">max_lane_nr</span>)
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">lane_errors</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-node">&quot;ERROR - #{lane_errors[1]}&quot;</span>     
+    <span class="ruby-identifier">dropdowns</span>
+    <span class="ruby-ivar">@flow_cell</span>[<span class="ruby-value">:existing_lane_attributes</span>] = <span class="ruby-identifier">params</span>[<span class="ruby-value">:flow_cell</span>][<span class="ruby-value">:existing_lane_attributes</span>]
+    <span class="ruby-identifier">render</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'edit'</span>
+    
+  <span class="ruby-keyword">elsif</span> <span class="ruby-ivar">@flow_cell</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">fc_attrs</span>)
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-string">'Flow cell was successfully updated'</span>
+    <span class="ruby-identifier">redirect_to</span>(<span class="ruby-ivar">@flow_cell</span>) 
+    
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">'ERROR - Unable to update flow cell'</span>
+    <span class="ruby-identifier">dropdowns</span>
+    <span class="ruby-ivar">@flow_cell</span>[<span class="ruby-value">:existing_lane_attributes</span>] = <span class="ruby-identifier">params</span>[<span class="ruby-value">:flow_cell</span>][<span class="ruby-value">:existing_lane_attributes</span>]
+    <span class="ruby-identifier">render</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'edit'</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- update-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- update-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+     <section id="protected-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Protected Instance Methods</h3>
+
+    
+      <div id="method-i-attrs_for_sequencing" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">attrs_for_sequencing</span><span
+            class="method-args">(params)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="attrs_for_sequencing-source">
+            <pre><span class="ruby-comment"># File app/controllers/flow_cells_controller.rb, line 300</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">attrs_for_sequencing</span>(<span class="ruby-identifier">params</span>)
+  <span class="ruby-identifier">seq_date_ymd</span>    = <span class="ruby-identifier">params</span>[<span class="ruby-value">:flow_cell</span>][<span class="ruby-value">:sequencing_date</span>].<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">/-/</span>, <span class="ruby-string">''</span>)
+    
+  <span class="ruby-comment"># create sequencing key (concatenate date, machine name, sequential#)  </span>
+  <span class="ruby-identifier">seq_runnr</span>   = <span class="ruby-constant">SeqMachine</span>.<span class="ruby-identifier">find_and_incr_run_nr</span>
+  <span class="ruby-identifier">seq_machine</span> = <span class="ruby-constant">SeqMachine</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:seq_machine</span>][<span class="ruby-value">:id</span>])
+  
+  <span class="ruby-comment"># flow cell status updated to 'R' to signify ready for sequencing</span>
+  <span class="ruby-identifier">params</span>[<span class="ruby-value">:flow_cell</span>].<span class="ruby-identifier">merge!</span>(<span class="ruby-value">:sequencing_key</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">format_seq_key</span>(<span class="ruby-identifier">seq_date_ymd</span>, <span class="ruby-identifier">seq_machine</span>.<span class="ruby-identifier">machine_name</span>, <span class="ruby-identifier">seq_runnr</span>),
+                            <span class="ruby-value">:seq_machine_id</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">seq_machine</span>.<span class="ruby-identifier">id</span>,
+                            <span class="ruby-value">:machine_type</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">seq_machine</span>.<span class="ruby-identifier">machine_type</span>,
+                            <span class="ruby-value">:seq_run_nr</span>      =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">seq_runnr</span>,
+                            <span class="ruby-value">:flowcell_status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'R'</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:flow_cell</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- attrs_for_sequencing-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- attrs_for_sequencing-method -->
+
+    
+      <div id="method-i-define_lib_conditions" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">define_lib_conditions</span><span
+            class="method-args">(params)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="define_lib_conditions-source">
+            <pre><span class="ruby-comment"># File app/controllers/flow_cells_controller.rb, line 267</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">define_lib_conditions</span>(<span class="ruby-identifier">params</span>)
+  <span class="ruby-ivar">@where_select</span> = []; <span class="ruby-ivar">@where_values</span> = []
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:seq_lib</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">param_blank?</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:seq_lib</span>][<span class="ruby-value">:owner</span>])
+    <span class="ruby-ivar">@where_select</span>.<span class="ruby-identifier">push</span>(<span class="ruby-string">'seq_libs.owner IN (?)'</span>)
+    <span class="ruby-ivar">@where_values</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:seq_lib</span>][<span class="ruby-value">:owner</span>])
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">param_blank?</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:barcode_from</span>]) <span class="ruby-operator">||</span> <span class="ruby-operator">!</span><span class="ruby-identifier">param_blank?</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:barcode_to</span>])
+    <span class="ruby-ivar">@where_select</span>.<span class="ruby-identifier">push</span>(<span class="ruby-string">&quot;seq_libs.barcode_key LIKE 'L%'&quot;</span>)
+    <span class="ruby-identifier">barcode_from</span> = (<span class="ruby-identifier">param_blank?</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:barcode_from</span>]) <span class="ruby-operator">?</span> <span class="ruby-keyword">nil</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:barcode_from</span>].<span class="ruby-identifier">to_i</span>)
+    <span class="ruby-identifier">barcode_to</span>   = (<span class="ruby-identifier">param_blank?</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:barcode_to</span>])<span class="ruby-operator">?</span> <span class="ruby-keyword">nil</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:barcode_to</span>].<span class="ruby-identifier">to_i</span>)
+    <span class="ruby-ivar">@where_select</span>, <span class="ruby-ivar">@where_values</span> = <span class="ruby-identifier">sql_conditions_for_range</span>(<span class="ruby-ivar">@where_select</span>, <span class="ruby-ivar">@where_values</span>, <span class="ruby-identifier">barcode_from</span>, <span class="ruby-identifier">barcode_to</span>,
+                                                            <span class="ruby-string">&quot;CAST(SUBSTRING(seq_libs.barcode_key,2) AS UNSIGNED)&quot;</span>)
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:excl_used</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:excl_used</span>] <span class="ruby-operator">==</span> <span class="ruby-string">'Y'</span>
+    <span class="ruby-ivar">@where_select</span>.<span class="ruby-identifier">push</span>(<span class="ruby-string">&quot;seq_libs.lib_status &lt;&gt; 'F'&quot;</span>)
+  <span class="ruby-keyword">end</span>
+    
+  <span class="ruby-identifier">date_fld</span> = <span class="ruby-string">'seq_libs.preparation_date'</span>
+  <span class="ruby-ivar">@where_select</span>, <span class="ruby-ivar">@where_values</span> = <span class="ruby-identifier">sql_conditions_for_date_range</span>(<span class="ruby-ivar">@where_select</span>, <span class="ruby-ivar">@where_values</span>, <span class="ruby-identifier">params</span>[<span class="ruby-value">:date_range</span>], <span class="ruby-identifier">date_fld</span>)
+  
+  <span class="ruby-comment"># Include control libraries, irrespective of other parameters entered</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@where_select</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+    <span class="ruby-ivar">@where_string</span> = <span class="ruby-string">&quot;seq_libs.lib_status = 'C' OR (&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@where_select</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">' AND '</span>) <span class="ruby-operator">+</span> <span class="ruby-string">&quot;)&quot;</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-ivar">@where_string</span> = <span class="ruby-string">&quot;seq_libs.lib_status = 'C'&quot;</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">return</span> [<span class="ruby-ivar">@where_string</span>] <span class="ruby-operator">|</span> <span class="ruby-ivar">@where_values</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- define_lib_conditions-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- define_lib_conditions-method -->
+
+    
+      <div id="method-i-dropdowns" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">dropdowns</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="dropdowns-source">
+            <pre><span class="ruby-comment"># File app/controllers/flow_cells_controller.rb, line 182</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">dropdowns</span>
+  <span class="ruby-ivar">@category_dropdowns</span> = <span class="ruby-constant">Category</span>.<span class="ruby-identifier">populate_dropdowns</span>([<span class="ruby-constant">Cgroup</span><span class="ruby-operator">::</span><span class="ruby-constant">CGROUPS</span>[<span class="ruby-string">'Sequencing'</span>]])
+  <span class="ruby-ivar">@cluster_kits</span>       = <span class="ruby-identifier">category_filter</span>(<span class="ruby-ivar">@category_dropdowns</span>, <span class="ruby-string">'cluster kit'</span>)
+  <span class="ruby-ivar">@seq_kits</span>           = <span class="ruby-identifier">category_filter</span>(<span class="ruby-ivar">@category_dropdowns</span>, <span class="ruby-string">'sequencing kit'</span>)
+  <span class="ruby-ivar">@projects</span>           = <span class="ruby-identifier">category_filter</span>(<span class="ruby-ivar">@category_dropdowns</span>, <span class="ruby-string">'project'</span>)
+  <span class="ruby-ivar">@oligo_pools</span>        = <span class="ruby-constant">Pool</span>.<span class="ruby-identifier">populate_dropdown</span>(<span class="ruby-string">'flowcell'</span>)
+  <span class="ruby-ivar">@enzymes</span>            = <span class="ruby-identifier">category_filter</span>(<span class="ruby-ivar">@category_dropdowns</span>, <span class="ruby-string">'enzyme'</span>)
+  <span class="ruby-ivar">@align_refs</span>         = <span class="ruby-constant">AlignmentRef</span>.<span class="ruby-identifier">populate_dropdown</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- dropdowns-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- dropdowns-method -->
+
+    
+      <div id="method-i-format_seq_key" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">format_seq_key</span><span
+            class="method-args">(seq_date, machine_name, run_nr)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="format_seq_key-source">
+            <pre><span class="ruby-comment"># File app/controllers/flow_cells_controller.rb, line 316</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">format_seq_key</span>(<span class="ruby-identifier">seq_date</span>, <span class="ruby-identifier">machine_name</span>, <span class="ruby-identifier">run_nr</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-string">&quot;%s_%s_%04d&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">seq_date</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-identifier">machine_name</span>, <span class="ruby-identifier">run_nr</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- format_seq_key-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- format_seq_key-method -->
+
+    
+      <div id="method-i-non_blank_lane_nrs" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">non_blank_lane_nrs</span><span
+            class="method-args">(nb_lanes)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="non_blank_lane_nrs-source">
+            <pre><span class="ruby-comment"># File app/controllers/flow_cells_controller.rb, line 258</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">non_blank_lane_nrs</span>(<span class="ruby-identifier">nb_lanes</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">nb_lanes</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Array</span>
+    <span class="ruby-identifier">lane_nrs</span> = <span class="ruby-identifier">nb_lanes</span>.<span class="ruby-identifier">collect</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">lane</span><span class="ruby-operator">|</span> <span class="ruby-identifier">lane</span>[<span class="ruby-value">:lane_nr</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">','</span>)}.<span class="ruby-identifier">flatten</span>
+  <span class="ruby-keyword">else</span>  <span class="ruby-comment"># Hash</span>
+    <span class="ruby-identifier">lane_nrs</span> = <span class="ruby-identifier">nb_lanes</span>.<span class="ruby-identifier">collect</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">lane_id</span>, <span class="ruby-identifier">lane_attrs</span><span class="ruby-operator">|</span> <span class="ruby-identifier">lane_attrs</span>[<span class="ruby-value">:lane_nr</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">','</span>)}.<span class="ruby-identifier">flatten</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">lane_nrs</span>.<span class="ruby-identifier">collect</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">lane</span><span class="ruby-operator">|</span> <span class="ruby-identifier">lane</span>.<span class="ruby-identifier">to_i</span>}
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- non_blank_lane_nrs-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- non_blank_lane_nrs-method -->
+
+    
+      <div id="method-i-non_blank_lanes" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">non_blank_lanes</span><span
+            class="method-args">(lanes)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="non_blank_lanes-source">
+            <pre><span class="ruby-comment"># File app/controllers/flow_cells_controller.rb, line 250</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">non_blank_lanes</span>(<span class="ruby-identifier">lanes</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">lanes</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Array</span>
+    <span class="ruby-identifier">lanes</span>.<span class="ruby-identifier">reject</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">lane</span><span class="ruby-operator">|</span> <span class="ruby-identifier">lane</span>[<span class="ruby-value">:lane_nr</span>].<span class="ruby-identifier">blank?</span>} 
+  <span class="ruby-keyword">else</span>  <span class="ruby-comment">#Hash</span>
+    <span class="ruby-identifier">lanes</span>.<span class="ruby-identifier">reject</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">lane_id</span>, <span class="ruby-identifier">lane_attrs</span><span class="ruby-operator">|</span> <span class="ruby-identifier">lane_attrs</span>[<span class="ruby-value">:lane_nr</span>].<span class="ruby-identifier">blank?</span>}
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- non_blank_lanes-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- non_blank_lanes-method -->
+
+    
+      <div id="method-i-prepare_for_render_new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">prepare_for_render_new</span><span
+            class="method-args">(params)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="prepare_for_render_new-source">
+            <pre><span class="ruby-comment"># File app/controllers/flow_cells_controller.rb, line 200</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">prepare_for_render_new</span>(<span class="ruby-identifier">params</span>)
+  <span class="ruby-identifier">dropdowns</span>
+  <span class="ruby-comment"># Need to recreate seq_lib rows, using lanes[:seq_lib_id]</span>
+  <span class="ruby-ivar">@seq_libs</span> = []; <span class="ruby-ivar">@flow_lanes</span> = [];
+  <span class="ruby-ivar">@partial_flowcell</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:partial_flowcell</span>]
+  
+  <span class="ruby-identifier">params</span>[<span class="ruby-value">:flow_lane</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">lane</span><span class="ruby-operator">|</span>
+    <span class="ruby-ivar">@flow_lanes</span>.<span class="ruby-identifier">push</span>(<span class="ruby-constant">FlowLane</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">lane</span>))
+    <span class="ruby-ivar">@seq_libs</span>.<span class="ruby-identifier">push</span>(<span class="ruby-constant">SeqLib</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">lane</span>[<span class="ruby-value">:seq_lib_id</span>]))
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- prepare_for_render_new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- prepare_for_render_new-method -->
+
+    
+      <div id="method-i-seq_dropdowns" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">seq_dropdowns</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="seq_dropdowns-source">
+            <pre><span class="ruby-comment"># File app/controllers/flow_cells_controller.rb, line 196</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">seq_dropdowns</span>
+  <span class="ruby-ivar">@sequencers_by_bldg</span> = <span class="ruby-constant">SeqMachine</span>.<span class="ruby-identifier">populate_dropdown_grouped</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- seq_dropdowns-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- seq_dropdowns-method -->
+
+    
+      <div id="method-i-setup_dropdowns" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">setup_dropdowns</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="setup_dropdowns-source">
+            <pre><span class="ruby-comment"># File app/controllers/flow_cells_controller.rb, line 192</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">setup_dropdowns</span>
+  <span class="ruby-ivar">@owners</span>    =  <span class="ruby-constant">Researcher</span>.<span class="ruby-identifier">populate_dropdown</span>(<span class="ruby-string">'incl_inactive'</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- setup_dropdowns-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- setup_dropdowns-method -->
+
+    
+      <div id="method-i-validate_lane_nrs" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">validate_lane_nrs</span><span
+            class="method-args">(lanes, upd_method, lanes_required, max_lane_nr = nil)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="validate_lane_nrs-source">
+            <pre><span class="ruby-comment"># File app/controllers/flow_cells_controller.rb, line 212</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">validate_lane_nrs</span>(<span class="ruby-identifier">lanes</span>, <span class="ruby-identifier">upd_method</span>, <span class="ruby-identifier">lanes_required</span>, <span class="ruby-identifier">max_lane_nr</span> = <span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">errno</span> = <span class="ruby-value">0</span>
+  <span class="ruby-identifier">max_lane_nr</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">FlowCell</span><span class="ruby-operator">::</span><span class="ruby-constant">NR_LANES</span>[<span class="ruby-constant">FlowCell</span><span class="ruby-operator">::</span><span class="ruby-constant">DEFAULT_MACHINE_TYPE</span>.<span class="ruby-identifier">to_sym</span>]
+      
+  <span class="ruby-identifier">lanes_nb</span> = <span class="ruby-identifier">non_blank_lanes</span>(<span class="ruby-identifier">lanes</span>)   
+  <span class="ruby-identifier">lane_nrs</span> = <span class="ruby-identifier">non_blank_lane_nrs</span>(<span class="ruby-identifier">lanes_nb</span>)
+  <span class="ruby-identifier">nr_entered_lanes</span> = <span class="ruby-identifier">lane_nrs</span>.<span class="ruby-identifier">size</span>
+  <span class="ruby-identifier">nr_unique_lanes</span>  = <span class="ruby-identifier">lane_nrs</span>.<span class="ruby-identifier">uniq</span>.<span class="ruby-identifier">size</span>
+    
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">upd_method</span> <span class="ruby-operator">==</span> <span class="ruby-string">'update'</span>
+    <span class="ruby-identifier">errno</span> = <span class="ruby-keyword">case</span>
+      <span class="ruby-keyword">when</span> <span class="ruby-identifier">lanes_nb</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">lanes_required</span>    <span class="ruby-keyword">then</span> <span class="ruby-value">5</span>
+      <span class="ruby-keyword">when</span> <span class="ruby-identifier">nr_entered_lanes</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">lanes_required</span> <span class="ruby-keyword">then</span> <span class="ruby-value">6</span>
+      <span class="ruby-keyword">when</span> (<span class="ruby-identifier">lane_nrs</span>.<span class="ruby-identifier">min</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">1</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">lane_nrs</span>.<span class="ruby-identifier">max</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">max_lane_nr</span>) <span class="ruby-keyword">then</span> (<span class="ruby-identifier">max_lane_nr</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span> <span class="ruby-operator">?</span> <span class="ruby-value">3</span> <span class="ruby-operator">:</span> <span class="ruby-value">4</span>)
+      <span class="ruby-keyword">else</span> <span class="ruby-value">0</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">upd_method</span> <span class="ruby-operator">==</span> <span class="ruby-string">'create'</span>
+    <span class="ruby-identifier">errno</span> = <span class="ruby-keyword">case</span>
+      <span class="ruby-keyword">when</span> <span class="ruby-identifier">nr_entered_lanes</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">lanes_required</span> <span class="ruby-keyword">then</span> <span class="ruby-value">1</span>
+      <span class="ruby-keyword">when</span> <span class="ruby-identifier">nr_unique_lanes</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">lanes_required</span>  <span class="ruby-keyword">then</span> <span class="ruby-value">2</span>
+      <span class="ruby-keyword">when</span> (<span class="ruby-identifier">lane_nrs</span>.<span class="ruby-identifier">min</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">1</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">lane_nrs</span>.<span class="ruby-identifier">max</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">max_lane_nr</span>) <span class="ruby-keyword">then</span> (<span class="ruby-identifier">max_lane_nr</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span> <span class="ruby-operator">?</span> <span class="ruby-value">3</span> <span class="ruby-operator">:</span> <span class="ruby-value">4</span>)
+      <span class="ruby-keyword">else</span> <span class="ruby-value">0</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">case</span> <span class="ruby-identifier">errno</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-value">0</span> <span class="ruby-keyword">then</span> <span class="ruby-keyword">return</span> [<span class="ruby-identifier">errno</span>, <span class="ruby-string">&quot;&quot;</span>]
+    <span class="ruby-keyword">when</span> <span class="ruby-value">1</span> <span class="ruby-keyword">then</span> <span class="ruby-keyword">return</span> [<span class="ruby-identifier">errno</span>, <span class="ruby-node">&quot;Must have exactly #{lanes_required} lanes for this machine type - #{nr_entered_lanes} were assigned&quot;</span>]
+    <span class="ruby-keyword">when</span> <span class="ruby-value">2</span> <span class="ruby-keyword">then</span> <span class="ruby-keyword">return</span> [<span class="ruby-identifier">errno</span>, <span class="ruby-string">&quot;One or more lane numbers assigned multiple times&quot;</span>]
+    <span class="ruby-keyword">when</span> <span class="ruby-value">3</span> <span class="ruby-keyword">then</span> <span class="ruby-keyword">return</span> [<span class="ruby-identifier">errno</span>, <span class="ruby-string">&quot;Lane number must be 1&quot;</span>]
+    <span class="ruby-keyword">when</span> <span class="ruby-value">4</span> <span class="ruby-keyword">then</span> <span class="ruby-keyword">return</span> [<span class="ruby-identifier">errno</span>, <span class="ruby-node">&quot;Lane numbers must be integers between 1 and #{max_lane_nr}&quot;</span>]
+    <span class="ruby-keyword">when</span> <span class="ruby-value">5</span> <span class="ruby-keyword">then</span> <span class="ruby-keyword">return</span> [<span class="ruby-identifier">errno</span>, <span class="ruby-string">&quot;Lane number cannot be blank - cannot add or delete lib/lanes after flow cell creation&quot;</span>]
+    <span class="ruby-keyword">when</span> <span class="ruby-value">6</span> <span class="ruby-keyword">then</span> <span class="ruby-keyword">return</span> [<span class="ruby-identifier">errno</span>, <span class="ruby-string">&quot;Lane number must be integer - cannot assign a sequencing library to multiple lanes, after flow cell creation&quot;</span>]
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- validate_lane_nrs-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- validate_lane_nrs-method -->
+
+    
+    </section><!-- protected-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

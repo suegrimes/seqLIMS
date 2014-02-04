@@ -1,21 +1,21 @@
 <h1>Editing category</h1>
 
-<% form_for(@category) do |cform| %>
-  <%= cform.error_messages %>
+<%= nested_form_for(@category) do |cform| %>
+  <%= render '/shared/errors', model: @category %>
   
   <fieldset class="form">
   <legend>Category: <%=h @category.category %></legend>
 
-  <p><%= cform.label :category_description %>&nbsp;&nbsp;<%= cform.text_field :category_description %></p>
+  <p style="font-size:small;font-weight:bold"><%= cform.label :category_description, 'Description:' %>&nbsp;&nbsp;<%= cform.text_field :category_description %></p>
   
   <div id="category">
     <%= render :partial => 'cat_values', :locals => {:category_values => @category.category_values,
                                                      :cform => cform} %>
   </div>  
-  <div id="add_val"><%= add_value_link("Add Value", cform) %></div>
+
   </fieldset>
   
-  <%= break_clear(cform.submit "Update" )%>
+  <%=raw break_clear(cform.submit "Update" )%>
 <% end %>
 
 <%= link_to 'Show', @category %> |

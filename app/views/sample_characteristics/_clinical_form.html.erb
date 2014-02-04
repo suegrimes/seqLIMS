@@ -3,7 +3,7 @@
 <table class="form">
 <tr>
   <th>Collect date</th>
-  <td><%=f.calendar_date_select(:collection_date, :valid_date_check => "date <= (new Date()).stripTime()", :size => 15) %></td>
+  <td><%= f.datepicker 'collection_date', dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true, size: 15 %></td>
 </tr>
 <tr>
   <th>Clinic from</th> 

@@ -9,9 +9,9 @@ class WelcomeController < ApplicationController
   
   def index
     if logged_in?
-      render :action => 'index'
+      render 'index'
     else
-      render :action => 'login'
+      render 'login'
     end
   end
 

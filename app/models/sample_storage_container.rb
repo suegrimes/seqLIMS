@@ -1,20 +1,21 @@
 # == Schema Information
 #
-# Table name: sample_containers
+# Table name: sample_storage_containers
 #
-#  id                     :integer(4)      not null, primary key
-#  stored_sample_id       :integer(4)
+#  id                     :integer          not null, primary key
+#  stored_sample_id       :integer
 #  stored_sample_type     :string(50)
-#  sample_name_or_barcode :string(25)      default(""), not null
+#  sample_name_or_barcode :string(25)       default(""), not null
 #  container_type         :string(10)
-#  container_name         :string(20)      default(""), not null
+#  container_name         :string(25)       default(""), not null
 #  position_in_container  :string(15)
-#  freezer_location_id    :integer(4)
-#  storage_container_id   :integer(4)
+#  freezer_location_id    :integer
+#  storage_container_id   :integer
 #  row_nr                 :string(2)
-#  position_nr            :string(3)       default("")
+#  position_nr            :string(3)        default("")
 #  notes                  :string(100)
-#  updated_by             :timestamp
+#  updated_by             :integer
+#  updated_at             :timestamp
 #
 
 class SampleStorageContainer < ActiveRecord::Base
@@ -49,7 +50,6 @@ class SampleStorageContainer < ActiveRecord::Base
   end
   
   def self.populate_dropdown
-    self.find(:all, :select => 'DISTINCT container_type', :order => 'container_type',
-                    :conditions => 'container_type > ""').map(&:container_type)
+    self.where('container_type > ""').order(:container_type).uniq.pluck(:container_type)
   end
 end

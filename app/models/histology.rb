@@ -2,9 +2,9 @@
 #
 # Table name: histologies
 #
-#  id                        :integer(4)      not null, primary key
-#  sample_id                 :integer(4)
-#  he_barcode_key            :string(20)      default(""), not null
+#  id                        :integer          not null, primary key
+#  sample_id                 :integer
+#  he_barcode_key            :string(20)       default(""), not null
 #  he_date                   :date
 #  histopathology            :string(25)
 #  he_classification         :string(50)
@@ -13,7 +13,7 @@
 #  inflammation_type         :string(25)
 #  inflammation_infiltration :string(25)
 #  comments                  :string(255)
-#  updated_by                :integer(2)
+#  updated_by                :integer
 #  created_at                :datetime
 #  updated_at                :timestamp
 #
@@ -27,7 +27,7 @@ class Histology < ActiveRecord::Base
   validates_presence_of :pathologist
 
   def self.getwith_attach(id)
-    self.find(id, :include => :attached_files)
+    self.includes(:attached_files).find(id)
   end
   
   def self.new_he_barcode(sample_barcode)

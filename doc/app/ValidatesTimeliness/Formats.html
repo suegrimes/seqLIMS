@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>class ValidatesTimeliness::Formats - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/validates_timeliness-e711941/lib/validates_timeliness/formats.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="../Object.html">Object</a>
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-abbr_month_names">::abbr_month_names</a>
+    
+    <li><a href="#method-c-add_formats">::add_formats</a>
+    
+    <li><a href="#method-c-compile_format_expressions">::compile_format_expressions</a>
+    
+    <li><a href="#method-c-full_hour">::full_hour</a>
+    
+    <li><a href="#method-c-microseconds">::microseconds</a>
+    
+    <li><a href="#method-c-month_index">::month_index</a>
+    
+    <li><a href="#method-c-month_names">::month_names</a>
+    
+    <li><a href="#method-c-offset_in_seconds">::offset_in_seconds</a>
+    
+    <li><a href="#method-c-parse">::parse</a>
+    
+    <li><a href="#method-c-remove_formats">::remove_formats</a>
+    
+    <li><a href="#method-c-remove_us_formats">::remove_us_formats</a>
+    
+    <li><a href="#method-c-unambiguous_year">::unambiguous_year</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../doc/README_FOR_APP.html">README_FOR_APP</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../ValidatesTimeliness.html">ValidatesTimeliness</a>
+  
+    <li><a href="../ValidatesTimeliness/ActionView.html">ValidatesTimeliness::ActionView</a>
+  
+    <li><a href="../ValidatesTimeliness/ActionView/InstanceTag.html">ValidatesTimeliness::ActionView::InstanceTag</a>
+  
+    <li><a href="../ValidatesTimeliness/ActiveRecord.html">ValidatesTimeliness::ActiveRecord</a>
+  
+    <li><a href="../ValidatesTimeliness/ActiveRecord/AttributeMethods.html">ValidatesTimeliness::ActiveRecord::AttributeMethods</a>
+  
+    <li><a href="../ValidatesTimeliness/ActiveRecord/AttributeMethods/ClassMethods.html">ValidatesTimeliness::ActiveRecord::AttributeMethods::ClassMethods</a>
+  
+    <li><a href="../ValidatesTimeliness/ActiveRecord/MultiparameterAttributes.html">ValidatesTimeliness::ActiveRecord::MultiparameterAttributes</a>
+  
+    <li><a href="../ValidatesTimeliness/Formats.html">ValidatesTimeliness::Formats</a>
+  
+    <li><a href="../ValidatesTimeliness/Parser.html">ValidatesTimeliness::Parser</a>
+  
+    <li><a href="../ValidatesTimeliness/ValidationMethods.html">ValidatesTimeliness::ValidationMethods</a>
+  
+    <li><a href="../ValidatesTimeliness/ValidationMethods/ClassMethods.html">ValidatesTimeliness::ValidationMethods::ClassMethods</a>
+  
+    <li><a href="../ValidatesTimeliness/Validator.html">ValidatesTimeliness::Validator</a>
+  
+    <li><a href="../Spec.html">Spec</a>
+  
+    <li><a href="../Spec/Rails.html">Spec::Rails</a>
+  
+    <li><a href="../Spec/Rails/Matchers.html">Spec::Rails::Matchers</a>
+  
+    <li><a href="../Spec/Rails/Matchers/ValidateTimeliness.html">Spec::Rails::Matchers::ValidateTimeliness</a>
+  
+    <li><a href="../Blame.html">Blame</a>
+  
+    <li><a href="../Blame/Userstamp.html">Blame::Userstamp</a>
+  
+    <li><a href="../Blame/UserstampMigrationHelper.html">Blame::UserstampMigrationHelper</a>
+  
+    <li><a href="../Rails.html">Rails</a>
+  
+    <li><a href="../Rails/Generator.html">Rails::Generator</a>
+  
+    <li><a href="../Rails/Generator/NamedBase.html">Rails::Generator::NamedBase</a>
+  
+    <li><a href="../RoleRequirementSystem.html">RoleRequirementSystem</a>
+  
+    <li><a href="../RoleRequirementSystem/RoleSecurityClassMethods.html">RoleRequirementSystem::RoleSecurityClassMethods</a>
+  
+    <li><a href="../RoleRequirementSystem/RoleSecurityInstanceMethods.html">RoleRequirementSystem::RoleSecurityInstanceMethods</a>
+  
+    <li><a href="../Test.html">Test</a>
+  
+    <li><a href="../Test/Unit.html">Test::Unit</a>
+  
+    <li><a href="../Test/Unit/TestCase.html">Test::Unit::TestCase</a>
+  
+    <li><a href="../TimeTravel.html">TimeTravel</a>
+  
+    <li><a href="../TimeTravel/TimeExtensions.html">TimeTravel::TimeExtensions</a>
+  
+    <li><a href="../TimeTravel/TimeExtensions/ClassMethods.html">TimeTravel::TimeExtensions::ClassMethods</a>
+  
+    <li><a href="../ActiveRecordExtension.html">ActiveRecordExtension</a>
+  
+    <li><a href="../ActiveRecordExtension/ClassMethods.html">ActiveRecordExtension::ClassMethods</a>
+  
+    <li><a href="../AutoComplete.html">AutoComplete</a>
+  
+    <li><a href="../AutoComplete/ClassMethods.html">AutoComplete::ClassMethods</a>
+  
+    <li><a href="../OverrideBlameTest.html">OverrideBlameTest</a>
+  
+    <li><a href="../OverrideBlameTest/Sprocket.html">OverrideBlameTest::Sprocket</a>
+  
+    <li><a href="../SslRequirement.html">SslRequirement</a>
+  
+    <li><a href="../SslRequirement/ClassMethods.html">SslRequirement::ClassMethods</a>
+  
+    <li><a href="../ViewMapper.html">ViewMapper</a>
+  
+    <li><a href="../ViewMapper/HasManyAutoCompleteView.html">ViewMapper::HasManyAutoCompleteView</a>
+  
+    <li><a href="../Ability.html">Ability</a>
+  
+    <li><a href="../AlignQc.html">AlignQc</a>
+  
+    <li><a href="../AlignQcsController.html">AlignQcsController</a>
+  
+    <li><a href="../AlignmentRef.html">AlignmentRef</a>
+  
+    <li><a href="../AlignmentRefsController.html">AlignmentRefsController</a>
+  
+    <li><a href="../AnnotateModels.html">AnnotateModels</a>
+  
+    <li><a href="../ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="../ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="../AssignedBarcode.html">AssignedBarcode</a>
+  
+    <li><a href="../AssignedBarcodesController.html">AssignedBarcodesController</a>
+  
+    <li><a href="../AttachedFile.html">AttachedFile</a>
+  
+    <li><a href="../AttachedFilesController.html">AttachedFilesController</a>
+  
+    <li><a href="../AttachmentUploader.html">AttachmentUploader</a>
+  
+    <li><a href="../AuthenticatedGenerator.html">AuthenticatedGenerator</a>
+  
+    <li><a href="../AuthenticatedMailerGenerator.html">AuthenticatedMailerGenerator</a>
+  
+    <li><a href="../AuthenticatedSystem.html">AuthenticatedSystem</a>
+  
+    <li><a href="../AuthenticatedTestHelper.html">AuthenticatedTestHelper</a>
+  
+    <li><a href="../AutoCompleteFormBuilderHelper.html">AutoCompleteFormBuilderHelper</a>
+  
+    <li><a href="../AutoCompleteFormBuilderHelperTest.html">AutoCompleteFormBuilderHelperTest</a>
+  
+    <li><a href="../AutoCompleteMacrosHelper.html">AutoCompleteMacrosHelper</a>
+  
+    <li><a href="../AutoCompleteNestedAttributesTest.html">AutoCompleteNestedAttributesTest</a>
+  
+    <li><a href="../AutoCompleteTest.html">AutoCompleteTest</a>
+  
+    <li><a href="../BaseLoginProxy.html">BaseLoginProxy</a>
+  
+    <li><a href="../BlameTest.html">BlameTest</a>
+  
+    <li><a href="../BuilderHelper.html">BuilderHelper</a>
+  
+    <li><a href="../CategoriesController.html">CategoriesController</a>
+  
+    <li><a href="../CategoriesHelper.html">CategoriesHelper</a>
+  
+    <li><a href="../Category.html">Category</a>
+  
+    <li><a href="../CategoryValue.html">CategoryValue</a>
+  
+    <li><a href="../Cgroup.html">Cgroup</a>
+  
+    <li><a href="../ConsentProtocol.html">ConsentProtocol</a>
+  
+    <li><a href="../ConsentProtocolsController.html">ConsentProtocolsController</a>
+  
+    <li><a href="../CreateParents.html">CreateParents</a>
+  
+    <li><a href="../CustomMessages.html">CustomMessages</a>
+  
+    <li><a href="../DissectedSamplesController.html">DissectedSamplesController</a>
+  
+    <li><a href="../FlowCell.html">FlowCell</a>
+  
+    <li><a href="../FlowCellsController.html">FlowCellsController</a>
+  
+    <li><a href="../FlowLane.html">FlowLane</a>
+  
+    <li><a href="../FlowcellQueriesController.html">FlowcellQueriesController</a>
+  
+    <li><a href="../FlowcellQuery.html">FlowcellQuery</a>
+  
+    <li><a href="../FreezerLocation.html">FreezerLocation</a>
+  
+    <li><a href="../FreezerLocationsController.html">FreezerLocationsController</a>
+  
+    <li><a href="../HasManyAutoCompleteViewTest.html">HasManyAutoCompleteViewTest</a>
+  
+    <li><a href="../HistologiesController.html">HistologiesController</a>
+  
+    <li><a href="../HistologiesHelper.html">HistologiesHelper</a>
+  
+    <li><a href="../Histology.html">Histology</a>
+  
+    <li><a href="../HttpLoginProxy.html">HttpLoginProxy</a>
+  
+    <li><a href="../IndexTag.html">IndexTag</a>
+  
+    <li><a href="../IndexTagsController.html">IndexTagsController</a>
+  
+    <li><a href="../InventoryDB.html">InventoryDB</a>
+  
+    <li><a href="../Item.html">Item</a>
+  
+    <li><a href="../ItemQuery.html">ItemQuery</a>
+  
+    <li><a href="../ItemsController.html">ItemsController</a>
+  
+    <li><a href="../LibBarcode.html">LibBarcode</a>
+  
+    <li><a href="../LibSample.html">LibSample</a>
+  
+    <li><a href="../LimsCommon.html">LimsCommon</a>
+  
+    <li><a href="../LimsMailer.html">LimsMailer</a>
+  
+    <li><a href="../MachineIncident.html">MachineIncident</a>
+  
+    <li><a href="../MolassayQueriesController.html">MolassayQueriesController</a>
+  
+    <li><a href="../MolassayQuery.html">MolassayQuery</a>
+  
+    <li><a href="../MolecularAssay.html">MolecularAssay</a>
+  
+    <li><a href="../MolecularAssaysController.html">MolecularAssaysController</a>
+  
+    <li><a href="../MolecularAssaysHelper.html">MolecularAssaysHelper</a>
+  
+    <li><a href="../Monkey.html">Monkey</a>
+  
+    <li><a href="../MplexLibsController.html">MplexLibsController</a>
+  
+    <li><a href="../NoTable.html">NoTable</a>
+  
+    <li><a href="../NoValidation.html">NoValidation</a>
+  
+    <li><a href="../Object.html">Object</a>
+  
+    <li><a href="../OligoPoolsController.html">OligoPoolsController</a>
+  
+    <li><a href="../Order.html">Order</a>
+  
+    <li><a href="../OrderMailer.html">OrderMailer</a>
+  
+    <li><a href="../OrdersController.html">OrdersController</a>
+  
+    <li><a href="../Parent.html">Parent</a>
+  
+    <li><a href="../PartialBlameTest.html">PartialBlameTest</a>
+  
+    <li><a href="../PathologiesController.html">PathologiesController</a>
+  
+    <li><a href="../Pathology.html">Pathology</a>
+  
+    <li><a href="../Patient.html">Patient</a>
+  
+    <li><a href="../PatientsController.html">PatientsController</a>
+  
+    <li><a href="../Person.html">Person</a>
+  
+    <li><a href="../Pool.html">Pool</a>
+  
+    <li><a href="../Primer.html">Primer</a>
+  
+    <li><a href="../ProcessedSample.html">ProcessedSample</a>
+  
+    <li><a href="../ProcessedSamplesController.html">ProcessedSamplesController</a>
+  
+    <li><a href="../Protocol.html">Protocol</a>
+  
+    <li><a href="../ProtocolsController.html">ProtocolsController</a>
+  
+    <li><a href="../PsampleQueriesController.html">PsampleQueriesController</a>
+  
+    <li><a href="../PsampleQuery.html">PsampleQuery</a>
+  
+    <li><a href="../Publication.html">Publication</a>
+  
+    <li><a href="../PublicationsController.html">PublicationsController</a>
+  
+    <li><a href="../Researcher.html">Researcher</a>
+  
+    <li><a href="../ResearchersController.html">ResearchersController</a>
+  
+    <li><a href="../Role.html">Role</a>
+  
+    <li><a href="../RoleRequirementTestHelper.html">RoleRequirementTestHelper</a>
+  
+    <li><a href="../RunDir.html">RunDir</a>
+  
+    <li><a href="../RunDirsController.html">RunDirsController</a>
+  
+    <li><a href="../Sample.html">Sample</a>
+  
+    <li><a href="../SampleCharacteristic.html">SampleCharacteristic</a>
+  
+    <li><a href="../SampleCharacteristicsController.html">SampleCharacteristicsController</a>
+  
+    <li><a href="../SampleQueriesController.html">SampleQueriesController</a>
+  
+    <li><a href="../SampleQueriesHelper.html">SampleQueriesHelper</a>
+  
+    <li><a href="../SampleQuery.html">SampleQuery</a>
+  
+    <li><a href="../SampleStorageContainer.html">SampleStorageContainer</a>
+  
+    <li><a href="../SampleStorageContainersController.html">SampleStorageContainersController</a>
+  
+    <li><a href="../SamplesController.html">SamplesController</a>
+  
+    <li><a href="../SeqLib.html">SeqLib</a>
+  
+    <li><a href="../SeqLibsController.html">SeqLibsController</a>
+  
+    <li><a href="../SeqLibsHelper.html">SeqLibsHelper</a>
+  
+    <li><a href="../SeqMachine.html">SeqMachine</a>
+  
+    <li><a href="../SeqMachinesController.html">SeqMachinesController</a>
+  
+    <li><a href="../SeqlibLanesController.html">SeqlibLanesController</a>
+  
+    <li><a href="../SeqlibQueriesController.html">SeqlibQueriesController</a>
+  
+    <li><a href="../SeqlibQuery.html">SeqlibQuery</a>
+  
+    <li><a href="../Sprocket.html">Sprocket</a>
+  
+    <li><a href="../SslRequirementController.html">SslRequirementController</a>
+  
+    <li><a href="../SslRequirementTest.html">SslRequirementTest</a>
+  
+    <li><a href="../StorageDevice.html">StorageDevice</a>
+  
+    <li><a href="../StorageDevicesController.html">StorageDevicesController</a>
+  
+    <li><a href="../TaggedBuilder.html">TaggedBuilder</a>
+  
+    <li><a href="../TestiesController.html">TestiesController</a>
+  
+    <li><a href="../UploadsController.html">UploadsController</a>
+  
+    <li><a href="../User.html">User</a>
+  
+    <li><a href="../UserLog.html">UserLog</a>
+  
+    <li><a href="../UserLogin.html">UserLogin</a>
+  
+    <li><a href="../UserNotifier.html">UserNotifier</a>
+  
+    <li><a href="../UserObserver.html">UserObserver</a>
+  
+    <li><a href="../UsersController.html">UsersController</a>
+  
+    <li><a href="../WelcomeController.html">WelcomeController</a>
+  
+    <li><a href="../Widget.html">Widget</a>
+  
+    <li><a href="../WithValidation.html">WithValidation</a>
+  
+    <li><a href="../XmlLoginProxy.html">XmlLoginProxy</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class ValidatesTimeliness::Formats</h1>
+
+  <div id="description" class="description">
+    
+<p>A date and time parsing library which allows you to add custom formats
+using simple predefined tokens. This makes it much easier to catalogue and
+customize the formats rather than dealing directly with regular
+expressions.</p>
+
+<p><a href="Formats.html">Formats</a> can be added or removed to customize the
+set of valid date or time string values.</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-abbr_month_names" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">abbr_month_names</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="abbr_month_names-source">
+            <pre><span class="ruby-comment"># File lib/validates_timeliness-e711941/lib/validates_timeliness/formats.rb, line 285</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">abbr_month_names</span>
+  <span class="ruby-keyword">defined?</span>(<span class="ruby-constant">I18n</span>) <span class="ruby-operator">?</span> <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-string">'date.abbr_month_names'</span>) <span class="ruby-operator">:</span> <span class="ruby-constant">Date</span><span class="ruby-operator">::</span><span class="ruby-constant">ABBR_MONTHNAMES</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- abbr_month_names-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- abbr_month_names-method -->
+
+    
+      <div id="method-c-add_formats" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">add_formats</span><span
+            class="method-args">(type, *add_formats)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Adds new formats. Must specify format type and can specify a :before option
+to nominate which format the new formats should be inserted in front on to
+take higher precedence. Error is raised if format already exists or if
+:before format is not found.</p>
+          
+
+          
+          <div class="method-source-code" id="add_formats-source">
+            <pre><span class="ruby-comment"># File lib/validates_timeliness-e711941/lib/validates_timeliness/formats.rb, line 230</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_formats</span>(<span class="ruby-identifier">type</span>, *<span class="ruby-identifier">add_formats</span>)
+  <span class="ruby-identifier">formats</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;#{type}_formats&quot;</span>)
+  <span class="ruby-identifier">options</span> = {}
+  <span class="ruby-identifier">options</span> = <span class="ruby-identifier">add_formats</span>.<span class="ruby-identifier">pop</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">add_formats</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
+  <span class="ruby-identifier">before</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:before</span>]
+  <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Format for :before option #{format} was not found.&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">before</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">formats</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">before</span>)
+
+  <span class="ruby-identifier">add_formats</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Format #{format} is already included in #{type} formats&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">formats</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">format</span>)
+
+    <span class="ruby-identifier">index</span> = <span class="ruby-identifier">before</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">formats</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">before</span>) <span class="ruby-operator">:</span> <span class="ruby-value">-1</span>
+    <span class="ruby-identifier">formats</span>.<span class="ruby-identifier">insert</span>(<span class="ruby-identifier">index</span>, <span class="ruby-identifier">format</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">compile_format_expressions</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- add_formats-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- add_formats-method -->
+
+    
+      <div id="method-c-compile_format_expressions" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">compile_format_expressions</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="compile_format_expressions-source">
+            <pre><span class="ruby-comment"># File lib/validates_timeliness-e711941/lib/validates_timeliness/formats.rb, line 175</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">compile_format_expressions</span>
+  <span class="ruby-identifier">@@time_expressions</span>     = <span class="ruby-identifier">compile_formats</span>(<span class="ruby-identifier">@@time_formats</span>)
+  <span class="ruby-identifier">@@date_expressions</span>     = <span class="ruby-identifier">compile_formats</span>(<span class="ruby-identifier">@@date_formats</span>)
+  <span class="ruby-identifier">@@datetime_expressions</span> = <span class="ruby-identifier">compile_formats</span>(<span class="ruby-identifier">@@datetime_formats</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- compile_format_expressions-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- compile_format_expressions-method -->
+
+    
+      <div id="method-c-full_hour" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">full_hour</span><span
+            class="method-args">(hour, meridian)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="full_hour-source">
+            <pre><span class="ruby-comment"># File lib/validates_timeliness-e711941/lib/validates_timeliness/formats.rb, line 256</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">full_hour</span>(<span class="ruby-identifier">hour</span>, <span class="ruby-identifier">meridian</span>)
+  <span class="ruby-identifier">hour</span> = <span class="ruby-identifier">hour</span>.<span class="ruby-identifier">to_i</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">hour</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">meridian</span>.<span class="ruby-identifier">nil?</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">meridian</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-string">'.'</span>).<span class="ruby-identifier">downcase</span> <span class="ruby-operator">==</span> <span class="ruby-string">'am'</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">hour</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">hour</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">12</span>
+    <span class="ruby-identifier">hour</span> <span class="ruby-operator">==</span> <span class="ruby-value">12</span> <span class="ruby-operator">?</span> <span class="ruby-value">0</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">hour</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">hour</span> <span class="ruby-operator">==</span> <span class="ruby-value">12</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">hour</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">hour</span> <span class="ruby-operator">+</span> <span class="ruby-value">12</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- full_hour-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- full_hour-method -->
+
+    
+      <div id="method-c-microseconds" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">microseconds</span><span
+            class="method-args">(usec)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="microseconds-source">
+            <pre><span class="ruby-comment"># File lib/validates_timeliness-e711941/lib/validates_timeliness/formats.rb, line 289</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">microseconds</span>(<span class="ruby-identifier">usec</span>)
+  (<span class="ruby-node">&quot;.#{usec}&quot;</span>.<span class="ruby-identifier">to_f</span> * <span class="ruby-value">1_000_000</span>).<span class="ruby-identifier">to_i</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- microseconds-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- microseconds-method -->
+
+    
+      <div id="method-c-month_index" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">month_index</span><span
+            class="method-args">(month)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="month_index-source">
+            <pre><span class="ruby-comment"># File lib/validates_timeliness-e711941/lib/validates_timeliness/formats.rb, line 276</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">month_index</span>(<span class="ruby-identifier">month</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">month</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">month</span>.<span class="ruby-identifier">to_i</span>.<span class="ruby-identifier">nonzero?</span>
+  <span class="ruby-identifier">abbr_month_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">month</span>.<span class="ruby-identifier">capitalize</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">month_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">month</span>.<span class="ruby-identifier">capitalize</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- month_index-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- month_index-method -->
+
+    
+      <div id="method-c-month_names" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">month_names</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="month_names-source">
+            <pre><span class="ruby-comment"># File lib/validates_timeliness-e711941/lib/validates_timeliness/formats.rb, line 281</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">month_names</span>
+  <span class="ruby-keyword">defined?</span>(<span class="ruby-constant">I18n</span>) <span class="ruby-operator">?</span> <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-string">'date.month_names'</span>) <span class="ruby-operator">:</span> <span class="ruby-constant">Date</span><span class="ruby-operator">::</span><span class="ruby-constant">MONTHNAMES</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- month_names-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- month_names-method -->
+
+    
+      <div id="method-c-offset_in_seconds" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">offset_in_seconds</span><span
+            class="method-args">(offset)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="offset_in_seconds-source">
+            <pre><span class="ruby-comment"># File lib/validates_timeliness-e711941/lib/validates_timeliness/formats.rb, line 293</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">offset_in_seconds</span>(<span class="ruby-identifier">offset</span>)
+  <span class="ruby-identifier">sign</span> = <span class="ruby-identifier">offset</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^-/</span> <span class="ruby-operator">?</span> <span class="ruby-value">-1</span> <span class="ruby-operator">:</span> <span class="ruby-value">1</span>
+  <span class="ruby-identifier">parts</span> = <span class="ruby-identifier">offset</span>.<span class="ruby-identifier">scan</span>(<span class="ruby-regexp">/\d\d/</span>).<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">p</span><span class="ruby-operator">|</span> <span class="ruby-identifier">p</span>.<span class="ruby-identifier">to_f</span> }
+  <span class="ruby-identifier">parts</span>[<span class="ruby-value">1</span>] = <span class="ruby-identifier">parts</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">to_f</span> <span class="ruby-operator">/</span> <span class="ruby-value">60</span>
+  (<span class="ruby-identifier">parts</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">parts</span>[<span class="ruby-value">1</span>]) * <span class="ruby-identifier">sign</span> * <span class="ruby-value">3600</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- offset_in_seconds-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- offset_in_seconds-method -->
+
+    
+      <div id="method-c-parse" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">parse</span><span
+            class="method-args">(string, type, options={})</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Loop through format expressions for type and call proc on matches. Allow
+pre or post match strings to exist if strict is false. Otherwise wrap
+regexp in start and end anchors. Returns time array if matches a format,
+nil otherwise.</p>
+          
+
+          
+          <div class="method-source-code" id="parse-source">
+            <pre><span class="ruby-comment"># File lib/validates_timeliness-e711941/lib/validates_timeliness/formats.rb, line 185</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">parse</span>(<span class="ruby-identifier">string</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">options</span>={})
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">string</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">string</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
+  <span class="ruby-identifier">options</span>.<span class="ruby-identifier">reverse_merge!</span>(<span class="ruby-value">:strict</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>)
+
+  <span class="ruby-identifier">sets</span> = <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:format</span>]
+    <span class="ruby-identifier">options</span>[<span class="ruby-value">:strict</span>] = <span class="ruby-keyword">true</span>
+    [ <span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;#{type}_expressions&quot;</span>).<span class="ruby-identifier">assoc</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:format</span>]) ]
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">expression_set</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">string</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">matches</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-identifier">processor</span> = <span class="ruby-identifier">sets</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span>, <span class="ruby-identifier">regexp</span>, <span class="ruby-identifier">proc</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">full</span> = <span class="ruby-node">/\A#{regexp}\Z/</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:strict</span>]
+    <span class="ruby-identifier">full</span> <span class="ruby-operator">||=</span> <span class="ruby-keyword">case</span> <span class="ruby-identifier">type</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-value">:date</span>     <span class="ruby-keyword">then</span> <span class="ruby-node">/\A#{regexp}/</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-value">:time</span>     <span class="ruby-keyword">then</span> <span class="ruby-node">/#{regexp}\Z/</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-value">:datetime</span> <span class="ruby-keyword">then</span> <span class="ruby-node">/\A#{regexp}\Z/</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">break</span>(<span class="ruby-identifier">proc</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">matches</span> = <span class="ruby-identifier">full</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">string</span>.<span class="ruby-identifier">strip</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">last</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:include_offset</span>] <span class="ruby-operator">?</span> <span class="ruby-value">8</span> <span class="ruby-operator">:</span> <span class="ruby-value">7</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">matches</span>
+    <span class="ruby-identifier">values</span> = <span class="ruby-identifier">processor</span>.<span class="ruby-identifier">call</span>(*<span class="ruby-identifier">matches</span>[<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-identifier">last</span>])
+    <span class="ruby-identifier">values</span>[<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">2</span>] = <span class="ruby-identifier">dummy_date_for_time_type</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:time</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">values</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">rescue</span>
+  <span class="ruby-keyword">nil</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- parse-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- parse-method -->
+
+    
+      <div id="method-c-remove_formats" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">remove_formats</span><span
+            class="method-args">(type, *remove_formats)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Delete formats of specified type. Error raised if format not found.</p>
+          
+
+          
+          <div class="method-source-code" id="remove_formats-source">
+            <pre><span class="ruby-comment"># File lib/validates_timeliness-e711941/lib/validates_timeliness/formats.rb, line 217</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">remove_formats</span>(<span class="ruby-identifier">type</span>, *<span class="ruby-identifier">remove_formats</span>)
+  <span class="ruby-identifier">remove_formats</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;#{type}_formats&quot;</span>).<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">format</span>)
+      <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Format #{format} not found in #{type} formats&quot;</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">compile_format_expressions</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- remove_formats-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- remove_formats-method -->
+
+    
+      <div id="method-c-remove_us_formats" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">remove_us_formats</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Removes formats where the 1 or 2 digit month comes first, to eliminate
+formats which are ambiguous with the European style of day then month. The
+mmm token is ignored as its not ambigous.</p>
+          
+
+          
+          <div class="method-source-code" id="remove_us_formats-source">
+            <pre><span class="ruby-comment"># File lib/validates_timeliness-e711941/lib/validates_timeliness/formats.rb, line 249</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">remove_us_formats</span>
+  <span class="ruby-identifier">us_format_regexp</span> = <span class="ruby-regexp">/\Am{1,2}[^m]/</span>
+  <span class="ruby-identifier">date_formats</span>.<span class="ruby-identifier">reject!</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span> <span class="ruby-identifier">us_format_regexp</span> <span class="ruby-operator">=~</span> <span class="ruby-identifier">format</span> }
+  <span class="ruby-identifier">datetime_formats</span>.<span class="ruby-identifier">reject!</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span> <span class="ruby-identifier">us_format_regexp</span> <span class="ruby-operator">=~</span> <span class="ruby-identifier">format</span> }
+  <span class="ruby-identifier">compile_format_expressions</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- remove_us_formats-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- remove_us_formats-method -->
+
+    
+      <div id="method-c-unambiguous_year" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">unambiguous_year</span><span
+            class="method-args">(year)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="unambiguous_year-source">
+            <pre><span class="ruby-comment"># File lib/validates_timeliness-e711941/lib/validates_timeliness/formats.rb, line 267</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">unambiguous_year</span>(<span class="ruby-identifier">year</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">year</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-value">2</span>
+    <span class="ruby-identifier">century</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">year</span>.<span class="ruby-identifier">to_s</span>[<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">1</span>].<span class="ruby-identifier">to_i</span>
+    <span class="ruby-identifier">century</span> <span class="ruby-operator">-=</span> <span class="ruby-value">1</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">year</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">ambiguous_year_threshold</span>
+    <span class="ruby-identifier">year</span> = <span class="ruby-node">&quot;#{century}#{year.rjust(2,'0')}&quot;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">year</span>.<span class="ruby-identifier">to_i</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- unambiguous_year-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- unambiguous_year-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

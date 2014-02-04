@@ -2,7 +2,7 @@
 #
 # Table name: users
 #
-#  id                        :integer(4)      not null, primary key
+#  id                        :integer          not null, primary key
 #  login                     :string(25)
 #  email                     :string(255)
 #  crypted_password          :string(40)
@@ -63,12 +63,11 @@ class User < ActiveRecord::Base
   # Admin can see all users
   def self.find_all_with_authorization(user=current_user)
     if user.has_role?("admin") && !DEMO_APP
-      condition_array = []
+      users = self.includes(:roles).all
     else
-      condition_array = ["users.login = ?", user.login]
+      users = self.includes(:roles).where("users.login = ?", user.login).all
     end
-    
-    self.find(:all, :include => :roles, :conditions => condition_array)
+    return users
   end
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
@@ -107,19 +106,19 @@ class User < ActiveRecord::Base
   def remember_me_until(time)
     self.remember_token_expires_at = time
     self.remember_token            = encrypt("#{email}--#{remember_token_expires_at}")
-    save(false)
+    save(:validate=>false)
   end
 
   def forget_me
     self.remember_token_expires_at = nil
     self.remember_token            = nil
-    save(false)
+    save(:validate=>false)
   end
   
   def create_reset_code
     @reset = true
     self.reset_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
-    save(false)
+    save(:validate=>false)
   end
   
   def recently_reset?
@@ -128,7 +127,7 @@ class User < ActiveRecord::Base
   
   def delete_reset_code
     self.reset_code = nil
-    save(false)
+    save(:validate=>false)
   end
   
   protected

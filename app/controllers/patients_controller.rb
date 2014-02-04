@@ -5,14 +5,12 @@ class PatientsController < ApplicationController
   
   # GET /patients
   def index
-    @patients = Patient.find(:all, 
-                             :include => :samples,
-                             :select => "id, gender, race, ethnicity, clinical_id_encrypted")
+    @patients = Patient.select('id, gender, race, ethnicity, clinical_id_encrypted').includes(:samples).all
   end
 
   # GET /patients/1
   def show
-    @patient = Patient.find(params[:id], :include => {:sample_characteristics => :samples} )
+    @patient = Patient.includes(:sample_characteristics => :samples).find(params[:id])
   end
 
   def edit_params
@@ -43,7 +41,7 @@ class PatientsController < ApplicationController
   end
   
   def loadtodb
-    @file_path = "#{RAILS_ROOT}/public/files/clin_precs_2.txt"
+    @file_path = "#{Rails.root}/public/files/clin_precs_2.txt"
     
     if FileTest.file?(@file_path)
       recs_loaded = Patient.loadrecs(@file_path)
@@ -82,7 +80,7 @@ protected
   end
   
   def check_for_existing_mrn(mrn)
-    patients   = Patient.find(:all).map {|patient| [patient.mrn, patient.id]}
+    patients   = Patient.all.map {|patient| [patient.mrn, patient.id]}
     patient_id = patients.assoc(mrn)
     return patient_id[1]
   end

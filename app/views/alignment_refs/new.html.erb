@@ -1,11 +1,11 @@
 <h1>New alignment reference</h1>
 
-<% tagged_form_for @alignment_ref, :action => 'create' do |f| %>
-  <%= f.error_messages %>
+<%= tagged_form_for @alignment_ref, :action => 'create' do |f| %>
+  <%= render '/shared/errors', model: @alignment_ref %>
   
   <%= render :partial => 'alignment_ref', :locals => {:f => f} %>
   
-  <%= break_clear(f.submit "Create") %>
+  <%=raw break_clear(f.submit "Create") %>
 <% end %>
 
 
