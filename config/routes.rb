@@ -1,6 +1,6 @@
 SeqLIMS::Application.routes.draw do
   
-  match '' => 'welcome#index'
+  root :to => 'welcome#index'
   match '/signup' => 'welcome#signup', :as => :signup
   match '/login' => 'welcome#login', :as => :login
   match '/user_login' => 'welcome#user_login'
@@ -64,6 +64,7 @@ SeqLIMS::Application.routes.draw do
   # Routes for clinical samples/sample characteristics
   resources :sample_characteristics do
     get 'add_new_sample', on: :member
+    post 'add_another_sample', on: :member
     post 'new_sample', on: :collection
   end
   resources :pathologies
