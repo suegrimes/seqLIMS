@@ -39,14 +39,18 @@ class WelcomeController < ApplicationController
   
   def add_user
     @user = User.new(params[:user])
+
+    default_role = Role.find_by_name(Role::DEFAULT_ROLE) if Role::DEFAULT_ROLE
+    @user.roles << Role.where('id = ?', default_role.id).all if default_role
     @user.save!
+
     self.current_user = @user
     log_entry("Login")
     flash.now[:notice] = "Thanks for signing up!"
     render :action => 'index'
-    
-  rescue ActiveRecord::RecordInvalid
-    render :action => 'signup'
+
+    rescue ActiveRecord::RecordInvalid
+      render :action => 'signup'
   end
   
   def logout

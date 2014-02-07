@@ -1,6 +1,6 @@
-<%= error_messages_for :user %>
-
 <%= form_for(:user, :url => {:action => :add_user}) do |f| -%>
+    <%= render '/shared/errors', model: @user %>
+
 <p><label for="login">Login</label><br/>
 <%= f.text_field :login %></p>
 
