@@ -15,8 +15,8 @@
 
 class AttachedFile < ActiveRecord::Base
     
-  #FILES_ROOT = (SITE_URL.include?('stanford.edu') ? File.join(Rails.root, "..", "..", "shared", "attached_files") :
-  #                                                 File.join(Rails.root, "..", "LIMSFiles", "AttachedFile"))
+  FILES_ROOT = (SITE_URL.include?('stanford.edu') ? File.join(Rails.root, "..", "..", "shared", "attached_files") :
+                                                   File.join(Rails.root, "..", "LIMSFiles", "AttachedFile"))
   
   belongs_to :sampleproc, :polymorphic => true
 
@@ -41,12 +41,12 @@ class AttachedFile < ActiveRecord::Base
   def basename_with_ext
     # Return file basename, with extension (and with id prefix)
     #return document.path.split('/').last
-    #return [sampleproc_id.to_s, '_', document.basename, '.', document.extension].join
-    return document.file.identifier
+    #return document.file.identifier
+    return [sampleproc_id.to_s, '_', document.basename, '.', document.extension].join
   end
   
   def doc_fullpath
-    #return File.join(FILES_ROOT, sampleproc_type, basename_with_ext)
-    return document.current_path
+    return File.join(FILES_ROOT, sampleproc_type, basename_with_ext)
+    #return document.current_path
   end
 end
