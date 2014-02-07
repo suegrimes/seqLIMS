@@ -171,7 +171,7 @@ class Sample < ActiveRecord::Base
   end
   
   def self.getwith_attach(id)
-    self.find(id).includes(:attached_files)
+    self.includes(:attached_files).find(id)
   end
 
   def self.find_in_barcode_range(bcstart, bcend)

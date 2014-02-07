@@ -38,15 +38,24 @@ class AttachedFile < ActiveRecord::Base
     end
   end
   
-  def basename_with_ext
+  def doc_filename
+    #return document.path.split('/').last
+    return document.file.identifier
+  end
+
+  def doc_stored_name
+    return [sampleproc_id.to_s, '_', doc_filename].join
+  end
+
+  #def basename_with_ext
     # Return file basename, with extension (and with id prefix)
     #return document.path.split('/').last
     #return document.file.identifier
-    return [sampleproc_id.to_s, '_', document.basename, '.', document.extension].join
-  end
+    #return [sampleproc_id.to_s, '_', document.basename, '.', document.extension].join
+  #end
   
   def doc_fullpath
-    return File.join(FILES_ROOT, sampleproc_type, basename_with_ext)
     #return document.current_path
+    return File.join(FILES_ROOT, sampleproc_type, doc_stored_name)
   end
 end
