@@ -36,7 +36,7 @@ class Pathology < ActiveRecord::Base
   end
   
    def self.getwith_attach(id)
-    self.find(id, :include => :attached_files)
+    self.includes(:attached_files).find(id)
   end
   
 end

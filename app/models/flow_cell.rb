@@ -100,7 +100,7 @@ class FlowCell < ActiveRecord::Base
   end
   
   def self.getwith_attach(id)
-    self.includes(:attached_files).where(:id => id)
+    self.includes(:attached_files).find(id)
     #self.find(id, :include => :attached_files)
   end
   

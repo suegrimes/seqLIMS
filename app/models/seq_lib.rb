@@ -171,7 +171,7 @@ class SeqLib < ActiveRecord::Base
   end
   
   def self.getwith_attach(id)
-    self.find(id).includes(:attached_files)
+    self.includes(:attached_files).find(id)
   end
   
   def self.upd_lib_status(flow_cell, lib_status)
