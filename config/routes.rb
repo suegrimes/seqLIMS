@@ -1,9 +1,10 @@
 SeqLIMS::Application.routes.draw do
   
   root :to => 'welcome#index'
-  match '/signup' => 'welcome#signup', :as => :signup
-  match '/login' => 'welcome#login', :as => :login
   match '/user_login' => 'welcome#user_login'
+  match '/signup' => 'welcome#signup', :as => :signup
+  match '/add_user' => 'welcome#add_user', :as => :add_user, :via => :post
+  match '/login' => 'welcome#login', :as => :login
   match '/logout' => 'welcome#logout', :as => :logout
   
   resources :users
