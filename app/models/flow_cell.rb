@@ -145,7 +145,7 @@ class FlowCell < ActiveRecord::Base
     flow_lanes.reject(&:new_record?).each do |flow_lane|
       upd_attributes = lane_attributes[flow_lane.id.to_s]
       if upd_attributes
-        upd_attributes[:oligo_pool] = Pool.find(upd_attributes[:pool_id]).tube_label if !upd_attributes[:pool_id].blank?
+        upd_attributes[:oligo_pool] = (upd_attributes[:pool_id].blank? ? '' : Pool.find(upd_attributes[:pool_id]).tube_label)
         flow_lane.attributes = upd_attributes
       else
         flow_lanes.delete(flow_lane)
