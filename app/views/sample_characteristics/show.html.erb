@@ -15,13 +15,12 @@
 
 <span class="table_title">Physical Samples:</span>
 <table class="list">
-  <%= render :partial => 'samples/sample_hdr', :locals => {:from_nccc => @sample_characteristic.from_nccc?} %>
+  <%= render :partial => 'samples/sample_hdr' %>
   
   <% for sample in @sample_characteristic.samples %>
     <% if !sample.id.nil? %>
       <%= render :partial => 'samples/sample_row', :locals => {:sample => sample, 
-                                                               :barcode_link => 'show',
-                                                               :from_nccc => @sample_characteristic.from_nccc?} %>
+                                                               :barcode_link => 'show'} %>
 	<% else %>
 	  <% @new_sample_with_error = sample %>
 	<% end %>

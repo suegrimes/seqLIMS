@@ -11,12 +11,11 @@
   
   <span class="table_title">Physical Sample(s):</span>
   <table class="list">
-    <%= render :partial => 'samples/sample_hdr', :locals => {:from_nccc => @sample_characteristic.from_nccc?} %>
+    <%= render :partial => 'samples/sample_hdr' %>
 	
     <% for sample in @sample_characteristic.samples %>
 	   <% if !sample.id.nil?%>
-         <%= render :partial => 'samples/sample_row', :locals => {:sample => sample,
-                                                                  :from_nccc => @sample_characteristic.from_nccc?} %>
+         <%= render :partial => 'samples/sample_row', :locals => {:sample => sample} %>
 	   <% end %>
     <% end %>	
   </table>
