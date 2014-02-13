@@ -32,6 +32,7 @@ class SampleQuery < NoTable
   column :patient_id,  :string
   column :barcode_from, :string
   column :barcode_to, :string
+  column :alt_identifier, :string
   column :gender,      :string
   column :consent_protocol_id, :integer
   column :clinic_or_location, :string
@@ -50,7 +51,7 @@ class SampleQuery < NoTable
   validates_date :to_date, :from_date, :allow_blank => true
   
   SCHAR_FLDS = %w{patient_id gender race ethnicity consent_protocol_id clinic_or_location}
-  SAMPLE_FLDS = %w{barcode_key tumor_normal sample_tissue sample_type tissue_preservation updated_by}
+  SAMPLE_FLDS = %w{barcode_key alt_identifier tumor_normal sample_tissue sample_type tissue_preservation updated_by}
   ALL_FLDS    = SCHAR_FLDS | SAMPLE_FLDS
   
   def validate
