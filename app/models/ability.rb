@@ -75,10 +75,10 @@ class Ability
         
       elsif user.has_role?("clin_admin")
         can [:edit, :update], Category do |cval|
-          [1,2,3,6,7].include?(cval.cgroup_id)    # Drop-down lists for samples
+          [1,2,3,6,7,9].include?(cval.cgroup_id)    # Drop-down lists for samples, orders
         end
         can :manage, CategoryValue do |val|
-          [1,2,3,6,7].include?(val.category.cgroup_id)
+          [1,2,3,6,7,9].include?(val.category.cgroup_id)
         end
        
       elsif user.has_role?("lab_admin")

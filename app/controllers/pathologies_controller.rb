@@ -41,7 +41,8 @@ class PathologiesController < ApplicationController
       @existing_pathology = Pathology.find_by_patient_id(@patient_id)
       if @existing_pathology && params[:add_new] == 'no'
         redirect_to :action => :index, :patient_id => @patient_id
-      else 
+      else
+        @pathology = Pathology.new
         # Sample characteristics not already associated with a pathology report, will be available to be associated with a new pathology report
         @sample_characteristics.reject! {|schar| !schar.pathology_id.nil? }  #Remove sample characteristic records where pathology foreign key is not nil
         render :action => :new
