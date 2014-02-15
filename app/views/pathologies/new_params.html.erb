@@ -1,6 +1,6 @@
 <h1>Specify MRN or patient ID for pathology report</h1>
 
-<%= form_tag :action=> 'new'  do %>
+<%= form_tag url_for(:action=> 'new'), :method => :get  do %>
 
 <table class="form border">
   <tr>
