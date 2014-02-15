@@ -39,6 +39,7 @@ SeqLIMS::Application.routes.draw do
   get 'items/autocomplete_item_company_name'
   get 'items/autocomplete_item_item_description'
   get 'items/autocomplete_item_catalog_nr'
+  post 'items/populate_items'
   resources :items do
     collection do 
       #get :autocomplete_item_description
@@ -50,7 +51,7 @@ SeqLIMS::Application.routes.draw do
   match 'view_items' => 'items#new_query', :as => :view_items
   match 'list_items' => 'items#list_selected', :as => :list_items
   match 'unordered_items' => 'items#list_unordered_items', :as => :notordered
-  match 'populate_items' => 'items#populate_items'
+  #match 'populate_items' => 'items#populate_items'
   
   # Routes for patients
   resources :patients
