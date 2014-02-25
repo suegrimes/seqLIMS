@@ -1,5 +1,9 @@
 <h1>Sequencing Libraries (Filtered) </h1>
 
+<%= form_tag :action => :export_seqlibs do %>
+    <%= submit_tag "Export Seq Libs" -%>
+    <br/><br/>
+
 <table class="list">
   <tr>
   	<th>Lib Barcode</th>
@@ -18,6 +22,7 @@
   </tr>
 
 <% for seq_lib in @seq_libs %>
+  <%= hidden_field_tag("export_id[]", seq_lib.id) %>
   <tr>
   	<td><%= link_to seq_lib.lib_barcode, seq_lib %>
 	<td>
@@ -61,3 +66,4 @@
   </tr>
   <% end %>
 </table>
+<% end %>
