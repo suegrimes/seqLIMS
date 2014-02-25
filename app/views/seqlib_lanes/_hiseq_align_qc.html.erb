@@ -33,18 +33,18 @@
 	  <td ><%=h format_date(flow_lane.flow_cell.flowcell_date)%></td>
 	  <td ><%=h flow_lane.lane_nr %></td>
 	  <% if flow_lane.align_qc %>
-	  <td align="right"><%=h number_with_delimiter(flow_lane.align_qc.total_reads, :delimiter => ',') %></td>
-	  <td align="right"><%=h number_with_delimiter(flow_lane.align_qc.pf_reads, :delimiter => ',') %></td>
+	  <td align="right"><%=h delimited_number(flow_lane.align_qc.total_reads) %></td>
+	  <td align="right"><%=h delimited_number(flow_lane.align_qc.pf_reads) %></td>
 	  <td ><%=h flow_lane.align_qc.min_insert %></td>
 	  <td ><%=h flow_lane.align_qc.max_insert %></td>
 	  <td><%=h flow_lane.align_qc.median_insert %></td>
-	  <td align="right"><%=h number_with_delimiter(flow_lane.align_qc.consistent_unique_bp, :delimiter => ',') %>
+	  <td align="right"><%=h delimited_number(flow_lane.align_qc.consistent_unique_bp) %>
 	      <%=h pct_with_parens(flow_lane.align_qc.consistent_unique_pct) %></td>
-	  <td align="right"><%=h number_with_delimiter(flow_lane.align_qc.rescued_bp, :delimiter => ',') %>
+	  <td align="right"><%=h delimited_number(flow_lane.align_qc.rescued_bp) %>
 	      <%=h pct_with_parens(flow_lane.align_qc.rescued_pct) %></td>
-	  <td align="right"><%=h number_with_delimiter(flow_lane.align_qc.total_consistent_bp, :delimiter => ',') %>
+	  <td align="right"><%=h delimited_number(flow_lane.align_qc.total_consistent_bp) %>
 	      <%=h pct_with_parens(flow_lane.align_qc.total_consistent_pct) %></td>
-	  <td align="right"><%=h number_with_delimiter(flow_lane.align_qc.pf_unique_bp, :delimiter => ',') %>
+	  <td align="right"><%=h delimited_number(flow_lane.align_qc.pf_unique_bp) %>
 	      <%=h pct_with_parens(flow_lane.align_qc.pf_unique_pct) %></td>
 	  <% end %>
     </tr>
