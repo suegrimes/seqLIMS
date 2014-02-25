@@ -39,6 +39,7 @@ class SeqLib < ActiveRecord::Base
   has_many :mlib_samples, :class_name => 'LibSample', :foreign_key => :splex_lib_id
   has_many :flow_lanes
   has_many :align_qc, :through => :flow_lanes
+  has_many :processed_samples, :through => :lib_samples
   has_many :attached_files, :as => :sampleproc
   
   accepts_nested_attributes_for :lib_samples
@@ -87,6 +88,11 @@ class SeqLib < ActiveRecord::Base
     end
     return owner1
   end
+
+  def patient_ids
+    patient_ids = lib_samples.collect{|lib_sample| lib_sample.patient_id}
+    return (patient_ids.compact.size > 0 ? patient_ids.uniq.compact.join(' ,') : nil)
+  end
   
   def dummy_barcode
     (barcode_key[0,1] == 'X' ? true : false)
@@ -106,6 +112,10 @@ class SeqLib < ActiveRecord::Base
   
   def on_flow_lane?
     !flow_lanes.nil?
+  end
+
+  def flow_lane_ct
+    flow_lanes.size
   end
   
   def control_lane?
@@ -163,6 +173,10 @@ class SeqLib < ActiveRecord::Base
     self.find(id).includes(:flow_lanes => [:flow_cell, :align_qc]).where("flow_cells.flowcell_status <> 'F'")
     #self.find(id, :include => {:flow_lanes => [:flow_cell, :align_qc]},
     #              :conditions => "flow_cells.flowcell_status <> 'F'")
+  end
+
+  def self.find_all_for_export(seqlib_ids)
+    self.includes(:flow_lanes, :processed_samples).where("seq_libs.id IN (?)", seqlib_ids).all
   end
   
   def self.unique_projects
