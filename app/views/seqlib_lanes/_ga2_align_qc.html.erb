@@ -33,14 +33,14 @@
 	    <td ><%=h flow_lane.lane_nr %>
 	  
 	    <% if !flow_lane.align_qc.nil?%>
-		<td align="right"><%=h number_with_delimiter(flow_lane.align_qc.clusters_raw, :delimiter => ',') %></td>
-	    <td align="right"><%=h number_with_delimiter(flow_lane.align_qc.clusters_pf,  :delimiter => ',') %></td>
+		<td align="right"><%=h delimited_number(flow_lane.align_qc.clusters_raw) %></td>
+	    <td align="right"><%=h delimited_number(flow_lane.align_qc.clusters_pf) %></td>
 		<td align="right"><%=h flow_lane.align_qc.cycle1_intensity_pf %></td>
 	    <td align="right"><%=h flow_lane.align_qc.cycle20_intensity_pct_pf %>%</td>
 	    <td align="right"><%=h flow_lane.align_qc.pct_align_pf %>%</td>
 	    <td align="right"><%=h flow_lane.align_qc.pct_error_rate_pf %>%</td>
-	    <td align="right"><%=h number_with_delimiter(flow_lane.align_qc.nr_uniques,    :delimiter => ',') %></td>
-	    <td align="right"><%=h number_with_delimiter(flow_lane.align_qc.nr_nonuniques, :delimiter => ',') %></td>
+	    <td align="right"><%=h delimited_number(flow_lane.align_qc.nr_uniques) %></td>
+	    <td align="right"><%=h delimited_number(flow_lane.align_qc.nr_nonuniques) %></td>
 	    <% end %>
       </tr>
       <% end %>
