@@ -39,6 +39,10 @@ class LibSample < ActiveRecord::Base
     end  
   end
   
+  def patient_id
+    (processsed_sample ? processed_sample.patient_id : nil)
+  end
+
   def tag_sequence
     return (index_tag.nil? ? '' : IndexTag.find_or_blank(runtype_adapter, index_tag))
   end

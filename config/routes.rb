@@ -165,6 +165,7 @@ SeqLIMS::Application.routes.draw do
   match 'mplex_setup' => 'mplex_libs#setup_params', :as => :mplex_setup
   match 'lib_qc' => 'seqlib_lanes#export_libqc', :as => :lib_qc
   match 'lib_query' => 'seqlib_queries#new_query', :as => :lib_query
+  match 'export_seqlibs' => 'seqlib_queries#export_seqlibs', :as => :export_seqlibs
   
   # Routes for flow cells/sequencing runs
   get 'flow_cells/autocomplete_flow_cells_sequencing_key'

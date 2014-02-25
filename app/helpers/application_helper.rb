@@ -39,9 +39,13 @@ module ApplicationHelper
   def format_conc(conc, val_if_nil='--')
     (conc.nil? ? val_if_nil : sprintf('%02.2f', conc))
   end
-  
+
+  def delimited_number(num)
+    (num.nil? ? '' : number_with_delimiter(num, :delimiter => ','))
+  end
+
   def pct_with_parens(pct)
-    sprintf('(%02d%s)', pct, '%')
+    (pct.nil? ? '' : sprintf('(%02d%s)', pct, '%'))
   end
   
   def user_role_is?(role)
