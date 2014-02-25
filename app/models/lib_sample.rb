@@ -40,7 +40,7 @@ class LibSample < ActiveRecord::Base
   end
   
   def patient_id
-    (processsed_sample ? processed_sample.patient_id : nil)
+    (!processed_sample.nil? ? processed_sample.patient_id : nil)
   end
 
   def tag_sequence

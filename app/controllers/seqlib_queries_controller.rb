@@ -144,8 +144,8 @@ protected
   end
 
   def export_seqlibs_setup
-    hdgs  = %w{Download_Dt Barcode PatientID LibName Owner PrepDt LibType Adapter SampleConc Project OligoPool
-                           AlignRef SeqCt}
+    hdgs  = %w{Download_Dt Barcode PatientID LibName Owner PrepDt LibType Adapter SampleConc(ng/ul) SampleConc(nM)
+               Project OligoPool AlignRef SeqLaneCt}
 
     flds  = [['sl', 'lib_barcode'],
              ['sl', 'patient_ids'],
