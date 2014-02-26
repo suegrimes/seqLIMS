@@ -75,6 +75,10 @@ class MolecularAssay < ActiveRecord::Base
   def protocol_name
     return (self.protocol ? self.protocol.protocol_name : '')
   end
+
+  def ddPCR?
+    return (self.protocol ? self.protocol.ddPCR? : false)
+  end
   
   def owner_abbrev
     if owner.nil? || owner.length < 11

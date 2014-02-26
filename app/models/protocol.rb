@@ -27,6 +27,10 @@ class Protocol < ActiveRecord::Base
     #                :order      => 'protocol_name')
   end
   
+  def ddPCR?
+    (protocol_type == 'M' && protocol_abbrev.include?('ddPCR') ? true : false)
+  end
+
   def name_ver
     [protocol_name, protocol_version].join('/')
   end
