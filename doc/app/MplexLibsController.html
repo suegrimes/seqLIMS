@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>class MplexLibsController - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>app/controllers/mplex_libs_controller.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="ApplicationController.html">ApplicationController</a>
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-create">#create</a>
+    
+    <li><a href="#method-i-define_lib_conditions">#define_lib_conditions</a>
+    
+    <li><a href="#method-i-destroy">#destroy</a>
+    
+    <li><a href="#method-i-dropdowns">#dropdowns</a>
+    
+    <li><a href="#method-i-edit">#edit</a>
+    
+    <li><a href="#method-i-new">#new</a>
+    
+    <li><a href="#method-i-setup_dropdowns">#setup_dropdowns</a>
+    
+    <li><a href="#method-i-setup_params">#setup_params</a>
+    
+    <li><a href="#method-i-update">#update</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./doc/README_FOR_APP.html">README_FOR_APP</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./ValidatesTimeliness.html">ValidatesTimeliness</a>
+  
+    <li><a href="./ValidatesTimeliness/ActionView.html">ValidatesTimeliness::ActionView</a>
+  
+    <li><a href="./ValidatesTimeliness/ActionView/InstanceTag.html">ValidatesTimeliness::ActionView::InstanceTag</a>
+  
+    <li><a href="./ValidatesTimeliness/ActiveRecord.html">ValidatesTimeliness::ActiveRecord</a>
+  
+    <li><a href="./ValidatesTimeliness/ActiveRecord/AttributeMethods.html">ValidatesTimeliness::ActiveRecord::AttributeMethods</a>
+  
+    <li><a href="./ValidatesTimeliness/ActiveRecord/AttributeMethods/ClassMethods.html">ValidatesTimeliness::ActiveRecord::AttributeMethods::ClassMethods</a>
+  
+    <li><a href="./ValidatesTimeliness/ActiveRecord/MultiparameterAttributes.html">ValidatesTimeliness::ActiveRecord::MultiparameterAttributes</a>
+  
+    <li><a href="./ValidatesTimeliness/Formats.html">ValidatesTimeliness::Formats</a>
+  
+    <li><a href="./ValidatesTimeliness/Parser.html">ValidatesTimeliness::Parser</a>
+  
+    <li><a href="./ValidatesTimeliness/ValidationMethods.html">ValidatesTimeliness::ValidationMethods</a>
+  
+    <li><a href="./ValidatesTimeliness/ValidationMethods/ClassMethods.html">ValidatesTimeliness::ValidationMethods::ClassMethods</a>
+  
+    <li><a href="./ValidatesTimeliness/Validator.html">ValidatesTimeliness::Validator</a>
+  
+    <li><a href="./Spec.html">Spec</a>
+  
+    <li><a href="./Spec/Rails.html">Spec::Rails</a>
+  
+    <li><a href="./Spec/Rails/Matchers.html">Spec::Rails::Matchers</a>
+  
+    <li><a href="./Spec/Rails/Matchers/ValidateTimeliness.html">Spec::Rails::Matchers::ValidateTimeliness</a>
+  
+    <li><a href="./Blame.html">Blame</a>
+  
+    <li><a href="./Blame/Userstamp.html">Blame::Userstamp</a>
+  
+    <li><a href="./Blame/UserstampMigrationHelper.html">Blame::UserstampMigrationHelper</a>
+  
+    <li><a href="./Rails.html">Rails</a>
+  
+    <li><a href="./Rails/Generator.html">Rails::Generator</a>
+  
+    <li><a href="./Rails/Generator/NamedBase.html">Rails::Generator::NamedBase</a>
+  
+    <li><a href="./RoleRequirementSystem.html">RoleRequirementSystem</a>
+  
+    <li><a href="./RoleRequirementSystem/RoleSecurityClassMethods.html">RoleRequirementSystem::RoleSecurityClassMethods</a>
+  
+    <li><a href="./RoleRequirementSystem/RoleSecurityInstanceMethods.html">RoleRequirementSystem::RoleSecurityInstanceMethods</a>
+  
+    <li><a href="./Test.html">Test</a>
+  
+    <li><a href="./Test/Unit.html">Test::Unit</a>
+  
+    <li><a href="./Test/Unit/TestCase.html">Test::Unit::TestCase</a>
+  
+    <li><a href="./TimeTravel.html">TimeTravel</a>
+  
+    <li><a href="./TimeTravel/TimeExtensions.html">TimeTravel::TimeExtensions</a>
+  
+    <li><a href="./TimeTravel/TimeExtensions/ClassMethods.html">TimeTravel::TimeExtensions::ClassMethods</a>
+  
+    <li><a href="./ActiveRecordExtension.html">ActiveRecordExtension</a>
+  
+    <li><a href="./ActiveRecordExtension/ClassMethods.html">ActiveRecordExtension::ClassMethods</a>
+  
+    <li><a href="./AutoComplete.html">AutoComplete</a>
+  
+    <li><a href="./AutoComplete/ClassMethods.html">AutoComplete::ClassMethods</a>
+  
+    <li><a href="./OverrideBlameTest.html">OverrideBlameTest</a>
+  
+    <li><a href="./OverrideBlameTest/Sprocket.html">OverrideBlameTest::Sprocket</a>
+  
+    <li><a href="./SslRequirement.html">SslRequirement</a>
+  
+    <li><a href="./SslRequirement/ClassMethods.html">SslRequirement::ClassMethods</a>
+  
+    <li><a href="./ViewMapper.html">ViewMapper</a>
+  
+    <li><a href="./ViewMapper/HasManyAutoCompleteView.html">ViewMapper::HasManyAutoCompleteView</a>
+  
+    <li><a href="./Ability.html">Ability</a>
+  
+    <li><a href="./AlignQc.html">AlignQc</a>
+  
+    <li><a href="./AlignQcsController.html">AlignQcsController</a>
+  
+    <li><a href="./AlignmentRef.html">AlignmentRef</a>
+  
+    <li><a href="./AlignmentRefsController.html">AlignmentRefsController</a>
+  
+    <li><a href="./AnnotateModels.html">AnnotateModels</a>
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./AssignedBarcode.html">AssignedBarcode</a>
+  
+    <li><a href="./AssignedBarcodesController.html">AssignedBarcodesController</a>
+  
+    <li><a href="./AttachedFile.html">AttachedFile</a>
+  
+    <li><a href="./AttachedFilesController.html">AttachedFilesController</a>
+  
+    <li><a href="./AttachmentUploader.html">AttachmentUploader</a>
+  
+    <li><a href="./AuthenticatedGenerator.html">AuthenticatedGenerator</a>
+  
+    <li><a href="./AuthenticatedMailerGenerator.html">AuthenticatedMailerGenerator</a>
+  
+    <li><a href="./AuthenticatedSystem.html">AuthenticatedSystem</a>
+  
+    <li><a href="./AuthenticatedTestHelper.html">AuthenticatedTestHelper</a>
+  
+    <li><a href="./AutoCompleteFormBuilderHelper.html">AutoCompleteFormBuilderHelper</a>
+  
+    <li><a href="./AutoCompleteFormBuilderHelperTest.html">AutoCompleteFormBuilderHelperTest</a>
+  
+    <li><a href="./AutoCompleteMacrosHelper.html">AutoCompleteMacrosHelper</a>
+  
+    <li><a href="./AutoCompleteNestedAttributesTest.html">AutoCompleteNestedAttributesTest</a>
+  
+    <li><a href="./AutoCompleteTest.html">AutoCompleteTest</a>
+  
+    <li><a href="./BaseLoginProxy.html">BaseLoginProxy</a>
+  
+    <li><a href="./BlameTest.html">BlameTest</a>
+  
+    <li><a href="./BuilderHelper.html">BuilderHelper</a>
+  
+    <li><a href="./CategoriesController.html">CategoriesController</a>
+  
+    <li><a href="./CategoriesHelper.html">CategoriesHelper</a>
+  
+    <li><a href="./Category.html">Category</a>
+  
+    <li><a href="./CategoryValue.html">CategoryValue</a>
+  
+    <li><a href="./Cgroup.html">Cgroup</a>
+  
+    <li><a href="./ConsentProtocol.html">ConsentProtocol</a>
+  
+    <li><a href="./ConsentProtocolsController.html">ConsentProtocolsController</a>
+  
+    <li><a href="./CreateParents.html">CreateParents</a>
+  
+    <li><a href="./CustomMessages.html">CustomMessages</a>
+  
+    <li><a href="./DissectedSamplesController.html">DissectedSamplesController</a>
+  
+    <li><a href="./FlowCell.html">FlowCell</a>
+  
+    <li><a href="./FlowCellsController.html">FlowCellsController</a>
+  
+    <li><a href="./FlowLane.html">FlowLane</a>
+  
+    <li><a href="./FlowcellQueriesController.html">FlowcellQueriesController</a>
+  
+    <li><a href="./FlowcellQuery.html">FlowcellQuery</a>
+  
+    <li><a href="./FreezerLocation.html">FreezerLocation</a>
+  
+    <li><a href="./FreezerLocationsController.html">FreezerLocationsController</a>
+  
+    <li><a href="./HasManyAutoCompleteViewTest.html">HasManyAutoCompleteViewTest</a>
+  
+    <li><a href="./HistologiesController.html">HistologiesController</a>
+  
+    <li><a href="./HistologiesHelper.html">HistologiesHelper</a>
+  
+    <li><a href="./Histology.html">Histology</a>
+  
+    <li><a href="./HttpLoginProxy.html">HttpLoginProxy</a>
+  
+    <li><a href="./IndexTag.html">IndexTag</a>
+  
+    <li><a href="./IndexTagsController.html">IndexTagsController</a>
+  
+    <li><a href="./InventoryDB.html">InventoryDB</a>
+  
+    <li><a href="./Item.html">Item</a>
+  
+    <li><a href="./ItemQuery.html">ItemQuery</a>
+  
+    <li><a href="./ItemsController.html">ItemsController</a>
+  
+    <li><a href="./LibBarcode.html">LibBarcode</a>
+  
+    <li><a href="./LibSample.html">LibSample</a>
+  
+    <li><a href="./LimsCommon.html">LimsCommon</a>
+  
+    <li><a href="./LimsMailer.html">LimsMailer</a>
+  
+    <li><a href="./MachineIncident.html">MachineIncident</a>
+  
+    <li><a href="./MolassayQueriesController.html">MolassayQueriesController</a>
+  
+    <li><a href="./MolassayQuery.html">MolassayQuery</a>
+  
+    <li><a href="./MolecularAssay.html">MolecularAssay</a>
+  
+    <li><a href="./MolecularAssaysController.html">MolecularAssaysController</a>
+  
+    <li><a href="./MolecularAssaysHelper.html">MolecularAssaysHelper</a>
+  
+    <li><a href="./Monkey.html">Monkey</a>
+  
+    <li><a href="./MplexLibsController.html">MplexLibsController</a>
+  
+    <li><a href="./NoTable.html">NoTable</a>
+  
+    <li><a href="./NoValidation.html">NoValidation</a>
+  
+    <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./OligoPoolsController.html">OligoPoolsController</a>
+  
+    <li><a href="./Order.html">Order</a>
+  
+    <li><a href="./OrderMailer.html">OrderMailer</a>
+  
+    <li><a href="./OrdersController.html">OrdersController</a>
+  
+    <li><a href="./Parent.html">Parent</a>
+  
+    <li><a href="./PartialBlameTest.html">PartialBlameTest</a>
+  
+    <li><a href="./PathologiesController.html">PathologiesController</a>
+  
+    <li><a href="./Pathology.html">Pathology</a>
+  
+    <li><a href="./Patient.html">Patient</a>
+  
+    <li><a href="./PatientsController.html">PatientsController</a>
+  
+    <li><a href="./Person.html">Person</a>
+  
+    <li><a href="./Pool.html">Pool</a>
+  
+    <li><a href="./Primer.html">Primer</a>
+  
+    <li><a href="./ProcessedSample.html">ProcessedSample</a>
+  
+    <li><a href="./ProcessedSamplesController.html">ProcessedSamplesController</a>
+  
+    <li><a href="./Protocol.html">Protocol</a>
+  
+    <li><a href="./ProtocolsController.html">ProtocolsController</a>
+  
+    <li><a href="./PsampleQueriesController.html">PsampleQueriesController</a>
+  
+    <li><a href="./PsampleQuery.html">PsampleQuery</a>
+  
+    <li><a href="./Publication.html">Publication</a>
+  
+    <li><a href="./PublicationsController.html">PublicationsController</a>
+  
+    <li><a href="./Researcher.html">Researcher</a>
+  
+    <li><a href="./ResearchersController.html">ResearchersController</a>
+  
+    <li><a href="./Role.html">Role</a>
+  
+    <li><a href="./RoleRequirementTestHelper.html">RoleRequirementTestHelper</a>
+  
+    <li><a href="./RunDir.html">RunDir</a>
+  
+    <li><a href="./RunDirsController.html">RunDirsController</a>
+  
+    <li><a href="./Sample.html">Sample</a>
+  
+    <li><a href="./SampleCharacteristic.html">SampleCharacteristic</a>
+  
+    <li><a href="./SampleCharacteristicsController.html">SampleCharacteristicsController</a>
+  
+    <li><a href="./SampleQueriesController.html">SampleQueriesController</a>
+  
+    <li><a href="./SampleQueriesHelper.html">SampleQueriesHelper</a>
+  
+    <li><a href="./SampleQuery.html">SampleQuery</a>
+  
+    <li><a href="./SampleStorageContainer.html">SampleStorageContainer</a>
+  
+    <li><a href="./SampleStorageContainersController.html">SampleStorageContainersController</a>
+  
+    <li><a href="./SamplesController.html">SamplesController</a>
+  
+    <li><a href="./SeqLib.html">SeqLib</a>
+  
+    <li><a href="./SeqLibsController.html">SeqLibsController</a>
+  
+    <li><a href="./SeqLibsHelper.html">SeqLibsHelper</a>
+  
+    <li><a href="./SeqMachine.html">SeqMachine</a>
+  
+    <li><a href="./SeqMachinesController.html">SeqMachinesController</a>
+  
+    <li><a href="./SeqlibLanesController.html">SeqlibLanesController</a>
+  
+    <li><a href="./SeqlibQueriesController.html">SeqlibQueriesController</a>
+  
+    <li><a href="./SeqlibQuery.html">SeqlibQuery</a>
+  
+    <li><a href="./Sprocket.html">Sprocket</a>
+  
+    <li><a href="./SslRequirementController.html">SslRequirementController</a>
+  
+    <li><a href="./SslRequirementTest.html">SslRequirementTest</a>
+  
+    <li><a href="./StorageDevice.html">StorageDevice</a>
+  
+    <li><a href="./StorageDevicesController.html">StorageDevicesController</a>
+  
+    <li><a href="./TaggedBuilder.html">TaggedBuilder</a>
+  
+    <li><a href="./TestiesController.html">TestiesController</a>
+  
+    <li><a href="./UploadsController.html">UploadsController</a>
+  
+    <li><a href="./User.html">User</a>
+  
+    <li><a href="./UserLog.html">UserLog</a>
+  
+    <li><a href="./UserLogin.html">UserLogin</a>
+  
+    <li><a href="./UserNotifier.html">UserNotifier</a>
+  
+    <li><a href="./UserObserver.html">UserObserver</a>
+  
+    <li><a href="./UsersController.html">UsersController</a>
+  
+    <li><a href="./WelcomeController.html">WelcomeController</a>
+  
+    <li><a href="./Widget.html">Widget</a>
+  
+    <li><a href="./WithValidation.html">WithValidation</a>
+  
+    <li><a href="./XmlLoginProxy.html">XmlLoginProxy</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class MplexLibsController</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-create" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>POST /mplex_libs</p>
+          
+
+          
+          <div class="method-source-code" id="create-source">
+            <pre><span class="ruby-comment"># File app/controllers/mplex_libs_controller.rb, line 53</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
+  <span class="ruby-ivar">@seq_lib</span>       = <span class="ruby-constant">SeqLib</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:seq_lib</span>])
+  <span class="ruby-ivar">@seq_lib</span>[<span class="ruby-value">:library_type</span>] = <span class="ruby-string">'M'</span>
+  <span class="ruby-ivar">@seq_lib</span>[<span class="ruby-value">:alignment_ref</span>] = <span class="ruby-constant">AlignmentRef</span>.<span class="ruby-identifier">get_align_key</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:seq_lib</span>][<span class="ruby-value">:alignment_ref_id</span>])
+  
+  <span class="ruby-comment">#slib_params = array of arrays [][id, notes]; slib_ids = array of ids [id1, id2, ..]</span>
+  <span class="ruby-identifier">slib_params</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:lib_samples</span>].<span class="ruby-identifier">collect</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">lsample</span><span class="ruby-operator">|</span> [<span class="ruby-identifier">lsample</span>[<span class="ruby-value">:splex_lib_id</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">lsample</span>[<span class="ruby-value">:notes</span>]]}
+  <span class="ruby-identifier">slib_params</span>.<span class="ruby-identifier">delete_if</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">sparam</span><span class="ruby-operator">|</span> <span class="ruby-identifier">sparam</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-value">0</span>}
+  <span class="ruby-identifier">slib_ids_checked</span> = <span class="ruby-identifier">slib_params</span>.<span class="ruby-identifier">collect</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">sparam</span><span class="ruby-operator">|</span> <span class="ruby-identifier">sparam</span>[<span class="ruby-value">0</span>]}
+  <span class="ruby-identifier">slib_ids_all</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:lib_id</span>].<span class="ruby-identifier">to_a</span>
+
+  <span class="ruby-identifier">splex_libs</span> = <span class="ruby-constant">SeqLib</span>.<span class="ruby-identifier">includes</span>(<span class="ruby-value">:lib_samples</span>).<span class="ruby-identifier">where</span>(<span class="ruby-string">'seq_libs.id in (?)'</span>, <span class="ruby-identifier">slib_ids_checked</span>).<span class="ruby-identifier">all</span>
+  <span class="ruby-identifier">error_found</span> = <span class="ruby-keyword">false</span>
+  <span class="ruby-identifier">slib_tags</span> = <span class="ruby-identifier">splex_libs</span>.<span class="ruby-identifier">collect</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">slib</span><span class="ruby-operator">|</span> <span class="ruby-identifier">slib</span>.<span class="ruby-identifier">lib_samples</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">index_tag</span> } 
+  <span class="ruby-identifier">slib_pools</span> = <span class="ruby-identifier">splex_libs</span>.<span class="ruby-identifier">collect</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">slib</span><span class="ruby-operator">|</span> [<span class="ruby-identifier">slib</span>.<span class="ruby-identifier">pool_id</span>, <span class="ruby-identifier">slib</span>.<span class="ruby-identifier">oligo_pool</span>]}
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">slib_pools</span>.<span class="ruby-identifier">uniq</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span> 
+    <span class="ruby-ivar">@seq_lib</span>[<span class="ruby-value">:oligo_pool</span>] =  <span class="ruby-string">'Multiple'</span>
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">slib_pools</span>.<span class="ruby-identifier">uniq</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+    <span class="ruby-ivar">@seq_lib</span>[<span class="ruby-value">:pool_id</span>] = <span class="ruby-identifier">slib_pools</span>[<span class="ruby-value">0</span>][<span class="ruby-value">0</span>]
+    <span class="ruby-ivar">@seq_lib</span>[<span class="ruby-value">:oligo_pool</span>] = <span class="ruby-identifier">slib_pools</span>[<span class="ruby-value">0</span>][<span class="ruby-value">1</span>]
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">splex_libs</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">slib_tags</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">slib_tags</span>.<span class="ruby-identifier">uniq</span>.<span class="ruby-identifier">size</span> <span class="ruby-comment"># More than 1 library selected; All index tags are unique, </span>
+    <span class="ruby-identifier">splex_libs</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">s_lib</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">slib_notes</span> = <span class="ruby-identifier">slib_params</span>.<span class="ruby-identifier">assoc</span>(<span class="ruby-identifier">s_lib</span>.<span class="ruby-identifier">id</span>)[<span class="ruby-value">1</span>] <span class="ruby-comment">#Find params array entry for this seq_lib.id, and extract notes field </span>
+      <span class="ruby-ivar">@seq_lib</span>.<span class="ruby-identifier">lib_samples</span>.<span class="ruby-identifier">build</span>(<span class="ruby-value">:processed_sample_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">s_lib</span>.<span class="ruby-identifier">lib_samples</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">processed_sample_id</span>,
+                                 <span class="ruby-value">:sample_name</span>         =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">s_lib</span>.<span class="ruby-identifier">lib_samples</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">sample_name</span>,
+                                 <span class="ruby-value">:source_DNA</span>          =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">s_lib</span>.<span class="ruby-identifier">lib_samples</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">source_DNA</span>,
+                                 <span class="ruby-value">:runtype_adapter</span>     =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">s_lib</span>.<span class="ruby-identifier">lib_samples</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">runtype_adapter</span>,
+                                 <span class="ruby-value">:index_tag</span>           =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">s_lib</span>.<span class="ruby-identifier">lib_samples</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">index_tag</span>,
+                                 <span class="ruby-value">:enzyme_code</span>         =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">s_lib</span>.<span class="ruby-identifier">lib_samples</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">enzyme_code</span>,
+                                 <span class="ruby-value">:splex_lib_id</span>        =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">s_lib</span>.<span class="ruby-identifier">id</span>,
+                                 <span class="ruby-value">:splex_lib_barcode</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">s_lib</span>.<span class="ruby-identifier">barcode_key</span>,
+                                 <span class="ruby-value">:notes</span>               =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">slib_notes</span>)
+    <span class="ruby-keyword">end</span>  
+    <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@seq_lib</span>.<span class="ruby-identifier">save</span>
+      <span class="ruby-identifier">error_found</span> = <span class="ruby-keyword">true</span>  <span class="ruby-comment"># Validation or other error when saving to database</span>
+      <span class="ruby-identifier">flash</span>.<span class="ruby-identifier">now</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">'ERROR - Unable to create multiplex library'</span>
+    <span class="ruby-keyword">end</span>
+    
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">splex_libs</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">2</span>   <span class="ruby-comment">#Only one sequencing library selected     </span>
+    <span class="ruby-identifier">flash</span>.<span class="ruby-identifier">now</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">'ERROR - Only one sequencing library selected for multiplexing'</span>
+    <span class="ruby-identifier">error_found</span> = <span class="ruby-keyword">true</span> 
+    
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">slib_tags</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">slib_tags</span>.<span class="ruby-identifier">uniq</span>.<span class="ruby-identifier">size</span>  <span class="ruby-comment"># One or more duplicate tags</span>
+    <span class="ruby-identifier">flash</span>.<span class="ruby-identifier">now</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">'ERROR - Duplicate index tags entered for this multiplex library'</span>
+    <span class="ruby-identifier">error_found</span> = <span class="ruby-keyword">true</span>
+  <span class="ruby-keyword">end</span>
+   
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">error_found</span>
+    <span class="ruby-ivar">@singleplex_libs</span> = <span class="ruby-constant">SeqLib</span>.<span class="ruby-identifier">includes</span>(<span class="ruby-value">:lib_samples</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:processed_sample</span>).<span class="ruby-identifier">where</span>(<span class="ruby-string">'seq_libs.id IN (?)'</span>, <span class="ruby-identifier">slib_ids_all</span>)
+                             .<span class="ruby-identifier">order</span>(<span class="ruby-string">'barcode_key, lib_name'</span>)
+    <span class="ruby-ivar">@lib_samples</span> = []
+    <span class="ruby-ivar">@singleplex_libs</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">slib</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+      <span class="ruby-ivar">@lib_samples</span>[<span class="ruby-identifier">i</span>] = <span class="ruby-constant">LibSample</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">slib</span>.<span class="ruby-identifier">lib_samples</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">attributes</span>)
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">slib_ids_checked</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">slib</span>.<span class="ruby-identifier">id</span>)
+        <span class="ruby-ivar">@lib_samples</span>[<span class="ruby-identifier">i</span>][<span class="ruby-value">:splex_lib_id</span>] = <span class="ruby-identifier">slib</span>.<span class="ruby-identifier">id</span> 
+        <span class="ruby-ivar">@lib_samples</span>[<span class="ruby-identifier">i</span>][<span class="ruby-value">:notes</span>] = <span class="ruby-identifier">slib_params</span>.<span class="ruby-identifier">assoc</span>(<span class="ruby-identifier">slib</span>.<span class="ruby-identifier">id</span>)[<span class="ruby-value">1</span>]
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">dropdowns</span>
+    <span class="ruby-identifier">render</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'new'</span>
+  <span class="ruby-keyword">else</span>
+   <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-string">'Multiplex library successfully created'</span>
+   <span class="ruby-identifier">redirect_to</span>(<span class="ruby-ivar">@seq_lib</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment">#render :action =&gt; 'debug'</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- create-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- create-method -->
+
+    
+      <div id="method-i-destroy" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">destroy</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>DELETE /mplex_libs/1</p>
+          
+
+          
+          <div class="method-source-code" id="destroy-source">
+            <pre><span class="ruby-comment"># File app/controllers/mplex_libs_controller.rb, line 144</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
+  <span class="ruby-ivar">@seq_lib</span> = <span class="ruby-constant">SeqLib</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-ivar">@seq_lib</span>.<span class="ruby-identifier">destroy</span>
+  <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-string">'Multiplex sequencing library successfully deleted'</span>
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">seq_libs_url</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- destroy-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- destroy-method -->
+
+    
+      <div id="method-i-edit" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">edit</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>GET /mplex_libs/1/edit</p>
+          
+
+          
+          <div class="method-source-code" id="edit-source">
+            <pre><span class="ruby-comment"># File app/controllers/mplex_libs_controller.rb, line 48</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
+  <span class="ruby-ivar">@seq_lib</span> = <span class="ruby-constant">SeqLib</span>.<span class="ruby-identifier">includes</span>(<span class="ruby-value">:lib_samples</span>).<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- edit-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- edit-method -->
+
+    
+      <div id="method-i-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File app/controllers/mplex_libs_controller.rb, line 15</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
+  <span class="ruby-ivar">@requester</span> = (<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">researcher</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">researcher</span>.<span class="ruby-identifier">researcher_name</span> <span class="ruby-operator">:</span> <span class="ruby-keyword">nil</span>)
+  <span class="ruby-ivar">@seq_lib</span>   = <span class="ruby-constant">SeqLib</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:library_type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'M'</span>,
+                          <span class="ruby-value">:owner</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@requester</span>,
+                          <span class="ruby-value">:preparation_date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Date</span>.<span class="ruby-identifier">today</span>,
+                          <span class="ruby-value">:runtype_adapter</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:seq_lib</span>][<span class="ruby-value">:runtype_adapter</span>],
+                          <span class="ruby-value">:alignment_ref_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">AlignmentRef</span>.<span class="ruby-identifier">default_id</span>)
+  
+  <span class="ruby-comment"># Get sequencing libraries based on parameters entered</span>
+  <span class="ruby-ivar">@condition_array</span> = <span class="ruby-identifier">define_lib_conditions</span>(<span class="ruby-identifier">params</span>)
+  <span class="ruby-ivar">@singleplex_libs</span> = <span class="ruby-constant">SeqLib</span>.<span class="ruby-identifier">includes</span>(<span class="ruby-value">:mlib_samples</span>, {<span class="ruby-value">:lib_samples</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:processed_sample</span>}).<span class="ruby-identifier">where</span>(<span class="ruby-identifier">sql_where</span>(<span class="ruby-ivar">@condition_array</span>))
+                           .<span class="ruby-identifier">order</span>(<span class="ruby-string">'barcode_key, lib_name'</span>).<span class="ruby-identifier">all</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:excl_used</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:excl_used</span>] <span class="ruby-operator">==</span> <span class="ruby-string">'Y'</span>
+    <span class="ruby-ivar">@singleplex_libs</span>.<span class="ruby-identifier">reject!</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">s_lib</span><span class="ruby-operator">|</span> <span class="ruby-operator">!</span><span class="ruby-identifier">s_lib</span>.<span class="ruby-identifier">mlib_samples</span>.<span class="ruby-identifier">empty?</span>} <span class="ruby-comment">#Exclude if already included in a multiplex library</span>
+  <span class="ruby-keyword">end</span>
+                                 
+  <span class="ruby-comment"># Populate lib_samples based on data in each sequencing library</span>
+  <span class="ruby-ivar">@lib_samples</span> = []    
+  <span class="ruby-ivar">@singleplex_libs</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">s_lib</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+    <span class="ruby-ivar">@lib_samples</span>[<span class="ruby-identifier">i</span>] = <span class="ruby-constant">LibSample</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:processed_sample_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">s_lib</span>.<span class="ruby-identifier">lib_samples</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">processed_sample_id</span>,
+                                    <span class="ruby-value">:sample_name</span>         =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">s_lib</span>.<span class="ruby-identifier">lib_samples</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">sample_name</span>,
+                                    <span class="ruby-value">:source_DNA</span>          =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">s_lib</span>.<span class="ruby-identifier">lib_samples</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">source_DNA</span>,
+                                    <span class="ruby-value">:runtype_adapter</span>     =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">s_lib</span>.<span class="ruby-identifier">lib_samples</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">runtype_adapter</span>,
+                                    <span class="ruby-value">:index_tag</span>           =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">s_lib</span>.<span class="ruby-identifier">lib_samples</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">index_tag</span>,
+                                    <span class="ruby-value">:enzyme_code</span>         =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">s_lib</span>.<span class="ruby-identifier">lib_samples</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">enzyme_code</span>,
+                                    <span class="ruby-value">:notes</span>               =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">s_lib</span>.<span class="ruby-identifier">lib_samples</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">notes</span>)
+  <span class="ruby-keyword">end</span>     
+  <span class="ruby-ivar">@checked</span> = <span class="ruby-keyword">false</span>
+  <span class="ruby-identifier">render</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'new'</span>
+  <span class="ruby-comment">#render :action =&gt; 'debug'</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new-method -->
+
+    
+      <div id="method-i-setup_params" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">setup_params</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="setup_params-source">
+            <pre><span class="ruby-comment"># File app/controllers/mplex_libs_controller.rb, line 7</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">setup_params</span>
+ <span class="ruby-ivar">@from_date</span> = (<span class="ruby-constant">Date</span>.<span class="ruby-identifier">today</span> <span class="ruby-operator">-</span> <span class="ruby-value">3</span>.<span class="ruby-identifier">months</span>).<span class="ruby-identifier">beginning_of_month</span>
+ <span class="ruby-ivar">@to_date</span>   =  <span class="ruby-constant">Date</span>.<span class="ruby-identifier">today</span>
+ <span class="ruby-ivar">@date_range</span> = <span class="ruby-constant">DateRange</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@from_date</span>, <span class="ruby-ivar">@to_date</span>)
+ <span class="ruby-ivar">@seq_lib</span>   = <span class="ruby-constant">SeqLib</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:owner</span> =<span class="ruby-operator">&gt;</span> (<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">researcher</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">researcher</span>.<span class="ruby-identifier">researcher_name</span> <span class="ruby-operator">:</span> <span class="ruby-keyword">nil</span>),
+                         <span class="ruby-value">:runtype_adapter</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'M_PE'</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- setup_params-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- setup_params-method -->
+
+    
+      <div id="method-i-update" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">update</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>PUT /mplex_libs/1</p>
+          
+
+          
+          <div class="method-source-code" id="update-source">
+            <pre><span class="ruby-comment"># File app/controllers/mplex_libs_controller.rb, line 123</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
+  <span class="ruby-ivar">@seq_lib</span> = <span class="ruby-constant">SeqLib</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-identifier">alignment_key</span> = <span class="ruby-constant">AlignmentRef</span>.<span class="ruby-identifier">get_align_key</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:seq_lib</span>][<span class="ruby-value">:alignment_ref_id</span>])
+  <span class="ruby-identifier">params</span>[<span class="ruby-value">:seq_lib</span>].<span class="ruby-identifier">merge!</span>(<span class="ruby-value">:alignment_ref</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">alignment_key</span>)
+   
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@seq_lib</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:seq_lib</span>])
+    <span class="ruby-constant">SeqLib</span>.<span class="ruby-identifier">upd_mplex_fields</span>(<span class="ruby-ivar">@seq_lib</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@seq_lib</span>.<span class="ruby-identifier">on_flow_lane?</span>
+      <span class="ruby-constant">FlowLane</span>.<span class="ruby-identifier">upd_lib_lanes</span>(<span class="ruby-ivar">@seq_lib</span>)
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-string">'Multiplex library was successfully updated'</span>
+    <span class="ruby-identifier">redirect_to</span>(<span class="ruby-ivar">@seq_lib</span>) 
+    
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">'ERROR - Unable to update sequencing library'</span>
+    <span class="ruby-identifier">dropdowns</span>
+    <span class="ruby-identifier">render</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;edit&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- update-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- update-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+     <section id="protected-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Protected Instance Methods</h3>
+
+    
+      <div id="method-i-define_lib_conditions" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">define_lib_conditions</span><span
+            class="method-args">(params)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="define_lib_conditions-source">
+            <pre><span class="ruby-comment"># File app/controllers/mplex_libs_controller.rb, line 166</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">define_lib_conditions</span>(<span class="ruby-identifier">params</span>)
+  <span class="ruby-ivar">@where_select</span> = [<span class="ruby-string">&quot;seq_libs.library_type = 'S'&quot;</span>] 
+  <span class="ruby-ivar">@where_values</span> = []
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:seq_lib</span>] 
+    <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">param_blank?</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:seq_lib</span>][<span class="ruby-value">:owner</span>])
+      <span class="ruby-ivar">@where_select</span>.<span class="ruby-identifier">push</span>(<span class="ruby-string">'seq_libs.owner IN (?)'</span>)
+      <span class="ruby-ivar">@where_values</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:seq_lib</span>][<span class="ruby-value">:owner</span>])
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">param_blank?</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:seq_lib</span>][<span class="ruby-value">:runtype_adapter</span>])
+      <span class="ruby-ivar">@where_select</span>.<span class="ruby-identifier">push</span>(<span class="ruby-string">'seq_libs.runtype_adapter = ?'</span>)
+      <span class="ruby-ivar">@where_values</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:seq_lib</span>][<span class="ruby-value">:runtype_adapter</span>])
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">param_blank?</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:barcode_from</span>]) <span class="ruby-operator">||</span> <span class="ruby-operator">!</span><span class="ruby-identifier">param_blank?</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:barcode_to</span>])
+    <span class="ruby-ivar">@where_select</span>.<span class="ruby-identifier">push</span>(<span class="ruby-string">&quot;seq_libs.barcode_key LIKE 'L%'&quot;</span>)
+    <span class="ruby-identifier">barcode_from</span> = (<span class="ruby-identifier">param_blank?</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:barcode_from</span>]) <span class="ruby-operator">?</span> <span class="ruby-keyword">nil</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:barcode_from</span>].<span class="ruby-identifier">to_i</span>)
+    <span class="ruby-identifier">barcode_to</span>   = (<span class="ruby-identifier">param_blank?</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:barcode_to</span>])<span class="ruby-operator">?</span> <span class="ruby-keyword">nil</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:barcode_to</span>].<span class="ruby-identifier">to_i</span>)
+    <span class="ruby-ivar">@where_select</span>, <span class="ruby-ivar">@where_values</span> = <span class="ruby-identifier">sql_conditions_for_range</span>(<span class="ruby-ivar">@where_select</span>, <span class="ruby-ivar">@where_values</span>, <span class="ruby-identifier">barcode_from</span>, <span class="ruby-identifier">barcode_to</span>,
+                                                            <span class="ruby-string">&quot;CAST(SUBSTRING(seq_libs.barcode_key,2) AS UNSIGNED)&quot;</span>)
+  <span class="ruby-keyword">end</span>
+                                   
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:excl_used</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:excl_used</span>] <span class="ruby-operator">==</span> <span class="ruby-string">'Y'</span>
+    <span class="ruby-ivar">@where_select</span>.<span class="ruby-identifier">push</span>(<span class="ruby-string">&quot;seq_libs.lib_status &lt;&gt; 'F'&quot;</span>)
+  <span class="ruby-keyword">end</span>
+    
+  <span class="ruby-identifier">date_fld</span> = <span class="ruby-string">'seq_libs.preparation_date'</span>
+  <span class="ruby-ivar">@where_select</span>, <span class="ruby-ivar">@where_values</span> = <span class="ruby-identifier">sql_conditions_for_date_range</span>(<span class="ruby-ivar">@where_select</span>, <span class="ruby-ivar">@where_values</span>, <span class="ruby-identifier">params</span>, <span class="ruby-identifier">date_fld</span>)
+  
+  <span class="ruby-identifier">sql_where_clause</span> = (<span class="ruby-ivar">@where_select</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span> <span class="ruby-operator">?</span> [] <span class="ruby-operator">:</span> [<span class="ruby-ivar">@where_select</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">' AND '</span>)].<span class="ruby-identifier">concat</span>(<span class="ruby-ivar">@where_values</span>))
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">sql_where_clause</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- define_lib_conditions-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- define_lib_conditions-method -->
+
+    
+      <div id="method-i-dropdowns" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">dropdowns</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="dropdowns-source">
+            <pre><span class="ruby-comment"># File app/controllers/mplex_libs_controller.rb, line 152</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">dropdowns</span>
+  <span class="ruby-ivar">@enzymes</span>      = <span class="ruby-constant">Category</span>.<span class="ruby-identifier">populate_dropdown_for_category</span>(<span class="ruby-string">'enzyme'</span>)
+  <span class="ruby-ivar">@align_refs</span>   = <span class="ruby-constant">AlignmentRef</span>.<span class="ruby-identifier">populate_dropdown</span>
+  <span class="ruby-ivar">@projects</span>     = <span class="ruby-constant">Category</span>.<span class="ruby-identifier">populate_dropdown_for_category</span>(<span class="ruby-string">'project'</span>)
+  <span class="ruby-ivar">@owners</span>       = <span class="ruby-constant">Researcher</span>.<span class="ruby-identifier">populate_dropdown</span>(<span class="ruby-string">'active_only'</span>)
+  <span class="ruby-ivar">@protocols</span>    = <span class="ruby-constant">Protocol</span>.<span class="ruby-identifier">find_for_protocol_type</span>(<span class="ruby-string">'L'</span>)
+  <span class="ruby-ivar">@quantitation</span>= <span class="ruby-constant">Category</span>.<span class="ruby-identifier">populate_dropdown_for_category</span>(<span class="ruby-string">'quantitation'</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- dropdowns-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- dropdowns-method -->
+
+    
+      <div id="method-i-setup_dropdowns" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">setup_dropdowns</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="setup_dropdowns-source">
+            <pre><span class="ruby-comment"># File app/controllers/mplex_libs_controller.rb, line 161</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">setup_dropdowns</span>
+  <span class="ruby-ivar">@owners</span>    =  <span class="ruby-constant">Researcher</span>.<span class="ruby-identifier">populate_dropdown</span>(<span class="ruby-string">'incl_inactive'</span>)
+  <span class="ruby-ivar">@mplex_adapters</span>  = <span class="ruby-constant">IndexTag</span>.<span class="ruby-identifier">mplex_adapters</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- setup_dropdowns-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- setup_dropdowns-method -->
+
+    
+    </section><!-- protected-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

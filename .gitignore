@@ -13,7 +13,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
-/.idea/*
+.idea/*
 
 # Ignore initializers/config for mail and session setup
 /config/initializers/secret_token.rb
@@ -31,8 +31,6 @@
 /config/*.yml
 /lib/mysql.rb
 
-/.rvmrc
+.rvmrc
 /.project
 /Gemfile.lock
-
-

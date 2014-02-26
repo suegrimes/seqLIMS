@@ -2,8 +2,8 @@
 #
 # Table name: items
 #
-#  id               :integer(4)      not null, primary key
-#  order_id         :integer(4)
+#  id               :integer          not null, primary key
+#  order_id         :integer
 #  po_number        :string(20)
 #  requester_name   :string(30)
 #  deliver_site     :string(4)
@@ -20,7 +20,7 @@
 #  notes            :string(255)
 #  created_at       :datetime
 #  updated_at       :timestamp
-#  updated_by       :integer(2)
+#  updated_by       :integer
 #
 
 class Item < ActiveRecord::Base

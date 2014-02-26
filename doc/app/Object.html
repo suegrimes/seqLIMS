@@ -1,0 +1,2293 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>class Object - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/acts_as_authenticated/generators/authenticated/templates/functional_test.rb
+    <li>lib/acts_as_authenticated/generators/authenticated/templates/model.rb
+    <li>lib/acts_as_authenticated/generators/authenticated/templates/unit_test.rb
+    <li>lib/acts_as_authenticated/generators/authenticated_mailer/templates/notifier_test.rb
+    <li>lib/annotate_models/lib/annotate_models.rb
+    <li>lib/repeated_auto_complete/lib/view_mapper/templates/controller.rb
+    <li>lib/repeated_auto_complete/test/view_mapper/has_many_auto_complete_view_test.rb
+    <li>lib/validates_timeliness-e711941/benchmark.rb
+    <li>lib/validates_timeliness-e711941/spec/action_view/instance_tag_spec.rb
+    <li>lib/validates_timeliness-e711941/spec/active_record/multiparameter_attributes_spec.rb
+    <li>lib/validates_timeliness-e711941/spec/formats_spec.rb
+    <li>lib/validates_timeliness-e711941/spec/parser_spec.rb
+    <li>lib/validates_timeliness-e711941/spec/spec/rails/matchers/validate_timeliness_spec.rb
+    <li>lib/validates_timeliness-e711941/spec/spec_helper.rb
+    <li>lib/validates_timeliness-e711941/spec/time_travel/time_travel.rb
+    <li>lib/validates_timeliness-e711941/spec/validator_spec.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">BasicObject
+  
+</nav>
+
+    <!-- Included Modules -->
+<nav id="includes-section" class="section">
+  <h3 class="section-header">Included Modules</h3>
+
+  <ul class="link-list">
+  
+  
+    <li><a class="include" href="AuthenticatedTestHelper.html">AuthenticatedTestHelper</a>
+  
+  
+  
+    <li><span class="include">ActionMailer::Quoting</span>
+  
+  
+  
+    <li><span class="include">ActionView::Helpers::DateHelper</span>
+  
+  
+  
+    <li><span class="include">ActionController::Assertions::SelectorAssertions</span>
+  
+  
+  </ul>
+</nav>
+
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-authenticate">::authenticate</a>
+    
+    <li><a href="#method-c-encrypt">::encrypt</a>
+    
+    <li><a href="#method-i-at_time">#at_time</a>
+    
+    <li><a href="#method-i-attribute_for_type">#attribute_for_type</a>
+    
+    <li><a href="#method-i-authenticated-3F">#authenticated?</a>
+    
+    <li><a href="#method-i-configure_validator">#configure_validator</a>
+    
+    <li><a href="#method-i-create">#create</a>
+    
+    <li><a href="#method-i-delete_format">#delete_format</a>
+    
+    <li><a href="#method-i-edit">#edit</a>
+    
+    <li><a href="#method-i-encode">#encode</a>
+    
+    <li><a href="#method-i-encrypt">#encrypt</a>
+    
+    <li><a href="#method-i-encrypt_password">#encrypt_password</a>
+    
+    <li><a href="#method-i-error_messages">#error_messages</a>
+    
+    <li><a href="#method-i-evaluate_option_value">#evaluate_option_value</a>
+    
+    <li><a href="#method-i-expect_no_actions">#expect_no_actions</a>
+    
+    <li><a href="#method-i-expect_no_warnings">#expect_no_warnings</a>
+    
+    <li><a href="#method-i-forget_me">#forget_me</a>
+    
+    <li><a href="#method-i-formats">#formats</a>
+    
+    <li><a href="#method-i-generate_proc">#generate_proc</a>
+    
+    <li><a href="#method-i-generate_regexp">#generate_regexp</a>
+    
+    <li><a href="#method-i-generate_regexp_str">#generate_regexp_str</a>
+    
+    <li><a href="#method-i-generator_cmd_line">#generator_cmd_line</a>
+    
+    <li><a href="#method-i-generator_script_cmd_line">#generator_script_cmd_line</a>
+    
+    <li><a href="#method-i-is_auto_complete_attribute-3F">#is_auto_complete_attribute?</a>
+    
+    <li><a href="#method-i-new_generator_for_test_model">#new_generator_for_test_model</a>
+    
+    <li><a href="#method-i-obj">#obj</a>
+    
+    <li><a href="#method-i-params">#params</a>
+    
+    <li><a href="#method-i-parse">#parse</a>
+    
+    <li><a href="#method-i-password_required-3F">#password_required?</a>
+    
+    <li><a href="#method-i-person">#person</a>
+    
+    <li><a href="#method-i-read_fixture">#read_fixture</a>
+    
+    <li><a href="#method-i-remember_me">#remember_me</a>
+    
+    <li><a href="#method-i-remember_token-3F">#remember_token?</a>
+    
+    <li><a href="#method-i-setup">#setup</a>
+    
+    <li><a href="#method-i-setup_parent_test_model">#setup_parent_test_model</a>
+    
+    <li><a href="#method-i-setup_test_model">#setup_test_model</a>
+    
+    <li><a href="#method-i-setup_test_model_without_nested_attributes">#setup_test_model_without_nested_attributes</a>
+    
+    <li><a href="#method-i-setup_test_table">#setup_test_table</a>
+    
+    <li><a href="#method-i-should_have_error">#should_have_error</a>
+    
+    <li><a href="#method-i-should_have_no_error">#should_have_no_error</a>
+    
+    <li><a href="#method-i-some_other_models_attributes-3D">#some_other_models_attributes=</a>
+    
+    <li><a href="#method-i-stub_actions">#stub_actions</a>
+    
+    <li><a href="#method-i-stub_warnings">#stub_warnings</a>
+    
+    <li><a href="#method-i-test_should_create_">#test_should_create_</a>
+    
+    <li><a href="#method-i-testies_attributes-3D">#testies_attributes=</a>
+    
+    <li><a href="#method-i-time_array_to_string">#time_array_to_string</a>
+    
+    <li><a href="#method-i-update">#update</a>
+    
+    <li><a href="#method-i-validate">#validate</a>
+    
+    <li><a href="#method-i-validate_with">#validate_with</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./doc/README_FOR_APP.html">README_FOR_APP</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./ValidatesTimeliness.html">ValidatesTimeliness</a>
+  
+    <li><a href="./ValidatesTimeliness/ActionView.html">ValidatesTimeliness::ActionView</a>
+  
+    <li><a href="./ValidatesTimeliness/ActionView/InstanceTag.html">ValidatesTimeliness::ActionView::InstanceTag</a>
+  
+    <li><a href="./ValidatesTimeliness/ActiveRecord.html">ValidatesTimeliness::ActiveRecord</a>
+  
+    <li><a href="./ValidatesTimeliness/ActiveRecord/AttributeMethods.html">ValidatesTimeliness::ActiveRecord::AttributeMethods</a>
+  
+    <li><a href="./ValidatesTimeliness/ActiveRecord/AttributeMethods/ClassMethods.html">ValidatesTimeliness::ActiveRecord::AttributeMethods::ClassMethods</a>
+  
+    <li><a href="./ValidatesTimeliness/ActiveRecord/MultiparameterAttributes.html">ValidatesTimeliness::ActiveRecord::MultiparameterAttributes</a>
+  
+    <li><a href="./ValidatesTimeliness/Formats.html">ValidatesTimeliness::Formats</a>
+  
+    <li><a href="./ValidatesTimeliness/Parser.html">ValidatesTimeliness::Parser</a>
+  
+    <li><a href="./ValidatesTimeliness/ValidationMethods.html">ValidatesTimeliness::ValidationMethods</a>
+  
+    <li><a href="./ValidatesTimeliness/ValidationMethods/ClassMethods.html">ValidatesTimeliness::ValidationMethods::ClassMethods</a>
+  
+    <li><a href="./ValidatesTimeliness/Validator.html">ValidatesTimeliness::Validator</a>
+  
+    <li><a href="./Spec.html">Spec</a>
+  
+    <li><a href="./Spec/Rails.html">Spec::Rails</a>
+  
+    <li><a href="./Spec/Rails/Matchers.html">Spec::Rails::Matchers</a>
+  
+    <li><a href="./Spec/Rails/Matchers/ValidateTimeliness.html">Spec::Rails::Matchers::ValidateTimeliness</a>
+  
+    <li><a href="./Blame.html">Blame</a>
+  
+    <li><a href="./Blame/Userstamp.html">Blame::Userstamp</a>
+  
+    <li><a href="./Blame/UserstampMigrationHelper.html">Blame::UserstampMigrationHelper</a>
+  
+    <li><a href="./Rails.html">Rails</a>
+  
+    <li><a href="./Rails/Generator.html">Rails::Generator</a>
+  
+    <li><a href="./Rails/Generator/NamedBase.html">Rails::Generator::NamedBase</a>
+  
+    <li><a href="./RoleRequirementSystem.html">RoleRequirementSystem</a>
+  
+    <li><a href="./RoleRequirementSystem/RoleSecurityClassMethods.html">RoleRequirementSystem::RoleSecurityClassMethods</a>
+  
+    <li><a href="./RoleRequirementSystem/RoleSecurityInstanceMethods.html">RoleRequirementSystem::RoleSecurityInstanceMethods</a>
+  
+    <li><a href="./Test.html">Test</a>
+  
+    <li><a href="./Test/Unit.html">Test::Unit</a>
+  
+    <li><a href="./Test/Unit/TestCase.html">Test::Unit::TestCase</a>
+  
+    <li><a href="./TimeTravel.html">TimeTravel</a>
+  
+    <li><a href="./TimeTravel/TimeExtensions.html">TimeTravel::TimeExtensions</a>
+  
+    <li><a href="./TimeTravel/TimeExtensions/ClassMethods.html">TimeTravel::TimeExtensions::ClassMethods</a>
+  
+    <li><a href="./ActiveRecordExtension.html">ActiveRecordExtension</a>
+  
+    <li><a href="./ActiveRecordExtension/ClassMethods.html">ActiveRecordExtension::ClassMethods</a>
+  
+    <li><a href="./AutoComplete.html">AutoComplete</a>
+  
+    <li><a href="./AutoComplete/ClassMethods.html">AutoComplete::ClassMethods</a>
+  
+    <li><a href="./OverrideBlameTest.html">OverrideBlameTest</a>
+  
+    <li><a href="./OverrideBlameTest/Sprocket.html">OverrideBlameTest::Sprocket</a>
+  
+    <li><a href="./SslRequirement.html">SslRequirement</a>
+  
+    <li><a href="./SslRequirement/ClassMethods.html">SslRequirement::ClassMethods</a>
+  
+    <li><a href="./ViewMapper.html">ViewMapper</a>
+  
+    <li><a href="./ViewMapper/HasManyAutoCompleteView.html">ViewMapper::HasManyAutoCompleteView</a>
+  
+    <li><a href="./Ability.html">Ability</a>
+  
+    <li><a href="./AlignQc.html">AlignQc</a>
+  
+    <li><a href="./AlignQcsController.html">AlignQcsController</a>
+  
+    <li><a href="./AlignmentRef.html">AlignmentRef</a>
+  
+    <li><a href="./AlignmentRefsController.html">AlignmentRefsController</a>
+  
+    <li><a href="./AnnotateModels.html">AnnotateModels</a>
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./AssignedBarcode.html">AssignedBarcode</a>
+  
+    <li><a href="./AssignedBarcodesController.html">AssignedBarcodesController</a>
+  
+    <li><a href="./AttachedFile.html">AttachedFile</a>
+  
+    <li><a href="./AttachedFilesController.html">AttachedFilesController</a>
+  
+    <li><a href="./AttachmentUploader.html">AttachmentUploader</a>
+  
+    <li><a href="./AuthenticatedGenerator.html">AuthenticatedGenerator</a>
+  
+    <li><a href="./AuthenticatedMailerGenerator.html">AuthenticatedMailerGenerator</a>
+  
+    <li><a href="./AuthenticatedSystem.html">AuthenticatedSystem</a>
+  
+    <li><a href="./AuthenticatedTestHelper.html">AuthenticatedTestHelper</a>
+  
+    <li><a href="./AutoCompleteFormBuilderHelper.html">AutoCompleteFormBuilderHelper</a>
+  
+    <li><a href="./AutoCompleteFormBuilderHelperTest.html">AutoCompleteFormBuilderHelperTest</a>
+  
+    <li><a href="./AutoCompleteMacrosHelper.html">AutoCompleteMacrosHelper</a>
+  
+    <li><a href="./AutoCompleteNestedAttributesTest.html">AutoCompleteNestedAttributesTest</a>
+  
+    <li><a href="./AutoCompleteTest.html">AutoCompleteTest</a>
+  
+    <li><a href="./BaseLoginProxy.html">BaseLoginProxy</a>
+  
+    <li><a href="./BlameTest.html">BlameTest</a>
+  
+    <li><a href="./BuilderHelper.html">BuilderHelper</a>
+  
+    <li><a href="./CategoriesController.html">CategoriesController</a>
+  
+    <li><a href="./CategoriesHelper.html">CategoriesHelper</a>
+  
+    <li><a href="./Category.html">Category</a>
+  
+    <li><a href="./CategoryValue.html">CategoryValue</a>
+  
+    <li><a href="./Cgroup.html">Cgroup</a>
+  
+    <li><a href="./ConsentProtocol.html">ConsentProtocol</a>
+  
+    <li><a href="./ConsentProtocolsController.html">ConsentProtocolsController</a>
+  
+    <li><a href="./CreateParents.html">CreateParents</a>
+  
+    <li><a href="./CustomMessages.html">CustomMessages</a>
+  
+    <li><a href="./DissectedSamplesController.html">DissectedSamplesController</a>
+  
+    <li><a href="./FlowCell.html">FlowCell</a>
+  
+    <li><a href="./FlowCellsController.html">FlowCellsController</a>
+  
+    <li><a href="./FlowLane.html">FlowLane</a>
+  
+    <li><a href="./FlowcellQueriesController.html">FlowcellQueriesController</a>
+  
+    <li><a href="./FlowcellQuery.html">FlowcellQuery</a>
+  
+    <li><a href="./FreezerLocation.html">FreezerLocation</a>
+  
+    <li><a href="./FreezerLocationsController.html">FreezerLocationsController</a>
+  
+    <li><a href="./HasManyAutoCompleteViewTest.html">HasManyAutoCompleteViewTest</a>
+  
+    <li><a href="./HistologiesController.html">HistologiesController</a>
+  
+    <li><a href="./HistologiesHelper.html">HistologiesHelper</a>
+  
+    <li><a href="./Histology.html">Histology</a>
+  
+    <li><a href="./HttpLoginProxy.html">HttpLoginProxy</a>
+  
+    <li><a href="./IndexTag.html">IndexTag</a>
+  
+    <li><a href="./IndexTagsController.html">IndexTagsController</a>
+  
+    <li><a href="./InventoryDB.html">InventoryDB</a>
+  
+    <li><a href="./Item.html">Item</a>
+  
+    <li><a href="./ItemQuery.html">ItemQuery</a>
+  
+    <li><a href="./ItemsController.html">ItemsController</a>
+  
+    <li><a href="./LibBarcode.html">LibBarcode</a>
+  
+    <li><a href="./LibSample.html">LibSample</a>
+  
+    <li><a href="./LimsCommon.html">LimsCommon</a>
+  
+    <li><a href="./LimsMailer.html">LimsMailer</a>
+  
+    <li><a href="./MachineIncident.html">MachineIncident</a>
+  
+    <li><a href="./MolassayQueriesController.html">MolassayQueriesController</a>
+  
+    <li><a href="./MolassayQuery.html">MolassayQuery</a>
+  
+    <li><a href="./MolecularAssay.html">MolecularAssay</a>
+  
+    <li><a href="./MolecularAssaysController.html">MolecularAssaysController</a>
+  
+    <li><a href="./MolecularAssaysHelper.html">MolecularAssaysHelper</a>
+  
+    <li><a href="./Monkey.html">Monkey</a>
+  
+    <li><a href="./MplexLibsController.html">MplexLibsController</a>
+  
+    <li><a href="./NoTable.html">NoTable</a>
+  
+    <li><a href="./NoValidation.html">NoValidation</a>
+  
+    <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./OligoPoolsController.html">OligoPoolsController</a>
+  
+    <li><a href="./Order.html">Order</a>
+  
+    <li><a href="./OrderMailer.html">OrderMailer</a>
+  
+    <li><a href="./OrdersController.html">OrdersController</a>
+  
+    <li><a href="./Parent.html">Parent</a>
+  
+    <li><a href="./PartialBlameTest.html">PartialBlameTest</a>
+  
+    <li><a href="./PathologiesController.html">PathologiesController</a>
+  
+    <li><a href="./Pathology.html">Pathology</a>
+  
+    <li><a href="./Patient.html">Patient</a>
+  
+    <li><a href="./PatientsController.html">PatientsController</a>
+  
+    <li><a href="./Person.html">Person</a>
+  
+    <li><a href="./Pool.html">Pool</a>
+  
+    <li><a href="./Primer.html">Primer</a>
+  
+    <li><a href="./ProcessedSample.html">ProcessedSample</a>
+  
+    <li><a href="./ProcessedSamplesController.html">ProcessedSamplesController</a>
+  
+    <li><a href="./Protocol.html">Protocol</a>
+  
+    <li><a href="./ProtocolsController.html">ProtocolsController</a>
+  
+    <li><a href="./PsampleQueriesController.html">PsampleQueriesController</a>
+  
+    <li><a href="./PsampleQuery.html">PsampleQuery</a>
+  
+    <li><a href="./Publication.html">Publication</a>
+  
+    <li><a href="./PublicationsController.html">PublicationsController</a>
+  
+    <li><a href="./Researcher.html">Researcher</a>
+  
+    <li><a href="./ResearchersController.html">ResearchersController</a>
+  
+    <li><a href="./Role.html">Role</a>
+  
+    <li><a href="./RoleRequirementTestHelper.html">RoleRequirementTestHelper</a>
+  
+    <li><a href="./RunDir.html">RunDir</a>
+  
+    <li><a href="./RunDirsController.html">RunDirsController</a>
+  
+    <li><a href="./Sample.html">Sample</a>
+  
+    <li><a href="./SampleCharacteristic.html">SampleCharacteristic</a>
+  
+    <li><a href="./SampleCharacteristicsController.html">SampleCharacteristicsController</a>
+  
+    <li><a href="./SampleQueriesController.html">SampleQueriesController</a>
+  
+    <li><a href="./SampleQueriesHelper.html">SampleQueriesHelper</a>
+  
+    <li><a href="./SampleQuery.html">SampleQuery</a>
+  
+    <li><a href="./SampleStorageContainer.html">SampleStorageContainer</a>
+  
+    <li><a href="./SampleStorageContainersController.html">SampleStorageContainersController</a>
+  
+    <li><a href="./SamplesController.html">SamplesController</a>
+  
+    <li><a href="./SeqLib.html">SeqLib</a>
+  
+    <li><a href="./SeqLibsController.html">SeqLibsController</a>
+  
+    <li><a href="./SeqLibsHelper.html">SeqLibsHelper</a>
+  
+    <li><a href="./SeqMachine.html">SeqMachine</a>
+  
+    <li><a href="./SeqMachinesController.html">SeqMachinesController</a>
+  
+    <li><a href="./SeqlibLanesController.html">SeqlibLanesController</a>
+  
+    <li><a href="./SeqlibQueriesController.html">SeqlibQueriesController</a>
+  
+    <li><a href="./SeqlibQuery.html">SeqlibQuery</a>
+  
+    <li><a href="./Sprocket.html">Sprocket</a>
+  
+    <li><a href="./SslRequirementController.html">SslRequirementController</a>
+  
+    <li><a href="./SslRequirementTest.html">SslRequirementTest</a>
+  
+    <li><a href="./StorageDevice.html">StorageDevice</a>
+  
+    <li><a href="./StorageDevicesController.html">StorageDevicesController</a>
+  
+    <li><a href="./TaggedBuilder.html">TaggedBuilder</a>
+  
+    <li><a href="./TestiesController.html">TestiesController</a>
+  
+    <li><a href="./UploadsController.html">UploadsController</a>
+  
+    <li><a href="./User.html">User</a>
+  
+    <li><a href="./UserLog.html">UserLog</a>
+  
+    <li><a href="./UserLogin.html">UserLogin</a>
+  
+    <li><a href="./UserNotifier.html">UserNotifier</a>
+  
+    <li><a href="./UserObserver.html">UserObserver</a>
+  
+    <li><a href="./UsersController.html">UsersController</a>
+  
+    <li><a href="./WelcomeController.html">WelcomeController</a>
+  
+    <li><a href="./Widget.html">Widget</a>
+  
+    <li><a href="./WithValidation.html">WithValidation</a>
+  
+    <li><a href="./XmlLoginProxy.html">XmlLoginProxy</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class Object</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <!-- Constants -->
+    <section id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt id="CHARSET">CHARSET
+        
+        <dd class="description">
+        
+      
+        <dt id="FIXTURE_DIR">FIXTURE_DIR
+        
+        <dd class="description">
+        
+      
+        <dt id="I18N_INTERPOLATION">I18N_INTERPOLATION
+        
+        <dd class="description">
+        
+      
+        <dt id="I18N_REGEXP">I18N_REGEXP
+        
+        <dd class="description">
+        
+      
+        <dt id="MODEL_DIR">MODEL_DIR
+        
+        <dd class="description">
+        
+      
+        <dt id="RAILS_VER">RAILS_VER
+        
+        <dd class="description">
+        
+      
+        <dt id="RSPEC_DIR">RSPEC_DIR
+        
+        <dd class="description">
+        
+      
+        <dt id="RSPEC_FIXTURES">RSPEC_FIXTURES
+        
+        <dd class="description">
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-authenticate" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">authenticate</span><span
+            class="method-args">(login, password)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Authenticates a user by their login name and unencrypted password.  Returns
+the user or nil.</p>
+          
+
+          
+          <div class="method-source-code" id="authenticate-source">
+            <pre><span class="ruby-comment"># File lib/acts_as_authenticated/generators/authenticated/templates/model.rb, line 17</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">authenticate</span>(<span class="ruby-identifier">login</span>, <span class="ruby-identifier">password</span>)
+  <span class="ruby-identifier">u</span> = <span class="ruby-identifier">find_by_login</span>(<span class="ruby-identifier">login</span>) <span class="ruby-comment"># need to get the salt</span>
+  <span class="ruby-identifier">u</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">u</span>.<span class="ruby-identifier">authenticated?</span>(<span class="ruby-identifier">password</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">u</span> <span class="ruby-operator">:</span> <span class="ruby-keyword">nil</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- authenticate-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- authenticate-method -->
+
+    
+      <div id="method-c-encrypt" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">encrypt</span><span
+            class="method-args">(password, salt)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Encrypts some data with the salt.</p>
+          
+
+          
+          <div class="method-source-code" id="encrypt-source">
+            <pre><span class="ruby-comment"># File lib/acts_as_authenticated/generators/authenticated/templates/model.rb, line 23</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">encrypt</span>(<span class="ruby-identifier">password</span>, <span class="ruby-identifier">salt</span>)
+  <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">SHA1</span>.<span class="ruby-identifier">hexdigest</span>(<span class="ruby-node">&quot;--#{salt}--#{password}--&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- encrypt-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- encrypt-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-at_time" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">at_time</span><span
+            class="method-args">(time) { || ... }</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="at_time-source">
+            <pre><span class="ruby-comment"># File lib/validates_timeliness-e711941/spec/time_travel/time_travel.rb, line 5</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">at_time</span>(<span class="ruby-identifier">time</span>)
+  <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span> = <span class="ruby-identifier">time</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-keyword">yield</span>
+  <span class="ruby-keyword">ensure</span>
+    <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- at_time-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- at_time-method -->
+
+    
+      <div id="method-i-attribute_for_type" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">attribute_for_type</span><span
+            class="method-args">(type)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="attribute_for_type-source">
+            <pre><span class="ruby-comment"># File lib/validates_timeliness-e711941/spec/spec/rails/matchers/validate_timeliness_spec.rb, line 242</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">attribute_for_type</span>(<span class="ruby-identifier">type</span>)
+  <span class="ruby-identifier">@@attribute_for_type</span>[<span class="ruby-identifier">type</span>.<span class="ruby-identifier">to_sym</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- attribute_for_type-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- attribute_for_type-method -->
+
+    
+      <div id="method-i-authenticated-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">authenticated?</span><span
+            class="method-args">(password)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="authenticated-3F-source">
+            <pre><span class="ruby-comment"># File lib/acts_as_authenticated/generators/authenticated/templates/model.rb, line 32</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">authenticated?</span>(<span class="ruby-identifier">password</span>)
+  <span class="ruby-identifier">crypted_password</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">encrypt</span>(<span class="ruby-identifier">password</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- authenticated-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- authenticated-3F-method -->
+
+    
+      <div id="method-i-configure_validator" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">configure_validator</span><span
+            class="method-args">(options={})</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="configure_validator-source">
+            <pre><span class="ruby-comment"># File lib/validates_timeliness-e711941/spec/validator_spec.rb, line 694</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">configure_validator</span>(<span class="ruby-identifier">options</span>={})
+  <span class="ruby-ivar">@validator</span> = <span class="ruby-constant">ValidatesTimeliness</span><span class="ruby-operator">::</span><span class="ruby-constant">Validator</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">options</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- configure_validator-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- configure_validator-method -->
+
+    
+      <div id="method-i-create" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>POST /&lt;%= table_name %&gt;.xml</p>
+          
+
+          
+          <div class="method-source-code" id="create-source">
+            <pre><span class="ruby-comment"># File lib/repeated_auto_complete/lib/view_mapper/templates/controller.rb, line 47</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
+  @<span class="ruby-operator">&lt;</span><span class="ruby-string">%Q file_name %&gt; =</span> <span class="ruby-operator">&lt;</span><span class="ruby-string">%Q class_name %&gt;.new(params[:&lt;%=</span> <span class="ruby-identifier">file_name</span> <span class="ruby-operator">%</span><span class="ruby-operator">&gt;</span>])
+
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> @<span class="ruby-operator">&lt;</span><span class="ruby-string">%Q file_name %&gt;.save
+      flash[:notice] =</span> <span class="ruby-string">'&lt;%= class_name %&gt; was successfully created.'</span>
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span>(@<span class="ruby-operator">&lt;</span><span class="ruby-string">%Q file_name %&gt;) }
+      format.xml  { render :xml =</span><span class="ruby-operator">&gt;</span> @<span class="ruby-operator">&lt;</span><span class="ruby-string">%Q file_name %&gt;, :status =</span><span class="ruby-operator">&gt;</span> <span class="ruby-value">:created</span>, <span class="ruby-value">:location</span> =<span class="ruby-operator">&gt;</span> @<span class="ruby-operator">&lt;</span><span class="ruby-string">%Q file_name %&gt; }
+    else
+      format.html { render :action =</span><span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;new&quot;</span> }
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">xml</span>  { <span class="ruby-identifier">render</span> <span class="ruby-value">:xml</span> =<span class="ruby-operator">&gt;</span> @<span class="ruby-operator">&lt;</span><span class="ruby-string">%Q file_name %&gt;.errors, :status =</span><span class="ruby-operator">&gt;</span> <span class="ruby-value">:unprocessable_entity</span> }
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- create-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- create-method -->
+
+    
+      <div id="method-i-delete_format" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">delete_format</span><span
+            class="method-args">(type, format)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="delete_format-source">
+            <pre><span class="ruby-comment"># File lib/validates_timeliness-e711941/spec/formats_spec.rb, line 310</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">delete_format</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">format</span>)
+  <span class="ruby-identifier">formats</span>.<span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;#{type}_formats&quot;</span>).<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">format</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- delete_format-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- delete_format-method -->
+
+    
+      <div id="method-i-edit" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">edit</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="edit-source">
+            <pre><span class="ruby-comment"># File lib/repeated_auto_complete/lib/view_mapper/templates/controller.rb, line 41</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
+  @<span class="ruby-operator">&lt;</span><span class="ruby-string">%Q file_name %&gt; =</span> <span class="ruby-operator">&lt;</span><span class="ruby-node">%Q class_name %&gt;.find(params[:id])
+end
+
+# POST /&lt;%=</span> <span class="ruby-identifier">table_name</span> <span class="ruby-operator">%</span><span class="ruby-operator">&gt;</span>
+<span class="ruby-comment"># POST /&lt;%= table_name %&gt;.xml</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
+  @<span class="ruby-operator">&lt;</span><span class="ruby-string">%Q file_name %&gt; =</span> <span class="ruby-operator">&lt;</span><span class="ruby-string">%Q class_name %&gt;.new(params[:&lt;%=</span> <span class="ruby-identifier">file_name</span> <span class="ruby-operator">%</span><span class="ruby-operator">&gt;</span>])
+
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> @<span class="ruby-operator">&lt;</span><span class="ruby-string">%Q file_name %&gt;.save
+      flash[:notice] =</span> <span class="ruby-string">'&lt;%= class_name %&gt; was successfully created.'</span>
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span>(@<span class="ruby-operator">&lt;</span><span class="ruby-string">%Q file_name %&gt;) }
+      format.xml  { render :xml =</span><span class="ruby-operator">&gt;</span> @<span class="ruby-operator">&lt;</span><span class="ruby-string">%Q file_name %&gt;, :status =</span><span class="ruby-operator">&gt;</span> <span class="ruby-value">:created</span>, <span class="ruby-value">:location</span> =<span class="ruby-operator">&gt;</span> @<span class="ruby-operator">&lt;</span><span class="ruby-string">%Q file_name %&gt; }
+    else
+      format.html { render :action =</span><span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;new&quot;</span> }
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">xml</span>  { <span class="ruby-identifier">render</span> <span class="ruby-value">:xml</span> =<span class="ruby-operator">&gt;</span> @<span class="ruby-operator">&lt;</span><span class="ruby-string">%Q file_name %&gt;.errors, :status =</span><span class="ruby-operator">&gt;</span> <span class="ruby-value">:unprocessable_entity</span> }
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># PUT /&lt;%= table_name %&gt;/1</span>
+<span class="ruby-comment"># PUT /&lt;%= table_name %&gt;/1.xml</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
+  @<span class="ruby-operator">&lt;</span><span class="ruby-string">%Q file_name %&gt; =</span> <span class="ruby-operator">&lt;</span><span class="ruby-string">%Q class_name %&gt;.find(params[:id])
+
+  respond_to do |format|
+    if @&lt;%=</span> <span class="ruby-identifier">file_name</span> <span class="ruby-operator">%</span><span class="ruby-operator">&gt;</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:&lt;</span><span class="ruby-operator">=</span> <span class="ruby-identifier">file_name</span> <span class="ruby-string">%Q&lt;])
+      flash[:notice] = '&lt;%= class_name %&gt; was successfully updated.'
+      format.html { redirect_to(@&lt;%= file_name %&gt;) }
+      format.xml  { head :ok }
+    else
+      format.html { render :action =&gt;</span> <span class="ruby-string">&quot;edit&quot;</span> }
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">xml</span>  { <span class="ruby-identifier">render</span> <span class="ruby-value">:xml</span> =<span class="ruby-operator">&gt;</span> @<span class="ruby-operator">&lt;</span><span class="ruby-string">%Q file_name %&gt;.errors, :status =</span><span class="ruby-operator">&gt;</span> <span class="ruby-value">:unprocessable_entity</span> }
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span></pre>
+          </div><!-- edit-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- edit-method -->
+
+    
+      <div id="method-i-encode" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">encode</span><span
+            class="method-args">(subject)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="encode-source">
+            <pre><span class="ruby-comment"># File lib/acts_as_authenticated/generators/authenticated_mailer/templates/notifier_test.rb, line 24</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">encode</span>(<span class="ruby-identifier">subject</span>)
+  <span class="ruby-identifier">quoted_printable</span>(<span class="ruby-identifier">subject</span>, <span class="ruby-constant">CHARSET</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- encode-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- encode-method -->
+
+    
+      <div id="method-i-encrypt" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">encrypt</span><span
+            class="method-args">(password)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Encrypts the password with the user salt</p>
+          
+
+          
+          <div class="method-source-code" id="encrypt-source">
+            <pre><span class="ruby-comment"># File lib/acts_as_authenticated/generators/authenticated/templates/model.rb, line 28</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">encrypt</span>(<span class="ruby-identifier">password</span>)
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">encrypt</span>(<span class="ruby-identifier">password</span>, <span class="ruby-identifier">salt</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- encrypt-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- encrypt-method -->
+
+    
+      <div id="method-i-encrypt_password" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">encrypt_password</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>before filter</p>
+          
+
+          
+          <div class="method-source-code" id="encrypt_password-source">
+            <pre><span class="ruby-comment"># File lib/acts_as_authenticated/generators/authenticated/templates/model.rb, line 55</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">encrypt_password</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">password</span>.<span class="ruby-identifier">blank?</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">salt</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">SHA1</span>.<span class="ruby-identifier">hexdigest</span>(<span class="ruby-node">&quot;--#{Time.now.to_s}--#{login}--&quot;</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">new_record?</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">crypted_password</span> = <span class="ruby-identifier">encrypt</span>(<span class="ruby-identifier">password</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- encrypt_password-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- encrypt_password-method -->
+
+    
+      <div id="method-i-error_messages" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">error_messages</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="error_messages-source">
+            <pre><span class="ruby-comment"># File lib/validates_timeliness-e711941/spec/validator_spec.rb, line 718</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">error_messages</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@error_messages</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">defined?</span>(<span class="ruby-ivar">@error_messages</span>)
+  <span class="ruby-identifier">messages</span> = <span class="ruby-keyword">defined?</span>(<span class="ruby-constant">I18n</span>) <span class="ruby-operator">?</span> <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-string">'activerecord.errors.messages'</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">validator</span>.<span class="ruby-identifier">send</span>(<span class="ruby-value">:error_messages</span>)
+  <span class="ruby-ivar">@error_messages</span> = <span class="ruby-identifier">messages</span>.<span class="ruby-identifier">inject</span>({}) {<span class="ruby-operator">|</span><span class="ruby-identifier">h</span>, (<span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span>)<span class="ruby-operator">|</span> <span class="ruby-identifier">h</span>[<span class="ruby-identifier">k</span>] = <span class="ruby-identifier">v</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-node">/ (\%s|#{I18N_REGEXP}).*/</span>, <span class="ruby-string">''</span>); <span class="ruby-identifier">h</span> }
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- error_messages-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- error_messages-method -->
+
+    
+      <div id="method-i-evaluate_option_value" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">evaluate_option_value</span><span
+            class="method-args">(restriction, type)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="evaluate_option_value-source">
+            <pre><span class="ruby-comment"># File lib/validates_timeliness-e711941/spec/validator_spec.rb, line 102</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">evaluate_option_value</span>(<span class="ruby-identifier">restriction</span>, <span class="ruby-identifier">type</span>)
+  <span class="ruby-identifier">configure_validator</span>(<span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">type</span>)
+  <span class="ruby-identifier">validator</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">send</span>(<span class="ruby-value">:evaluate_option_value</span>, <span class="ruby-identifier">restriction</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">person</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- evaluate_option_value-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- evaluate_option_value-method -->
+
+    
+      <div id="method-i-expect_no_actions" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">expect_no_actions</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="expect_no_actions-source">
+            <pre><span class="ruby-comment"># File lib/repeated_auto_complete/test/view_mapper/has_many_auto_complete_view_test.rb, line 89</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">expect_no_actions</span>
+  <span class="ruby-constant">Rails</span><span class="ruby-operator">::</span><span class="ruby-constant">Generator</span><span class="ruby-operator">::</span><span class="ruby-constant">Commands</span><span class="ruby-operator">::</span><span class="ruby-constant">Create</span>.<span class="ruby-identifier">any_instance</span>.<span class="ruby-identifier">expects</span>(<span class="ruby-value">:directory</span>).<span class="ruby-identifier">never</span>
+  <span class="ruby-constant">Rails</span><span class="ruby-operator">::</span><span class="ruby-constant">Generator</span><span class="ruby-operator">::</span><span class="ruby-constant">Commands</span><span class="ruby-operator">::</span><span class="ruby-constant">Create</span>.<span class="ruby-identifier">any_instance</span>.<span class="ruby-identifier">expects</span>(<span class="ruby-value">:template</span>).<span class="ruby-identifier">never</span>
+  <span class="ruby-constant">Rails</span><span class="ruby-operator">::</span><span class="ruby-constant">Generator</span><span class="ruby-operator">::</span><span class="ruby-constant">Commands</span><span class="ruby-operator">::</span><span class="ruby-constant">Create</span>.<span class="ruby-identifier">any_instance</span>.<span class="ruby-identifier">expects</span>(<span class="ruby-value">:route_resources</span>).<span class="ruby-identifier">never</span>
+  <span class="ruby-constant">Rails</span><span class="ruby-operator">::</span><span class="ruby-constant">Generator</span><span class="ruby-operator">::</span><span class="ruby-constant">Commands</span><span class="ruby-operator">::</span><span class="ruby-constant">Create</span>.<span class="ruby-identifier">any_instance</span>.<span class="ruby-identifier">expects</span>(<span class="ruby-value">:file</span>).<span class="ruby-identifier">never</span>
+  <span class="ruby-constant">Rails</span><span class="ruby-operator">::</span><span class="ruby-constant">Generator</span><span class="ruby-operator">::</span><span class="ruby-constant">Commands</span><span class="ruby-operator">::</span><span class="ruby-constant">Create</span>.<span class="ruby-identifier">any_instance</span>.<span class="ruby-identifier">expects</span>(<span class="ruby-value">:route</span>).<span class="ruby-identifier">never</span>
+  <span class="ruby-constant">Rails</span><span class="ruby-operator">::</span><span class="ruby-constant">Generator</span><span class="ruby-operator">::</span><span class="ruby-constant">Commands</span><span class="ruby-operator">::</span><span class="ruby-constant">Create</span>.<span class="ruby-identifier">any_instance</span>.<span class="ruby-identifier">expects</span>(<span class="ruby-value">:dependency</span>).<span class="ruby-identifier">never</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- expect_no_actions-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- expect_no_actions-method -->
+
+    
+      <div id="method-i-expect_no_warnings" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">expect_no_warnings</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="expect_no_warnings-source">
+            <pre><span class="ruby-comment"># File lib/repeated_auto_complete/test/view_mapper/has_many_auto_complete_view_test.rb, line 98</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">expect_no_warnings</span>
+  <span class="ruby-constant">Rails</span><span class="ruby-operator">::</span><span class="ruby-constant">Generator</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">logger</span>.<span class="ruby-identifier">expects</span>(<span class="ruby-value">:error</span>).<span class="ruby-identifier">never</span>
+  <span class="ruby-constant">Rails</span><span class="ruby-operator">::</span><span class="ruby-constant">Generator</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">logger</span>.<span class="ruby-identifier">expects</span>(<span class="ruby-value">:warning</span>).<span class="ruby-identifier">never</span>
+  <span class="ruby-constant">Rails</span><span class="ruby-operator">::</span><span class="ruby-constant">Generator</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">logger</span>.<span class="ruby-identifier">expects</span>(<span class="ruby-value">:route</span>).<span class="ruby-identifier">never</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- expect_no_warnings-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- expect_no_warnings-method -->
+
+    
+      <div id="method-i-forget_me" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">forget_me</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="forget_me-source">
+            <pre><span class="ruby-comment"># File lib/acts_as_authenticated/generators/authenticated/templates/model.rb, line 47</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">forget_me</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">remember_token_expires_at</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">remember_token</span>            = <span class="ruby-keyword">nil</span>
+  <span class="ruby-identifier">save</span>(<span class="ruby-value">:validate=</span><span class="ruby-operator">&gt;</span><span class="ruby-keyword">false</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- forget_me-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- forget_me-method -->
+
+    
+      <div id="method-i-formats" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">formats</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="formats-source">
+            <pre><span class="ruby-comment"># File lib/validates_timeliness-e711941/spec/formats_spec.rb, line 285</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">formats</span>
+  <span class="ruby-constant">ValidatesTimeliness</span><span class="ruby-operator">::</span><span class="ruby-constant">Formats</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- formats-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- formats-method -->
+
+    
+      <div id="method-i-generate_proc" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">generate_proc</span><span
+            class="method-args">(format)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="generate_proc-source">
+            <pre><span class="ruby-comment"># File lib/validates_timeliness-e711941/spec/formats_spec.rb, line 306</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">generate_proc</span>(<span class="ruby-identifier">format</span>)
+  <span class="ruby-identifier">formats</span>.<span class="ruby-identifier">send</span>(<span class="ruby-value">:generate_format_expression</span>, <span class="ruby-identifier">format</span>)[<span class="ruby-value">1</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- generate_proc-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- generate_proc-method -->
+
+    
+      <div id="method-i-generate_regexp" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">generate_regexp</span><span
+            class="method-args">(format)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="generate_regexp-source">
+            <pre><span class="ruby-comment"># File lib/validates_timeliness-e711941/spec/formats_spec.rb, line 297</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">generate_regexp</span>(<span class="ruby-identifier">format</span>)
+  <span class="ruby-comment"># wrap in line start and end anchors to emulate extract values method</span>
+  <span class="ruby-node">/\A#{formats.send(:generate_format_expression, format)[0]}\Z/</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- generate_regexp-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- generate_regexp-method -->
+
+    
+      <div id="method-i-generate_regexp_str" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">generate_regexp_str</span><span
+            class="method-args">(format)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="generate_regexp_str-source">
+            <pre><span class="ruby-comment"># File lib/validates_timeliness-e711941/spec/formats_spec.rb, line 302</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">generate_regexp_str</span>(<span class="ruby-identifier">format</span>)
+  <span class="ruby-identifier">formats</span>.<span class="ruby-identifier">send</span>(<span class="ruby-value">:generate_format_expression</span>, <span class="ruby-identifier">format</span>)[<span class="ruby-value">0</span>].<span class="ruby-identifier">inspect</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- generate_regexp_str-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- generate_regexp_str-method -->
+
+    
+      <div id="method-i-generator_cmd_line" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">generator_cmd_line</span><span
+            class="method-args">(gen, args, model)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="generator_cmd_line-source">
+            <pre><span class="ruby-comment"># File lib/repeated_auto_complete/test/view_mapper/has_many_auto_complete_view_test.rb, line 72</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">generator_cmd_line</span>(<span class="ruby-identifier">gen</span>, <span class="ruby-identifier">args</span>, <span class="ruby-identifier">model</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">gen</span> <span class="ruby-operator">==</span> <span class="ruby-string">'view_for'</span>
+    <span class="ruby-identifier">cmd_line</span> = [<span class="ruby-identifier">model</span>]
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">cmd_line</span> = [<span class="ruby-identifier">model</span>, <span class="ruby-string">'first_name:string'</span>, <span class="ruby-string">'last_name:string'</span>, <span class="ruby-string">'address:string'</span>, <span class="ruby-string">'some_flag:boolean'</span>]
+  <span class="ruby-keyword">end</span>
+  (<span class="ruby-identifier">cmd_line</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">args</span>).<span class="ruby-identifier">flatten</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- generator_cmd_line-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- generator_cmd_line-method -->
+
+    
+      <div id="method-i-generator_script_cmd_line" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">generator_script_cmd_line</span><span
+            class="method-args">(gen, args, model = 'testy')</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="generator_script_cmd_line-source">
+            <pre><span class="ruby-comment"># File lib/repeated_auto_complete/test/view_mapper/has_many_auto_complete_view_test.rb, line 81</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">generator_script_cmd_line</span>(<span class="ruby-identifier">gen</span>, <span class="ruby-identifier">args</span>, <span class="ruby-identifier">model</span> = <span class="ruby-string">'testy'</span>)
+  ([<span class="ruby-identifier">gen</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">generator_cmd_line</span>(<span class="ruby-identifier">gen</span>, <span class="ruby-identifier">args</span>, <span class="ruby-identifier">model</span>)).<span class="ruby-identifier">flatten</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- generator_script_cmd_line-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- generator_script_cmd_line-method -->
+
+    
+      <div id="method-i-is_auto_complete_attribute-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">is_auto_complete_attribute?</span><span
+            class="method-args">(model_name, text_field)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="is_auto_complete_attribute-3F-source">
+            <pre><span class="ruby-comment"># File lib/repeated_auto_complete/test/view_mapper/has_many_auto_complete_view_test.rb, line 119</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">is_auto_complete_attribute?</span>(<span class="ruby-identifier">model_name</span>, <span class="ruby-identifier">text_field</span>)
+  (<span class="ruby-identifier">model_name</span> <span class="ruby-operator">==</span> <span class="ruby-string">'parent'</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">text_field</span> <span class="ruby-operator">==</span> <span class="ruby-string">'name'</span>) <span class="ruby-operator">||</span>
+  (<span class="ruby-identifier">model_name</span> <span class="ruby-operator">==</span> <span class="ruby-string">'testy'</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">text_field</span> <span class="ruby-operator">==</span> <span class="ruby-string">'first_name'</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">text_field</span> <span class="ruby-operator">==</span> <span class="ruby-string">'last_name'</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">text_field</span> <span class="ruby-operator">==</span> <span class="ruby-string">'address'</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- is_auto_complete_attribute-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- is_auto_complete_attribute-3F-method -->
+
+    
+      <div id="method-i-new_generator_for_test_model" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new_generator_for_test_model</span><span
+            class="method-args">(gen, args, model = 'testy')</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new_generator_for_test_model-source">
+            <pre><span class="ruby-comment"># File lib/repeated_auto_complete/test/view_mapper/has_many_auto_complete_view_test.rb, line 85</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">new_generator_for_test_model</span>(<span class="ruby-identifier">gen</span>, <span class="ruby-identifier">args</span>, <span class="ruby-identifier">model</span> = <span class="ruby-string">'testy'</span>)
+  <span class="ruby-constant">Rails</span><span class="ruby-operator">::</span><span class="ruby-constant">Generator</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">instance</span>(<span class="ruby-identifier">gen</span>, <span class="ruby-identifier">generator_cmd_line</span>(<span class="ruby-identifier">gen</span>, <span class="ruby-identifier">args</span>, <span class="ruby-identifier">model</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new_generator_for_test_model-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new_generator_for_test_model-method -->
+
+    
+      <div id="method-i-obj" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">obj</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="obj-source">
+            <pre><span class="ruby-comment"># File lib/validates_timeliness-e711941/spec/active_record/multiparameter_attributes_spec.rb, line 4</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">obj</span>
+  <span class="ruby-ivar">@obj</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Person</span>.<span class="ruby-identifier">new</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- obj-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- obj-method -->
+
+    
+      <div id="method-i-params" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">params</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="params-source">
+            <pre><span class="ruby-comment"># File lib/validates_timeliness-e711941/spec/action_view/instance_tag_spec.rb, line 11</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">params</span>
+  <span class="ruby-ivar">@params</span> <span class="ruby-operator">||=</span> {}
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- params-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- params-method -->
+
+    
+      <div id="method-i-parse" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">parse</span><span
+            class="method-args">(*args)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="parse-source">
+            <pre><span class="ruby-comment"># File lib/validates_timeliness-e711941/benchmark.rb, line 11</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">parse</span>(*<span class="ruby-identifier">args</span>)
+  <span class="ruby-constant">ValidatesTimeliness</span><span class="ruby-operator">::</span><span class="ruby-constant">Parser</span>.<span class="ruby-identifier">parse</span>(*<span class="ruby-identifier">args</span>) 
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- parse-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- parse-method -->
+
+    
+      <div id="method-i-password_required-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">password_required?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="password_required-3F-source">
+            <pre><span class="ruby-comment"># File lib/acts_as_authenticated/generators/authenticated/templates/model.rb, line 61</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">password_required?</span>
+  <span class="ruby-identifier">crypted_password</span>.<span class="ruby-identifier">blank?</span> <span class="ruby-operator">||</span> <span class="ruby-operator">!</span><span class="ruby-identifier">password</span>.<span class="ruby-identifier">blank?</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- password_required-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- password_required-3F-method -->
+
+    
+      <div id="method-i-person" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">person</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="person-source">
+            <pre><span class="ruby-comment"># File lib/validates_timeliness-e711941/spec/validator_spec.rb, line 23</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">person</span>
+  <span class="ruby-ivar">@person</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Person</span>.<span class="ruby-identifier">new</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- person-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- person-method -->
+
+    
+      <div id="method-i-read_fixture" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">read_fixture</span><span
+            class="method-args">(action)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="read_fixture-source">
+            <pre><span class="ruby-comment"># File lib/acts_as_authenticated/generators/authenticated_mailer/templates/notifier_test.rb, line 20</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">read_fixture</span>(<span class="ruby-identifier">action</span>)
+  <span class="ruby-constant">IO</span>.<span class="ruby-identifier">readlines</span>(<span class="ruby-node">&quot;#{FIXTURES_PATH}/&lt;%= file_name %&gt;_notifier/#{action}&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- read_fixture-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- read_fixture-method -->
+
+    
+      <div id="method-i-remember_me" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">remember_me</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>These create and unset the fields required for remembering users between
+browser closes</p>
+          
+
+          
+          <div class="method-source-code" id="remember_me-source">
+            <pre><span class="ruby-comment"># File lib/acts_as_authenticated/generators/authenticated/templates/model.rb, line 41</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">remember_me</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">remember_token_expires_at</span> = <span class="ruby-value">2</span>.<span class="ruby-identifier">weeks</span>.<span class="ruby-identifier">from_now</span>.<span class="ruby-identifier">utc</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">remember_token</span>            = <span class="ruby-identifier">encrypt</span>(<span class="ruby-node">&quot;#{email}--#{remember_token_expires_at}&quot;</span>)
+  <span class="ruby-identifier">save</span>(<span class="ruby-value">:validate=</span><span class="ruby-operator">&gt;</span><span class="ruby-keyword">false</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- remember_me-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- remember_me-method -->
+
+    
+      <div id="method-i-remember_token-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">remember_token?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="remember_token-3F-source">
+            <pre><span class="ruby-comment"># File lib/acts_as_authenticated/generators/authenticated/templates/model.rb, line 36</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">remember_token?</span>
+  <span class="ruby-identifier">remember_token_expires_at</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">utc</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">remember_token_expires_at</span> 
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- remember_token-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- remember_token-3F-method -->
+
+    
+      <div id="method-i-setup" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">setup</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="setup-source">
+            <pre><span class="ruby-comment"># File lib/acts_as_authenticated/generators/authenticated_mailer/templates/notifier_test.rb, line 10</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">setup</span>
+  <span class="ruby-constant">ActionMailer</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">delivery_method</span> = <span class="ruby-value">:test</span>
+  <span class="ruby-constant">ActionMailer</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">perform_deliveries</span> = <span class="ruby-keyword">true</span>
+  <span class="ruby-constant">ActionMailer</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">deliveries</span> = []
+
+  <span class="ruby-ivar">@expected</span> = <span class="ruby-constant">TMail</span><span class="ruby-operator">::</span><span class="ruby-constant">Mail</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-ivar">@expected</span>.<span class="ruby-identifier">set_content_type</span> <span class="ruby-string">&quot;text&quot;</span>, <span class="ruby-string">&quot;plain&quot;</span>, { <span class="ruby-string">&quot;charset&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">CHARSET</span> }
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- setup-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- setup-method -->
+
+    
+      <div id="method-i-setup_parent_test_model" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">setup_parent_test_model</span><span
+            class="method-args">(create_foreign_key = true, child_belongs_to_parent = true)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="setup_parent_test_model-source">
+            <pre><span class="ruby-comment"># File lib/repeated_auto_complete/test/view_mapper/has_many_auto_complete_view_test.rb, line 25</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">setup_parent_test_model</span>(<span class="ruby-identifier">create_foreign_key</span> = <span class="ruby-keyword">true</span>, <span class="ruby-identifier">child_belongs_to_parent</span> = <span class="ruby-keyword">true</span>)
+  <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">create_table</span> <span class="ruby-value">:parents</span>, <span class="ruby-value">:force</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">table</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">table</span>.<span class="ruby-identifier">column</span> <span class="ruby-value">:name</span>, <span class="ruby-value">:string</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">create_table</span> <span class="ruby-value">:some_other_models</span>, <span class="ruby-value">:force</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">table</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">table</span>.<span class="ruby-identifier">column</span> <span class="ruby-value">:name</span>,      <span class="ruby-value">:string</span>
+    <span class="ruby-identifier">table</span>.<span class="ruby-identifier">column</span> <span class="ruby-value">:parent_id</span>, <span class="ruby-value">:integer</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">add_column</span> <span class="ruby-value">:testies</span>, <span class="ruby-value">:parent_id</span>, <span class="ruby-value">:integer</span> <span class="ruby-keyword">unless</span> <span class="ruby-operator">!</span><span class="ruby-identifier">create_foreign_key</span>
+  <span class="ruby-constant">Object</span>.<span class="ruby-identifier">send</span>(<span class="ruby-value">:remove_const</span>, <span class="ruby-string">&quot;Parent&quot;</span>) <span class="ruby-keyword">rescue</span> <span class="ruby-keyword">nil</span>
+  <span class="ruby-constant">Object</span>.<span class="ruby-identifier">const_set</span>(<span class="ruby-string">&quot;Parent&quot;</span>, <span class="ruby-constant">Class</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>))
+  <span class="ruby-constant">Object</span>.<span class="ruby-identifier">send</span>(<span class="ruby-value">:remove_const</span>, <span class="ruby-string">&quot;SomeOtherModel&quot;</span>) <span class="ruby-keyword">rescue</span> <span class="ruby-keyword">nil</span>
+  <span class="ruby-constant">Object</span>.<span class="ruby-identifier">const_set</span>(<span class="ruby-string">&quot;SomeOtherModel&quot;</span>, <span class="ruby-constant">Class</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>))
+  <span class="ruby-constant">Parent</span>.<span class="ruby-identifier">class_eval</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">has_many</span> <span class="ruby-value">:testies</span>
+    <span class="ruby-identifier">has_many</span> <span class="ruby-value">:some_other_model</span>
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">testies_attributes=</span>
+      <span class="ruby-string">'fake'</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">some_other_models_attributes=</span>
+      <span class="ruby-string">'fake'</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-constant">Testy</span>.<span class="ruby-identifier">class_eval</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">belongs_to</span> <span class="ruby-value">:parent</span> <span class="ruby-keyword">unless</span> <span class="ruby-operator">!</span><span class="ruby-identifier">child_belongs_to_parent</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-constant">SomeOtherModel</span>.<span class="ruby-identifier">class_eval</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">belongs_to</span> <span class="ruby-value">:parent</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-constant">Object</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-string">&quot;Parent&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- setup_parent_test_model-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- setup_parent_test_model-method -->
+
+    
+      <div id="method-i-setup_test_model" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">setup_test_model</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="setup_test_model-source">
+            <pre><span class="ruby-comment"># File lib/repeated_auto_complete/test/view_mapper/has_many_auto_complete_view_test.rb, line 18</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">setup_test_model</span>
+  <span class="ruby-identifier">setup_test_table</span>
+  <span class="ruby-constant">Object</span>.<span class="ruby-identifier">send</span>(<span class="ruby-value">:remove_const</span>, <span class="ruby-string">&quot;Testy&quot;</span>) <span class="ruby-keyword">rescue</span> <span class="ruby-keyword">nil</span>
+  <span class="ruby-constant">Object</span>.<span class="ruby-identifier">const_set</span>(<span class="ruby-string">&quot;Testy&quot;</span>, <span class="ruby-constant">Class</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>))
+  <span class="ruby-constant">Object</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-string">&quot;Testy&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- setup_test_model-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- setup_test_model-method -->
+
+    
+      <div id="method-i-setup_test_model_without_nested_attributes" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">setup_test_model_without_nested_attributes</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="setup_test_model_without_nested_attributes-source">
+            <pre><span class="ruby-comment"># File lib/repeated_auto_complete/test/view_mapper/has_many_auto_complete_view_test.rb, line 57</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">setup_test_model_without_nested_attributes</span>
+  <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">create_table</span> <span class="ruby-value">:third_models</span>, <span class="ruby-value">:force</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">table</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">table</span>.<span class="ruby-identifier">column</span> <span class="ruby-value">:name</span>, <span class="ruby-value">:string</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-constant">Object</span>.<span class="ruby-identifier">send</span>(<span class="ruby-value">:remove_const</span>, <span class="ruby-string">&quot;ThirdModel&quot;</span>) <span class="ruby-keyword">rescue</span> <span class="ruby-keyword">nil</span>
+  <span class="ruby-constant">Object</span>.<span class="ruby-identifier">const_set</span>(<span class="ruby-string">&quot;ThirdModel&quot;</span>, <span class="ruby-constant">Class</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>))
+  <span class="ruby-constant">Parent</span>.<span class="ruby-identifier">class_eval</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">has_many</span> <span class="ruby-value">:third_model</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- setup_test_model_without_nested_attributes-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- setup_test_model_without_nested_attributes-method -->
+
+    
+      <div id="method-i-setup_test_table" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">setup_test_table</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="setup_test_table-source">
+            <pre><span class="ruby-comment"># File lib/repeated_auto_complete/test/view_mapper/has_many_auto_complete_view_test.rb, line 9</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">setup_test_table</span>
+  <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">create_table</span> <span class="ruby-value">:testies</span>, <span class="ruby-value">:force</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">table</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">table</span>.<span class="ruby-identifier">column</span> <span class="ruby-value">:first_name</span>, <span class="ruby-value">:string</span>
+    <span class="ruby-identifier">table</span>.<span class="ruby-identifier">column</span> <span class="ruby-value">:last_name</span>,  <span class="ruby-value">:string</span>
+    <span class="ruby-identifier">table</span>.<span class="ruby-identifier">column</span> <span class="ruby-value">:address</span>,    <span class="ruby-value">:string</span>
+    <span class="ruby-identifier">table</span>.<span class="ruby-identifier">column</span> <span class="ruby-value">:some_flag</span>,  <span class="ruby-value">:boolean</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- setup_test_table-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- setup_test_table-method -->
+
+    
+      <div id="method-i-should_have_error" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">should_have_error</span><span
+            class="method-args">(attr_name, error)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="should_have_error-source">
+            <pre><span class="ruby-comment"># File lib/validates_timeliness-e711941/spec/validator_spec.rb, line 703</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">should_have_error</span>(<span class="ruby-identifier">attr_name</span>, <span class="ruby-identifier">error</span>)
+  <span class="ruby-identifier">message</span> = <span class="ruby-identifier">error_messages</span>[<span class="ruby-identifier">error</span>]
+  <span class="ruby-identifier">person</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">on</span>(<span class="ruby-identifier">attr_name</span>).<span class="ruby-identifier">should</span> <span class="ruby-identifier">match</span>(<span class="ruby-node">/#{message}/</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- should_have_error-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- should_have_error-method -->
+
+    
+      <div id="method-i-should_have_no_error" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">should_have_no_error</span><span
+            class="method-args">(attr_name, error)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="should_have_no_error-source">
+            <pre><span class="ruby-comment"># File lib/validates_timeliness-e711941/spec/validator_spec.rb, line 708</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">should_have_no_error</span>(<span class="ruby-identifier">attr_name</span>, <span class="ruby-identifier">error</span>)
+  <span class="ruby-identifier">message</span> = <span class="ruby-identifier">error_messages</span>[<span class="ruby-identifier">error</span>]
+  <span class="ruby-identifier">errors</span> = <span class="ruby-identifier">person</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">on</span>(<span class="ruby-identifier">attr_name</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">errors</span>
+    <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">should_not</span> <span class="ruby-identifier">match</span>(<span class="ruby-node">/#{message}/</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">should</span> <span class="ruby-identifier">be_nil</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- should_have_no_error-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- should_have_no_error-method -->
+
+    
+      <div id="method-i-some_other_models_attributes-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">some_other_models_attributes=</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="some_other_models_attributes-3D-source">
+            <pre><span class="ruby-comment"># File lib/repeated_auto_complete/test/view_mapper/has_many_auto_complete_view_test.rb, line 44</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">some_other_models_attributes=</span>
+  <span class="ruby-string">'fake'</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- some_other_models_attributes-3D-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- some_other_models_attributes-3D-method -->
+
+    
+      <div id="method-i-stub_actions" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">stub_actions</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="stub_actions-source">
+            <pre><span class="ruby-comment"># File lib/repeated_auto_complete/test/view_mapper/has_many_auto_complete_view_test.rb, line 104</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">stub_actions</span>
+  <span class="ruby-constant">Rails</span><span class="ruby-operator">::</span><span class="ruby-constant">Generator</span><span class="ruby-operator">::</span><span class="ruby-constant">Commands</span><span class="ruby-operator">::</span><span class="ruby-constant">Create</span>.<span class="ruby-identifier">any_instance</span>.<span class="ruby-identifier">stubs</span>(<span class="ruby-value">:directory</span>)
+  <span class="ruby-constant">Rails</span><span class="ruby-operator">::</span><span class="ruby-constant">Generator</span><span class="ruby-operator">::</span><span class="ruby-constant">Commands</span><span class="ruby-operator">::</span><span class="ruby-constant">Create</span>.<span class="ruby-identifier">any_instance</span>.<span class="ruby-identifier">stubs</span>(<span class="ruby-value">:template</span>)
+  <span class="ruby-constant">Rails</span><span class="ruby-operator">::</span><span class="ruby-constant">Generator</span><span class="ruby-operator">::</span><span class="ruby-constant">Commands</span><span class="ruby-operator">::</span><span class="ruby-constant">Create</span>.<span class="ruby-identifier">any_instance</span>.<span class="ruby-identifier">stubs</span>(<span class="ruby-value">:route_resources</span>)
+  <span class="ruby-constant">Rails</span><span class="ruby-operator">::</span><span class="ruby-constant">Generator</span><span class="ruby-operator">::</span><span class="ruby-constant">Commands</span><span class="ruby-operator">::</span><span class="ruby-constant">Create</span>.<span class="ruby-identifier">any_instance</span>.<span class="ruby-identifier">stubs</span>(<span class="ruby-value">:file</span>)
+  <span class="ruby-constant">Rails</span><span class="ruby-operator">::</span><span class="ruby-constant">Generator</span><span class="ruby-operator">::</span><span class="ruby-constant">Commands</span><span class="ruby-operator">::</span><span class="ruby-constant">Create</span>.<span class="ruby-identifier">any_instance</span>.<span class="ruby-identifier">stubs</span>(<span class="ruby-value">:route</span>)
+  <span class="ruby-constant">Rails</span><span class="ruby-operator">::</span><span class="ruby-constant">Generator</span><span class="ruby-operator">::</span><span class="ruby-constant">Commands</span><span class="ruby-operator">::</span><span class="ruby-constant">Create</span>.<span class="ruby-identifier">any_instance</span>.<span class="ruby-identifier">stubs</span>(<span class="ruby-value">:dependency</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- stub_actions-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- stub_actions-method -->
+
+    
+      <div id="method-i-stub_warnings" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">stub_warnings</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="stub_warnings-source">
+            <pre><span class="ruby-comment"># File lib/repeated_auto_complete/test/view_mapper/has_many_auto_complete_view_test.rb, line 113</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">stub_warnings</span>
+  <span class="ruby-constant">Rails</span><span class="ruby-operator">::</span><span class="ruby-constant">Generator</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">logger</span>.<span class="ruby-identifier">stubs</span>(<span class="ruby-value">:error</span>)
+  <span class="ruby-constant">Rails</span><span class="ruby-operator">::</span><span class="ruby-constant">Generator</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">logger</span>.<span class="ruby-identifier">stubs</span>(<span class="ruby-value">:warning</span>)
+  <span class="ruby-constant">Rails</span><span class="ruby-operator">::</span><span class="ruby-constant">Generator</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">logger</span>.<span class="ruby-identifier">stubs</span>(<span class="ruby-value">:route</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- stub_warnings-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- stub_warnings-method -->
+
+    
+      <div id="method-i-test_should_create_" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">test_should_create_</span><span
+            class="method-args">(<%= file_name %> assert_difference <%= class_name %>, :count do <%= file_name %> = create_<%= file_name %> assert !<%= file_name %>.new_record?, "</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="test_should_create_-source">
+            <pre><span class="ruby-comment"># File lib/acts_as_authenticated/generators/authenticated/templates/unit_test.rb, line 9</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">test_should_create_</span><span class="ruby-operator">&lt;</span><span class="ruby-string">%Q file_name %&gt;
+  assert_difference &lt;%=</span> <span class="ruby-identifier">class_name</span> <span class="ruby-operator">%</span><span class="ruby-operator">&gt;</span>, <span class="ruby-value">:count</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-operator">&lt;</span><span class="ruby-string">%Q file_name %&gt; =</span> <span class="ruby-identifier">create_</span><span class="ruby-operator">&lt;</span><span class="ruby-string">%Q file_name %&gt;
+    assert !&lt;%=</span> <span class="ruby-identifier">file_name</span> <span class="ruby-operator">%</span><span class="ruby-operator">&gt;</span>.<span class="ruby-identifier">new_record?</span>, <span class="ruby-node">&quot;#{&lt;%= file_name %&gt;.errors.full_messages.to_sentence}&quot;</span>
+  <span class="ruby-keyword">end</span></pre>
+          </div><!-- test_should_create_-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- test_should_create_-method -->
+
+    
+      <div id="method-i-testies_attributes-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">testies_attributes=</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="testies_attributes-3D-source">
+            <pre><span class="ruby-comment"># File lib/repeated_auto_complete/test/view_mapper/has_many_auto_complete_view_test.rb, line 41</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">testies_attributes=</span>
+  <span class="ruby-string">'fake'</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- testies_attributes-3D-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- testies_attributes-3D-method -->
+
+    
+      <div id="method-i-time_array_to_string" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">time_array_to_string</span><span
+            class="method-args">(*args)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="time_array_to_string-source">
+            <pre><span class="ruby-comment"># File lib/validates_timeliness-e711941/spec/active_record/multiparameter_attributes_spec.rb, line 114</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">time_array_to_string</span>(*<span class="ruby-identifier">args</span>)
+  <span class="ruby-constant">ValidatesTimeliness</span><span class="ruby-operator">::</span><span class="ruby-constant">ActiveRecord</span>.<span class="ruby-identifier">time_array_to_string</span>(*<span class="ruby-identifier">args</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- time_array_to_string-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- time_array_to_string-method -->
+
+    
+      <div id="method-i-update" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">update</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>PUT /&lt;%= table_name %&gt;/1 PUT /&lt;%= table_name %&gt;/1.xml</p>
+          
+
+          
+          <div class="method-source-code" id="update-source">
+            <pre><span class="ruby-comment"># File lib/repeated_auto_complete/lib/view_mapper/templates/controller.rb, line 64</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
+  @<span class="ruby-operator">&lt;</span><span class="ruby-string">%Q file_name %&gt; =</span> <span class="ruby-operator">&lt;</span><span class="ruby-string">%Q class_name %&gt;.find(params[:id])
+
+  respond_to do |format|
+    if @&lt;%=</span> <span class="ruby-identifier">file_name</span> <span class="ruby-operator">%</span><span class="ruby-operator">&gt;</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:&lt;</span><span class="ruby-operator">=</span> <span class="ruby-identifier">file_name</span> <span class="ruby-string">%Q&lt;])
+      flash[:notice] = '&lt;%= class_name %&gt; was successfully updated.'
+      format.html { redirect_to(@&lt;%= file_name %&gt;) }
+      format.xml  { head :ok }
+    else
+      format.html { render :action =&gt;</span> <span class="ruby-string">&quot;edit&quot;</span> }
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">xml</span>  { <span class="ruby-identifier">render</span> <span class="ruby-value">:xml</span> =<span class="ruby-operator">&gt;</span> @<span class="ruby-operator">&lt;</span><span class="ruby-string">%Q file_name %&gt;.errors, :status =</span><span class="ruby-operator">&gt;</span> <span class="ruby-value">:unprocessable_entity</span> }
+    <span class="ruby-keyword">end</span></pre>
+          </div><!-- update-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- update-method -->
+
+    
+      <div id="method-i-validate" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">validate</span><span
+            class="method-args">(time_string, type)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="validate-source">
+            <pre><span class="ruby-comment"># File lib/validates_timeliness-e711941/spec/formats_spec.rb, line 289</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">validate</span>(<span class="ruby-identifier">time_string</span>, <span class="ruby-identifier">type</span>)
+  <span class="ruby-identifier">valid</span> = <span class="ruby-keyword">false</span>
+  <span class="ruby-identifier">formats</span>.<span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;#{type}_expressions&quot;</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span>, <span class="ruby-identifier">regexp</span>, <span class="ruby-identifier">processor</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">valid</span> = <span class="ruby-keyword">true</span> <span class="ruby-keyword">and</span> <span class="ruby-keyword">break</span> <span class="ruby-keyword">if</span> <span class="ruby-node">/\A#{regexp}\Z/</span> <span class="ruby-operator">=~</span> <span class="ruby-identifier">time_string</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">valid</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- validate-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- validate-method -->
+
+    
+      <div id="method-i-validate_with" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">validate_with</span><span
+            class="method-args">(attr_name, value)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="validate_with-source">
+            <pre><span class="ruby-comment"># File lib/validates_timeliness-e711941/spec/validator_spec.rb, line 698</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">validate_with</span>(<span class="ruby-identifier">attr_name</span>, <span class="ruby-identifier">value</span>)
+  <span class="ruby-identifier">person</span>.<span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;#{attr_name}=&quot;</span>, <span class="ruby-identifier">value</span>)
+  <span class="ruby-identifier">validator</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">person</span>, <span class="ruby-identifier">attr_name</span>, <span class="ruby-identifier">value</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- validate_with-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- validate_with-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

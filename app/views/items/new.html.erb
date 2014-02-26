@@ -27,7 +27,7 @@
   <span><b>Quantity of items to order:</b>&nbsp;<%= text_field_tag(:nr_items, '', :size => 5)-%></span>
   <%= link_to 'Add Items', '', id: 'add_items', :'data-show_err_id' => 'item_error', :remote => true %>
   </div>
-  
+
   <% else %>
     <%= render :partial => 'multi_item_form'%>
   <% end %>

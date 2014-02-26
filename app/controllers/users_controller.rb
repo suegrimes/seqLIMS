@@ -22,6 +22,7 @@ class UsersController < ApplicationController
 
   # render new.rhtml
   def new
+    @user = User.new
   end
 
   def create
@@ -39,7 +40,7 @@ class UsersController < ApplicationController
       self.current_user = @user
       
       #Authorization::current_user = @user   # for declarative_authorization #
-      redirect_to('/')
+      redirect_to root_url
       flash[:notice] = "Thanks for signing up!"
     else
       render :action => 'new'
@@ -64,7 +65,7 @@ class UsersController < ApplicationController
     
     if DEMO_APP && DEMO_USERS.include?(@user.login)
       flash.now[:error] = "Change functionality disabled for default user logins in demo application"
-      @roles = Role.find(:all)
+      @roles = Role.all
       render :action => 'edit'
       
     elsif current_user.has_role?("admin") || @user.authenticated?(params[:curr_user][:current_password])
@@ -73,13 +74,13 @@ class UsersController < ApplicationController
         redirect_to users_url
       else
         flash.now[:error] = "Error updating user"
-        @roles = Role.find(:all)
+        @roles = Role.all
         render :action => 'edit'
       end
       
     else
       flash.now[:error] = "Incorrect current password entered - please try again"
-      @roles = Role.find(:all)
+      @roles = Role.all
       render :action => 'edit'
     end
   end

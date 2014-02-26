@@ -2,10 +2,10 @@
 #
 # Table name: category_values
 #
-#  id          :integer(4)      not null, primary key
-#  category_id :integer(4)      not null
-#  c_position  :integer(4)
-#  c_value     :string(50)      default(""), not null
+#  id          :integer          not null, primary key
+#  category_id :integer          not null
+#  c_position  :integer
+#  c_value     :string(50)       default(""), not null
 #  created_at  :datetime
 #  updated_at  :datetime
 #

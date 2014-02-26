@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>class SeqLib - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>app/models/seq_lib.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">ActiveRecord::Base
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-find_for_export">::find_for_export</a>
+    
+    <li><a href="#method-c-find_for_query">::find_for_query</a>
+    
+    <li><a href="#method-c-getwith_attach">::getwith_attach</a>
+    
+    <li><a href="#method-c-unique_projects">::unique_projects</a>
+    
+    <li><a href="#method-c-upd_lib_status">::upd_lib_status</a>
+    
+    <li><a href="#method-c-upd_mplex_fields">::upd_mplex_fields</a>
+    
+    <li><a href="#method-c-upd_mplex_splex">::upd_mplex_splex</a>
+    
+    <li><a href="#method-i-control_lane-3F">#control_lane?</a>
+    
+    <li><a href="#method-i-control_lane_nr">#control_lane_nr</a>
+    
+    <li><a href="#method-i-dummy_barcode">#dummy_barcode</a>
+    
+    <li><a href="#method-i-in_multiplex_lib-3F">#in_multiplex_lib?</a>
+    
+    <li><a href="#method-i-lib_barcode">#lib_barcode</a>
+    
+    <li><a href="#method-i-multiplex_lib-3F">#multiplex_lib?</a>
+    
+    <li><a href="#method-i-on_flow_lane-3F">#on_flow_lane?</a>
+    
+    <li><a href="#method-i-owner_abbrev">#owner_abbrev</a>
+    
+    <li><a href="#method-i-sample_conc_ngul">#sample_conc_ngul</a>
+    
+    <li><a href="#method-i-sample_conc_nm">#sample_conc_nm</a>
+    
+    <li><a href="#method-i-sample_conc_with_uom">#sample_conc_with_uom</a>
+    
+    <li><a href="#method-i-set_default_values">#set_default_values</a>
+    
+    <li><a href="#method-i-validate">#validate</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./doc/README_FOR_APP.html">README_FOR_APP</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./ValidatesTimeliness.html">ValidatesTimeliness</a>
+  
+    <li><a href="./ValidatesTimeliness/ActionView.html">ValidatesTimeliness::ActionView</a>
+  
+    <li><a href="./ValidatesTimeliness/ActionView/InstanceTag.html">ValidatesTimeliness::ActionView::InstanceTag</a>
+  
+    <li><a href="./ValidatesTimeliness/ActiveRecord.html">ValidatesTimeliness::ActiveRecord</a>
+  
+    <li><a href="./ValidatesTimeliness/ActiveRecord/AttributeMethods.html">ValidatesTimeliness::ActiveRecord::AttributeMethods</a>
+  
+    <li><a href="./ValidatesTimeliness/ActiveRecord/AttributeMethods/ClassMethods.html">ValidatesTimeliness::ActiveRecord::AttributeMethods::ClassMethods</a>
+  
+    <li><a href="./ValidatesTimeliness/ActiveRecord/MultiparameterAttributes.html">ValidatesTimeliness::ActiveRecord::MultiparameterAttributes</a>
+  
+    <li><a href="./ValidatesTimeliness/Formats.html">ValidatesTimeliness::Formats</a>
+  
+    <li><a href="./ValidatesTimeliness/Parser.html">ValidatesTimeliness::Parser</a>
+  
+    <li><a href="./ValidatesTimeliness/ValidationMethods.html">ValidatesTimeliness::ValidationMethods</a>
+  
+    <li><a href="./ValidatesTimeliness/ValidationMethods/ClassMethods.html">ValidatesTimeliness::ValidationMethods::ClassMethods</a>
+  
+    <li><a href="./ValidatesTimeliness/Validator.html">ValidatesTimeliness::Validator</a>
+  
+    <li><a href="./Spec.html">Spec</a>
+  
+    <li><a href="./Spec/Rails.html">Spec::Rails</a>
+  
+    <li><a href="./Spec/Rails/Matchers.html">Spec::Rails::Matchers</a>
+  
+    <li><a href="./Spec/Rails/Matchers/ValidateTimeliness.html">Spec::Rails::Matchers::ValidateTimeliness</a>
+  
+    <li><a href="./Blame.html">Blame</a>
+  
+    <li><a href="./Blame/Userstamp.html">Blame::Userstamp</a>
+  
+    <li><a href="./Blame/UserstampMigrationHelper.html">Blame::UserstampMigrationHelper</a>
+  
+    <li><a href="./Rails.html">Rails</a>
+  
+    <li><a href="./Rails/Generator.html">Rails::Generator</a>
+  
+    <li><a href="./Rails/Generator/NamedBase.html">Rails::Generator::NamedBase</a>
+  
+    <li><a href="./RoleRequirementSystem.html">RoleRequirementSystem</a>
+  
+    <li><a href="./RoleRequirementSystem/RoleSecurityClassMethods.html">RoleRequirementSystem::RoleSecurityClassMethods</a>
+  
+    <li><a href="./RoleRequirementSystem/RoleSecurityInstanceMethods.html">RoleRequirementSystem::RoleSecurityInstanceMethods</a>
+  
+    <li><a href="./Test.html">Test</a>
+  
+    <li><a href="./Test/Unit.html">Test::Unit</a>
+  
+    <li><a href="./Test/Unit/TestCase.html">Test::Unit::TestCase</a>
+  
+    <li><a href="./TimeTravel.html">TimeTravel</a>
+  
+    <li><a href="./TimeTravel/TimeExtensions.html">TimeTravel::TimeExtensions</a>
+  
+    <li><a href="./TimeTravel/TimeExtensions/ClassMethods.html">TimeTravel::TimeExtensions::ClassMethods</a>
+  
+    <li><a href="./ActiveRecordExtension.html">ActiveRecordExtension</a>
+  
+    <li><a href="./ActiveRecordExtension/ClassMethods.html">ActiveRecordExtension::ClassMethods</a>
+  
+    <li><a href="./AutoComplete.html">AutoComplete</a>
+  
+    <li><a href="./AutoComplete/ClassMethods.html">AutoComplete::ClassMethods</a>
+  
+    <li><a href="./OverrideBlameTest.html">OverrideBlameTest</a>
+  
+    <li><a href="./OverrideBlameTest/Sprocket.html">OverrideBlameTest::Sprocket</a>
+  
+    <li><a href="./SslRequirement.html">SslRequirement</a>
+  
+    <li><a href="./SslRequirement/ClassMethods.html">SslRequirement::ClassMethods</a>
+  
+    <li><a href="./ViewMapper.html">ViewMapper</a>
+  
+    <li><a href="./ViewMapper/HasManyAutoCompleteView.html">ViewMapper::HasManyAutoCompleteView</a>
+  
+    <li><a href="./Ability.html">Ability</a>
+  
+    <li><a href="./AlignQc.html">AlignQc</a>
+  
+    <li><a href="./AlignQcsController.html">AlignQcsController</a>
+  
+    <li><a href="./AlignmentRef.html">AlignmentRef</a>
+  
+    <li><a href="./AlignmentRefsController.html">AlignmentRefsController</a>
+  
+    <li><a href="./AnnotateModels.html">AnnotateModels</a>
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./AssignedBarcode.html">AssignedBarcode</a>
+  
+    <li><a href="./AssignedBarcodesController.html">AssignedBarcodesController</a>
+  
+    <li><a href="./AttachedFile.html">AttachedFile</a>
+  
+    <li><a href="./AttachedFilesController.html">AttachedFilesController</a>
+  
+    <li><a href="./AttachmentUploader.html">AttachmentUploader</a>
+  
+    <li><a href="./AuthenticatedGenerator.html">AuthenticatedGenerator</a>
+  
+    <li><a href="./AuthenticatedMailerGenerator.html">AuthenticatedMailerGenerator</a>
+  
+    <li><a href="./AuthenticatedSystem.html">AuthenticatedSystem</a>
+  
+    <li><a href="./AuthenticatedTestHelper.html">AuthenticatedTestHelper</a>
+  
+    <li><a href="./AutoCompleteFormBuilderHelper.html">AutoCompleteFormBuilderHelper</a>
+  
+    <li><a href="./AutoCompleteFormBuilderHelperTest.html">AutoCompleteFormBuilderHelperTest</a>
+  
+    <li><a href="./AutoCompleteMacrosHelper.html">AutoCompleteMacrosHelper</a>
+  
+    <li><a href="./AutoCompleteNestedAttributesTest.html">AutoCompleteNestedAttributesTest</a>
+  
+    <li><a href="./AutoCompleteTest.html">AutoCompleteTest</a>
+  
+    <li><a href="./BaseLoginProxy.html">BaseLoginProxy</a>
+  
+    <li><a href="./BlameTest.html">BlameTest</a>
+  
+    <li><a href="./BuilderHelper.html">BuilderHelper</a>
+  
+    <li><a href="./CategoriesController.html">CategoriesController</a>
+  
+    <li><a href="./CategoriesHelper.html">CategoriesHelper</a>
+  
+    <li><a href="./Category.html">Category</a>
+  
+    <li><a href="./CategoryValue.html">CategoryValue</a>
+  
+    <li><a href="./Cgroup.html">Cgroup</a>
+  
+    <li><a href="./ConsentProtocol.html">ConsentProtocol</a>
+  
+    <li><a href="./ConsentProtocolsController.html">ConsentProtocolsController</a>
+  
+    <li><a href="./CreateParents.html">CreateParents</a>
+  
+    <li><a href="./CustomMessages.html">CustomMessages</a>
+  
+    <li><a href="./DissectedSamplesController.html">DissectedSamplesController</a>
+  
+    <li><a href="./FlowCell.html">FlowCell</a>
+  
+    <li><a href="./FlowCellsController.html">FlowCellsController</a>
+  
+    <li><a href="./FlowLane.html">FlowLane</a>
+  
+    <li><a href="./FlowcellQueriesController.html">FlowcellQueriesController</a>
+  
+    <li><a href="./FlowcellQuery.html">FlowcellQuery</a>
+  
+    <li><a href="./FreezerLocation.html">FreezerLocation</a>
+  
+    <li><a href="./FreezerLocationsController.html">FreezerLocationsController</a>
+  
+    <li><a href="./HasManyAutoCompleteViewTest.html">HasManyAutoCompleteViewTest</a>
+  
+    <li><a href="./HistologiesController.html">HistologiesController</a>
+  
+    <li><a href="./HistologiesHelper.html">HistologiesHelper</a>
+  
+    <li><a href="./Histology.html">Histology</a>
+  
+    <li><a href="./HttpLoginProxy.html">HttpLoginProxy</a>
+  
+    <li><a href="./IndexTag.html">IndexTag</a>
+  
+    <li><a href="./IndexTagsController.html">IndexTagsController</a>
+  
+    <li><a href="./InventoryDB.html">InventoryDB</a>
+  
+    <li><a href="./Item.html">Item</a>
+  
+    <li><a href="./ItemQuery.html">ItemQuery</a>
+  
+    <li><a href="./ItemsController.html">ItemsController</a>
+  
+    <li><a href="./LibBarcode.html">LibBarcode</a>
+  
+    <li><a href="./LibSample.html">LibSample</a>
+  
+    <li><a href="./LimsCommon.html">LimsCommon</a>
+  
+    <li><a href="./LimsMailer.html">LimsMailer</a>
+  
+    <li><a href="./MachineIncident.html">MachineIncident</a>
+  
+    <li><a href="./MolassayQueriesController.html">MolassayQueriesController</a>
+  
+    <li><a href="./MolassayQuery.html">MolassayQuery</a>
+  
+    <li><a href="./MolecularAssay.html">MolecularAssay</a>
+  
+    <li><a href="./MolecularAssaysController.html">MolecularAssaysController</a>
+  
+    <li><a href="./MolecularAssaysHelper.html">MolecularAssaysHelper</a>
+  
+    <li><a href="./Monkey.html">Monkey</a>
+  
+    <li><a href="./MplexLibsController.html">MplexLibsController</a>
+  
+    <li><a href="./NoTable.html">NoTable</a>
+  
+    <li><a href="./NoValidation.html">NoValidation</a>
+  
+    <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./OligoPoolsController.html">OligoPoolsController</a>
+  
+    <li><a href="./Order.html">Order</a>
+  
+    <li><a href="./OrderMailer.html">OrderMailer</a>
+  
+    <li><a href="./OrdersController.html">OrdersController</a>
+  
+    <li><a href="./Parent.html">Parent</a>
+  
+    <li><a href="./PartialBlameTest.html">PartialBlameTest</a>
+  
+    <li><a href="./PathologiesController.html">PathologiesController</a>
+  
+    <li><a href="./Pathology.html">Pathology</a>
+  
+    <li><a href="./Patient.html">Patient</a>
+  
+    <li><a href="./PatientsController.html">PatientsController</a>
+  
+    <li><a href="./Person.html">Person</a>
+  
+    <li><a href="./Pool.html">Pool</a>
+  
+    <li><a href="./Primer.html">Primer</a>
+  
+    <li><a href="./ProcessedSample.html">ProcessedSample</a>
+  
+    <li><a href="./ProcessedSamplesController.html">ProcessedSamplesController</a>
+  
+    <li><a href="./Protocol.html">Protocol</a>
+  
+    <li><a href="./ProtocolsController.html">ProtocolsController</a>
+  
+    <li><a href="./PsampleQueriesController.html">PsampleQueriesController</a>
+  
+    <li><a href="./PsampleQuery.html">PsampleQuery</a>
+  
+    <li><a href="./Publication.html">Publication</a>
+  
+    <li><a href="./PublicationsController.html">PublicationsController</a>
+  
+    <li><a href="./Researcher.html">Researcher</a>
+  
+    <li><a href="./ResearchersController.html">ResearchersController</a>
+  
+    <li><a href="./Role.html">Role</a>
+  
+    <li><a href="./RoleRequirementTestHelper.html">RoleRequirementTestHelper</a>
+  
+    <li><a href="./RunDir.html">RunDir</a>
+  
+    <li><a href="./RunDirsController.html">RunDirsController</a>
+  
+    <li><a href="./Sample.html">Sample</a>
+  
+    <li><a href="./SampleCharacteristic.html">SampleCharacteristic</a>
+  
+    <li><a href="./SampleCharacteristicsController.html">SampleCharacteristicsController</a>
+  
+    <li><a href="./SampleQueriesController.html">SampleQueriesController</a>
+  
+    <li><a href="./SampleQueriesHelper.html">SampleQueriesHelper</a>
+  
+    <li><a href="./SampleQuery.html">SampleQuery</a>
+  
+    <li><a href="./SampleStorageContainer.html">SampleStorageContainer</a>
+  
+    <li><a href="./SampleStorageContainersController.html">SampleStorageContainersController</a>
+  
+    <li><a href="./SamplesController.html">SamplesController</a>
+  
+    <li><a href="./SeqLib.html">SeqLib</a>
+  
+    <li><a href="./SeqLibsController.html">SeqLibsController</a>
+  
+    <li><a href="./SeqLibsHelper.html">SeqLibsHelper</a>
+  
+    <li><a href="./SeqMachine.html">SeqMachine</a>
+  
+    <li><a href="./SeqMachinesController.html">SeqMachinesController</a>
+  
+    <li><a href="./SeqlibLanesController.html">SeqlibLanesController</a>
+  
+    <li><a href="./SeqlibQueriesController.html">SeqlibQueriesController</a>
+  
+    <li><a href="./SeqlibQuery.html">SeqlibQuery</a>
+  
+    <li><a href="./Sprocket.html">Sprocket</a>
+  
+    <li><a href="./SslRequirementController.html">SslRequirementController</a>
+  
+    <li><a href="./SslRequirementTest.html">SslRequirementTest</a>
+  
+    <li><a href="./StorageDevice.html">StorageDevice</a>
+  
+    <li><a href="./StorageDevicesController.html">StorageDevicesController</a>
+  
+    <li><a href="./TaggedBuilder.html">TaggedBuilder</a>
+  
+    <li><a href="./TestiesController.html">TestiesController</a>
+  
+    <li><a href="./UploadsController.html">UploadsController</a>
+  
+    <li><a href="./User.html">User</a>
+  
+    <li><a href="./UserLog.html">UserLog</a>
+  
+    <li><a href="./UserLogin.html">UserLogin</a>
+  
+    <li><a href="./UserNotifier.html">UserNotifier</a>
+  
+    <li><a href="./UserObserver.html">UserObserver</a>
+  
+    <li><a href="./UsersController.html">UsersController</a>
+  
+    <li><a href="./WelcomeController.html">WelcomeController</a>
+  
+    <li><a href="./Widget.html">Widget</a>
+  
+    <li><a href="./WithValidation.html">WithValidation</a>
+  
+    <li><a href="./XmlLoginProxy.html">XmlLoginProxy</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class SeqLib</h1>
+
+  <div id="description" class="description">
+    
+<h2 id="label-Schema+Information">Schema Information</h2>
+
+<p>Table name: seq_libs</p>
+
+<pre>id                  :integer(4)      not null, primary key
+barcode_key         :string(20)
+lib_name            :string(50)      default(&quot;&quot;), not null
+library_type        :string(2)
+lib_status          :string(2)
+protocol_id         :integer(4)
+owner               :string(25)
+preparation_date    :date
+runtype_adapter     :string(25)
+project             :string(50)
+pool_id             :integer(3)
+oligo_pool          :string(8)
+alignment_ref_id    :integer(4)
+alignment_ref       :string(50)
+trim_bases          :integer(2)
+sample_conc         :decimal(15, 9)
+sample_conc_uom     :string(10)
+lib_conc_requested  :decimal(15, 9)
+lib_conc_uom        :string(10)
+notebook_ref        :string(50)
+notes               :string(255)
+quantitation_method :string(20)
+starting_amt_ng     :decimal(11, 3)
+pcr_size            :integer(2)
+dilution            :decimal(6, 3)
+updated_by          :integer(2)
+created_at          :datetime
+updated_at          :timestamp       not null</pre>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <!-- Constants -->
+    <section id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt id="BARCODE_PREFIX">BARCODE_PREFIX
+        
+        <dd class="description"><p>after_update :upd_mplex_pool, :if =&gt; Proc.new { |lib|
+lib.oligo_pool_changed? } after_update :save_samples</p>
+        
+      
+        <dt id="BASE_GRAMS_PER_MOL">BASE_GRAMS_PER_MOL
+        
+        <dd class="description">
+        
+      
+        <dt id="MILLUMINA_SAMPLES">MILLUMINA_SAMPLES
+        
+        <dd class="description">
+        
+      
+        <dt id="MULTIPLEX_SAMPLES">MULTIPLEX_SAMPLES
+        
+        <dd class="description">
+        
+      
+        <dt id="SAMPLE_CONC">SAMPLE_CONC
+        
+        <dd class="description">
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-find_for_export" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">find_for_export</span><span
+            class="method-args">(id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="find_for_export-source">
+            <pre><span class="ruby-comment"># File app/models/seq_lib.rb, line 162</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find_for_export</span>(<span class="ruby-identifier">id</span>)
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">id</span>).<span class="ruby-identifier">includes</span>(<span class="ruby-value">:flow_lanes</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value">:flow_cell</span>, <span class="ruby-value">:align_qc</span>]).<span class="ruby-identifier">where</span>(<span class="ruby-string">&quot;flow_cells.flowcell_status &lt;&gt; 'F'&quot;</span>)
+  <span class="ruby-comment">#self.find(id, :include =&gt; {:flow_lanes =&gt; [:flow_cell, :align_qc]},</span>
+  <span class="ruby-comment">#              :conditions =&gt; &quot;flow_cells.flowcell_status &lt;&gt; 'F'&quot;)</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- find_for_export-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- find_for_export-method -->
+
+    
+      <div id="method-c-find_for_query" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">find_for_query</span><span
+            class="method-args">(condition_array)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="find_for_query-source">
+            <pre><span class="ruby-comment"># File app/models/seq_lib.rb, line 147</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find_for_query</span>(<span class="ruby-identifier">condition_array</span>)
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">select</span>(<span class="ruby-string">&quot;seq_libs.*, COUNT(DISTINCT(flow_cells.id)) AS 'seq_run_cnt', COUNT(flow_lanes.id) AS 'seq_lane_cnt', &quot;</span> <span class="ruby-operator">+</span>
+                  <span class="ruby-string">&quot;COUNT(align_qc.id) AS 'qc_lane_cnt'&quot;</span>)
+      .<span class="ruby-identifier">joins</span>(<span class="ruby-string">'LEFT JOIN flow_lanes ON flow_lanes.seq_lib_id = seq_libs.id
+            LEFT JOIN align_qc ON align_qc.flow_lane_id = flow_lanes.id
+            LEFT JOIN flow_cells ON flow_lanes.flow_cell_id = flow_cells.id'</span>).<span class="ruby-identifier">where</span>(<span class="ruby-identifier">sql_where</span>(<span class="ruby-identifier">condition_array</span>)).<span class="ruby-identifier">group</span>(<span class="ruby-string">'seq_libs.id'</span>)
+  <span class="ruby-comment">#self.find(:all, :select =&gt; &quot;seq_libs.*, COUNT(DISTINCT(flow_cells.id)) AS 'seq_run_cnt', COUNT(flow_lanes.id) AS 'seq_lane_cnt', &quot; +</span>
+  <span class="ruby-comment">#                           &quot;COUNT(align_qc.id) AS 'qc_lane_cnt'&quot;,</span>
+  <span class="ruby-comment">#                :joins =&gt; &quot;LEFT JOIN flow_lanes ON flow_lanes.seq_lib_id = seq_libs.id</span>
+   <span class="ruby-comment">#                          LEFT JOIN align_qc ON align_qc.flow_lane_id = flow_lanes.id</span>
+   <span class="ruby-comment">#                          LEFT JOIN flow_cells ON flow_lanes.flow_cell_id = flow_cells.id&quot;,</span>
+  <span class="ruby-comment">#                :group =&gt; &quot;seq_libs.id&quot;,</span>
+   <span class="ruby-comment">#               :conditions =&gt; condition_array)</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- find_for_query-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- find_for_query-method -->
+
+    
+      <div id="method-c-getwith_attach" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">getwith_attach</span><span
+            class="method-args">(id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="getwith_attach-source">
+            <pre><span class="ruby-comment"># File app/models/seq_lib.rb, line 173</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">getwith_attach</span>(<span class="ruby-identifier">id</span>)
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">id</span>).<span class="ruby-identifier">includes</span>(<span class="ruby-value">:attached_files</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- getwith_attach-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- getwith_attach-method -->
+
+    
+      <div id="method-c-unique_projects" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">unique_projects</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="unique_projects-source">
+            <pre><span class="ruby-comment"># File app/models/seq_lib.rb, line 168</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">unique_projects</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">select</span>(<span class="ruby-value">:project</span>).<span class="ruby-identifier">order</span>(<span class="ruby-value">:project</span>).<span class="ruby-identifier">uniq</span>
+  <span class="ruby-comment">#self.find(:all, :select =&gt; 'DISTINCT project', :order =&gt; 'project')</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- unique_projects-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- unique_projects-method -->
+
+    
+      <div id="method-c-upd_lib_status" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">upd_lib_status</span><span
+            class="method-args">(flow_cell, lib_status)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="upd_lib_status-source">
+            <pre><span class="ruby-comment"># File app/models/seq_lib.rb, line 177</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">upd_lib_status</span>(<span class="ruby-identifier">flow_cell</span>, <span class="ruby-identifier">lib_status</span>)
+  <span class="ruby-identifier">flow_lanes</span> = <span class="ruby-constant">FlowLane</span>.<span class="ruby-identifier">find_all_by_flow_cell_id</span>(<span class="ruby-identifier">flow_cell</span>.<span class="ruby-identifier">id</span>)
+  <span class="ruby-identifier">flow_lanes</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">lane</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">lane</span>.<span class="ruby-identifier">seq_lib_id</span>, <span class="ruby-value">:lib_status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">lib_status</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">lane</span>.<span class="ruby-identifier">seq_lib</span>.<span class="ruby-identifier">lib_status</span> <span class="ruby-operator">!=</span> <span class="ruby-string">'C'</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- upd_lib_status-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- upd_lib_status-method -->
+
+    
+      <div id="method-c-upd_mplex_fields" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">upd_mplex_fields</span><span
+            class="method-args">(mplex_lib)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="upd_mplex_fields-source">
+            <pre><span class="ruby-comment"># File app/models/seq_lib.rb, line 199</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">upd_mplex_fields</span>(<span class="ruby-identifier">mplex_lib</span>)
+  <span class="ruby-comment"># Determine if all pools for associated samples are the same, if so, update multiplex pool accordingly</span>
+  <span class="ruby-comment"># Determine if all adapters for associated samples are the same, if so, update adapter accordingly</span>
+  <span class="ruby-identifier">slib_pools</span> = <span class="ruby-identifier">mplex_lib</span>.<span class="ruby-identifier">lib_samples</span>.<span class="ruby-identifier">collect</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">lsamp</span><span class="ruby-operator">|</span> [<span class="ruby-identifier">lsamp</span>.<span class="ruby-identifier">splex_lib</span>.<span class="ruby-identifier">pool_id</span>, (<span class="ruby-identifier">lsamp</span>.<span class="ruby-identifier">splex_lib</span>.<span class="ruby-identifier">oligo_pool</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">lsamp</span>.<span class="ruby-identifier">splex_lib</span>.<span class="ruby-identifier">oligo_pool</span> <span class="ruby-operator">:</span> <span class="ruby-string">''</span>)]}
+  <span class="ruby-identifier">slib_adapters</span> = <span class="ruby-identifier">mplex_lib</span>.<span class="ruby-identifier">lib_samples</span>.<span class="ruby-identifier">collect</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">lsamp</span><span class="ruby-operator">|</span> <span class="ruby-identifier">lsamp</span>.<span class="ruby-identifier">splex_lib</span>.<span class="ruby-identifier">runtype_adapter</span>}
+      
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">slib_pools</span>.<span class="ruby-identifier">uniq</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span> 
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">mplex_lib</span>.<span class="ruby-identifier">id</span>, <span class="ruby-value">:oligo_pool</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'Multiple'</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">mplex_lib</span>.<span class="ruby-identifier">id</span>, <span class="ruby-value">:pool_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">slib_pools</span>[<span class="ruby-value">0</span>][<span class="ruby-value">0</span>], <span class="ruby-value">:oligo_pool</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">slib_pools</span>[<span class="ruby-value">0</span>][<span class="ruby-value">1</span>])
+  <span class="ruby-keyword">end</span>
+      
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">slib_adapters</span>.<span class="ruby-identifier">uniq</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">mplex_lib</span>.<span class="ruby-identifier">id</span>, <span class="ruby-value">:runtype_adapter</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'Multiple'</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">mplex_lib</span>.<span class="ruby-identifier">id</span>, <span class="ruby-value">:runtype_adapter</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">slib_adapters</span>[<span class="ruby-value">0</span>])
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- upd_mplex_fields-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- upd_mplex_fields-method -->
+
+    
+      <div id="method-c-upd_mplex_splex" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">upd_mplex_splex</span><span
+            class="method-args">(splex_lib)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="upd_mplex_splex-source">
+            <pre><span class="ruby-comment"># File app/models/seq_lib.rb, line 184</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">upd_mplex_splex</span>(<span class="ruby-identifier">splex_lib</span>)
+  <span class="ruby-comment"># Find all cases where supplied sequencing library is one of the 'samples' in a multiplex library</span>
+  <span class="ruby-identifier">lib_samples</span> = <span class="ruby-constant">LibSample</span>.<span class="ruby-identifier">find_all_by_splex_lib_id</span>(<span class="ruby-identifier">splex_lib</span>.<span class="ruby-identifier">id</span>)
+  
+  <span class="ruby-comment"># If any cases found, collect all the multiplex libraries and their associated 'samples'(=singleplex libs)</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">lib_samples</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">mplex_ids</span>  = <span class="ruby-identifier">lib_samples</span>.<span class="ruby-identifier">collect</span>(&amp;<span class="ruby-value">:seq_lib_id</span>)
+    <span class="ruby-identifier">mplex_libs</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find_all_by_id</span>(<span class="ruby-identifier">mplex_ids</span>, <span class="ruby-value">:include</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-value">:lib_samples</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:splex_lib</span>})
+    
+    <span class="ruby-identifier">mplex_libs</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">lib</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">upd_mplex_fields</span>(<span class="ruby-identifier">lib</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- upd_mplex_splex-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- upd_mplex_splex-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-control_lane-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">control_lane?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="control_lane-3F-source">
+            <pre><span class="ruby-comment"># File app/models/seq_lib.rb, line 111</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">control_lane?</span>
+  (<span class="ruby-identifier">lib_status</span> <span class="ruby-operator">==</span> <span class="ruby-string">'C'</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- control_lane-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- control_lane-3F-method -->
+
+    
+      <div id="method-i-control_lane_nr" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">control_lane_nr</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="control_lane_nr-source">
+            <pre><span class="ruby-comment"># File app/models/seq_lib.rb, line 115</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">control_lane_nr</span>
+  (<span class="ruby-identifier">lib_status</span> <span class="ruby-operator">==</span> <span class="ruby-string">'C'</span><span class="ruby-operator">?</span> <span class="ruby-value">4</span> <span class="ruby-operator">:</span> <span class="ruby-keyword">nil</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- control_lane_nr-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- control_lane_nr-method -->
+
+    
+      <div id="method-i-dummy_barcode" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">dummy_barcode</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="dummy_barcode-source">
+            <pre><span class="ruby-comment"># File app/models/seq_lib.rb, line 91</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">dummy_barcode</span>
+  (<span class="ruby-identifier">barcode_key</span>[<span class="ruby-value">0</span>,<span class="ruby-value">1</span>] <span class="ruby-operator">==</span> <span class="ruby-string">'X'</span> <span class="ruby-operator">?</span> <span class="ruby-keyword">true</span> <span class="ruby-operator">:</span> <span class="ruby-keyword">false</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- dummy_barcode-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- dummy_barcode-method -->
+
+    
+      <div id="method-i-in_multiplex_lib-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">in_multiplex_lib?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="in_multiplex_lib-3F-source">
+            <pre><span class="ruby-comment"># File app/models/seq_lib.rb, line 103</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">in_multiplex_lib?</span>
+  <span class="ruby-operator">!</span><span class="ruby-identifier">mlib_samples</span>.<span class="ruby-identifier">nil?</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- in_multiplex_lib-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- in_multiplex_lib-3F-method -->
+
+    
+      <div id="method-i-lib_barcode" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">lib_barcode</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="lib_barcode-source">
+            <pre><span class="ruby-comment"># File app/models/seq_lib.rb, line 95</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">lib_barcode</span>
+  (<span class="ruby-identifier">dummy_barcode</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">true</span> <span class="ruby-operator">?</span> <span class="ruby-string">'N/A'</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">barcode_key</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- lib_barcode-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- lib_barcode-method -->
+
+    
+      <div id="method-i-multiplex_lib-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">multiplex_lib?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="multiplex_lib-3F-source">
+            <pre><span class="ruby-comment"># File app/models/seq_lib.rb, line 99</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">multiplex_lib?</span>
+  (<span class="ruby-identifier">library_type</span> <span class="ruby-operator">==</span> <span class="ruby-string">'M'</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- multiplex_lib-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- multiplex_lib-3F-method -->
+
+    
+      <div id="method-i-on_flow_lane-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_flow_lane?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_flow_lane-3F-source">
+            <pre><span class="ruby-comment"># File app/models/seq_lib.rb, line 107</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_flow_lane?</span>
+  <span class="ruby-operator">!</span><span class="ruby-identifier">flow_lanes</span>.<span class="ruby-identifier">nil?</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- on_flow_lane-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- on_flow_lane-3F-method -->
+
+    
+      <div id="method-i-owner_abbrev" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">owner_abbrev</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="owner_abbrev-source">
+            <pre><span class="ruby-comment"># File app/models/seq_lib.rb, line 81</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">owner_abbrev</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">owner</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">owner</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">11</span>
+    <span class="ruby-identifier">owner1</span> = <span class="ruby-identifier">owner</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">first_and_last</span> = <span class="ruby-identifier">owner</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">' '</span>)
+    <span class="ruby-identifier">owner1</span> = [<span class="ruby-identifier">first_and_last</span>[<span class="ruby-value">0</span>], <span class="ruby-identifier">first_and_last</span>[<span class="ruby-value">1</span>][<span class="ruby-value">0</span>,<span class="ruby-value">1</span>]].<span class="ruby-identifier">join</span>(<span class="ruby-string">' '</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">owner1</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- owner_abbrev-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- owner_abbrev-method -->
+
+    
+      <div id="method-i-sample_conc_ngul" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">sample_conc_ngul</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="sample_conc_ngul-source">
+            <pre><span class="ruby-comment"># File app/models/seq_lib.rb, line 136</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">sample_conc_ngul</span>
+  <span class="ruby-comment"># conversion from nM to ng/ul is: (sample_conc * (pcr_size * BASE_GRAMS_PER_MOL) / 1000000)</span>
+  <span class="ruby-keyword">return</span> (<span class="ruby-identifier">sample_conc_uom</span> <span class="ruby-operator">==</span> <span class="ruby-string">'ng/ul'</span><span class="ruby-operator">?</span> <span class="ruby-identifier">sample_conc</span> <span class="ruby-operator">:</span> <span class="ruby-keyword">nil</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- sample_conc_ngul-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- sample_conc_ngul-method -->
+
+    
+      <div id="method-i-sample_conc_nm" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">sample_conc_nm</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="sample_conc_nm-source">
+            <pre><span class="ruby-comment"># File app/models/seq_lib.rb, line 124</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">sample_conc_nm</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">sample_conc_uom</span> <span class="ruby-operator">==</span> <span class="ruby-string">'nM'</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">sample_conc</span>
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">pcr_size</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">sample_conc</span>.<span class="ruby-identifier">nil?</span>  <span class="ruby-comment"># pcr_size was not always a required field; if not entered cannot convert ng/ul to nM</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span>          
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">sample_conc_uom</span> <span class="ruby-operator">==</span> <span class="ruby-string">'ng/ul'</span>         <span class="ruby-comment">#convert from ng/ul to nM</span>
+    <span class="ruby-keyword">return</span> (<span class="ruby-identifier">sample_conc</span>  <span class="ruby-operator">/</span> (<span class="ruby-identifier">pcr_size</span> * <span class="ruby-constant">BASE_GRAMS_PER_MOL</span>) * <span class="ruby-value">1000000</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">sample_conc</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- sample_conc_nm-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- sample_conc_nm-method -->
+
+    
+      <div id="method-i-sample_conc_with_uom" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">sample_conc_with_uom</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="sample_conc_with_uom-source">
+            <pre><span class="ruby-comment"># File app/models/seq_lib.rb, line 119</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">sample_conc_with_uom</span>
+  <span class="ruby-identifier">conc</span> = (<span class="ruby-identifier">sample_conc</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">number_with_precision</span>(<span class="ruby-identifier">sample_conc</span>, <span class="ruby-value">:precision</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">2</span>) <span class="ruby-operator">:</span> <span class="ruby-string">'--'</span>)
+  <span class="ruby-keyword">return</span> [<span class="ruby-identifier">conc</span>, <span class="ruby-identifier">sample_conc_uom</span>].<span class="ruby-identifier">join</span>(<span class="ruby-string">' '</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- sample_conc_with_uom-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- sample_conc_with_uom-method -->
+
+    
+      <div id="method-i-set_default_values" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_default_values</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_default_values-source">
+            <pre><span class="ruby-comment"># File app/models/seq_lib.rb, line 141</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_default_values</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">lib_status</span> = <span class="ruby-string">'L'</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">lib_conc_uom</span> = <span class="ruby-string">'pM'</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">sample_conc_uom</span> = <span class="ruby-string">'ng/ul'</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- set_default_values-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- set_default_values-method -->
+
+    
+      <div id="method-i-validate" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">validate</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="validate-source">
+            <pre><span class="ruby-comment"># File app/models/seq_lib.rb, line 61</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">validate</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">new_record?</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">barcode_key</span>.<span class="ruby-identifier">nil?</span>
+      <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-value">:barcode_key</span>, <span class="ruby-node">&quot;must start with '#{BARCODE_PREFIX}'&quot;</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">barcode_key</span>[<span class="ruby-value">0</span>,<span class="ruby-value">1</span>] <span class="ruby-operator">!=</span> <span class="ruby-constant">BARCODE_PREFIX</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-value">:pcr_size</span>,    <span class="ruby-string">&quot;must be entered&quot;</span>)     <span class="ruby-keyword">if</span> <span class="ruby-identifier">pcr_size</span>.<span class="ruby-identifier">blank?</span>
+    <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-value">:sample_conc</span>, <span class="ruby-string">&quot;must be entered&quot;</span>)     <span class="ruby-keyword">if</span> <span class="ruby-identifier">sample_conc</span>.<span class="ruby-identifier">blank?</span>  
+  <span class="ruby-keyword">elsif</span> <span class="ruby-operator">!</span><span class="ruby-identifier">barcode_key</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-value">:barcode_key</span>, <span class="ruby-node">&quot;must start with '#{BARCODE_PREFIX}'&quot;</span>) <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span>[<span class="ruby-constant">BARCODE_PREFIX</span>,<span class="ruby-string">'X'</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">barcode_key</span>[<span class="ruby-value">0</span>,<span class="ruby-value">1</span>])
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">barcode_key</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">barcode_key</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">barcode_key</span>[<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>].<span class="ruby-identifier">scan</span>(<span class="ruby-regexp">/\D/</span>).<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+      <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-value">:barcode_key</span>, <span class="ruby-node">&quot;must be numeric after the '#{BARCODE_PREFIX}'&quot;</span>) 
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-value">:sample_conc</span>, <span class="ruby-string">&quot;cannot be &gt; 10nM&quot;</span>)    <span class="ruby-keyword">if</span> (<span class="ruby-operator">!</span><span class="ruby-identifier">sample_conc</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">sample_conc_uom</span> <span class="ruby-operator">==</span> <span class="ruby-string">'nM'</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">sample_conc</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">10</span>)    
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- validate-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- validate-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

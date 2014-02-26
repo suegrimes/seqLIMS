@@ -30,6 +30,25 @@ class SeqlibQueriesController < ApplicationController
       render :action => :new_query
     end
   end
+
+  def export_seqlibs
+    export_type = 'T'
+    @seq_libs = SeqLib.find_all_for_export(params[:export_id])
+    file_basename = ['LIMS_SeqLibs', Date.today.to_s].join("_")
+
+    case export_type
+      when 'T'  # Export to tab-delimited text using csv_string
+        @filename = file_basename + '.txt'
+        csv_string = export_seqlibs_csv(@seq_libs)
+        send_data(csv_string,
+                  :type => 'text/csv; charset=utf-8; header=present',
+                  :filename => @filename, :disposition => 'attachment')
+
+      else # Use for debugging
+        csv_string = export_seqlibs_csv(@processed_samples, with_mrn)
+        render :text => csv_string
+    end
+  end
   
 protected
   def dropdowns
@@ -99,5 +118,54 @@ protected
       return where_values.push(sql_value(val))
     end
   end
-  
+
+  def export_seqlibs_csv(seq_libs)
+    hdgs, flds = export_seqlibs_setup
+
+    csv_string = CSV.generate(:col_sep => "\t") do |csv|
+      csv << hdgs
+
+      seq_libs.each do |seq_lib|
+        fld_array    = []
+        seq_lib_xref  = model_xref(seq_lib)
+
+        flds.each do |obj_code, fld|
+          obj = seq_lib_xref[obj_code.to_sym]
+          if obj
+            fld_array << obj.send(fld)
+          else
+            fld_array << nil
+          end
+        end
+        csv << [Date.today.to_s].concat(fld_array)
+      end
+    end
+    return csv_string
+  end
+
+  def export_seqlibs_setup
+    hdgs  = %w{Download_Dt Barcode PatientID LibName Owner PrepDt LibType Adapter SampleConc(ng/ul) SampleConc(nM)
+               Project OligoPool AlignRef SeqLaneCt}
+
+    flds  = [['sl', 'lib_barcode'],
+             ['sl', 'patient_ids'],
+             ['sl', 'lib_name'],
+             ['sl', 'owner_abbrev'],
+             ['sl', 'preparation_date'],
+             ['sl', 'library_type'],
+             ['sl', 'runtype_adapter'],
+             ['sl', 'sample_conc_ngul'],
+             ['sl', 'sample_conc_nm'],
+             ['sl', 'project'],
+             ['sl', 'oligo_pool'],
+             ['sl', 'alignment_ref'],
+             ['sl', 'flow_lane_ct']]
+
+    return hdgs, flds
+  end
+
+  def model_xref(seq_lib)
+    sample_xref = {:sl => seq_lib}
+    return sample_xref
+  end
 end 

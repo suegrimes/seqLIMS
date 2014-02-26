@@ -11,30 +11,31 @@
   
   <span class="table_title">Physical Sample(s):</span>
   <table class="list">
-    <%= render :partial => 'samples/sample_hdr', :locals => {:from_nccc => @sample_characteristic.from_nccc?} %>
+    <%= render :partial => 'samples/sample_hdr' %>
 	
     <% for sample in @sample_characteristic.samples %>
 	   <% if !sample.id.nil?%>
-         <%= render :partial => 'samples/sample_row', :locals => {:sample => sample,
-                                                                  :from_nccc => @sample_characteristic.from_nccc?} %>
+         <%= render :partial => 'samples/sample_row', :locals => {:sample => sample} %>
 	   <% end %>
     <% end %>	
   </table>
 
-<div id="more_to_add">
-  <%= link_to "Add another sample for this patient/collection date", '', :onclick => "showHideDiv('more_to_add','add_more'); return false;" %>
-</div>
+    <div id="sample_link">
+    <%= link_to 'Add another sample for this patient/collection date', add_another_sample_sample_characteristic_path(@sample_characteristic.id),
+              :id => "add_more", :remote => true, :"data-method" => 'post' %>
+    </div>
+    <%= javascript_tag do %>
+        $('#add_more').bind("ajax:complete", function(event, data){
+        $('#sample_link').toggle();
+        $('#load_more').html(data.responseText); // insert content
+        });
+    <% end %>
 
-<div id="add_more" style="display:none">
-   <% sample = @sample_characteristic.samples.build(@sample_params) %>
-   <% sample.build_sample_storage_container %>
-
-   <%= f.fields_for :samples, sample do |s| %>
-     <%= render :partial => 'samples_form', :locals => {:s => s,
-                                                        :sample => sample,
-                                                        :removable => 'no'} %>
-   <% end %>
-</div>
+    <div id='load_more'>
+      <% if @sample_with_error %>
+        <%= render :partial => 'samples_form1', :locals => {:sample => @sample_with_error} %>
+      <% end %>
+    </div>
   
 <%=raw break_clear(f.submit "Update") %>
 <% end %>

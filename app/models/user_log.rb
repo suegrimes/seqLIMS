@@ -2,13 +2,13 @@
 #
 # Table name: user_logs
 #
-#  id              :integer(4)      not null, primary key
+#  id              :integer          not null, primary key
 #  ip_address      :string(20)
-#  user_id         :integer(2)
-#  user_login      :string(25)      default(""), not null
-#  controller_name :string(25)      default(""), not null
-#  action_name     :string(25)      default(""), not null
-#  log_timestamp   :datetime        not null
+#  user_id         :integer
+#  user_login      :string(25)       default(""), not null
+#  controller_name :string(25)       default(""), not null
+#  action_name     :string(25)       default(""), not null
+#  log_timestamp   :datetime         not null
 #
 
 

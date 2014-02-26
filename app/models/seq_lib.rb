@@ -2,21 +2,21 @@
 #
 # Table name: seq_libs
 #
-#  id                  :integer(4)      not null, primary key
+#  id                  :integer          not null, primary key
 #  barcode_key         :string(20)
-#  lib_name            :string(50)      default(""), not null
+#  lib_name            :string(50)       default(""), not null
 #  library_type        :string(2)
 #  lib_status          :string(2)
-#  protocol_id         :integer(4)
+#  protocol_id         :integer
 #  owner               :string(25)
 #  preparation_date    :date
 #  runtype_adapter     :string(25)
 #  project             :string(50)
-#  pool_id             :integer(3)
+#  pool_id             :integer
 #  oligo_pool          :string(8)
-#  alignment_ref_id    :integer(4)
+#  alignment_ref_id    :integer
 #  alignment_ref       :string(50)
-#  trim_bases          :integer(2)
+#  trim_bases          :integer
 #  sample_conc         :decimal(15, 9)
 #  sample_conc_uom     :string(10)
 #  lib_conc_requested  :decimal(15, 9)
@@ -25,11 +25,11 @@
 #  notes               :string(255)
 #  quantitation_method :string(20)
 #  starting_amt_ng     :decimal(11, 3)
-#  pcr_size            :integer(2)
+#  pcr_size            :integer
 #  dilution            :decimal(6, 3)
-#  updated_by          :integer(2)
+#  updated_by          :integer
 #  created_at          :datetime
-#  updated_at          :timestamp       not null
+#  updated_at          :timestamp        not null
 #
 
 class SeqLib < ActiveRecord::Base
@@ -39,6 +39,7 @@ class SeqLib < ActiveRecord::Base
   has_many :mlib_samples, :class_name => 'LibSample', :foreign_key => :splex_lib_id
   has_many :flow_lanes
   has_many :align_qc, :through => :flow_lanes
+  has_many :processed_samples, :through => :lib_samples
   has_many :attached_files, :as => :sampleproc
   
   accepts_nested_attributes_for :lib_samples
@@ -87,6 +88,11 @@ class SeqLib < ActiveRecord::Base
     end
     return owner1
   end
+
+  def patient_ids
+    patient_ids = lib_samples.collect{|lib_sample| lib_sample.patient_id}
+    return (patient_ids.compact.size > 0 ? patient_ids.uniq.compact.join(' ,') : nil)
+  end
   
   def dummy_barcode
     (barcode_key[0,1] == 'X' ? true : false)
@@ -106,6 +112,10 @@ class SeqLib < ActiveRecord::Base
   
   def on_flow_lane?
     !flow_lanes.nil?
+  end
+
+  def flow_lane_ct
+    flow_lanes.size
   end
   
   def control_lane?
@@ -164,6 +174,10 @@ class SeqLib < ActiveRecord::Base
     #self.find(id, :include => {:flow_lanes => [:flow_cell, :align_qc]},
     #              :conditions => "flow_cells.flowcell_status <> 'F'")
   end
+
+  def self.find_all_for_export(seqlib_ids)
+    self.includes(:flow_lanes, :processed_samples).where("seq_libs.id IN (?)", seqlib_ids).all
+  end
   
   def self.unique_projects
     self.select(:project).order(:project).uniq
@@ -171,7 +185,7 @@ class SeqLib < ActiveRecord::Base
   end
   
   def self.getwith_attach(id)
-    self.find(id).includes(:attached_files)
+    self.includes(:attached_files).find(id)
   end
   
   def self.upd_lib_status(flow_cell, lib_status)

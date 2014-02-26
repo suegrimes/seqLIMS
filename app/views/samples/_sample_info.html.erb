@@ -21,8 +21,8 @@
                   ['Field', 'Storage Container', sample.container_and_position ],
                   ] %>
 				  
-<!-- Include NCCC sample identifier if non-blank -->
-<% info_flds.insert(2, ['Field', 'NCCC Identifier', sample.alt_identifier]) if !sample.alt_identifier.blank? %>
+<!-- Include alternate sample identifier if non-blank -->
+<% info_flds.insert(2, ['Field', 'Alt Identifier', sample.alt_identifier]) if !sample.alt_identifier.blank? %>
 <% info_flds.insert(3, nil) if !sample.alt_identifier.blank? %>
 				  
 <!-- Only include comments if non-blank -->

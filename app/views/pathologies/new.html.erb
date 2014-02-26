@@ -2,8 +2,7 @@
 
 <%= render :partial => 'patients/patient_info',  :locals => {:patient => @sample_characteristics[0].patient} %>
   
-<%= tagged_form_for :pathology, @pathology,
-                   :url => {:action => 'create'} do |f| %>
+<%= tagged_form_for(@pathology, :action => 'create') do |f| %>
 						
 <%= render :partial => 'pathology_form', :locals => {:f => f} %>
 <%=f.hidden_field(:patient_id, :value => @patient_id) %>

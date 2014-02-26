@@ -2,21 +2,21 @@
 #
 # Table name: attached_files
 #
-#  id                    :integer(4)      not null, primary key
-#  sampleproc_id         :integer(4)      not null
-#  sampleproc_type       :string(50)      default(""), not null
+#  id                    :integer          not null, primary key
+#  sampleproc_id         :integer          not null
+#  sampleproc_type       :string(50)       default(""), not null
 #  document              :string(255)
 #  document_content_type :string(40)
 #  document_file_size    :string(25)
 #  notes                 :string(255)
-#  updated_by            :integer(4)
+#  updated_by            :integer
 #  created_at            :datetime
 #
 
 class AttachedFile < ActiveRecord::Base
     
-  #FILES_ROOT = (SITE_URL.include?('stanford.edu') ? File.join(Rails.root, "..", "..", "shared", "attached_files") :
-  #                                                 File.join(Rails.root, "..", "LIMSFiles", "AttachedFile"))
+  FILES_ROOT = (SITE_URL.include?('stanford.edu') ? File.join(Rails.root, "..", "..", "shared", "attached_files") :
+                                                   File.join(Rails.root, "..", "LIMSFiles", "AttachedFile"))
   
   belongs_to :sampleproc, :polymorphic => true
 
@@ -38,15 +38,24 @@ class AttachedFile < ActiveRecord::Base
     end
   end
   
-  def basename_with_ext
-    # Return file basename, with extension (and with id prefix)
+  def doc_filename
     #return document.path.split('/').last
-    #return [sampleproc_id.to_s, '_', document.basename, '.', document.extension].join
     return document.file.identifier
   end
+
+  def doc_stored_name
+    return [sampleproc_id.to_s, '_', doc_filename].join
+  end
+
+  #def basename_with_ext
+    # Return file basename, with extension (and with id prefix)
+    #return document.path.split('/').last
+    #return document.file.identifier
+    #return [sampleproc_id.to_s, '_', document.basename, '.', document.extension].join
+  #end
   
   def doc_fullpath
-    #return File.join(FILES_ROOT, sampleproc_type, basename_with_ext)
-    return document.current_path
+    #return document.current_path
+    return File.join(FILES_ROOT, sampleproc_type, doc_stored_name)
   end
 end

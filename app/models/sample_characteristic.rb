@@ -2,21 +2,21 @@
 #
 # Table name: sample_characteristics
 #
-#  id                  :integer(4)      not null, primary key
-#  patient_id          :integer(4)
+#  id                  :integer          not null, primary key
+#  patient_id          :integer
 #  collection_date     :date
 #  clinic_or_location  :string(100)
-#  consent_protocol_id :integer(4)
+#  consent_protocol_id :integer
 #  consent_nr          :string(15)
 #  gender              :string(1)
 #  ethnicity           :string(35)
 #  race                :string(70)
 #  nccc_tumor_id       :string(20)
 #  nccc_pathno         :string(20)
-#  pathology_id        :integer(4)
+#  pathology_id        :integer
 #  pathology           :string(50)
 #  comments            :string(255)
-#  updated_by          :integer(2)
+#  updated_by          :integer
 #  created_at          :datetime
 #  updated_at          :datetime
 #
@@ -34,16 +34,17 @@ class SampleCharacteristic < ActiveRecord::Base
   validates_presence_of :collection_date, :if => Proc.new { |a| a.new_record? }
   validates_date :collection_date, :allow_blank => true
   validates_presence_of :consent_protocol_id, :clinic_or_location
+
+  before_create :upd_from_patient
+  before_save :upd_consent
   
-  #after_save :save_sample
-  
-  def before_create
+  def upd_from_patient
     self.gender    = self.patient.gender
     self.ethnicity = self.patient.ethnicity
     self.race      = self.patient.race
   end
   
-  def before_save
+  def upd_consent
     self.consent_nr = self.consent_protocol.consent_nr if self.consent_protocol
   end
   

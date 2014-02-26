@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>module AutoCompleteMacrosHelper - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="module">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/repeated_auto_complete/lib/auto_complete_macros_helper.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-auto_complete_field">#auto_complete_field</a>
+    
+    <li><a href="#method-i-auto_complete_field_with_style_and_script">#auto_complete_field_with_style_and_script</a>
+    
+    <li><a href="#method-i-auto_complete_result">#auto_complete_result</a>
+    
+    <li><a href="#method-i-text_field_with_auto_complete">#text_field_with_auto_complete</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./doc/README_FOR_APP.html">README_FOR_APP</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./ValidatesTimeliness.html">ValidatesTimeliness</a>
+  
+    <li><a href="./ValidatesTimeliness/ActionView.html">ValidatesTimeliness::ActionView</a>
+  
+    <li><a href="./ValidatesTimeliness/ActionView/InstanceTag.html">ValidatesTimeliness::ActionView::InstanceTag</a>
+  
+    <li><a href="./ValidatesTimeliness/ActiveRecord.html">ValidatesTimeliness::ActiveRecord</a>
+  
+    <li><a href="./ValidatesTimeliness/ActiveRecord/AttributeMethods.html">ValidatesTimeliness::ActiveRecord::AttributeMethods</a>
+  
+    <li><a href="./ValidatesTimeliness/ActiveRecord/AttributeMethods/ClassMethods.html">ValidatesTimeliness::ActiveRecord::AttributeMethods::ClassMethods</a>
+  
+    <li><a href="./ValidatesTimeliness/ActiveRecord/MultiparameterAttributes.html">ValidatesTimeliness::ActiveRecord::MultiparameterAttributes</a>
+  
+    <li><a href="./ValidatesTimeliness/Formats.html">ValidatesTimeliness::Formats</a>
+  
+    <li><a href="./ValidatesTimeliness/Parser.html">ValidatesTimeliness::Parser</a>
+  
+    <li><a href="./ValidatesTimeliness/ValidationMethods.html">ValidatesTimeliness::ValidationMethods</a>
+  
+    <li><a href="./ValidatesTimeliness/ValidationMethods/ClassMethods.html">ValidatesTimeliness::ValidationMethods::ClassMethods</a>
+  
+    <li><a href="./ValidatesTimeliness/Validator.html">ValidatesTimeliness::Validator</a>
+  
+    <li><a href="./Spec.html">Spec</a>
+  
+    <li><a href="./Spec/Rails.html">Spec::Rails</a>
+  
+    <li><a href="./Spec/Rails/Matchers.html">Spec::Rails::Matchers</a>
+  
+    <li><a href="./Spec/Rails/Matchers/ValidateTimeliness.html">Spec::Rails::Matchers::ValidateTimeliness</a>
+  
+    <li><a href="./Blame.html">Blame</a>
+  
+    <li><a href="./Blame/Userstamp.html">Blame::Userstamp</a>
+  
+    <li><a href="./Blame/UserstampMigrationHelper.html">Blame::UserstampMigrationHelper</a>
+  
+    <li><a href="./Rails.html">Rails</a>
+  
+    <li><a href="./Rails/Generator.html">Rails::Generator</a>
+  
+    <li><a href="./Rails/Generator/NamedBase.html">Rails::Generator::NamedBase</a>
+  
+    <li><a href="./RoleRequirementSystem.html">RoleRequirementSystem</a>
+  
+    <li><a href="./RoleRequirementSystem/RoleSecurityClassMethods.html">RoleRequirementSystem::RoleSecurityClassMethods</a>
+  
+    <li><a href="./RoleRequirementSystem/RoleSecurityInstanceMethods.html">RoleRequirementSystem::RoleSecurityInstanceMethods</a>
+  
+    <li><a href="./Test.html">Test</a>
+  
+    <li><a href="./Test/Unit.html">Test::Unit</a>
+  
+    <li><a href="./Test/Unit/TestCase.html">Test::Unit::TestCase</a>
+  
+    <li><a href="./TimeTravel.html">TimeTravel</a>
+  
+    <li><a href="./TimeTravel/TimeExtensions.html">TimeTravel::TimeExtensions</a>
+  
+    <li><a href="./TimeTravel/TimeExtensions/ClassMethods.html">TimeTravel::TimeExtensions::ClassMethods</a>
+  
+    <li><a href="./ActiveRecordExtension.html">ActiveRecordExtension</a>
+  
+    <li><a href="./ActiveRecordExtension/ClassMethods.html">ActiveRecordExtension::ClassMethods</a>
+  
+    <li><a href="./AutoComplete.html">AutoComplete</a>
+  
+    <li><a href="./AutoComplete/ClassMethods.html">AutoComplete::ClassMethods</a>
+  
+    <li><a href="./OverrideBlameTest.html">OverrideBlameTest</a>
+  
+    <li><a href="./OverrideBlameTest/Sprocket.html">OverrideBlameTest::Sprocket</a>
+  
+    <li><a href="./SslRequirement.html">SslRequirement</a>
+  
+    <li><a href="./SslRequirement/ClassMethods.html">SslRequirement::ClassMethods</a>
+  
+    <li><a href="./ViewMapper.html">ViewMapper</a>
+  
+    <li><a href="./ViewMapper/HasManyAutoCompleteView.html">ViewMapper::HasManyAutoCompleteView</a>
+  
+    <li><a href="./Ability.html">Ability</a>
+  
+    <li><a href="./AlignQc.html">AlignQc</a>
+  
+    <li><a href="./AlignQcsController.html">AlignQcsController</a>
+  
+    <li><a href="./AlignmentRef.html">AlignmentRef</a>
+  
+    <li><a href="./AlignmentRefsController.html">AlignmentRefsController</a>
+  
+    <li><a href="./AnnotateModels.html">AnnotateModels</a>
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./AssignedBarcode.html">AssignedBarcode</a>
+  
+    <li><a href="./AssignedBarcodesController.html">AssignedBarcodesController</a>
+  
+    <li><a href="./AttachedFile.html">AttachedFile</a>
+  
+    <li><a href="./AttachedFilesController.html">AttachedFilesController</a>
+  
+    <li><a href="./AttachmentUploader.html">AttachmentUploader</a>
+  
+    <li><a href="./AuthenticatedGenerator.html">AuthenticatedGenerator</a>
+  
+    <li><a href="./AuthenticatedMailerGenerator.html">AuthenticatedMailerGenerator</a>
+  
+    <li><a href="./AuthenticatedSystem.html">AuthenticatedSystem</a>
+  
+    <li><a href="./AuthenticatedTestHelper.html">AuthenticatedTestHelper</a>
+  
+    <li><a href="./AutoCompleteFormBuilderHelper.html">AutoCompleteFormBuilderHelper</a>
+  
+    <li><a href="./AutoCompleteFormBuilderHelperTest.html">AutoCompleteFormBuilderHelperTest</a>
+  
+    <li><a href="./AutoCompleteMacrosHelper.html">AutoCompleteMacrosHelper</a>
+  
+    <li><a href="./AutoCompleteNestedAttributesTest.html">AutoCompleteNestedAttributesTest</a>
+  
+    <li><a href="./AutoCompleteTest.html">AutoCompleteTest</a>
+  
+    <li><a href="./BaseLoginProxy.html">BaseLoginProxy</a>
+  
+    <li><a href="./BlameTest.html">BlameTest</a>
+  
+    <li><a href="./BuilderHelper.html">BuilderHelper</a>
+  
+    <li><a href="./CategoriesController.html">CategoriesController</a>
+  
+    <li><a href="./CategoriesHelper.html">CategoriesHelper</a>
+  
+    <li><a href="./Category.html">Category</a>
+  
+    <li><a href="./CategoryValue.html">CategoryValue</a>
+  
+    <li><a href="./Cgroup.html">Cgroup</a>
+  
+    <li><a href="./ConsentProtocol.html">ConsentProtocol</a>
+  
+    <li><a href="./ConsentProtocolsController.html">ConsentProtocolsController</a>
+  
+    <li><a href="./CreateParents.html">CreateParents</a>
+  
+    <li><a href="./CustomMessages.html">CustomMessages</a>
+  
+    <li><a href="./DissectedSamplesController.html">DissectedSamplesController</a>
+  
+    <li><a href="./FlowCell.html">FlowCell</a>
+  
+    <li><a href="./FlowCellsController.html">FlowCellsController</a>
+  
+    <li><a href="./FlowLane.html">FlowLane</a>
+  
+    <li><a href="./FlowcellQueriesController.html">FlowcellQueriesController</a>
+  
+    <li><a href="./FlowcellQuery.html">FlowcellQuery</a>
+  
+    <li><a href="./FreezerLocation.html">FreezerLocation</a>
+  
+    <li><a href="./FreezerLocationsController.html">FreezerLocationsController</a>
+  
+    <li><a href="./HasManyAutoCompleteViewTest.html">HasManyAutoCompleteViewTest</a>
+  
+    <li><a href="./HistologiesController.html">HistologiesController</a>
+  
+    <li><a href="./HistologiesHelper.html">HistologiesHelper</a>
+  
+    <li><a href="./Histology.html">Histology</a>
+  
+    <li><a href="./HttpLoginProxy.html">HttpLoginProxy</a>
+  
+    <li><a href="./IndexTag.html">IndexTag</a>
+  
+    <li><a href="./IndexTagsController.html">IndexTagsController</a>
+  
+    <li><a href="./InventoryDB.html">InventoryDB</a>
+  
+    <li><a href="./Item.html">Item</a>
+  
+    <li><a href="./ItemQuery.html">ItemQuery</a>
+  
+    <li><a href="./ItemsController.html">ItemsController</a>
+  
+    <li><a href="./LibBarcode.html">LibBarcode</a>
+  
+    <li><a href="./LibSample.html">LibSample</a>
+  
+    <li><a href="./LimsCommon.html">LimsCommon</a>
+  
+    <li><a href="./LimsMailer.html">LimsMailer</a>
+  
+    <li><a href="./MachineIncident.html">MachineIncident</a>
+  
+    <li><a href="./MolassayQueriesController.html">MolassayQueriesController</a>
+  
+    <li><a href="./MolassayQuery.html">MolassayQuery</a>
+  
+    <li><a href="./MolecularAssay.html">MolecularAssay</a>
+  
+    <li><a href="./MolecularAssaysController.html">MolecularAssaysController</a>
+  
+    <li><a href="./MolecularAssaysHelper.html">MolecularAssaysHelper</a>
+  
+    <li><a href="./Monkey.html">Monkey</a>
+  
+    <li><a href="./MplexLibsController.html">MplexLibsController</a>
+  
+    <li><a href="./NoTable.html">NoTable</a>
+  
+    <li><a href="./NoValidation.html">NoValidation</a>
+  
+    <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./OligoPoolsController.html">OligoPoolsController</a>
+  
+    <li><a href="./Order.html">Order</a>
+  
+    <li><a href="./OrderMailer.html">OrderMailer</a>
+  
+    <li><a href="./OrdersController.html">OrdersController</a>
+  
+    <li><a href="./Parent.html">Parent</a>
+  
+    <li><a href="./PartialBlameTest.html">PartialBlameTest</a>
+  
+    <li><a href="./PathologiesController.html">PathologiesController</a>
+  
+    <li><a href="./Pathology.html">Pathology</a>
+  
+    <li><a href="./Patient.html">Patient</a>
+  
+    <li><a href="./PatientsController.html">PatientsController</a>
+  
+    <li><a href="./Person.html">Person</a>
+  
+    <li><a href="./Pool.html">Pool</a>
+  
+    <li><a href="./Primer.html">Primer</a>
+  
+    <li><a href="./ProcessedSample.html">ProcessedSample</a>
+  
+    <li><a href="./ProcessedSamplesController.html">ProcessedSamplesController</a>
+  
+    <li><a href="./Protocol.html">Protocol</a>
+  
+    <li><a href="./ProtocolsController.html">ProtocolsController</a>
+  
+    <li><a href="./PsampleQueriesController.html">PsampleQueriesController</a>
+  
+    <li><a href="./PsampleQuery.html">PsampleQuery</a>
+  
+    <li><a href="./Publication.html">Publication</a>
+  
+    <li><a href="./PublicationsController.html">PublicationsController</a>
+  
+    <li><a href="./Researcher.html">Researcher</a>
+  
+    <li><a href="./ResearchersController.html">ResearchersController</a>
+  
+    <li><a href="./Role.html">Role</a>
+  
+    <li><a href="./RoleRequirementTestHelper.html">RoleRequirementTestHelper</a>
+  
+    <li><a href="./RunDir.html">RunDir</a>
+  
+    <li><a href="./RunDirsController.html">RunDirsController</a>
+  
+    <li><a href="./Sample.html">Sample</a>
+  
+    <li><a href="./SampleCharacteristic.html">SampleCharacteristic</a>
+  
+    <li><a href="./SampleCharacteristicsController.html">SampleCharacteristicsController</a>
+  
+    <li><a href="./SampleQueriesController.html">SampleQueriesController</a>
+  
+    <li><a href="./SampleQueriesHelper.html">SampleQueriesHelper</a>
+  
+    <li><a href="./SampleQuery.html">SampleQuery</a>
+  
+    <li><a href="./SampleStorageContainer.html">SampleStorageContainer</a>
+  
+    <li><a href="./SampleStorageContainersController.html">SampleStorageContainersController</a>
+  
+    <li><a href="./SamplesController.html">SamplesController</a>
+  
+    <li><a href="./SeqLib.html">SeqLib</a>
+  
+    <li><a href="./SeqLibsController.html">SeqLibsController</a>
+  
+    <li><a href="./SeqLibsHelper.html">SeqLibsHelper</a>
+  
+    <li><a href="./SeqMachine.html">SeqMachine</a>
+  
+    <li><a href="./SeqMachinesController.html">SeqMachinesController</a>
+  
+    <li><a href="./SeqlibLanesController.html">SeqlibLanesController</a>
+  
+    <li><a href="./SeqlibQueriesController.html">SeqlibQueriesController</a>
+  
+    <li><a href="./SeqlibQuery.html">SeqlibQuery</a>
+  
+    <li><a href="./Sprocket.html">Sprocket</a>
+  
+    <li><a href="./SslRequirementController.html">SslRequirementController</a>
+  
+    <li><a href="./SslRequirementTest.html">SslRequirementTest</a>
+  
+    <li><a href="./StorageDevice.html">StorageDevice</a>
+  
+    <li><a href="./StorageDevicesController.html">StorageDevicesController</a>
+  
+    <li><a href="./TaggedBuilder.html">TaggedBuilder</a>
+  
+    <li><a href="./TestiesController.html">TestiesController</a>
+  
+    <li><a href="./UploadsController.html">UploadsController</a>
+  
+    <li><a href="./User.html">User</a>
+  
+    <li><a href="./UserLog.html">UserLog</a>
+  
+    <li><a href="./UserLogin.html">UserLogin</a>
+  
+    <li><a href="./UserNotifier.html">UserNotifier</a>
+  
+    <li><a href="./UserObserver.html">UserObserver</a>
+  
+    <li><a href="./UsersController.html">UsersController</a>
+  
+    <li><a href="./WelcomeController.html">WelcomeController</a>
+  
+    <li><a href="./Widget.html">Widget</a>
+  
+    <li><a href="./WithValidation.html">WithValidation</a>
+  
+    <li><a href="./XmlLoginProxy.html">XmlLoginProxy</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="module">module AutoCompleteMacrosHelper</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-auto_complete_field" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">auto_complete_field</span><span
+            class="method-args">(field_id, options = {})</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Adds AJAX autocomplete functionality to the text input field with the  DOM
+ID specified by <code>field_id</code>.</p>
+
+<p>This function expects that the called action returns an HTML &lt;ul&gt;
+list, or nothing if no entries should be displayed for autocompletion.</p>
+
+<p>You’ll probably want to turn the browser’s built-in autocompletion off, so
+be sure to include an <code>autocomplete=&quot;off&quot;</code> attribute
+with your text input field.</p>
+
+<p>The autocompleter object is assigned to a Javascript variable named
+<code>field_id</code>_auto_completer. This object is useful if you for
+example want to trigger the auto-complete suggestions through other means
+than user input (for that specific case, call the <code>activate</code>
+method on that object).</p>
+
+<p>Required <code>options</code> are:</p>
+<dl class="rdoc-list note-list"><dt><code>:url</code>
+<dd>
+<p>URL to call for autocompletion results in url_for format.</p>
+</dd></dl>
+
+<p>Addtional <code>options</code> are:</p>
+<dl class="rdoc-list note-list"><dt><code>:update</code>
+<dd>
+<p>Specifies the DOM ID of the element whose  innerHTML should be updated with
+the autocomplete entries returned by the AJAX request.  Defaults to
+<code>field_id</code> + ‘_auto_complete’</p>
+</dd><dt><code>:with</code>
+<dd>
+<p>A JavaScript expression specifying the parameters for the XMLHttpRequest.
+This defaults to ‘fieldname=value’.</p>
+</dd><dt><code>:frequency</code>
+<dd>
+<p>Determines the time to wait after the last keystroke for the AJAX request
+to be initiated.</p>
+</dd><dt><code>:indicator</code>
+<dd>
+<p>Specifies the DOM ID of an element which will be displayed while
+autocomplete is running.</p>
+</dd><dt><code>:tokens</code>
+<dd>
+<p>A string or an array of strings containing separator tokens for tokenized
+incremental  autocompletion. Example: <code>:tokens =&gt; ','</code> would
+allow multiple autocompletion entries, separated by commas.</p>
+</dd><dt><code>:min_chars</code>
+<dd>
+<p>The minimum number of characters that should be in the input field before
+an Ajax call is made to the server.</p>
+</dd><dt><code>:on_hide</code>
+<dd>
+<p>A Javascript expression that is called when the autocompletion div is
+hidden. The expression should take two variables: element and update.
+Element is a DOM element for the field, update is a DOM element for the div
+from which the innerHTML is replaced.</p>
+</dd><dt><code>:on_show</code>
+<dd>
+<p>Like on_hide, only now the expression is called then the div is shown.</p>
+</dd><dt><code>:after_update_element</code>
+<dd>
+<p>A Javascript expression that is called when the user has selected one of
+the proposed values.  The expression should take two variables: element and
+value. Element is a DOM element for the field, value is the value selected
+by the user.</p>
+</dd><dt><code>:parameters</code>
+<dd>
+<p>To send additional parameters to the server,  add them here in the format:
+‘field=value&amp;another=value’.</p>
+</dd><dt><code>:select</code>
+<dd>
+<p>Pick the class of the element from which the value for  insertion should be
+extracted. If this is not specified, the entire element is used.</p>
+</dd><dt><code>:method</code>
+<dd>
+<p>Specifies the HTTP verb to use when the autocompletion request is made.
+Defaults to POST.</p>
+</dd></dl>
+          
+
+          
+          <div class="method-source-code" id="auto_complete_field-source">
+            <pre><span class="ruby-comment"># File lib/repeated_auto_complete/lib/auto_complete_macros_helper.rb, line 60</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">auto_complete_field</span>(<span class="ruby-identifier">field_id</span>, <span class="ruby-identifier">options</span> = {})
+  <span class="ruby-identifier">function</span> =  <span class="ruby-node">&quot;var #{field_id}_auto_completer = new Ajax.Autocompleter(&quot;</span>
+  <span class="ruby-identifier">function</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;'#{field_id}', &quot;</span>
+  <span class="ruby-identifier">function</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;'&quot;</span> <span class="ruby-operator">+</span> (<span class="ruby-identifier">options</span>[<span class="ruby-value">:update</span>] <span class="ruby-operator">||</span> <span class="ruby-node">&quot;#{field_id}_auto_complete&quot;</span>) <span class="ruby-operator">+</span> <span class="ruby-string">&quot;', &quot;</span>
+  <span class="ruby-identifier">function</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;'#{url_for(options[:url])}'&quot;</span>
+  
+  <span class="ruby-identifier">js_options</span> = {}
+  <span class="ruby-identifier">js_options</span>[<span class="ruby-value">:tokens</span>] = <span class="ruby-identifier">array_or_string_for_javascript</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:tokens</span>]) <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:tokens</span>]
+  <span class="ruby-identifier">js_options</span>[<span class="ruby-value">:callback</span>]   = <span class="ruby-node">&quot;function(element, value) { return #{options[:with]} }&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:with</span>]
+  <span class="ruby-identifier">js_options</span>[<span class="ruby-value">:indicator</span>]  = <span class="ruby-node">&quot;'#{options[:indicator]}'&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:indicator</span>]
+  <span class="ruby-identifier">js_options</span>[<span class="ruby-value">:select</span>]     = <span class="ruby-node">&quot;'#{options[:select]}'&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:select</span>]
+  <span class="ruby-identifier">js_options</span>[<span class="ruby-value">:paramName</span>]  = <span class="ruby-node">&quot;'#{options[:param_name]}'&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:param_name</span>]
+  <span class="ruby-identifier">js_options</span>[<span class="ruby-value">:frequency</span>]  = <span class="ruby-node">&quot;#{options[:frequency]}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:frequency</span>]
+  <span class="ruby-identifier">js_options</span>[<span class="ruby-value">:method</span>]     = <span class="ruby-node">&quot;'#{options[:method].to_s}'&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:method</span>]
+  <span class="ruby-identifier">js_options</span>[<span class="ruby-value">:parameters</span>]  = <span class="ruby-node">&quot;'#{options[:parameters]}'&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:parameters</span>]
+
+  { <span class="ruby-value">:after_update_element</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:afterUpdateElement</span>, 
+    <span class="ruby-value">:on_show</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:onShow</span>, <span class="ruby-value">:on_hide</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:onHide</span>, <span class="ruby-value">:min_chars</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:minChars</span> }.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">js_options</span>[<span class="ruby-identifier">v</span>] = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">k</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">k</span>]
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">function</span> <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-string">', '</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">options_for_javascript</span>(<span class="ruby-identifier">js_options</span>) <span class="ruby-operator">+</span> <span class="ruby-string">')'</span>)
+
+  <span class="ruby-identifier">javascript_tag</span>(<span class="ruby-identifier">function</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- auto_complete_field-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- auto_complete_field-method -->
+
+    
+      <div id="method-i-auto_complete_field_with_style_and_script" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">auto_complete_field_with_style_and_script</span><span
+            class="method-args">(object, method, tag_options = {}, completion_options = {}) { |+ content_tag("div", "", :id => "| ... }</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="auto_complete_field_with_style_and_script-source">
+            <pre><span class="ruby-comment"># File lib/repeated_auto_complete/lib/auto_complete_macros_helper.rb, line 116</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">auto_complete_field_with_style_and_script</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">method</span>, <span class="ruby-identifier">tag_options</span> = {}, <span class="ruby-identifier">completion_options</span> = {})
+  (<span class="ruby-identifier">completion_options</span>[<span class="ruby-value">:skip_style</span>] <span class="ruby-operator">?</span> <span class="ruby-string">&quot;&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">auto_complete_stylesheet</span>) <span class="ruby-operator">+</span>
+  <span class="ruby-keyword">yield</span> <span class="ruby-operator">+</span>
+  <span class="ruby-identifier">content_tag</span>(<span class="ruby-string">&quot;div&quot;</span>, <span class="ruby-string">&quot;&quot;</span>, <span class="ruby-value">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;#{object}_#{method}_auto_complete&quot;</span>, <span class="ruby-value">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;auto_complete&quot;</span>) <span class="ruby-operator">+</span>
+  <span class="ruby-identifier">auto_complete_field</span>(<span class="ruby-node">&quot;#{object}_#{method}&quot;</span>, { <span class="ruby-value">:url</span> =<span class="ruby-operator">&gt;</span> { <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;auto_complete_for_#{object}_#{method}&quot;</span> } }.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">completion_options</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- auto_complete_field_with_style_and_script-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- auto_complete_field_with_style_and_script-method -->
+
+    
+      <div id="method-i-auto_complete_result" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">auto_complete_result</span><span
+            class="method-args">(entries, method, phrase = nil)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Use this method in your view to generate a return for the AJAX autocomplete
+requests.</p>
+
+<p>Example action:</p>
+
+<pre>def auto_complete_for_item_title
+  @items = Item.find(:all, 
+    :conditions =&gt; [ 'LOWER(description) LIKE ?', 
+    '%' + request.raw_post.downcase + '%' ])
+  render :inline =&gt; &quot;&lt;%= auto_complete_result(@items, 'description') %&gt;&quot;
+end</pre>
+
+<p>The <a
+href="AutoCompleteMacrosHelper.html#method-i-auto_complete_result">#auto_complete_result</a>
+can of course also be called from a view belonging to the  auto_complete
+action if you need to decorate it further.</p>
+          
+
+          
+          <div class="method-source-code" id="auto_complete_result-source">
+            <pre><span class="ruby-comment"># File lib/repeated_auto_complete/lib/auto_complete_macros_helper.rb, line 99</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">auto_complete_result</span>(<span class="ruby-identifier">entries</span>, <span class="ruby-identifier">method</span>, <span class="ruby-identifier">phrase</span> = <span class="ruby-keyword">nil</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">entries</span>
+  <span class="ruby-identifier">items</span> = <span class="ruby-identifier">entries</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">entry</span><span class="ruby-operator">|</span> <span class="ruby-identifier">content_tag</span>(<span class="ruby-string">&quot;li&quot;</span>, <span class="ruby-identifier">phrase</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">highlight</span>(<span class="ruby-identifier">entry</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">method</span>), <span class="ruby-identifier">phrase</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">h</span>(<span class="ruby-identifier">entry</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">method</span>))) }
+  <span class="ruby-identifier">content_tag</span>(<span class="ruby-string">&quot;ul&quot;</span>, <span class="ruby-identifier">items</span>.<span class="ruby-identifier">uniq</span>.<span class="ruby-identifier">join</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- auto_complete_result-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- auto_complete_result-method -->
+
+    
+      <div id="method-i-text_field_with_auto_complete" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">text_field_with_auto_complete</span><span
+            class="method-args">(object, method, tag_options = {}, completion_options = {})</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Wrapper for text_field with added AJAX autocompletion functionality.</p>
+
+<p>In your controller, you’ll need to define an action called
+auto_complete_for to respond the AJAX calls,</p>
+          
+
+          
+          <div class="method-source-code" id="text_field_with_auto_complete-source">
+            <pre><span class="ruby-comment"># File lib/repeated_auto_complete/lib/auto_complete_macros_helper.rb, line 110</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">text_field_with_auto_complete</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">method</span>, <span class="ruby-identifier">tag_options</span> = {}, <span class="ruby-identifier">completion_options</span> = {})
+  <span class="ruby-identifier">auto_complete_field_with_style_and_script</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">method</span>, <span class="ruby-identifier">tag_options</span>, <span class="ruby-identifier">completion_options</span>) <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">text_field</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">method</span>, <span class="ruby-identifier">tag_options</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- text_field_with_auto_complete-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- text_field_with_auto_complete-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

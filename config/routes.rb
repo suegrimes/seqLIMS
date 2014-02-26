@@ -1,9 +1,10 @@
 SeqLIMS::Application.routes.draw do
   
-  match '' => 'welcome#index'
-  match '/signup' => 'welcome#signup', :as => :signup
-  match '/login' => 'welcome#login', :as => :login
+  root :to => 'welcome#index'
   match '/user_login' => 'welcome#user_login'
+  match '/signup' => 'welcome#signup', :as => :signup
+  match '/add_user' => 'welcome#add_user', :as => :add_user, :via => :post
+  match '/login' => 'welcome#login', :as => :login
   match '/logout' => 'welcome#logout', :as => :logout
   
   resources :users
@@ -38,6 +39,7 @@ SeqLIMS::Application.routes.draw do
   get 'items/autocomplete_item_company_name'
   get 'items/autocomplete_item_item_description'
   get 'items/autocomplete_item_catalog_nr'
+  post 'items/populate_items'
   resources :items do
     collection do 
       #get :autocomplete_item_description
@@ -49,7 +51,7 @@ SeqLIMS::Application.routes.draw do
   match 'view_items' => 'items#new_query', :as => :view_items
   match 'list_items' => 'items#list_selected', :as => :list_items
   match 'unordered_items' => 'items#list_unordered_items', :as => :notordered
-  match 'populate_items' => 'items#populate_items'
+  #match 'populate_items' => 'items#populate_items'
   
   # Routes for patients
   resources :patients
@@ -64,6 +66,7 @@ SeqLIMS::Application.routes.draw do
   # Routes for clinical samples/sample characteristics
   resources :sample_characteristics do
     get 'add_new_sample', on: :member
+    post 'add_another_sample', on: :member
     post 'new_sample', on: :collection
   end
   resources :pathologies
@@ -162,6 +165,7 @@ SeqLIMS::Application.routes.draw do
   match 'mplex_setup' => 'mplex_libs#setup_params', :as => :mplex_setup
   match 'lib_qc' => 'seqlib_lanes#export_libqc', :as => :lib_qc
   match 'lib_query' => 'seqlib_queries#new_query', :as => :lib_query
+  match 'export_seqlibs' => 'seqlib_queries#export_seqlibs', :as => :export_seqlibs
   
   # Routes for flow cells/sequencing runs
   get 'flow_cells/autocomplete_flow_cells_sequencing_key'

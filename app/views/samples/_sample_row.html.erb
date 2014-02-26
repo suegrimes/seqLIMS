@@ -1,6 +1,5 @@
 <% row_tags     ||= 'yes' %>
 <% barcode_link ||= 'none' %>
-<% from_nccc ||= false %>
 <% nonblank_comments = !sample.comments.blank? %>
 
 <% if row_tags == 'yes' %><tr><% end %>
@@ -12,7 +11,7 @@
 <% end %>
 </td>
 
-<% if from_nccc %><td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.alt_identifier %></td><% end %>
+<td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.alt_identifier %></td>
 
 <% if sample.clinical_sample == 'yes' %><td class=<%= "dotted_border_bottom" if nonblank_comments %>> Clinical </td>
 <% else %>                              <td class=<%= "dotted_border_bottom" if nonblank_comments %>>Sample: <%=h sample.source_barcode_key %></td>

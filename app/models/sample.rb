@@ -171,7 +171,12 @@ class Sample < ActiveRecord::Base
   end
   
   def self.getwith_attach(id)
-    self.find(id).includes(:attached_files)
+    self.includes(:attached_files).find(id)
+  end
+
+  def self.find_in_barcode_range(bcstart, bcend)
+    condition_array = ['source_sample_id IS NULL AND CAST(barcode_key AS UNSIGNED) BETWEEN ? AND ?', bcstart, bcend]
+    self.includes(:sample_characteristic => :consent_protocol).where(*condition_array).order('CAST(barcode_key AS UNSIGNED)').all
   end
 
   def self.find_and_group_for_patient(patient_id, id_type=nil)

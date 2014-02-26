@@ -12,9 +12,15 @@
   <% if can? :read, Patient %>
   	<th>Patient MRN:</th>
 	<td><%= f.text_field(:mrn, :size => 10) %>&nbsp;&nbsp;<strong> -or- </strong></td>
-  <% end %>
+    <th>Patient ID:</th><td><%= f.text_field(:patient_id, :size => 10) %></td>
+    </tr><tr>
+  <% else %>
   	<th>Patient ID:</th><td><%= f.text_field(:patient_id, :size => 10) %></td>
+  <% end %>
+
+    <tr><td>&nbsp;</td></tr>
   	<th>Sample Barcode:</th><td><%= f.text_field(:barcode_from, :size => 10)%> <b>to</b> <%=f.text_field(:barcode_to, :size => 10)%></td>
+    <th>Alt Identifier:</th><td><%= f.text_field(:alt_identifier, :size => 12)%></td>
   </tr>
   
   <tr><td>&nbsp;</td></tr>

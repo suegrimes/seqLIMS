@@ -2,7 +2,7 @@
 #
 # Table name: flow_cells
 #
-#  id              :integer(4)      not null, primary key
+#  id              :integer          not null, primary key
 #  flowcell_date   :date
 #  nr_bases_read1  :string(4)
 #  nr_bases_index  :string(2)
@@ -11,14 +11,15 @@
 #  sequencing_kit  :string(10)
 #  flowcell_status :string(2)
 #  sequencing_key  :string(50)
+#  run_description :string(80)
 #  sequencing_date :date
-#  seq_machine_id  :integer(4)
-#  seq_run_nr      :integer(2)
+#  seq_machine_id  :integer
+#  seq_run_nr      :integer
 #  machine_type    :string(10)
 #  hiseq_xref      :string(50)
 #  notes           :string(255)
 #  created_at      :datetime
-#  updated_at      :timestamp       not null
+#  updated_at      :timestamp        not null
 #
 
 class FlowCell < ActiveRecord::Base
@@ -99,7 +100,7 @@ class FlowCell < ActiveRecord::Base
   end
   
   def self.getwith_attach(id)
-    self.includes(:attached_files).where(:id => id)
+    self.includes(:attached_files).find(id)
     #self.find(id, :include => :attached_files)
   end
   
@@ -144,7 +145,7 @@ class FlowCell < ActiveRecord::Base
     flow_lanes.reject(&:new_record?).each do |flow_lane|
       upd_attributes = lane_attributes[flow_lane.id.to_s]
       if upd_attributes
-        upd_attributes[:oligo_pool] = Pool.find(upd_attributes[:pool_id]).tube_label if !upd_attributes[:pool_id].blank?
+        upd_attributes[:oligo_pool] = (upd_attributes[:pool_id].blank? ? '' : Pool.find(upd_attributes[:pool_id]).tube_label)
         flow_lane.attributes = upd_attributes
       else
         flow_lanes.delete(flow_lane)
