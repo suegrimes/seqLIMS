@@ -51,8 +51,10 @@
 	<tr>
 	  <%=f.text_field :final_vol, :size => 12, :label => 'Volume (ul)' %>
 	  <%=f.text_field :final_conc, :size => 12, :label => 'Conc (ng/ul)' %>
+      <%=f.select(:psample_remaining, [' ','Y','N'], :label => 'Rem?') %>
 	</tr>
 	<tr>
+      <%=f.text_field :final_a260_a230, :size => 8, :label => 'a260/a230' %>
 	  <%=f.text_field :final_a260_a280, :size => 8, :label => 'a260/a280' %>
 	  <%=f.text_field :final_rin_nr, :size => 6, :label => 'RIN#' %>
 	</tr>

@@ -15,13 +15,15 @@
                   ['Field', 'Volume', processed_sample.final_vol],
 				  ['Field', 'Conc', processed_sample.final_conc],
                   ['Field', 'a260/a280', processed_sample.final_a260_a280],
+                  ['Field', 'a260/a230', processed_sample.final_a260_a230],
                   ['Field', 'RIN#', processed_sample.final_rin_nr],
+                  ['Field', 'Rem?', processed_sample.psample_remaining],
                   ['Field', 'Room/Freezer', processed_sample.room_and_freezer],
                   ['Field', 'Storage Container', processed_sample.container_and_position],
                   ] %>
 				  
 <!-- Only include comments if non-blank -->
-<% info_flds.push(['Field', 'Comments', processed_sample.comments]) if !processed_sample.comments.blank? %>
+<% info_flds.push(['Field', 'Comments', processed_sample.comments, {:colspan => 3}]) if !processed_sample.comments.blank? %>
 
 <!-- Links to be displayed with borders, in bottom row of info box -->
 <% info_links = [] %>

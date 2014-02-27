@@ -169,7 +169,7 @@ protected
   end
   
   def export_samples_setup
-    hdgs  = (%w{DownloadDt Patient_ID Consent_Protocol Barcode Type FromSample ProcessDt Amt(ug) Conc A260/280 Rem? Room_Freezer Container})
+    hdgs  = (%w{DownloadDt Patient_ID Consent_Protocol Barcode Type FromSample ProcessDt Amt(ug) Conc A260/280 A260/A230 Rem? Room_Freezer Container})
     
     flds  = [['sm', 'patient_id'],
              ['cs', 'consent_name'],
@@ -179,7 +179,8 @@ protected
              ['ps', 'processing_date'],
              ['ps', 'final_amt_ug'],
              ['ps', 'final_conc'],
-             ['ps', 'final_a260_a280'], 
+             ['ps', 'final_a260_a280'],
+             ['ps', 'final_a260_a230'],
              ['ps', 'psample_remaining'],
              ['pc', 'room_and_freezer'],
              ['pc', 'container_and_position']]
