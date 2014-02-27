@@ -20,6 +20,7 @@
 <td><%=h processed_sample.final_amt_ug %></td>
 <td><%=h processed_sample.final_conc %></td>
 <td><%=h number_with_precision(processed_sample.final_a260_a280, :precision => 3) %></td>
+<td><%=h number_with_precision(processed_sample.final_a260_a230, :precision => 3) %></td>
 <td><%=h number_with_precision(processed_sample.final_rin_nr,    :precision => 1) %></td>
 <td><%=h processed_sample.psample_remaining %></td>
 <td><%=h processed_sample.room_and_freezer %></td>
