@@ -12,6 +12,7 @@ if FileTest.file?(environment_file)
   SITE_URL = env_array[0][1] 
   APP_TAGLINE = ((env_array.size > 1 && env_array[1][0] = 'Tagline')? env_array[1][1] : '')
   POOL_TYPE = (APP_TAGLINE =~ /Mindrinos/ ? 'Primer' : 'Oligo')
+  SEQ_ORDER = (APP_TAGLINE =~ /Mindrinos/ ? 'seqdt' : 'runnr')
 end
 
 DEMO_APP = (APP_TYPE == 'DEMO'? true : false)
