@@ -54,7 +54,7 @@ class AlignQcsController < ApplicationController
 
 protected
   def dropdowns
-    @seq_runs = FlowCell.find_sequencing_runs("flowcell_status <> 'Q'")
+    @seq_runs = FlowCell.find_sequencing_runs(SEQ_ORDER, "flowcell_status <> 'Q'")
   end
 
 end

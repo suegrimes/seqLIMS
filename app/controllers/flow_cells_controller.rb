@@ -22,7 +22,7 @@ class FlowCellsController < ApplicationController
       @flow_cells = FlowCell.find_flowcells_for_sequencing 
     else
       @hdr = 'Sequencing Runs'
-      @flow_cells = FlowCell.find_sequencing_runs
+      @flow_cells = FlowCell.find_sequencing_runs(SEQ_ORDER)
     end
   end
   
