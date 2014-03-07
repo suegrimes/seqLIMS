@@ -14,7 +14,7 @@ class FlowcellQueriesController < ApplicationController
     if @flowcell_query.valid?
       @condition_array = define_conditions(params)
       @hdr = 'Sequencing Runs (Filtered)'
-      @flow_cells = FlowCell.find_sequencing_runs(sql_where(@condition_array))
+      @flow_cells = FlowCell.find_sequencing_runs(SEQ_ORDER, sql_where(@condition_array))
       if @flow_cells.size == 1 
         @flow_cell = @flow_cells[0]
         redirect_to :controller => 'flow_cells', :action => :show, :id => @flow_cell.id
