@@ -16,8 +16,8 @@
     <th>Rem?</th>
     <th>Room/Freezer</th>
     <th>Container</th>
-	<th>Extracted?</th> 
 	<th>Upd By</th>
+    <th>Extracted?</th>
 	<th></th>
   </tr>
   
@@ -47,7 +47,6 @@
         <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.sample_remaining%></td>
         <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.room_and_freezer %></td>
         <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.container_and_position %></td>
-        <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.processed_samples.size if sample.processed_samples %></td>
 		<td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.user.login if sample.user %></td>
 		<%= render :partial => 'sample_links', :locals => {:sample => sample,
                                                :sample_characteristic => sample.sample_characteristic} %>
