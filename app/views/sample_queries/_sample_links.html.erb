@@ -1,9 +1,9 @@
 <% nonblank_comments = have_comments?(sample) %>
 <% if sample.processed_samples.size > 0 %>
-<td class=<%= "dotted_border_bottom" if nonblank_comments %>> <%=link_to sample.processed_samples.size, :controller => :processed_samples,
+<td style="text-align:center" class=<%= "dotted_border_bottom" if nonblank_comments %>> <%=link_to sample.processed_samples.size, :controller => :processed_samples,
                        :action => :show_by_sample, :sample_id => sample.id   %></td>
 <% else %>
-<td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.processed_samples.size %></td>
+<td style="text-align:center" class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.processed_samples.size %></td>
 <% end %>
 
 <% if can? :delete, sample %>
