@@ -31,7 +31,7 @@
     </td>
     </tr>
 
-    <% samples.each do |sample| %>
+    <% for sample in samples %>
       <% nonblank_comments = have_comments?(sample) %>
       <tr>
       	<td class=<%= "dotted_border_bottom" if nonblank_comments %>><%= link_to sample.barcode_key, (sample.source_sample_id.nil? ? edit_sample_path(sample.id) : edit_dissected_sample_path(sample.id) ) %></td>

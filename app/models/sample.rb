@@ -193,8 +193,10 @@ class Sample < ActiveRecord::Base
 
   def self.find_and_group_by_source(condition_array)
     samples = self.find_with_conditions(condition_array)
-    return [samples.where('samples.source_sample_id IS NULL').count, samples.count],
-            samples.group_by {|sample| [sample.patient_id, sample.patient.mrn]}
+    sample_counts = [samples.where('samples.source_sample_id IS NULL').count, samples.count]
+    samples_sorted = samples.sort_by {|sample| [sample.patient_id, sample.barcode_key]}
+    samples_grouped = samples_sorted.group_by {|sample| [sample.patient_id, sample.patient.mrn]}
+    return sample_counts, samples_grouped
   end
   
   def self.find_with_conditions(condition_array)
