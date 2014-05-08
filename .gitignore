@@ -24,7 +24,10 @@
 /config/deploy.rb
 
 # Ignore system config assets (R3+: app/assets/system; R2.3.8: /public/system)
-/app/assets/system/*
+/app/assets/system/environment.txt
+/app/assets/system/emails.txt
+/app/assets/system/ez_keys.txt
+
 /public/system/*
 
 # from R2.3.8 version
