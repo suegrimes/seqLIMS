@@ -15,7 +15,7 @@
 /tmp
 .idea/*
 
-# Ignore config/initializers for and session and mail setup
+# Ignore config/initializers for session and mail setup
 /config/initializers/secret_token.rb
 /config/initializers/session_store.rb
 /config/initializers/setup_mailer.rb
