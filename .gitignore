@@ -15,16 +15,17 @@
 /tmp
 .idea/*
 
-# Ignore initializers/config for mail and session setup
+# Ignore config/initializers for session and mail setup
 /config/initializers/secret_token.rb
 /config/initializers/session_store.rb
 /config/initializers/setup_mailer.rb
-/config/initializers/quiet_assets.rb
 
 /config/deploy.rb
 
 # Ignore system config assets (R3+: app/assets/system; R2.3.8: /public/system)
-/app/assets/system/*
+/app/assets/system/ez_keys.txt
+/app/assets/system/emails.txt
+
 /public/system/*
 
 # from R2.3.8 version
