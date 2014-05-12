@@ -57,3 +57,6 @@ gem "ezcrypto"
 #gem "ar-extensions"
 gem "cancan", '~> 1.6.4'
 
+# To use ssl
+gem 'bartt-ssl_requirement', :require => 'ssl_requirement'
+
