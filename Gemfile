@@ -19,6 +19,10 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+# Gems for non-production environment (remove extraneous/verbose log messages)
+gem 'quiet_assets',     :group => [:development, :staging]
+gem 'webrick', '1.3.1', :group => [:development, :staging]
+
 #gem 'jquery-rails', '2.0.2'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
