@@ -19,6 +19,11 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+group :production do
+  # To use ssl
+  gem 'bartt-ssl_requirement', :require => 'ssl_requirement'
+end
+
 # Gems for non-production environment (remove extraneous/verbose log messages)
 gem 'quiet_assets',     :group => [:development, :staging]
 gem 'webrick', '1.3.1', :group => [:development, :staging]
@@ -56,7 +61,3 @@ gem 'nested_form'
 gem "ezcrypto"
 #gem "ar-extensions"
 gem "cancan", '~> 1.6.4'
-
-# To use ssl
-gem 'bartt-ssl_requirement', :require => 'ssl_requirement'
-
