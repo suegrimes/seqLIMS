@@ -30,11 +30,11 @@ class Item < ActiveRecord::Base
                         :item_description, :item_quantity, :deliver_site
                         
   DELIVER_SITES = %w{SGTC CCSR}
-  
+
   def item_ext_price
     ((item_quantity.nil? || item_price.nil?) ? nil : item_quantity.to_i * item_price)
   end
-  
+
   def ordered?
     !(order_id.nil? || order_id == 0)
     #!(po_number.nil? || po_number.blank?)
