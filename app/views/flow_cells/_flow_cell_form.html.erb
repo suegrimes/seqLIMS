@@ -5,10 +5,10 @@
       <th><%=f.label :flowcell_date, 'Date:' %></th>
 	  <td><%=f.datepicker 'flowcell_date', dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true, size: 15 %></td>
 	  <% if f.object.new_record? %>
-		<th><%=f.label :machine_type, 'Machine Type:' %>
-		<%= f.select(:machine_type, options_for_select(SeqMachine::MACHINE_TYPES, :selected => f.object.machine_type), :include_blank => 'Select..') %></th>
+        <th><%=f.label(:machine_type, 'Machine Type:') %>
+          <%= f.collection_select(:machine_type, @machine_types, :c_value, :c_value, {:include_blank => 'Select..'})%></th>
 		<th><%=f.label :partial_flowcell, 'Partial Flowcell?' %>
-	    <%= select_tag :partial_flowcell, options_for_select(%w{N Y}, selected_value=@partial_flowcell) %></th>
+	      <%= select_tag :partial_flowcell, options_for_select(%w{N Y}, selected_value=@partial_flowcell) %></th>
 	  
 	  <% else %>
 		<th>Seq Machine:

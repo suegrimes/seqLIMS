@@ -181,6 +181,7 @@ class FlowCellsController < ApplicationController
 protected
   def dropdowns
     @category_dropdowns = Category.populate_dropdowns([Cgroup::CGROUPS['Sequencing']])
+    @machine_types      = category_filter(@category_dropdowns, 'machine type')
     @cluster_kits       = category_filter(@category_dropdowns, 'cluster kit')
     @seq_kits           = category_filter(@category_dropdowns, 'sequencing kit')
     @projects           = category_filter(@category_dropdowns, 'project')

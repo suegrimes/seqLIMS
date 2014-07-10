@@ -16,7 +16,7 @@
   <tr><td align="center" class="grey" colspan="2">-OR-</td></tr>
   <tr>
   	<th>Machine Type:</th>
-    <td><%= f.select(:machine_type, SeqMachine::MACHINE_TYPES, :include_blank => '(All)') %></td>
+    <td><%=f.collection_select(:machine_type, @machine_types, :c_value, :c_value, {:include_blank => '(All)'}) %></td>
   </tr> 
   <tr>  	
     <th>Run Dates:&nbsp;</th>

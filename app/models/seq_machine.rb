@@ -19,8 +19,9 @@ class SeqMachine < ActiveRecord::Base
   
   scope :sequencers, :conditions => ['machine_name <> ?', 'Run_Number' ]
   
-  #MACHINE_TYPES = %w{GAIIx HiSeq MiSeq}
-  MACHINE_TYPES = self.sequencers.select('DISTINCT(machine_type)').group(:machine_type).all.map(&:machine_type)
+  #MACHINE_TYPES = %w{GAIIx HiSeq MiSeq NextSeq}
+  #MACHINE_TYPES = self.sequencers.select('DISTINCT(machine_type)').group(:machine_type).all.map(&:machine_type)
+  MACHINE_TYPES = Category.populate_dropdown_for_category('machine type')
   
   def machine_name_and_type
     return [machine_name, '(', machine_type, ')'].join

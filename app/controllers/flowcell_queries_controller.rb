@@ -30,7 +30,7 @@ class FlowcellQueriesController < ApplicationController
 
 protected
   def dropdowns
-    @machine_types = SeqMachine::MACHINE_TYPES  
+    @machine_types = Category.populate_dropdown_for_category('machine type')
   end
   
   def define_conditions(params)
