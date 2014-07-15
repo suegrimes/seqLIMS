@@ -9,7 +9,8 @@
     </tr>
     <tr>
       <th><%= f.label :machine_type %></th>
-      <td><%= f.select(:machine_type, %w{GAIIx HiSeq MiSeq}) %></td>
+      <td><%= f.collection_select(:machine_type, @machine_types, :c_value, :c_value,
+                                  {:include_blank => 'Select..'})%></td>
     </tr>
 	<tr>
       <th><%= f.label :bldg_location, 'Building' %></th>

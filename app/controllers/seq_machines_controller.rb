@@ -1,5 +1,6 @@
 class SeqMachinesController < ApplicationController
   load_and_authorize_resource
+  before_filter :dropdowns, :only => [:new, :edit]
 
   # GET /seq_machines
   def index
@@ -49,6 +50,11 @@ class SeqMachinesController < ApplicationController
     @seq_machine = SeqMachine.find(params[:id])
     @seq_machine.destroy
     redirect_to(seq_machines_url) 
+  end
+
+protected
+  def dropdowns
+    @machine_types = Category.populate_dropdown_for_category('machine type')
   end
 
 end
