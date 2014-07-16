@@ -145,13 +145,14 @@ class SeqLib < ActiveRecord::Base
   
   def sample_conc_ngul
     # conversion from nM to ng/ul is: (sample_conc * (pcr_size * BASE_GRAMS_PER_MOL) / 1000000)
-    return (sample_conc_uom == 'ng/ul'? sample_conc : nil)
+    sconc_ngul = (pcr_size.nil? ? nil : sample_conc * (pcr_size * BASE_GRAMS_PER_MOL) / 1000000)
+    return (sample_conc_uom == 'ng/ul'? sample_conc : sconc_ngul)
   end
   
   def set_default_values
     self.lib_status = 'L'
     self.lib_conc_uom = 'pM'
-    self.sample_conc_uom = 'ng/ul'
+    #self.sample_conc_uom = 'ng/ul'
   end
   
   def self.find_for_query(condition_array)

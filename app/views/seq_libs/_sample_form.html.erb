@@ -33,7 +33,7 @@
 <tr>
     <td><%= f.text_field :barcode_key, :size => 10 %></td>
     <td><%= f.text_field(:lib_name, :size => 15)%></td>
-    <td><%= f.text_field(:sample_conc, :size => 6)%> ng/ul</td>
+    <td><%= f.text_field(:sample_conc, :size => 6)%> <%= f.select(:sample_conc_uom, %w(nM ng/ul)) %></td>
     <td><%= f.select(:runtype_adapter, @adapters) %></td>
     <td><%= s.text_field(:index_tag, :size => 4) %></td>       
     <td><%= f.collection_select(:quantitation_method, @quantitation, :c_value, :c_value,
