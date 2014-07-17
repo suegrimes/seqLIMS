@@ -144,9 +144,13 @@ class SeqLib < ActiveRecord::Base
   end
   
   def sample_conc_ngul
-    # conversion from nM to ng/ul is: (sample_conc * (pcr_size * BASE_GRAMS_PER_MOL) / 1000000)
-    sconc_ngul = (pcr_size.nil? ? nil : sample_conc * (pcr_size * BASE_GRAMS_PER_MOL) / 1000000)
-    return (sample_conc_uom == 'ng/ul'? sample_conc : sconc_ngul)
+    if sample_conc_uom == 'ng/ul'
+      return sample_conc
+    elsif pcr_size.nil? || sample_conc.nil?
+      return nil
+    else
+      return sample_conc * (pcr_size * BASE_GRAMS_PER_MOL) / 1000000
+    end
   end
   
   def set_default_values
