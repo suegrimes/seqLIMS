@@ -12,6 +12,7 @@
 #  lane_nr          :integer          not null
 #  lib_conc         :float(11)
 #  lib_conc_uom     :string(6)
+#  adapter_id       :integer
 #  runtype_adapter  :string(20)
 #  pool_id          :integer
 #  oligo_pool       :string(8)
@@ -26,6 +27,7 @@ class FlowLane < ActiveRecord::Base
   
   belongs_to :flow_cell
   belongs_to :seq_lib
+  belongs_to :adapter
   has_one    :align_qc
   has_and_belongs_to_many :publications, :join_table => :publication_lanes
   
@@ -55,7 +57,7 @@ class FlowLane < ActiveRecord::Base
     # set up hash of sequencing library attributes for this library
     lib_attrs  = {:lib_barcode      => seq_lib.lib_barcode,
                   :lib_name         => seq_lib.lib_name,
-                  :runtype_adapter  => seq_lib.runtype_adapter,
+                  :adapter_id       => seq_lib.adapter_id,
                   :pool_id          => seq_lib.pool_id,
                   :oligo_pool       => seq_lib.oligo_pool,
                   :alignment_ref_id => seq_lib.alignment_ref_id,

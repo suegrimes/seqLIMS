@@ -35,6 +35,7 @@
 class SeqLib < ActiveRecord::Base
   
   belongs_to :user, :foreign_key => :updated_by
+  belongs_to :adapter
   has_many :lib_samples, :dependent => :destroy
   has_many :mlib_samples, :class_name => 'LibSample', :foreign_key => :splex_lib_id
   has_many :flow_lanes
@@ -54,8 +55,8 @@ class SeqLib < ActiveRecord::Base
   #after_update :save_samples
   
   BARCODE_PREFIX = 'L'
-  MULTIPLEX_SAMPLES = 16
-  MILLUMINA_SAMPLES = 12
+  #MULTIPLEX_SAMPLES = 16
+  #MILLUMINA_SAMPLES = 12
   SAMPLE_CONC = ['ng/ul', 'nM']
   BASE_GRAMS_PER_MOL = 660
   
@@ -219,7 +220,7 @@ class SeqLib < ActiveRecord::Base
     # Determine if all pools for associated samples are the same, if so, update multiplex pool accordingly
     # Determine if all adapters for associated samples are the same, if so, update adapter accordingly
     slib_pools = mplex_lib.lib_samples.collect{|lsamp| [lsamp.splex_lib.pool_id, (lsamp.splex_lib.oligo_pool ? lsamp.splex_lib.oligo_pool : '')]}
-    slib_adapters = mplex_lib.lib_samples.collect{|lsamp| lsamp.splex_lib.runtype_adapter}
+    slib_adapters = mplex_lib.lib_samples.collect{|lsamp| lsamp.splex_lib.adapter_id}
         
     if slib_pools.uniq.size > 1 
       self.update(mplex_lib.id, :oligo_pool => 'Multiple')
@@ -228,9 +229,9 @@ class SeqLib < ActiveRecord::Base
     end
         
     if slib_adapters.uniq.size > 1
-      self.update(mplex_lib.id, :runtype_adapter => 'Multiple')
+      self.update(mplex_lib.id, :adapter_id => Adapter.where(runtype_adapter == 'Multiple').id)
     else
-      self.update(mplex_lib.id, :runtype_adapter => slib_adapters[0])
+      self.update(mplex_lib.id, :adapter_id => slib_adapters[0])
     end
   end
  

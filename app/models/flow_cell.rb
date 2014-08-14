@@ -6,6 +6,8 @@
 #  flowcell_date   :date
 #  nr_bases_read1  :string(4)
 #  nr_bases_index  :string(2)
+#  nr_bases_index1 :string(2)
+#  nr_bases_index2 :string(2)
 #  nr_bases_read2  :string(4)
 #  cluster_kit     :string(10)
 #  sequencing_kit  :string(10)

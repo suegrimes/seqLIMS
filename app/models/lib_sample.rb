@@ -11,6 +11,9 @@
 #  source_DNA          :string(50)
 #  runtype_adapter     :string(50)
 #  index_tag           :integer
+#  adapter_id          :integer
+#  index1_tag_id       :integer
+#  index2_tag_id       :integer
 #  enzyme_code         :string(50)
 #  notes               :string(255)
 #  updated_by          :integer
@@ -23,28 +26,43 @@ class LibSample < ActiveRecord::Base
   belongs_to :seq_lib
   belongs_to :splex_lib, :class_name => 'SeqLib', :foreign_key => :splex_lib_id
   belongs_to :processed_sample
+  belongs_to :adapter
+  belongs_to :index1_tag, :class_name => "IndexTag", :foreign_key => :index1_tag_id
+  belongs_to :index2_tag, :class_name => "IndexTag", :foreign_key => :index2_tag_id
   
   validates_presence_of :sample_name
-  validates_presence_of :runtype_adapter, :if => Proc.new {|s| !s.seq_lib_id.nil? }
-  validates_presence_of :index_tag, :if => Proc.new{|s| s.runtype_adapter[0,1] == 'M'}, :message => 'must be supplied for multiplex adapters'
+  validates_presence_of :adapter_id, :if => Proc.new {|s| !s.seq_lib_id.nil? }
+  validates_presence_of :index1_tag_id, :if => Proc.new{|s| !s.adapter_id.nil? && s.adapter.runtype_adapter[0,1] == 'M'}, :message => 'must be supplied for multiplex adapters'
+  #validates_presence_of :runtype_adapter, :if => Proc.new {|s| !s.seq_lib_id.nil? }
+  #validates_presence_of :index_tag, :if => Proc.new{|s| s.runtype_adapter[0,1] == 'M'}, :message => 'must be supplied for multiplex adapters'
   #validates_numericality_of :index_tag, :only_integer => true, :allow_blank => true, :message => 'must be an integer'
   #validates_format_of :index_tag, :with => /^\d+$/, :allow_blank => true, :message => "must be an integer"
   #validates_inclusion_of :index_tag, :in => 1..12, :if => Proc.new{|s| s.runtype_adapter[0,1] == 'M'},
   #                       :message => 'must be between 1 and 12'
    
-  def validate
-    max_tags = (runtype_adapter == 'M_PE_Illumina' ? SeqLib::MILLUMINA_SAMPLES : SeqLib::MULTIPLEX_SAMPLES)
-    if runtype_adapter == 'M_PE' && !index_tag.nil?
-      errors.add(:index_tag, "must be in range 1 - #{max_tags} for #{runtype_adapter} adapter") if (index_tag < 1 || index_tag > max_tags)
-    end  
-  end
+  #def validate
+  #  max_tags = (runtype_adapter == 'M_PE_Illumina' ? SeqLib::MILLUMINA_SAMPLES : SeqLib::MULTIPLEX_SAMPLES)
+  #  if runtype_adapter == 'M_PE' && !index_tag.nil?
+  #    errors.add(:index_tag, "must be in range 1 - #{max_tags} for #{runtype_adapter} adapter") if (index_tag < 1 || index_tag > max_tags)
+  #  end
+  #end
   
   def patient_id
     (!processed_sample.nil? ? processed_sample.patient_id : nil)
   end
 
+  def tag1_nr_seq
+    return (index1_tag.nil? ? ' ' : [index1_tag.tag_nr, '(', index1_tag.tag_sequence, ')'].join)
+  end
+
+  def tag2_nr_seq
+    return (index2_tag.nil? ? ' ' : [index2_tag.tag_nr, '(', index2_tag.tag_sequence, ')'].join)
+  end
+
   def tag_sequence
-    return (index_tag.nil? ? '' : IndexTag.find_or_blank(runtype_adapter, index_tag))
+    index1_tag_seq = (index1_tag.nil? ? ' ' : index1_tag.tag_sequence)
+    index2_tag_seq = (index2_tag.nil? ? ' ' : index2_tag.tag_sequence)
+    return [index1_tag_seq, index2_tag_seq].join(',')
   end
   
   def source_sample_name
@@ -94,7 +112,7 @@ class LibSample < ActiveRecord::Base
                        :processed_sample_id => seq_lib.lib_samples[0].processed_sample_id} if seq_lib.lib_samples
       # Set up those attributes that come from seq_libs table for singleplex lib
       lsample_attrs.merge!(:splex_lib_barcode => seq_lib.barcode_key,
-                           :runtype_adapter   => seq_lib.runtype_adapter)
+                           :adapter_id   => seq_lib.adapter_id)
       # Update attributes for all multiplex samples which reference this singleplex lib
       self.upd_multi_lib_samples(lib_samples, lsample_attrs)
     end

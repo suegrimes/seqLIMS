@@ -114,7 +114,7 @@ class SeqLibsController < ApplicationController
     alignment_key = AlignmentRef.get_align_key(params[:seq_lib][:alignment_ref_id])
     params[:seq_lib].merge!(:alignment_ref => alignment_key,
                             :oligo_pool => pool_label)
-    params[:seq_lib][:lib_samples_attributes]["0"][:runtype_adapter] = params[:seq_lib][:runtype_adapter]
+    params[:seq_lib][:lib_samples_attributes]["0"][:adapter_id] = params[:seq_lib][:adapter_id]
     
     if @seq_lib.update_attributes(params[:seq_lib])
       if @seq_lib.in_multiplex_lib?
@@ -153,7 +153,7 @@ class SeqLibsController < ApplicationController
   
 protected
   def dropdowns
-    @adapters     = IndexTag.mplex_adapters | IndexTag.splex_adapters
+    @adapters     = Adapter.mplex_adapters | Adapter.splex_adapters
     @enzymes      = Category.populate_dropdown_for_category('enzyme')
     @align_refs   = AlignmentRef.populate_dropdown
     @oligo_pools  = Pool.populate_dropdown('lib')

@@ -1,7 +1,7 @@
 <table class="list">
   <tr>
-  	<th>Tag#</th>
-	<th>Tag Seq</th>
+  	<th>Index1</th>
+	<th>Index2</th>
 	<% if lib_type == 'M' %>
 	  <th>Source Lib</th>
 	  <th>Lib Name</th>
@@ -15,8 +15,8 @@
   
   <% for lib_sample in lib_samples %>
     <tr>
-      <td><%=h lib_sample.index_tag %></td>
-	  <td><%=h IndexTag.find_or_blank(lib_sample.runtype_adapter, lib_sample.index_tag) if !lib_sample.index_tag.nil? %></td>
+      <td><%=h lib_sample.tag1_nr_seq %></td>
+	  <td><%=h lib_sample.tag2_nr_seq %></td>
 	  <% if lib_type == 'M' && lib_sample.splex_lib %>	  
 	    <td><%=link_to lib_sample.splex_lib_barcode, lib_sample.splex_lib %></td>
 		<td><%=h lib_sample.splex_lib.lib_name %></td>
