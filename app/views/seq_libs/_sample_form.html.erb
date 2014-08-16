@@ -12,7 +12,8 @@
     <th>Lib Name</th>
     <th>Sample Conc</th>
     <th>Adapter</th>
-    <th>Tag#</th>
+    <th>Index1</th>
+    <th>Index2</th>
     <th>Quantitation</th>
     <th>Size(Final PCR)</th>
     <th>Library Conc</th>
@@ -34,8 +35,10 @@
     <td><%= f.text_field :barcode_key, :size => 10 %></td>
     <td><%= f.text_field(:lib_name, :size => 15)%></td>
     <td><%= f.text_field(:sample_conc, :size => 6)%> <%= f.select(:sample_conc_uom, %w(nM ng/ul)) %></td>
-    <td><%= f.select(:runtype_adapter, @adapters) %></td>
-    <td><%= s.text_field(:index_tag, :size => 4) %></td>       
+    <td><%= f.collection_select(:adapter_id, @adapters, :id, :runtype_adapter, {},
+                                {:data => {:remote => true, :url => url_for(:action => 'get_adapter_info', :row => i)}}) %></td>
+    <td><%= s.collection_select(:index1_tag_id, @index1_tags, :id, :index1_code) %></td>
+    <td><%= s.collection_select(:index2_tag_id, @index2_tags, :id, :index2_code) %></td>
     <td><%= f.collection_select(:quantitation_method, @quantitation, :c_value, :c_value,
                                                             {:include_blank => 'Select Method'}) %></td>
     <td><%= f.text_field(:pcr_size, :size => 6) %></td>
@@ -49,9 +52,9 @@
   <th style="text-align:right; text-decoration: none;"><em>Source DNA/RNA:</em></th>  
   <td><%=s.autocomplete_field :source_sample_name, processed_samples_autocomplete_processed_sample_barcode_search_path, {size: 15, value: @lib_samples[i][:source_DNA]} %></td>
   <th style="text-align:right; text-decoration: none;"><em>Notebook Ref:</em></th>
-  <td colspan="2"><%= f.text_field(:notebook_ref, :size => 30)%></td>  
+  <td colspan="4"><%= f.text_field(:notebook_ref, :size => 50)%></td>
   <th style="text-align:right; text-decoration: none;"><em>Notes:</em></th>
-  <td colspan="6"><%= f.text_field(:notes, :size => 80)%></td> 
+  <td colspan="6"><%= f.text_field(:notes, :size => 80)%></td>
 </tr>
 <tr>
   <td colspan="12"><hr /></td>

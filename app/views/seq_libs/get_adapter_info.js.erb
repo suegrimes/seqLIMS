@@ -1,0 +1,2 @@
+$j('#<%= @lsample_row + "_index1_tag_id"%>').html("<%= escape_javascript(options_for_select(@i1_tags.map {|itag| [itag.index1_code, itag.id]})) %>");
+$j('#<%= @lsample_row + "_index2_tag_id"%>').html("<%= escape_javascript(options_for_select(@i2_tags.map {|itag| [itag.index2_code, itag.id]})) %>");

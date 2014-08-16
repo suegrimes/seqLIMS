@@ -53,10 +53,14 @@ class SeqLibsController < ApplicationController
     @sample_default = LibSample.new(:source_DNA => params[:sample_default][:source_DNA],
                                     :enzyme_code => array_to_string(params[:sample_default][:enzyme_code]))
     @requester = params[:lib_default][:owner]
+    @adapter = Adapter.find(params[:lib_default][:adapter_id])
+    @index1_tags  = (@adapter.nil? ? nil : IndexTag.where('adapter_id = ? AND index_read = 1', @adapter.id))
+    @index2_tags  = (@adapter.nil? ? nil : IndexTag.where('adapter_id = ? AND index_read = 2', @adapter.id))
 
     0.upto(params[:nr_libs].to_i - 1) do |i|
       @new_lib[i]    = SeqLib.new(params[:lib_default])
-      @lib_samples[i] = LibSample.new(:source_DNA => params[:sample_default][:source_DNA],
+      @lib_samples[i] = LibSample.new(:adapter_id => params[:sample_default][:adapter_id],
+                                      :source_DNA => params[:sample_default][:source_DNA],
                                       :enzyme_code => array_to_string(params[:sample_default][:enzyme_code]))
     end
 
@@ -150,10 +154,19 @@ class SeqLibsController < ApplicationController
     @seq_libs = SeqLib.where('barcode_key LIKE ?', params[:search]+'%').all
     render :inline => "<%= auto_complete_result(@seq_libs, 'barcode_key') %>"
   end
+
+  def get_adapter_info
+    @lib_row = 'seq_lib_' + params[:row]
+    @lsample_row = 'lib_sample_' + params[:row]
+    @adapter = Adapter.find(params[@lib_row][:adapter_id])
+    @i1_tags = IndexTag.where('adapter_id = ? and index_read = 1', @adapter.id)
+    @i2_tags = IndexTag.where('adapter_id = ? and index_read = 2', @adapter.id)
+    render {|format| format.js}
+  end
   
 protected
   def dropdowns
-    @adapters     = Adapter.mplex_adapters | Adapter.splex_adapters
+    @adapters     = Adapter.populate_dropdown
     @enzymes      = Category.populate_dropdown_for_category('enzyme')
     @align_refs   = AlignmentRef.populate_dropdown
     @oligo_pools  = Pool.populate_dropdown('lib')
@@ -185,7 +198,7 @@ protected
      seq_lib = SeqLib.new(lib_param)
      
      sample_param.merge!(:sample_name     => lib_param[:lib_name],
-                         :runtype_adapter => lib_param[:runtype_adapter],
+                         :adapter_id      => lib_param[:adapter_id],
                          :notes           => lib_param[:notes])
      seq_lib.lib_samples.build(sample_param)
      return seq_lib

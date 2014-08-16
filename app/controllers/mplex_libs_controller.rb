@@ -17,7 +17,7 @@ class MplexLibsController < ApplicationController
     @seq_lib   = SeqLib.new(:library_type => 'M',
                             :owner => @requester,
                             :preparation_date => Date.today,
-                            :runtype_adapter => params[:seq_lib][:runtype_adapter],
+                            :adapter_id => params[:seq_lib][:adapter_id],
                             :alignment_ref_id => AlignmentRef.default_id)
     
     # Get sequencing libraries based on parameters entered
@@ -34,8 +34,9 @@ class MplexLibsController < ApplicationController
       @lib_samples[i] = LibSample.new(:processed_sample_id => s_lib.lib_samples[0].processed_sample_id,
                                       :sample_name         => s_lib.lib_samples[0].sample_name,
                                       :source_DNA          => s_lib.lib_samples[0].source_DNA,
-                                      :runtype_adapter     => s_lib.lib_samples[0].runtype_adapter,
-                                      :index_tag           => s_lib.lib_samples[0].index_tag,
+                                      :adapter_id          => s_lib.lib_samples[0].adapter_id,
+                                      :index1_tag_id       => s_lib.lib_samples[0].index1_tag_id,
+                                      :index2_tag_id       => s_lib.lib_samples[0].index2_tag_id,
                                       :enzyme_code         => s_lib.lib_samples[0].enzyme_code,
                                       :notes               => s_lib.lib_samples[0].notes)
     end     
@@ -78,8 +79,9 @@ class MplexLibsController < ApplicationController
         @seq_lib.lib_samples.build(:processed_sample_id => s_lib.lib_samples[0].processed_sample_id,
                                    :sample_name         => s_lib.lib_samples[0].sample_name,
                                    :source_DNA          => s_lib.lib_samples[0].source_DNA,
-                                   :runtype_adapter     => s_lib.lib_samples[0].runtype_adapter,
-                                   :index_tag           => s_lib.lib_samples[0].index_tag,
+                                   :adapter_id          => s_lib.lib_samples[0].adapter_id,
+                                   :index1_tag_id       => s_lib.lib_samples[0].index1_tag_id,
+                                   :index2_tag_id       => s_lib.lib_samples[0].index2_tag_id,
                                    :enzyme_code         => s_lib.lib_samples[0].enzyme_code,
                                    :splex_lib_id        => s_lib.id,
                                    :splex_lib_barcode   => s_lib.barcode_key,
@@ -160,7 +162,7 @@ protected
   
   def setup_dropdowns
     @owners    =  Researcher.populate_dropdown('incl_inactive')
-    @mplex_adapters  = IndexTag.mplex_adapters
+    @mplex_adapters  = Adapter.mplex_adapters
   end
   
   def define_lib_conditions(params)
@@ -172,9 +174,9 @@ protected
         @where_select.push('seq_libs.owner IN (?)')
         @where_values.push(params[:seq_lib][:owner])
       end
-      if !param_blank?(params[:seq_lib][:runtype_adapter])
-        @where_select.push('seq_libs.runtype_adapter = ?')
-        @where_values.push(params[:seq_lib][:runtype_adapter])
+      if !param_blank?(params[:seq_lib][:adapter_id])
+        @where_select.push('seq_libs.adapter_id = ?')
+        @where_values.push(params[:seq_lib][:adapter_id])
       end
     end
     

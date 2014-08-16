@@ -51,12 +51,16 @@ class LibSample < ActiveRecord::Base
     (!processed_sample.nil? ? processed_sample.patient_id : nil)
   end
 
+  def adapter_name
+    return (self.adapter.nil? ? ' ' : self.adapter.runtype_adapter)
+  end
+
   def tag1_nr_seq
-    return (index1_tag.nil? ? ' ' : [index1_tag.tag_nr, '(', index1_tag.tag_sequence, ')'].join)
+    return (index1_tag.nil? ? ' ' : [index1_tag.index1_code, '(', index1_tag.tag_sequence, ')'].join)
   end
 
   def tag2_nr_seq
-    return (index2_tag.nil? ? ' ' : [index2_tag.tag_nr, '(', index2_tag.tag_sequence, ')'].join)
+    return (index2_tag.nil? ? ' ' : [index2_tag.index2_code, '(', index2_tag.tag_sequence, ')'].join)
   end
 
   def tag_sequence

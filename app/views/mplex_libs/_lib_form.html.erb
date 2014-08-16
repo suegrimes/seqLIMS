@@ -4,7 +4,7 @@
   <th>Barcode:</th><td><% if @seq_lib.new_record? || @seq_lib.dummy_barcode == false %><%= f.text_field :barcode_key, :size => 10 %>
         <% else %>&nbsp;<% end %></td>
   <th>Lib Name:</th><td><%= f.text_field(:lib_name, :size => 15) %></td>
-  <th>Adapter:</th><td><%= f.text_field(:runtype_adapter, :readonly => true, :size => 15, :style => "background-color:#ddd") %></td>  
+  <th>Adapter:</th><td><%=h f.object.adapter_name  %></td>
 </tr>
 <tr>
   <th>Prep Date:</th><td><%= f.datepicker 'preparation_date', dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true, size: 15 %></td>

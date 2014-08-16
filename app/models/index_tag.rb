@@ -18,6 +18,14 @@ class IndexTag < ActiveRecord::Base
     return self.adapter.runtype_adapter
   end
 
+  def index1_code
+     return (self.adapter.index1_prefix.blank? ? tag_nr : [self.adapter.index1_prefix, format('%02d',tag_nr)].join)
+  end
+
+  def index2_code
+    return (self.adapter.index2_prefix.blank? ? tag_nr : [self.adapter.index2_prefix, format('%02d',tag_nr)].join)
+  end
+
   def tag_ctr
     (runtype_adapter == 'M_HLA192' ? tag_nr - 100 : tag_nr)
   end

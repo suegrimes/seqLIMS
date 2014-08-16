@@ -94,6 +94,10 @@ class SeqLib < ActiveRecord::Base
     patient_ids = lib_samples.collect{|lib_sample| lib_sample.patient_id}
     return (patient_ids.compact.size > 0 ? patient_ids.uniq.compact.join(' ,') : nil)
   end
+
+  def adapter_name
+    return (self.adapter.nil? ? runtype_adapter : adapter.runtype_adapter)
+  end
   
   def dummy_barcode
     (barcode_key[0,1] == 'X' ? true : false)

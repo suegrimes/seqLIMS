@@ -6,11 +6,15 @@ class Adapter < ActiveRecord::Base
   has_many :index_tags
 
   def self.splex_adapters
-    return ["S_SR", "S_PE"]
+    return self.where('mplex_splex = "S"')
   end
 
   def self.mplex_adapters
-    adapters = self.select(:runtype_adapter).pluck(:runtype_adapter)
-    return adapters.unshift("M_SR")
+    return self.where('mplex_splex = "M"')
+    #return adapters.unshift("M_SR")
+  end
+
+  def self.populate_dropdown
+    return self.all
   end
 end
