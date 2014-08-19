@@ -226,7 +226,7 @@
       	<li><%= link_to 'Freezer Locations',  freezer_locations_path %></li>   
 		
 		<% if user_has_access?(user_roles, ["researcher", "lab_admin", "alignment"])%>
- 		<li><%= link_to 'Multiplex Tags', index_tags_path %></li>
+ 		<li><%= link_to 'Multiplex Tags', adapters_path %></li>
 		<li><%= link_to Pool.human_attribute_name(:pool_name).pluralize, oligo_pools_path %></li>
 		<% end %>
 		

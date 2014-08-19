@@ -18,14 +18,19 @@
 	  <% end %>
     </tr>
 	<tr>
-	  <th>Number of Bases:</th>
+	  <th>Number of Reads:</th>
 	  <th><%=f.label(:nr_bases_read1, 'Read 1:') %> <%= f.text_field :nr_bases_read1, :size => 10 %></th>
       <th><%=f.label(:nr_bases_read2, 'Read 2:') %> <%= f.text_field :nr_bases_read2, :size => 10 %></th>
-	  <th><%=f.label(:nr_bases_index, 'Index:') %>  <%= f.text_field :nr_bases_index, :size => 10 %></th>
 	  <% if !f.object.new_record? && (can? :new, AlignmentRef) %>
 	    <th><%=f.label(:flowcell_status, 'Status:') %></th><td><%= f.select(:flowcell_status, FlowCell::STATUS) %></td> 
 	  <% end %>
 	</tr>
+    <tr>
+      <th>Index Reads:</th>
+      <th><%=f.label(:nr_bases_index1, 'Index1:') %>  <%= f.text_field :nr_bases_index1, :size => 10 %></th>
+      <th><%=f.label(:nr_bases_index2, 'Index2:') %>  <%= f.text_field :nr_bases_index2, :size => 10 %></th>
+    </tr>
+    <tr><td>&nbsp;</td></tr>
     <tr>
       <th>Kit Versions:</th>
 	  <th><%=f.label(:cluster_kit, 'Cluster Kit:') %> <%= f.collection_select(:cluster_kit, @cluster_kits, :c_value, :c_value)%></th>

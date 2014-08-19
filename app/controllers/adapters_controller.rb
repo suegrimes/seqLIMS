@@ -8,14 +8,32 @@ class AdaptersController < ApplicationController
 
   # GET /adapters/1
   def show
-    @adapter = Adapter.preload(:index_tags).find(params[:id])
-    @adapter.index_tags.sort_by! {|itag| itag.index_read}
+    @adapter = Adapter.includes(:index_tags).order('index_tags.index_read, index_tags.tag_nr').find(params[:id])
+    #@adapter.index_tags.sort_by! {|itag| [itag.index_read, itag.tag_nr]}
     #render 'debug'
+  end
+
+  # GET /adapters/new
+  def new
+    @adapter = Adapter.new
+    12.times {@adapter.index_tags.build}
+  end
+
+  # POST /adapters
+  def create
+    @adapter = Adapter.new(params[:adapter])
+
+    if @adapter.save
+      flash[:notice] = 'Adapter and multiplex indices were successfully created.'
+      redirect_to(@adapter)
+    else
+      render :action => "new"
+    end
   end
 
   # GET /adapters/1/edit
   def edit
-    @adapter = Adapter.includes(:index_tags).find(params[:id])
+    @adapter = Adapter.includes(:index_tags).order('index_tags.index_read, index_tags.tag_nr').find(params[:id])
   end
 
   # PUT /adapters/1

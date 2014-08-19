@@ -1,0 +1,21 @@
+<h1>New adapter</h1>
+
+<%= nested_form_for(@adapter) do |f| %>
+    <%= render '/shared/errors', model: @adapter %>
+
+    <fieldset class="form">
+      <legend>Adapter details</legend>
+      <table class="form">
+        <tr><th><%=f.label :runtype_adapter, 'Adapter' %></th><td><%=f.text_field :runtype_adapter %></td></tr>
+        <tr><th><%=f.label :mplex_splex, 'Mplex/Splex' %></th><td><%=f.select(:mplex_splex, %w{M S}) %></td></tr>
+        <tr><th><%=f.label :multi_indices, '2index?' %></th><td><%=f.select(:multi_indices, %w{N Y}) %></td></tr>
+      </table>
+
+      <%= render :partial => 'index_tags', :locals => {:f => f} %>
+      <br />
+    </fieldset>
+
+    <%=raw break_clear(f.submit "Create")%>
+<% end %>
+
+<%= link_to 'List All', adapters_path %>
