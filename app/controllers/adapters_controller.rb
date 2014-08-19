@@ -3,7 +3,7 @@ class AdaptersController < ApplicationController
   
   # GET /adapters
   def index
-    @adapters = Adapter.all
+    @adapters = Adapter.order('adapters.runtype_adapter').all
   end
 
   # GET /adapters/1
