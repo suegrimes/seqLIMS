@@ -153,7 +153,7 @@ protected
              ['sl', 'owner_abbrev'],
              ['sl', 'preparation_date'],
              ['sl', 'library_type'],
-             ['sl', 'runtype_adapter'],
+             ['sl', 'adapter_name'],
              ['sl', 'sample_conc_ngul'],
              ['sl', 'sample_conc_nm'],
              ['sl', 'project'],

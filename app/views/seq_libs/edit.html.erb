@@ -3,13 +3,15 @@
 <%= form_for(@seq_lib) do |f| %>
   <%= render '/shared/errors', model: @seq_lib %>
   
-  <%= render :partial => 'seq_libs/lib_edit', :locals => {:f => f}%> 
-    
+  <%= render :partial => 'seq_libs/lib_edit', :locals => {:f => f}%>
+  <%= raw break_clear %>
+
   <fieldset class="form">
   <legend>Sample details</legend>
   <table class="form-with-columns-no-th-underline">
     <tr>
-      <th>Index Tag(s)</th>
+      <th>Index1</th>
+      <th>Index2</th>
       <th>Sample Name</th>
       <th>Source DNA</th>
       <th>Notes</th>
@@ -17,7 +19,8 @@
 
     <%= f.fields_for :lib_samples do |s| %>
       <tr>
-      	<td><%= s.text_field(:index_tag, :size => 4)%></td>
+      	<td><%= s.collection_select(:index1_tag_id, @i1_tags, :id, :index1_code)%></td>
+        <td><%= s.collection_select(:index2_tag_id, @i2_tags, :id, :index2_code)%></td>
 		<td><%= s.text_field(:sample_name, :size => 25)%></td>
 	    <td width="30"><%=s.autocomplete_field :source_sample_name, processed_samples_autocomplete_processed_sample_barcode_search_path, size: 15 %></td>
 	    <td><%= s.text_field(:notes, :size => 80)%></td>

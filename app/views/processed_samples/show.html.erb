@@ -27,7 +27,8 @@
 	<th>Owner</th>
 	<th>Prep Date</th>
 	<th>Adapter</th>
-	<th>Tag</th>
+	<th>Index1</th>
+    <th>Index2</th>
 	<th colspan="2">Sample Conc</th>
 	<th>Project</th>
 	<th>Alignment Ref</th>
@@ -40,8 +41,9 @@
       <td><%=h seq_lib.lib_name %></td>
 	  <td><%=h seq_lib.owner_abbrev %></td>
 	  <td><%=h seq_lib.preparation_date %></td>
-	  <td><%=h seq_lib.runtype_adapter %></td>
-	  <td><%=h lib_sample.index_tag %></td>
+	  <td><%=h seq_lib.adapter_name %></td>
+	  <td><%=h lib_sample.index1_code %></td>
+      <td><%=h lib_sample.index2_code %></td>
 	  <td><%=h format_conc(seq_lib.sample_conc_ngul)%> ng/ul</td>
 	  <td><%=h format_conc(seq_lib.sample_conc_nm)%> nM</td>
 	  <td><%=h seq_lib.project %></td>

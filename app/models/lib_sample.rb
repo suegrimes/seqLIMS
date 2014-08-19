@@ -96,8 +96,9 @@ class LibSample < ActiveRecord::Base
         self.processed_sample_id = ssample.processed_sample_id
         self.sample_name = ssample.sample_name
         self.source_DNA  = ssample.source_DNA
-        self.runtype_adapter = ssample.runtype_adapter
-        self.index_tag = ssample.index_tag
+        self.adapter_id = ssample.adapter_id
+        self.index1_tag_id = ssample.index1_tag_id
+        self.index2_tag_id = ssample.index2_tag_id
         self.enzyme_code = ssample.enzyme_code
       end
     end

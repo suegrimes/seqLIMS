@@ -9,7 +9,7 @@ class MplexLibsController < ApplicationController
    @to_date   =  Date.today
    @date_range = DateRange.new(@from_date, @to_date)
    @seq_lib   = SeqLib.new(:owner => (current_user.researcher ? current_user.researcher.researcher_name : nil),
-                           :runtype_adapter => 'M_PE')
+                           :adapter_id => Adapter.default_adapter.id)
   end
   
   def new
@@ -64,7 +64,7 @@ class MplexLibsController < ApplicationController
 
     splex_libs = SeqLib.includes(:lib_samples).where('seq_libs.id in (?)', slib_ids_checked).all
     error_found = false
-    slib_tags = splex_libs.collect{|slib| slib.lib_samples[0].index_tag } 
+    slib_tags = splex_libs.collect{|slib| [slib.lib_samples[0].index1_tag_id, slib.lib_samples[0].index2_tag_id] }
     slib_pools = splex_libs.collect{|slib| [slib.pool_id, slib.oligo_pool]}
     if slib_pools.uniq.size > 1 
       @seq_lib[:oligo_pool] =  'Multiple'
@@ -73,7 +73,7 @@ class MplexLibsController < ApplicationController
       @seq_lib[:oligo_pool] = slib_pools[0][1]
     end
     
-    if splex_libs.size > 1 && slib_tags.size == slib_tags.uniq.size # More than 1 library selected; All index tags are unique, 
+    if splex_libs.size > 1 && slib_tags.size == slib_tags.uniq.size # More than 1 library selected; All index tag combinations are unique,
       splex_libs.each do |s_lib|
         slib_notes = slib_params.assoc(s_lib.id)[1] #Find params array entry for this seq_lib.id, and extract notes field 
         @seq_lib.lib_samples.build(:processed_sample_id => s_lib.lib_samples[0].processed_sample_id,
@@ -97,7 +97,7 @@ class MplexLibsController < ApplicationController
       error_found = true 
       
     elsif slib_tags.size > slib_tags.uniq.size  # One or more duplicate tags
-      flash.now[:error] = 'ERROR - Duplicate index tags entered for this multiplex library'
+      flash.now[:error] = 'ERROR - Duplicate index tag combinations entered for this multiplex library'
       error_found = true
     end
      

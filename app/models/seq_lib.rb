@@ -233,7 +233,7 @@ class SeqLib < ActiveRecord::Base
     end
         
     if slib_adapters.uniq.size > 1
-      self.update(mplex_lib.id, :adapter_id => Adapter.where(runtype_adapter == 'Multiple').id)
+      self.update(mplex_lib.id, :adapter_id => Adapter.where('runtype_adapter = "Multiple"').first.id)
     else
       self.update(mplex_lib.id, :adapter_id => slib_adapters[0])
     end

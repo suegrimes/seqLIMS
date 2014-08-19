@@ -7,7 +7,7 @@
 	    <td><%= s.text_field(:singleplex_lib, :size => 10) %></td>
 		<td>&nbsp;</td>
 	  <% end %>
-	  <td><%=h s.object.runtype_adapter %></td>
+	  <td><%=h s.object.adapter_name %></td>
       <td><%=h s.object.tag1_nr_seq %><%=h s.object.tag2_nr_seq %></td>
 	  <td><%=h (s.object.splex_lib_id.nil? ? s.object.seq_lib.oligo_pool : s.object.splex_lib.oligo_pool) %></td>
       <td><%=h s.object.sample_name %></td>

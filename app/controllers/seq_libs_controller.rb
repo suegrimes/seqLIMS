@@ -39,6 +39,14 @@ class SeqLibsController < ApplicationController
     if @seq_lib.library_type == 'M'
       redirect_to :controller => 'mplex_libs', :action => :edit, :id => params[:id]
     else
+      if !@seq_lib.adapter_id.nil?
+        adapter = Adapter.find(@seq_lib.adapter_id)
+        @i1_tags = IndexTag.where('adapter_id = ? and index_read = 1', adapter.id)
+        @i2_tags = IndexTag.where('adapter_id = ? and index_read = 2', adapter.id)
+      else
+        @i1_tags = []
+        @i2_tags = []
+      end
       render :action => 'edit'
     end
   end
@@ -119,6 +127,8 @@ class SeqLibsController < ApplicationController
     params[:seq_lib].merge!(:alignment_ref => alignment_key,
                             :oligo_pool => pool_label)
     params[:seq_lib][:lib_samples_attributes]["0"][:adapter_id] = params[:seq_lib][:adapter_id]
+
+    # TODO: If updating from a multiple index adapter to single index adapter, make sure that the second index is zeroed out
     
     if @seq_lib.update_attributes(params[:seq_lib])
       if @seq_lib.in_multiplex_lib?
@@ -156,8 +166,9 @@ class SeqLibsController < ApplicationController
   end
 
   def get_adapter_info
-    @lib_row = 'seq_lib_' + params[:row]
-    @lsample_row = 'lib_sample_' + params[:row]
+    params[:nested] ||= 'no'
+    @lib_row     = (params[:nested] == 'yes' ? 'seq_lib' : 'seq_lib_' + params[:row])
+    @lsample_row = (params[:nested] == 'yes' ? 'seq_lib_lib_samples_attributes_' + params[:row] : 'lib_sample_' + params[:row])
     @adapter = Adapter.find(params[@lib_row][:adapter_id])
     @i1_tags = IndexTag.where('adapter_id = ? and index_read = 1', @adapter.id)
     @i2_tags = IndexTag.where('adapter_id = ? and index_read = 2', @adapter.id)

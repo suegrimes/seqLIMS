@@ -35,6 +35,10 @@ class FlowLane < ActiveRecord::Base
   validates_inclusion_of :lane_nr, :in => 1..8,
                          :message => "must be integer between 1 and 8"
   
+  def adapter_name
+    return (self.adapter.nil? ? runtype_adapter : self.adapter.runtype_adapter)
+  end
+
   def for_publication?
     (self.publications.size > 0 ? 'Y' : '')
   end

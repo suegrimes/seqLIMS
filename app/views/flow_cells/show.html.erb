@@ -23,7 +23,7 @@
 	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.for_publication? %></td>
 	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%= link_to flow_lane.lib_barcode, flow_lane.seq_lib %></td>
       <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.seq_lib.lib_name %></td>
-	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.runtype_adapter %></td>
+	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.adapter_name %></td>
 	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.oligo_pool %></td>
 	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.alignment_ref %></td>
 	  <td class=<%= "dotted_border_bottom" if lane_notes %>><%=h flow_lane.seq_lib.trim_bases %></td>
