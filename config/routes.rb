@@ -182,6 +182,7 @@ SeqLIMS::Application.routes.draw do
 
   #match 'view_pubs' => 'flow_cells#show_publications', :as => :view_pubs
   resources :analysis_qc
+  resources :adapters
   resources :index_tags
   resources :alignment_refs
   resources :seq_machines do

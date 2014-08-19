@@ -14,7 +14,7 @@
 class IndexTag < ActiveRecord::Base
   belongs_to :adapter
 
-  def runtype_adapter
+  def adapter_name
     return self.adapter.runtype_adapter
   end
 
@@ -24,6 +24,10 @@ class IndexTag < ActiveRecord::Base
 
   def index2_code
     return (self.adapter.index2_prefix.blank? ? tag_nr : [self.adapter.index2_prefix, format('%02d',tag_nr)].join)
+  end
+
+  def index_code
+    return (index_read == 2 ? index2_code : index1_code)
   end
 
   def tag_ctr

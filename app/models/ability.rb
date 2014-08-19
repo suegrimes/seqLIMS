@@ -17,7 +17,7 @@ class Ability
   include CanCan::Ability
   
   def initialize(user=current_user)
-    alias_action :setup_params, :query_params, :new_query, :list_selected, :index, :show, :show_qc, :to => :read
+    alias_action :setup_params, :query_params, :new_query, :list_selected, :xxx_index, :show, :show_qc, :to => :read
     
     # Everyone can read all data, and enter order items, but cannot read for patient tables
     can :read, :all
@@ -92,8 +92,8 @@ class Ability
       
       # Alignment users can enter/update alignment/qc results, alignment refs
       if user.has_role?("alignment")
-        can :manage, [SeqLib, LibSample, FlowCell, FlowLane, AlignQc, AlignmentRef, SeqMachine, StorageDevice, RunDir]
-        cannot :delete, [AlignmentRef, SeqMachine]
+        can :manage, [SeqLib, LibSample, Adapter, IndexTag, FlowCell, FlowLane, AlignQc, AlignmentRef, SeqMachine, StorageDevice, RunDir]
+        cannot :delete, [AlignmentRef, SeqMachine, StorageDevice, RunDir]
       end
       
       if user.has_role?("barcodes")

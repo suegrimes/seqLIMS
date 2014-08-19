@@ -1,0 +1,17 @@
+<table id="itags">
+<tr>
+  <th>Index Read</th>
+  <th>Index#</th>
+  <th style="text-align:left">Sequence</th>
+</tr>
+  <%= f.fields_for :index_tags, :wrapper => false do |t| %>
+      <tr class="fields">
+        <td><%= t.text_field :index_read, :size => 3 %></td>
+        <td><%= t.text_field :tag_nr, :size => 3 %></td>
+        <td><%= t.text_field :tag_sequence, :size => 10 %></td>
+        <td><%= t.link_to_remove "Remove" %></td>
+      </tr>
+  <% end %>
+</table>
+
+<p><%= f.link_to_add "Add Value", :index_tags, :data => { :target => "#itags" } %></p>

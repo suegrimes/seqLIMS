@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   #require_role "admin", :for_all_except => [:new, :create]
   if DEMO_APP
     include SslRequirement   
-    ssl_required :index, :new, :create, :edit, :update, :destroy, :reset
+    ssl_required :xxx_index, :new, :create, :edit, :update, :destroy, :reset
   end
 
   # render index.rhtml

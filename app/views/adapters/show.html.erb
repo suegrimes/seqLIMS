@@ -1,0 +1,29 @@
+<p>
+  <b>Adapter:</b>
+  <%=h @adapter.runtype_adapter %>
+</p>
+
+<table class="list">
+  <tr>
+    <th>Index Read</th>
+    <th>Tag#</th>
+    <th>Sequence</th>
+    <th colspan=2></th>
+  </tr>
+
+  <% for index_tag in @adapter.index_tags %>
+      <tr>
+        <td><%=h index_tag.index_read %></td>
+        <td><%=h index_tag.index_code %></td>
+        <td><%=h index_tag.tag_sequence %></td>
+        <td><% if can? :edit, index_tag %>
+              <%= link_to 'Edit', edit_index_tag_path(index_tag) %>
+          <% end %></td>
+        <td><% if can? :delete, index_tag %>
+              <%= link_to 'Delete', index_tag, :confirm => 'Are you sure?', :method => :delete %>
+          <% end %></td>
+      </tr>
+  <% end %>
+</table>
+
+<%= link_to 'Back', adapters_path %>

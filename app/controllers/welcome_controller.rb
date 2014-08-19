@@ -4,7 +4,7 @@ class WelcomeController < ApplicationController
 
   if DEMO_APP
     include SslRequirement 
-    ssl_required :index, :user_login, :signup, :add_user
+    ssl_required :xxx_index, :user_login, :signup, :add_user
   end
   
   def index

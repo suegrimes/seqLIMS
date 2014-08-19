@@ -1,0 +1,18 @@
+<h1>Edit Multiplex Index Tag for: <%= @index_tag.adapter_name %></h1>
+
+<%= tagged_form_for(@index_tag) do |f| %>
+    <%= render '/shared/errors', model: @index_tag %>
+
+    <fieldset class="form">
+      <legend>Multiplex Tag</legend>
+      <table class="form">
+        <% iprefix = (@index_tag.index_read == 2 ? @index_tag.adapter.index2_prefix : @index_tag.adapter.index1_prefix) %>
+        <tr><%= f.text_field :index_read %></tr>
+        <tr><%= f.text_field :tag_nr, :label => 'Index ' + iprefix %></tr>
+        <tr><%= f.text_field :tag_sequence, :label => 'Sequence' %></tr>
+      </table>
+    </fieldset>
+
+    <%=raw break_clear(f.submit "Update") -%>&nbsp;&nbsp;<%= link_to 'Back', adapter_path(@index_tag.adapter_id) %>
+<% end %>
+

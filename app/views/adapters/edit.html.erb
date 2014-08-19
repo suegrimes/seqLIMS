@@ -1,0 +1,18 @@
+<h1>Editing Adapter</h1>
+
+<%= nested_form_for(@adapter) do |f| %>
+  <%= render '/shared/errors', model: @adapter %>
+  
+  <fieldset class="form">
+  <legend>Adapter: <%=h @adapter.runtype_adapter %></legend>
+
+  <div id="idx_tag">
+    <%= render :partial => 'index_tags', :locals => {:index_tags => @adapter.index_tags, :f => f} %>
+  </div>
+  </fieldset>
+  
+  <%=raw break_clear(f.submit "Update" )%>
+<% end %>
+
+<%= link_to 'Show', @adapter %> |
+<%= link_to 'Back', adapters_path %>

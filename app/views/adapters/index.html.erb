@@ -1,0 +1,25 @@
+<h1>Adapters</h1>
+
+<table class="list">
+  <tr>
+    <th>Adapter</th>
+	<th>Mplex/Splex</th>
+    <th>#Indices</th>
+	<th colspan=3></th>
+  </tr>
+
+<% for adapter in @adapters %>
+  <tr>
+    <td><%=h adapter.runtype_adapter %></td>
+	<td><%=h adapter.mplex_splex %></td>
+    <td><%=h adapter.multi_indices %></td>
+    <td><%= link_to 'Show', adapter %></td>
+	<td><% if can? :edit, adapter %>
+        <%= link_to 'Edit', edit_adapter_path(adapter) %></td>
+	    <% end %></td>
+	<td><% if can? :delete, adapter %>
+        <%= link_to 'Delete', adapter, :confirm => 'Are you sure?', :method => :delete %>
+	    <% end %></td>
+  </tr>
+<% end %>
+</table>

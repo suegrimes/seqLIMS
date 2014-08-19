@@ -111,7 +111,8 @@ class LibSample < ActiveRecord::Base
     if lib_samples
       # Set up those attributes that come from lib_samples table of singleplex lib
       # Should always be one and only one lib_sample for a singleplex lib; but test for existence of lib_samples just in case
-      lsample_attrs = {:index_tag           => seq_lib.lib_samples[0].index_tag,
+      lsample_attrs = {:index1_tag_id       => seq_lib.lib_samples[0].index1_tag_id,
+                       :index2_tag_id       => seq_lib.lib_samples[0].index2_tag_id,
                        :sample_name         => seq_lib.lib_samples[0].sample_name,
                        :source_DNA          => seq_lib.lib_samples[0].source_DNA,
                        :processed_sample_id => seq_lib.lib_samples[0].processed_sample_id} if seq_lib.lib_samples
