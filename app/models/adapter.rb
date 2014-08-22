@@ -9,7 +9,7 @@ class Adapter < ActiveRecord::Base
   default_scope { where("adapters.runtype_adapter <> ?", "Multiple") }
 
   def self.default_adapter
-    return self.where('runtype_adapter = "M_PE"')
+    return self.where('runtype_adapter = "M_PE"').first
   end
 
   def self.splex_adapters
