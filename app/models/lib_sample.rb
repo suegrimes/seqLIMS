@@ -55,6 +55,22 @@ class LibSample < ActiveRecord::Base
     return (self.adapter.nil? ? ' ' : self.adapter.runtype_adapter)
   end
 
+  def index1_tag_nr
+    return (index1_tag.nil? ? ' ' : index1_tag.index1_code)
+  end
+
+  def index2_tag_nr
+    return (index2_tag.nil? ? ' ' : index2_tag.index2_code)
+  end
+
+  def index1_tag_seq
+    return (index1_tag.nil? ? ' ' : index1_tag.tag_sequence)
+  end
+
+  def index2_tag_seq
+    return (index2_tag.nil? ? ' ' : index2_tag.tag_sequence)
+  end
+
   def tag1_nr_seq
     return (index1_tag.nil? ? ' ' : [index1_tag.index1_code, '(', index1_tag.tag_sequence, ')'].join)
   end
@@ -64,8 +80,6 @@ class LibSample < ActiveRecord::Base
   end
 
   def tag_sequence
-    index1_tag_seq = (index1_tag.nil? ? ' ' : index1_tag.tag_sequence)
-    index2_tag_seq = (index2_tag.nil? ? ' ' : index2_tag.tag_sequence)
     return [index1_tag_seq, index2_tag_seq].join(',')
   end
   

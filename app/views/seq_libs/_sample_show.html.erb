@@ -15,8 +15,8 @@
   
   <% for lib_sample in lib_samples %>
     <tr>
-      <td><%=h lib_sample.tag1_nr_seq %></td>
-	  <td><%=h lib_sample.tag2_nr_seq %></td>
+      <td title="<%= lib_sample.index1_tag_seq %>"><%=h lib_sample.index1_tag_nr %></td>
+	  <td title="<%= lib_sample.index2_tag_seq %>"><%=h lib_sample.index2_tag_nr %></td>
 	  <% if lib_type == 'M' && lib_sample.splex_lib %>	  
 	    <td><%=link_to lib_sample.splex_lib_barcode, lib_sample.splex_lib %></td>
 		<td><%=h lib_sample.splex_lib.lib_name %></td>
@@ -37,4 +37,5 @@
 	  <td><%=h lib_sample.notes %></td>
     </tr>
   <% end %>
+
 </table>

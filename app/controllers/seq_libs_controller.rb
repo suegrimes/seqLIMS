@@ -124,11 +124,15 @@ class SeqLibsController < ApplicationController
     
     pool_label = Pool.get_pool_label(params[:seq_lib][:pool_id]) if !param_blank?(params[:seq_lib][:pool_id])
     alignment_key = AlignmentRef.get_align_key(params[:seq_lib][:alignment_ref_id])
+    adapter = Adapter.find(params[:seq_lib][:adapter_id])
+
     params[:seq_lib].merge!(:alignment_ref => alignment_key,
                             :oligo_pool => pool_label)
-    params[:seq_lib][:lib_samples_attributes]["0"][:adapter_id] = params[:seq_lib][:adapter_id]
 
-    # TODO: If updating from a multiple index adapter to single index adapter, make sure that the second index is zeroed out
+    params[:seq_lib][:lib_samples_attributes]["0"][:adapter_id] = params[:seq_lib][:adapter_id]
+    if adapter.multi_indices != 'Y'
+      params[:seq_lib][:lib_samples_attributes]["0"].merge!(:index2_tag_id => nil)
+    end
     
     if @seq_lib.update_attributes(params[:seq_lib])
       if @seq_lib.in_multiplex_lib?

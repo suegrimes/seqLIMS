@@ -6,8 +6,8 @@
       <td><%=h seq_lib.lib_barcode %></td>
 	  <td><%=h seq_lib.lib_name %></td>
 	  <td><%=h lib_sample.adapter_name %></td>
-      <td><%=h lib_sample.tag1_nr_seq %></td>
-      <td><%=h lib_sample.tag2_nr_seq %></td>
+      <td title="<%= lib_sample.index1_tag_seq %>"><%=h lib_sample.index1_tag_nr %></td>
+      <td title="<%= lib_sample.index2_tag_seq %>"><%=h lib_sample.index2_tag_nr %></td>
       <td><%=h lib_sample.sample_name %></td>
 	  <td><%=h lib_sample.processed_sample.patient_id if lib_sample.processed_sample %>
       <td><%=h lib_sample.source_sample_name %></td> 
