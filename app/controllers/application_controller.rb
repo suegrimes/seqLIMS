@@ -100,6 +100,45 @@ class ApplicationController < ActionController::Base
     model.constantize.find(id).barcode_key
   end
   
+  def compound_string_params(str_prefix, pad_len, compound_string)
+    str_split_all = compound_string.split(",")
+    str_vals = []; str_ranges = []; error = [];
+
+    for str_val in str_split_all
+      str_val = str_val.to_s.delete(' ')
+      case str_val
+        when /^(\d+)$/ # digits only
+          str_vals << (str_prefix + "%0#{pad_len}d" % str_val.to_i) # reformat, and push to array
+        when /^(\d+)\-(\d+)$/ # has range of digits
+          str_ranges << [str_prefix + "%0#{pad_len}d" % $1.to_i, str_prefix + "%0#{pad_len}d" % $2.to_i]
+        else error << str_val + ' is unexpected value'
+      end # case
+    end # for
+
+    return str_vals, str_ranges, error
+  end
+
+  def sql_compound_condition(sql_fld, fld_vals, fld_ranges)
+    where_select = []; where_values = [];
+
+    if !fld_vals.empty?
+      where_select.push("#{sql_fld} IN (?)")
+      where_values.push(fld_vals)
+    end
+
+    if !fld_ranges.empty?
+      for fld_range in fld_ranges
+        where_select.push("#{sql_fld} BETWEEN ? AND ?")
+        where_values.push(fld_range[0])
+        where_values.push(fld_range[1])
+      end
+    end
+
+    where_clause = (where_select.size > 0 ? ['(' + where_select.join(' OR ') + ')'] : [])
+    #puts error if !error.empty?
+    return where_clause, where_values
+  end
+
   def sql_condition(input_val)
     if input_val.is_a?(Array)
       conditional = ' IN (?)'

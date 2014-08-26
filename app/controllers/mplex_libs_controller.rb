@@ -11,7 +11,7 @@ class MplexLibsController < ApplicationController
    @seq_lib   = SeqLib.new(:owner => (current_user.researcher ? current_user.researcher.researcher_name : nil),
                            :adapter_id => Adapter.default_adapter.id)
   end
-  
+
   def new
     @requester = (current_user.researcher ? current_user.researcher.researcher_name : nil)
     @seq_lib   = SeqLib.new(:library_type => 'M',
@@ -180,12 +180,11 @@ protected
       end
     end
     
-    if !param_blank?(params[:barcode_from]) || !param_blank?(params[:barcode_to])
-      @where_select.push("seq_libs.barcode_key LIKE 'L%'")
-      barcode_from = (param_blank?(params[:barcode_from]) ? nil : params[:barcode_from].to_i)
-      barcode_to   = (param_blank?(params[:barcode_to])? nil : params[:barcode_to].to_i)
-      @where_select, @where_values = sql_conditions_for_range(@where_select, @where_values, barcode_from, barcode_to,
-                                                              "CAST(SUBSTRING(seq_libs.barcode_key,2) AS UNSIGNED)")
+    if !param_blank?(params[:barcode_string])
+      str_vals, str_ranges, errors = compound_string_params('L', 6, params[:barcode_string])
+      where_select, where_values   = sql_compound_condition('seq_libs.barcode_key', str_vals, str_ranges)
+      @where_select.push(where_select)
+      @where_values.push(*where_values)
     end
                                      
     if params[:excl_used] && params[:excl_used] == 'Y'
