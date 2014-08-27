@@ -13,7 +13,9 @@
     <td><%=h adapter.runtype_adapter %></td>
 	<td><%=h adapter.mplex_splex %></td>
     <td><%=h adapter.multi_indices %></td>
-    <td><%= link_to 'Show', adapter %></td>
+    <td><% if adapter.mplex_splex == 'M' %>
+      <%= link_to 'Show', adapter %>
+      <% end %></td>
 	<td><% if can? :edit, adapter %>
         <%= link_to 'Edit', edit_adapter_path(adapter) %></td>
 	    <% end %></td>

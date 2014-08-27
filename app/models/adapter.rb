@@ -18,7 +18,6 @@ class Adapter < ActiveRecord::Base
 
   def self.mplex_adapters
     return self.where('mplex_splex = "M"')
-    #return adapters.unshift("M_SR")
   end
 
   def self.populate_dropdown
