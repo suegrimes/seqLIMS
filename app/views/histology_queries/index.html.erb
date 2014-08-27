@@ -1,0 +1,43 @@
+<h1>H&E Data (Filtered) </h1>
+
+<table class="list">
+  <tr>
+  	<th>Patient ID</th>
+	<th>Consent Nr</th>
+	<th>Clinic</th>
+	<th>Sample</th>
+	<th>Sample Date</th>
+	<th>Sample Type</th>
+	<th>Preservation</th>
+	<th>HE Barcode</th>
+	<th>HE Date</th>
+	<th>Histopathology</th>
+    <th>Comments</th>
+    <th colspan="2"></th>
+  </tr>
+
+<% for histology in @histologies %>
+  <tr>
+  	<td><%=h histology.sample.sample_characteristic.patient_id %></td>
+	<td><%=h histology.sample.sample_characteristic.consent_nr %></td>
+    <td><%=h histology.sample.sample_characteristic.clinic_or_location %></td>
+    <td><%=h histology.sample.barcode_key %></td>
+    <td><%=h histology.sample.sample_date %></td>
+    <td><%=h histology.sample.sample_tissue %></td>
+    <td><%=h histology.sample.tissue_preservation %></td>
+    <td><%=link_to histology.he_barcode_key, histology_path(histology) %></td>
+    <td><%=h histology.he_date %></td>
+    <td><%=h histology.histopathology %></td>
+    <td><%=h histology.comments %></td>
+
+    <td><% if can? :edit, histology %>
+	    <%= link_to 'Edit', edit_histology_path(histology) %>
+        <% end %></td>
+	
+	<td><% if can? :delete, histology %>
+	    <%= link_to 'Delete', histology, :confirm => 'Are you sure?', :method => :delete %>
+	<% end %></td>
+  </tr>
+  <% end %>
+</table>
+

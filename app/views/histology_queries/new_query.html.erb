@@ -1,0 +1,39 @@
+<h1>Histology Query</h1>
+
+<%= form_for @histology_query, :action => 'index', :method => :get do |f| %>
+<%= render '/shared/errors', model: @histology_query, header_message: 'Error(s) in query parameters' %>
+
+<fieldset class="form">
+<legend>Select parameters</legend>
+<table class="form">
+  <tr>
+  	<th>Consent Protocol:</th>
+    <td><%= f.collection_select(:consent_protocol_id, @consent_protocols, :id, :name_ver,
+                               {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td>
+  </tr>
+
+  <tr>
+  	<th>Clinic/Location:</th>
+    <td><%= f.collection_select(:clinic_or_location, @clinics, :c_value, :c_value,
+                               {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td>
+  </tr>
+
+  <tr>
+    <th>Tissue Preservation:</th>
+    <td><%= f.collection_select(:tissue_preservation, @preservation, :c_value, :c_value,
+                                {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td>
+  </tr>
+
+  <tr>
+  	<th>H&E Date Range:</th>
+	<td><%= f.datepicker 'from_date', dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true, size: 15 %>
+	<strong>&nbsp;To:&nbsp;</strong><%= f.datepicker 'to_date', dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true, yearRange: '-1', size: 15 %></td>
+  </tr>
+</table>
+</fieldset>
+<br />
+<%=raw break_clear(submit_tag "Submit") %>
+<%end%>
+
+
+

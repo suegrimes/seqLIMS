@@ -93,6 +93,8 @@ SeqLIMS::Application.routes.draw do
       get :auto_complete_for_barcode_key
     end
   end
+  match 'histology_query' => 'histology_queries#new_query', :as => :histology_query
+  resources :histology_queries, :only => :index
 
   match 'upd_sample' => 'samples#edit_params', :as => :upd_sample
   match 'edit_samples' => 'samples#edit_by_barcode', :as => :edit_samples

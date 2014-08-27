@@ -45,7 +45,7 @@ protected
     @consent_protocols  = ConsentProtocol.populate_dropdown
     @protocols          = Protocol.find_for_protocol_type('E')  #Extraction protocols
     @category_dropdowns = Category.populate_dropdowns([Cgroup::CGROUPS['Clinical'], Cgroup::CGROUPS['Sample'], Cgroup::CGROUPS['Extraction']])
-    @clinics            = category_filter(@category_dropdowns, 'clinic')  
+    @clinics            = category_filter(@category_dropdowns, 'clinic')
     @sample_type        = category_filter(@category_dropdowns, 'sample type')
     @source_tissue      = category_filter(@category_dropdowns, 'source tissue')
     @preservation       = category_filter(@category_dropdowns, 'tissue preservation')

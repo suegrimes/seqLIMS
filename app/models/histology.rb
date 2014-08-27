@@ -34,6 +34,10 @@ class Histology < ActiveRecord::Base
     return sample_barcode + '.H1'
   end
 
+  def self.find_with_conditions(condition_array)
+    self.includes(:sample => :sample_characteristic).where(sql_where(condition_array)).order('samples.patient_id, samples.barcode_key')
+  end
+
 #  def self.next_he_barcode(sample_id, sample_barcode)
 #    barcode_max = self.maximum(:he_barcode_key, :conditions => ["sample_id = ? AND he_barcode_key LIKE ?", sample_id.to_i, sample_barcode + '%'])
 #    if barcode_max
