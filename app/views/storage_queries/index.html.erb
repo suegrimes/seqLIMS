@@ -1,0 +1,24 @@
+<%=h debug(@condition_array) %>
+
+<h1>Sample Storage Locations (Filtered) </h1>
+
+<b>Samples:</b>
+<% if @sample_locs %> (<%= @sample_locs.size %> samples) <% end %>
+<table class="list">
+
+  <% for sample_loc in @sample_locs %>
+    <tr>
+      <td><%=h sample_loc.patient_id %></td>
+      <td><%=h sample_loc.barcode_key %></td>
+      <td><%=h sample_loc.alt_identifier %></td>
+      <td><%=h sample_loc.sample_date %></td>
+      <td><%=h sample_loc.sample_type %></td>
+      <td><%=h sample_loc.sample_tissue %></td>
+      <td><%=h sample_loc.tissue_preservation %></td>
+      <td><%=h sample_loc.tumor_normal %></td>
+      <td><%=h sample_loc.container_and_position %></td>
+      <td><%=h sample_loc.room_and_freezer %></td>
+    </tr>
+  <% end %>
+</table>
+

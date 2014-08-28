@@ -1,0 +1,60 @@
+<h1>Sample Storage Query</h1>
+
+<%= form_for @storage_query, :action => :index, :method => :get do |f| %>
+  <%= render '/shared/errors', model: @storage_query, header_message: 'Error(s) in query parameters' %>
+
+<fieldset class="form">
+<legend>Select parameters</legend>
+<table class="form">
+  <tr>
+  <% if can? :read, Patient %>
+  	<th>Patient MRN:</th>
+	<td><%= f.text_field(:mrn, :size => 10) %><strong> -or- Patient ID:&nbsp;&nbsp;</strong><%= f.text_field(:patient_id, :size => 10) %></td>
+  <% else %>
+  	<th>Patient ID:</th><td><%= f.text_field(:patient_id, :size => 10) %></td>
+  <% end %>
+  	<th>Sample Barcode:</th><td><%= f.text_field(:barcode_key, :size => 12)%></td>
+  </tr>
+  <tr><td class="notes" colspan="4">Enter individual sample barcodes separated by commas, enter ranges with '-'.</td></tr>
+  <tr><td class="notes" colspan="4">Eg. '1160,1378-1400,1500-1600'</td></tr>
+  <tr><td>&nbsp;</td></tr>
+  
+  <tr>
+  	<th>Consent Protocol:</th>
+  	<td><%= f.collection_select(:consent_protocol_id, @consent_protocols, :id, :name_ver,
+                               {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td> 
+    <th>Clinic:</th> 
+	<td><%= f.collection_select(:clinic_or_location, @clinics, :c_value, :c_value,
+                               {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td> 
+  </tr>
+
+  <tr>
+  	<th>Sample Site:</th><td><%= f.collection_select(:sample_tissue, @source_tissue, :c_value, :c_value,
+                               {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td> 
+    <th>Sample Type:</th><td><%= f.collection_select(:sample_type, @sample_type, :c_value, :c_value,
+                               {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td> 
+  </tr>
+  <tr>
+	<th>Preservation:</th><td><%= f.collection_select(:tissue_preservation, @preservation, :c_value, :c_value,
+                               {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td> 
+    <th>OR Designation:</th><td><%= f.collection_select(:tumor_normal, @tumor_normal, :c_value, :c_value,
+                               {:include_blank => 'All'}) %></td>     
+  </tr>
+
+  <tr>
+    <th>Date Filter:</th>
+    <td><%= f.select(:date_filter, ["Sample Date", "Dissection Date", "Extraction Date"]) %></td>
+  </tr>
+  <tr>
+  	<th>Select Date Range:</th>
+    <td><%= f.datepicker 'from_date', size: 15, dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true %>
+	<strong>&nbsp;To:&nbsp;</strong><%= f.datepicker 'to_date', size: 15, dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true %></td>
+  </tr>
+</table>
+</fieldset>
+<br />
+<%=raw break_clear(submit_tag "Submit") %>
+<%end%>
+
+
+

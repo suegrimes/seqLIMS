@@ -104,6 +104,9 @@ SeqLIMS::Application.routes.draw do
   match 'samples_for_patient' => 'sample_queries#list_samples_for_patient', :as => :samples_list
   match 'samples_from_source' => 'sample_queries#list_samples_for_characteristic', :as => :samples_list1
   match 'export_samples' => 'sample_queries#export_samples', :as => :export_samples
+
+  match 'storage_query' => 'storage_queries#new_query', :as => :storage_query
+  resources :storage_queries, :only => :index
   
   # Routes for dissected samples
   resources :dissected_samples
