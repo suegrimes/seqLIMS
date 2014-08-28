@@ -1,7 +1,10 @@
 <table class="list">
   <tr>
+    <th>Adapter</th>
+    <% if lib_type == "S" %>
   	<th>Index1</th>
 	<th>Index2</th>
+    <% end %>
 	<% if lib_type == 'M' %>
 	  <th>Source Lib</th>
 	  <th>Lib Name</th>
@@ -15,8 +18,11 @@
   
   <% for lib_sample in lib_samples %>
     <tr>
+      <td><%=h lib_sample.adapter_name %></td>
+      <% if lib_type == "S" %>
       <td title="<%= lib_sample.index1_tag_seq %>"><%=h lib_sample.index1_tag_nr %></td>
 	  <td title="<%= lib_sample.index2_tag_seq %>"><%=h lib_sample.index2_tag_nr %></td>
+      <% end %>
 	  <% if lib_type == 'M' && lib_sample.splex_lib %>	  
 	    <td><%=link_to lib_sample.splex_lib_barcode, lib_sample.splex_lib %></td>
 		<td><%=h lib_sample.splex_lib.lib_name %></td>
