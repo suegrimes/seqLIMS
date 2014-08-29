@@ -5,20 +5,47 @@
 <b>Samples:</b>
 <% if @sample_locs %> (<%= @sample_locs.size %> samples) <% end %>
 <table class="list">
+  <tr>
+    <th>Patient ID</th>
+    <th>Sample Barcode</th>
+    <th>Acquired Date</th>
+    <th>Processed Date</th>
+    <th>Sample Type</th>
+    <th>Sample Site</th>
+    <th>Preservation</th>
+    <th>Tumor/Normal</th>
+    <th>Room/Freezer</th>
+    <th>Container/Position</th>
+  </tr>
 
   <% for sample_loc in @sample_locs %>
     <tr>
       <td><%=h sample_loc.patient_id %></td>
       <td><%=h sample_loc.barcode_key %></td>
-      <td><%=h sample_loc.alt_identifier %></td>
+      <td><% if sample_loc.source_sample_id.nil? %><%=h sample_loc.sample_characteristic.collection_date %><% end %></td>
       <td><%=h sample_loc.sample_date %></td>
       <td><%=h sample_loc.sample_type %></td>
       <td><%=h sample_loc.sample_tissue %></td>
       <td><%=h sample_loc.tissue_preservation %></td>
       <td><%=h sample_loc.tumor_normal %></td>
-      <td><%=h sample_loc.container_and_position %></td>
       <td><%=h sample_loc.room_and_freezer %></td>
+      <td><%=h sample_loc.container_and_position %></td>
     </tr>
+    <% for psample in sample_loc.processed_samples %>
+      <tr>
+        <td><%=h sample_loc.patient_id %></td>
+        <td><%=h psample.barcode_key %></td>
+        <td>&nbsp;</td>
+        <td><%=h psample.processing_date %></td>
+        <td><%=h psample.extraction_type %></td>
+        <td><%=h sample_loc.sample_tissue %></td>
+        <td><%=h sample_loc.tissue_preservation %></td>
+        <td><%=h sample_loc.tumor_normal %></td>
+        <td><% if !psample.sample_storage_container.nil? %><%=h psample.sample_storage_container.room_and_freezer %><% end %></td>
+        <td><% if !psample.sample_storage_container.nil? %><%=h psample.sample_storage_container.container_and_position %><% end %></td>
+      </tr>
+    <% end %>
   <% end %>
-</table>
+
+ </table>
 

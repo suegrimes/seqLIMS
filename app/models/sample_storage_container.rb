@@ -23,7 +23,7 @@ class SampleStorageContainer < ActiveRecord::Base
   belongs_to :stored_sample, :polymorphic => true
 
   before_create :upd_sample_name
-  
+
   def upd_sample_name
     self.sample_name_or_barcode = self.stored_sample.barcode_key
   end

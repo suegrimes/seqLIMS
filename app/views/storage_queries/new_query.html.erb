@@ -13,10 +13,12 @@
   <% else %>
   	<th>Patient ID:</th><td><%= f.text_field(:patient_id, :size => 10) %></td>
   <% end %>
-  	<th>Sample Barcode:</th><td><%= f.text_field(:barcode_key, :size => 12)%></td>
   </tr>
-  <tr><td class="notes" colspan="4">Enter individual sample barcodes separated by commas, enter ranges with '-'.</td></tr>
-  <tr><td class="notes" colspan="4">Eg. '1160,1378-1400,1500-1600'</td></tr>
+  <tr>
+  	<th>Sample Barcodes:</th><td><%= f.text_area(:barcode_string, :size => "40x2")%></td>
+    <td class="notes" colspan="2">Enter individual sample barcodes separated by commas, enter ranges with '-'. <br /> Eg. '1160,1378-1400,1500-1600'</td>
+  </tr>
+
   <tr><td>&nbsp;</td></tr>
   
   <tr>
@@ -43,7 +45,7 @@
 
   <tr>
     <th>Date Filter:</th>
-    <td><%= f.select(:date_filter, ["Sample Date", "Dissection Date", "Extraction Date"]) %></td>
+    <td><%= f.select(:date_filter, options_for_select(@date_options.collect{|dt| [dt[:datetxt], dt[:datefld]]})) %></td>
   </tr>
   <tr>
   	<th>Select Date Range:</th>

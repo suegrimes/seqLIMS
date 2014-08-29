@@ -52,6 +52,10 @@ protected
     @source_tissue      = category_filter(@category_dropdowns, 'source tissue')
     @preservation       = category_filter(@category_dropdowns, 'tissue preservation')
     @tumor_normal       = category_filter(@category_dropdowns, 'tumor_normal')
+    @date_options       = [{:datetxt => 'Acquisition Date', :datefld => 'sample_characteristics.collection_date'},
+                           {:datetxt => 'LIMS Entry Date',  :datefld => 'samples.created_at'},
+                           {:datetxt => "Dissection Date",  :datefld => 'samples.sample_date'},
+                           {:datetxt => "Extraction Date",  :datefld => 'processed_samples.processing_date'}]
   end
   
   def define_conditions(params)
@@ -66,7 +70,17 @@ protected
       end
     end
 
-    date_fld = 'samples.sample_date'
+    if !param_blank?(params[:storage_query][:barcode_string])
+      str_vals, str_ranges, errors = compound_string_params('', nil, params[:storage_query][:barcode_string])
+      where_select, where_values   = sql_compound_condition('samples.barcode_key', str_vals, str_ranges)
+      @where_select.push(where_select)
+      @where_values.push(*where_values)
+    end
+
+    date_fld = params[:storage_query][:date_filter]
+    if date_fld == 'samples.sample_date'
+      @where_select.push('samples.source_sample_id IS NOT NULL')
+    end
     @where_select, @where_values = sql_conditions_for_date_range(@where_select, @where_values, params[:storage_query], date_fld)
     return (@where_select.length == 0 ? [] : [@where_select.join(' AND ')].concat(@where_values))
   end
