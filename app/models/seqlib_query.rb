@@ -18,7 +18,8 @@ class SeqlibQuery < NoTable
       self.name.tableize
     end
   end
-  
+
+  column :patient_id,    :integer
   column :owner,         :string
   column :project,       :string
   column :lib_name,      :string
@@ -31,12 +32,7 @@ class SeqlibQuery < NoTable
 
   SEARCH_FLDS = %w{lib_name}
   SEQLIB_FLDS = %w{owner project alignment_ref}
-  ALL_FLDS    = SEQLIB_FLDS | SEARCH_FLDS
-  
-  def validate
-    if !barcode_to.blank?
-      errors.add(:barcode_from, "- must be entered if ending barcode entered") if barcode_from.blank?
-      errors.add(:barcode_to, "- cannot be less than beginning barcode") if barcode_to.to_i < barcode_from.to_i
-    end
-  end
+  PSAMPLE_FLDS = %w{patient_id}
+  ALL_FLDS    = SEQLIB_FLDS | SEARCH_FLDS | PSAMPLE_FLDS
+
 end

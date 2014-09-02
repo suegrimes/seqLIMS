@@ -63,10 +63,13 @@ protected
     
     params[:seqlib_query].each do |attr, val|
       if !param_blank?(val)
-        if SeqlibQuery::SEQLIB_FLDS.include?("#{attr}")
+        if SeqlibQuery::SEQLIB_FLDS.include?(attr)
           @where_select.push("seq_libs.#{attr}" + sql_condition(val))
           @where_values.push(sql_value(val))
-        elsif SeqlibQuery::SEARCH_FLDS.include?("#{attr}")
+        elsif SeqlibQuery::PSAMPLE_FLDS.include?(attr)
+          @where_select.push("processed_samples.#{attr}" + sql_condition(val))
+          @where_values.push(sql_value(val))
+        elsif SeqlibQuery::SEARCH_FLDS.include?(attr)
           @where_select.push("seq_libs.#{attr} LIKE ?")
           @where_values.push(sql_value("LIKE #{val}"))
         end

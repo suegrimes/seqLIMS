@@ -165,24 +165,17 @@ class SeqLib < ActiveRecord::Base
   end
   
   def self.find_for_query(condition_array)
-    self.select("seq_libs.*, COUNT(DISTINCT(flow_cells.id)) AS 'seq_run_cnt', COUNT(flow_lanes.id) AS 'seq_lane_cnt', " +
+    self.select("seq_libs.*, COUNT(DISTINCT(flow_cells.id)) AS 'seq_run_cnt', COUNT(DISTINCT(flow_lanes.id)) AS 'seq_lane_cnt', " +
                     "COUNT(align_qc.id) AS 'qc_lane_cnt'")
-        .joins('LEFT JOIN flow_lanes ON flow_lanes.seq_lib_id = seq_libs.id
+        .joins('INNER JOIN lib_samples on lib_samples.seq_lib_id = seq_libs.id
+              LEFT JOIN processed_samples ON lib_samples.processed_sample_id = processed_samples.id
+              LEFT JOIN flow_lanes ON flow_lanes.seq_lib_id = seq_libs.id
               LEFT JOIN align_qc ON align_qc.flow_lane_id = flow_lanes.id
               LEFT JOIN flow_cells ON flow_lanes.flow_cell_id = flow_cells.id').where(sql_where(condition_array)).group('seq_libs.id')
-    #self.find(:all, :select => "seq_libs.*, COUNT(DISTINCT(flow_cells.id)) AS 'seq_run_cnt', COUNT(flow_lanes.id) AS 'seq_lane_cnt', " +
-    #                           "COUNT(align_qc.id) AS 'qc_lane_cnt'",
-    #                :joins => "LEFT JOIN flow_lanes ON flow_lanes.seq_lib_id = seq_libs.id
-     #                          LEFT JOIN align_qc ON align_qc.flow_lane_id = flow_lanes.id
-     #                          LEFT JOIN flow_cells ON flow_lanes.flow_cell_id = flow_cells.id",
-    #                :group => "seq_libs.id",
-     #               :conditions => condition_array)
   end
   
   def self.find_for_export(id)
     self.find(id).includes(:flow_lanes => [:flow_cell, :align_qc]).where("flow_cells.flowcell_status <> 'F'")
-    #self.find(id, :include => {:flow_lanes => [:flow_cell, :align_qc]},
-    #              :conditions => "flow_cells.flowcell_status <> 'F'")
   end
 
   def self.find_all_for_export(seqlib_ids)
