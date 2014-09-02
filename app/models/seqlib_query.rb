@@ -22,16 +22,16 @@ class SeqlibQuery < NoTable
   column :owner,         :string
   column :project,       :string
   column :lib_name,      :string
-  column :barcode_from,  :string
-  column :barcode_to,    :string
+  column :barcode_string, :string
   column :alignment_ref, :string
   column :from_date,     :date
   column :to_date,       :date
 
   validates_date :to_date, :from_date, :allow_blank => true
-  
-  SEQLIB_FLDS = %w{owner project lib_name alignment_ref}
-  ALL_FLDS    = SEQLIB_FLDS
+
+  SEARCH_FLDS = %w{lib_name}
+  SEQLIB_FLDS = %w{owner project alignment_ref}
+  ALL_FLDS    = SEQLIB_FLDS | SEARCH_FLDS
   
   def validate
     if !barcode_to.blank?

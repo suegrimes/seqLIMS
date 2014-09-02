@@ -190,8 +190,8 @@ class SeqLib < ActiveRecord::Base
   end
   
   def self.unique_projects
-    self.select(:project).order(:project).uniq
-    #self.find(:all, :select => 'DISTINCT project', :order => 'project')
+    # Exclude blank or NULL projects
+    self.select(:project).order(:project).where("project > ''").uniq
   end
   
   def self.getwith_attach(id)

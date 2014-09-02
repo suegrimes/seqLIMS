@@ -60,63 +60,35 @@ protected
   def define_conditions(params)
     @where_select = []
     @where_values = []
-    @sql_params = setup_sql_params(params)
     
-    @sql_params.each do |attr, val|
+    params[:seqlib_query].each do |attr, val|
       if !param_blank?(val)
-        @where_select = add_to_select(@where_select, attr, val)
-        @where_values = add_to_values(@where_values, attr, val)
+        if SeqlibQuery::SEQLIB_FLDS.include?("#{attr}")
+          @where_select.push("seq_libs.#{attr}" + sql_condition(val))
+          @where_values.push(sql_value(val))
+        elsif SeqlibQuery::SEARCH_FLDS.include?("#{attr}")
+          @where_select.push("seq_libs.#{attr} LIKE ?")
+          @where_values.push(sql_value("LIKE #{val}"))
+        end
       end
     end
     
     if params[:excl_used] && params[:excl_used] == 'Y'
       @where_select.push("seq_libs.lib_status <> 'F'")
     end
-    
-    if !param_blank?(params[:seqlib_query][:barcode_from]) && param_blank?(params[:seqlib_query][:barcode_to])
-      params[:seqlib_query][:barcode_to] = params[:seqlib_query][:barcode_from]
+
+    if !param_blank?(params[:seqlib_query][:barcode_string])
+      str_vals, str_ranges, errors = compound_string_params('L', 6, params[:seqlib_query][:barcode_string])
+      where_select, where_values   = sql_compound_condition('seq_libs.barcode_key', str_vals, str_ranges)
+      @where_select.push(where_select)
+      @where_values.push(*where_values)
     end
-    
-    if !param_blank?(params[:seqlib_query][:barcode_from]) || !param_blank?(params[:seqlib_query][:barcode_to])
-      @where_select.push("seq_libs.barcode_key LIKE 'L%'")
-      @where_select, @where_values = sql_conditions_for_range(@where_select, @where_values, 
-                                                            params[:seqlib_query][:barcode_from], params[:seqlib_query][:barcode_to],
-                                                            "CAST(SUBSTRING(seq_libs.barcode_key,2) AS UNSIGNED)")
-    end    
     
     date_fld = 'seq_libs.preparation_date'
     @where_select, @where_values = sql_conditions_for_date_range(@where_select, @where_values, params[:seqlib_query], date_fld)
     
     sql_where_clause = (@where_select.length == 0 ? [] : [@where_select.join(' AND ')].concat(@where_values))
     return sql_where_clause
-  end
-  
-  def setup_sql_params(params)
-    sql_params = {}
-    
-    # Standard case, just put sample_query attribute/value into sql_params hash
-    params[:seqlib_query].each do |attr, val|
-      sql_params[attr.to_sym] = val if !val.blank? && SeqlibQuery::ALL_FLDS.include?("#{attr}")
-    end
-    
-    return sql_params 
-  end
-  
-  def add_to_select(where_select, attr, val)
-    if attr.to_s == 'lib_name'
-      where_select.push("seq_libs.#{attr} LIKE ?")
-    else
-      where_select.push("seq_libs.#{attr}" + sql_condition(val)) if SeqlibQuery::SEQLIB_FLDS.include?("#{attr}")
-    end
-    return where_select
-  end
-  
-  def add_to_values(where_values, attr, val)
-    if attr.to_s == 'lib_name'
-      return where_values.push(['%', val, '%'].join)
-    else
-      return where_values.push(sql_value(val))
-    end
   end
 
   def export_seqlibs_csv(seq_libs)

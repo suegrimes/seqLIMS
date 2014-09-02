@@ -21,6 +21,7 @@
 /config/initializers/setup_mailer.rb
 
 /config/deploy.rb
+/config/environments/local_dev.rb
 
 # Ignore system config assets (R3+: app/assets/system; R2.3.8: /public/system)
 /app/assets/system/ez_keys.txt
