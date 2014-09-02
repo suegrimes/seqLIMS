@@ -101,21 +101,40 @@ class ApplicationController < ActionController::Base
   end
   
   def compound_string_params(str_prefix, pad_len, compound_string)
+    convert_with_prefix = (str_prefix.blank? && pad_len.nil? ? false : true)
     str_split_all = compound_string.split(",")
     str_vals = []; str_ranges = []; error = [];
 
     for str_val in str_split_all
       str_val = str_val.to_s.delete(' ')
-      case str_val
-        when /^(\d+)$/ # digits only
-          str_vals << (str_prefix + "%0#{pad_len}d" % str_val.to_i) # reformat, and push to array
-        when /^(\d+)\-(\d+)$/ # has range of digits
-          str_ranges << [str_prefix + "%0#{pad_len}d" % $1.to_i, str_prefix + "%0#{pad_len}d" % $2.to_i]
-        else error << str_val + ' is unexpected value'
-      end # case
+
+      if convert_with_prefix  # reformat/add prefix and push to array
+        case str_val
+          when /^(\d+)$/ # digits only
+            str_vals.push(barcode_format(str_prefix, pad_len, str_val))
+          when /^(\d+)\-(\d+)$/ # has range of digits
+            str_ranges.push([barcode_format(str_prefix, pad_len, $1), barcode_format(str_prefix, pad_len, $2)])
+          else error << str_val + ' is unexpected value'
+        end # case
+
+      else
+        case str_val
+          when /^(\w+)$/ #alphanumeric only (not a range)
+            str_vals.push(str_val)
+          when /^(\d+)-(\d+)$/ #numeric range, convert to integer so that SQL search will work correctly
+            str_ranges.push([$1.to_i, $2.to_i])
+          when /^(\w+)-(\w+)$/ #alphanumeric range, leave as is
+            str_ranges.push([$1, $2])
+          else  error << str_val + ' is unexpected value'
+        end #case
+      end #if convert_with_prefix
     end # for
 
     return str_vals, str_ranges, error
+  end
+
+  def barcode_format(str_prefix, pad_len, sstring)
+    return(str_prefix + "%0#{pad_len}d" % sstring.to_i)
   end
 
   def sql_compound_condition(sql_fld, fld_vals, fld_ranges)
@@ -135,7 +154,6 @@ class ApplicationController < ActionController::Base
     end
 
     where_clause = (where_select.size > 0 ? ['(' + where_select.join(' OR ') + ')'] : [])
-    #puts error if !error.empty?
     return where_clause, where_values
   end
 

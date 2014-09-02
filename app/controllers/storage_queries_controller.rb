@@ -73,6 +73,7 @@ protected
     if !param_blank?(params[:storage_query][:barcode_string])
       str_vals, str_ranges, errors = compound_string_params('', nil, params[:storage_query][:barcode_string])
       where_select, where_values   = sql_compound_condition('samples.barcode_key', str_vals, str_ranges)
+      puts errors if !errors.blank?
       @where_select.push(where_select)
       @where_values.push(*where_values)
     end
