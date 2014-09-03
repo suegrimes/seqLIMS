@@ -13,18 +13,22 @@
   	<th>Patient MRN:</th>
 	<td><%= f.text_field(:mrn, :size => 10) %>&nbsp;&nbsp;<strong> -or- </strong></td>
     <th>Patient ID:</th><td><%= f.text_field(:patient_id, :size => 10) %></td>
-    </tr><tr>
   <% else %>
   	<th>Patient ID:</th><td><%= f.text_field(:patient_id, :size => 10) %></td>
   <% end %>
+  </tr>
+  <tr><td>&nbsp;</td></tr>
 
-    <tr><td>&nbsp;</td></tr>
-  	<th>Sample Barcode:</th><td><%= f.text_field(:barcode_from, :size => 10)%> <b>to</b> <%=f.text_field(:barcode_to, :size => 10)%></td>
+  <tr>
+    <th>Sample Barcode(s):</th><td colspan="3"><%= f.text_area(:barcode_string, :size => "40x2")%></td>
     <th>Alt Identifier:</th><td><%= f.text_field(:alt_identifier, :size => 12)%></td>
   </tr>
-  
+  <tr>
+    <td>&nbsp;</td>
+    <td class="notes" colspan="3">Enter individual barcodes separated by commas, enter ranges with '-'. <br /> Eg. '1160,1378-1400,1500-1600'</td>
+  </tr>
   <tr><td>&nbsp;</td></tr>
-  
+
   <tr>
   	<th>Consent Protocol:</th><td colspan="3"><%= f.collection_select(:consent_protocol_id, @consent_protocols, :id, :name_ver,
                              {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td> 

@@ -34,7 +34,7 @@ class SampleLoc < Sample
   has_many   :sample_storage_containers, :as => :stored_sample
 
   def room_and_freezer
-    (sample_storage_containers ? sample_storage_containers.map{|sc| sc.room_and_freezer}.join(',') : '')
+    (sample_storage_containers ? sample_storage_containers.map{|sc| sc.room_and_freezer}.uniq.join(',') : '')
   end
   
   def container_and_position
