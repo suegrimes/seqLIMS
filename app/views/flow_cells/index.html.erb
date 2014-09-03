@@ -1,3 +1,8 @@
 <h1><%=h @hdr %></h1>
+<%= form_tag url_for(:controller => :flowcell_queries, :action => :export_seqruns) do %>
+    <%= submit_tag "Export Seq Runs" -%>
+    <br/><br/>
 
-<%= render :partial => 'flow_cells_list' %>
+<%= render :partial => 'flow_cells_list', :locals => {:fform => 'yes'} %>
+
+<% end %>

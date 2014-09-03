@@ -1,17 +1,21 @@
+<% fform ||= 'no' %>
+
 <table class="list">
   <tr>
 	<th>Sequencing Key</th>
 	<th>Pub?</th>
-	<th># Bases: R1,Index,R2</th>
+	<th># Bases: R1,I1,I2,R2</th>
 	<th>Run Description/Notes</th>
     <th colspan="5"></th>
   </tr>
 
   <% @flow_cells.each do |flow_cell| %>
   <tr>
+    <% if fform == 'yes' %><%= hidden_field_tag("export_id[]", flow_cell.id) %><% end %>
+
 	<td><%=h flow_cell.seq_run_key %></td>
 	<td style="text-align:center"><%= link_to flow_cell.for_publication?, :action => 'show_publications', :controller => 'flow_cells', :id => flow_cell.id %></td>
-	<td><%=h flow_cell.nr_bases_read1 %>, <%=h flow_cell.nr_bases_index %>, <%=h flow_cell.nr_bases_read2 %> </td>
+	<td><%=h flow_cell.nr_bases_read1 %>, <%=h flow_cell.nr_bases_index1 %>, <%=h flow_cell.nr_bases_index2 %>, <%=h flow_cell.nr_bases_read2 %> </td>
 	<td>
 	  <% notes_brk = 'no'%>
 	  <% if !flow_cell.run_description.blank? %><%=h flow_cell.run_description %><% notes_brk = 'yes' %><% end %>

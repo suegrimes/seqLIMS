@@ -1,7 +1,9 @@
 <h1>Sample Storage Locations (Filtered) </h1>
 
-<b>Samples:</b>
-<% if @sample_locs %> (<%= @sample_locs.size %> samples) <% end %>
+<%= form_tag :action => :export_samples do %>
+    <b>Samples:</b> <% if @sample_locs %> (<%=h @sample_locs.size %> samples) <% end %> <%= submit_tag "Export Samples" -%>
+    <br/><br/>
+
 <table class="list">
   <tr>
     <th>Patient ID</th>
@@ -28,6 +30,7 @@
       <td><%=h sample_loc.tumor_normal %></td>
       <td><%=h sample_loc.room_and_freezer %></td>
       <td><%=h sample_loc.container_and_position %></td>
+      <%= hidden_field_tag("export_id[]", sample_loc.id)  %>
     </tr>
     <% for psample in sample_loc.processed_samples %>
       <tr>
@@ -39,11 +42,12 @@
         <td><%=h sample_loc.sample_tissue %></td>
         <td><%=h sample_loc.tissue_preservation %></td>
         <td><%=h sample_loc.tumor_normal %></td>
-        <td><% if !psample.sample_storage_container.nil? %><%=h psample.sample_storage_container.room_and_freezer %><% end %></td>
-        <td><% if !psample.sample_storage_container.nil? %><%=h psample.sample_storage_container.container_and_position %><% end %></td>
+        <td><%=h psample.room_and_freezer %></td>
+        <td><%=h psample.container_and_position %></td>
       </tr>
     <% end %>
   <% end %>
 
  </table>
+<% end %>  <!-- end of form -->
 

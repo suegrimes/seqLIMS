@@ -106,6 +106,7 @@ SeqLIMS::Application.routes.draw do
   match 'export_samples' => 'sample_queries#export_samples', :as => :export_samples
 
   match 'storage_query' => 'storage_queries#new_query', :as => :storage_query
+  match 'export_sample_locs' => 'storage_queries#export_samples', :as => :export_sample_locs
   resources :storage_queries, :only => :index
   
   # Routes for dissected samples
@@ -204,6 +205,7 @@ SeqLIMS::Application.routes.draw do
   match 'flow_cell_setup' => 'flow_cells#setup_params', :as => :flow_cell_setup
   match 'seq_run_qc' => 'flow_cells#show_qc', :as => :flow_cell_qc
   match 'seq_run_query' => 'flowcell_queries#new_query', :as => :seq_run_query
+  match 'export_seqruns' => 'flowcell_queries#export_seqruns', :as => :export_seqruns, :via => :post
   
   # Routes for handling storage devices and sequencing run directories
   resources :storage_devices

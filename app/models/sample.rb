@@ -214,9 +214,6 @@ class Sample < ActiveRecord::Base
   def self.find_for_export(sample_ids)
     self.includes(:patient, [:sample_characteristic => [:pathology, :consent_protocol]], :histology, :sample_storage_container, :processed_samples)
         .where("samples.id IN (?)", sample_ids).order("samples.patient_id, samples.barcode_key").all
-    #self.find(:all, :include => [:patient, [:sample_characteristic => :pathology], :histology, :sample_storage_container, :processed_samples],
-    #          :conditions => ["samples.id IN (?)", sample_ids],
-    #          :order => "samples.patient_id, samples.barcode_key")
   end
   
   def self.find_sample(sample_id)
