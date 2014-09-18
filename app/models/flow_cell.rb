@@ -93,8 +93,10 @@ class FlowCell < ActiveRecord::Base
   def self.find_sequencing_runs(rptorder='runnr',condition_array=[])
     rpt_order = (rptorder == 'seqdt' ? 'flow_cells.sequencing_date DESC' : 'flow_cells.seq_run_nr DESC')
     self.sequenced.includes(:flow_lanes => :publications).where(sql_where(condition_array)).order(rpt_order).all
-    #self.sequenced.find(:all, :include => {:flow_lanes => :publications}, :order => 'flow_cells.seq_run_nr DESC',
-    #                    :conditions => condition_array)
+  end
+
+  def self.find_for_export(flowcell_ids)
+    self.includes(:flow_lanes => :publications).where("flow_cells.id IN (?)", flowcell_ids).all
   end
   
   def self.find_flowcells_for_sequencing

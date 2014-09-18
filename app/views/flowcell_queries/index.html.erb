@@ -1,3 +1,9 @@
 <h1><%=h @hdr %></h1>
 
-<%= render :partial => 'flow_cells/flow_cells_list' %>
+<%= form_tag :action => :export_seqruns do %>
+    <%= submit_tag "Export Seq Runs" -%>
+    <br/><br/>
+
+<%= render :partial => 'flow_cells/flow_cells_list', :locals => {:fform => 'yes'} %>
+
+<% end %>

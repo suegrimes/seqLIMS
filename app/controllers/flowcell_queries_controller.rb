@@ -28,6 +28,25 @@ class FlowcellQueriesController < ApplicationController
     end
   end
 
+  def export_seqruns
+    export_type = 'T'
+    @flow_cells = FlowCell.find_for_export(params[:export_id])
+    file_basename = ['LIMS_SeqRuns', Date.today.to_s].join("_")
+
+    case export_type
+      when 'T'  # Export to tab-delimited text using csv_string
+        @filename = file_basename + '.txt'
+        csv_string = export_samples_csv(@flow_cells)
+        send_data(csv_string,
+                  :type => 'text/csv; charset=utf-8; header=present',
+                  :filename => @filename, :disposition => 'attachment')
+
+      else # Use for debugging
+        csv_string = export_samples_csv(@flow_cells)
+        render :text => csv_string
+    end
+  end
+
 protected
   def dropdowns
     @machine_types = Category.populate_dropdown_for_category('machine type')
@@ -58,6 +77,52 @@ protected
     end
     
     return sql_where_clause
+  end
+
+  def export_samples_csv(flow_cells)
+    hdgs, flds = export_samples_setup
+
+    csv_string = CSV.generate(:col_sep => "\t") do |csv|
+      csv << hdgs
+
+      flow_cells.each do |flow_cell|
+        fld_array    = []
+        flowcell_xref  = model_xref(flow_cell)
+
+        flds.each do |obj_code, fld|
+          obj = flowcell_xref[obj_code.to_sym]
+          if obj
+            fld_array << obj.send(fld)
+          else
+            fld_array << nil
+          end
+        end
+        csv << [Date.today.to_s].concat(fld_array)
+      end
+    end
+    return csv_string
+  end
+
+  def export_samples_setup
+    hdgs  = %w{DownloadDt RunNr AltRun ClusterKit SequencingKit Read1 Index1 Index2 Read2 Publication? Description Notes}
+
+    flds  = [['fc', 'seq_run_key'],
+             ['fc', 'hiseq_xref'],
+             ['fc', 'cluster_kit'],
+             ['fc', 'sequencing_kit'],
+             ['fc', 'nr_bases_read1'],
+             ['fc', 'nr_bases_index1'],
+             ['fc', 'nr_bases_index2'],
+             ['fc', 'nr_bases_read2'],
+             ['fc', 'for_publication?'],
+             ['fc', 'run_description'],
+             ['fc', 'notes']]
+
+    return hdgs, flds
+  end
+
+  def model_xref(flow_cell)
+    flowcell_xref = {:fc => flow_cell}
   end
   
 end

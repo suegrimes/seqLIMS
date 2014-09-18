@@ -24,21 +24,19 @@ class StorageQueriesController < ApplicationController
 
   def export_samples
     export_type = 'T'
-    @samples = Sample.find_for_export(params[:export_id])
-    file_basename = ['LIMS_Samples', Date.today.to_s].join("_")
-    
-    with_mrn = ((can? :read, Patient)? 'yes' : 'no')
-    
+    @sample_locs = SampleLoc.find_for_export(params[:export_id])
+    file_basename = ['LIMS_Sample_Locs', Date.today.to_s].join("_")
+
     case export_type
       when 'T'  # Export to tab-delimited text using csv_string
         @filename = file_basename + '.txt'
-        csv_string = export_samples_csv(@samples, with_mrn)
+        csv_string = export_samples_csv(@sample_locs)
         send_data(csv_string,
                   :type => 'text/csv; charset=utf-8; header=present',
                   :filename => @filename, :disposition => 'attachment')
                   
       else # Use for debugging
-        csv_string = export_samples_csv(@samples, with_mrn)
+        csv_string = export_samples_csv(@sample_locs)
         render :text => csv_string
     end
   end
@@ -86,77 +84,70 @@ protected
     return (@where_select.length == 0 ? [] : [@where_select.join(' AND ')].concat(@where_values))
   end
   
-  def export_samples_csv(samples, with_mrn='no')    
-    hdgs, flds1, flds2 = export_samples_setup(with_mrn)
+  def export_samples_csv(sample_locs)
+    hdgs, flds1, flds2 = export_samples_setup
     
     csv_string = CSV.generate(:col_sep => "\t") do |csv|
       csv << hdgs
    
-      samples.each do |sample|
+      sample_locs.each do |sample_loc|
         fld_array    = []
-        sample_xref  = model_xref(sample)
+        sample_xref  = model_xref(sample_loc)
         
         flds1.each do |obj_code, fld|
           obj = sample_xref[obj_code.to_sym]     
           if obj
-            fld_array << obj.send(fld) unless (fld == 'mrn' && with_mrn == 'no')
+            fld_array << obj.send(fld)
           else
             fld_array << nil
           end
         end    
         csv << [Date.today.to_s].concat(fld_array)
-        
-        sample.processed_samples.each do |processed_sample|
+
+        sample_loc.processed_samples.each do |processed_sample|
           fld_array = []
-          psample_xref = model_xref(sample, processed_sample)
-          
+          psample_xref = model_xref(sample_loc, processed_sample)
+
           flds2.each do |obj_code, fld|
             obj = psample_xref[obj_code.to_sym]
-          
+
             if obj && fld != 'blank'
-              fld_array << obj.send(fld) unless (fld == 'mrn' && with_mrn == 'no')
+              fld_array << obj.send(fld)
             else
               fld_array << nil
             end
           end
-        csv << [Date.today.to_s].concat(fld_array) 
+          csv << [Date.today.to_s].concat(fld_array)
         end
       end
     end
     return csv_string
   end
   
-  def export_samples_setup(with_mrn='no')
-    hdg1  =(with_mrn == 'yes'? ['Download_Dt', 'PatientID', 'MRN'] : ['Download_Dt', 'PatientID'])
-    hdgs  = hdg1.concat(%w{Barcode SampleType SampleDate Protocol OR_Designation Preservation PathologyDX
-                           Histopathology FromSample Remaining? Room_Freezer Container})
+  def export_samples_setup
+    hdgs  = %w{DownloadDt PatientID Barcode AcquiredDt ProcessedDt SampleType Tissue Preservation OR_Designation Rem?
+                           Room_Freezer Container}
     
     flds1  = [['sm', 'patient_id'],
-             ['pt', 'mrn'],
-             ['sm', 'barcode_key'],
-             ['sm', 'sample_category'],
-             ['sm', 'sample_date'],
-             ['cs', 'consent_name'],
-             ['sm', 'tumor_normal'],
-             ['sm', 'tissue_preservation'],
-             ['pr', 'pathology_classification'],
-             ['he', 'histopathology'], 
-             ['sm', 'source_barcode_key'],
-             ['sm', 'sample_remaining'],
-             ['ss', 'room_and_freezer'],
-             ['ss', 'container_and_position']]
-             
+              ['sm', 'barcode_key'],
+              ['sc', 'collection_date'],
+              ['sm', 'sample_date'],
+              ['sm', 'sample_type'],
+              ['sm', 'sample_tissue'],
+              ['sm', 'tissue_preservation'],
+              ['sm', 'tumor_normal'],
+              ['sm', 'sample_remaining'],
+              ['ss', 'room_and_freezer'],
+              ['ss', 'container_and_position']]
+
     flds2 = [['sm', 'patient_id'],
-             ['pt', 'mrn'],
              ['ps', 'barcode_key'],
-             ['ps', 'extraction_type'],
-             ['ps', 'processing_date'],
-             ['cs', 'consent_name'],
-             ['sm', 'tumor_normal'],
              ['ps', 'blank'],
-             ['ps', 'blank'], 
-             ['ps', 'blank'], 
-             ['sm', 'barcode_key'],
+             ['ps', 'processing_date'],
+             ['ps', 'extraction_type'],
+             ['sm', 'sample_tissue'],
+             ['sm', 'tissue_preservation'],
+             ['sm', 'tumor_normal'],
              ['ps', 'psample_remaining'],
              ['pc', 'room_and_freezer'],
              ['pc', 'container_and_position']]
@@ -165,12 +156,8 @@ protected
   end
   
   def model_xref(xsample, psample=nil)
-    sample_xref = {:pt => xsample.patient,
-                   :sm => xsample,
+    sample_xref = {:sm => xsample,
                    :sc => xsample.sample_characteristic,
-                   :cs => xsample.sample_characteristic.consent_protocol,
-                   :pr => xsample.sample_characteristic.pathology,
-                   :he => xsample.histology,
                    :ss => xsample.sample_storage_container}
     sample_xref.merge!({:ps => psample, :pc => psample.sample_storage_container}) if psample
     return sample_xref
