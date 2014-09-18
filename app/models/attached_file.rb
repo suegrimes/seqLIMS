@@ -37,14 +37,26 @@ class AttachedFile < ActiveRecord::Base
       self.document_file_size = document.file.size
     end
   end
-  
+
+  def stored_name_has_id
+    fn_part1 = document.file.identifier.split('_')[0]
+    return (fn_part1 == sampleproc_id.to_s ? true : false)
+  end
+
   def doc_filename
-    #return document.path.split('/').last
-    return document.file.identifier
+    if stored_name_has_id
+      return document.file.identifier[(sampleproc_id.to_s.size+1)..-1]
+    else
+      return document.file.identifier
+    end
   end
 
   def doc_stored_name
-    return [sampleproc_id.to_s, '_', doc_filename].join
+    if stored_name_has_id
+      return document.file.identifier
+    else
+      return [sampleproc_id.to_s, '_', doc_filename].join
+    end
   end
 
   #def basename_with_ext
