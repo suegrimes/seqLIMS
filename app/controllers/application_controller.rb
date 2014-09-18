@@ -102,6 +102,7 @@ class ApplicationController < ActionController::Base
   
   def compound_string_params(str_prefix, pad_len, compound_string)
     convert_with_prefix = (str_prefix.blank? && pad_len.nil? ? false : true)
+    compound_string.chomp!
     str_split_all = compound_string.split(",")
     str_vals = []; str_ranges = []; error = [];
 

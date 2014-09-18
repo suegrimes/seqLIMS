@@ -16,14 +16,19 @@ class SeqlibQueriesController < ApplicationController
     @seqlib_query = SeqlibQuery.new(params[:seqlib_query])
     
     if @seqlib_query.valid?
-    
       @condition_array = define_conditions(params)
-      @seq_libs        = SeqLib.find_for_query(sql_where(@condition_array))
-      # Use sort instead of sort_by, so that preparation_date can be sorted in descending order
-      #@seq_libs = @seq_libs.sort_by { |a| [a.preparation_date, a.lib_name] }
-      @seq_libs.sort! { |a,b| dt_sort       = b.preparation_date <=> a.preparation_date
-                              dt_sort.zero? ? b.barcode_key      <=> a.barcode_key     : dt_sort }
-      render :action => :index
+      if @condition_array.size > 0 && @condition_array[0] == '**error**'
+        dropdowns
+        flash.now[:error] = "Error in sequencing library barcode parameters, please enter digits only"
+        render :action => :new_query
+      else
+        @seq_libs        = SeqLib.find_for_query(sql_where(@condition_array))
+        # Use sort instead of sort_by, so that preparation_date can be sorted in descending order
+        #@seq_libs = @seq_libs.sort_by { |a| [a.preparation_date, a.lib_name] }
+        @seq_libs.sort! { |a,b| dt_sort       = b.preparation_date <=> a.preparation_date
+                                dt_sort.zero? ? b.barcode_key      <=> a.barcode_key     : dt_sort }
+        render :action => :index
+      end
     
     else
       dropdowns
@@ -82,15 +87,19 @@ protected
 
     if !param_blank?(params[:seqlib_query][:barcode_string])
       str_vals, str_ranges, errors = compound_string_params('L', 6, params[:seqlib_query][:barcode_string])
-      where_select, where_values   = sql_compound_condition('seq_libs.barcode_key', str_vals, str_ranges)
-      @where_select.push(where_select)
-      @where_values.push(*where_values)
+      if errors.size > 0
+        return ['**error**']
+      else
+        where_select, where_values   = sql_compound_condition('seq_libs.barcode_key', str_vals, str_ranges)
+        @where_select.push(where_select)
+        @where_values.push(*where_values)
+      end
     end
     
     date_fld = 'seq_libs.preparation_date'
     @where_select, @where_values = sql_conditions_for_date_range(@where_select, @where_values, params[:seqlib_query], date_fld)
     
-    sql_where_clause = (@where_select.length == 0 ? [] : [@where_select.join(' AND ')].concat(@where_values))
+    sql_where_clause = (@where_select.empty? ? [] : [@where_select.join(' AND ')].concat(@where_values))
     return sql_where_clause
   end
 

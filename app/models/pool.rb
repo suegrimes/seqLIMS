@@ -21,11 +21,11 @@
 
 class Pool < InventoryDB
   has_and_belongs_to_many :primers
-  validates_presence_of :primer_name
-  validates_uniqueness_of :primer_name
+  validates_presence_of :pool_name, :tube_label
+  validates_uniqueness_of :pool_name, :tube_label
   
   #USING_POOLS = (self.find(:first).total_oligos == 0 && self.find(:all).size == 1 ? nil : 'yes')
-  USING_POOLS = (self.first.total_oligos == 0 && self.all.size == 1 ? nil : 'yes')
+  USING_POOLS = ((self.first.nil? || (self.first.total_oligos == 0 && self.all.size == 1)) ? nil : 'yes')
 
   HUMAN_ATTRIBUTE_NAMES = {
     :pool_name => [POOL_TYPE, ' Pool'].join,
