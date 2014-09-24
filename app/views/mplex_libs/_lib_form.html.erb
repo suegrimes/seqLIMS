@@ -5,6 +5,7 @@
         <% else %>&nbsp;<% end %></td>
   <th>Lib Name:</th><td><%= f.text_field(:lib_name, :size => 15) %></td>
   <th>Adapter:</th><td><%=h f.object.adapter_name  %></td>
+  <%=f.hidden_field(:adapter_id)%>
 </tr>
 <tr>
   <th>Prep Date:</th><td><%= f.datepicker 'preparation_date', dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true, size: 15 %></td>
