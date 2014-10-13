@@ -1,5 +1,5 @@
 class LimsMailer < ActionMailer::Base
-  # EMAIL_CREATE[:samples] = 'Prod'  #Create normal production emails
+  # EMAIL_CREATE[:samples] = 'Production'  #Create normal production emails
   # EMAIL_CREATE[:samples] = 'Test'  #Create emails to send to admin account
   # EMAIL_CREATE[:samples] = 'Test1' #Create emails to send to admin account, plus email addressses associated with consent protocol
   # EMAIL_CREATE[:samples] = 'None'  #Do not create any emails

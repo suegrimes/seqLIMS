@@ -73,12 +73,13 @@ class SampleCharacteristicsController < ApplicationController
       # Sample Characteristic successfully saved => send emails
       sample = @sample_characteristic.samples[0]
       #sample = new_sample_entered(params[:id], params[:sample_characteristic])
-      email  = send_email(sample, @patient.mrn, current_user) unless sample.nil? || EMAIL_CREATE[:samples] == 'NoEmail'
+      email  = send_email(sample, @patient.mrn, current_user) unless (sample.nil? || EMAIL_CREATE[:samples] == 'NoEmail')
       if EMAIL_DELIVERY[:samples]  == 'Debug'
         render(:text => "<pre>" + email.encoded + "</pre>")
       else
         email.deliver! if EMAIL_DELIVERY[:samples] != 'None'
         redirect_to :action => 'show', :id => @sample_characteristic.id, :added_sample_id => @sample_characteristic.samples[-1].id
+        #render :action => 'debug'
       end
       
     # Error in saving Sample Characteristic
@@ -252,7 +253,7 @@ private
     case EMAIL_CREATE[:samples]
       when 'NoEmail', 'Test'
         return nil
-      when 'Test1', 'Prod'
+      when 'Test1', 'Production'
         return (consent_protocol && !consent_protocol.email_confirm_to.blank? ? consent_protocol.email_confirm_to : nil)
     end
   end
