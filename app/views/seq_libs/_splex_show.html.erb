@@ -1,0 +1,28 @@
+<table class="list">
+  <tr>
+    <th>Sample Name</th>
+    <th>Index1</th>
+	<th>Index2</th>
+	<th>Patient ID</th>
+	<th>Source DNA</th>	
+	<th>Notes</th>
+  </tr>
+  
+  <% for lib_sample in lib_samples %>
+    <tr>
+      <td><%=h lib_sample.sample_name %></td>
+      <td><%=h [lib_sample.index1_tag_nr,lib_sample.index1_tag_seq].join('/') %></td>
+	  <td><% if !lib_sample.adapter.nil? && lib_sample.adapter.multi_indices == 'Y' %><%=h [lib_sample.index2_tag_nr,lib_sample.index2_tag_seq].join('/') %>
+          <% else %> &nbsp; <% end %></td>
+	  <% if lib_sample.processed_sample %>
+	    <td><%=h lib_sample.processed_sample.patient_id %></td>
+	    <td><%= link_to lib_sample.source_DNA, lib_sample.processed_sample %>
+	  <% else %>
+	    <td>&nbsp;</td>
+	    <td><%=h lib_sample.source_DNA %></td>
+	  <% end %>  
+	  <td><%=h lib_sample.notes %></td>
+    </tr>
+  <% end %>
+
+</table>
