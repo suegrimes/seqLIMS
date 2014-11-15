@@ -1,6 +1,7 @@
 class SeqLibsController < ApplicationController
   #load_and_authorize_resource (# can't use because create method for singleplex lib has array of seq_libs instead of single lib)
-  
+  require "rubyXL"
+
   before_filter :dropdowns, :only => [:new, :edit, :populate_libs]
   before_filter :query_dropdowns, :only => :query_params
 
@@ -162,6 +163,20 @@ class SeqLibsController < ApplicationController
     
     @seq_lib.destroy
     redirect_to(seq_libs_url) 
+  end
+
+  def select_file
+
+  end
+
+  def load_libs
+    @lib_params = params[:lib_file].content_type
+    temp_fn = params[:lib_file].tempfile.path
+    temp_fn_xlsx = temp_fn + '.xlsx'
+    FileUtils.copy(temp_fn, temp_fn_xlsx)
+    lib_workbook = RubyXL::Parser.parse(temp_fn_xlsx)
+    @libs_sheet = lib_workbook[0].extract_data
+    render :action => 'debug'
   end
   
   def auto_complete_for_barcode_key

@@ -154,6 +154,8 @@ SeqLIMS::Application.routes.draw do
     collection do
       #get :auto_complete_for_barcode_key
       get :get_adapter_info
+      get :select_file
+      post :load_libs
     end  
   end
   post 'populate_libs' => 'seq_libs#populate_libs'

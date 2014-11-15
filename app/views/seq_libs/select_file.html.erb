@@ -1,0 +1,10 @@
+<h1>Sequencing Library File Upload</h1>
+
+<!-- Include from form: prep_date, owner, protocol, adapter, quantitation, align_ref, pool, starting_barcode -->
+<!-- Include in file: Library Name, Source_DNA, Sample Conc, Size, Notebook ref, Notes  -->
+
+<%= form_tag ({action: :load_libs}), { multipart: true } do %>
+  Select file to upload:<br/>
+  <%= file_field_tag 'lib_file', accept: 'application/vnd.openxml, vnd.openxmlformats-officedocument.spreadsheetml.sheet' %><br/><br/>
+  <%= submit_tag 'Load Libs' %>
+<% end %>
