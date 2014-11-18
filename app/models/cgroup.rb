@@ -3,7 +3,7 @@
 # Table name: cgroups
 #
 #  id         :integer          not null, primary key
-#  group_name :string(25)       default(""), not null
+#  group_name :string(25)       not null
 #  sort_order :integer
 #  created_at :datetime
 #  updated_at :timestamp

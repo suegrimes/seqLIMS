@@ -4,7 +4,7 @@
 #
 #  id                        :integer          not null, primary key
 #  sample_id                 :integer
-#  he_barcode_key            :string(20)       default(""), not null
+#  he_barcode_key            :string(20)       not null
 #  he_date                   :date
 #  histopathology            :string(25)
 #  he_classification         :string(50)

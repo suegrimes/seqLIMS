@@ -4,7 +4,7 @@
 #
 #  id                    :integer          not null, primary key
 #  sampleproc_id         :integer          not null
-#  sampleproc_type       :string(50)       default(""), not null
+#  sampleproc_type       :string(50)       not null
 #  document              :string(255)
 #  document_content_type :string(40)
 #  document_file_size    :string(25)

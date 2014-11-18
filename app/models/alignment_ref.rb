@@ -3,7 +3,7 @@
 # Table name: alignment_refs
 #
 #  id             :integer          not null, primary key
-#  alignment_key  :string(20)       default(""), not null
+#  alignment_key  :string(20)       not null
 #  interface_name :string(25)
 #  genome_build   :string(50)
 #  created_by     :integer

@@ -5,7 +5,7 @@
 #  id          :integer          not null, primary key
 #  category_id :integer          not null
 #  c_position  :integer
-#  c_value     :string(50)       default(""), not null
+#  c_value     :string(50)       not null
 #  created_at  :datetime
 #  updated_at  :datetime
 #

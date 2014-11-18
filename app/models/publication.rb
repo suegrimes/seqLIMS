@@ -3,9 +3,9 @@
 # Table name: publications
 #
 #  id               :integer          not null, primary key
-#  title_abbrev     :string(50)       default(""), not null
+#  title_abbrev     :string(50)       not null
 #  title_full       :string(255)
-#  publication_name :string(50)       default(""), not null
+#  publication_name :string(50)       not null
 #  date_published   :date
 #  comments         :string(255)
 #  created_at       :datetime

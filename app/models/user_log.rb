@@ -5,12 +5,11 @@
 #  id              :integer          not null, primary key
 #  ip_address      :string(20)
 #  user_id         :integer
-#  user_login      :string(25)       default(""), not null
-#  controller_name :string(25)       default(""), not null
-#  action_name     :string(25)       default(""), not null
+#  user_login      :string(25)       not null
+#  controller_name :string(25)       not null
+#  action_name     :string(25)       not null
 #  log_timestamp   :datetime         not null
 #
-
 
 class UserLog < ActiveRecord::Base
   

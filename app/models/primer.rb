@@ -7,6 +7,7 @@
 #  gene_code       :string(30)
 #  primer_name     :string(50)       not null
 #  primer_sequence :string(80)       not null
+#  capture_length  :integer
 #  created_at      :datetime         not null
 #  updated_at      :timestamp
 #

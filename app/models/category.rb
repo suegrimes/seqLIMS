@@ -4,7 +4,7 @@
 #
 #  id                   :integer          not null, primary key
 #  cgroup_id            :integer
-#  category             :string(50)       default(""), not null
+#  category             :string(50)       not null
 #  category_description :string(255)
 #  archive_flag         :string(1)
 #  created_at           :datetime
@@ -22,13 +22,15 @@ class Category < ActiveRecord::Base
   end
   
   def self.populate_dropdown_for_category(name, output='collection')
+    cat_values = nil
     category = self.where("category = ?", name).first
-    cat_values = CategoryValue.where("category_id = ?", category.id).order("c_position").all
-    if output == 'string'
-      return cat_values.map {|m| m.c_value}
-    else
-      return cat_values
-    end  
+    if category
+      cat_values = CategoryValue.where("category_id = ?", category.id).order("c_position").all
+      if output == 'string'
+        return cat_values.map {|m| m.c_value}
+      end
+    end
+    return cat_values
   end
   
   def self.populate_dropdowns(cgroups=nil)

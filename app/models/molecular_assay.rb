@@ -3,11 +3,14 @@
 # Table name: molecular_assays
 #
 #  id                  :integer          not null, primary key
-#  barcode_key         :string(20)       default(""), not null
+#  barcode_key         :string(20)       not null
 #  processed_sample_id :integer
 #  protocol_id         :integer
 #  owner               :string(25)
 #  preparation_date    :date
+#  assay_gene_id       :integer
+#  gene_code           :string(50)
+#  anneal_temp         :integer
 #  volume              :integer
 #  concentration       :decimal(8, 3)
 #  plate_number        :string(25)

@@ -3,7 +3,7 @@
 # Table name: storage_devices
 #
 #  id               :integer          not null, primary key
-#  device_name      :string(25)       default(""), not null
+#  device_name      :string(25)       not null
 #  building_loc     :string(25)
 #  base_run_dir     :string(50)
 #  last_upd_of_runs :date

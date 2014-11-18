@@ -3,7 +3,7 @@
 # Table name: seq_machines
 #
 #  id            :integer          not null, primary key
-#  machine_name  :string(20)       default(""), not null
+#  machine_name  :string(20)       not null
 #  bldg_location :string(12)
 #  machine_type  :string(20)
 #  machine_desc  :string(50)

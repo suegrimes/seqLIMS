@@ -9,8 +9,8 @@
 #  processed_sample_id :integer
 #  sample_name         :string(50)
 #  source_DNA          :string(50)
-#  runtype_adapter     :string(50)  #obsolete
-#  index_tag           :integer     #obsolete
+#  runtype_adapter     :string(50)
+#  index_tag           :integer
 #  adapter_id          :integer
 #  index1_tag_id       :integer
 #  index2_tag_id       :integer

@@ -4,14 +4,14 @@
 #
 #  id                  :integer          not null, primary key
 #  barcode_key         :string(20)
-#  lib_name            :string(50)       default(""), not null
+#  lib_name            :string(50)       not null
 #  library_type        :string(2)
 #  lib_status          :string(2)
 #  protocol_id         :integer
 #  owner               :string(25)
 #  preparation_date    :date
 #  adapter_id          :integer
-#  runtype_adapter     :string(25)   #obsolete
+#  runtype_adapter     :string(25)
 #  project             :string(50)
 #  pool_id             :integer
 #  oligo_pool          :string(8)

@@ -3,7 +3,7 @@
 # Table name: freezer_locations
 #
 #  id          :integer          not null, primary key
-#  room_nr     :string(25)       default(""), not null
+#  room_nr     :string(25)       not null
 #  freezer_nr  :string(25)
 #  owner_name  :string(25)
 #  owner_email :string(50)

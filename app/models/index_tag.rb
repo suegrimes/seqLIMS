@@ -5,6 +5,7 @@
 #  id              :integer          not null, primary key
 #  adapter_id      :integer
 #  runtype_adapter :string(25)
+#  index_read      :integer
 #  tag_nr          :integer
 #  tag_sequence    :string(12)
 #  created_at      :datetime
@@ -35,3 +36,4 @@ class IndexTag < ActiveRecord::Base
   end
 
 end
+
