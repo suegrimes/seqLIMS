@@ -10,7 +10,8 @@
 #  protocol_id         :integer
 #  owner               :string(25)
 #  preparation_date    :date
-#  runtype_adapter     :string(25)
+#  adapter_id          :integer
+#  runtype_adapter     :string(25)   #obsolete
 #  project             :string(50)
 #  pool_id             :integer
 #  oligo_pool          :string(8)
@@ -55,8 +56,6 @@ class SeqLib < ActiveRecord::Base
   #after_update :save_samples
   
   BARCODE_PREFIX = 'L'
-  #MULTIPLEX_SAMPLES = 16
-  #MILLUMINA_SAMPLES = 12
   SAMPLE_CONC = ['ng/ul', 'nM']
   BASE_GRAMS_PER_MOL = 660
   
@@ -163,7 +162,17 @@ class SeqLib < ActiveRecord::Base
     self.lib_conc_uom = 'pM'
     #self.sample_conc_uom = 'ng/ul'
   end
-  
+
+  def self.next_lib_barcode
+    barcode_max = self.where("barcode_key LIKE ? AND barcode_key NOT LIKE ? AND LENGTH(barcode_key) = 7", 'L%', 'L6%').maximum(:barcode_key)
+    return (barcode_max ? barcode_max.succ : 'L000001')
+  end
+
+  def self.max_id_barcode
+    id_max = self.maximum(:id)
+    return (id_max ? self.where('id = ?', id_max).first.barcode_key : 'None')
+  end
+
   def self.find_for_query(condition_array)
     self.select("seq_libs.*, COUNT(DISTINCT(flow_cells.id)) AS 'seq_run_cnt', COUNT(DISTINCT(flow_lanes.id)) AS 'seq_lane_cnt', " +
                     "COUNT(align_qc.id) AS 'qc_lane_cnt'")

@@ -1,8 +1,7 @@
 class SeqLibsController < ApplicationController
   #load_and_authorize_resource (# can't use because create method for singleplex lib has array of seq_libs instead of single lib)
-  require "rubyXL"
 
-  before_filter :dropdowns, :only => [:new, :edit, :populate_libs]
+  before_filter :dropdowns, :only => [:new, :edit, :populate_libs, :select_file]
   before_filter :query_dropdowns, :only => :query_params
 
   # GET /seq_libs
@@ -166,16 +165,15 @@ class SeqLibsController < ApplicationController
   end
 
   def select_file
-
+    authorize! :create, SeqLib
+    @requester = (current_user.researcher ? current_user.researcher.researcher_name : nil)
+    @lib_default = SeqLib.new(:alignment_ref_id => AlignmentRef.default_id)
   end
 
   def load_libs
-    @lib_params = params[:lib_file].content_type
-    temp_fn = params[:lib_file].tempfile.path
-    temp_fn_xlsx = temp_fn + '.xlsx'
-    FileUtils.copy(temp_fn, temp_fn_xlsx)
-    lib_workbook = RubyXL::Parser.parse(temp_fn_xlsx)
-    @libs_sheet = lib_workbook[0].extract_data
+    #@file_params = params[:lib_file].content_type
+    #lib_default = params[:lib_default].merge!(:sample_conc_uom => 'ng/ul')
+    @libs_sheet = extract_sheet(params[:lib_file].tempfile.path)
     render :action => 'debug'
   end
   

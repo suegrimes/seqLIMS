@@ -1,10 +1,50 @@
 <h1>Sequencing Library File Upload</h1>
 
 <!-- Include from form: prep_date, owner, protocol, adapter, quantitation, align_ref, pool, starting_barcode -->
-<!-- Include in file: Library Name, Source_DNA, Sample Conc, Size, Notebook ref, Notes  -->
+<!-- Include in file: Library Name, Lib Conc, Source_DNA, Sample Conc, Size, Index_tag, Notebook ref, Notes  -->
 
 <%= form_tag ({action: :load_libs}), { multipart: true } do %>
-  Select file to upload:<br/>
+<div id="errorwarn"></div>
+
+<fieldset class="form">
+  <legend class="form">Library defaults</legend>
+  <table class="form" border="0">
+    <tr>
+      <th>Prep Date:</th><td><%= datepicker_input('lib_default', 'preparation_date', dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true, size: 15) %></td>
+          <%= javascript_tag "$('#lib_default').submit(function() {
+                        if (!$('#lib_default_preparation_date').val()) {
+                          $(this).addClass('error'); $('#errorwarn').text('Date is required'); return false;
+                        }
+                        if ($('#lib_default_preparation_date').val()) {
+                          $(this).addClass('error'); $('#errorwarn').hide(); return true;
+                        }
+                      });" %>
+
+          <th>Owner:</th><td><%= select_tag("lib_default[owner]", options_for_select(@owners, @requester))%></td>
+        </tr>
+        <tr>
+          <th>Protocol:</th><td><%= collection_select(:lib_default, :protocol_id, @protocols, :id, :protocol_name,
+                                                      {:include_blank => 'Select Protocol'}) %></td>
+          <th>Quantitation:</th><td><%= collection_select(:lib_default, :quantitation_method, @quantitation, :c_value, :c_value, {:include_blank => 'Select Method'}) %></td>
+        </tr>
+        <tr>
+          <th><%=h Pool.human_attribute_name(:pool_name)%>:</th><td colspan="3"><%= collection_select(:lib_default, :pool_id, @oligo_pools, :id, :pool_string_dtl,
+                                                                                          {:include_blank => 'Select Pool'}) %></td>
+        </tr>
+        <tr>
+          <th>Adapter:</th><td><%= collection_select(:lib_default, :adapter_id, @adapters, :id, :runtype_adapter) %></td>
+          <th>Align Ref:</th> <td><%= collection_select(:lib_default, :alignment_ref_id, @align_refs, :id, :alignment_key) %></td>
+        </tr>
+        <tr><td>&nbsp;</td></tr>
+        <tr>
+          <th>Starting barcode:</th><td><%= text_field_tag(:start_barcode, SeqLib.next_lib_barcode) %></td>
+          <th>Last entered barcode:</th><td><%=h SeqLib.max_id_barcode %></td>
+        </tr>
+      </table>
+    </fieldset>
+    <%=raw break_clear %>
+
+    Select file to upload:<br/>
   <%= file_field_tag 'lib_file', accept: 'application/vnd.openxml, vnd.openxmlformats-officedocument.spreadsheetml.sheet' %><br/><br/>
   <%= submit_tag 'Load Libs' %>
 <% end %>

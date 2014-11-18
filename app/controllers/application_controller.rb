@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   include AuthenticatedSystem
   include RoleRequirementSystem
   include LimsCommon
+  require 'rubyXL'
+
   before_filter :login_required
  
   #Make current_user accessible from model (via User.current_user)
@@ -99,7 +101,11 @@ class ApplicationController < ActionController::Base
   def find_barcode(model, id)
     model.constantize.find(id).barcode_key
   end
-  
+
+  def barcode_format(str_prefix, pad_len, sstring)
+    return(str_prefix + "%0#{pad_len}d" % sstring.to_i)
+  end
+
   def compound_string_params(str_prefix, pad_len, compound_string)
     convert_with_prefix = (str_prefix.blank? && pad_len.nil? ? false : true)
     compound_string.chomp!
@@ -134,8 +140,13 @@ class ApplicationController < ActionController::Base
     return str_vals, str_ranges, error
   end
 
-  def barcode_format(str_prefix, pad_len, sstring)
-    return(str_prefix + "%0#{pad_len}d" % sstring.to_i)
+  def extract_sheet(temp_fn)
+    # Ruby file upload puts file into a temp dir with temp name which does not include file extension
+    # RubyXL gem requires Excel file to have .xls or .xlsx file extension, so need to add it
+    temp_fn_xlsx = temp_fn + '.xlsx'
+    FileUtils.copy(temp_fn, temp_fn_xlsx)
+    lib_workbook = RubyXL::Parser.parse(temp_fn_xlsx)
+    return lib_workbook[0].extract_data
   end
 
   def sql_compound_condition(sql_fld, fld_vals, fld_ranges)
