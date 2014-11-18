@@ -1,5 +1,6 @@
 class SeqLibsController < ApplicationController
   #load_and_authorize_resource (# can't use because create method for singleplex lib has array of seq_libs instead of single lib)
+  require 'rubyXL'
 
   before_filter :dropdowns, :only => [:new, :edit, :populate_libs, :select_file]
   before_filter :query_dropdowns, :only => :query_params

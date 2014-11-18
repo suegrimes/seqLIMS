@@ -17,6 +17,7 @@ class MplexLibsController < ApplicationController
     @seq_lib   = SeqLib.new(:library_type => 'M',
                             :owner => @requester,
                             :preparation_date => Date.today,
+                            :barcode_key => SeqLib.max_id_barcode.succ,
                             :adapter_id => params[:seq_lib][:adapter_id],
                             :alignment_ref_id => AlignmentRef.default_id)
     
