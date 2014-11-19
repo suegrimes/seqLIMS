@@ -175,7 +175,16 @@ class SeqLibsController < ApplicationController
     #@file_params = params[:lib_file].content_type
     #lib_default = params[:lib_default].merge!(:sample_conc_uom => 'ng/ul')
     @libs_sheet = extract_sheet(params[:lib_file].tempfile.path)
-    render :action => 'debug'
+    @libs_loaded, @lib_errors = SeqLib.load_from_xls(@libs_sheet, params[:lib_default], params[:start_barcode])
+    if @lib_errors.nil?
+      flash[:notice] = "#{@libs_loaded} sequencing libraries successfully saved"
+    else
+      flash[:error] = "Library validation error(s), no libraries loaded"
+    end
+    dropdowns
+    @requester = (current_user.researcher ? current_user.researcher.researcher_name : nil)
+    @lib_default = SeqLib.new(:alignment_ref_id => AlignmentRef.default_id)
+    render :action => 'select_file'
   end
   
   def auto_complete_for_barcode_key
@@ -208,6 +217,9 @@ protected
     dropdowns
     @requester = (current_user.researcher ? current_user.researcher.researcher_name : nil)
     @lib_default = SeqLib.new(:alignment_ref_id => AlignmentRef.default_id)
+    @adapter = Adapter.find(params[:seq_lib_0][:adapter_id])
+    @index1_tags  = (@adapter.nil? ? nil : IndexTag.where('adapter_id = ? AND index_read = 1', @adapter.id))
+    @index2_tags  = (@adapter.nil? ? nil : IndexTag.where('adapter_id = ? AND index_read = 2', @adapter.id))
     @add_with_defaults = 'Refresh from defaults'
    
     @new_lib = []     if !@new_lib

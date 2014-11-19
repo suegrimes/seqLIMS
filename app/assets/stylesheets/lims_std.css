@@ -602,6 +602,7 @@ fieldset.form legend {
 .dkred {color:#990000;}
 .sagegreen {color: #e8ead0;}
 .ltsage {color: #f1f2e3;}
+.brightred {color: #FF0000;}
 
 .greyfill {background-color: #ddd;}
 
@@ -705,7 +706,7 @@ fieldset.form legend {
   padding: 5px;
 }
 
-#error_explation ul li {
+#error_explanation ul li {
   font-size: 12px;
   list-style: square;
 }

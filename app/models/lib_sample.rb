@@ -32,7 +32,7 @@ class LibSample < ActiveRecord::Base
   
   validates_presence_of :sample_name
   validates_presence_of :adapter_id, :if => Proc.new {|s| !s.seq_lib_id.nil? }
-  validates_presence_of :index1_tag_id, :if => Proc.new{|s| !s.adapter_id.nil? && s.adapter.runtype_adapter[0,1] == 'M'}, :message => 'must be supplied for multiplex adapters'
+  validates_presence_of :index1_tag_id, :if => Proc.new{|s| !s.adapter_id.nil? && s.adapter.runtype_adapter[0,1] == 'M'}, :message => 'not supplied or not valid for given multiplex adapter'
   #validates_presence_of :runtype_adapter, :if => Proc.new {|s| !s.seq_lib_id.nil? }
   #validates_presence_of :index_tag, :if => Proc.new{|s| s.runtype_adapter[0,1] == 'M'}, :message => 'must be supplied for multiplex adapters'
   #validates_numericality_of :index_tag, :only_integer => true, :allow_blank => true, :message => 'must be an integer'

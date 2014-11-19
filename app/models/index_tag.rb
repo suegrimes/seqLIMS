@@ -35,5 +35,10 @@ class IndexTag < ActiveRecord::Base
     (runtype_adapter == 'M_HLA192' ? tag_nr - 100 : tag_nr)
   end
 
+  def self.find_tag_id(adapter_id, readnr, tag_nr)
+    index_tag = self.where('adapter_id = ? AND index_read = ? AND tag_nr = ?', adapter_id, readnr, tag_nr).first
+    return (index_tag.nil? ? nil : index_tag.id)
+  end
+
 end
 

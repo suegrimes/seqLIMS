@@ -30,6 +30,11 @@ class Researcher < ActiveRecord::Base
     end
   end
 
+  def self.find_user_id(user_name)
+    researcher = self.where('researcher_name = ?', user_name).first if !user_name.blank?
+    return (researcher ? researcher.user_id : 1)
+  end
+
   def self.find_and_group_by_active_inactive
     researchers = self.order("researchers.active_inactive, researchers.researcher_name").all
     #researchers = self.find(:all, :order => "researchers.active_inactive, researchers.researcher_name")

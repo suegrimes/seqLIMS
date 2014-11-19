@@ -84,7 +84,12 @@ class ProcessedSample < ActiveRecord::Base
   def self.getwith_attach(id)
     self.includes(:attached_files).find(id)
   end
-  
+
+  def self.find_psample_id(source_DNA)
+    processed_sample = self.where('barcode_key = ?', source_DNA).first if !source_DNA.blank?
+    return (processed_sample ? processed_sample.id : nil)
+  end
+
   def self.find_all_incl_sample(condition_array=[])
     #self.find(:all, :include => [:sample, :sample_storage_container],
     #                :order => 'samples.patient_id, samples.barcode_key',

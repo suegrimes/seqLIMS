@@ -32,6 +32,7 @@
 #  created_at          :datetime
 #  updated_at          :timestamp        not null
 #
+require 'rubyXL'
 
 class SeqLib < ActiveRecord::Base
   
@@ -207,6 +208,72 @@ class SeqLib < ActiveRecord::Base
     end
   end
   
+  def self.load_from_xls(libs_sheet, lib_params, start_barcode)
+    alignment_ref = AlignmentRef.find(lib_params[:alignment_ref_id]).alignment_key
+    runtype_adapter = Adapter.find(lib_params[:adapter_id]).runtype_adapter
+    oligo_pool = Pool.find(lib_params[:pool_id]).tube_label
+    owner_id = Researcher.find_user_id(lib_params[:owner_name])
+    barcode = start_barcode
+    last_barcode = 'None'
+    libs_loaded = 0; libs_errors = 0
+
+    self.transaction do
+      libs_sheet.each_with_index do |lib_row, i|
+        next if i < 1  # Skip header row
+        barcode = (i == 1 ? start_barcode : barcode.succ)
+        lib_name = lib_row[0]
+        adapter_tag = lib_row[1]
+        source_DNA   = lib_row[2]
+        lib_size  = lib_row[3]
+        sample_conc = lib_row[4]
+        lib_conc  = lib_row[5]
+        notebook_ref = lib_row[6]
+        notes = lib_row[7]
+
+        seq_lib = SeqLib.new(:barcode_key => barcode,
+                           :lib_name => lib_name,
+                           :library_type => 'S',
+                           :protocol_id => lib_params[:protocol_id].to_i,
+                           :owner => lib_params[:owner],
+                           :preparation_date => lib_params[:preparation_date],
+                           :adapter_id => lib_params[:adapter_id].to_i,
+                           :runtype_adapter => runtype_adapter,
+                           :alignment_ref_id => lib_params[:alignment_ref_id].to_i,
+                           :alignment_ref => alignment_ref,
+                           :sample_conc => sample_conc,
+                           :sample_conc_uom => 'ng/ul',
+                           :lib_conc_requested => lib_conc,
+                           :quantitation_method => lib_params[:quantitation_method],
+                           :pcr_size => lib_size,
+                           :pool_id => lib_params[:pool_id].to_i,
+                           :oligo_pool => oligo_pool,
+                           :notebook_ref => notebook_ref,
+                           :notes => notes,
+                           :updated_by => owner_id,
+                           :created_at => Time.now)
+        seq_lib.lib_samples.build(:sample_name => lib_name,
+                           :source_DNA => source_DNA,
+                           :processed_sample_id => ProcessedSample.find_psample_id(source_DNA),
+                           :adapter_id => lib_params[:adapter_id].to_i,
+                           :index1_tag_id => IndexTag.find_tag_id(lib_params[:adapter_id].to_i, 1, adapter_tag),
+                           :notes => notes,
+                           :updated_by => owner_id,
+                           :created_at => Time.now)
+
+        # Raise exception, rollback transaction, and exit if save fails due to validation error(s)
+        if seq_lib.save
+          puts "Successfully saved seq lib: #{barcode}, source DNA: #{source_DNA}"
+          libs_loaded += 1
+          last_barcode = barcode
+        else
+          @lib_errors = seq_lib.errors
+          break
+        end
+      end  # End of lib row (Excel sheet) loop
+    end  # End of transaction
+    return libs_loaded, @lib_errors ||= nil
+  end
+
   def self.upd_mplex_splex(splex_lib)
     # Find all cases where supplied sequencing library is one of the 'samples' in a multiplex library
     lib_samples = LibSample.find_all_by_splex_lib_id(splex_lib.id)
