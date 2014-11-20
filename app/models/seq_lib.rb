@@ -211,7 +211,7 @@ class SeqLib < ActiveRecord::Base
   def self.load_from_xls(libs_sheet, lib_params, start_barcode)
     alignment_ref = AlignmentRef.find(lib_params[:alignment_ref_id]).alignment_key
     runtype_adapter = Adapter.find(lib_params[:adapter_id]).runtype_adapter
-    oligo_pool = Pool.find(lib_params[:pool_id]).tube_label
+    oligo_pool = Pool.get_pool_label(lib_params[:pool_id])
     owner_id = Researcher.find_user_id(lib_params[:owner_name])
     barcode = start_barcode
     last_barcode = 'None'
@@ -233,19 +233,19 @@ class SeqLib < ActiveRecord::Base
         seq_lib = SeqLib.new(:barcode_key => barcode,
                            :lib_name => lib_name,
                            :library_type => 'S',
-                           :protocol_id => lib_params[:protocol_id].to_i,
+                           :protocol_id => lib_params[:protocol_id],
                            :owner => lib_params[:owner],
                            :preparation_date => lib_params[:preparation_date],
-                           :adapter_id => lib_params[:adapter_id].to_i,
+                           :adapter_id => lib_params[:adapter_id],
                            :runtype_adapter => runtype_adapter,
-                           :alignment_ref_id => lib_params[:alignment_ref_id].to_i,
+                           :alignment_ref_id => lib_params[:alignment_ref_id],
                            :alignment_ref => alignment_ref,
                            :sample_conc => sample_conc,
                            :sample_conc_uom => 'ng/ul',
                            :lib_conc_requested => lib_conc,
                            :quantitation_method => lib_params[:quantitation_method],
                            :pcr_size => lib_size,
-                           :pool_id => lib_params[:pool_id].to_i,
+                           :pool_id => lib_params[:pool_id],
                            :oligo_pool => oligo_pool,
                            :notebook_ref => notebook_ref,
                            :notes => notes,
@@ -254,8 +254,8 @@ class SeqLib < ActiveRecord::Base
         seq_lib.lib_samples.build(:sample_name => lib_name,
                            :source_DNA => source_DNA,
                            :processed_sample_id => ProcessedSample.find_psample_id(source_DNA),
-                           :adapter_id => lib_params[:adapter_id].to_i,
-                           :index1_tag_id => IndexTag.find_tag_id(lib_params[:adapter_id].to_i, 1, adapter_tag),
+                           :adapter_id => lib_params[:adapter_id],
+                           :index1_tag_id => IndexTag.find_tag_id(lib_params[:adapter_id], 1, adapter_tag),
                            :notes => notes,
                            :updated_by => owner_id,
                            :created_at => Time.now)

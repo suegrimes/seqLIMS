@@ -52,12 +52,12 @@ class Pool < InventoryDB
   end
   
   def self.get_pool_name(id=nil)
-    pool = self.find(id) if !id.nil?
+    pool = self.find(id) if !id.blank?
     return (pool.nil? ? '' : pool.pool_name)
   end
   
   def self.get_pool_label(id=nil)
-    pool = self.find(id) if !id.nil?
+    pool = self.find(id) if !id.blank?
     return (pool.nil? ? '' : pool.tube_label)
   end
   

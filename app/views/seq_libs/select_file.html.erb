@@ -40,16 +40,33 @@
           <th>Adapter:</th><td><%= collection_select(:lib_default, :adapter_id, @adapters, :id, :runtype_adapter) %></td>
           <th>Align Ref:</th> <td><%= collection_select(:lib_default, :alignment_ref_id, @align_refs, :id, :alignment_key) %></td>
         </tr>
-        <tr><td>&nbsp;</td></tr>
-        <tr>
-          <th>Starting barcode:</th><td><%= text_field_tag(:start_barcode, SeqLib.next_lib_barcode) %></td>
-          <th>Last entered barcode:</th><td><%=h SeqLib.max_id_barcode %></td>
-        </tr>
       </table>
     </fieldset>
     <%=raw break_clear %>
 
-   <p>Select file to upload:</p>
-    <%= file_field_tag 'lib_file', accept: 'application/vnd.openxml, vnd.openxmlformats-officedocument.spreadsheetml.sheet' %><br/><br/>
-  <%= submit_tag 'Load Libs' %>
+    <div id="lib_start">
+     Click <%= link_to "here", '', :onclick => "showHideDiv('lib_start','add_start'); return false;" %> to provide starting barcode if not included in file
+    </div>
+
+    <div id="add_start" style="display:none">
+    <fieldset class="form">
+      <table class="form">
+      <tr>
+        <th>Starting barcode:</th><td><%= text_field_tag(:start_barcode, SeqLib.next_lib_barcode) %></td>
+        <th>Last entered barcode:</th><td><%=h SeqLib.max_id_barcode %></td>
+      </tr>
+      </table>
+    </fieldset>
+    </div>
+    <%=raw break_clear %>
+
+    <fieldset class="form">
+      <legend>Seq Libraries File:</legend>
+      <table class="form">
+        <tr>
+          <td><%= file_field_tag :lib_file, accept: 'application/vnd.openxml, vnd.openxmlformats-officedocument.spreadsheetml.sheet'%>  <%= hidden_field_tag :lib_file_cache%></td>
+        </tr>
+      </table>
+    </fieldset>
+    <%=raw break_clear(submit_tag("Load Libs"))%>
 <% end %>

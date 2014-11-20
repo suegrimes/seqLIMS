@@ -177,9 +177,9 @@ class SeqLibsController < ApplicationController
     @libs_sheet = extract_sheet(params[:lib_file].tempfile.path)
     @libs_loaded, @lib_errors = SeqLib.load_from_xls(@libs_sheet, params[:lib_default], params[:start_barcode])
     if @lib_errors.nil?
-      flash[:notice] = "#{@libs_loaded} sequencing libraries successfully saved"
+      flash.now[:notice] = "#{@libs_loaded} sequencing libraries successfully saved"
     else
-      flash[:error] = "Library validation error(s), no libraries loaded"
+      flash.now[:error] = "Library validation error(s), no libraries loaded"
     end
     dropdowns
     @requester = (current_user.researcher ? current_user.researcher.researcher_name : nil)
