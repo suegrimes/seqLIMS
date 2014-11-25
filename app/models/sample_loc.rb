@@ -32,6 +32,7 @@
 
 class SampleLoc < Sample
   has_many   :sample_storage_containers, :as => :stored_sample
+  accepts_nested_attributes_for :sample_storage_containers, :allow_destroy => true
 
   def room_and_freezer
     (sample_storage_containers ? sample_storage_containers.map{|sc| sc.room_and_freezer}.uniq.join(',') : '')

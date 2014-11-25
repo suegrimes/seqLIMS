@@ -85,6 +85,8 @@ SeqLIMS::Application.routes.draw do
     end
   end
 
+  resources :sample_locs, :only => [:edit, :update]
+
   resources :sample_queries, :only => :index
   #match 'sample_query' => 'sample_queries#index', :as => :sample_query
 
