@@ -1,0 +1,29 @@
+<% last_info_box ||= 'yes' %>
+
+<!-- Standard fields to be displayed -->
+<% info_flds   = [['Field', 'Barcode', sample.barcode_key],
+                  ['Field', 'Collected/Created On', sample.sample_date],
+                  ['Field', 'Sample Type', [sample.sample_tissue, sample.sample_type].join('/')],
+                  ['Field', 'Preservation', sample.tissue_preservation],
+                  ['Field', 'OR Designation', sample.tumor_normal],               
+                  ['Field', 'Pathology DX', (sample.sample_characteristic.pathology ? sample.sample_characteristic.pathology.pathology_classification : nil)], 
+                  ['Field', 'Histopathology', (sample.histology ? sample.histology.histopathology : nil)],
+                  ['Field', 'Remaining?', sample.sample_remaining]
+                  ] %>
+				  
+<!-- Include alternate sample identifier if non-blank -->
+<% info_flds.insert(2, ['Field', 'Alt Identifier', sample.alt_identifier]) if !sample.alt_identifier.blank? %>
+<% info_flds.insert(3, nil) if !sample.alt_identifier.blank? %>
+				  
+<!-- Only include comments if non-blank -->
+<% info_flds.push(['Field', 'Comments', sample.comments, {:colspan => 3}]) if !sample.comments.blank? %>
+
+<!-- Links to be displayed with borders, in bottom row of info box -->
+<% info_links = [] %>
+
+<%= render :partial => 'shared/info_box', :locals => {:info_legend     => 'Sample Details',
+                                                      :info_flds       => info_flds,
+                                                      :info_links      => info_links,
+                                                      :link_controller => 'sample_locs',
+                                                      :link_id         => sample.id,
+                                                      :last_info_box   => last_info_box} %>

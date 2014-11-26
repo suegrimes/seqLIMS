@@ -1,0 +1,19 @@
+<h1>Editing Sample Storage Locations</h1>
+
+<%= render :partial => 'sample_loc_info', :locals => {:sample => @sample_loc} %>
+
+<%= nested_form_for(@sample_loc) do |sform| %>
+    <%= render '/shared/errors', model: @sample_loc %>
+
+    <fieldset class="form">
+      <legend>Sample Storage Location(s)</legend>
+
+      <div id="storage">
+        <%= render :partial => 'sample_storage', :locals => {:sample_storage_containers => @sample_loc.sample_storage_containers,
+                                                             :sform => sform} %>
+      </div>
+    </fieldset>
+
+    <%=raw break_clear(sform.submit "Update" )%>
+<% end %>
+

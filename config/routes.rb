@@ -88,6 +88,7 @@ SeqLIMS::Application.routes.draw do
   resources :sample_locs, :only => [:edit, :update]
 
   resources :sample_queries, :only => :index
+  resources :storage_queries, :only => :index
   #match 'sample_query' => 'sample_queries#index', :as => :sample_query
 
   resources :histologies do
