@@ -220,15 +220,15 @@ class SeqLib < ActiveRecord::Base
     self.transaction do
       libs_sheet.each_with_index do |lib_row, i|
         next if i < 1  # Skip header row
-        barcode = (i == 1 ? start_barcode : barcode.succ)
-        lib_name = lib_row[0]
-        adapter_tag = lib_row[1]
-        source_DNA   = lib_row[2]
-        lib_size  = lib_row[3]
-        sample_conc = lib_row[4]
-        lib_conc  = lib_row[5]
-        notebook_ref = lib_row[6]
-        notes = lib_row[7]
+        barcode = (lib_row[0].blank? ? (i == 1 ? start_barcode : barcode.succ) : lib_row[0])
+        lib_name = lib_row[1]
+        adapter_tag = lib_row[2]
+        source_DNA   = lib_row[3]
+        lib_size  = lib_row[4]
+        sample_conc = lib_row[5]
+        lib_conc  = lib_row[6]
+        notebook_ref = lib_row[7]
+        notes = lib_row[8]
 
         seq_lib = SeqLib.new(:barcode_key => barcode,
                            :lib_name => lib_name,
