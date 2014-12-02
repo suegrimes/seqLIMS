@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied do |exception|
     user_login = (current_user.nil? ? nil : current_user.login)
+    Rails.logger.debug "Access denied for user #{user_login} on #{exception.action} #{exception.subject.inspect}"
     flash[:error] = "Sorry #{user_login}, you are not authorized to access that page"
     redirect_to root_url
   end

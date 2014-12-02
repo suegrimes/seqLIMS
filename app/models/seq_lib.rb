@@ -51,6 +51,10 @@ class SeqLib < ActiveRecord::Base
   validates_date :preparation_date
   #validates_numericality_of :trim_bases, :allow_blank => true
   validates_format_of :trim_bases, :with => /^\d+$/, :allow_blank => true, :message => "# bases to trim must be an integer"
+  #validates_presence_of :pcr_size, :on => :create
+  validates_numericality_of :pcr_size, :only_integer => true, :greater_than => 20, :on => :create, :message => "is not a valid integer >20"
+  #validates_presence_of :sample_conc, :on => :create
+  validates_numericality_of :sample_conc, :greater_than_or_equal_to => 0, :on => :create
   
   before_create :set_default_values
   #after_update :upd_mplex_pool, :if => Proc.new { |lib| lib.oligo_pool_changed? }
@@ -65,8 +69,6 @@ class SeqLib < ActiveRecord::Base
       if !barcode_key.nil?
         errors.add(:barcode_key, "must start with '#{BARCODE_PREFIX}'") if barcode_key[0,1] != BARCODE_PREFIX
       end
-      errors.add(:pcr_size,    "must be entered")     if pcr_size.blank?
-      errors.add(:sample_conc, "must be entered")     if sample_conc.blank?  
     elsif !barcode_key.nil?
       errors.add(:barcode_key, "must start with '#{BARCODE_PREFIX}'") if ![BARCODE_PREFIX,'X'].include?(barcode_key[0,1])
     end
@@ -217,7 +219,7 @@ class SeqLib < ActiveRecord::Base
     last_barcode = 'None'
     libs_loaded = 0; libs_errors = 0
 
-    self.transaction do
+    SeqLib.transaction do
       libs_sheet.each_with_index do |lib_row, i|
         next if i < 1  # Skip header row
         barcode = (lib_row[0].blank? ? (i == 1 ? start_barcode : barcode.succ) : lib_row[0])
@@ -261,17 +263,16 @@ class SeqLib < ActiveRecord::Base
                            :created_at => Time.now)
 
         # Raise exception, rollback transaction, and exit if save fails due to validation error(s)
-        if seq_lib.save
-          puts "Successfully saved seq lib: #{barcode}, source DNA: #{source_DNA}"
-          libs_loaded += 1
-          last_barcode = barcode
-        else
-          @lib_errors = seq_lib.errors
-          break
+        if !seq_lib.valid?
+          @invalid_lib = seq_lib
+          raise ActiveRecord::Rollback
         end
+        seq_lib.save!
+        libs_loaded += 1
+        last_barcode = barcode
       end  # End of lib row (Excel sheet) loop
     end  # End of transaction
-    return libs_loaded, @lib_errors ||= nil
+    return libs_loaded, @invalid_lib ||= nil
   end
 
   def self.upd_mplex_splex(splex_lib)

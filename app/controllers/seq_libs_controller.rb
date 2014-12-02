@@ -174,12 +174,16 @@ class SeqLibsController < ApplicationController
   def load_libs
     #@file_params = params[:lib_file].content_type
     #lib_default = params[:lib_default].merge!(:sample_conc_uom => 'ng/ul')
-    @libs_sheet = extract_sheet(params[:lib_file].tempfile.path)
-    @libs_loaded, @lib_errors = SeqLib.load_from_xls(@libs_sheet, params[:lib_default], params[:start_barcode])
-    if @lib_errors.nil?
-      flash.now[:notice] = "#{@libs_loaded} sequencing libraries successfully saved"
+    if params[:lib_file]
+      @libs_sheet = extract_sheet(params[:lib_file].tempfile.path)
+      @libs_loaded, @invalid_lib = SeqLib.load_from_xls(@libs_sheet, params[:lib_default], params[:start_barcode])
+      if @invalid_lib.nil?
+        flash.now[:notice] = "#{@libs_loaded} sequencing libraries successfully saved"
+      else
+        flash.now[:error] = "Library validation error(s), no libraries loaded"
+      end
     else
-      flash.now[:error] = "Library validation error(s), no libraries loaded"
+      flash.now[:error] = "Please provide sequencing library file to load"
     end
     dropdowns
     @requester = (current_user.researcher ? current_user.researcher.researcher_name : nil)

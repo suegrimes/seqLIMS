@@ -5,14 +5,16 @@
   <th>Position</th>
   <th>Freezer</th>
 </tr>
+  <% i = 0 %>
   <%= sform.fields_for :sample_storage_containers, :wrapper => false do |cform| %>
       <tr class="fields">
+        <% i += 1 %>
         <td><%= cform.text_field :container_type, :size => 10 %></td>
         <td><%= cform.text_field :container_name, :size => 8 %></td>
         <td><%= cform.text_field :position_in_container, :size => 6 %></td>
         <td><%= cform.collection_select(:freezer_location_id, @freezer_locations, :id, :room_and_freezer) %></td>
-        <td><%= cform.link_to_remove "Remove" %></td>
+        <td><% if i > 1 %><%= cform.link_to_remove "Remove" %><% end %></td>
       </tr>
   <% end %>
 </table>
-<p><%= sform.link_to_add "Add Value", :sample_storage_containers, :data => { :target => "#s_loc" } %></p>
+<p><%= sform.link_to_add "Add Storage Location", :sample_storage_containers, :data => { :target => "#s_loc" } %></p>

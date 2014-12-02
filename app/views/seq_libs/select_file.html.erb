@@ -1,27 +1,26 @@
 <div>
-  <% if @lib_errors && @lib_errors.any? %>
-      <% for error_fld in @lib_errors do %>
-          <p class="errorwarn brightred">Error: <%=h error_fld %> <%=h @lib_errors[error_fld].join(';') %></p>
+  <% if @invalid_lib && @invalid_lib.errors.any? %>
+      <% for error_msg in @invalid_lib.errors.full_messages do %>
+          <div class="errorwarn brightred">Error in lib <%=h @invalid_lib.barcode_key%>: <%=h error_msg %></div>
       <% end %>
   <% end %>
 </div>
 
 <h1>Sequencing Library File Upload</h1>
-
 <%= form_tag ({action: :load_libs}), { id: 'lib_load', multipart: true } do %>
-<div id="errorwarn"></div>
+<div id="dt_error"></div>
 
 <fieldset class="form">
   <legend class="form">Library defaults</legend>
   <table class="form" border="0">
     <tr>
       <th>Prep Date:</th><td><%= datepicker_input('lib_default', 'preparation_date', dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true, size: 15) %></td>
-          <%= javascript_tag "$('#lib_load').submit(function() {
+          <%= javascript_tag "$('#commit').submit(function() {
                         if (!$('#lib_default_preparation_date').val()) {
-                          $(this).addClass('error'); $('#errorwarn').text('Date is required'); return false;
+                          $(this).addClass('error'); $('#dt_error').text('Date is required'); return false;
                         }
                         if ($('#lib_default_preparation_date').val()) {
-                          $(this).addClass('error'); $('#errorwarn').hide(); return true;
+                          $(this).addClass('error'); $('#dt_error').hide(); return true;
                         }
                       });" %>
 

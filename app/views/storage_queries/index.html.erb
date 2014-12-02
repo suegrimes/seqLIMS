@@ -20,7 +20,12 @@
 
   <% for sample_loc in @sample_locs %>
     <tr>
-      <td><%=h sample_loc.patient_id %></td>
+      <td><% if can? :read, Patient %>
+            <%=link_to sample_loc.patient_id, patient_path(sample_loc.patient_id) %>
+        <% else %>
+            <%=h sample_loc.patient_id %>
+        <% end %>
+      </td>
       <td><%=link_to sample_loc.barcode_key, sample_path(sample_loc.id) %></td>
       <td><% if sample_loc.source_sample_id.nil? %><%=h sample_loc.sample_characteristic.collection_date %><% end %></td>
       <td><%=h sample_loc.sample_date %></td>
@@ -29,7 +34,12 @@
       <td><%=h sample_loc.tissue_preservation %></td>
       <td><%=h sample_loc.tumor_normal %></td>
       <td><%=h sample_loc.room_and_freezer %></td>
-      <td><%=link_to sample_loc.container_and_position, edit_sample_loc_path(sample_loc) %></td>
+      <td><% if can? :edit, SampleStorageContainer %>
+          <%=link_to sample_loc.container_and_position, edit_sample_loc_path(sample_loc) %>
+          <% else %>
+          <%=h sample_loc.container_and_position %>
+          <% end %>
+      </td>
       <%= hidden_field_tag("export_id[]", sample_loc.id)  %>
     </tr>
     <% for psample in sample_loc.processed_samples %>

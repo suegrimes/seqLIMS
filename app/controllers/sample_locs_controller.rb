@@ -1,19 +1,18 @@
 class SampleLocsController < ApplicationController
-  load_and_authorize_resource
 
   before_filter :dropdowns, :only => [:edit]
 
   # GET /sample_locs/1/edit
   def edit
     @sample_loc = SampleLoc.includes(:sample_storage_containers).find(params[:id])
-    authorize! :edit, @sample_loc
+    authorize! :edit, SampleStorageContainer
     render :action => 'edit'
   end
 
   # PUT /sample_locs/1
   def update
     @sample_loc = SampleLoc.find(params[:id])
-    authorize! :update, @sample_loc
+    authorize! :update, SampleStorageContainer
 
     if @sample_loc.update_attributes(params[:sample_loc])
       flash[:notice] = 'Sample location was successfully updated.'
