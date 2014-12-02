@@ -20,10 +20,11 @@
 
 <!-- Links to be displayed with borders, in bottom row of info box -->
 <% info_links = [] %>
+<% info_links = [['Edit', 'edit']] if (can? :edit, sample) %>
 
 <%= render :partial => 'shared/info_box', :locals => {:info_legend     => 'Sample Details',
                                                       :info_flds       => info_flds,
                                                       :info_links      => info_links,
-                                                      :link_controller => 'sample_locs',
+                                                      :link_controller => 'samples',
                                                       :link_id         => sample.id,
                                                       :last_info_box   => last_info_box} %>
