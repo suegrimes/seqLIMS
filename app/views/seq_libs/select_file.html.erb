@@ -29,11 +29,12 @@
         <tr>
           <th>Protocol:</th><td><%= collection_select(:lib_default, :protocol_id, @protocols, :id, :protocol_name,
                                                       {:include_blank => 'Select Protocol'}) %></td>
-          <th>Quantitation:</th><td><%= collection_select(:lib_default, :quantitation_method, @quantitation, :c_value, :c_value, {:include_blank => 'Select Method'}) %></td>
+          <th><%=h Pool.human_attribute_name(:pool_name)%>:</th><td colspan="3"><%= collection_select(:lib_default, :pool_id, @oligo_pools, :id, :pool_string_dtl,
+                                                                                                      {:include_blank => 'Select Pool'}) %></td>
         </tr>
         <tr>
-          <th><%=h Pool.human_attribute_name(:pool_name)%>:</th><td colspan="3"><%= collection_select(:lib_default, :pool_id, @oligo_pools, :id, :pool_string_dtl,
-                                                                                          {:include_blank => 'Select Pool'}) %></td>
+          <th>Quantitation:</th><td><%= collection_select(:lib_default, :quantitation_method, @quantitation, :c_value, :c_value, {:include_blank => 'Select Method'}) %></td>
+          <th>Sample Conc UOM</th><td><%= select_tag("lib_default[sample_conc_uom]", options_for_select(SeqLib::SAMPLE_CONC)) %></td>
         </tr>
         <tr>
           <th>Adapter:</th><td><%= collection_select(:lib_default, :adapter_id, @adapters, :id, :runtype_adapter) %></td>

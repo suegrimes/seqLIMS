@@ -16,7 +16,7 @@
 <tr>
   <th>PCR Size:</th><td><%= f.text_field(:pcr_size, :size => 6) %></td>  
   <th>Sample Conc:</th>
-  <td><%= f.text_field(:sample_conc, :size => 6, :value => format_conc(f.object.sample_conc, ''))%> <%= f.select(:sample_conc_uom, %w(nM ng/ul)) %></td>
+  <td><%= f.text_field(:sample_conc, :size => 6, :value => format_conc(f.object.sample_conc, ''))%> <%= f.select(:sample_conc_uom, SeqLib::SAMPLE_CONC) %></td>
   <th>Lib Conc(requested):</th>
   <td><%= f.text_field(:lib_conc_requested, :size => 6, :value => format_conc(f.object.lib_conc_requested, '')) %>&nbsp;pM</td>  
 </tr>

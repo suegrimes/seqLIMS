@@ -34,7 +34,7 @@
 <tr>
     <td><%= f.text_field :barcode_key, :size => 10 %></td>
     <td><%= f.text_field(:lib_name, :size => 15)%></td>
-    <td><%= f.text_field(:sample_conc, :size => 6)%> <%= f.select(:sample_conc_uom, %w(nM ng/ul)) %></td>
+    <td><%= f.text_field(:sample_conc, :size => 6)%> <%= f.select(:sample_conc_uom, SeqLib::SAMPLE_CONC) %></td>
     <td><%= f.collection_select(:adapter_id, @adapters, :id, :runtype_adapter, {},
                                 {:data => {:remote => true, :url => url_for(:action => 'get_adapter_info', :row => i)}}) %></td>
     <td><%= s.collection_select(:index1_tag_id, @index1_tags, :id, :index1_code) %></td>

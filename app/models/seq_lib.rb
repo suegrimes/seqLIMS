@@ -61,7 +61,7 @@ class SeqLib < ActiveRecord::Base
   #after_update :save_samples
   
   BARCODE_PREFIX = 'L'
-  SAMPLE_CONC = ['ng/ul', 'nM']
+  SAMPLE_CONC = ['nM', 'ng/ul']
   BASE_GRAMS_PER_MOL = 660
   
   def validate
@@ -231,6 +231,7 @@ class SeqLib < ActiveRecord::Base
         lib_conc  = lib_row[6]
         notebook_ref = lib_row[7]
         notes = lib_row[8]
+        break if lib_name.blank?
 
         seq_lib = SeqLib.new(:barcode_key => barcode,
                            :lib_name => lib_name,
@@ -243,7 +244,7 @@ class SeqLib < ActiveRecord::Base
                            :alignment_ref_id => lib_params[:alignment_ref_id],
                            :alignment_ref => alignment_ref,
                            :sample_conc => sample_conc,
-                           :sample_conc_uom => 'ng/ul',
+                           :sample_conc_uom => lib_params[:sample_conc_uom],
                            :lib_conc_requested => lib_conc,
                            :quantitation_method => lib_params[:quantitation_method],
                            :pcr_size => lib_size,

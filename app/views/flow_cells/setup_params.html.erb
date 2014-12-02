@@ -5,11 +5,12 @@
 	<legend>Sequencing Library Parameters</legend>
 <table class="form">
   <tr>
-  	<th>Library Barcode:</th>
-	<td><strong>L</strong><%= text_field_tag(:barcode_from, '', {:size => 10})%></td>
-	<th>To:</th>
-	<td><strong>L</strong><%= text_field_tag(:barcode_to, '', {:size => 10})%></td>
-  </tr> 
+  <tr>
+    <th>Library Barcode(s):</th>
+    <td colspan="3"><%= text_field_tag(:barcode_string, '', {:size => 40})%></td>
+  </tr>
+  <tr><td class="notes" colspan="4">Enter individual library numbers separated by commas, enter ranges with '-'.</td></tr>
+  <tr><td class="notes" colspan="4">Eg. '1160,1378-1400,1500-1600'</td></tr>
   <tr><td>&nbsp;</td></tr>
   <tr>
     <th>Owner(s):</th>
