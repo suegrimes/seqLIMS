@@ -3,6 +3,7 @@
 <table class="list">
   <tr>
     <th>Adapter</th>
+    <th>Nr Tags</th>
 	<th>Mplex/Splex</th>
     <th>2Index?</th>
 	<th colspan=3></th>
@@ -11,8 +12,9 @@
 <% for adapter in @adapters %>
   <tr>
     <td><%=h adapter.runtype_adapter %></td>
-	<td><%=h adapter.mplex_splex %></td>
-    <td><%=h adapter.multi_indices %></td>
+    <td align="center"><%=h adapter.index_tags.size %></td>
+	<td align="center"><%=h adapter.mplex_splex %></td>
+    <td align="center"><%=h adapter.multi_indices %></td>
     <td><% if adapter.mplex_splex == 'M' %>
       <%= link_to 'Show', adapter %>
       <% end %></td>
