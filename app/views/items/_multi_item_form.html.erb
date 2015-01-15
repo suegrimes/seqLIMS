@@ -54,10 +54,12 @@
   <td id="<%= item_total_tag %>" style="font-size:1em">&nbsp;</td>
   <%= javascript_tag do %>
       $('#<%= item_qty_tag %>').change(function(){
-        $('#<%= item_total_tag %>').text("$" + $('#<%= item_qty_tag %>').val() * $('#<%= item_price_tag %>').val());
+        var total_price = ($('#<%= item_qty_tag %>').val() * $('#<%= item_price_tag %>').val()).toFixed(2);
+        $('#<%= item_total_tag %>').text("$" + total_price );
         });
       $('#<%= item_price_tag %>').change(function(){
-        $('#<%= item_total_tag %>').text("$" + $('#<%= item_qty_tag %>').val() * $('#<%= item_price_tag %>').val());
+        var total_price = ($('#<%= item_qty_tag %>').val() * $('#<%= item_price_tag %>').val()).toFixed(2);
+        $('#<%= item_total_tag %>').text("$" + total_price );
         });
   <% end %>
 </tr>   
