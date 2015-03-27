@@ -270,11 +270,11 @@ protected
              ['ps', 'extraction_type'],
              ['ps', 'processing_date'],
              ['cs', 'consent_name'],
+             ['ps', 'blank'],
              ['sm', 'tumor_normal'],
              ['ps', 'blank'],
-             ['ps', 'blank'], 
-             ['ps', 'blank'], 
              ['sm', 'barcode_key'],
+             ['ps', 'blank'],
              ['ps', 'psample_remaining'],
              ['pc', 'room_and_freezer'],
              ['pc', 'container_and_position']]
