@@ -3,11 +3,11 @@
 <!-- Standard fields to be displayed -->
 <% info_flds   = [['Field', 'Barcode', sample.barcode_key],
                   ['Field', 'Collected/Created On', sample.sample_date],
+                  ['Field', 'Patient DX', (sample.sample_characteristic.pathology ? sample.sample_characteristic.pathology.pathology_classification : nil)],
                   ['Field', 'Sample Type', [sample.sample_tissue, sample.sample_type].join('/')],
                   ['Field', 'Preservation', sample.tissue_preservation],
-                  ['Field', 'OR Designation', sample.tumor_normal],               
-                  ['Field', 'Pathology DX', (sample.sample_characteristic.pathology ? sample.sample_characteristic.pathology.pathology_classification : nil)], 
-                  ['Field', 'Histopathology', (sample.histology ? sample.histology.histopathology : nil)],
+                  ['Field', 'OR Designation', sample.tumor_normal],
+                  ['Field', 'Sample Histopath', (sample.histology ? sample.histology.histopathology : nil)],
                   ['Field', 'Remaining?', sample.sample_remaining]
                   ] %>
 				  

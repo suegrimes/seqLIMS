@@ -6,21 +6,22 @@
 
 <!-- Standard fields to be displayed -->
 <% info_flds   = [[(click_to_link == 'none'? 'Field' : 'Link'), 'Path Rpt Date', pathology.pathology_date, ['pathologies', click_to_link, pathology.id]], 
-                  ['Field', 'Pathology', pathology.general_pathology],
+                  ['Field', 'Pathologist', pathology.pathologist],
+                  ['Field', 'Diagnosis Type', pathology.general_pathology],
                   ['Field', 'Diagnosis/Notes', pathology.pathology_classification],
                   ['Field', 'Stage', pathology.tumor_stage],
                   ['Field', 'XRT?', pathology.xrt_flag], 
-                  ['Field', 'TNM', pathology.tnm]] %>
+                  ['Field', 'TNM', pathology.tnm], nil] %>
 			  
 <!-- Only include comments if non-blank -->
-<% info_flds.push(['Field', 'Comments', pathology.comments]) if !pathology.comments.blank? %>
+<% info_flds.push(['Field', 'Comments', pathology.comments, {:colspan => 3}]) if !pathology.comments.blank? %>
 
 <!-- Links to be displayed with borders, in bottom row of info box -->
 <% info_links = [] %>
 <% info_links << ['Edit', 'edit']  if (can? :edit, pathology) %>
 <% info_links << ['Delete', 'destroy'] if (can? :delete, pathology) %>
 
-<%= render :partial => 'shared/info_box', :locals => {:info_legend     => 'Diagnosis/Pathology',
+<%= render :partial => 'shared/info_box', :locals => {:info_legend     => 'Patient Diagnosis',
                                                       :info_flds       => info_flds,
                                                       :info_links      => info_links,
                                                       :link_controller => 'pathologies',

@@ -5,8 +5,8 @@
     <%=f.datepicker 'pathology_date', dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true, size: 15, label: 'Path Rpt Date' %>
   </tr>
   <tr>
-	<%=f.collection_select(:general_pathology, @hpathology, :c_value, :c_value, {:include_blank => 'Select ..'}, :label => 'Pathology')%>
-	<%=f.collection_select(:pathology_classification, @pathology_dx, :c_value, :c_value, {:include_blank => 'Select ..'}, :label => 'Classification')%>
+	<%=f.collection_select(:general_pathology, @hpathology, :c_value, :c_value, {:include_blank => 'Select ..'}, :label => 'Patient Dx')%>
+	<%=f.collection_select(:pathology_classification, @pathology_dx, :c_value, :c_value, {:include_blank => 'Select ..'}, :label => 'Diagnosis/Notes')%>
   </tr>
 
   <tr>

@@ -3,10 +3,6 @@
 <%= render :partial => 'sample_characteristics/clinical_summary', :locals => {:sample_characteristic => @histology.sample.sample_characteristic,
                                                                               :patient => @histology.sample.patient } %>
 
-<% if @histology.sample.sample_characteristic.pathology %>
-  <%= render :partial => 'pathologies/pathology_info', :locals => {:pathology => @histology.sample.sample_characteristic.pathology} %>
-<% end %>
-
 <%= render :partial => 'samples/sample_info', :locals => {:sample_characteristic => @histology.sample.sample_characteristic,
                                                           :sample => @histology.sample } %>
 

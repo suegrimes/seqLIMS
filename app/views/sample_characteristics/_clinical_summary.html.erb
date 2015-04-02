@@ -11,24 +11,30 @@
 
 <!-- Standard fields to be displayed -->
 <% info_flds   = [[(click_to_link1 == 'none'? 'Field' : 'Link'), 'Patient ID', patient.id, ['patients', click_to_link1, patient.id]],
-                   nil,
-                  ['Field', 'Race/Ethnicity', [patient.race, patient.ethnicity].join('/')],
                   ['Field', 'Gender', patient.gender],
+                  ['Field', 'Race/Ethnicity', [patient.race, patient.ethnicity].join('/'), {:colspan => 3}], nil,
                   [(click_to_link2 == 'none'? 'Field' : 'Link'), 'Collected', sample_characteristic.collection_date,
-                  ['sample_characteristics', click_to_link2, sample_characteristic.id]],nil,
-                  ['Field', 'Clinic', sample_characteristic.clinic_or_location],
-                  (sample_characteristic.from_nccc? ? ['Field', 'NCCC Tumor ID', sample_characteristic.nccc_tumor_id] : nil),
-                  ['Field', 'Protocol', sample_characteristic.consent_descr],
-                  (sample_characteristic.from_nccc? ? ['Field', 'NCCC Path No ', sample_characteristic.nccc_pathno] : nil)] %>
-				  
+                  ['sample_characteristics', click_to_link2, sample_characteristic.id]], nil,
+                  ['Field', 'Clinic', sample_characteristic.clinic_or_location, {:colspan => 3}], nil,
+                  ['Field', 'Protocol', sample_characteristic.consent_descr, {:colspan => 3}], nil] %>
 <!-- Only include comments if non-blank -->
-<% info_flds.push(['Field', 'Comments', sample_characteristic.comments, {:colspan => 3}]) if !sample_characteristic.comments.blank? %>
+<% info_flds.push(['Field', 'Comments', sample_characteristic.comments, {:colspan => 3}], nil) if !sample_characteristic.comments.blank? %>
+
+<!-- Include pathology information if available -->
+<% if !sample_characteristic.pathology.nil? %>
+    <% pathology = sample_characteristic.pathology %>
+    <% info_flds.push(
+                    [(click_to_link == 'none'? 'Field' : 'Link'), 'Path Rpt Date', pathology.pathology_date, ['pathologies', click_to_link, pathology.id]],
+                     nil,
+                    ['Field', 'Diagnosis Type', pathology.general_pathology],
+                    ['Field', 'Diagnosis/Notes', pathology.pathology_classification]) %>
+    <% info_flds.push(['Field', 'Comments', pathology.comments, {:colspan => 3}]) if !pathology.comments.blank? %>
+<% end %>
 
 <!-- Links to be displayed with borders, in bottom row of info box -->
 <% info_links = [] %>
 
-<%= render :partial => 'shared/info_box', :locals => {:info_legend     => 'Patient/Sample Acquisition',
-                                                      :info_flds       => info_flds,
+<%= render :partial => 'shared/info_box', :locals => {:info_legend     => 'Patient/Sample Acquisition',                                                     :info_flds       => info_flds,
                                                       :info_links      => info_links,
                                                       :link_controller => 'patients',
                                                       :link_id         => patient.id,

@@ -3,17 +3,13 @@
 <%= render :partial => 'sample_characteristics/clinical_summary', 
                        :locals => {:sample_characteristic => @sample.sample_characteristic,
                                    :patient => @sample.sample_characteristic.patient}%>
-								   
-<% histology = (@sample.histology ? @sample.histology : 
-                                   (@sample.source_sample && @sample.source_sample.histology ? @sample.source_sample.histology : nil)) %>
-<% pathology = @sample.sample_characteristic.pathology %>
-<% if pathology || histology %>
-  <%= render :partial => 'pathologies/pathology_summary', :locals => {:pathology => pathology, :histology => histology} %>
-<% end %>
 
 <% if !@sample.source_sample.nil? %>
   <%= render :partial => 'sample_info', :locals => {:source => 'Source',
                                                     :sample => @sample.source_sample} %>
+  <% if @sample.source_sample.histology %>
+     <%= render :partial => 'histologies/histology_summary', :locals => {:histology => @sample.source_sample.histology}   %>
+  <% end %>
   <%= render :partial => 'sample_info1', :locals => {:source => 'Dissected',
                                                      :sample => @sample,
                                                      :click_to_link => 'none',
@@ -23,7 +19,11 @@
 <% else %>
   <%= render :partial => 'sample_info', :locals => {:sample => @sample,
                                                     :click_to_link => 'none',
-                                                    :last_info_box => 'yes'} %>
+                                                    :last_info_box => (@sample.histology ? 'no' : 'yes')} %>
+  <% if @sample.histology %>
+      <%= render :partial => 'histologies/histology_summary', :locals => {:histology => @sample.histology,
+                                                                       :last_info_box => 'yes'} %>
+  <% end %>
   <%= render :partial => 'dissection_list', :locals => {:source_sample => @sample} %>
   
   <!-- if extractions taken directly from source sample (eg blood), list extractions -->

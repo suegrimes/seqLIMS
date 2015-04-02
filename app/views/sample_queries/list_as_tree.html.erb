@@ -19,10 +19,10 @@
     <tr>
       <th>Barcode</th>
       <th>Date Entered</th>
+      <th>Patient DX</th>
       <th>Sample Type</th>
       <th>OR Designation</th>
-      <th>Pathology DX</th>
-      <th>H&E</th>
+      <th>Sample H&E</th>
       <th>Processing Dt</th>
       <th>Rem?</th>
       <th>Room/Freezer</th>
@@ -35,11 +35,12 @@
       <tr>
         <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%= link_to sample.barcode_key, sample_path(sample)%></td>
         <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h format_date(sample.created_at) %></td>
-        <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.sample_category %></td>
-        <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.tumor_normal %></td>
         <td class=<%= "dotted_border_bottom" if nonblank_comments %>>
           <% if sample.sample_characteristic.pathology %><%=h sample.sample_characteristic.pathology.pathology_classification %><% end %>
-	    </td>
+        </td>
+        <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.sample_category %></td>
+        <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.tumor_normal %></td>
+
         <td class=<%= "dotted_border_bottom" if nonblank_comments %>>
           <% if sample.histology %><%=h sample.histology.histopathology %>
           <% elsif sample.clinical_sample == 'no' && sample.source_sample.histology %><%=h sample.source_sample.histology.histopathology %>
@@ -68,7 +69,7 @@
       <tr>
         <td colspan="12" style="border-top:0;">
           <% if sample.sample_characteristic.pathology && !sample.sample_characteristic.pathology.comments.blank? %>        
-            <div>Pathology Comments:&nbsp;<%=h sample.sample_characteristic.pathology.comments %></div>
+            <div>Patient Pathology Comments:&nbsp;<%=h sample.sample_characteristic.pathology.comments %></div>
           <% end %>
           <% if !sample.comments.blank? %>
             <div>Sample Comments:&nbsp;<%=h sample.comments %></div>
@@ -81,9 +82,10 @@
         <tr>
           <td><%=link_to processed_sample.barcode_key, processed_sample_path(processed_sample)%></td>
           <td><%=h format_date(processed_sample.created_at) %></td>
+          <td>&nbsp;</td>
           <td><%=h processed_sample.extraction_type %></td>
           <td><%=h sample.tumor_normal %></td>
-          <td></td><td></td>
+          <td>&nbsp;</td>
           <td><%=h processed_sample.processing_date %></td>
           <td>&nbsp;</td>
           <td><%=h processed_sample.room_and_freezer %></td>

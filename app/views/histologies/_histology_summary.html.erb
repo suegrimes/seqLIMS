@@ -6,16 +6,14 @@
 
 <!-- Standard fields to be displayed -->
 <% info_flds   = [[(click_to_link == 'none'? 'Field' : 'Link'), 'Barcode', histology.he_barcode_key, ['histologies', click_to_link, histology.id]],
+                   nil,
                   ['Field', 'HE Date', histology.he_date],
                   ['Field', 'Pathologist', histology.pathologist],
                   ['Field', 'Histopathology', histology.histopathology],
-                  ['Field', 'H&E Classification', histology.he_classification],
-                  ['Field', 'Tumor cell content', histology.tumor_cell_content], 
-                  ['Field', 'Inflammation', histology.inflammation_type],
-                  ['Field', 'Infiltration', histology.inflammation_infiltration]] %>
+                  ['Field', 'H&E Classification', histology.he_classification]] %>
 				  
 <!-- Only include comments if non-blank -->
-<% info_flds.push(['Field', 'Comments', histology.comments, {:colspan => 3}]) if !histology.comments.blank? %>
+<% info_flds.push(['Field', 'Comments', histology.comments]) if !histology.comments.blank? %>
 
 <!-- Links to be displayed with borders, in bottom row of info box -->
 <% info_links = [] %>
