@@ -57,10 +57,10 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     authorize! :update, @user
-    params[:user][:role_ids] ||= [] 
     
     if can? :edit, Role
-      @user.roles = Role.find(params[:user][:role_ids])
+      params[:user][:role_ids] ||= []
+      #@user.roles = Role.find(params[:user][:role_ids])
     end
     
     if DEMO_APP && DEMO_USERS.include?(@user.login)

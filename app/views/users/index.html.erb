@@ -4,7 +4,7 @@
     <th>Login</th>
 	<th>Email</th>
 	<th>Roles</th>
-    <th></th>
+    <% if can? :delete, User %><th></th><% end %>
   </tr>
   <% for user in @users do %>
   <tr>
