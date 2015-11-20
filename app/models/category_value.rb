@@ -16,5 +16,10 @@ class CategoryValue < ActiveRecord::Base
   def self.populate_dropdown_for_id(category_id)
     self.where(:category_id => category_id).order(:c_position).all
   end
+
+  def cq_position
+    # Make [Unknown] value sort to bottom of drop-down lists for queries
+    c_value == '[Unknown]' ? 99 : c_position
+  end
   
 end

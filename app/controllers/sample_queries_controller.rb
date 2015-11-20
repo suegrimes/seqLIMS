@@ -126,15 +126,16 @@ class SampleQueriesController < ApplicationController
 protected
   def dropdowns
     @consent_protocols  = ConsentProtocol.populate_dropdown
-    @category_dropdowns = Category.populate_dropdowns([Cgroup::CGROUPS['Sample'], Cgroup::CGROUPS['Clinical']])
-    @races              = category_filter(@category_dropdowns, 'race')
-    @ethnicities        = category_filter(@category_dropdowns, 'ethnicity')
-    @clinics            = category_filter(@category_dropdowns, 'clinic')  
-    @sample_type        = category_filter(@category_dropdowns, 'sample type')
-    @source_tissue      = category_filter(@category_dropdowns, 'source tissue')
-    @preservation       = category_filter(@category_dropdowns, 'tissue preservation')
-    @tumor_normal       = category_filter(@category_dropdowns, 'tumor_normal')
-    @users              = User.all
+    @category_dropdowns = Category.populate_dropdowns([Cgroup::CGROUPS['Sample'], Cgroup::CGROUPS['Clinical'], Cgroup::CGROUPS['Pathology']])
+    @races              = category_filter(@category_dropdowns, 'race', 'query')
+    @ethnicities        = category_filter(@category_dropdowns, 'ethnicity', 'query')
+    @clinics            = category_filter(@category_dropdowns, 'clinic', 'query')
+    @sample_type        = category_filter(@category_dropdowns, 'sample type', 'query')
+    @source_tissue      = category_filter(@category_dropdowns, 'source tissue', 'query')
+    @preservation       = category_filter(@category_dropdowns, 'tissue preservation', 'query')
+    @tumor_normal       = category_filter(@category_dropdowns, 'tumor_normal', 'query')
+    @pathology          = category_filter(@category_dropdowns, 'pathology', 'query')
+    @users              = User.populate_dropdown
   end
   
   def define_conditions(params)
@@ -192,6 +193,7 @@ protected
     else
       where_select.push("sample_characteristics.#{attr}" + sql_condition(val)) if SampleQuery::SCHAR_FLDS.include?("#{attr}")
       where_select.push("samples.#{attr}" + sql_condition(val))                if SampleQuery::SAMPLE_FLDS.include?("#{attr}")
+      where_select.push("histologies.#{attr}" + sql_condition(val))            if SampleQuery::HISTOPATH_FLDS.include?("#{attr}")
     end
     return where_select
   end

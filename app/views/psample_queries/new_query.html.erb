@@ -37,7 +37,7 @@
   <tr>
 	<th>Preservation:</th><td><%= f.collection_select(:tissue_preservation, @preservation, :c_value, :c_value,
                                {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td> 
-    <th>OR Designation:</th><td><%= f.collection_select(:tumor_normal, @tumor_normal, :c_value, :c_value,
+    <th>Surgical Assess.:</th><td><%= f.collection_select(:tumor_normal, @tumor_normal, :c_value, :c_value,
                                {:include_blank => 'All'}) %></td>     
   </tr>
 

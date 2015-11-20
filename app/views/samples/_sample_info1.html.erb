@@ -10,7 +10,7 @@
 <% info_flds   = [[(click_to_link == 'none'? 'Field' : 'Link'), 'Barcode', sample.barcode_key, ['samples', click_to_link, sample.id]],
                   ['Field', 'Collected/Created On', sample.sample_date],
                   ['Field', 'Sample Type', [sample.sample_tissue, sample.sample_type].join('/')],
-                  ['Field', 'Container Type', sample.container_type],
+                  ['Field', 'Sample Container', sample.container_type],
 				  ['Field', 'Amount', sample.sample_amt],
                   ['Field', 'Remaining?', sample.sample_remaining],
                   ['Field', 'Room/Freezer', sample.room_and_freezer],

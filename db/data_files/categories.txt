@@ -1,17 +1,17 @@
 1	clinic	Clinic from which sample received
 1	ethnicity	NIH defined ethnicity categories
 1	race	NIH defined race categories
-1	sample type	Eg tissue, blood
+1	sample type	"Eg tissue, blood"
 1	source tissue	Site from which sample was collected
-1	tissue preservation	Eg Fresh, Frozen, FFPE
+1	tissue preservation	"Eg Fresh, Frozen, FFPE"
 2	sample unit	Sample container or unit
 2	tumor_normal	Initial tissue designation (eg from OR)
 2	unit of measure	Unit of weight or volume
 2	vial type	Type of vial
 2	vial volume	Vial volume
-2	container	Sample storage container (eg rack, box)
+2	container	"Sample storage container (eg rack, box)"
 3	elution buffer	Elution buffer
-3	extraction type	Eg DNA, RNA, Protein
+3	extraction type	"Eg DNA, RNA, Protein"
 3	support	Eg solution or lysophilized
 4	library type	Multiplex or singleplex
 4	quantitation	Quantitation method
@@ -28,4 +28,4 @@
 6	tumor_T	'T' value for tumor staging
 7	inflammation infiltration	Inflammation infiltration
 7	inflammation type	Inflammation type
-9   grants  Grant numbers
+9	grants	Grant numbers

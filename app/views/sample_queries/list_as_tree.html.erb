@@ -18,12 +18,12 @@
     
     <tr>
       <th>Barcode</th>
+      <th>Alt ID</th>
       <th>Date Entered</th>
       <th>Patient DX</th>
       <th>Sample Type</th>
-      <th>OR Designation</th>
-      <th>Sample H&E</th>
-      <th>Processing Dt</th>
+      <th>Surgical Assess.</th>
+      <th>Histopathology</th>
       <th>Rem?</th>
       <th>Room/Freezer</th>
       <th>Container</th>
@@ -34,6 +34,7 @@
 	  <% nonblank_comments = have_comments?(sample) %>
       <tr>
         <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%= link_to sample.barcode_key, sample_path(sample)%></td>
+        <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.alt_identifier %></td>
         <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h format_date(sample.created_at) %></td>
         <td class=<%= "dotted_border_bottom" if nonblank_comments %>>
           <% if sample.sample_characteristic.pathology %><%=h sample.sample_characteristic.pathology.pathology_classification %><% end %>
@@ -45,9 +46,6 @@
           <% if sample.histology %><%=h sample.histology.histopathology %>
           <% elsif sample.clinical_sample == 'no' && sample.source_sample.histology %><%=h sample.source_sample.histology.histopathology %>
           <% end %>
-		</td>
-        <td class=<%= "dotted_border_bottom" if nonblank_comments %>>
-          <% if sample.clinical_sample == 'no' %><%=h sample.sample_date %><% end %>
 		</td>
         <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.sample_remaining %></td>
         <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.room_and_freezer %></td>
@@ -67,7 +65,8 @@
 	  
 	  <% if nonblank_comments %>   
       <tr>
-        <td colspan="12" style="border-top:0;">
+        <td>&nbsp;</td>
+        <td colspan="11" style="border-top:0;font-style:italic;">
           <% if sample.sample_characteristic.pathology && !sample.sample_characteristic.pathology.comments.blank? %>        
             <div>Patient Pathology Comments:&nbsp;<%=h sample.sample_characteristic.pathology.comments %></div>
           <% end %>
@@ -81,12 +80,12 @@
       <% for processed_sample in sample.processed_samples %>
         <tr>
           <td><%=link_to processed_sample.barcode_key, processed_sample_path(processed_sample)%></td>
+          <td>&nbsp;</td>
           <td><%=h format_date(processed_sample.created_at) %></td>
           <td>&nbsp;</td>
           <td><%=h processed_sample.extraction_type %></td>
           <td><%=h sample.tumor_normal %></td>
           <td>&nbsp;</td>
-          <td><%=h processed_sample.processing_date %></td>
           <td>&nbsp;</td>
           <td><%=h processed_sample.room_and_freezer %></td>
           <td><%=h processed_sample.container_and_position %></td>

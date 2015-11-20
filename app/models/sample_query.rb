@@ -41,6 +41,7 @@ class SampleQuery < NoTable
   column :sample_type, :string
   column :tissue_preservation, :string
   column :tumor_normal, :string
+  column :histopathology, :string
   column :date_filter, :string
   column :from_date,   :date
   column :to_date,     :date
@@ -51,6 +52,7 @@ class SampleQuery < NoTable
   
   SCHAR_FLDS = %w{patient_id gender race ethnicity consent_protocol_id clinic_or_location}
   SAMPLE_FLDS = %w{alt_identifier tumor_normal sample_tissue sample_type tissue_preservation updated_by}
-  ALL_FLDS    = SCHAR_FLDS | SAMPLE_FLDS
+  HISTOPATH_FLDS = ['histopathology']
+  ALL_FLDS    = SCHAR_FLDS | SAMPLE_FLDS | HISTOPATH_FLDS
 
 end

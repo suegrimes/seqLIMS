@@ -10,7 +10,7 @@
     <tr>
       <th>Barcode</th>
 	  <td><%=s.text_field :barcode_key, :size => 10 %></td>
-	  <th>OR Designation</th>
+	  <th>Surgical Assess.</th>
 	  <td><%=s.collection_select(:tumor_normal, @tumor_normal, :c_value, :c_value) %></td>
     </tr>
 	

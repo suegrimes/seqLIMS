@@ -1,2 +1,2 @@
-Production	http://sgtc-svr108.stanford.edu/seqLIMS
+Development	localhost:3000
 Tagline	Ji Research Group - Stanford Genome Technology Center

@@ -70,6 +70,10 @@ class User < ActiveRecord::Base
     return users
   end
 
+  def self.populate_dropdown
+    self.all.sort_by{|usr| [usr.active_inactive, usr.login]}
+  end
+
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)
     u = find_by_login(login) # need to get the salt

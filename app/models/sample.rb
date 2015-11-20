@@ -208,7 +208,7 @@ class Sample < ActiveRecord::Base
     #                             :order => 'samples.patient_id,
     #                             (if(samples.source_barcode_key IS NOT NULL, samples.source_barcode_key, samples.barcode_key)), samples.barcode_key')
     self.includes(:patient, {:sample_characteristic => :pathology}, :source_sample, :histology, :sample_storage_container, :processed_samples, :user)
-        .where(sql_where(condition_array)).order('samples.patient_id')
+        .where(sql_where(condition_array)).order('samples.patient_id').eager_load
   end
 
   def self.find_for_export(sample_ids)

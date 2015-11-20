@@ -35,12 +35,14 @@ class ApplicationController < ActionController::Base
   #filter_parameter_logging :password, :mrn
   DateRange = Struct.new(:from_date, :to_date)
 
-  def category_filter(categories, cat_name, output='collection')
+  def category_filter(categories, cat_name, output='collection', query_or_edit='edit')
     category_selected = categories.select{|cm| cm.category == cat_name}
     if output == 'string'
       return category_selected[0].category_values.map {|cv| cv.c_value}
+    elsif query_or_edit == 'edit'
+      return category_selected[0].category_values.sort_by {|cv| cv.cq_position}
     else
-      return category_selected[0].category_values
+      return category_selected[0].category_values.sort_by {|cv| cv.c_position}
     end  
   end
   
