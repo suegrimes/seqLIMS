@@ -49,7 +49,8 @@ class PublicationsController < ApplicationController
     @publication.flow_lanes = FlowLane.find(params[:publication][:flow_lane_ids])
     
     params[:publication][:researcher_ids] ||= []
-    @publication.researchers = Researcher.find(params[:publication][:researcher_ids])
+    researcher_ids = sql_value(params[:publication][:researcher_ids])
+    @publication.researchers = Researcher.find(researcher_ids)
     
     if @publication.update_attributes(params[:publication])
       flash[:notice] = "Publication has been updated"
