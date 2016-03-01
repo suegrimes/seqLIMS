@@ -15,16 +15,28 @@
 class IndexTag < ActiveRecord::Base
   belongs_to :adapter
 
+  WELL_LETTER = %w{A B C D E F G H}
+
   def adapter_name
     return self.adapter.runtype_adapter
   end
 
   def index1_code
-     return (self.adapter.index1_prefix.blank? ? tag_nr : [self.adapter.index1_prefix, format('%02d',tag_nr)].join)
+    return (self.adapter.index1_prefix.blank? ? tag_nr : format_index(self.adapter.index1_prefix, tag_nr))
   end
 
   def index2_code
-    return (self.adapter.index2_prefix.blank? ? tag_nr : [self.adapter.index2_prefix, format('%02d',tag_nr)].join)
+    return (self.adapter.index2_prefix.blank? ? tag_nr : format_index(self.adapter.index2_prefix, tag_nr))
+  end
+
+  def format_index(prefix, tag_nr)
+    if adapter_name == 'M_10X_Plate'
+      well_alpha = WELL_LETTER[(tag_nr - 1)/12]
+      well_num   = (tag_nr - 1) % 12 + 1
+      return [prefix, well_alpha + well_num.to_s].join
+    else
+      return [prefix, format('%02d', tag_nr)].join
+    end
   end
 
   def index_code
