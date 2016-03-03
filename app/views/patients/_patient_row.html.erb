@@ -2,6 +2,7 @@
   <% if can? :edit, patient %>
     <td><%=h patient.mrn%></td>
   <% end %>
+  <td><%=h patient.organism %></td>
   <td><%=h patient.gender %></td>
   <td><%=h patient.race %></td>
   <td><%=h patient.ethnicity %></td>

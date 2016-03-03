@@ -77,6 +77,7 @@ protected
   def dropdowns
     @races            = Category.populate_dropdown_for_category('race')
     @ethnicity        = Category.populate_dropdown_for_category('ethnicity')
+    @organisms        = Category.populate_dropdown_for_category('organism')
   end
   
   def check_for_existing_mrn(mrn)

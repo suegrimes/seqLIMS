@@ -4,6 +4,7 @@
 #
 #  id                    :integer          not null, primary key
 #  clinical_id_encrypted :binary(30)
+#  organism              :string(25)
 #  gender                :string(1)
 #  ethnicity             :string(35)
 #  race                  :string(70)

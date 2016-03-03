@@ -127,6 +127,7 @@ protected
   def dropdowns
     @consent_protocols  = ConsentProtocol.populate_dropdown
     @category_dropdowns = Category.populate_dropdowns([Cgroup::CGROUPS['Sample'], Cgroup::CGROUPS['Clinical']])
+    @organisms          = category_filter(@category_dropdowns, 'organism')
     @races              = category_filter(@category_dropdowns, 'race')
     @ethnicities        = category_filter(@category_dropdowns, 'ethnicity')
     @clinics            = category_filter(@category_dropdowns, 'clinic')  
@@ -190,6 +191,7 @@ protected
     if attr.to_s == 'barcode_key'
       where_select.push('(samples.barcode_key = ? OR samples.source_barcode_key = ?)')
     else
+      where_select.push("patients.#{attr}" + sql_condition(val)) if SampleQuery::PATIENT_FLDS.include?("#{attr}")
       where_select.push("sample_characteristics.#{attr}" + sql_condition(val)) if SampleQuery::SCHAR_FLDS.include?("#{attr}")
       where_select.push("samples.#{attr}" + sql_condition(val))                if SampleQuery::SAMPLE_FLDS.include?("#{attr}")
     end

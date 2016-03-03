@@ -36,7 +36,10 @@
                              {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td> 
   </tr>
   <tr>
-	<th>Gender:&nbsp;&nbsp</th><td><%= f.select(:gender, %w{M F}, {:include_blank => 'All'})%></td>  
+    <th>Organism:</th><td><%= f.collection_select(:organism, @organisms, :c_value, :c_value, {:include_blank => 'All'}) %></td>
+	<th>Gender:&nbsp;&nbsp</th><td><%= f.select(:gender, %w{M F}, {:include_blank => 'All'})%></td>
+  </tr>
+  <tr>
   	<th>Ethnicity:</th><td><%= f.collection_select(:ethnicity, @ethnicities, :c_value, :c_value, {:include_blank => 'All'}) %></td>
 	<th>Race:</th><td><%= f.collection_select(:race, @races, :c_value, :c_value,
                              {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td> 
