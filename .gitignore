@@ -14,6 +14,7 @@
 /log/*.log
 /tmp
 .idea/*
+.sass-cache/*
 
 # Ignore config/initializers for session and mail setup
 /config/initializers/secret_token.rb
