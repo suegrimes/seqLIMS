@@ -13,7 +13,6 @@
 #  updated_at            :datetime
 #
 
-
 class Patient < ActiveRecord::Base
   require 'ezcrypto'
   
@@ -34,7 +33,6 @@ class Patient < ActiveRecord::Base
     else
       return patient_id, false
     end
-    
   end
   
 #  def self.upd_demographics(id, gender, race, ethnicity)
@@ -63,17 +61,14 @@ class Patient < ActiveRecord::Base
 
 ## NEED TO make this protected or private?  If so, cannot call any of these methods from 
 ## sample_characteristics controller?
-  def self.find_id_using_mrn(mrn)
-    mrn_ids = self.all.map {|p| [p.mrn, p.id]}
-    
-    patient_nums = mrn_ids.assoc(mrn) if !mrn_ids.empty?
-    patient_id   = patient_nums[1]    if patient_nums
-    return patient_id
+  def self.find_id_using_mrn(mnum)
+    patients = self.where('clinical_id_encrypted = ?', self.ezkey.encrypt(mnum)).to_a
+    return (patients.empty? ? nil : patients[0].id)
   end
-  
-  def self.find_id_from_mrn(mrn)
-    return self.find_by_clinical_id_encrypted(key.encrypt(mrn)).id
-  end
+
+  #def self.find_id_from_mrn(mrn)
+  #  return self.find_by_clinical_id_encrypted(key.encrypt(mrn)).id
+  #end
 
   def mrn
     key.decrypt(clinical_id_encrypted)
@@ -91,7 +86,11 @@ class Patient < ActiveRecord::Base
     self.hipaa_encrypted = key.encrypt(hipaa_data)
   end
 
-private
+  def self.ezkey
+    EzCrypto::Key.with_password(EZ_PSWD, EZ_SALT)
+  end
+
+  private
   def key
     EzCrypto::Key.with_password(EZ_PSWD, EZ_SALT)
   end
