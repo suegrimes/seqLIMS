@@ -22,6 +22,11 @@
   	<th>Lib Name (search):</th>
     <td><%= f.text_field(:lib_name, :size => 10)%></td>
   </tr>
+  <tr>
+    <th colspan="2" style="text-align:left"><%= check_box_tag(:excl_splex, 'N', false)%>&nbsp;Include singleplex libs?</th>
+    <th colspan="2" style="text-align:left"><%= check_box_tag(:incl_used, 'Y', false)%>&nbsp;Include sequenced libs?</th>
+  </tr>
+  <tr><td>&nbsp;</td></tr>
   <tr><td>&nbsp;</td></tr>
   <tr>
   	<th>Owner(s):</th>
@@ -35,10 +40,7 @@
    	<th>Prepared from:</th>
 	<td colspan="3"><%= f.datepicker 'from_date', dateFormat: 'yy-mm-dd', maxDate: '0', changeMonth: true, changeYear: true, size: 15 %>
 	<strong>&nbsp;To:&nbsp;</strong><%= f.datepicker 'to_date', dateFormat: 'yy-mm-dd', maxDate: '0', changeMonth: true, changeYear: true, size: 15 %></td>
-  </tr>	  
-  <tr>
-    <th colspan="2" style="text-align:left">Exclude used libraries?&nbsp;<%= check_box_tag(:excl_used, 'Y', false)%></th>
-  </tr> 
+  </tr>
 </table>
 </fieldset>
 <br />

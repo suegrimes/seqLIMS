@@ -22,7 +22,8 @@ class SeqlibQueriesController < ApplicationController
         flash.now[:error] = "Error in sequencing library barcode parameters, please enter digits only"
         render :action => :new_query
       else
-        @seq_libs        = SeqLib.find_for_query(sql_where(@condition_array))
+        mplex = (params[:excl_splex] && params[:excl_splex] == 'N') ? 'A' : 'M'
+        @seq_libs        = SeqLib.find_for_query(sql_where(@condition_array), mplex)
         # Use sort instead of sort_by, so that preparation_date can be sorted in descending order
         #@seq_libs = @seq_libs.sort_by { |a| [a.preparation_date, a.lib_name] }
         @seq_libs.sort! { |a,b| dt_sort       = b.preparation_date <=> a.preparation_date
@@ -81,7 +82,7 @@ protected
       end
     end
     
-    if params[:excl_used] && params[:excl_used] == 'Y'
+    unless (params[:incl_used] && params[:incl_used] == 'Y')
       @where_select.push("seq_libs.lib_status <> 'F'")
     end
 
