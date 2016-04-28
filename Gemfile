@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.13'
-gem 'rake', '~>10.1.0'
+gem 'rake', '~> 10.1.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'mysql2'
+gem 'mysql2', '~> 0.3.13'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -39,7 +39,7 @@ gem 'rails3-jquery-autocomplete', '~> 1.0.11'
 gem 'validates_timeliness', '~> 3.0'
 gem 'carrierwave', '~> 0.9'
 gem 'rubyXL'
-gem 'nokogiri'
+gem 'nokogiri', '~> 1.6.5.0'
 gem 'zip-zip'
 #gem 'blame'    Not working in Rails 3.2
 
