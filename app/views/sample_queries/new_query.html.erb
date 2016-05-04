@@ -1,73 +1,79 @@
 <h1><%= @type_of_sample.camelize %> Samples Query</h1>
 
 <%= form_for @sample_query, :url => {:action => "index"}, :html => {:method => :get} do |f| %>
-<%= hidden_field_tag(:stype, @type_of_sample)%>
+    <%= hidden_field_tag(:stype, @type_of_sample)%>
 
-<%= render '/shared/errors', model: @sample_query, header_message: "Error(s) in query parameters" %>
+    <%= render '/shared/errors', model: @sample_query, header_message: "Error(s) in query parameters" %>
 
-<fieldset class="form">
-<legend>Select parameters</legend>
-<table class="form">
-  <tr>
-  <% if can? :read, Patient %>
-  	<th>Patient MRN:</th>
-	<td><%= f.text_field(:mrn, :size => 10) %>&nbsp;&nbsp;<strong> -or- </strong></td>
-    <th>Patient ID:</th><td><%= f.text_field(:patient_id, :size => 10) %></td>
-  <% else %>
-  	<th>Patient ID:</th><td><%= f.text_field(:patient_id, :size => 10) %></td>
-  <% end %>
-  </tr>
-  <tr><td>&nbsp;</td></tr>
+    <fieldset class="form">
+      <legend>Select parameters</legend>
+      <table class="form">
+        <tr>
+          <% if can? :read, Patient %>
+              <th>Patient MRN:</th>
+              <td><%= f.text_field(:mrn, :size => 10) %>&nbsp;&nbsp;<strong> -or- </strong></td>
+              <th>Patient ID:</th><td><%= f.text_field(:patient_id, :size => 10) %></td>
+          <% else %>
+              <th>Patient ID:</th><td><%= f.text_field(:patient_id, :size => 10) %></td>
+          <% end %>
+        </tr>
+        <tr><td>&nbsp;</td></tr>
+        <tr>
+          <th>Organism:</th><td><%= f.collection_select(:organism, @organisms, :c_value, :c_value)%></td>
+          <th>Race:</th><td colspan="2" rowspan="3"><%= f.collection_select(:race, @races, :c_value, :c_value,
+                                                    {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td>
+        </tr>
+        <tr>
+          <th>Gender:&nbsp;&nbsp</th><td><%= f.select(:gender, %w{M F}, {:include_blank => 'All'})%></td>
+        </tr>
+        <tr>
+          <th>Ethnicity:</th><td><%= f.collection_select(:ethnicity, @ethnicities, :c_value, :c_value, {:include_blank => 'All'}) %></td>
+        </tr>
+        <tr><td>&nbsp;</td></tr>
 
-  <tr>
-    <th>Sample Barcode(s):</th><td><%= f.text_area(:barcode_string, :size => "40x2")%></td>
-    <th>Alt Sample#:</th><td><%= f.text_field(:alt_identifier, :size => 12)%></td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td class="notes">Enter individual barcodes separated by commas, enter ranges with '-'. <br /> Eg. '1160,1378-1400,1500-1600'</td>
-    <th>Organism:</th><td><%= f.collection_select(:organism, @organisms, :c_value, :c_value, {:include_blank => 'All'}) %></td>
-  </tr>
-  <tr><td>&nbsp;</td></tr>
+        <tr>
+          <th>Sample Barcode(s):</th><td colspan="3"><%= f.text_area(:barcode_string, :size => "40x2")%></td>
+          <th>Alt Sample#:</th><td><%= f.text_field(:alt_identifier, :size => 12)%></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td class="notes" colspan="3">Enter individual barcodes separated by commas, enter ranges with '-'. <br /> Eg. '1160,1378-1400,1500-1600'</td>
+        </tr>
+        <tr><td>&nbsp;</td></tr>
 
-  <tr>
-  	<th>Consent Protocol:</th><td><%= f.collection_select(:consent_protocol_id, @consent_protocols, :id, :name_ver,
-                             {:include_blank => 'All'}) %> </td>
-    <th>Gender:&nbsp;&nbsp</th><td><%= f.select(:gender, %w{M F}, {:include_blank => 'All'})%></td>
-  </tr>
+        <tr>
+          <th>Consent Protocol:</th><td colspan="3"><%= f.collection_select(:consent_protocol_id, @consent_protocols, :id, :name_ver,
+                                                                            {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td>
+          <th>Clinic:</th><td><%= f.collection_select(:clinic_or_location, @clinics, :c_value, :c_value,
+                                                      {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td>
+        </tr>
+        <tr><td>&nbsp;</td></tr>
 
-  <tr>
-    <th>Clinic:</th><td><%= f.collection_select(:clinic_or_location, @clinics, :c_value, :c_value,
-                                              {:include_blank => 'All'}) %> </td>
-    <th>Race:</th><td><%= f.collection_select(:race, @races, :c_value, :c_value,{:include_blank => 'All'}) %> </td>
-  </tr>
-  <tr><td>&nbsp;</td></tr>
+        <tr>
+          <th>OR Designation:</th><td><%= f.collection_select(:tumor_normal, @tumor_normal, :c_value, :c_value,
+                                                              {:include_blank => 'All'}) %></td>
+        <tr>
+          <th>Sample Site:</th><td><%= f.collection_select(:sample_tissue, @source_tissue, :c_value, :c_value,
+                                                           {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td>
+          <th>Sample Type:</th><td><%= f.collection_select(:sample_type, @sample_type, :c_value, :c_value,
+                                                           {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td>
+          <th>Preservation:</th><td><%= f.collection_select(:tissue_preservation, @preservation, :c_value, :c_value,
+                                                            {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td>
+        </tr>
 
-  <tr>
-  	<th>OR Designation:</th><td><%= f.collection_select(:tumor_normal, @tumor_normal, :c_value, :c_value,
-                   {:include_blank => 'All'}) %></td>
-    <th>Sample Site:</th><td><%= f.collection_select(:sample_tissue, @source_tissue, :c_value, :c_value,
-                                                     {:include_blank => 'All'}) %> </td>
-  <tr>
-    <th>Preservation:</th><td><%= f.collection_select(:tissue_preservation, @preservation, :c_value, :c_value,
-                                                      {:include_blank => 'All'}) %> </td>
-    <th>Sample Type:</th><td><%= f.collection_select(:sample_type, @sample_type, :c_value, :c_value,
-                   {:include_blank => 'All'}) %> </td>
-  </tr>
-  
-  <tr><td>&nbsp;</td></tr>
-  
-  <tr>
-  	<th>Date Filter:</th>
-	<td><%= f.select(:date_filter, ["Collection Date", "Dissection Date"]) %></td>
-  </tr>
-  <tr>
-  	<th>Select Date Range:</th>
-    <td><%=f.datepicker 'from_date', dateFormat: "yy-mm-dd", maxDate: Time.current.to_date, changeMonth: true, changeYear: true, size: 15 %>
-	<strong>&nbsp;To:&nbsp;</strong><%=f.datepicker 'to_date', dateFormat: "yy-mm-dd", maxDate: Time.current.to_date, changeMonth: true, changeYear: true, size: 15 %></td>
-	<th>Last Upd By:</th><td><%=f.collection_select(:updated_by, @users, :id, :login, {:include_blank => 'Any'})%></td>
-  </tr>
-</table>
-</fieldset>
-<%=raw break_clear(submit_tag "Submit") %>
+        <tr><td>&nbsp;</td></tr>
+
+        <tr>
+          <th>Date Filter:</th>
+          <td><%= f.select(:date_filter, ["Collection Date", "Dissection Date"]) %></td>
+        </tr>
+        <tr>
+          <th>Select Date Range:</th>
+          <td colspan="3"><%=f.datepicker 'from_date', dateFormat: "yy-mm-dd", maxDate: Time.current.to_date, changeMonth: true, changeYear: true, size: 15 %>
+            <strong>&nbsp;To:&nbsp;</strong><%=f.datepicker 'to_date', dateFormat: "yy-mm-dd", maxDate: Time.current.to_date, changeMonth: true, changeYear: true, size: 15 %></td>
+          <th>Last Upd By:</th><td><%=f.collection_select(:updated_by, @users, :id, :login, {:include_blank => 'Any'})%></td>
+        </tr>
+      </table>
+    </fieldset>
+    <%=raw break_clear(submit_tag "Submit") %>
 <%end%>
