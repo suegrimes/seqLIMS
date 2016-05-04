@@ -66,9 +66,9 @@ class Patient < ActiveRecord::Base
     return (patients.empty? ? nil : patients[0].id)
   end
 
-#def self.find_id_from_mrn(mrn)
-#  return self.find_by_clinical_id_encrypted(key.encrypt(mrn)).id
-#end
+  #def self.find_id_from_mrn(mrn)
+  #  return self.find_by_clinical_id_encrypted(key.encrypt(mrn)).id
+  #end
 
   def mrn
     key.decrypt(clinical_id_encrypted)

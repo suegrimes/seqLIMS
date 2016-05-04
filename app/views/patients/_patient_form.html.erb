@@ -11,7 +11,8 @@
 	  <th>Patient ID</th><td><%=h patient_id %><% hidden_field_tag(:patient_id, patient_id) %></td>
 	</tr>
 
-	<tr><th>Gender</th><td><%=f.select(:gender, %w{U M F}) %></td></tr>
+    <tr><th>Organism</th><td><%=f.collection_select(:organism, @organisms, :c_value, :c_value)%></td></tr>
+    <tr><th>Gender</th><td><%=f.select(:gender, %w{U M F}) %></td></tr>
     <tr><th>Ethnicity</th><td><%=f.collection_select(:ethnicity, @ethnicity, :c_value, :c_value, {:include_blank => 'Select ethnicity'})%></td></tr>
     <tr><th>Race</th><td><%=f.collection_select(:race, @races, :c_value, :c_value, {:include_blank => 'Select race'})%></td></tr>
 	

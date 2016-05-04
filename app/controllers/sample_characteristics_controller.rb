@@ -228,6 +228,7 @@ protected
   def dropdowns
     @consent_protocols  = ConsentProtocol.populate_dropdown
     @category_dropdowns = Category.populate_dropdowns([Cgroup::CGROUPS['Sample'], Cgroup::CGROUPS['Clinical']])
+    @organisms          = category_filter(@category_dropdowns, 'organism')
     @races              = category_filter(@category_dropdowns, 'race')
     @ethnicity          = category_filter(@category_dropdowns, 'ethnicity')
     @clinics            = category_filter(@category_dropdowns, 'clinic')
