@@ -77,6 +77,7 @@ class Sample < ActiveRecord::Base
     self.amount_rem = self.amount_initial
     # If new dissected sample, update appropriate fields with source sample info
     if !self.source_sample_id.nil?
+      self.source_barcode_key = self.source_sample.barcode_key
       self.tumor_normal = self.source_sample.tumor_normal
       self.sample_type  = self.source_sample.sample_type
       self.sample_tissue = self.source_sample.sample_tissue

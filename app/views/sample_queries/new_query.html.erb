@@ -19,7 +19,7 @@
         </tr>
         <tr><td>&nbsp;</td></tr>
         <tr>
-          <th>Organism:</th><td><%= f.collection_select(:organism, @organisms, :c_value, :c_value)%></td>
+          <th>Organism:</th><td><%= f.collection_select(:organism, @organisms, :c_value, :c_value, {:include_blank => 'All'})%></td>
           <th>Race:</th><td colspan="2" rowspan="3"><%= f.collection_select(:race, @races, :c_value, :c_value,
                                                     {:include_blank => 'All'}, {:size => 3, :multiple => :multiple}) %> </td>
         </tr>
