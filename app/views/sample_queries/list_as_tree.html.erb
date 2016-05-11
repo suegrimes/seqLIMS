@@ -9,10 +9,12 @@
   <table class="list">  
     <% @samples_by_patient.sort.each do | patient_id, samples| %>
     <tr>
-    <th colspan=13><b>Patient: </b><%= link_to patient_id[0], patient_path(patient_id[0]) %>
-    <% if can? :read, Patient %>
-      / <%=h patient_id[1]%>
-    <% end %>
+    <th colspan=13><b>Patient: </b>
+      <% if can? :read, Patient %>
+          <%=link_to patient_id[0], patient_path(:id => patient_id[0]) %> / <%=h patient_id[1]%>
+      <% else %>
+          <%=h patient_id[0] %>
+      <% end %>
     </th>
     </tr>
     

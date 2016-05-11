@@ -24,9 +24,11 @@
   <% if @samples_by_patient %>
     <% @samples_by_patient.sort.each do | patient_id, samples| %>
     <tr>
-    <td colspan=12><b>Patient: </b><%=link_to patient_id[0], patient_path(:id => patient_id[0]) %>
+    <td colspan=12><b>Patient: </b>
     <% if can? :read, Patient %>
-      / <%=h patient_id[1]%>
+      <%=link_to patient_id[0], patient_path(:id => patient_id[0]) %> / <%=h patient_id[1]%>
+    <% else %>
+      <%=h patient_id[0] %>
     <% end %>
     </td>
     </tr>
@@ -34,7 +36,12 @@
     <% for sample in samples %>
       <% nonblank_comments = have_comments?(sample) %>
       <tr>
+
+        <% if can? :edit, Sample %>
       	<td class=<%= "dotted_border_bottom" if nonblank_comments %>><%= link_to sample.barcode_key, (sample.source_sample_id.nil? ? edit_sample_path(sample.id) : edit_dissected_sample_path(sample.id) ) %></td>
+        <% else %>
+        <td class=<%= "dotted_border_bottom" if nonblank_comments %>><%=h sample.barcode_key %></td>
+        <% end %>
         <% if sample.clinical_sample == 'yes' %>
 		<td class=<%= "dotted_border_bottom" if nonblank_comments %>> Clinical </td>
         <% else %>
