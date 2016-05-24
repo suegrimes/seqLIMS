@@ -75,8 +75,8 @@ SeqLIMS::Application.routes.draw do
   match 'modify_sample' => 'sample_characteristics#edit_params', :as => :modify_sample
   match 'new_pathology' => 'pathologies#new_params', :as => :new_path_rpt
   
-  match 'clinical_query' => 'sample_characteristics#query_params', :as => :clinical_query
-  match 'clinical_list' => 'sample_characteristics#list_selected', :as => :clinical_list
+  #match 'clinical_query' => 'sample_characteristics#query_params', :as => :clinical_query
+  #match 'clinical_list' => 'sample_characteristics#list_selected', :as => :clinical_list
   
   # Routes for physical source samples
   resources :samples do

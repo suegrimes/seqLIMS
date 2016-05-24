@@ -141,28 +141,38 @@ class ApplicationController < ActionController::Base
     return str_vals, str_ranges, error
   end
 
-  def extract_sheet(temp_fn)
-    # Ruby file upload puts file into a temp dir with temp name which does not include file extension
-    # RubyXL gem requires Excel file to have .xls or .xlsx file extension, so need to add it
-    temp_fn_xlsx = temp_fn + '.xlsx'
-    FileUtils.copy(temp_fn, temp_fn_xlsx)
-    lib_workbook = RubyXL::Parser.parse(temp_fn_xlsx)
-    return lib_workbook[0].extract_data
-  end
-
   def sql_compound_condition(sql_fld, fld_vals, fld_ranges)
     where_select = []; where_values = [];
+    sql_fld1 = 'samples.source_barcode_key'
 
     if !fld_vals.empty?
-      where_select.push("#{sql_fld} IN (?)")
-      where_values.push(fld_vals)
+      where_select.push("#{sql_fld} IN (?) OR #{sql_fld1} IN (?)")
+      where_values.push(fld_vals, fld_vals)
     end
 
     if !fld_ranges.empty?
       for fld_range in fld_ranges
-        where_select.push("#{sql_fld} BETWEEN ? AND ?")
-        where_values.push(fld_range[0])
-        where_values.push(fld_range[1])
+        where_select.push("#{sql_fld} BETWEEN ? AND ? OR #{sql_fld1} BETWEEN ? AND ?")
+        where_values.push(fld_range[0], fld_range[1], fld_range[0], fld_range[1])
+      end
+    end
+
+    where_clause = (where_select.size > 0 ? ['(' + where_select.join(' OR ') + ')'] : [])
+    return where_clause, where_values
+  end
+
+  def sql_compound_condition2(sql_flds, fld_vals, fld_ranges)
+    where_select = []; where_values = [];
+
+    if !fld_vals.empty?
+      where_select.push("#{sql_flds[0]} IN (?) OR #{sql_flds[1]} IN (?)")
+      where_values.push(fld_vals, fld_vals)
+    end
+
+    if !fld_ranges.empty?
+      for fld_range in fld_ranges
+        where_select.push("#{sql_flds[0]} BETWEEN ? AND ? OR #{sql_flds[1]} BETWEEN ? AND ?")
+        where_values.push(fld_range[0], fld_range[1], fld_range[0], fld_range[1])
       end
     end
 
@@ -232,8 +242,17 @@ class ApplicationController < ActionController::Base
     site_and_type = [deliver_site.downcase, email_type].join('_')
     return (email_hash[site_and_type.to_sym].nil? ? email_hash[email_type.to_sym] : email_hash[site_and_type.to_sym])
   end
-  
-protected
+
+  def extract_sheet(temp_fn)
+    # Ruby file upload puts file into a temp dir with temp name which does not include file extension
+    # RubyXL gem requires Excel file to have .xls or .xlsx file extension, so need to add it
+    temp_fn_xlsx = temp_fn + '.xlsx'
+    FileUtils.copy(temp_fn, temp_fn_xlsx)
+    lib_workbook = RubyXL::Parser.parse(temp_fn_xlsx)
+    return lib_workbook[0].extract_data
+  end
+
+  protected
   def set_current_user
     @user = User.find_by_id(session[:user])
     if @user

@@ -157,15 +157,16 @@ protected
     end
 
     if !param_blank?(params[:sample_query][:barcode_string])
+      bc_flds = ['samples.barcode_key', 'samples.source_barcode_key']
       str_vals, str_ranges, errors = compound_string_params('', nil, params[:sample_query][:barcode_string])
-      where_select, where_values   = sql_compound_condition('samples.barcode_key', str_vals, str_ranges)
+      where_select, where_values   = sql_compound_condition2(bc_flds, str_vals, str_ranges)
       #puts errors if !errors.blank?
       @where_select.push(where_select)
       @where_values.push(*where_values)
     end
     
-    db_fld = (params[:sample_query][:date_filter] == 'Dissection Date' ? 'samples.sample_date' : 'sample_characteristics.collection_date')
-    @where_select, @where_values = sql_conditions_for_date_range(@where_select, @where_values, params[:sample_query], db_fld)
+    dt_fld = (params[:sample_query][:date_filter] == 'Dissection Date' ? 'samples.sample_date' : 'sample_characteristics.collection_date')
+    @where_select, @where_values = sql_conditions_for_date_range(@where_select, @where_values, params[:sample_query], dt_fld)
     
     sql_where_clause = (@where_select.length == 0 ? [] : [@where_select.join(' AND ')].concat(@where_values))
     return sql_where_clause

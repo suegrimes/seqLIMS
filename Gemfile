@@ -38,7 +38,7 @@ gem 'rails3-jquery-autocomplete', '~> 1.0.11'
 
 gem 'validates_timeliness', '~> 3.0'
 gem 'carrierwave', '~> 0.9'
-gem 'rubyXL'
+gem 'rubyXL', '~> 3.3.3'
 gem 'nokogiri', '~> 1.6.5.0'
 gem 'zip-zip'
 #gem 'blame'    Not working in Rails 3.2

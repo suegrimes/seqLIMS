@@ -23,7 +23,7 @@
 	<tr>
       <%=f.collection_select(:amount_uom, @amount_uom, :c_value, :c_value, :label => 'Amt Unit')%>
       <%=f.text_field :amount_initial, :size => 10, :label => 'Initial Amt' %>
-	  <%=f.select(:sample_remaining, %w[Y N], {:include_blank => true}, :label => 'Rem?')%></td>
+	  <%=f.select(:sample_remaining, %w[Y N], :label => 'Rem?')%></td>
 	</tr>
     <tr>
       <%=f.text_area :comments, :tdcolspan => 5, :cols => 85, :rows => 2 %></td>

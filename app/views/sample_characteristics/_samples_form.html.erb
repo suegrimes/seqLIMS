@@ -40,12 +40,12 @@
 	    <th>Amount</th>
 	    <td><%=s.text_field :amount_initial, :size => 8 %></td>
         <th>Sample Rem?</th>
-        <td><%=s.select(:sample_remaining, %w[Y N U]) %></td>
+        <td><%=s.select(:sample_remaining, %w[Y N]) %></td>
 	  <% else %>
 	    <th>Amount-Initial</th>
 	    <td><%=s.text_field :amount_initial, :size => 8 %></td>
         <th>Sample Rem?</th>
-        <td><%=s.select(:sample_remaining, %w[Y N U]) %></td>
+        <td><%=s.select(:sample_remaining, %w[Y N]) %></td>
 	    <th>Amount-Rem</th>
 	    <td><%=s.text_field :amount_rem, :size => 8 %></td>
 	  <% end %>
