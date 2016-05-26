@@ -143,7 +143,6 @@ class ApplicationController < ActionController::Base
 
   def sql_compound_condition(sql_fld, fld_vals, fld_ranges)
     where_select = []; where_values = [];
-    sql_fld1 = 'samples.source_barcode_key'
 
     if !fld_vals.empty?
       where_select.push("#{sql_fld} IN (?) OR #{sql_fld1} IN (?)")
@@ -152,8 +151,8 @@ class ApplicationController < ActionController::Base
 
     if !fld_ranges.empty?
       for fld_range in fld_ranges
-        where_select.push("#{sql_fld} BETWEEN ? AND ? OR #{sql_fld1} BETWEEN ? AND ?")
-        where_values.push(fld_range[0], fld_range[1], fld_range[0], fld_range[1])
+        where_select.push("#{sql_fld} BETWEEN ? AND ?")
+        where_values.push(fld_range[0], fld_range[1])
       end
     end
 
