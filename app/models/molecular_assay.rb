@@ -35,7 +35,7 @@ class MolecularAssay < ActiveRecord::Base
   validates_date :preparation_date
   validates_associated :processed_sample, :message => "- source DNA/RNA must be selected from auto-fill list"
   
-  before_validation :derive_barcode
+  before_validation :derive_barcode, on: :create
   after_validation :check_concentration
 
   def derive_barcode
