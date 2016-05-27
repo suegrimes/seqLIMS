@@ -30,7 +30,7 @@
   <th>Size(Final PCR)</th><td><%= text_field(:lib_default, :pcr_size, :size => 12)%></td>	
 </tr>
 <tr>
-  <th>Library conc:</th><td><%= text_field(:lib_default, :lib_conc_requested, :size => 10) %>&nbsp;pM</td>
+  <th>FlowCell Conc:</th><td><%= text_field(:lib_default, :lib_conc_requested, :size => 10) %>&nbsp;pM</td>
   <th>Align Ref:</th> <td><%= collection_select(:lib_default, :alignment_ref_id, @align_refs, :id, :alignment_key) %></td> 
   <th>Trim Bases:</th><td><%= text_field(:lib_default, :trim_bases, :size => 10) %></td>	
 </tr>

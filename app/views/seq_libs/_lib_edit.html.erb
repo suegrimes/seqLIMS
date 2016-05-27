@@ -18,11 +18,11 @@
   <th>Size(Final PCR)</th><td><%= f.text_field(:pcr_size, :size => 6) %></td>
   <th>Quantitation</th><td><%= f.collection_select(:quantitation_method, @quantitation, :c_value, :c_value, 
                            {:include_blank => 'Select Method'}) %></td>
-  <th>Sample Conc</th><td><%= f.text_field(:sample_conc, :value => format_conc(@seq_lib.sample_conc, nil), :size => 6)%>
+  <th>Library Conc</th><td><%= f.text_field(:sample_conc, :value => format_conc(@seq_lib.sample_conc, nil), :size => 6)%>
       <% if @seq_lib.dummy_barcode == false %><%= f.select(:sample_conc_uom, SeqLib::SAMPLE_CONC) %><% else %> nM <% end %></td>
 </tr>
 <tr>
-  <th>Lib Conc</th><td><%= f.text_field(:lib_conc_requested, :value => format_conc(@seq_lib.lib_conc_requested, nil), :size => 6) %>&nbsp;pM</td>
+  <th>FlowCell Conc</th><td><%= f.text_field(:lib_conc_requested, :value => format_conc(@seq_lib.lib_conc_requested, nil), :size => 6) %>&nbsp;pM</td>
   <th>Align Ref</th><td><%= f.collection_select(:alignment_ref_id, @align_refs, :id, :alignment_key) %></td>
   <th>Trim Bases</th><td><%= f.text_field(:trim_bases, :size => 6) %></td>
 </tr>
