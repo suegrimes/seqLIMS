@@ -145,7 +145,7 @@ class ApplicationController < ActionController::Base
     where_select = []; where_values = [];
 
     if !fld_vals.empty?
-      where_select.push("#{sql_fld} IN (?) OR #{sql_fld1} IN (?)")
+      where_select.push("#{sql_fld} IN (?)")
       where_values.push(fld_vals, fld_vals)
     end
 
