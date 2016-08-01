@@ -40,7 +40,7 @@ class FlowCell < ActiveRecord::Base
   scope :unsequenced, :conditions => "flowcell_status = 'F'"
   
   DEFAULT_MACHINE_TYPE = 'MiSeq'
-  NR_LANES = {:MiSeq => 1, :NextSeq => 1, :GAIIx => 8, :HiSeq => 8}
+  NR_LANES = {:MiSeq => 1, :NextSeq => 4, :GAIIx => 8, :HiSeq => 8}
   STATUS = %w{F R S Q N X}
   RUN_NR_TYPES = %w{LIMS Illumina}
   

@@ -1,8 +1,10 @@
-<h1>Sequencing Run - Alignment/QC Results</h1>
+<h1>Sequencing Run - QC Metrics</h1>
 
 <%= render :partial => 'flow_cell_show', :locals => {:flow_cell => @flow_cell} %>
 
-<% if @flow_cell.hiseq_qc? %>
+<% if @flow_cell.sequencing_date > Date.parse('2015-01-01') %>
+  <%= render :partial => 'isav_alignqc' %>
+<% elsif @flow_cell.hiseq_qc? %>
   <%= render :partial => 'hiseq_alignqc' %>
 <% else %>
   <%= render :partial => 'ga2_alignqc' %>

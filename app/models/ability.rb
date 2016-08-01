@@ -93,7 +93,8 @@ class Ability
       
       # Alignment users can enter/update alignment/qc results, alignment refs
       if user.has_role?("alignment")
-        can :manage, [SeqLib, LibSample, Adapter, IndexTag, FlowCell, FlowLane, AlignQc, AlignmentRef, SeqMachine, StorageDevice, RunDir]
+        can :manage, [SeqLib, LibSample, Adapter, IndexTag, FlowCell, FlowLane, AlignQc, LaneMetric,
+                      AlignmentRef, SeqMachine, StorageDevice, RunDir]
         cannot :delete, [AlignmentRef, SeqMachine, StorageDevice, RunDir]
       end
       

@@ -1,0 +1,64 @@
+<table class="list">
+  <tr>
+    <th colspan="3" class="no_border_bottom">&nbsp;</th>
+    <th colspan="5" style="text-align:center;" class="no_border_bottom"><%= "Cluster".center(92, '-')%></th>
+    <th colspan="3" style="text-align:center;" class="no_border_bottom"><%= "Read1".center(65, '-')%></th>
+    <th colspan="3" style="text-align:center;" class="no_border_bottom"><%= "Read2".center(65, '-')%></th>
+    <th>&nbsp;</th>
+  </tr>
+  <tr>
+    <th colspan="3" class="no_border_bottom">&nbsp;</th>
+    <th style="text-align:center;">Density</th>
+    <th style="text-align:center;">Clusters</th>
+    <th>&nbsp;</th>
+    <th style="text-align:center;">Reads PF</th>
+    <th>&nbsp;</th>
+    <th style="text-align:center;">Aligned</th>
+    <th style="text-align:center;">Error Rate</th>
+    <th style="text-align:center;">Intensity</th>
+    <th style="text-align:center;">Aligned</th>
+    <th style="text-align:center;">Error Rate</th>
+    <th style="text-align:center;">Intensity</th>
+    <th>&nbsp;</th>
+  </tr>
+  <tr>
+  	<th>Ln</th>
+	<th>Barcode</th>
+  	<th>Lib Name</th>
+	<th style="text-align:center;">(K/mm2)</th>
+	<th style="text-align:center;">PF(%)</th>
+	<th style="text-align:center;">Reads(M)</th>
+	<th style="text-align:center;">(M)</th>
+	<th style="text-align:center;">% >= Q30</th>
+	<th style="text-align:center;">(%)</th>
+	<th style="text-align:center;">(%)</th>
+	<th style="text-align:center;">Cycle1</th>
+    <th style="text-align:center;">(%)</th>
+    <th style="text-align:center;">(%)</th>
+    <th style="text-align:center;">Cycle1</th>
+	<th>&nbsp;</th>
+  </tr>
+  <% for flow_lane in @flow_cell.flow_lanes %>
+    <tr>
+	  <td ><%=h flow_lane.lane_nr %></td>
+	  <td ><%= link_to flow_lane.lib_barcode, flow_lane.seq_lib %></td>
+      <td ><%=h flow_lane.lib_name %></td>
+	  <% if flow_lane.lane_metric %>
+	  <td style="text-align:right;"><%=h flow_lane.lane_metric.density_kmm2 %></td>
+	  <td style="text-align:right;"><%=h flow_lane.lane_metric.clusters_pf_pct %></td>
+	  <td style="text-align:right;"><%=h flow_lane.lane_metric.reads_M %></td>
+	  <td style="text-align:right;"><%=h flow_lane.lane_metric.reads_pf_M %></td>
+	  <td style="text-align:right;"><%=h flow_lane.lane_metric.q30_pct %>%</td>
+	  <td style="text-align:right;"><%=h flow_lane.lane_metric.r1_phix_align_pct %></td>
+	  <td style="text-align:right;"><%=h flow_lane.lane_metric.r1_error_pct %></td>
+	  <td style="text-align:right;"><%=h flow_lane.lane_metric.r1_intensity_cycle1 %></td>
+      <td style="text-align:right;"><%=h flow_lane.lane_metric.r2_phix_align_pct %></td>
+      <td style="text-align:right;"><%=h flow_lane.lane_metric.r2_error_pct %></td>
+      <td style="text-align:right;"><%=h flow_lane.lane_metric.r2_intensity_cycle1 %></td>
+	  <!--% if can? :edit, flow_lane.lane_metric %-->
+	  <td><!--%= link_to 'Edit', edit_lane_metric_path(flow_lane.lane_metric) %--></td>
+	  <!--% end %-->
+	  <% end %>
+    </tr>
+  <% end %>
+</table>

@@ -202,6 +202,7 @@ SeqLIMS::Application.routes.draw do
 
   resources :flowcell_queries, :only => :index
   resources :align_qcs, :only => [:new, :create, :edit, :update]
+  resources :lane_metrics, :only => [:new, :create, :edit, :update]
   
   match ':controller/:action?:search' => '#index', :as => :auto_complete, :via => :get, :constraints => { :action => /auto_complete_for_\S+/ }
 

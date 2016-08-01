@@ -29,6 +29,7 @@ class FlowLane < ActiveRecord::Base
   belongs_to :seq_lib
   belongs_to :adapter
   has_one    :align_qc
+  has_one    :lane_metric
   has_and_belongs_to_many :publications, :join_table => :publication_lanes
   
   validates_numericality_of :lane_nr, :only_integer => true
