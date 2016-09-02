@@ -40,7 +40,7 @@ class FlowCell < ActiveRecord::Base
   scope :unsequenced, :conditions => "flowcell_status = 'F'"
   
   DEFAULT_MACHINE_TYPE = 'MiSeq'
-  NR_LANES = {:MiSeq => 1, :NextSeq => 4, :GAIIx => 8, :HiSeq => 8}
+  NR_LANES = {:MiSeq => 1, :NextSeq => 1, :GAIIx => 8, :HiSeq => 8}
   STATUS = %w{F R S Q N X}
   RUN_NR_TYPES = %w{LIMS Illumina}
   
@@ -117,17 +117,18 @@ class FlowCell < ActiveRecord::Base
     self.flowcell_status = flowcell_status
   end
   
-  def build_flow_lanes(lanes)
-    lanes.each do |lane|
+  def build_flow_lanes(lib_rows)
+    lib_rows.each do |lrow|
       # Ignore blank lines (ie sequencing libraries which were not assigned to a lane)
-      next if lane[:lane_nr].blank?
+      next if lrow[:lane_nr].blank?
       
       # Check for sequencing libraries assigned to multiple lanes, and replicate if needed
-      lane_nrs = lane[:lane_nr].split(',')
+      # NextSeq is 4 identical lanes and only enter 1, so replicate 4 times
+      lane_nrs = machine_type == 'NextSeq' ? [1,2,3,4] : lrow[:lane_nr].split(',')
       lane_nrs[0..(lane_nrs.size - 1)].each_with_index do |lnr, i|
-        lane[:lane_nr] = lnr
-        lane[:oligo_pool] = Pool.find(lane[:pool_id]).tube_label if !lane[:pool_id].blank?
-        flow_lanes.build(lane)
+        lrow[:lane_nr] = lnr
+        lrow[:oligo_pool] = Pool.find(lrow[:pool_id]).tube_label if !lrow[:pool_id].blank?
+        flow_lanes.build(lrow)
       end  
     end
   end
