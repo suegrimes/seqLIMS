@@ -48,13 +48,14 @@ class SeqLib < ActiveRecord::Base
   accepts_nested_attributes_for :lib_samples
   
   validates_uniqueness_of :barcode_key, :message => 'is not unique'
+  validates_format_of :barcode_key, :with => /^\w\d{6}$/, :message => "must be 6 digit integer after 'L' prefix"
   validates_date :preparation_date
-  #validates_numericality_of :trim_bases, :allow_blank => true
   validates_format_of :trim_bases, :with => /^\d+$/, :allow_blank => true, :message => "# bases to trim must be an integer"
-  #validates_presence_of :pcr_size, :on => :create
   validates_numericality_of :pcr_size, :only_integer => true, :greater_than => 20, :on => :create, :message => "is not a valid integer >20"
-  #validates_presence_of :sample_conc, :on => :create
-  validates_numericality_of :sample_conc, :greater_than_or_equal_to => 0, :on => :create
+  validates_numericality_of :sample_conc, :greater_than_or_equal_to => 10, :on => :create, :if => "sample_conc_uom == 'nM'",
+                            :message => "must be >= 10nM"
+
+  validate :barcode_prefix_valid
   
   before_create :set_default_values
   #after_update :upd_mplex_pool, :if => Proc.new { |lib| lib.oligo_pool_changed? }
@@ -64,24 +65,14 @@ class SeqLib < ActiveRecord::Base
   SAMPLE_CONC = ['nM', 'ng/ul']
   BASE_GRAMS_PER_MOL = 660
   
-  def validate
-    if self.new_record?
-      if !barcode_key.nil?
-        errors.add(:barcode_key, "must start with '#{BARCODE_PREFIX}'") if barcode_key[0,1] != BARCODE_PREFIX
-      end
-    elsif !barcode_key.nil?
-      errors.add(:barcode_key, "must start with '#{BARCODE_PREFIX}'") if ![BARCODE_PREFIX,'X'].include?(barcode_key[0,1])
+  def barcode_prefix_valid
+    valid_prefix = [BARCODE_PREFIX]
+    valid_prefix.push('X') if !self.new_record?
+    if !barcode_key.nil?
+      errors.add(:barcode_key, "must start with '#{BARCODE_PREFIX}'") if !valid_prefix.include?(barcode_key[0,1])
     end
-    
-    if barcode_key.size > 0
-      if barcode_key.size == 1 || barcode_key[1..-1].scan(/\D/).size > 0
-        errors.add(:barcode_key, "must be numeric after the '#{BARCODE_PREFIX}'") 
-      end
-    end
-    
-    errors.add(:sample_conc, "cannot be > 10nM")    if (!sample_conc.nil? && sample_conc_uom == 'nM' && sample_conc > 10)    
   end
-  
+
   def owner_abbrev
     if owner.nil? || owner.length < 11
       owner1 = owner
@@ -287,7 +278,7 @@ class SeqLib < ActiveRecord::Base
       mplex_libs = self.find_all_by_id(mplex_ids, :include => {:lib_samples => :splex_lib})
       
       mplex_libs.each do |lib|
-        self.upd_mplex_fields(lib)
+        self.upd_mplex_fields(lib) if lib.barcode_key[0,1] == 'L'
       end
     end
   end
@@ -295,6 +286,7 @@ class SeqLib < ActiveRecord::Base
   def self.upd_mplex_fields(mplex_lib)
     # Determine if all pools for associated samples are the same, if so, update multiplex pool accordingly
     # Determine if all adapters for associated samples are the same, if so, update adapter accordingly
+
     slib_pools = mplex_lib.lib_samples.collect{|lsamp| [lsamp.splex_lib.pool_id, (lsamp.splex_lib.oligo_pool ? lsamp.splex_lib.oligo_pool : '')]}
     slib_adapters = mplex_lib.lib_samples.collect{|lsamp| lsamp.splex_lib.adapter_id}
         

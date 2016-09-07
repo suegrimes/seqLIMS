@@ -240,6 +240,7 @@ protected
      lib_param.merge!(:library_type => 'S',
                       :alignment_ref => AlignmentRef.get_align_key(lib_param[:alignment_ref_id]))
      lib_param.merge!(:oligo_pool => Pool.get_pool_label(lib_param[:pool_id])) if !param_blank?(lib_param[:pool_id])
+     lib_param[:barcode_key] = SeqLib.next_lib_barcode if param_blank?(lib_param[:barcode_key])
      seq_lib = SeqLib.new(lib_param)
      
      sample_param.merge!(:sample_name     => lib_param[:lib_name],

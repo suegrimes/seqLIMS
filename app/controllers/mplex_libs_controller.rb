@@ -14,10 +14,11 @@ class MplexLibsController < ApplicationController
 
   def new
     @requester = (current_user.researcher ? current_user.researcher.researcher_name : nil)
+    barcode_key = (param_blank?(params[:seq_lib][:barcode_key]) ? SeqLib.next_lib_barcode : params[:seq_lib][:barcode_key])
     @seq_lib   = SeqLib.new(:library_type => 'M',
                             :owner => @requester,
                             :preparation_date => Date.today,
-                            #:barcode_key => SeqLib.max_id_barcode.succ,
+                            :barcode_key => barcode_key,
                             :adapter_id => params[:seq_lib][:adapter_id],
                             :alignment_ref_id => AlignmentRef.default_id)
     
@@ -129,7 +130,7 @@ class MplexLibsController < ApplicationController
     params[:seq_lib].merge!(:alignment_ref => alignment_key)
      
     if @seq_lib.update_attributes(params[:seq_lib])
-      SeqLib.upd_mplex_fields(@seq_lib)
+      SeqLib.upd_mplex_fields(@seq_lib) if @seq_lib.barcode_key[0,1] == 'L'
       if @seq_lib.on_flow_lane?
         FlowLane.upd_lib_lanes(@seq_lib)
       end
