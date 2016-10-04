@@ -32,6 +32,7 @@ class DissectedSamplesController < ApplicationController
   def edit
     @sample = Sample.find(params[:id])
     @source_sample = Sample.includes(:sample_characteristic).find(@sample.source_sample_id)
+    @sample.build_sample_storage_container if @sample.sample_storage_container.nil?
   end
   
   def update
