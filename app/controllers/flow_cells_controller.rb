@@ -117,7 +117,9 @@ class FlowCellsController < ApplicationController
     @flow_cell = FlowCell.find(params[:id])
     fc_attrs = params[:flow_cell]
     machine_type = @flow_cell.machine_type
-    max_lane_nr = FlowCell::NR_LANES[machine_type.to_sym]
+
+    # NextSeq requires only 1 lane when entered (since all 4 lanes identical), but all 4 lanes needed for update
+    max_lane_nr = (machine_type == 'NextSeq' ? 4 : FlowCell::NR_LANES[machine_type.to_sym])
     lanes_required  = (params[:partial_flowcell] == 'Y'? params[:lane_count].to_i : max_lane_nr)
     
     # Create copy of params, since need to delete blank lanes during validation, but want all lanes available for render :new, if error
