@@ -6,8 +6,10 @@
 <legend>Select parameters</legend>
 <table class="form">
   <tr>
-  	<th>Container Type:</th><td><%= select_tag(:container_type, options_for_select(@container_types)) %></td>
-  	<th>Container Name:</th><td><%= text_field_tag(:container_name)%></td>
+    <th>Freezer:</th><td><%= collection_select(:freezer_location, :freezer_location_id, @freezers, :id, :room_and_freezer) %></td>
+  </tr>
+  <tr>
+  	<th>Container Type:</th><td><%= select_tag(:container_type, options_for_select(@container_types), :include_blank => true) %></td>
   </tr>
 </table>
 </fieldset>

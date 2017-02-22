@@ -19,7 +19,8 @@ SeqLIMS::Application.routes.draw do
   resources :categories
   resources :freezer_locations
   resources :sample_storage_containers, :only => :index
-  match 'sstorage_query' => 'sample_storage_containers#new_query', :as => :sstorage_query
+  match 'container_query' => 'sample_storage_containers#new_query', :as => :container_query
+  match 'container_details' => 'sample_storage_containers#details', :as => :container_details
   
   match 'protocol_type' => 'protocols#query_params', :as => :protocol_type
   

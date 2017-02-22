@@ -31,6 +31,10 @@ class SampleStorageContainer < ActiveRecord::Base
   def container_desc
     [container_type, container_name].join(': ')
   end
+
+  def container_sort
+    (container_name =~ /\A\d\Z/ ? '0' + container_name : container_name)
+  end
   
   def container_and_position
     [container_desc, position_in_container].join('/')
@@ -49,6 +53,11 @@ class SampleStorageContainer < ActiveRecord::Base
   
   def room_and_freezer
     (freezer_location ? freezer_location.room_and_freezer : '')
+  end
+
+  def self.find_for_query(condition_array)
+    self.includes(:freezer_location).where(sql_where(condition_array))
+        .order('freezer_locations.freezer_nr, freezer_locations.room_nr, container_type, container_name').all
   end
   
   def self.populate_dropdown

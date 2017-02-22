@@ -1,28 +1,25 @@
-<h1>Listing Samples in Container: <%=h @container_type %>&nbsp;<%=h @container_name %></h1>
+<h1>Listing freezer containers</h1>
 
 <table class="list">
   <tr>
-  	<th>Sample Name</th>
-    <th>Position</th>
-	<th>LIMS sample type</th>
-    <th>LIMS id</th>
-	<th>Room/Freezer</th>
-	<th>Upd By</th>
+  	<th>Room</th>
+    <th>Freezer</th>
+	<th>Owner</th>
+    <th>Container Type</th>
+	<th>Container Name</th>
+    <th>Nr of Samples</th>
 	<th></th>
   </tr>
 
-  <% @sample_storage_containers.each do |sscontainer| %>
+  <% @ss_containers.sort.each do |loc_array, samples | %>
+    <% freezer_location = (loc_array[0].nil? ? nil : FreezerLocation.find(loc_array[0])) %>
   <tr>
-  	<td>
-  	  <% if sscontainer.stored_sample %><%=link_to sscontainer.sample_name_or_barcode, sscontainer.stored_sample %>
-	  <% else %><%=h sscontainer.sample_name_or_barcode %>
-	  <% end %>
-	</td>
-	<td><%=h sscontainer.position_in_container %></td>
-	<td><%=h sscontainer.stored_sample_type %></td>
-	<td><%=h sscontainer.stored_sample_id %></td>
-	<td><%=h sscontainer.room_and_freezer %></td>
-	<td><%=h sscontainer.updated_by %></td>
+  	<td><% if freezer_location %><%=freezer_location.room_nr %><% end %></td>
+	<td><% if freezer_location %><%=freezer_location.freezer_nr %><% end %></td>
+	<td><% if freezer_location %><%=freezer_location.owner_name %><% end %></td>
+	<td><%=h loc_array[1] %></td>
+	<td><%=h samples[0].container_name %></td>
+	<td><%=link_to samples.size, :action => :details, :ss_container_id => samples[0].id %></td>
   </tr>
   <% end %>
 </table>

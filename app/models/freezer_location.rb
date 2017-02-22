@@ -30,4 +30,8 @@ class FreezerLocation < ActiveRecord::Base
     self.order(:room_nr, :freezer_nr).all
     #self.find(:all, :order => 'freezer_locations.room_nr, freezer_locations.freezer_nr')
   end
+
+  def self.populate_dropdown
+    self.order(:room_nr, :freezer_nr).all
+  end
 end
