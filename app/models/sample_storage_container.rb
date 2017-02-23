@@ -45,7 +45,7 @@ class SampleStorageContainer < ActiveRecord::Base
       sort1 = position_in_container[0,1]
       sort2 = position_in_container[1..-1].to_i
     else
-      sort1 = position_in_container
+      sort1 = (position_in_container.nil? ? '' : position_in_container)
       sort2 = 0
     end
     return [sort1, sort2] 
