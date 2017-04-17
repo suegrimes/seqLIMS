@@ -30,10 +30,10 @@ class IndexTag < ActiveRecord::Base
   end
 
   def format_index(prefix, tag_nr)
-    if adapter_name == 'M_10X_Plate'
+    if adapter_name =~ /M_10X_.*Plate/
       well_alpha = WELL_LETTER[(tag_nr - 1)/12]
       well_num   = (tag_nr - 1) % 12 + 1
-      return [prefix, well_alpha + well_num.to_s].join
+      return [prefix, '-', well_alpha + well_num.to_s].join
     else
       return [prefix, format('%02d', tag_nr)].join
     end
