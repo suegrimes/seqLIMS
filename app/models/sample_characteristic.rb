@@ -30,6 +30,7 @@ class SampleCharacteristic < ActiveRecord::Base
   belongs_to :pathology
   
   accepts_nested_attributes_for :samples
+  validates_associated :samples
   
   validates_presence_of :collection_date, :if => Proc.new { |a| a.new_record? }
   validates_date :collection_date, :allow_blank => true
