@@ -3,6 +3,7 @@
 <table class="form">
   <tr>
     <%=f.datepicker 'pathology_date', dateFormat: "yy-mm-dd", maxDate: '0', changeMonth: true, changeYear: true, size: 15, label: 'Path Rpt Date' %>
+    <%=f.text_field :pathologist %>
   </tr>
   <tr>
 	<%=f.collection_select(:general_pathology, @hpathology, :c_value, :c_value, {:include_blank => 'Select ..'}, :label => 'Patient Dx')%>
