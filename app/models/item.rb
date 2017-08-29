@@ -29,7 +29,7 @@ class Item < ActiveRecord::Base
   validates_presence_of :requester_name, :company_name, :chemical_flag, :catalog_nr,
                         :item_description, :item_quantity, :deliver_site
                         
-  DELIVER_SITES = %w{SGTC CCSR}
+  DELIVER_SITES = %w{SGTC CCSR 1050A}
 
   def item_ext_price
     ((item_quantity.nil? || item_price.nil?) ? nil : item_quantity.to_i * item_price)
