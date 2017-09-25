@@ -30,6 +30,10 @@ class Order < ActiveRecord::Base
   def received?
     order_received == 'y'
   end
+
+  def requisition_nr
+    return po_number
+  end
   
   def enter_or_upd_by
     user = User.find_by_id(updated_by)

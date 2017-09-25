@@ -57,7 +57,7 @@ class OrdersController < ApplicationController
         flash[:notice] = 'Order was successfully created.'
         redirect_to(@order)
       else
-        flash[:error] = 'Error creating order - please enter RPO/CWA, Company, Order Date, PO# and Chemicals'
+        flash[:error] = 'Error creating order - please enter RPO/CWA, Company, Order Date, Requisition# and Chemicals'
         redirect_to notordered_path
       end
     else
