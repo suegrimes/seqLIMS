@@ -1,4 +1,6 @@
 class ItemsController < ApplicationController
+  rescue_from ActionController::RedirectBackError, with: :redirect_to_default
+
   before_filter :dropdowns, :only => [:new_query, :new, :edit]
   protect_from_forgery :except => :populate_items
   
@@ -133,7 +135,8 @@ class ItemsController < ApplicationController
 
     if @item.update_attributes(params[:item])
       flash[:notice] = 'Item was successfully updated.'
-      redirect_to(@item) 
+      #redirect_to(@item)
+      redirect_to items_path
     else
       dropdowns
       render :action => "edit", :other_company => params[:other_company]
@@ -227,6 +230,10 @@ protected
     
     sql_where_clause = (@where_select.length == 0 ? [] : [@where_select.join(' AND ')].concat(@where_values))
     return sql_where_clause
+   end
+
+  def redirect_to_default
+    redirect_to root_path
   end
   
 end

@@ -1,37 +1,30 @@
-<div class="order_item">
-  <% new_or_existing = item.new_record? ? 'new' : 'existing' %>
-  <% prefix = "order[#{new_or_existing}_item_attributes][]" %>
-  
-  <% fields_for prefix, item do |m| %>
-  <table class="form-with-columns-no-th-underline">
-  	<tr>
-  	  <th>Date</th>
-	  <th>Requestor</th>
-	  <th>Company</th>
-	  <th>Catalog#</th>
-	  <th style="text-align:center;">Quantity</th>
-	  <th style="text-align:center">Chemical?</th>
-	  <th>Recv'd?</th> 
-  	</tr>
-
-    <tr>
-	  <td><%=h format_date(item.created_at) %></td>
-	  <td><%=h item.requester_name %></td>
-	  <td><%=h item.company_name %></td>
-	  <td><%=h item.catalog_nr %></td>
-	  <td style="text-align:center;"><%=h item.item_quantity %></td>
-	  <td style="text-align:center;"><%=h item.chemical_flag %></td>
-	  <td><%=m.select(:item_received, %w{Y N}, {:include_blank => true}) %></td>
+<table id="orderitems" class="form-with-columns-no-th-underline">
+  <tr>
+    <th>Date</th>
+    <th>Requestor</th>
+    <th>Company</th>
+    <th>Catalog#</th>
+    <th style="text-align:center;">Quantity</th>
+    <th style="text-align:center">Chemical?</th>
+    <th>Recv'd?</th>
+  </tr>
+  <%= f.fields_for :items, :wrapper => :false do |t| %>
+  <tr class="fields">
+	  <td><%=h format_date(t.object.created_at) %></td>
+	  <td><%=h t.object.requester_name %></td>
+	  <td><%=h t.object.company_name %></td>
+	  <td><%=h t.object.catalog_nr %></td>
+	  <td style="text-align:center"><%=h t.object.item_quantity %></td>
+	  <td style="text-align:center"><%=h t.object.chemical_flag %></td>
+	  <td><%=t.select(:item_received, %w{Y N}, {:include_blank => true}) %></td>
 	</tr>
 	<tr>
 	  <th class="right"><b>Description:</b></th>
-	  <td colspan=5 width="75%"><div class="wrap-line"><%=h item.item_description %></div></td>
+	  <td colspan=5 width="75%"><div class="wrap-line"><%=h t.object.item_description %></td></div>
+    </tr>
   	<tr>
 	  <th class="right"><b>Notes:</b></th>
-	  <td colspan=5><%=m.text_field :notes, :size => 95 %></td>
+	  <td colspan=5 width="75%"><%=h t.text_field :notes, :size => 75 %></td>
 	</tr>
-  </table>
   <% end %>
-</div>
-	
-	
+</table>

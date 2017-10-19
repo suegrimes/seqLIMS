@@ -1,16 +1,16 @@
 <h1>Editing status of order items</h1>
 
-<%= form_for @order, :url => {:action => :update, :item_upd => 'Y'}  do |f| %>
+<%= nested_form_for @order, :url => {:action => :update, :item_upd => 'Y'}  do |f| %>
   <%= render '/shared/errors', model: @order %>
 
   <%= render :partial => 'orders/order_form', :locals => {:f => f} %>
   
     <fieldset class="form">
     <legend>Items</legend>
-	<% @order.items.each do |item| %>
-      <%= render :partial => 'order_items', :locals => {:item => item} %>
-	<% end %>
+        <div class="order_item">
+          <%= render :partial => 'orders/order_items', :locals => {:items => @order.items, :f => f} %>
+        </div>
 	</fieldset>
-	
+
   <%=raw break_clear(f.submit "Update") %>
 <% end %>

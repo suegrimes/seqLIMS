@@ -23,11 +23,6 @@ class OrdersController < ApplicationController
   # GET /orders.xml
   def index
     @orders = Order.includes(:items).order('date_ordered DESC').all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @orders }
-    end
   end
 
   # GET /orders/1
@@ -41,7 +36,7 @@ class OrdersController < ApplicationController
   end
   
   def edit_order_items
-    @order = Order.find(params[:id]).includes(:items)
+    @order = Order.includes(:items).find(params[:id])
   end
 
   # POST /orders
@@ -75,8 +70,11 @@ class OrdersController < ApplicationController
       if @order.order_received == 'P' && params[:item_upd] != 'Y'
         redirect_to :action => "edit_order_items", :id => @order.id
       else
-        flash[:notice] = 'Order was successfully updated.'
-        redirect_to(@order) 
+        flash[:notice] = 'Order was successfully updated'
+        qparams = {:item_query => {:deliver_site => '', :from_date => (Date.today - 1.month).beginning_of_month, :to_date => Date.today}}
+        condition_array = define_conditions(qparams)
+        @orders = Order.includes(:items).where(sql_where(condition_array)).order('date_ordered DESC')
+        render :action => :index
       end
       
     else
