@@ -30,7 +30,7 @@ class IndexTag < ActiveRecord::Base
   end
 
   def format_index(prefix, tag_nr)
-    if adapter_name =~ /M_10X_.*Plate/
+    if adapter_name =~ /M_10X_.*Plate/ or adapter_name =~ /M_10nt_Illumina.*/
       well_alpha = WELL_LETTER[(tag_nr - 1)/12]
       well_num   = (tag_nr - 1) % 12 + 1
       return [prefix, '-', well_alpha + well_num.to_s].join
@@ -50,6 +50,12 @@ class IndexTag < ActiveRecord::Base
   def self.find_tag_id(adapter_id, readnr, tag_nr)
     index_tag = self.where('adapter_id = ? AND index_read = ? AND tag_nr = ?', adapter_id, readnr, tag_nr).first
     return (index_tag.nil? ? nil : index_tag.id)
+  end
+
+  def self.i2id_for_i1tag(i1id)
+    i1tag = self.find(i1id)
+    i2tag_id =  (i1tag.nil? ? nil : self.where('adapter_id = ? and index_read = 2 and tag_nr = ?', i1tag.adapter_id, i1tag.tag_nr).pluck(:id))
+    return (i2tag_id.nil? ? nil : i2tag_id[0])
   end
 
 end

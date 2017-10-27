@@ -46,6 +46,15 @@ class LibSample < ActiveRecord::Base
   #    errors.add(:index_tag, "must be in range 1 - #{max_tags} for #{runtype_adapter} adapter") if (index_tag < 1 || index_tag > max_tags)
   #  end
   #end
+
+  before_update :set_index2
+
+  def set_index2
+    if self.adapter && self.adapter.runtype_adapter == 'M_10nt_Illumina_UDI'
+      i2tag_id = IndexTag.i2id_for_i1tag(self.index1_tag_id)
+      self.index2_tag = IndexTag.find(i2tag_id)
+    end
+  end
   
   def patient_id
     (!processed_sample.nil? ? processed_sample.patient_id : nil)

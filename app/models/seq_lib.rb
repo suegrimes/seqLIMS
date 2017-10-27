@@ -52,8 +52,8 @@ class SeqLib < ActiveRecord::Base
   validates_date :preparation_date
   validates_format_of :trim_bases, :with => /^\d+$/, :allow_blank => true, :message => "# bases to trim must be an integer"
   validates_numericality_of :pcr_size, :only_integer => true, :greater_than => 20, :on => :create, :message => "is not a valid integer >20"
-  validates_numericality_of :sample_conc, :greater_than_or_equal_to => 10, :on => :create, :if => "sample_conc_uom == 'nM'",
-                            :message => "must be >= 10nM"
+  validates_numericality_of :sample_conc, :greater_than_or_equal_to => 1, :on => :create, :if => "sample_conc_uom == 'nM'",
+                            :message => "must be >= 1nM"
 
   validate :barcode_prefix_valid
   

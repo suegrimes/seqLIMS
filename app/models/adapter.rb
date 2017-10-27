@@ -20,6 +20,16 @@ class Adapter < ActiveRecord::Base
                                 :allow_destroy => true
   #default_scope { where("adapters.runtype_adapter <> ?", "Multiple") }
 
+  IDS_FORCEI2 = self.where('runtype_adapter IN (?)', ['M_10nt_Illumina_UDI']).pluck(:id)
+
+  def index1_tags
+    self.index_tags.where('index_read = 1')
+  end
+
+  def index2_tags
+    (Adapter::IDS_FORCEI2.include?(self.id)? [] : self.index_tags.where('index_read = 2'))
+  end
+
   def self.default_adapter
     return self.where('runtype_adapter LIKE "M_%"').first
   end

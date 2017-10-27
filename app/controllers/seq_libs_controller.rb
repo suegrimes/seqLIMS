@@ -42,8 +42,8 @@ class SeqLibsController < ApplicationController
     else
       if !@seq_lib.adapter_id.nil?
         adapter = Adapter.find(@seq_lib.adapter_id)
-        @i1_tags = IndexTag.where('adapter_id = ? and index_read = 1', adapter.id)
-        @i2_tags = IndexTag.where('adapter_id = ? and index_read = 2', adapter.id)
+        @i1_tags = adapter.index1_tags
+        @i2_tags = adapter.index2_tags
       else
         @i1_tags = []
         @i2_tags = []
@@ -63,8 +63,8 @@ class SeqLibsController < ApplicationController
                                     :enzyme_code => array_to_string(params[:sample_default][:enzyme_code]))
     @requester = params[:lib_default][:owner]
     @adapter = Adapter.find(params[:lib_default][:adapter_id])
-    @index1_tags  = (@adapter.nil? ? nil : IndexTag.where('adapter_id = ? AND index_read = 1', @adapter.id))
-    @index2_tags  = (@adapter.nil? ? nil : IndexTag.where('adapter_id = ? AND index_read = 2', @adapter.id))
+    @index1_tags  = (@adapter.nil? ? nil : @adapter.index1_tags)
+    @index2_tags  = (@adapter.nil? ? nil : @adapter.index2_tags)
 
     0.upto(params[:nr_libs].to_i - 1) do |i|
       @new_lib[i]    = SeqLib.new(params[:lib_default])
@@ -201,8 +201,8 @@ class SeqLibsController < ApplicationController
     @lib_row     = (params[:nested] == 'yes' ? 'seq_lib' : 'seq_lib_' + params[:row])
     @lsample_row = (params[:nested] == 'yes' ? 'seq_lib_lib_samples_attributes_' + params[:row] : 'lib_sample_' + params[:row])
     @adapter = Adapter.find(params[@lib_row][:adapter_id])
-    @i1_tags = IndexTag.where('adapter_id = ? and index_read = 1', @adapter.id)
-    @i2_tags = IndexTag.where('adapter_id = ? and index_read = 2', @adapter.id)
+    @i1_tags = @adapter.index1_tags
+    @i2_tags = @adapter.index2_tags
     render {|format| format.js}
   end
   
@@ -222,8 +222,8 @@ protected
     @requester = (current_user.researcher ? current_user.researcher.researcher_name : nil)
     @lib_default = SeqLib.new(:alignment_ref_id => AlignmentRef.default_id)
     @adapter = Adapter.find(params[:seq_lib_0][:adapter_id])
-    @index1_tags  = (@adapter.nil? ? nil : IndexTag.where('adapter_id = ? AND index_read = 1', @adapter.id))
-    @index2_tags  = (@adapter.nil? ? nil : IndexTag.where('adapter_id = ? AND index_read = 2', @adapter.id))
+    @index1_tags  = (@adapter.nil? ? nil : @adapter.index1_tags)
+    @index2_tags  = (@adapter.nil? ? nil : @adapter.index2_tags)
     @add_with_defaults = 'Refresh from defaults'
    
     @new_lib = []     if !@new_lib
@@ -242,10 +242,16 @@ protected
      lib_param.merge!(:oligo_pool => Pool.get_pool_label(lib_param[:pool_id])) if !param_blank?(lib_param[:pool_id])
      lib_param[:barcode_key] = SeqLib.next_lib_barcode if param_blank?(lib_param[:barcode_key])
      seq_lib = SeqLib.new(lib_param)
-     
+
      sample_param.merge!(:sample_name     => lib_param[:lib_name],
                          :adapter_id      => lib_param[:adapter_id],
                          :notes           => lib_param[:notes])
+
+     # For some adapters, we want to force the pairing of index1/index2, by matching the tag numbers
+     if Adapter::IDS_FORCEI2.include?(sample_param[:adapter_id].to_i)
+       sample_param[:index2_tag_id] = IndexTag.i2id_for_i1tag(sample_param[:index1_tag_id].to_i)
+     end
+
      seq_lib.lib_samples.build(sample_param)
      return seq_lib
   end
