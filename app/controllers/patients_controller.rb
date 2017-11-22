@@ -5,7 +5,7 @@ class PatientsController < ApplicationController
   
   # GET /patients
   def index
-    @patients = Patient.select('id, gender, race, ethnicity, clinical_id_encrypted').includes(:samples).all
+    @patients = Patient.select('id, organism, gender, race, ethnicity, clinical_id_encrypted').includes(:samples).all
   end
 
   # GET /patients/1
