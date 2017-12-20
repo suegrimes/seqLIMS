@@ -9,7 +9,9 @@
 <table class="form">
     <tr>
       <th>Barcode</th>
-	  <td><%=s.text_field :barcode_key, :size => 10 %></td>
+	  <td><%=s.text_field(:barcode_key, :size => 10) %></td>
+      <th>Alt Identifier</th>
+      <td><%=s.text_field(:alt_identifier, :size => 12) %></td>
 	  <th>OR Designation</th>
 	  <td><%=s.collection_select(:tumor_normal, @tumor_normal, :c_value, :c_value) %></td>
     </tr>
