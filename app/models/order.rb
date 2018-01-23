@@ -35,6 +35,10 @@ class Order < ActiveRecord::Base
   def requisition_nr
     return po_number
   end
+
+  def has_comments?
+    (notes.blank? ? false : true)
+  end
   
   def enter_or_upd_by
     user = User.find_by_id(updated_by)

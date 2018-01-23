@@ -29,5 +29,12 @@
       <td><%= link_to 'Delete', order, :confirm => 'Are you sure?', :method => :delete %></td> 
 	<% end %>
   </tr>
+  <% if order.has_comments? %>
+    <tr>
+      <td>&nbsp;</td>
+      <td colspan="5">Notes: <%=h order.notes %></td>
+      <td colspan="3">&nbsp;</td>
+    </tr>
+  <% end %>
 <% end %>
 </table>
