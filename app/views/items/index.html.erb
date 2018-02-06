@@ -23,7 +23,8 @@
 	<th>Date</th>
 	<th>Site</th>
 	<th>Chem</th>
-	<th>Company/Catalog#/Item</th>
+	<th>Company</th>
+    <th>Catalog#/Item</th>
     <th>Qty</th>
     <th>Unit Price</th>
     <th>Total</th>
@@ -45,7 +46,8 @@
 	<td class="dotted_border_bottom" style="white-space:nowrap"><%=h format_date(item.created_at) %></td>
 	<td class="dotted_border_bottom"><%=h item.deliver_site %></td>
 	<td class="dotted_border_bottom" align="center"><%=h item.chemical_flag%></td>
-	<td class="dotted_border_bottom"><%=h item.company_name %>/<%=h item.catalog_nr %></td>
+	<td class="dotted_border_bottom"><%=h item.company_name %></td>
+    <td class="dotted_border_bottom"><%=h item.catalog_nr %></td>
     <td class="dotted_border_bottom">&nbsp;&nbsp;<%=h item.item_quantity %></td>
     <td class="dotted_border_bottom"><%=h number_to_currency(item.item_price) %></td>
     <td class="dotted_border_bottom"><%=h number_to_currency(item.item_ext_price) %></td>
@@ -63,7 +65,7 @@
   </tr>
   <tr>
   	<td colspan="5" class="border_bottom_only">&nbsp;</td>
-  	<td class="border_bottom_only" colspan="2"><%=h item.item_description %></td>
+  	<td class="border_bottom_only" colspan="3"><%=h item.item_description %></td>
     <td colspan="2" class="border_bottom_only">&nbsp;</td>
     <td class="border_bottom_only" colspan="2"><%=h item.notes %></td>
   </tr>

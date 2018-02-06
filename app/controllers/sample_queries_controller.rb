@@ -249,12 +249,13 @@ protected
   
   def export_samples_setup(with_mrn='no')
     hdg1  =(with_mrn == 'yes'? ['Download_Dt', 'PatientID', 'MRN'] : ['Download_Dt', 'PatientID'])
-    hdgs  = hdg1.concat(%w{Barcode SampleType SampleDate Protocol PatientDX OR_Designation Preservation
+    hdgs  = hdg1.concat(%w{Barcode AltID SampleType SampleDate Protocol PatientDX OR_Designation Preservation
                            FromSample Histopathology Remaining? Room_Freezer Container})
     
     flds1  = [['sm', 'patient_id'],
              ['pt', 'mrn'],
              ['sm', 'barcode_key'],
+             ['sm', 'alt_identifier'],
              ['sm', 'sample_category'],
              ['sm', 'sample_date'],
              ['cs', 'consent_name'],
@@ -270,6 +271,7 @@ protected
     flds2 = [['sm', 'patient_id'],
              ['pt', 'mrn'],
              ['ps', 'barcode_key'],
+             ['ps', 'blank'],
              ['ps', 'extraction_type'],
              ['ps', 'processing_date'],
              ['cs', 'consent_name'],
