@@ -12,7 +12,7 @@
 #
 
 class AlignmentRef < ActiveRecord::Base
-  DEFAULT_REF = 'HWG_37.1'
+  DEFAULT_REF = 'GRCh38'
 
   def self.default_id
     self.where(:alignment_key => DEFAULT_REF).pluck(:id).first

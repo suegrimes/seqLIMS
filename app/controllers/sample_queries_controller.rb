@@ -156,6 +156,14 @@ protected
       end
     end
 
+    if !param_blank?(params[:sample_query][:patient_string])
+      str_vals, str_ranges, errors = compound_string_params('', nil, params[:sample_query][:patient_string])
+      where_select, where_values   = sql_compound_condition('samples.patient_id', str_vals, str_ranges)
+      #puts errors if !errors.blank?
+      @where_select.push(where_select)
+      @where_values.push(*where_values)
+    end
+
     if !param_blank?(params[:sample_query][:barcode_string])
       bc_flds = ['samples.barcode_key', 'samples.source_barcode_key']
       str_vals, str_ranges, errors = compound_string_params('', nil, params[:sample_query][:barcode_string])

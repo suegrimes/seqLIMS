@@ -30,7 +30,7 @@ class SampleQuery < NoTable
   end
   
   column :mrn,         :string
-  column :patient_id,  :string
+  column :patient_string,  :string
   column :barcode_string, :string
   column :alt_identifier, :string
   column :gender,      :string
@@ -48,11 +48,11 @@ class SampleQuery < NoTable
   column :to_date,     :date
   column :updated_by,  :integer
 
-  validates_format_of :patient_id, :with => /^\d+$/, :allow_blank => true, :message => "id must be an integer"
+  #validates_format_of :patient_id, :with => /^\d+$/, :allow_blank => true, :message => "id must be an integer"
   validates_date :to_date, :from_date, :allow_blank => true
   
   PATIENT_FLDS = %w(organism)
-  SCHAR_FLDS = %w{patient_id gender race ethnicity consent_protocol_id clinic_or_location}
+  SCHAR_FLDS = %w{gender race ethnicity consent_protocol_id clinic_or_location}
   SAMPLE_FLDS = %w{alt_identifier tumor_normal sample_tissue sample_type tissue_preservation updated_by}
   ALL_FLDS    = PATIENT_FLDS | SCHAR_FLDS | SAMPLE_FLDS
 

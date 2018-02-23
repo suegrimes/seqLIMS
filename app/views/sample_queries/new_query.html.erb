@@ -12,10 +12,17 @@
           <% if can? :read, Patient %>
               <th>Patient MRN:</th>
               <td><%= f.text_field(:mrn, :size => 10) %>&nbsp;&nbsp;<strong> -or- </strong></td>
-              <th>Patient ID:</th><td><%= f.text_field(:patient_id, :size => 10) %></td>
+              <th>Patient ID(s):</th><td colspan="3"><%= f.text_area(:patient_string, :size => "40x2") %></td>
           <% else %>
-              <th>Patient ID:</th><td><%= f.text_field(:patient_id, :size => 10) %></td>
+              <th>Patient ID(s):</th><td colspan="3"><%= f.text_area(:patient_string, :size => "40x2") %></td>
           <% end %>
+        </tr>
+        <tr>
+          <% if can? :read, Patient %>
+            <td>&nbsp;</td>
+          <% end %>
+          <td>&nbsp;</td>
+          <td class="notes" colspan="3">Enter individual patient ids separated by commas, enter ranges with '-'. <br /> Eg. '525,2380-2390,456'</td>
         </tr>
         <tr><td>&nbsp;</td></tr>
         <tr>
