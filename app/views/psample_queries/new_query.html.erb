@@ -8,13 +8,21 @@
 <legend>Select parameters</legend>
 <table class="form">
   <tr>
-  <% if can? :read, Patient %>
-  	<th>Patient MRN:</th>
-	<td><%= f.text_field(:mrn, :size => 10) %><strong> -or- Patient ID:&nbsp;&nbsp;</strong><%= f.text_field(:patient_id, :size => 10) %></td>
-  <% else %>
-  	<th>Patient ID:</th><td><%= f.text_field(:patient_id, :size => 10) %></td>
-  <% end %>
-  	<th>Sample Barcode:</th><td><%= f.text_field(:barcode_key, :size => 12)%></td>
+    <% if can? :read, Patient %>
+        <th>Patient ID(s):</th><td><%= f.text_area(:patient_string, :size => "40x2") %></td>
+        <th>Patient MRN:</th>
+        <td><%= f.text_field(:mrn, :size => 10) %></td>
+    <% else %>
+        <th>Patient ID(s):</th><td><%= f.text_area(:patient_string, :size => "40x2") %></td>
+    <% end %>
+  </tr>
+  <tr>
+    <th>Sample Barcode(s):</th><td><%= f.text_area(:barcode_string, :size => "40x2")%></td>
+    <th>Alt Sample#:</th><td><%= f.text_field(:alt_identifier, :size => 12)%></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td class="notes" colspan="3">For barcodes and patients: Enter individual codes separated by commas, enter ranges with '-'. Eg. '1160,1378-1400,1500-1600' </td>
   </tr>
   
   <tr><td>&nbsp;</td></tr>

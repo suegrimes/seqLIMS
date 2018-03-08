@@ -28,7 +28,9 @@ class PsampleQuery < NoTable
   
   column :mrn,         :string
   column :patient_id,  :string
-  column :barcode_key, :string
+  column :patient_string, :string
+  column :barcode_string, :string
+  column :alt_identifier, :string
   column :consent_protocol_id, :integer
   column :clinic_or_location, :string
   column :sample_tissue, :string
@@ -46,7 +48,7 @@ class PsampleQuery < NoTable
   validates_date :to_date, :from_date, :allow_blank => true
   
   SCHAR_FLDS   = %w{patient_id consent_protocol_id clinic_or_location pathology}
-  SAMPLE_FLDS  = %w{sample_tissue sample_type tissue_preservation tumor_normal}
-  PSAMPLE_FLDS = %w{barcode_key protocol_id extraction_type updated_by} 
+  SAMPLE_FLDS  = %w{alt_identifier sample_tissue sample_type tissue_preservation tumor_normal}
+  PSAMPLE_FLDS = %w{protocol_id extraction_type updated_by}
   ALL_FLDS     = SCHAR_FLDS | SAMPLE_FLDS | PSAMPLE_FLDS
 end
