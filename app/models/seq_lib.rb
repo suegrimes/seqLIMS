@@ -44,8 +44,10 @@ class SeqLib < ActiveRecord::Base
   has_many :align_qc, :through => :flow_lanes
   has_many :processed_samples, :through => :lib_samples
   has_many :attached_files, :as => :sampleproc
+  has_one :sample_storage_container, :as => :stored_sample, :dependent => :destroy
   
   accepts_nested_attributes_for :lib_samples
+  accepts_nested_attributes_for :sample_storage_container
   
   validates_uniqueness_of :barcode_key, :message => 'is not unique'
   validates_format_of :barcode_key, :with => /^\w\d{6}$/, :message => "must be 6 digit integer after 'L' prefix"
@@ -150,7 +152,15 @@ class SeqLib < ActiveRecord::Base
       return sample_conc * (pcr_size * BASE_GRAMS_PER_MOL) / 1000000
     end
   end
-  
+
+  def room_and_freezer
+    (sample_storage_container ? sample_storage_container.room_and_freezer : '')
+  end
+
+  def container_and_position
+    (sample_storage_container ? sample_storage_container.container_and_position : '')
+  end
+
   def set_default_values
     self.lib_status = 'L'
     self.lib_conc_uom = 'pM'

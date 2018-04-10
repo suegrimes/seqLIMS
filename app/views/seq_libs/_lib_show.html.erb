@@ -19,7 +19,9 @@
                   ['Field', 'Align Ref', seq_lib.alignment_ref],
                   ['Field', 'Trim Bases', seq_lib.trim_bases],
                   ['Field', Pool.human_attribute_name(:pool_name), seq_lib.oligo_pool], 
-                  ['Field', 'Notebook Ref', seq_lib.notebook_ref]] %>
+                  ['Field', 'Notebook Ref', seq_lib.notebook_ref],
+                  ['Field', 'Room/Freezer', seq_lib.room_and_freezer],
+                  ['Field', 'Storage Container', seq_lib.container_and_position]]%>
 				  
 <!-- Only include comments if non-blank -->
 <% info_flds.push(['Field', 'Comments', seq_lib.notes, {:colspan => "3"}]) if !seq_lib.notes.blank? %>
