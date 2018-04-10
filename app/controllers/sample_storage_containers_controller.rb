@@ -22,7 +22,26 @@ class SampleStorageContainersController < ApplicationController
     render :action => :details
   end
 
-protected
+  def export_container
+    export_type = 'T'
+    @sample_storage_containers = SampleStorageContainer.find_for_export(params[:export_id])
+    file_basename = ['LIMS_Sample_Containers', Date.today.to_s].join("_")
+
+    case export_type
+      when 'T'  # Export to tab-delimited text using csv_string
+        @filename = file_basename + '.txt'
+        csv_string = export_container_csv(@sample_storage_containers)
+        send_data(csv_string,
+                  :type => 'text/csv; charset=utf-8; header=present',
+                  :filename => @filename, :disposition => 'attachment')
+
+      else # Use for debugging
+        csv_string = export_container_csv(@sample_storage_containers)
+        render :text => csv_string
+    end
+  end
+
+  protected
   def dropdowns
     @freezers = FreezerLocation.populate_dropdown
     @container_types  = SampleStorageContainer.populate_dropdown
@@ -46,6 +65,18 @@ protected
 
     sql_where_clause = (@where_select.empty? ? [] : [@where_select.join(' AND ')].concat(@where_values))
     return sql_where_clause
+  end
+
+  def export_container_csv(sample_containers)
+    csv_string = CSV.generate(:col_sep => "\t") do |csv|
+      csv << %w{DownloadDt Room_Freezer ContainerType ContainerName Position SampleType Barcode}
+
+      sample_containers.each do |scontainer|
+        csv << [Date.today.to_s, scontainer.room_and_freezer, scontainer.container_type, scontainer.container_name,
+                scontainer.position_in_container, scontainer.type_of_sample, scontainer.sample_name_or_barcode]
+      end
+    end
+    return csv_string
   end
 
 end

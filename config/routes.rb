@@ -36,6 +36,7 @@ SeqLIMS::Application.routes.draw do
   match 'edit_items' => 'orders#edit_order_items', :as => :edit_order_items
   match 'view_orders' => 'orders#new_query', :as => :view_orders
   match 'list_selected' => 'orders#list_selected', :as => :list_selected
+  match 'export_order' => 'orders#export_order', :as => :export_order
   
   get 'items/autocomplete_item_company_name'
   get 'items/autocomplete_item_item_description'
@@ -110,6 +111,8 @@ SeqLIMS::Application.routes.draw do
   match 'storage_query' => 'storage_queries#new_query', :as => :storage_query
   match 'export_sample_locs' => 'storage_queries#export_samples', :as => :export_sample_locs
   resources :storage_queries, :only => :index
+
+  match 'export_container' => 'sample_storage_containers#export_container', :as => :export_container
   
   # Routes for dissected samples
   resources :dissected_samples

@@ -27,7 +27,21 @@ class SampleStorageContainer < ActiveRecord::Base
   def upd_sample_name
     self.sample_name_or_barcode = self.stored_sample.barcode_key
   end
-  
+
+  def type_of_sample
+    stype = 'NotInLIMS'
+    if stored_sample
+      if stored_sample_type == 'Sample'
+        stype = stored_sample.sample_type
+      elsif stored_sample_type == 'ProcessedSample'
+        stype = stored_sample.extraction_type
+      else
+        stype = stored_sample_type
+      end
+    end
+    return stype
+  end
+
   def container_desc
     [container_type, container_name].join(': ')
   end
@@ -59,7 +73,11 @@ class SampleStorageContainer < ActiveRecord::Base
     self.includes(:freezer_location).where(sql_where(condition_array))
         .order('freezer_locations.freezer_nr, freezer_locations.room_nr, container_type, container_name').all
   end
-  
+
+  def self.find_for_export(container_ids)
+    self.find_for_query(["sample_storage_containers.id IN (?)", container_ids])
+  end
+
   def self.populate_dropdown
     self.where('container_type > ""').order(:container_type).uniq.pluck(:container_type)
   end
