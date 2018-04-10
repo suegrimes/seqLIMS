@@ -79,6 +79,10 @@ class Item < ActiveRecord::Base
       item.update_attributes(:order_id => order_id)
     end
   end
+
+  def self.find_for_export(item_ids)
+    self.includes(:order).where('id IN (?)', item_ids).all
+  end
   
   def self.upd_items_recvd_for_order(order_id, order_received)
     self.update_all("item_received = '#{order_received}'", "order_id = #{order_id}")

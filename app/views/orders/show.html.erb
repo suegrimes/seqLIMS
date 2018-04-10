@@ -1,6 +1,10 @@
 <%= render :partial => 'shared/page_print' %>
 <h1>Order Listing</h1>
 
+<%= form_tag :action => :export_order do %>
+    <%= submit_tag "Export Order" -%>
+    <br/><br/>
+
 <!-- Order Details -->
 <!-- Standard fields to be displayed -->
 <% info_flds   = [['Field', 'Order Date', @order.date_ordered],
@@ -39,6 +43,7 @@
   </tr>
 
 <% for item in @order.items do %>
+  <%= hidden_field_tag("export_id[]", item.id)  %>
   <tr>
   	<td><%=h item.requester_abbrev %></td>
 	<td><%=h format_date(item.created_at) %></td>
@@ -55,3 +60,5 @@
   </tr>
 <% end %>
 </table>
+
+<% end %> <!-- end of order export form -->

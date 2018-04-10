@@ -70,7 +70,11 @@ class ApplicationController < ActionController::Base
     end
     return val_blank 
   end
-  
+
+  def nil_if_blank(val)
+    return (val.blank? ? nil : val)
+  end
+
   def array_to_string(arry, delim=',')
     if arry.nil? || arry.empty? 
       string_val = nil
