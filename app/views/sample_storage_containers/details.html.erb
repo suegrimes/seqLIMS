@@ -26,8 +26,12 @@
 	  <td><%=h sscontainer.type_of_sample %></td>
 	  <td><%=h sscontainer.room_and_freezer %></td>
 	  <td><% if sscontainer.updated_by %><%=h User.find(sscontainer.updated_by).login %><% end %></td>
-      <td><% if sscontainer.stored_sample and can? :edit, SampleStorageContainer %>
-            <%=link_to 'Edit', edit_sample_loc_path(sscontainer.stored_sample) %>
+      <td><% if can? :edit, SampleStorageContainer %>
+            <% if sscontainer.stored_sample %>
+                <%=link_to 'Edit', edit_sample_loc_path(sscontainer.stored_sample) %>
+            <% else %>
+                <%= link_to 'Edit', edit_sample_storage_container_path(sscontainer) %>
+            <% end %>
           <% end %>
       </td>
     </tr>

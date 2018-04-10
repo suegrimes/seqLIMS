@@ -23,9 +23,37 @@ class SampleStorageContainer < ActiveRecord::Base
   belongs_to :stored_sample, :polymorphic => true
 
   before_create :upd_sample_name
+  before_update :upd_stored_sample, :if => :sample_name_or_barcode_changed?
+
+  validates_presence_of :sample_name_or_barcode
 
   def upd_sample_name
     self.sample_name_or_barcode = self.stored_sample.barcode_key
+  end
+
+  def upd_stored_sample
+    if lib_or_sample_type == 'L'
+      self.stored_sample = SeqLib.where('barcode_key = ?', self.sample_name_or_barcode).first
+    elsif lib_or_sample_type = 'S'
+      self.stored_sample = Sample.where('barcode_key = ?', self.sample_name_or_barcode).first
+    elsif ['D', 'R', 'N', 'P'].include?(lib_or_sample_type)
+      self.stored_sample = ProcessedSample.where('barcode_key = ?', self.sample_name_or_barcode).first
+    else
+      self.stored_sample = nil
+    end
+  end
+
+  def lib_or_sample_type
+    if sample_name_or_barcode[0,1] == 'L' and sample_name_or_barcode[1..-1].to_i > 0
+      return 'L'
+    else
+      barcode_split = sample_name_or_barcode.split('.')
+      if barcode_split.length == 1
+        return 'S'
+      else
+        return barcode_split[-1][0,1] # first character of last substring after splitting by '.'
+      end
+    end
   end
 
   def type_of_sample

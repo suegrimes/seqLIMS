@@ -18,7 +18,7 @@ SeqLIMS::Application.routes.draw do
   resources :protocols
   resources :categories
   resources :freezer_locations
-  resources :sample_storage_containers, :only => :index
+  resources :sample_storage_containers, :only => [:edit, :update, :index]
   match 'container_query' => 'sample_storage_containers#new_query', :as => :container_query
   match 'container_details' => 'sample_storage_containers#details', :as => :container_details
   

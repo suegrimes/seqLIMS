@@ -2,7 +2,27 @@ class SampleStorageContainersController < ApplicationController
   load_and_authorize_resource
   
   before_filter :dropdowns, :only => :new_query
-  
+
+  # GET /sample_storage_containers/1/edit
+  def edit
+    @sample_storage_container = SampleStorageContainer.find(params[:id])
+    render :action => 'edit'
+  end
+
+  # PUT /sample_storage_containers/1
+  def update
+    @sample_storage_container = SampleStorageContainer.find(params[:id])
+
+    if @sample_storage_container.update_attributes(params[:sample_storage_container])
+      flash[:notice] = 'Sample storage container was successfully updated.'
+      redirect_to :action => :details, :ss_container_id => @sample_storage_container.id
+    else
+      dropdowns
+      flash[:error] = 'ERROR - Unable to update sample storage container'
+      render :action => 'edit'
+    end
+  end
+
   def new_query   
   end
   
