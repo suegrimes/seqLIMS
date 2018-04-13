@@ -21,5 +21,11 @@
 </table>
 </fieldset>
 
-<%=raw break_clear(f.submit "Submit") %>
+<%=raw break_clear %>
+<p><%=f.submit "View Items", :name => 'view' %> &nbsp;&nbsp;&nbsp;&nbsp;
+  <% if can? :new, Order %>
+    <%=f.submit "Order Items", :name => 'order' %>
+  <% end %>
+</p>
+
 <%end%>

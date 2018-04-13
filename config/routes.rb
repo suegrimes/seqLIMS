@@ -36,7 +36,6 @@ SeqLIMS::Application.routes.draw do
   match 'edit_items' => 'orders#edit_order_items', :as => :edit_order_items
   match 'view_orders' => 'orders#new_query', :as => :view_orders
   match 'list_selected' => 'orders#list_selected', :as => :list_selected
-  match 'export_order' => 'orders#export_order', :as => :export_order
   
   get 'items/autocomplete_item_company_name'
   get 'items/autocomplete_item_item_description'
@@ -53,6 +52,7 @@ SeqLIMS::Application.routes.draw do
   match 'view_items' => 'items#new_query', :as => :view_items
   match 'list_items' => 'items#list_selected', :as => :list_items
   match 'unordered_items' => 'items#list_unordered_items', :as => :notordered
+  match 'export_items' => 'items#export_items', :as => :export_items
   #match 'populate_items' => 'items#populate_items'
   
   # Routes for patients

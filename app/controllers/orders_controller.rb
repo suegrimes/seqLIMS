@@ -95,26 +95,6 @@ class OrdersController < ApplicationController
     end
   end
 
-
-  def export_order
-    export_type = 'T'
-    @items = Item.find_for_export(params[:export_id])
-    file_basename = ['LIMS_Order', Date.today.to_s].join("_")
-
-    case export_type
-      when 'T'  # Export to tab-delimited text using csv_string
-        @filename = file_basename + '.txt'
-        csv_string = export_order_csv(@items)
-        send_data(csv_string,
-                  :type => 'text/csv; charset=utf-8; header=present',
-                  :filename => @filename, :disposition => 'attachment')
-
-      else # Use for debugging
-        csv_string = export_order_csv(@items)
-        render :text => csv_string
-    end
-  end
-
   protected
   def set_chemical_flag(item_id_list)
     items = Item.find_all_by_id(item_id_list)
@@ -135,61 +115,6 @@ class OrdersController < ApplicationController
     sql_where_clause = (@where_select.length == 0 ? [] : [@where_select.join(' AND ')].concat(@where_values))
         
     return sql_where_clause
-  end
-
-  def export_order_csv(items)
-    hdgs, flds = export_order_setup
-
-    csv_string = CSV.generate(:col_sep => "\t") do |csv|
-      csv << hdgs
-
-      items.each do |item|
-        order_xref = model_xref(item)
-        fld_array    = []
-
-        flds.each do |obj_code, fld|
-          obj = order_xref[obj_code.to_sym]
-          if obj
-            fld_array << nil_if_blank(obj.send(fld))
-          else
-            fld_array << nil
-          end
-        end
-        csv << [Date.today.to_s].concat(fld_array)
-      end
-    end
-    return csv_string
-  end
-
-  def export_order_setup
-    hdgs  = %w{DownloadDt OrderDt RPO_CWA Requisition Order Requester ItemDt Description Company CatalogNr Chemicals?
-               Size Qty Price ExtPrice Received? GrantNr Notes}
-
-    flds   = [['od', 'date_ordered'],
-              ['od', 'rpo_or_cwa'],
-              ['od', 'po_number'],
-              ['od', 'order_number'],
-              ['im', 'requester_abbrev'],
-              ['im', 'created_at'],
-              ['im', 'item_description'],
-              ['im', 'company_name'],
-              ['im', 'catalog_nr'],
-              ['im', 'chemical_flag'],
-              ['im', 'item_size'],
-              ['im', 'item_quantity'],
-              ['im', 'item_price'],
-              ['im', 'item_ext_price'],
-              ['im', 'item_received'],
-              ['im', 'grant_nr'],
-              ['im', 'notes']]
-
-    return hdgs, flds
-  end
-
-  def model_xref(item)
-    order_xref = {:od => item.order,
-                  :im => item}
-    return order_xref
   end
 
 end

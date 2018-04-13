@@ -1,10 +1,18 @@
-<%= render :partial => 'shared/page_print' %>
 <h1>Listing Items</h1>
 
-<%= form_tag :action => :export_items do %>
-    <%= submit_tag "Export Items" %>
-    <br/><br/>
+<% if @items_to_order && @items_to_order > 0 %>
+  <div id="order">
+    <p><%= link_to "Place order for items checked below", '', :onclick => "showHideDiv('order','place_order'); return false;" %></p>
+  </div>
+<% end %>
 
+<%= form_tag(:action => 'create', :controller => 'orders') do %>
+ <div id="place_order" style="display:none">	
+	<%= fields_for Order.new(:date_ordered => Date.today) do |f|%>
+      <%= render :partial => 'orders/order_form', :locals => {:f => f, :have_company_list => 'yes'} %>
+	<% end %> 
+  <%=raw break_clear(submit_tag("Submit"))%><br />
+ </div>
     <table class="list">
       <tr>
         <th>Order?</th>
@@ -23,10 +31,11 @@
       </tr>
 
       <% for item in @items %>
-          <%= hidden_field_tag("export_id[]", item.id)  %>
           <tr>
             <% if item.ordered? %>
                 <td class="dotted_border_bottom"><%=h item.order.po_number %></td>
+            <% elsif can? :new, Order %>
+                <td class="dotted_border_bottom"><%= check_box_tag("item_id[]", item.id) %>
             <% else %>
                 <td class="dotted_border_bottom">n/a</td>
             <% end %>
