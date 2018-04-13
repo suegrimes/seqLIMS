@@ -22,9 +22,9 @@ class ItemsController < ApplicationController
       items_notordered = items_all.reject{|item| item.ordered?}
      
       # Eliminate items from array, based on order status if specified
-      if params[:item_query][:item_status] && params[:item_query][:item_status] != 'All'
-        @items = items_notordered                        if params[:item_query][:item_status] == 'NotOrdered'
-        @items = items_all.reject{|item| !item.ordered?} if params[:item_query][:item_status] == 'Ordered' 
+      if params[:item_query][:ordered_status] && params[:item_query][:ordered_status] != 'All'
+        @items = items_notordered                        if params[:item_query][:ordered_status] == 'NotOrdered'
+        @items = items_all.reject{|item| !item.ordered?} if params[:item_query][:ordered_status] == 'Ordered' 
       else
         @items = items_all
       end
@@ -34,6 +34,8 @@ class ItemsController < ApplicationController
         @items_to_order = items_notordered.size
         @companies = list_companies_from_items(items_notordered)
         render :action => :order_item_list
+      elsif params[:receive]
+        render :action => :receive_item_list
       else
         render :action => :index
       end
@@ -147,6 +149,12 @@ class ItemsController < ApplicationController
     end
   end
 
+  def receive_items
+    Item.where("id in (?)",params[:item_id]).update_all(:item_received => 'Y')
+    #flash[:notice] = 'Items were successfully received'
+    redirect_to :action => 'new_query'
+  end
+
   # DELETE /items/1
   def destroy
     @item = Item.find(params[:id])
@@ -246,6 +254,11 @@ protected
         @where_select.push("items.#{attr}" + sql_condition(val))
         @where_values.push(sql_value(val))
       end
+    end
+
+    if !param_blank?(params[:item_query][:received_status])
+      is_or_not = (params[:item_query][:received_status] == 'Y' ? '=' : '<>')
+      @where_select.push("items.item_received #{is_or_not} 'Y'")
     end
 
     date_fld = 'items.created_at'

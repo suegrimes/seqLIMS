@@ -40,6 +40,10 @@ class Item < ActiveRecord::Base
     #!(po_number.nil? || po_number.blank?)
     #requester_name > 'S'  #for testing purposes only
   end
+
+  def received?
+    item_received == 'Y'
+  end
   
   def requester_abbrev
     if requester_name.nil? || requester_name.length < 11

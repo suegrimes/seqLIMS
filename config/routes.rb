@@ -53,6 +53,7 @@ SeqLIMS::Application.routes.draw do
   match 'list_items' => 'items#list_selected', :as => :list_items
   match 'unordered_items' => 'items#list_unordered_items', :as => :notordered
   match 'export_items' => 'items#export_items', :as => :export_items
+  match 'receive_items' => 'items#receive_items', :as => :receive_items
   #match 'populate_items' => 'items#populate_items'
   
   # Routes for patients

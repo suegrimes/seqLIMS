@@ -1,0 +1,66 @@
+<h1>Listing Items</h1>
+
+<%= form_tag(:action => 'receive_items') do %>
+
+  <%=raw break_clear(submit_tag("Receive Checked Items"))%><br />
+
+    <table class="list">
+      <tr>
+        <th></th>
+        <th>Requistion#</th>
+        <th>Requestor&nbsp;&nbsp;</th>
+        <th>Date</th>
+        <th>Site</th>
+        <th>Chem</th>
+        <th>Company</th>
+        <th>Catalog#/Item</th>
+        <th>Qty</th>
+        <th>Unit Price</th>
+        <th>Total</th>
+        <th>Grant</th>
+        <th>Recv'd?</th>
+        <th colspan="3"></th>
+      </tr>
+
+      <% for item in @items %>
+          <tr>
+            <% if item.ordered? && !item.received? %>
+                <td class="dotted_border_bottom"><%= check_box_tag("item_id[]", item.id) %>
+                <td class="dotted_border_bottom"><%=h item.order.po_number %>
+            <% elsif item.ordered? %>
+                <td class="dotted_border_bottom">&nbsp;</td>
+                <td class="dotted_border_bottom"><%=h item.order.po_number %></td>
+            <% else %>
+                <td class="dotted_border_bottom">&nbsp;</td>
+                <td class="dotted_border_bottom">n/a</td>
+            <% end %>
+            <td class="dotted_border_bottom"><%=h item.requester_abbrev %></td>
+            <td class="dotted_border_bottom" style="white-space:nowrap"><%=h format_date(item.created_at) %></td>
+            <td class="dotted_border_bottom"><%=h item.deliver_site %></td>
+            <td class="dotted_border_bottom" align="center"><%=h item.chemical_flag%></td>
+            <td class="dotted_border_bottom"><%=h item.company_name %></td>
+            <td class="dotted_border_bottom"><%=h item.catalog_nr %></td>
+            <td class="dotted_border_bottom">&nbsp;&nbsp;<%=h item.item_quantity %></td>
+            <td class="dotted_border_bottom"><%=h number_to_currency(item.item_price) %></td>
+            <td class="dotted_border_bottom"><%=h number_to_currency(item.item_ext_price) %></td>
+            <td class="dotted_border_bottom"><%=h item.grant_nr %></td>
+            <td class="dotted_border_bottom" align="center"><%=h item.item_received %></td>
+            <td rowspan=2><%= link_to 'Show', item %></td>
+
+            <% if can? :edit, item %>
+                <td rowspan=2><%= link_to 'Edit', edit_item_path(item) %></td>
+            <% end %>
+
+            <% if can? :delete, item %>
+                <td rowspan=2><%= link_to 'Delete', item, :confirm => 'Are you sure?', :method => :delete %></td>
+            <% end %>
+          </tr>
+          <tr>
+            <td colspan="6" class="border_bottom_only">&nbsp;</td>
+            <td class="border_bottom_only" colspan="3"><%=h item.item_description %></td>
+            <td colspan="2" class="border_bottom_only">&nbsp;</td>
+            <td class="border_bottom_only" colspan="2"><%=h item.notes %></td>
+          </tr>
+      <% end %> <!-- end of item loop -->
+    </table>
+<% end %> <!-- end of form -->
