@@ -25,7 +25,7 @@ class SampleStorageContainer < ActiveRecord::Base
   before_create :upd_sample_name
   before_update :upd_stored_sample, :if => :sample_name_or_barcode_changed?
 
-  validates_presence_of :sample_name_or_barcode
+  #validates_presence_of :sample_name_or_barcode #Cannot validate here, attribute is nil until before_create action
 
   def upd_sample_name
     self.sample_name_or_barcode = self.stored_sample.barcode_key
