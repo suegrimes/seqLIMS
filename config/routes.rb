@@ -18,7 +18,7 @@ SeqLIMS::Application.routes.draw do
   resources :protocols
   resources :categories
   resources :freezer_locations
-  resources :sample_storage_containers, :only => :index
+  resources :sample_storage_containers, :only => [:edit, :update, :index]
   match 'container_query' => 'sample_storage_containers#new_query', :as => :container_query
   match 'container_details' => 'sample_storage_containers#details', :as => :container_details
   
@@ -52,6 +52,8 @@ SeqLIMS::Application.routes.draw do
   match 'view_items' => 'items#new_query', :as => :view_items
   match 'list_items' => 'items#list_selected', :as => :list_items
   match 'unordered_items' => 'items#list_unordered_items', :as => :notordered
+  match 'export_items' => 'items#export_items', :as => :export_items
+  match 'receive_items' => 'items#receive_items', :as => :receive_items
   #match 'populate_items' => 'items#populate_items'
   
   # Routes for patients
@@ -110,6 +112,8 @@ SeqLIMS::Application.routes.draw do
   match 'storage_query' => 'storage_queries#new_query', :as => :storage_query
   match 'export_sample_locs' => 'storage_queries#export_samples', :as => :export_sample_locs
   resources :storage_queries, :only => :index
+
+  match 'export_container' => 'sample_storage_containers#export_container', :as => :export_container
   
   # Routes for dissected samples
   resources :dissected_samples

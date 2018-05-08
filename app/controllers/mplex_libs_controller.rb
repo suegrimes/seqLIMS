@@ -21,6 +21,7 @@ class MplexLibsController < ApplicationController
                             :barcode_key => barcode_key,
                             :adapter_id => params[:seq_lib][:adapter_id],
                             :alignment_ref_id => AlignmentRef.default_id)
+    @seq_lib.build_sample_storage_container
     
     # Get sequencing libraries based on parameters entered
     @condition_array = define_lib_conditions(params)
@@ -160,6 +161,8 @@ protected
     @owners       = Researcher.populate_dropdown('active_only')
     @protocols    = Protocol.find_for_protocol_type('L')
     @quantitation= Category.populate_dropdown_for_category('quantitation')
+    @freezer_locations  = FreezerLocation.list_all_by_room
+    @containers   = Category.populate_dropdown_for_category('container')
   end
   
   def setup_dropdowns

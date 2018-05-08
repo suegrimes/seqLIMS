@@ -31,7 +31,7 @@ class Ability
     # Everyone can enter order items
     can :manage, Item
     cannot :delete, Item
-    can [:edit, :edit_order_items, :update], Order
+    can [:edit, :edit_order_items, :export_order, :update], Order
     
     # No-one can read patient data unless authorization overridden based on role below
     cannot :read, Patient

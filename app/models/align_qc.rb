@@ -45,7 +45,7 @@
 #
 
 class AlignQc < ActiveRecord::Base
-  set_table_name 'align_qc'
+  self.table_name = 'align_qc'
   
   belongs_to :flow_lane
   

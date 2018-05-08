@@ -73,5 +73,9 @@ class Order < ActiveRecord::Base
       Item.upd_items_recvd_for_order(id, order_received)
     end
   end
- 
+
+  def self.find_for_query(condition_array)
+    self.includes(:items).where(sql_where(condition_array)).order('date_ordered DESC').all
+  end
+
 end

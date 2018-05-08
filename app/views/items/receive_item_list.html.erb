@@ -1,13 +1,13 @@
-<%= render :partial => 'shared/page_print' %>
 <h1>Listing Items</h1>
 
-<%= form_tag :action => :export_items do %>
-    <%= submit_tag "Export Items" %>
-    <br/><br/>
+<%= form_tag(:action => 'receive_items') do %>
+
+  <%=raw break_clear(submit_tag("Receive Checked Items"))%><br />
 
     <table class="list">
       <tr>
-        <th>Order?</th>
+        <th></th>
+        <th>Requistion#</th>
         <th>Requestor&nbsp;&nbsp;</th>
         <th>Date</th>
         <th>Site</th>
@@ -23,11 +23,15 @@
       </tr>
 
       <% for item in @items %>
-          <%= hidden_field_tag("export_id[]", item.id)  %>
           <tr>
-            <% if item.ordered? %>
+            <% if item.ordered? && !item.received? %>
+                <td class="dotted_border_bottom"><%= check_box_tag("item_id[]", item.id) %>
+                <td class="dotted_border_bottom"><%=h item.order.po_number %>
+            <% elsif item.ordered? %>
+                <td class="dotted_border_bottom">&nbsp;</td>
                 <td class="dotted_border_bottom"><%=h item.order.po_number %></td>
             <% else %>
+                <td class="dotted_border_bottom">&nbsp;</td>
                 <td class="dotted_border_bottom">n/a</td>
             <% end %>
             <td class="dotted_border_bottom"><%=h item.requester_abbrev %></td>
@@ -52,7 +56,7 @@
             <% end %>
           </tr>
           <tr>
-            <td colspan="5" class="border_bottom_only">&nbsp;</td>
+            <td colspan="6" class="border_bottom_only">&nbsp;</td>
             <td class="border_bottom_only" colspan="3"><%=h item.item_description %></td>
             <td colspan="2" class="border_bottom_only">&nbsp;</td>
             <td class="border_bottom_only" colspan="2"><%=h item.notes %></td>

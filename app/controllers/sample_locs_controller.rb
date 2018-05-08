@@ -16,7 +16,7 @@ class SampleLocsController < ApplicationController
 
     if @sample_loc.update_attributes(params[:sample_loc])
       flash[:notice] = 'Sample location was successfully updated.'
-      redirect_to(@sample_loc) 
+      redirect_to edit_sample_loc_path(@sample_loc)
     else
       dropdowns
       flash[:error] = 'ERROR - Unable to update sample location'

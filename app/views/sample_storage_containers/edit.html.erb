@@ -1,0 +1,18 @@
+<h1>Editing Sample Storage Location</h1>
+
+<%= tagged_form_for(@sample_storage_container) do |f| %>
+    <%= render '/shared/errors', model: @sample_storage_container %>
+
+    <fieldset class="form">
+      <legend>Sample Storage Location</legend>
+      <table class="form">
+        <tr><%=f.text_field :sample_name_or_barcode, :label => 'Barcode' %></tr>
+        <tr><th>LIMSType</th><td><%=h f.object.stored_sample_type %></td></tr>
+        <tr><%=f.text_field :container_type %></tr>
+        <tr><%=f.text_field :container_name %></tr>
+        <tr><%=f.text_field :position_in_container %></tr>
+      </table>
+    </fieldset>
+
+    <%=raw break_clear(f.submit "Update") %>
+<% end %>

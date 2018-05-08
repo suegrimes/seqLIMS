@@ -8,7 +8,13 @@
 <table class="form">
   <tr><%= f.select(:company_name, @companies, {:include_blank => 'All'}, {:size => 3, :multiple => :multiple, :label => 'Company'})%></tr>
   <tr><%= f.select(:requester_name, @requestors, {:include_blank => 'All'}, {:size => 3, :multiple => :multiple, :label => 'Requestor'})%></tr>
-  <tr><%= f.select(:item_status, %w{All NotOrdered Ordered}, :label => 'Status')%></tr>
+  <tr>
+    <th>Order Status:</th>
+    <td>
+      <%= f.select(:ordered_status, %w{All NotOrdered Ordered}, :label => 'Order Status', :wraptags => 'none')%>
+      &nbsp;&nbsp;<strong>Received?:</strong>&nbsp;&nbsp;
+      <%= f.select(:received_status, %w{Y N}, {:include_blank => 'All'}, :label => 'Receipt Status', :wraptags => 'none') %>
+  </td></tr>
   <tr><%= f.select(:deliver_site, Item::DELIVER_SITES, {:include_blank => 'All'}, :label => 'Deliver Site')%></tr>
   <tr>
   	<th>Entered From:</th>
@@ -21,5 +27,12 @@
 </table>
 </fieldset>
 
-<%=raw break_clear(f.submit "Submit") %>
+<%=raw break_clear %>
+<p><%=f.submit "View Items", :name => 'view' %> &nbsp;&nbsp;&nbsp;&nbsp;
+  <% if can? :new, Order %>
+    <%=f.submit "Receive Items", :name => 'receive' %> &nbsp;&nbsp;&nbsp;
+    <%=f.submit "Order Items", :name => 'order' %>
+  <% end %>
+</p>
+
 <%end%>

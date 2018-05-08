@@ -40,6 +40,10 @@ class Item < ActiveRecord::Base
     #!(po_number.nil? || po_number.blank?)
     #requester_name > 'S'  #for testing purposes only
   end
+
+  def received?
+    item_received == 'Y'
+  end
   
   def requester_abbrev
     if requester_name.nil? || requester_name.length < 11
@@ -78,6 +82,10 @@ class Item < ActiveRecord::Base
       item = self.find(item_id)
       item.update_attributes(:order_id => order_id)
     end
+  end
+
+  def self.find_for_export(item_ids)
+    self.includes(:order).where('id IN (?)', item_ids).all
   end
   
   def self.upd_items_recvd_for_order(order_id, order_received)

@@ -43,12 +43,15 @@ class ApplicationController < ActionController::Base
       return category_selected[0].category_values
     end  
   end
-  
-#  def base_barcode(barcode_key)
-#    barcode_split = barcode_key.split('.')
-#    return barcode_split[0]
-#  end
-  
+
+  def lib_or_sample_type(barcode_key)
+    if barcode_key[0,1] == 'L' and barcode_key[1..-1].to_i > 0
+      return 'L'
+    else
+      return barcode_type(barcode_key)
+    end
+  end
+
   def barcode_type(barcode_key)
     barcode_split = barcode_key.split('.')
     if barcode_split.length == 1
@@ -70,7 +73,11 @@ class ApplicationController < ActionController::Base
     end
     return val_blank 
   end
-  
+
+  def nil_if_blank(val)
+    return (val.blank? ? nil : val)
+  end
+
   def array_to_string(arry, delim=',')
     if arry.nil? || arry.empty? 
       string_val = nil

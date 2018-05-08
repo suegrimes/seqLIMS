@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
     
     if @item_query.valid?
       condition_array = define_conditions(params)
-      @orders = Order.includes(:items).where(sql_where(condition_array)).order('date_ordered DESC')
+      @orders = Order.find_for_query(condition_array)
       render :action => :index
       
     else
@@ -73,7 +73,7 @@ class OrdersController < ApplicationController
         flash[:notice] = 'Order was successfully updated'
         qparams = {:item_query => {:deliver_site => '', :from_date => (Date.today - 1.month).beginning_of_month, :to_date => Date.today}}
         condition_array = define_conditions(qparams)
-        @orders = Order.includes(:items).where(sql_where(condition_array)).order('date_ordered DESC')
+        @orders = Order.find_for_query(condition_array)
         render :action => :index
       end
       
@@ -95,7 +95,7 @@ class OrdersController < ApplicationController
     end
   end
 
-protected
+  protected
   def set_chemical_flag(item_id_list)
     items = Item.find_all_by_id(item_id_list)
     @_list ||= items.collect(&:chemical_flag)
@@ -116,5 +116,5 @@ protected
         
     return sql_where_clause
   end
-  
+
 end
