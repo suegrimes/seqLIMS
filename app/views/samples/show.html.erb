@@ -14,6 +14,9 @@
                                                      :sample => @sample,
                                                      :click_to_link => 'none',
                                                      :last_info_box => 'yes'} %>
+  <% if @sample.histology %>
+    <%= render :partial => 'histologies/histology_summary', :locals => {:histology => @sample.histology} %>
+  <% end %>
   <%= render :partial => 'extraction_list', :locals => {:sample => @sample} %>
   
 <% else %>
