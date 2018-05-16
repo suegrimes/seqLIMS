@@ -297,13 +297,14 @@ protected
   end
 
   def export_items_setup
-    hdgs  = %w{DownloadDt OrderDt RPO_CWA Requisition Order Requester ItemDt Description Company CatalogNr Chemicals?
+    hdgs  = %w{DownloadDt OrderDt RPO_CWA Requisition Order Site Requester ItemDt Description Company CatalogNr Chemicals?
                Size Qty Price ExtPrice Received? GrantNr Notes}
 
     flds   = [['od', 'date_ordered'],
               ['od', 'rpo_or_cwa'],
               ['od', 'po_number'],
               ['od', 'order_number'],
+              ['im', 'deliver_site'],
               ['im', 'requester_abbrev'],
               ['im', 'created_at'],
               ['im', 'item_description'],
