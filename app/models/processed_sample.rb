@@ -122,9 +122,10 @@ class ProcessedSample < ActiveRecord::Base
   def self.next_extraction_barcode(source_id, source_barcode, extraction_char)
     barcode_mask = [source_barcode, '.', extraction_char, '%'].join
     #barcode_max  = self.maximum(:barcode_key, :conditions => ["sample_id = ? AND barcode_key LIKE ?", source_id.to_i, barcode_mask])
-    barcode_max  = self.where('sample_id = ? AND barcode_key LIKE ?', source_id.to_i, barcode_mask).maximum(:barcode_key)
-    if barcode_max
-      return barcode_max.succ  # Existing extraction, so increment last 1-2 characters of max barcode string (eg. 3->4, or 09->10)
+    #barcode_max  = self.where('sample_id = ? AND barcode_key LIKE ?', source_id.to_i, barcode_mask).maximum(:barcode_key)
+	existing_extractions  = self.where('sample_id = ? AND barcode_key LIKE ?', source_id.to_i, barcode_mask).order('barcode_key DESC').pluck(:barcode_key)
+    if existing_extractions
+	  return existing_extractions[0].succ  # Existing extraction, so increment last 1-2 characters of max barcode string (eg. 3->4, or 09->10)
     else
       return [source_barcode, '.', extraction_char, '01'].join # No existing extractions of this type, so add '01' suffix.  (eg. D01 if DNA extraction)
     end
