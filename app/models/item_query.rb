@@ -14,7 +14,8 @@ class ItemQuery < NoTable
   column :company_name, :string
   column :requester_name,  :string
   column :ordered_status,  :string
-  column :received_status,  :string
+  column :order_received_flag,  :string
+  column :item_received_flag,  :string
   column :deliver_site, :string
   column :from_date,    :date
   column :to_date,      :date

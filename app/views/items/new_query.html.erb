@@ -1,30 +1,33 @@
 <h1>View Order Items</h1>
 
-<%= tagged_form_for(@item_query, :url => {:controller => 'items', :action => 'list_selected'}) do |f| %>
+<%= form_for(@item_query, :url => {:controller => 'items', :action => 'list_selected'}) do |f| %>
 <%= render '/shared/errors', model: @item_query, header_message: "Error(s) in query parameters" %>
 
 <fieldset class="form">
 <legend>Specify parameters</legend>
-<table class="form">
-  <tr><%= f.select(:company_name, @companies, {:include_blank => 'All'}, {:size => 3, :multiple => :multiple, :label => 'Company'})%></tr>
-  <tr><%= f.select(:requester_name, @requestors, {:include_blank => 'All'}, {:size => 3, :multiple => :multiple, :label => 'Requestor'})%></tr>
-  <tr>
-    <th>Order Status:</th>
-    <td>
-      <%= f.select(:ordered_status, %w{All NotOrdered Ordered}, :label => 'Order Status', :wraptags => 'none')%>
-      &nbsp;&nbsp;<strong>Received?:</strong>&nbsp;&nbsp;
-      <%= f.select(:received_status, %w{Y N}, {:include_blank => 'All'}, :label => 'Receipt Status', :wraptags => 'none') %>
-  </td></tr>
-  <tr><%= f.select(:deliver_site, Item::DELIVER_SITES, {:include_blank => 'All'}, :label => 'Deliver Site')%></tr>
-  <tr>
-  	<th>Entered From:</th>
-	<td>
-      <%=f.datepicker 'from_date', dateFormat: "yy-mm-dd", maxDate: Time.current.to_date, changeMonth: true, changeYear: true, size: 15, wraptags: 'none' %>
-	  &nbsp;&nbsp;<strong>To:</strong>&nbsp;&nbsp;
-      <%=f.datepicker 'to_date', dateFormat: "yy-mm-dd", maxDate: Time.current.to_date, changeMonth: true, changeYear: true, size: 15, wraptags: 'none' %>
-	</td>
-  </tr>
-</table>
+<div class="query_grid">
+  <%= f.label(:requester_name, 'Requestor:') %>
+  <%= f.select(:requester_name, @requestors, {:include_blank => 'All'}, {:size => 3, :multiple => :multiple})%>
+  <%= f.label(:company_name, 'Company:') %>
+  <div class="wide_select"><%= f.select(:company_name, @companies, {:include_blank => 'All'}, :size => 3, :multiple => :multiple)%></div>
+
+  <div class="new_line"><%= f.label(:deliver_site, 'Deliver Site:') %></div>
+  <%= f.select(:deliver_site, Item::DELIVER_SITES, {:include_blank => 'All'})%>
+  <%= f.label(:ordered_status, 'Order Status:') %>
+  <%= f.select(:ordered_status, %w{All NotOrdered Ordered})%>
+
+  <div class="new_line"><%= f.label(:order_received_flag, 'Order Recvd:') %></div>
+  <%= f.select(:order_received_flag, %w{Y N P}, {:include_blank => 'All'}) %>
+  <%= f.label(:item_received_flag, 'Item Recvd:') %>
+  <%= f.select(:item_received_flag, %w{Y N}, {:include_blank => 'All'})%>
+
+  <div class="new_line"><%= f.label(:from_date, 'Entered From:') %></div>
+  <%= f.datepicker 'from_date', dateFormat: "yy-mm-dd", maxDate: Time.current.to_date, changeMonth: true, changeYear: true, size: 15 %>
+  <%= f.label(:to_date, 'To:') %>
+  <%= f.datepicker 'to_date', dateFormat: "yy-mm-dd", maxDate: Time.current.to_date, changeMonth: true, changeYear: true, size: 15 %>
+
+  <div class="new_line"></div>
+</div>
 </fieldset>
 
 <%=raw break_clear %>

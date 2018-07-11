@@ -327,6 +327,29 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
  font-size:inherit;
  }
 
+/* styles for grid layouts */
+.query_grid {
+    display: grid;
+    grid-template-columns: auto auto auto 22% 22%;
+    grid-template-rows: auto;
+    grid-row-gap: 1em;
+    grid-column-gap: 1em;
+}
+
+.query_grid label {
+    font-weight: bold;
+    text-align: right;
+}
+
+.query_grid .new_line {
+    grid-column-start: 1;
+    text-align: right;
+}
+
+.query_grid .wide_select {
+    grid-column-start: 4;
+    grid-column-end: 5;
+}
 /* styles for tables */
 
 table {
