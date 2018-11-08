@@ -5,8 +5,9 @@ class MplexLibsController < ApplicationController
   before_filter :setup_dropdowns, :only => :setup_params
 
   def setup_params
-   @from_date = (Date.today - 3.months).beginning_of_month
-   @to_date   =  Date.today
+   #@from_date = (Date.today - 3.months).beginning_of_month
+   @from_date = (Date.today - 90).beginning_of_month
+   @to_date   = Date.today
    @date_range = DateRange.new(@from_date, @to_date)
    @seq_lib   = SeqLib.new(:owner => (current_user.researcher ? current_user.researcher.researcher_name : nil),
                            :adapter_id => Adapter.default_adapter.id)
