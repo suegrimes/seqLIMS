@@ -11,6 +11,11 @@
   <%= f.label(:company_name, 'Company:') %>
   <div class="wide_select"><%= f.select(:company_name, @companies, {:include_blank => 'All'}, :size => 3, :multiple => :multiple)%></div>
 
+  <div class="new_line">&nbsp;</div>
+  &nbsp;
+  <%= f.label(:item_description, 'Item search:') %>
+  <div class="wide_select"><%=f.text_field(:item_description) %></div>
+
   <div class="new_line"><%= f.label(:deliver_site, 'Deliver Site:') %></div>
   <%= f.select(:deliver_site, Item::DELIVER_SITES, {:include_blank => 'All'})%>
   <%= f.label(:ordered_status, 'Order Status:') %>
