@@ -21,6 +21,7 @@
 /config/initializers/session_store.rb
 /config/initializers/setup_mailer.rb
 /config/initializers/global_constants.rb
+/config/initializers/quiet_assets.rb
 
 /config/deploy.rb
 /config/environments/local_dev.rb
@@ -38,3 +39,4 @@
 .rvmrc
 /.project
 /Gemfile.lock
+/Gemfile_dell
