@@ -16,11 +16,12 @@
 .idea/*
 .sass-cache/*
 
-# Ignore config/initializers for session and mail setup
+# Ignore config/initializers for session and mail setup, and ruby2.4 specific fixes
 /config/initializers/secret_token.rb
 /config/initializers/session_store.rb
 /config/initializers/setup_mailer.rb
 /config/initializers/global_constants.rb
+/config/initializers/arel_rb24_fix.rb
 
 /config/deploy.rb
 /config/environments/local_dev.rb
