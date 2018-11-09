@@ -22,20 +22,30 @@ class IndexTag < ActiveRecord::Base
   end
 
   def index1_code
-    return (self.adapter.index1_prefix.blank? ? tag_nr : format_index(self.adapter.index1_prefix, tag_nr))
+    return (self.adapter.index1_prefix.blank? ? format_tag(tag_nr) : format_index(self.adapter.index1_prefix, tag_nr))
   end
 
   def index2_code
-    return (self.adapter.index2_prefix.blank? ? tag_nr : format_index(self.adapter.index2_prefix, tag_nr))
+    return (self.adapter.index2_prefix.blank? ? format_tag(tag_nr) : format_index(self.adapter.index2_prefix, tag_nr))
   end
 
   def format_index(prefix, tag_nr)
-    if adapter_name =~ /M_10X_.*Plate/ or adapter_name =~ /M_10nt_Illumina.*/
-      well_alpha = WELL_LETTER[(tag_nr - 1)/12]
-      well_num   = (tag_nr - 1) % 12 + 1
-      return [prefix, '-', well_alpha + well_num.to_s].join
+    #if adapter_name =~ /M_10X_.*Plate/ or adapter_name =~ /M_10nt_Illumina.*/
+	  if Adapter::PLATE_FORMAT_ADAPTERS.include?(adapter_name)
+      well_coords = format_tag(tag_nr)
+      return [prefix, '-',well_coords].join
     else
       return [prefix, format('%02d', tag_nr)].join
+    end
+  end
+
+  def format_tag(tag_nr)
+    if Adapter::PLATE_FORMAT_ADAPTERS.include?(adapter_name)
+      well_alpha = WELL_LETTER[(tag_nr - 1)/12]
+      well_num   = (tag_nr - 1) % 12 + 1
+      return [well_alpha + well_num.to_s].join
+    else
+      return tag_nr
     end
   end
 

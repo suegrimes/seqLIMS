@@ -256,9 +256,18 @@ protected
       end
     end
 
-    if !param_blank?(params[:item_query][:received_status])
-      is_or_not = (params[:item_query][:received_status] == 'Y' ? '=' : '<>')
-      @where_select.push("items.item_received #{is_or_not} 'Y'")
+    if !param_blank?(params[:item_query][:order_received_flag])
+      # Filtering for order received='N' should also return records where order received is blank or partial
+      recv_flag = params[:item_query][:order_received_flag]
+      recv_condition = (['Y','P'].include?(recv_flag) ? "= '#{recv_flag}'" : "<> 'Y'")
+      @where_select.push("orders.order_received #{recv_condition}")
+    end
+
+    if !param_blank?(params[:item_query][:item_received_flag])
+      # Filtering for order received='N' should also return records where order received is blank or partial
+      recv_flag = params[:item_query][:item_received_flag]
+      recv_condition = (recv_flag == 'N' ? "<> 'Y'" : "= '#{recv_flag}'")
+      @where_select.push("items.item_received #{recv_condition}")
     end
 
     date_fld = 'items.created_at'

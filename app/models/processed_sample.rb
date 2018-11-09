@@ -37,6 +37,7 @@ class ProcessedSample < ActiveRecord::Base
   has_many :molecular_assays
   has_many :lib_samples
   has_many :seq_libs, :through => :lib_samples
+  has_one :protocol
   has_one :sample_storage_container, :as => :stored_sample, :dependent => :destroy
   has_many :attached_files, :as => :sampleproc
   
@@ -107,8 +108,8 @@ class ProcessedSample < ActiveRecord::Base
     #self.find(:all, :include => [{:sample => :sample_characteristic}, :sample_storage_container],
     #                :order => "samples.patient_id, samples.barcode_key, processed_samples.barcode_key",
     #                :conditions => condition_array)
-    self.includes({:sample => :sample_characteristic}, :sample_storage_container).where(sql_where(condition_array))
-        .order('samples.patient_id, samples.barcode_key, processed_samples.barcode_key').all
+    self.includes({:sample => :sample_characteristic}, :protocol, :sample_storage_container).where(sql_where(condition_array))
+        .order('processed_samples.patient_id, processed_samples.barcode_key').all
   end
   
   def self.find_for_export(psample_ids)

@@ -123,7 +123,8 @@ class SeqLib < ActiveRecord::Base
   end
   
   def control_lane_nr
-    (lib_status == 'C'? 4 : nil)
+    #(lib_status == 'C'? 4 : nil)  #Originally default to lane 4 for phiX
+    return nil
   end
   
   def sample_conc_with_uom
