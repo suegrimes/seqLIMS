@@ -9,7 +9,7 @@ class ItemsController < ApplicationController
   autocomplete :item, :item_description
   
   def new_query
-    @item_query = ItemQuery.new(:from_date => (Date.today - 1.month).beginning_of_month,
+    @item_query = ItemQuery.new(:from_date => (Date.today - 30).beginning_of_month,
                                 :to_date   =>  Date.today)
   end
   
@@ -254,6 +254,11 @@ protected
         @where_select.push("items.#{attr}" + sql_condition(val))
         @where_values.push(sql_value(val))
       end
+    end
+
+    if !param_blank?(params[:item_query][:item_description])
+      item_substring = params[:item_query][:item_description]
+      @where_select.push("items.item_description LIKE '%#{item_substring}%'")
     end
 
     if !param_blank?(params[:item_query][:order_received_flag])

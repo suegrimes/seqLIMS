@@ -12,6 +12,7 @@
 
 class ItemQuery < NoTable
   column :company_name, :string
+  column :item_description, :string
   column :requester_name,  :string
   column :ordered_status,  :string
   column :order_received_flag,  :string
