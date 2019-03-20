@@ -21,7 +21,8 @@ class Adapter < ActiveRecord::Base
   #default_scope { where("adapters.runtype_adapter <> ?", "Multiple") }
 
   IDS_FORCEI2 = self.where('runtype_adapter IN (?)', ['M_10nt_Illumina_UDI']).pluck(:id)
-  PLATE_FORMAT_ADAPTERS = ['M_10X_v1Plate', 'M_10X_v2Plate', 'M_10nt_Illumina_UDI', 'M_10X_SISet1', 'M_10X_SISet2']
+  PLATE_FORMAT_ADAPTERS = ['M_10X_v1Plate', 'M_10X_v2Plate', 'M_10nt_Illumina_UDI', 'M_10X_SISet1', 'M_10X_SISet2',
+                           'M_8nt_TruSeq_UDIa', 'M_8nt_TruSeq_UDIb']
 
   def index1_tags
     self.index_tags.where('index_read = 1')

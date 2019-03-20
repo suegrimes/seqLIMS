@@ -41,3 +41,5 @@
 /.project
 /Gemfile.lock
 /Gemfile_dell
+/Gemfile_prod
+
