@@ -77,7 +77,7 @@ protected
           @where_values.push(sql_value(val))
         elsif SeqlibQuery::SEARCH_FLDS.include?(attr)
           @where_select.push("seq_libs.#{attr} LIKE ?")
-          @where_values.push(sql_value("LIKE #{val}"))
+          @where_values.push(sql_value("%#{val}%"))
         end
       end
     end

@@ -37,7 +37,7 @@ class ProcessedSample < ActiveRecord::Base
   has_many :molecular_assays
   has_many :lib_samples
   has_many :seq_libs, :through => :lib_samples
-  has_one :protocol
+  belongs_to :protocol
   has_one :sample_storage_container, :as => :stored_sample, :dependent => :destroy
   has_many :attached_files, :as => :sampleproc
   

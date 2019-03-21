@@ -18,8 +18,7 @@ class SeqMachine < ActiveRecord::Base
   accepts_nested_attributes_for :machine_incidents, :reject_if => lambda { |a| a[:incident_description].blank? }, :allow_destroy => true
   
   scope :sequencers, :conditions => ['machine_name <> ?', 'Run_Number' ]
-  
-  #MACHINE_TYPES = %w{GAIIx HiSeq MiSeq NextSeq}
+
   #MACHINE_TYPES = self.sequencers.select('DISTINCT(machine_type)').group(:machine_type).all.map(&:machine_type)
   MACHINE_TYPES = Category.populate_dropdown_for_category('machine type')
   
